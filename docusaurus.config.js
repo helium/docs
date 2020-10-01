@@ -49,12 +49,6 @@ module.exports = {
           editUrl:
             'https://github.com/helium/docs/edit/master',
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
