@@ -16,12 +16,6 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
-        {
           href: 'https://github.com/helium',
           label: 'GitHub',
           position: 'right',
