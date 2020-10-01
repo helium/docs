@@ -29,8 +29,9 @@ module.exports = {
       items: [
         {
           href: 'https://github.com/helium',
-          label: 'GitHub',
           position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
         },
       ],
     },
