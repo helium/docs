@@ -46,6 +46,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
             'https://github.com/helium/docs/edit/master',
