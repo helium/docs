@@ -10,11 +10,11 @@ module.exports = {
   themeConfig: {
     colorMode: {
       // "light" | "dark"
-      defaultMode: 'dark',
+      defaultMode: 'light',
 
       // Hides the switch in the navbar
       // Useful if you want to support a single color mode
-      disableSwitch: false,
+      disableSwitch: true,
 
       // Should we use the prefers-color-scheme media-query,
       // using user system preferences, instead of the hardcoded defaultMode
@@ -22,6 +22,7 @@ module.exports = {
     },
     navbar: {
       title: '',
+      style: 'primary',
       logo: {
         alt: 'Helium Logo',
         src: 'img/icons/logo.svg',
