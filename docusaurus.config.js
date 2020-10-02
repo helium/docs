@@ -4,7 +4,7 @@ module.exports = {
   url: 'https://helium-docs.herokuapp.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon/favicon.ico',
   organizationName: 'helium', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
   themeConfig: {
@@ -24,7 +24,7 @@ module.exports = {
       title: '',
       logo: {
         alt: 'Helium Logo',
-        src: 'img/logo.svg',
+        src: 'img/icons/logo.svg',
       },
       items: [
         {
