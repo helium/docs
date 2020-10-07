@@ -38,4 +38,12 @@ module.exports = {
       collapsed: true,
     },
   ],
+  readyToUse: [
+    {
+      type: 'category',
+      label: 'Ready To Use',
+      items: ['devices/ready-to-use/dragino-lht65'],
+      collapsed: false,
+    },
+  ],
 };
