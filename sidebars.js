@@ -9,8 +9,8 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Miners',
-      items: ['miners/miners'],
+      label: 'Gateways',
+      items: ['gateways/gateways'],
       collapsed: true,
     },
     {
