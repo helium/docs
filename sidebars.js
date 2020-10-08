@@ -39,6 +39,11 @@ module.exports = {
     },
   ],
   readyToUse: [
+   {
+      type: 'link',
+      label: '<- Devices',
+      href: '../'
+    }, 
     {
       type: 'category',
       label: 'Ready To Use',
