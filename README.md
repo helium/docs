@@ -2,8 +2,13 @@
 
 Documentation for the Helium network.
 
-### Installation
+### Requirements
 
+* [Node.js](https://nodejs.org/en/download) version >= 10.15.1 or above (which can be checked by running node -v). You can use nvm for managing multiple Node versions on a single machine installed  
+
+* [Yarn](https://classic.yarnpkg.com/en/docs/install) version >= 1.5 (which can be checked by running yarn version). Yarn is a performant package manager for JavaScript and replaces the npm client. It is not strictly necessary but highly encouraged.
+
+### Installation
 ```
 $ yarn
 ```
