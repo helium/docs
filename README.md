@@ -4,9 +4,9 @@ Documentation for the Helium network.
 
 ### Requirements
 
-* [Node.js](https://nodejs.org/en/download) version >= 10.15.1 or above (which can be checked by running node -v). You can use nvm for managing multiple Node versions on a single machine installed  
+* [Node.js](https://nodejs.org/en/download) version >= 10.15.1
 
-* [Yarn](https://classic.yarnpkg.com/en/docs/install) version >= 1.5 (which can be checked by running yarn version). Yarn is a performant package manager for JavaScript and replaces the npm client. It is not strictly necessary but highly encouraged.
+* [Yarn](https://classic.yarnpkg.com/en/docs/install) version >= 1.5
 
 ### Installation
 ```
@@ -29,7 +29,34 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more instructions.
 
 Markdown style guide found [here](https://helium-docs.herokuapp.com/style-guide).
 
-For more advanced features you can write JSX alongside Markdown using MDX, more information [here](https://helium-docs.herokuapp.com/mdx).
+For more advanced features you can write JSX alongside Markdown using MDX, more information [here](https://staging-docs.helium/mdx).
+
+### Editing an Existing Doc
+
+Use the style guide found [here](docs/style-guide) to learn what markdown syntax is available.
+
+For more advanced content consider using [JSX](https://v2.docusaurus.io/docs/markdown-features/#embedding-react-components-with-mdx).
+
+### Adding Images
+
+When adding images, use the method shown below.
+```
+---
+id: my-doc
+title: My Doc
+---
+
+// Add to the top of the file below the front matter.
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+...
+
+<img alt="Image Description" src={useBaseUrl('img/image.svg')} />
+```
+
+### Adding a New Doc
+
+Create a new *.mdx extension file following the existing naming conventions.
 
 ### Attribution
 
