@@ -1,5 +1,7 @@
 # Helium Documentation
 
+## This is currently a work in progress, please see [developer.helium.com](https://developer.helium.com) for current docs.
+
 Documentation for the Helium network.
 
 ### Requirements
