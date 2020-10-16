@@ -33,6 +33,12 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Coverage Mapping',
+      items: ['coverage-mapping/coverage-mapping'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Community and Governance',
       items: ['community-governance/community-governance'],
       collapsed: true,
