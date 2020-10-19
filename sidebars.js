@@ -9,26 +9,14 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Gateways',
-      items: ['gateways/gateways'],
+      label: 'Mine HNT',
+      items: ['mine-hnt/mine-hnt','mine-hnt/prebuilt-miners/prebuilt-miners', 'mine-hnt/build-your-own-miner/build-your-own-miner', 'mine-hnt/convert-lorawan-gateway/convert-lorawan-gateway'],
       collapsed: true,
     },
     {
       type: 'category',
-      label: 'Devices',
-      items: ['devices/devices', 'devices/ready-to-use/ready-to-use', 'devices/development/development'],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Console',
-      items: ['console/console'],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Network Servers',
-      items: ['network-servers/network-servers'],
+      label: 'Use The Network',
+      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', `use-the-network/network-servers/network-servers`],
       collapsed: true,
     },
     {
@@ -53,7 +41,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Ready To Use',
-      items: ['devices/ready-to-use/dragino-lht65'],
+      items: ['use-the-network/devices/ready-to-use/dragino-lht65'],
       collapsed: false,
     },
   ],
@@ -160,5 +148,83 @@ module.exports = {
       items: ['blockchain/blockchain-primitives/blockchain-primitives'],
       collapsed: false,
     },
+  ],	
+  console: [
+    {
+    type: 'link',
+    label: '<- Use The Network',
+    href: '../'
+   }, 
+   {
+    type: 'category',
+    label: 'Console',
+    items: ['use-the-network/console/console'],
+    collapsed: false,
+   },
+  ],  
+  devices: [
+   {
+    type: 'link',
+    label: '<- Use The Network',
+    href: '../'
+   }, 
+   {
+    type: 'category',
+    label: 'Devices',
+    items: ['use-the-network/devices/devices'],
+    collapsed: false,
+   },
   ],
+  networkServers: [
+   {
+    type: 'link',
+    label: '<- Use The Network',
+    href: '../'
+   }, 
+   {
+    type: 'category',
+    label: 'Network Servers',
+    items: ['use-the-network/network-servers/network-servers'],
+    collapsed: false,
+   },
+  ],
+  buildYourOwnMiner: [
+   {
+    type: 'link',
+    label: '<- Mine HNT',
+    href: '../'
+   }, 
+   {
+    type: 'category',
+    label: 'Build an HNT Miner',
+    items: ['mine-hnt/build-your-own-miner/build-your-own-miner'],
+    collapsed: false,
+   },
+  ],
+  convertLorawanGateway: [
+   {
+    type: 'link',
+    label: '<- Mine HNT',
+    href: '../'
+   }, 
+   {
+    type: 'category',
+    label: 'Convert LoRaWAN Gateway',
+    items: ['mine-hnt/convert-lorawan-gateway/convert-lorawan-gateway'],
+    collapsed: false,
+   },
+  ],
+  prebuiltMiners: [
+   {
+    type: 'link',
+    label: '<- Mine HNT',
+    href: '../'
+   }, 
+   {
+    type: 'category',
+    label: 'Prebuilt Miners',
+    items: ['mine-hnt/prebuilt-miners/prebuilt-miners'],
+    collapsed: false,
+   },
+  ],   	
 };
