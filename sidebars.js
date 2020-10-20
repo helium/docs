@@ -44,6 +44,12 @@ module.exports = {
       items: ['use-the-network/devices/ready-to-use/dragino-lht65'],
       collapsed: false,
     },
+    {
+      type: 'category',
+      label: 'Development',
+      items: ['use-the-network/devices/development/development'],
+      collapsed: false,
+    },
   ],
   mining: [
    {
