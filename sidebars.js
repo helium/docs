@@ -36,7 +36,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: '../Devices'
+      href: '../'
     }, 
     {
       type: 'category',
@@ -49,7 +49,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: '../Devices'
+      href: '../'
     }, 
     {
       type: 'category',
