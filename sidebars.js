@@ -31,6 +31,12 @@ module.exports = {
       items: ['community-governance/community-governance'],
       collapsed: true,
     },
+    {
+      type: 'category',
+      label: 'Open Source',
+      items: ['open-source/open-source'],
+      collapsed: true,
+    },
   ],
   readyToUse: [
    {
