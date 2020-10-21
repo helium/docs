@@ -36,18 +36,25 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: '../'
+      href: '../Devices'
     }, 
     {
       type: 'category',
       label: 'Ready To Use',
-      items: ['use-the-network/devices/ready-to-use/dragino-lht65'],
+      items: ['use-the-network/devices/ready-to-use/ready-to-use', 'use-the-network/devices/ready-to-use/dragino-lht65'],
       collapsed: false,
     },
+  ],
+  development: [
+   {
+      type: 'link',
+      label: '<- Devices',
+      href: '../Devices'
+    }, 
     {
       type: 'category',
       label: 'Development',
-      items: ['use-the-network/devices/development/development'],
+      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1'],
       collapsed: false,
     },
   ],
