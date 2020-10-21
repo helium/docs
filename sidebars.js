@@ -42,12 +42,38 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: '../'
+      href: '/use-the-network/devices'
     }, 
     {
       type: 'category',
       label: 'Ready To Use',
-      items: ['use-the-network/devices/ready-to-use/dragino-lht65'],
+      items: ['use-the-network/devices/ready-to-use/ready-to-use', 'use-the-network/devices/ready-to-use/dragino-lht65'],
+      collapsed: false,
+    },
+  ],
+  development: [
+   {
+      type: 'link',
+      label: '<- Devices',
+      href: '/use-the-network/devices'
+    }, 
+    {
+      type: 'category',
+      label: 'Development',
+      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1'],
+      collapsed: false,
+    },
+  ],
+  bL072zLrwan1: [
+   {
+      type: 'link',
+      label: '<- ST B-L072Z-LRWAN1',
+      href: '/use-the-network/devices/development/st-b-l072z-lrwan1'
+    }, 
+    {
+      type: 'category',
+      label: 'Firmware',
+      items: ['use-the-network/devices/development/st-b-l072z-lrwan1/arduino', 'use-the-network/devices/development/st-b-l072z-lrwan1/platformio'],
       collapsed: false,
     },
   ],
