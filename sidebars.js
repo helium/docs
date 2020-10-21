@@ -54,7 +54,20 @@ module.exports = {
     {
       type: 'category',
       label: 'Development',
-      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1'],
+      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1'],
+      collapsed: false,
+    },
+  ],
+  bL072zLrwan1: [
+   {
+      type: 'link',
+      label: '<- Development Devices',
+      href: '../'
+    }, 
+    {
+      type: 'category',
+      label: 'ST B-L072Z-LRWAN1',
+      items: ['use-the-network/devices/development/st-b-l072z-lrwan1/arduino', 'use-the-network/devices/development/st-b-l072z-lrwan1/platformio'],
       collapsed: false,
     },
   ],
