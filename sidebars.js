@@ -36,7 +36,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: '../devices'
+      href: '/use-the-network/devices'
     }, 
     {
       type: 'category',
@@ -49,7 +49,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: '../devices'
+      href: '/use-the-network/devices'
     }, 
     {
       type: 'category',
@@ -61,12 +61,12 @@ module.exports = {
   bL072zLrwan1: [
    {
       type: 'link',
-      label: '<- Development Devices',
-      href: '../'
+      label: '<- ST B-L072Z-LRWAN1',
+      href: '/use-the-network/devices/development/st-b-l072z-lrwan1'
     }, 
     {
       type: 'category',
-      label: 'ST B-L072Z-LRWAN1',
+      label: 'Firmware',
       items: ['use-the-network/devices/development/st-b-l072z-lrwan1/arduino', 'use-the-network/devices/development/st-b-l072z-lrwan1/platformio'],
       collapsed: false,
     },
