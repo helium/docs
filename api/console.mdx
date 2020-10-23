@@ -1,0 +1,48 @@
+---
+id: console
+hide_title: true
+sidebar_label: Console
+slug: /console
+---
+
+# Console API
+
+The Console API is a set of HTTP Request that allows you to programatically interact with Console. It's the lowest level building block and is ideal for integrating with back-end services, for example.
+
+## Base URL
+
+```
+https://console.helium.com/api
+```
+
+## Authentication
+
+All Console API requests require an API Key which provides access to devices owned by the **organization** which owns the device. Devices are never associated to a single user, but instead to an organization.
+
+To create an account key, go to your [profile](https://console.helium.com/profile) on Helium Console. From the top right corner, click: `Account -> Profile`.
+
+From there, you may generate a key for your organization. _The key will only display once._
+
+**You must confirm the API key** creation by clicking a link that is emailed to the account that created the API key.
+
+From then on, you will want to include the API key in all of your API requests. You do this by placing your API key in an HTTP header field called "key.
+
+## Devices List
+
+```
+GET https://console.helium.com/api/v1/devices
+```
+
+#### Response
+```
+Device {
+    app_eui: "70B3D57ED0008E64",
+    app_key: "30EACA8A2CAF0C5315D0E4A1B7F7B55B",
+    dev_eui: "008000000401261D",
+    id: "747246dd-d9b6-4e68-96c1-2c489ab33280",
+    name: "Basement Temp",
+    organization_id: "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
+    oui: 1,
+}
+```
+
