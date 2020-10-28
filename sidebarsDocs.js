@@ -86,7 +86,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mining',
-      items: ['blockchain/mining/hnt-mining-and-rewards'],
+      items: ['blockchain/mining/mining'],
       collapsed: false,
     },
   ],
