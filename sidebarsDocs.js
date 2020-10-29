@@ -103,19 +103,6 @@ module.exports = {
       collapsed: false,
     },
   ],
-  consensusProtocol: [
-   {
-      type: 'link',
-      label: '<- Blockchain',
-      href: '../'
-    }, 
-    {
-      type: 'category',
-      label: 'Consensus Protocol',
-      items: ['blockchain/consensus-protocol/design-goals'],
-      collapsed: false,
-    },
-  ],
   heliumToken: [
    {
       type: 'link',
