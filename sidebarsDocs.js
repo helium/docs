@@ -4,7 +4,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Blockchain',
-      items: ['blockchain/blockchain', `blockchain/blockchain-primitives/blockchain-primitives`, 'blockchain/mining/mining', 'blockchain/proof-of-coverage/proof-of-coverage', 'blockchain/consensus-protocol/consensus-protocol', 'blockchain/helium-token/helium-token', 'blockchain/oracles/oracles', `blockchain/transaction-fees/transaction-fees`, `blockchain/chain-variables/chain-variables`],
+      items: ['blockchain/blockchain', `blockchain/blockchain-primitives/blockchain-primitives`, 'blockchain/mining/mining', 'blockchain/proof-of-coverage/proof-of-coverage', 'blockchain/consensus-protocol/consensus-protocol', 'blockchain/helium-token/helium-token', 'blockchain/oracles/oracles', `blockchain/transaction-fees/transaction-fees`,],
       collapsed: true,
     },
     {
@@ -152,19 +152,6 @@ module.exports = {
       type: 'category',
       label: 'Transaction Fees',
       items: ['blockchain/transaction-fees/helium-data-credits', 'blockchain/transaction-fees/blockchain-transaction-fees'],
-      collapsed: false,
-    },
-  ],
-  chainVariables: [
-   {
-      type: 'link',
-      label: '<- Blockchain',
-      href: '../'
-    }, 
-    {
-      type: 'category',
-      label: 'Chain Variables',
-      items: ['blockchain/chain-variables/chain-variables'],
       collapsed: false,
     },
   ],
