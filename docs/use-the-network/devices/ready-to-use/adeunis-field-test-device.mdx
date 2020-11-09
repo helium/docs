@@ -8,7 +8,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 ## Adeunis Field Test Device
 
-<img src={useBaseUrl('img/devices/ready-to-use/adeunis-field-test-device001.png')}/>
+<img src={useBaseUrl('img/devices/ready-to-use/adeunis-field-test-device.png')}/>
 
 ### Introduction
 
@@ -39,7 +39,7 @@ The following device configuration changes are required for the device to functi
 * Data 8
 * Stop Bit 1
 
-<img src={useBaseUrl('img/devices/ready-to-use/adeunis-field-test-device002.png')}/>
+<img src={useBaseUrl('img/devices/ready-to-use/realterm-settings.png')}/>
 
 #### Activate Command Mode
 
@@ -47,7 +47,7 @@ Only this command requires that you send the command in number form.
 
 Enter Command Mode Command: `0xFF 0xFF 0xFF 0x2B 0x2B 0x2B`
 
-<img src={useBaseUrl('img/devices/ready-to-use/adeunis-field-test-device003.png')}/>
+<img src={useBaseUrl('img/devices/ready-to-use/send-button.png')}/>
 
 #### Unblock Operating Range
 
@@ -55,7 +55,7 @@ Command: `ATT63 PROVIDER`
 
 This command and all that follow should be sent using the ASCII format with a carriage return\(CR\) at the end.
 
-<img src={useBaseUrl('img/devices/ready-to-use/adeunis-field-test-device004.png')}/>
+<img src={useBaseUrl('img/devices/ready-to-use/send-ascii.png')}/>
 
 #### Select Sub band 2
 
@@ -91,12 +91,12 @@ Command: `ATO`
 
 You should see the following responses below from the device after entering the above commands.
 
-<img src={useBaseUrl('img/devices/ready-to-use/adeunis-field-test-device005.png')}/>
+<img src={useBaseUrl('img/devices/ready-to-use/realterm-at-commands.png')}/>
 
 ### Sending Packets
 
 After exiting command mode and on every power on, the device will immediately attempt to join the network. You will the status of the join attempt on the Uplink/Downlink screen, please see the manual for more details on this screen. Once the device has joined press the large push button in the center of the device to send the uplink payload.
 
-<img src={useBaseUrl('img/devices/ready-to-use/adeunis-field-test-device006.png')}/>
+<img src={useBaseUrl('img/devices/ready-to-use/console-output.png')}/>
 
 
