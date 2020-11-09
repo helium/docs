@@ -37,6 +37,12 @@ module.exports = {
       items: ['open-source/open-source'],
       collapsed: true,
     },
+    {
+      type: 'category',
+      label: 'Projects',
+      items: ['projects/projects', 'projects/agricultural/agricultural', 'projects/dashboards/dashboards', 'projects/environmental/environmental', 'projects/healthcare/healthcare', 'projects/industrial/industrial', 'projects/misc/misc', 'projects/security/security', 'projects/tracking/tracking', 'projects/utility/utility'],
+      collapsed: true,
+    },
   ],
   readyToUse: [
    {
