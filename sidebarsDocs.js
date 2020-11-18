@@ -68,7 +68,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- ST B-L072Z-LRWAN1',
-      href: 'docs/use-the-network/devices/development/st-b-l072z-lrwan1'
+      href: '/docs/use-the-network/devices/development/st-b-l072z-lrwan1'
     }, 
     {
       type: 'category',
