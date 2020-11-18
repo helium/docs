@@ -42,12 +42,12 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: 'docs/use-the-network/devices'
+      href: '/docs/use-the-network/devices'
     }, 
     {
       type: 'category',
       label: 'Ready To Use',
-      items: ['use-the-network/devices/ready-to-use/ready-to-use', 'use-the-network/devices/ready-to-use/dragino-lht65'],
+      items: ['use-the-network/devices/ready-to-use/ready-to-use', 'use-the-network/devices/ready-to-use/adeunis-field-test-device', 'use-the-network/devices/ready-to-use/digital-matter-lorawan-gps', 'use-the-network/devices/ready-to-use/dragino-lht65', 'use-the-network/devices/ready-to-use/seeed-sensecap'],
       collapsed: false,
     },
   ],
@@ -55,7 +55,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: 'docs/use-the-network/devices'
+      href: '/docs/use-the-network/devices'
     }, 
     {
       type: 'category',
