@@ -90,19 +90,6 @@ module.exports = {
       collapsed: false,
     },
   ],
-  proofOfCoverage: [
-   {
-      type: 'link',
-      label: '<- Blockchain',
-      href: '../'
-    }, 
-    {
-      type: 'category',
-      label: 'Proof of Coverage',
-      items: ['blockchain/proof-of-coverage/challenges'],
-      collapsed: false,
-    },
-  ],
   heliumToken: [
    {
       type: 'link',
