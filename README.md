@@ -33,6 +33,11 @@ Use the style guide found [here](docs/style-guide) to learn what markdown syntax
 
 For more advanced content consider using [JSX](https://v2.docusaurus.io/docs/markdown-features/#embedding-react-components-with-mdx).
 
+### Linking to Other Docs
+When linking to other docs use abbreviated links to full path links at the bottom of the doc. This improves readability of the raw markdown and makes common links reusable in the same doc.
+
+For example if you would like to link to the development devices introduction page found at `/docs/use-the-network/devices/development`, use `[development devices][devices.development]` inline with your text content. Last, create the link to the full path at the very bottom of the doc markdown like this `[devices.development]: /docs/use-the-network/devices/development`.
+
 ### Adding Images
 
 When adding images, use the method shown below.
@@ -53,6 +58,31 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 ### Adding a New Doc
 
 Create a new *.mdx extension file following the existing naming conventions.
+
+#### Doc Front Matter
+When creating a new doc, use the following front matter at the very top of the doc with the following fields:
+
+`id: ` This should match the filename without the extension.  
+`hide_title: ` Always set this true.  
+`sidebar_label: ` This should match id name but with spaces and capitalized first letters.  
+
+```
+---
+id: devices
+hide_title: true
+sidebar_label: Devices
+---
+```
+
+`slug: ` If the doc id path has repeated sections like the following doc path `use-the-network/devices/devices`, define a `slug:` field in the front matter to make it pretty as shown below. This way when this doc is navigated to, the URL shown will not have repeating sections names in it.  
+
+```
+slug: use-the-network/devices
+```
+
+### Sidebar Links
+
+Learn how to create sidebar links [here](https://v2.docusaurus.io/docs/docs-introduction/#sidebar-object).
 
 ### Attribution
 
