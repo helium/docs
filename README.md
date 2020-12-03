@@ -91,8 +91,6 @@ Learn how to create sidebar links [here](https://v2.docusaurus.io/docs/docs-intr
 ### Category Type
 When adding items use the raw id path, slug paths will not work.
 
-
-
 ## Attribution
 
 This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
