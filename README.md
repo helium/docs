@@ -13,6 +13,7 @@ Documentation for the Helium network.
 ### Installation
 ```
 $ yarn
+$ yarn upgrade docusaurus --latest
 ```
 
 ### Local Development
