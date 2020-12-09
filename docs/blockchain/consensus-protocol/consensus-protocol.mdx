@@ -7,70 +7,137 @@ slug: /blockchain/consensus-protocol
 
 # The Helium Consensus Protocol
 
-The Helium blockchain uses a new consensus protocol, called simply the **Helium Consensus Protocol**.
+The Helium blockchain uses a new consensus protocol, called simply the **Helium
+Consensus Protocol**.
 
 ## Consensus Protocol Design Goals
 
 In designing the protocol, we wanted to emphasize the following characteristics:
 
-* **Permissionless** - Any Miner operating in accordance with the consensus rules and network specifications should be able to participate freely in the Helium Network. 
-* **Truly decentralized by design** - No incentive should be available for taking advantage of factors like inexpensive energy cost or deploying more hardware in the same location. 
-* **Byzantine Fault Tolerant** - The protocol should be tolerant of Byzantine failures such that consensus can still be reached as long as a threshold of participants are acting honestly. For this, we selected a variant known as `HoneyBadgerBFT` detailed below. 
-* **Based on useful work** - Achieving network consensus should be useful and reusable to the network. In Nakamoto Consensus-based systems like the bitcoin blockchain, work performed to achieve consensus is only valid for a specific block. By comparison, Helium’s consensus system should perform work that is both useful and reusable to the network beyond simply securing the blockchain. 
-* **High rate of confirmed transactions** - The protocol should be able to achieve a high number of transactions per second, and once the transaction is seen by the blockchain it should be assumed confirmed. Users sending device data through the Helium Network cannot tolerate long block settlement times typical of other blockchains. 
-* **Censorship-resistant transactions** - Miners should not be able to censor or otherwise select / deselect transactions to be included in a block. 
+- **Permissionless** - Any Miner operating in accordance with the consensus
+  rules and network specifications should be able to participate freely in the
+  Helium Network.
+- **Truly decentralized by design** - No incentive should be available for
+  taking advantage of factors like inexpensive energy cost or deploying more
+  hardware in the same location.
+- **Byzantine Fault Tolerant** - The protocol should be tolerant of Byzantine
+  failures such that consensus can still be reached as long as a threshold of
+  participants are acting honestly. For this, we selected a variant known as
+  `HoneyBadgerBFT` detailed below.
+- **Based on useful work** - Achieving network consensus should be useful and
+  reusable to the network. In Nakamoto Consensus-based systems like the bitcoin
+  blockchain, work performed to achieve consensus is only valid for a specific
+  block. By comparison, Helium’s consensus system should perform work that is
+  both useful and reusable to the network beyond simply securing the blockchain.
+- **High rate of confirmed transactions** - The protocol should be able to
+  achieve a high number of transactions per second, and once the transaction is
+  seen by the blockchain it should be assumed confirmed. Users sending device
+  data through the Helium Network cannot tolerate long block settlement times
+  typical of other blockchains.
+- **Censorship-resistant transactions** - Miners should not be able to censor or
+  otherwise select / deselect transactions to be included in a block.
 
 ## HoneyBadger BFT
 
-The Helium Consensus Protocol is based on a variant of the HoneyBadgerBFT (HBBFT) protocol. HBBFT is based on a body of research originally kicked off by Andrew Miller and the team at the University of Illinois, Urbana-Champaign.
+The Helium Consensus Protocol is based on a variant of the HoneyBadgerBFT
+(HBBFT) protocol. HBBFT is based on a body of research originally kicked off by
+Andrew Miller and the team at the University of Illinois, Urbana-Champaign.
 
-HBBFT is an asynchronous atomic broadcast protocol designed to enable a group of known nodes to achieve consensus over unreliable links. In Helium’s implementation, a consensus group of elected Miners receives encrypted transactions as inputs and proceeds to reach common agreement on the ordering of these transactions before forming a block and adding it to the blockchain.
+HBBFT is an asynchronous atomic broadcast protocol designed to enable a group of
+known nodes to achieve consensus over unreliable links. In Helium’s
+implementation, a consensus group of elected Miners receives encrypted
+transactions as inputs and proceeds to reach common agreement on the ordering of
+these transactions before forming a block and adding it to the blockchain.
 
-HBBFT relies on a scheme known as threshold encryption. Using this scheme, transactions are encrypted using a shared public key, and are only decryptable when the elected consensus group works together to decrypt them. The usage of threshold encryption enables the Helium Consensus Protocol to achieve censorship-resistant transactions.
+HBBFT relies on a scheme known as threshold encryption. Using this scheme,
+transactions are encrypted using a shared public key, and are only decryptable
+when the elected consensus group works together to decrypt them. The usage of
+threshold encryption enables the Helium Consensus Protocol to achieve
+censorship-resistant transactions.
 
 ### Extended Reading
 
-* [HoneyBadger BFT (PDF)](https://eprint.iacr.org/2016/199.pdf)
-* [Introducing the Helium blockchain](https://blog.helium.com/introducing-the-helium-blockchain-dc2f8997083c)
+- [HoneyBadger BFT (PDF)](https://eprint.iacr.org/2016/199.pdf)
+- [Introducing the Helium blockchain](https://blog.helium.com/introducing-the-helium-blockchain-dc2f8997083c)
 
 ## The Consensus Group Election
 
-A new Consensus Group (CG) is elected once per epoch based a combination of factors. Currently there are `16` Miners elected to each consensus group, as defined in the `num_consensus_members` chain variable.
+A new Consensus Group (CG) is elected once per epoch based a combination of
+factors. Currently there are `16` Miners elected to each consensus group, as
+defined in the `num_consensus_members` chain variable.
 
-All Miners active on the Helium Network are eligible to be elected to a consensus group. The two primary factors used as inputs to any given election are:
+All Miners active on the Helium Network are eligible to be elected to a
+consensus group. The two primary factors used as inputs to any given election
+are:
 
-* **Score** - Every Hotspot on the Network has a [score](https://github.com/helium/devdocs/tree/67b988ec351854ec4b7608e12b5b8f47f2456abf/blockchain/proof-of-coverage/README.md#hotspot-scoring), ranging from `0.0` - `1.0`, that is constantly changing to reflect the network’s confidence in its asserted location. _Hotspots with higher scores `.15` and higher are eligible for CG election._ 
-* **Geography** - The Helium blockchain uses a system called [H3 for all aspects of geospatial representation within the network](https://blog.helium.com/mapping-the-world-with-hexagons-49f57d8b3df5). **H3** lets you index a space into hexagons of varying resolutions, ranging from `H0` to `H15`, with each level representing a different hexagon size. ([The full breakdown is here](https://github.com/uber/h3/blob/master/docs/core-library/restable.md).) Currently, we use the `H4` resolution as the filter for eligible Hotspots for a CG. Put another way, in an ideal election, no two Hotspots within the same `H4` resolution - _roughly 658.5 square miles_ - should end up in the same CG. 
+- **Score** - Every Hotspot on the Network has a
+  [score](https://github.com/helium/devdocs/tree/67b988ec351854ec4b7608e12b5b8f47f2456abf/blockchain/proof-of-coverage/README.md#hotspot-scoring),
+  ranging from `0.0` - `1.0`, that is constantly changing to reflect the
+  network’s confidence in its asserted location. _Hotspots with higher scores
+  `.15` and higher are eligible for CG election._
+- **Geography** - The Helium blockchain uses a system called
+  [H3 for all aspects of geospatial representation within the network](https://blog.helium.com/mapping-the-world-with-hexagons-49f57d8b3df5).
+  **H3** lets you index a space into hexagons of varying resolutions, ranging
+  from `H0` to `H15`, with each level representing a different hexagon size.
+  ([The full breakdown is here](https://github.com/uber/h3/blob/master/docs/core-library/restable.md).)
+  Currently, we use the `H4` resolution as the filter for eligible Hotspots for
+  a CG. Put another way, in an ideal election, no two Hotspots within the same
+  `H4` resolution - _roughly 658.5 square miles_ - should end up in the same CG.
 
 ### Consensus Group Member Deselection
 
-In addition to the **Score** and **Geographic** filters, each election uses a phased approach to migrating out only a subset of the existing Consensus Group Members out over a series of epochs. Specifically, each new Consensus Groups retains `12` of previous `16` members. This is done to make additional use of the CG members that have already been elected and have proven their ability to mine blocks and distribute `HNT`. Put another way:
+In addition to the **Score** and **Geographic** filters, each election uses a
+phased approach to migrating out only a subset of the existing Consensus Group
+Members out over a series of epochs. Specifically, each new Consensus Groups
+retains `12` of previous `16` members. This is done to make additional use of
+the CG members that have already been elected and have proven their ability to
+mine blocks and distribute `HNT`. Put another way:
 
-* Each election, typically four new Consensus Group members are elected. The other 12 are from the previous CG election. 
-* Once elected, a Miner can typically be part of up to four consecutive Consensus Groups.  
-* Poorly performing CG members are likely to be deselected before their four epoch limit is reached. 
-* Once a Miner is deselected from a Consensus Group, it's not eligible to be elected to another group until the other 15 members that were in its group are completely cycled out. This would be four elections into the future.
-
+- Each election, typically four new Consensus Group members are elected. The
+  other 12 are from the previous CG election.
+- Once elected, a Miner can typically be part of up to four consecutive
+  Consensus Groups.
+- Poorly performing CG members are likely to be deselected before their four
+  epoch limit is reached.
+- Once a Miner is deselected from a Consensus Group, it's not eligible to be
+  elected to another group until the other 15 members that were in its group are
+  completely cycled out. This would be four elections into the future.
 
 ## The Mining Process
 
-Following the election of a new Consensus Group, a distributed key generation phase occurs to bootstrap the threshold encryption key (TPKE). This TPKE is a cryptographic primitive that allows any Miner in the network to encrypt transactions to a master public key (PK) such that the Consensus Group must work together to decrypt it.
+Following the election of a new Consensus Group, a distributed key generation
+phase occurs to bootstrap the threshold encryption key (TPKE). This TPKE is a
+cryptographic primitive that allows any Miner in the network to encrypt
+transactions to a master public key (PK) such that the Consensus Group must work
+together to decrypt it.
 
-Hotspots are constantly submitting new transactions to the current Consensus Group. As they arrive, each CG member takes a random subset and forwards them around to other members of the group after encrypting them with their share of the master public key.
+Hotspots are constantly submitting new transactions to the current Consensus
+Group. As they arrive, each CG member takes a random subset and forwards them
+around to other members of the group after encrypting them with their share of
+the master public key.
 
 ## Rewarding Hotspots
 
-At the end of each epoch, mining rewards are distributed by the CG to the wallet addresses that have earned them. Currently `66%` of all mining rewards go to the hotspot infrastructure (with the remaining `34%` being distributed to Helium, Inc and other network investors). A graphical overview of token reward system can be [viewed here](https://www.helium.com/hnt) and full description of mining per epoch [is here](../blockchain/mining).
+At the end of each epoch, mining rewards are distributed by the CG to the wallet
+addresses that have earned them. Currently `66%` of all mining rewards go to the
+hotspot infrastructure (with the remaining `34%` being distributed to Helium,
+Inc and other network investors). A graphical overview of token reward system
+can be [viewed here](https://www.helium.com/hnt) and full description of mining
+per epoch [is here](../blockchain/mining).
 
-During the course of any epoch, Mining are rewarded for the following list of activities:
+During the course of any epoch, Mining are rewarded for the following list of
+activities:
 
-* Submitting valid proof of coverage challenges (as a “challenger”)
-* Successful participation in proof of coverage as a target (as a “challengee”)
-* Witnessing a proof of coverage challenge
-* Transferring device data over the network 
-* Serving as consensus group member
+- Submitting valid proof of coverage challenges (as a “challenger”)
+- Successful participation in proof of coverage as a target (as a “challengee”)
+- Witnessing a proof of coverage challenge
+- Transferring device data over the network
+- Serving as consensus group member
 
-The Consensus Group members also split `6%` of all HNT mined, as well as any transaction fees collected during the epoch.
+The Consensus Group members also split `6%` of all HNT mined, as well as any
+transaction fees collected during the epoch.
 
-Each one of the above activities is recorded in a block using the `reward` transaction. At the completion of each epoch, all the individual `reward` transactions are grouped in a `rewards` transaction at which point all HNT mined in that epoch are distributed.
-
+Each one of the above activities is recorded in a block using the `reward`
+transaction. At the completion of each epoch, all the individual `reward`
+transactions are grouped in a `rewards` transaction at which point all HNT mined
+in that epoch are distributed.
