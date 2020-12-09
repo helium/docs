@@ -29,7 +29,22 @@ Documentation is managed by Helium, but supported by the community.
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more instructions.
 
+## Creating a New Doc
+
+When authoring a new doc, be sure to apply `prettier` to it during review. For
+example: `npx prettier --write --prose-wrap always docs/blockchain/new_doc.mdx`
+
+It will apply appropriate line wraps and other formatting niceties.
+
 ## Editing an Existing Doc
+
+When editing an existing doc, line wrap should not be applied (don't run
+`prettier`), and lines that run wider than 80 chars in width are okay. Applying
+`prettier` would cause many unimportant line changes and make review more
+difficult.
+
+Instead, from time to time, `prettier` will be run against the documents and
+those unimportant commits will be added to `.git-blame-ignore-revs`
 
 Use the style guide found [here](docs/style-guide) to learn what markdown syntax
 is available.
