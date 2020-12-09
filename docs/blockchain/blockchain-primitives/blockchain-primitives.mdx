@@ -30,7 +30,9 @@ Mining rewards are distributed per epoch (as opposed to per block in most blockc
 ### Transactions 
 
 
-The Helium blockchain currently has 20 native transaction types. Some appear in nearly every block mined while others were created to be used only once and will never heard from again. (You can see various transaction types in action using the [Helium Blockchain Explorer](https://explorer.helium.com/).
+The Helium blockchain currently has 20 native transaction types. Some appear in nearly every block mined while others were created to be used only once and will never heard from again.
+
+You can see various transaction types in action using the [Helium Blockchain Explorer](https://explorer.helium.com/). At a low level, transactions are represented as [Protocol Buffers](https://developers.google.com/protocol-buffers), aka "protobuf". To sign a transaction, other signature fields (if present) are cleared and the serialized protobuf is signed by the actor. [The protobuf definitions are available here](https://github.com/helium/proto).
 
 All transactions occur on-chain, and all transactions require Helium Data Credits to be submitted and confirmed. The following is a list of the supported transactions:
 
