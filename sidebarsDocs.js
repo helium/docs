@@ -66,7 +66,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Development',
-      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1', 'use-the-network/devices/development/sparkfun-pro-rf/sparkfun-pro-rf', 'use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95', 'use-the-network/devices/development/heltec-cubecell-htcc-ab01/heltec-cubecell-htcc-ab01'],
+      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1', 'use-the-network/devices/development/sparkfun-pro-rf/sparkfun-pro-rf', 'use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95', 'use-the-network/devices/development/heltec-cubecell-htcc-ab01/heltec-cubecell-htcc-ab01', 'use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2'],
       collapsed: false,
     },
   ],
@@ -119,6 +119,19 @@ module.exports = {
       type: 'category',
       label: 'Firmware',
       items: ['use-the-network/devices/development/heltec-cubecell-htcc-ab01/arduino'],
+      collapsed: false,
+    },
+  ],
+  heltecwifilora32v2: [
+   {
+      type: 'link',
+      label: '<- Heltec WiFi LoRa 32 V2',
+      href: '/docs/use-the-network/devices/development/heltec-wifi-lora-32-v2'
+    }, 
+    {
+      type: 'category',
+      label: 'Firmware',
+      items: ['use-the-network/devices/development/heltec-wifi-lora-32-v2/arduino'],
       collapsed: false,
     },
   ]
