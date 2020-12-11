@@ -66,7 +66,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Development',
-      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1'],
+      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1', 'use-the-network/devices/development/sparkfun-pro-rf/sparkfun-pro-rf'],
       collapsed: false,
     },
   ],
@@ -80,6 +80,19 @@ module.exports = {
       type: 'category',
       label: 'Firmware',
       items: ['use-the-network/devices/development/st-b-l072z-lrwan1/arduino'],
+      collapsed: false,
+    },
+  ],
+  sparkfunprorf: [
+   {
+      type: 'link',
+      label: '<- Sparkfun Pro RF',
+      href: '/docs/use-the-network/devices/development/sparkfun-pro-rf'
+    }, 
+    {
+      type: 'category',
+      label: 'Firmware',
+      items: ['use-the-network/devices/development/sparkfun-pro-rf/arduino'],
       collapsed: false,
     },
   ],
