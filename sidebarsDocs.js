@@ -66,7 +66,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Development',
-      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1', 'use-the-network/devices/development/sparkfun-pro-rf/sparkfun-pro-rf'],
+      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1', 'use-the-network/devices/development/sparkfun-pro-rf/sparkfun-pro-rf', 'use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95'],
       collapsed: false,
     },
   ],
@@ -96,4 +96,17 @@ module.exports = {
       collapsed: false,
     },
   ],
+  adafruitfeatherm0rfm95: [
+   {
+      type: 'link',
+      label: '<- Adafruit Feather M0 RFM95',
+      href: '/docs/use-the-network/devices/development/adafruit-feather-m0-rfm95'
+    }, 
+    {
+      type: 'category',
+      label: 'Firmware',
+      items: ['use-the-network/devices/development/adafruit-feather-m0-rfm95/arduino'],
+      collapsed: false,
+    },
+  ]
 };
