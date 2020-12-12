@@ -1,8 +1,170 @@
 ---
-id: build-your-own-miner
+id: build-a-gateway
 hide_title: true
-sidebar_label: Build Your Own Miner
-slug: /mine-hnt/build-your-own-miner
+sidebar_label: Build a Gateway
+slug: /mine-hnt/build-a-gateway
 ---
 
-## Build a Helium Miner
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+## Build a Gateway
+
+**Note**: The ability to mine HNT with anything other than prebuilt Hotspots is
+currently under development following the conclusion of the DIY Alpha program.
+Please join the Helium Discord Server and the #hotspot-diy-hardware channel for
+the latest updates on the roadmap here.
+
+<img src={useBaseUrl("img/mine-hnt/mine-hnt-arch.png")} />
+
+To be a Helium Miner, there are three principle components to know about
+
+- **Packet Forwarder**: this is a utility that interacts with the radio
+  front-end and sends and receives raw radio packets with the Helium Miner
+- **Miner**: the Helium Blockchain comes into the picture here; the Miner is
+  responsible for routing packets to the appropriate Router (see our Routing
+  article) entering into microtransactions brokered via libp2p
+- **Router**: a Helium compatible LoRaWAN Network Server, basically; this
+  component is interested in receiving the packets relating to its devices and
+  handles downlink responses when appropriate
+
+When you buy [a prebuilt Hotspot](mine-hnt/prebuilt-hotspots), you are buying a
+Packet Forwarder and a Miner in a convenient package. Everything is ready to go
+from the moment you plug it in and the device is kept up to date by Helium, Inc.
+
+However, any device that can run an 8 channel LoRa front-end (such as SX1301 or
+SX1302) can be used to participate in the Helium Network. The Miner is designed
+to send and receive packets using the Semtech Gateways Messaging Protocol
+(GWMP), making it compatible with almost every LoRaWAN Gateway on the Market.
+[We have guides for several LoRaWAN Gateways](mine-hnt/convert-lorawan-gateway)
+that work very well and using one of them gives you one less thing to worry
+about as the Packet Forwarder is setup and ready to go.
+
+This guide, however, is for those that want a more hands-on experience. We will
+essentially be assembling a LoRaWAN gateway with discrete parts, loading up an
+open-source Linux distribution, compiling the packet forwarder, and running it
+all ourselves. In short, we'll be learning gateways that hard way!
+
+<center>
+  <i>
+    This guide is experimental and for advanced users only, and you may run in
+    to various issues trying to get this working.
+  </i>
+</center>
+
+### Example Custom Hardware
+
+If you don’t have your own hardware yet, we recommend using a Raspberry Pi 4B
+running the latest
+[64-bit RaspiOS](https://downloads.raspberrypi.org/raspios_arm64/images/) image.
+
+We recommend this configuration in particular if you are interested in running
+the Miner on the gateway itself; it's easy to run [our Docker image from Quay](https://quay.io/repository/team-helium/miner)
+on a 64-bit ARM system. If you choose to run the Miner elsewhere, it's possible to downgrade all the way to a Pi0, for example, since you will only be
+running the packet forwarder on the gateway.
+
+RAK Wireless sells multiple "Pi Hats" that provide the 8-channel front-end:
+
+- [the RAK2245 (SX1301)](https://store.rakwireless.com/products/rak2245-pi-hat?variant=22914482733156)
+- [the RAK2287 (SX1302)](https://store.rakwireless.com/collections/wislink-lpwan/products/rak2287-lpwan-gateway-concentrator-module?variant=34533841535134)
+
+Or you can check out their
+[WisGate Developer](https://store.rakwireless.com/collections/wisgate-developer)
+line where they provide bundles:
+
+- the D3/D3+/D4/D4+/D4P are all based off of the RAK2245
+- the D4H is based off of the RAK2245
+
+Ultimately, which configuration works for you depends on your situation, but all of them will work with this guide with little adjustment.
+
+### Preparing the SD Card
+
+You can create an SD card from this image by looking for the recently inserted SD
+card in your system
+
+```
+$ ls -al /dev | grep sd
+```
+
+Generally, the timestamp is enough to indicate which device is the SD card. Next
+write the image to the SD card. For example:
+
+```
+dd if=~/2020-08-20-raspios-buster-arm64.img of=/dev/sdX bs=1M
+```
+
+Use the command `sync` to make sure the filesystem is written before trying to remove
+the SD card. Once the `sync` command returns, you can eject and remove the SD card from your system.
+
+
+### Preparing RaspiOS
+
+With a keyboard, mouse, and monitor plugged in, power on the Raspberry Pi. Proceed through the
+guided RaspiOS setup where you will update your password, configure your WiFi, etc.
+
+Enable SPI and I2C using the raspi-config tool:
+```sudo raspi-config```
+
+Select `Interface Options`, and enable `I2C` and `SPI` from within the
+menu system. This is also a good time to enable SSH if you want it.
+
+### Installing the Semtech Packet Forwarder
+
+Depending on which SX130x radio you are running, you will want to select the appropriate packet forwarder application.
+
+For the SX1301, you will want the `Lora-net/packet_forwarder`:
+
+```git clone https://github.com/Lora-net/packet_forwarder```
+
+For the SX1302, you will want the `Lora-net/sx1302_hal`:
+
+```git clone https://github.com/Lora-net/sx1302_hal```
+
+For both, you will want `Lora-net/lora_gateway`:
+
+```git clone https://github.com/Lora-net/lora_gateway```
+
+
+
+forwarder Once you have miner running, you'll need the Semtech packet forwarder
+to receive packets via SPI and the RAK2245 board and deliver them to the miner
+via UDP. You may need to install git: sudo apt-get install git Clone the git
+repository: $ cd ~ $ git clone https://github.com/Lora-net/packet_forwarder
+$
+git clone https://github.com/Lora-net/lora_gateway We'll then need to replace
+the existing packet forwarder configuration file with a Helium-specific version:
+$
+cd packet_forwarder/lora_pkt_fwd $ wget
+https://helium-media.s3-us-west-2.amazonaws.com/global_conf.json --backups Make
+sure that the file was downloaded to the packet_forwarder/lora_pkt_fwd/
+directory. This will be important when launching the binary. This new file sets
+the correct radio frequencies for the US region. Note that this backs up the
+existing configuration file (with European frequencies) to global_conf.json.1.
+One Quick Change We need to modify the SPI speed for this particular RAK
+concentrator. You may not have to do this with different concentrators. To do
+that: cd ../.. && nano lora_gateway/libloragw/src/loragw_spi.native.c And modify
+line 56 to read: #define SPI_SPEED 2000000 Now we are ready to build. Compiling
+the Packet Forwarder Compile the packet forwarder: $ cd packet_forwarder $
+./compile.sh Before we can start the packet forwarder you will often have to
+issue a reset command to the RAK concentrator. In most cases you have to issue
+this command every time before starting the packet forwarder. This resets the
+concentrator using GPIO pin 17 of the Raspberry Pi, which is connected to the
+reset pin on the concentrator: ../lora_gateway/reset_lgw.sh start 17 We can now
+start the packet forwarder: $ cd ~/packet_forwarder/lora_pkt_fwd ./lora_pkt_fwd
+Note that we are doing from ~/packet_forwarder/lora_pkt_fwd ; this is important
+for finding the configuration file downloaded previously. That's it, now you're
+running a packet forwarder! The last step is connecting to a Helium Miner.
+Connecting to a Helium Miner If you haven't done it yet, you'll want to get your
+Helium Miner running. We'll assume you've done this with an Amazon AMI for the
+sake of this tutorial. From Your EC2 dashboard, you should select your miner and
+take a look at the description at the bottom of the page:
+
+In this case, the IP is 18.218.135.176. You now have to go back edit the packet
+forwarder's configuration such that it connects to you Miner on AWS. With your
+favorite editor, open packet_forwarder/lora_pkt_fwd/global_conf.json: nano
+packet_forwarder/lora_pkt_fwd/global_conf.json You want to change the field
+"server_address" from "localhost" the the IP address of my server, so in this
+case: "server_address": "18.218.135.176", You'll need to restart the packet
+forwarder for the configuration change to take effect. To verify that things are
+working, you can follow the logs on the AWS instance: tail -f
+/var/log/miner/console.log | grep lora At the very least, you should see
+PULL_DATA messages every few seconds. If so, then you've done it!
