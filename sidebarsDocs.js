@@ -44,6 +44,19 @@ module.exports = {
       collapsed: true,
     },
   ],
+  console: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/docs/use-the-network/console'
+    }, 
+    {
+      type: 'category',
+      label: 'Console',
+      items: ['use-the-network/console/quickstart'],
+      collapsed: false,
+    }
+  ],
   readyToUse: [
    {
       type: 'link',
