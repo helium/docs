@@ -53,7 +53,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Console',
-      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/adding-devices'],
+      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/adding-devices', 'use-the-network/console/labels'],
       collapsed: false,
     }
   ],
