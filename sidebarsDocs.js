@@ -53,9 +53,22 @@ module.exports = {
     {
       type: 'category',
       label: 'Console',
-      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/adding-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/functions'],
+      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/adding-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations'],
       collapsed: false,
     }
+  ],
+  integrations: [
+   {
+      type: 'link',
+      label: '<- Console',
+      href: '/docs/use-the-network/console/integrations'
+    }, 
+    {
+      type: 'category',
+      label: 'Integrations',
+      items: ['use-the-network/console/integrations/http'],
+      collapsed: false,
+    },
   ],
   readyToUse: [
    {
