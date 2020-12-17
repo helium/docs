@@ -66,7 +66,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Integrations',
-      items: ['use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/aws-iot-core'],
+      items: ['use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo'],
       collapsed: false,
     },
   ],
