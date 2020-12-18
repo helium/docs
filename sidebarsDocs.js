@@ -16,13 +16,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Use The Network',
-      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/network-servers/network-servers', 'use-the-network/community-projects/community-projects'],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Coverage Mapping',
-      items: ['coverage-mapping/coverage-mapping'],
+      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/network-servers/network-servers', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
       collapsed: true,
     },
     {
