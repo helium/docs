@@ -28,7 +28,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Community and Governance',
-      items: ['community-governance/community-governance','community-governance/helium-improvement-proposals','community-governance/discord-and-chat','community-governance/social-media','community-governance/contribute-to-helium'],
+      items: ['community-governance/community-governance'],
       collapsed: true,
     },
     {
