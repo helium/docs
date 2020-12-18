@@ -111,60 +111,69 @@ menu system. This is also a good time to enable SSH if you want it.
 
 Depending on which SX130x radio you are running, you will want to select the appropriate packet forwarder application.
 
-For the SX1301, you will want the `Lora-net/packet_forwarder`:
+#### Packet Forwarder SX1302
 
-```git clone https://github.com/Lora-net/packet_forwarder```
+Pull down Helium's fork of the SX1302 packet forwarder:
 
-For the SX1302, you will want the `Lora-net/sx1302_hal`:
+```git clone https://github.com/helium/sx1302_hal.git```
 
-```git clone https://github.com/Lora-net/sx1302_hal```
+Go into the directory and build:
 
-For both, you will want `Lora-net/lora_gateway`:
+```
+$ cd sx1302_hal
+$ make
+```
 
-```git clone https://github.com/Lora-net/lora_gateway```
+Next, go into the the packet_forwarder directory, where we will create a link to the reset script:
 
+```
+$ cd packet_forwarder
+$ ln -s ../tools/reset_lgw.sh reset_lgw.sh
+```
 
+We will also create a link to the appropriate regional configuration. For example:
 
-forwarder Once you have miner running, you'll need the Semtech packet forwarder
-to receive packets via SPI and the RAK2245 board and deliver them to the miner
-via UDP. You may need to install git: sudo apt-get install git Clone the git
-repository: $ cd ~ $ git clone https://github.com/Lora-net/packet_forwarder
-$
-git clone https://github.com/Lora-net/lora_gateway We'll then need to replace
-the existing packet forwarder configuration file with a Helium-specific version:
-$
-cd packet_forwarder/lora_pkt_fwd $ wget
-https://helium-media.s3-us-west-2.amazonaws.com/global_conf.json --backups Make
-sure that the file was downloaded to the packet_forwarder/lora_pkt_fwd/
-directory. This will be important when launching the binary. This new file sets
-the correct radio frequencies for the US region. Note that this backs up the
-existing configuration file (with European frequencies) to global_conf.json.1.
-One Quick Change We need to modify the SPI speed for this particular RAK
-concentrator. You may not have to do this with different concentrators. To do
-that: cd ../.. && nano lora_gateway/libloragw/src/loragw_spi.native.c And modify
-line 56 to read: #define SPI_SPEED 2000000 Now we are ready to build. Compiling
-the Packet Forwarder Compile the packet forwarder: $ cd packet_forwarder $
-./compile.sh Before we can start the packet forwarder you will often have to
-issue a reset command to the RAK concentrator. In most cases you have to issue
-this command every time before starting the packet forwarder. This resets the
-concentrator using GPIO pin 17 of the Raspberry Pi, which is connected to the
-reset pin on the concentrator: ../lora_gateway/reset_lgw.sh start 17 We can now
-start the packet forwarder: $ cd ~/packet_forwarder/lora_pkt_fwd ./lora_pkt_fwd
-Note that we are doing from ~/packet_forwarder/lora_pkt_fwd ; this is important
-for finding the configuration file downloaded previously. That's it, now you're
-running a packet forwarder! The last step is connecting to a Helium Miner.
-Connecting to a Helium Miner If you haven't done it yet, you'll want to get your
-Helium Miner running. We'll assume you've done this with an Amazon AMI for the
-sake of this tutorial. From Your EC2 dashboard, you should select your miner and
-take a look at the description at the bottom of the page:
+```
+ln -s global_conf.json.sx1250.US915 global_conf.json
+```
 
-In this case, the IP is 18.218.135.176. You now have to go back edit the packet
-forwarder's configuration such that it connects to you Miner on AWS. With your
-favorite editor, open packet_forwarder/lora_pkt_fwd/global_conf.json: nano
-packet_forwarder/lora_pkt_fwd/global_conf.json You want to change the field
-"server_address" from "localhost" the the IP address of my server, so in this
-case: "server_address": "18.218.135.176", You'll need to restart the packet
-forwarder for the configuration change to take effect. To verify that things are
-working, you can follow the logs on the AWS instance: tail -f
-/var/log/miner/console.log | grep lora At the very least, you should see
-PULL_DATA messages every few seconds. If so, then you've done it!
+We are now ready to test the start-up. From `~/sx1302_hal/packet_forwarder` try:
+
+```
+./lora_pkt_fwd
+```
+
+If you get the following output, you are good to go:
+
+```
+INFO: [main] concentrator started, packet can now be received
+INFO: concentrator EUI: 0x????????????????
+```
+
+With `CTRL+D`, exit out of the program and go to the next section.
+
+#### Packet Forwarder SX1301
+
+PLACEHOLDER
+
+### Connecting to a Miner
+
+Before proceeding, you want to make sure that [you have a Miner running](mine-hnt/run-a-miner). If the Miner is running on the Raspberry Pi already and is properly mapped to port 1680, then there's nothing to do! Otherwise, read on.
+
+With your favorite editor, open `global_conf.json` that lives in the packet forwader directory:
+
+```
+nano ~/sx1302_hal/lora_pkt_fwd/global_conf.json
+```
+
+You want to change the field "server_address" from "localhost" the the IP address of the server, so in this case:
+
+You'll need to restart the packet forwarder for the configuration change to take effect.
+
+To verify that things are working, you can follow the logs on your miner. eg:
+
+```
+docker exec miner tail -f /var/log/miner/console.log | grep lora
+```
+
+At the very least, you should see PULL_DATA messages every few seconds. If so, then you've done it!
