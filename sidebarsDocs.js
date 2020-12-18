@@ -53,7 +53,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Console',
-      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating/migrating', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations'],
+      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations'],
       collapsed: false,
     }
   ],
@@ -67,6 +67,19 @@ module.exports = {
       type: 'category',
       label: 'Integrations',
       items: ['use-the-network/console/integrations/json-schema', 'use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo', 'use-the-network/console/integrations/mydevices-cayenne', 'use-the-network/console/integrations/adafruitio'],
+      collapsed: false,
+    },
+  ],
+  migratingdevices: [
+   {
+      type: 'link',
+      label: '<- Console',
+      href: '/docs/use-the-network/console/migrating-devices'
+    }, 
+    {
+      type: 'category',
+      label: 'Migrating Devices',
+      items: ['use-the-network/console/migrating-devices/ttn-import', 'use-the-network/console/migrating-devices/ttn-manual'],
       collapsed: false,
     },
   ],
