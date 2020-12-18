@@ -4,7 +4,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Blockchain',
-      items: ['blockchain/blockchain', `blockchain/blockchain-primitives/blockchain-primitives`, 'blockchain/mining/mining', 'blockchain/proof-of-coverage/proof-of-coverage', 'blockchain/consensus-protocol/consensus-protocol', 'blockchain/helium-token/helium-token', 'blockchain/oracles/oracles', `blockchain/transaction-fees/transaction-fees`,],
+      items: ['blockchain/blockchain', `blockchain/blockchain-primitives/blockchain-primitives`, 'blockchain/mining/mining', 'blockchain/proof-of-coverage/proof-of-coverage', 'blockchain/consensus-protocol/consensus-protocol', 'blockchain/helium-token/helium-token', 'blockchain/oracles/oracles', 'blockchain/transaction-fees/transaction-fees'],
       collapsed: true,
     },
     {
@@ -16,7 +16,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Use The Network',
-      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', `use-the-network/network-servers/network-servers`],
+      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/network-servers/network-servers', 'use-the-network/community-projects/community-projects'],
       collapsed: true,
     },
     {
@@ -35,12 +35,6 @@ module.exports = {
       type: 'category',
       label: 'Open Source',
       items: ['open-source/open-source'],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Projects',
-      items: ['projects/projects', 'projects/agricultural/agricultural', 'projects/dashboards/dashboards', 'projects/environmental/environmental', 'projects/healthcare/healthcare', 'projects/industrial/industrial', 'projects/misc/misc', 'projects/security/security', 'projects/tracking/tracking', 'projects/utility/utility'],
       collapsed: true,
     },
   ],
