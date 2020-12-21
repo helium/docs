@@ -71,6 +71,19 @@ module.exports = {
       collapsed: false,
     },
   ],
+  coveragemapping: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/docs/use-the-network/coverage-mapping'
+    }, 
+    {
+      type: 'category',
+      label: 'Coverage Mapping',
+      items: ['use-the-network/coverage-mapping/mappers-quickstart'],
+      collapsed: false,
+    },
+  ],
   readyToUse: [
    {
       type: 'link',
