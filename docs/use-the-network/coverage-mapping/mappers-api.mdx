@@ -1,0 +1,72 @@
+---
+id: mappers-api
+hide_title: true
+sidebar_label: Mappers API
+slug: /use-the-network/coverage-mapping/mappers-api
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import useBaseUrl from "@docusaurus/useBaseUrl"
+
+# Mappers API
+
+## Introduction
+
+The Mappers API is a set of HTTP requests used for submitting data to the Mappers project. Data submitted is viewable on [mappers.helium.com](https://mappers.helium.com) and updated every six hours starting at 04:20 UTC.
+
+---
+
+## Authentication
+
+There is currently no authentication required.
+
+---
+
+### Ingest Uplink
+
+```
+POST https://mappers.helium.wtf/api/v1/ingest
+```
+Submit geo tagged device uplink.
+  
+Content-Type: application/json  
+Requests are intended to be sent from an HTTP integration within Console. Metadata from the standard JSON message is used in addition to the required fields detailed below.   
+  
+All required fields can be located at any level within the `decoded`JSON field.   
+All of the following fields are required `latitude`, `longitude`, `altitude`.   
+One or more of the following are required `accuracy`, `hdop`, `sats`.  
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Body Parameters_ 
+
+| Parameter Name | Type      | Description     |
+| -------- | --------- | ---------- |
+| latitude (required)  | _number_ | Device Latitude Value |  
+| longitude (required) | _number_ | Device Longitude Value | 
+| altitude (required) | _number_ | Device Altitude Value | 
+| accuracy (one or more) | _number_ | Device GPS Accuracy Value |
+| sats (one or more) | _number_ | Device Visible Satellites Value (1-16)|
+| hdop (one or more) | _number_ | Device HDOP Value (1-10) |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK  
+Request submission successful
+```
+Success
+```
+
+400: Bad Request  
+Required request parameters not found.
+```
+Invalid Fields
+```
+
+</TabItem>
+</Tabs>

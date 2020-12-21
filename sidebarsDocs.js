@@ -80,7 +80,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Coverage Mapping',
-      items: ['use-the-network/coverage-mapping/mappers-quickstart'],
+      items: ['use-the-network/coverage-mapping/mappers-quickstart', 'use-the-network/coverage-mapping/mappers-data', 'use-the-network/coverage-mapping/mappers-api'],
       collapsed: false,
     },
   ],
