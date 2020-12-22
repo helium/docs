@@ -5,6 +5,9 @@ sidebar_label: Stats
 slug: /blockchain/stats
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Stats
 
 ## Blockchain Stats
@@ -13,7 +16,11 @@ slug: /blockchain/stats
 GET https://api.helium.io/v1/stats
 ```
 
+Retrieve basic stats for the blockchain such as total token supply, and average block and election times over a number of intervals.
+
 #### Response
+
+200: OK
 ```
 {
     "data": {
@@ -89,13 +96,30 @@ GET https://api.helium.io/v1/stats
 GET https://api.helium.io/v1/stats/token_supply
 ```
 
-#### Parameters
+Returns the circulating token supply in either JSON or raw form. 
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_ 
 
 | param | Type      | Note     |
 | -------- | --------- | ---------- |
-| format  | _String_ | specify `raw` to get a raw number, otherwise returns json |
+| format (optional)  | _string_ | specify `raw` to get a raw number, otherwise returns json |
 
-#### Response(raw)
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+RAWN form of the result when called with /v1/stats/token_supply?format=raw
+
 ```
 49450470.73544278
 ```
+
+</TabItem>
+</Tabs>
