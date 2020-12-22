@@ -4,7 +4,7 @@ module.exports = {
         {
       type: 'category',
       label: 'Blockchain',
-      items: ['blockchain/introduction', 'blockchain/stats'],
+      items: ['blockchain/introduction', 'blockchain/stats', 'blockchain/blocks'],
       collapsed: true,
     },
     'console',
