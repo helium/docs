@@ -18,10 +18,19 @@ GET https://api.helium.io/v1/stats
 
 Retrieve basic stats for the blockchain such as total token supply, and average block and election times over a number of intervals.
 
-#### Response
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_No Parameters_
+
+</TabItem>
+<TabItem value="response">
 
 200: OK
-```
+```json
 {
     "data": {
         "token_supply": 43665725.1302733,
@@ -90,6 +99,11 @@ Retrieve basic stats for the blockchain such as total token supply, and average 
 }
 ```
 
+</TabItem>
+</Tabs>
+
+---
+
 ## Token Supply
 
 ```
@@ -115,9 +129,9 @@ _Path Parameters_
 
 200: OK
 
-RAWN form of the result when called with /v1/stats/token_supply?format=raw
+RAWN form of the result when called with `/v1/stats/token_supply?format=raw`
 
-```
+```json
 49450470.73544278
 ```
 
