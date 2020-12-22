@@ -63,12 +63,62 @@ field. The original decoder can be found from the manufacture's website
 To start, navigate to the Functions page using the left navigation and then
 click _Create New Function_.
 
-1. Enter a name for the decoder, we've used _Dragino LGT92 Decoder_, select the
+1. Enter a name for the decoder (below we've used _Dragino LGT92 Decoder_), select the 
    type of Function, _Decoder_ in this case, and finally select _Custom Script_
    from the drop down.
-2. Copy and paste the complete decoder function provided by the manufacture
+2. Copy and paste the complete decoder function provided by the manufacturer
    found
-   [here](https://www.dragino.com/downloads/downloads/LGT_92/Decoder/LGT92-v1.5.0_decoder_20191129.txt).
+   [here](https://www.dragino.com/downloads/downloads/LGT_92/Decoder/LGT92-v1.5.0_decoder_20191129.txt) or below.
+
+   ```javascript
+   function Decoder(bytes, port) {
+    return {
+      // GPS coordinates; signed 32 bits integer, MSB; unit: Â°
+      // When power is low (<2.84v), GPS wonâ€™t be able to get location
+      // info and GPS feature will be disabled and the location field
+      // will be filled with 0x0FFFFFFF, 0x0FFFFFFF. 
+    
+      Latitude: 
+        (bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3]) / 1000000,
+      
+      Longitude:
+        (bytes[4]<<24 | bytes[5]<<16 | bytes[6]<<8 | bytes[7]) / 1000000,
+
+      // Alarm status: boolean
+      ALARM_status: (bytes[8] & 0x40) > 0,
+
+      // Battery; 14 bits; unit: V
+      BatV: ((bytes[8] & 0x3f)<<8 | bytes[9]) / 1000,
+
+      // Motion detection mode; 2 bits
+      MD: {
+        "0": "Disable",
+        "1": "Move",
+        "2": "Collide",
+        "3": "Custom"
+      }[bytes[10]>>6],
+
+      // LED status for position, uplink and downlink; 1 bit
+      LON: (bytes[10] & 0x20) ? "ON" : "OFF",
+
+      // Firmware version; 5 bits 
+      FW:150+(bytes[10] & 0x1f),
+
+      // Roll; signed 16 bits integer, MSB; unit: Â°
+
+      // Sign-extend to 32 bits to support negative values: shift 16 bytes
+
+      // too far to the left, followed by sign-propagating right shift
+
+      Roll: (bytes[11]<<24>>16 | bytes[12]) / 100,
+
+      // Pitch: signed 16 bits integer, MSB, unit: Â°
+
+      Pitch: (bytes[13]<<24>>16 | bytes[14]) / 100,
+    };
+  }
+  ```  
+  
    Next we need to add two more fields that are required by the Mappers API but
    missing from the function, you'll see these at the bottom of the editor
    window in the screen shot below. Altitude is permanently set to zero because
@@ -76,7 +126,7 @@ click _Create New Function_.
    be used at ground level. Accuracy is set to three meters since this device
    does not output a measure of accuracy and this is a reasonable measure of
    precision to be expected for this device. Find more details on the API
-   specification here.
+   specification [here](./mappers-api).
 3. Next search for and add the _Mappers Integration_ label we created with the
    integration.
 4. Finally save your function.
