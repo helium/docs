@@ -71,6 +71,19 @@ module.exports = {
       collapsed: false,
     },
   ],
+  coveragemapping: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/docs/use-the-network/coverage-mapping'
+    }, 
+    {
+      type: 'category',
+      label: 'Coverage Mapping',
+      items: ['use-the-network/coverage-mapping/mappers-quickstart', 'use-the-network/coverage-mapping/mappers-data', 'use-the-network/coverage-mapping/mappers-api', 'use-the-network/coverage-mapping/adeunis-mapper'],
+      collapsed: false,
+    },
+  ],
   readyToUse: [
    {
       type: 'link',
