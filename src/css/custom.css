@@ -7,14 +7,18 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #272c31;
-  --ifm-color-primary-dark: #171717;
-  --ifm-color-primary-darker: #161616;
-  --ifm-color-primary-darkest: #121212;
-  --ifm-color-primary-light: #1d1d1d;
-  --ifm-color-primary-lighter: #1e1e1e;
-  --ifm-color-primary-lightest: #222222;
+  --ifm-color-primary: #474cfe;
+  --ifm-color-primary-dark: #272dfe;
+  --ifm-color-primary-darker: #171dfe;
+  --ifm-color-primary-darkest: #0107e2;
+  --ifm-color-primary-light: #676bfe;
+  --ifm-color-primary-lighter: #777bfe;
+  --ifm-color-primary-lightest: #a8aaff;
   --ifm-code-font-size: 95%;
+}
+
+.react-toggle-track {
+  background-color: rgba(0,0,0,0.2) !important;
 }
 
 .docusaurus-highlight-code-line {
@@ -23,6 +27,24 @@
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
 }
+
+html[data-theme='light'] {
+  --ifm-background-color: #fff;
+  --ifm-table-stripe-background: #F6F7FE;
+  --ifm-menu-color-background-active: #F6F7FE ;
+  --ifm-menu-color-background-hover: #F6F7FE ;
+
+}
+.react-toggle .react-toggle-thumb, .react-toggle--checked .react-toggle-thumb {
+    border-color: #fff !important;
+  }
+
+html[data-theme='dark'] {
+  --ifm-background-color: #13162E;
+
+}
+
+
 
 .header-github-link:hover {
   opacity: 0.6;
