@@ -5,8 +5,9 @@ sidebar_label: Proof of Coverage
 slug: /blockchain/proof-of-coverage
 ---
 
+# Proof of Coverage
 
-The Helium blockchain uses a novel work algorithm called “Proof-of-Coverage”
+The Helium blockchain uses a novel work algorithm called “Proof of Coverage”
 (PoC) to verify that Hotspots are located where they claim. Put another way, PoC
 tries to verify, on an ongoing basis, that Hotspots are honestly representing
 their location and the wireless network coverage they are creating from that
@@ -14,12 +15,12 @@ location.
 
 **See Proof of Coverage in Action**
 
-The Helium Network Explorer is the best resources for viewing POC-related data.
+The [Helium Network Explorer](https://network.helium.com) is the best resources for viewing POC-related data.
 Before you dive into the POC internals, here are a few POC Challenges to help
 you visualize how this works:
 
--
--
+- [Cheesy Brick Mustang from block 641265](https://explorer.helium.com/txns/qmJF48v8ZlEfsPg_7jc2CrsLlOvgC7w-pvB_BWQAoOk)
+- [Plain Mocha Mouse from block 643923](https://explorer.helium.com/txns/kQVfUV88j3s1Glj4fRXFb5MqBeFdTq8ILK2RlaFTnvQ)
 
 ## Why Proof of Coverage?
 
@@ -44,41 +45,92 @@ coverage provided by Hotspots on the Network.
 
 ## Proof of Coverage Challenges
 
-### Beacons
+The "challenge" is the discrete unit of work for Proof of Coverage. To date, there 
+have been 10s of millions of challenges issued and processed by the Helium blockchain. 
+With each new challenge, the blockchain records more data about the quality of the network. 
+Let's take a look at how challenges actually happen. 
 
-When a Hotspot first joins the Network, it is not known to its neighbors and
-therefore won't appear in any witness lists. And withtout being in any witness
-lists, it will not be included in any POC Challenges.
+### Hotspot Roles
 
-### Witnesses
+POC Challenges involve three distinct roles:
 
-### Challengers
-
-## POC Chain Variables
-
-Much of Proof of Coverage is controlled by blockchain chain variables. 
-
-
-## POCv10 Pass / Fail Parameters
-
-Proof of Coverage is constantly being modified and updated by the community of
-Helium developers to adapt to the changing needs of the Network. The latest
-version of Proof of Coverage to be deployed is POCv10. As if POCv10, the Network
-is using the following parameters to verify a valid witnesses and challengees.
-
-## POC-related HIPs
-
-The HIP system (Helium Improvement Proposals) is the primary mechanism for how
-POC gets modified and updated over time. The following is a list of HIPs related
-to POC that have been approved by the community and implemented.
-
-| HIP Number | Description         | Date Approved | Date Deployed  |
-| :--------- | :------------------ | :------------ | :------------- |
-| 01         | Here's a cool thing | Number        | Another Number |
-| 02         | Here's a cool thing | Number        | Another Number |
+1. **Challenger** - The Hotspot that constructs and issues the POC Challenge. Hotspots issue
+challenges approximately once per every 240 blocks. **
+2. **Transmitter** - Sometimes called "Challengee". This Hotspot is the target of the POC 
+challenge and is responsible for transmitting (or "beaconing") challenge packets to potentially be witnesses by 
+geographically proximate Hotspots.
+3. ** Witness** - Hotspots that are geographically proximate to the Transmitter and report the existence of the 
+challenge packet after it has been transmitted. 
 
 
+### Challenge Proof Construction and Target Selection
+
+As noted above, Hotspot are currently allowed to submit a challenge proof roughly once per 
+240 blocks. They do this reliably [to earn the portion of HNT rewards allocated to challengers](/docs/blockchain/mining). 
+The Challenger first generates an ephemeral public/private key pair to be used in the challenge. 
+A SHA256 digest of the public key and the SHA256 digest of the private key are both submitted, 
+along with the current block hash, as a PoC request. If the request is valid and accepted by the 
+blockchain, the hash of the block that the receipt appears in is combined with the hash of the 
+ephemeral public key and the challenger's identity to generate verifiable entropy. A uniform random 
+number generated via this entropy is then used to select the target from all Hotspots on the Network.
+
+After the the challenge packet created it is then delivered to the transmitter via the Helium Peer-to-Peer Network. 
+The target receives the challenge packet, decrypts the outermost layer using its private key and the ephemeral public 
+key for this challenge (this ephemeral public key appears in the PoC packet and the receiving Hotspot can inspect 
+the blockchain for an active PoC receipt with the corresponding SHA256 of the ephemeral key), and immediately 
+transmits the resultant packet to the Helium Network. Any number proximate geographic Hotspots will hear it and will Witness the packet.
+
+### Witnesses 
+
+As of [HIP 15](https://github.com/helium/HIP/blob/master/0015-beaconing-rewards.md), Proof of Coverage 
+relies entirely on beaconing. A beacon is a single transmission witnesses by any Hotspot. Previous 
+versions uses multi-hop challenge paths that didn't accurately test Hotspots on what they are built to do: 
+capture RF packets.
+
+After a Transmitter receives the challenge, it will beacon the challenge packet. There is no
+intended recipient of this packet, and any Hotspot that is geographically proximate to the transmitter 
+is eligible to witness it and report back to the blockchain. After a Hotspots witnesses a beacon from a 
+transmitter, it will submit this as part of the POC Challenge receipt that gets assembled and submitted
+to the blockchain by the POC Challenger.
+
+### POC Reward Scaling
+
+For every epoch, each [reward type](/docs/blockchain/mining) is split amongst Hotspots who had a role in that reward pool. 
+For example, if your Hotspot was challenged during an epoch, it will be eligible to a portion of the 5.31% of rewards that 
+go to PoC Transmitters. A practical way of thinking about this is that a Hotspot might earn a "reward unit" for succeeding at a challenge. 
+If five additional Hotspots succeeded at a challenge during the epoch and each of them also earned a "reward unit", 
+then each Hotspot gets 1/6th of the 5.31% of rewards in that epoch. 
+
+With the activation of [HIP15](https://github.com/helium/HIP/blob/master/0015-beaconing-rewards.md) and 
+[HIP17](https://github.com/helium/HIP/blob/master/0017-hex-density-based-transmit-reward-scaling.md), we introduced 
+the idea of scaling these "reward units", so the units earned when being witnessed or witnessing a packet scale 
+depending on two things: 
+
+1. The number of witnesses, detailed in HIP15 
+2. The number of Hotspots in the hex tile of the transmitter, detailed in HIP17
+
+The HIPs themselves provide a rich explanation of these mechanisms, so you're encouraged to read those, but they can be summarized as follows: 
+
+**From HIP15** 
+* For the Transmitters, the more witnesses, the more the Transmitter earns;
+* For the Witness, each additional witness past a total of four reduces what 
+is earned by each witness in that challenge.
+
+**From HIP17** 
+* The Witness earns less if the number of Hotspots in the area of the Transmitter exceeds the "target density".
+Target density varies by hex resolution, as detailed in the HIP and defined in several chain variables.
 
 
 
-## POC FAQ
+### Verifying the Proof
+
+Once the Challenger has the complete set of receipts from the POC Witnesses and Transmitter, or the elapsed time since 
+the challenge was issued has passed the upper time bound, the POC Challenge is considered complete. At this point, the 
+Challenger then submits the proof receipt as a transaction to the blockchain to be verified by the current consensus group. 
+Because the steps taken by the Challenger to construct and complete the proof are deterministic and easily reproduced, 
+members of the consensus group can verify the legitimacy of the proof. Specifically the Challenger reveals the secret 
+ephemeral key it used for both obtaining the original PoC request and for encrypting each layer of the challenge packet. 
+This crucial information, which has been hidden until the receipt is published, allows the re-creation of the deterministic entropy.
+
+  
+
