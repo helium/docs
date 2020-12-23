@@ -1,16 +1,18 @@
 ---
-id: cities 
+id: cities
 hide_title: true
 sidebar_label: Cities
 slug: /blockchain/cities
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 # Cities
 
-Hotspots are usually clustered in and around cities. The routes in this section help list all cities with their hotspot counts, or list all hotspots for a specific city
+Hotspots are usually clustered in and around cities. The routes in this section
+help list all cities with their hotspot counts, or list all hotspots for a
+specific city
 
 ---
 
@@ -20,7 +22,9 @@ Hotspots are usually clustered in and around cities. The routes in this section 
 GET https://api.helium.io/v1/cities
 ```
 
-List all known hotspot cities with the total hotspot count for each city. Use a search parameter to filter the list of cities with the given search termThis route is paged with a `cursor`. 
+List all known hotspot cities with the total hotspot count for each city. Use a
+search parameter to filter the list of cities with the given search termThis
+route is paged with a `cursor`.
 
 <Tabs
   block={true}
@@ -28,12 +32,12 @@ List all known hotspot cities with the total hotspot count for each city. Use a 
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
 <TabItem value="request">
 
-_Query Parameters_ 
+_Query Parameters_
 
-| param | Type      | Note     |
-| -------- | --------- | ---------- |
-| search (optional)  | _string_ | term to limit the list of cities with |
-| cursor (optional)  | _string_ | Cursor for page to fetch |
+| param             | Type     | Note                                  |
+| ----------------- | -------- | ------------------------------------- |
+| search (optional) | _string_ | term to limit the list of cities with |
+| cursor (optional) | _string_ | Cursor for page to fetch              |
 
 </TabItem>
 <TabItem value="response">
@@ -44,18 +48,18 @@ Lists cities including the word houston in their city, state or country.
 
 ```json
 {
-    "data": [
-        {
-            "city_id": "aG91c3RvbnRleGFzdW5pdGVkIHN0YXRlcw",
-            "hotspot_count": 52,
-            "long_city": "Houston",
-            "long_country": "United States",
-            "long_state": "Texas",
-            "short_city": "Houston",
-            "short_country": "US",
-            "short_state": "TX"
-        }
-    ]
+  "data": [
+    {
+      "city_id": "aG91c3RvbnRleGFzdW5pdGVkIHN0YXRlcw",
+      "hotspot_count": 52,
+      "long_city": "Houston",
+      "long_country": "United States",
+      "long_state": "Texas",
+      "short_city": "Houston",
+      "short_country": "US",
+      "short_state": "TX"
+    }
+  ]
 }
 ```
 
@@ -70,7 +74,9 @@ Lists cities including the word houston in their city, state or country.
 GET https://api.helium.io/v1/cities/:city_id/hotspots
 ```
 
-Lists all known hotspots for a given `city_id`. The `city_id` captures the city, state and country and is included in the city list result.This route is paged with a cursor.
+Lists all known hotspots for a given `city_id`. The `city_id` captures the city,
+state and country and is included in the city list result.This route is paged
+with a cursor.
 
 <Tabs
   block={true}
@@ -78,111 +84,112 @@ Lists all known hotspots for a given `city_id`. The `city_id` captures the city,
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
 <TabItem value="request">
 
-_Query Parameters_ 
+_Query Parameters_
 
-| param | Type      | Note     |
-| -------- | --------- | ---------- |
-| city_id (optional)  | _string_ | The id for the city are returned by the cities list |
-| cursor (optional)  | _string_ | Cursor for the page of results to fetch |
+| param              | Type     | Note                                                |
+| ------------------ | -------- | --------------------------------------------------- |
+| city_id (optional) | _string_ | The id for the city are returned by the cities list |
+| cursor (optional)  | _string_ | Cursor for the page of results to fetch             |
 
 </TabItem>
 <TabItem value="response">
 
 200: OK
 
-The list of hotspots for Montrose, New York, which is city_id `bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM`.
+The list of hotspots for Montrose, New York, which is city_id
+`bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM`.
 
 ```json
 {
-    "data": [
-        {
-            "address": "11C5PW3fe5RmBV7jvdmBJmjH7FjiZ3URAZ5oUj2V9dVsW83a5wU",
-            "block": 403147,
-            "block_added": 356922,
-            "geocode": {
-                "long_city": "Montrose",
-                "long_country": "United States",
-                "long_state": "New York",
-                "long_street": "Dutch Street",
-                "short_city": "Montrose",
-                "short_country": "US",
-                "short_state": "NY",
-                "short_street": "Dutch St",
-                "city_id": "bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM"                
-            },
-            "lat": 41.24450048207128,
-            "lng": -73.93189556758152,
-            "location": "8c2a10c020007ff",
-            "name": "delightful-onyx-swan",
-            "nonce": 1,
-            "owner": "142dmsAe4qVmNxdZJuQiFmpSnB9p6wBkAX78MVza1yNrF4t5R6e",
-            "score": 0.25,
-            "score_update_height": 403138,
-            "status": {
-                "gps": "no_fix",
-                "height": 403025,
-                "online": "online"
-            }
-        },
-        {
-            "address": "112PSCgC7kXWFnKWrczNL6srYKQpg3VdA9iou6FrQW4C1aot5HPc",
-            "block": 403147,
-            "block_added": 355849,
-            "geocode": {
-                "long_city": "Montrose",
-                "long_country": "United States",
-                "long_state": "New York",
-                "long_street": "Sunset Road",
-                "short_city": "Montrose",
-                "short_country": "US",
-                "short_state": "NY",
-                "short_street": "Sunset Rd",
-                "city_id": "bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM"
-            },
-            "lat": 41.24464436633493,
-            "lng": -73.94293581685558,
-            "location": "8c2a10c024e1bff",
-            "name": "wobbly-lipstick-manatee",
-            "nonce": 1,
-            "owner": "142dmsAe4qVmNxdZJuQiFmpSnB9p6wBkAX78MVza1yNrF4t5R6e",
-            "score": 0.25,
-            "score_update_height": 403097,
-            "status": {
-                "gps": "good_fix",
-                "height": 402961,
-                "online": "online"
-            }
-        },
-        {
-            "address": "112Byc2EoL1yB7zyfC9ve2HayLoFf9WLvJdTDtevMsmkfxu9GAA1",
-            "block": 403147,
-            "block_added": 94932,
-            "geocode": {
-                "long_city": "Montrose",
-                "long_country": "United States",
-                "long_state": "New York",
-                "long_street": "Sycamore Court",
-                "short_city": "Montrose",
-                "short_country": "US",
-                "short_state": "NY",
-                "short_street": "Sycamore Ct",
-                "city_id": "bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM"
-            },
-            "lat": 41.24524348318981,
-            "lng": -73.93254191072695,
-            "location": "8c2a10c020337ff",
-            "name": "smooth-cobalt-cougar",
-            "nonce": 1,
-            "owner": "142dmsAe4qVmNxdZJuQiFmpSnB9p6wBkAX78MVza1yNrF4t5R6e",
-            "score": 0.25,
-            "score_update_height": 403117,
-            "status": {
-                "gps": "good_fix",
-                "height": 403026,
-                "online": "online"
-            }
-        }
-    ]
+  "data": [
+    {
+      "address": "11C5PW3fe5RmBV7jvdmBJmjH7FjiZ3URAZ5oUj2V9dVsW83a5wU",
+      "block": 403147,
+      "block_added": 356922,
+      "geocode": {
+        "long_city": "Montrose",
+        "long_country": "United States",
+        "long_state": "New York",
+        "long_street": "Dutch Street",
+        "short_city": "Montrose",
+        "short_country": "US",
+        "short_state": "NY",
+        "short_street": "Dutch St",
+        "city_id": "bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM"
+      },
+      "lat": 41.24450048207128,
+      "lng": -73.93189556758152,
+      "location": "8c2a10c020007ff",
+      "name": "delightful-onyx-swan",
+      "nonce": 1,
+      "owner": "142dmsAe4qVmNxdZJuQiFmpSnB9p6wBkAX78MVza1yNrF4t5R6e",
+      "score": 0.25,
+      "score_update_height": 403138,
+      "status": {
+        "gps": "no_fix",
+        "height": 403025,
+        "online": "online"
+      }
+    },
+    {
+      "address": "112PSCgC7kXWFnKWrczNL6srYKQpg3VdA9iou6FrQW4C1aot5HPc",
+      "block": 403147,
+      "block_added": 355849,
+      "geocode": {
+        "long_city": "Montrose",
+        "long_country": "United States",
+        "long_state": "New York",
+        "long_street": "Sunset Road",
+        "short_city": "Montrose",
+        "short_country": "US",
+        "short_state": "NY",
+        "short_street": "Sunset Rd",
+        "city_id": "bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM"
+      },
+      "lat": 41.24464436633493,
+      "lng": -73.94293581685558,
+      "location": "8c2a10c024e1bff",
+      "name": "wobbly-lipstick-manatee",
+      "nonce": 1,
+      "owner": "142dmsAe4qVmNxdZJuQiFmpSnB9p6wBkAX78MVza1yNrF4t5R6e",
+      "score": 0.25,
+      "score_update_height": 403097,
+      "status": {
+        "gps": "good_fix",
+        "height": 402961,
+        "online": "online"
+      }
+    },
+    {
+      "address": "112Byc2EoL1yB7zyfC9ve2HayLoFf9WLvJdTDtevMsmkfxu9GAA1",
+      "block": 403147,
+      "block_added": 94932,
+      "geocode": {
+        "long_city": "Montrose",
+        "long_country": "United States",
+        "long_state": "New York",
+        "long_street": "Sycamore Court",
+        "short_city": "Montrose",
+        "short_country": "US",
+        "short_state": "NY",
+        "short_street": "Sycamore Ct",
+        "city_id": "bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM"
+      },
+      "lat": 41.24524348318981,
+      "lng": -73.93254191072695,
+      "location": "8c2a10c020337ff",
+      "name": "smooth-cobalt-cougar",
+      "nonce": 1,
+      "owner": "142dmsAe4qVmNxdZJuQiFmpSnB9p6wBkAX78MVza1yNrF4t5R6e",
+      "score": 0.25,
+      "score_update_height": 403117,
+      "status": {
+        "gps": "good_fix",
+        "height": 403026,
+        "online": "online"
+      }
+    }
+  ]
 }
 ```
 
