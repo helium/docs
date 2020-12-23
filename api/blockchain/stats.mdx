@@ -36,70 +36,86 @@ _No Parameters_
 
 ```json
 {
-  "data": {
-    "token_supply": 43665725.1302733,
-    "state_channel_counts": {
-      "last_week": {
-        "num_packets": 2473044,
-        "num_dcs": 5637970
-      },
-      "last_month": {
-        "num_packets": 8054070,
-        "num_dcs": 19274712
-      },
-      "last_day": {
-        "num_packets": 236788,
-        "num_dcs": 547374
-      }
-    },
-    "election_times": {
-      "last_week": {
-        "stddev": 534.822542840926,
-        "avg": 2144.7836879432625
-      },
-      "last_month": {
-        "stddev": 543.816093344539,
-        "avg": 2154
-      },
-      "last_hour": {
-        "stddev": 42.42640687119285,
-        "avg": 1882
-      },
-      "last_day": {
-        "stddev": 859.488237284275,
-        "avg": 2323.4324324324325
-      }
-    },
-    "counts": {
-      "transactions": 19449205,
-      "hotspots": 4460,
-      "consensus_groups": 11210,
-      "challenges": 6970742,
-      "blocks": 435217
-    },
-    "challenge_counts": {
-      "last_day": 44551,
-      "active": 1375
-    },
-    "block_times": {
-      "last_week": {
-        "stddev": 37.35119910969945,
-        "avg": 59.48209718670077
-      },
-      "last_month": {
-        "stddev": 39.13551465750347,
-        "avg": 59.71646467904705
-      },
-      "last_hour": {
-        "stddev": 13.222930902010502,
-        "avg": 57.40983606557377
-      },
-      "last_day": {
-        "stddev": 54.591247837179495,
-        "avg": 61.43274021352313
-      }
+    "data": {
+        "block_times": {
+            "last_day": {
+                "avg": 70.45921696574226,
+                "stddev": 68.83988201467606
+            },
+            "last_hour": {
+                "avg": 66.16666666666667,
+                "stddev": 4.492131485499826
+            },
+            "last_month": {
+                "avg": 58.57145439754135,
+                "stddev": 54.42394685110655
+            },
+            "last_week": {
+                "avg": 66.77767965559113,
+                "stddev": 78.40328359329104
+            }
+        },
+        "challenge_counts": {
+            "active": 3226,
+            "last_day": 33084
+        },
+        "counts": {
+            "blocks": 644074,
+            "challenges": 14189829,
+            "cities": 2458,
+            "consensus_groups": 16884,
+            "countries": 55,
+            "hotspots": 14402,
+            "transactions": 37813658
+        },
+        "election_times": {
+            "last_day": {
+                "avg": 2981.2413793103447,
+                "stddev": 1693.238289178722
+            },
+            "last_hour": {
+                "avg": 1997.0,
+                "stddev": null
+            },
+            "last_month": {
+                "avg": 2247.3307291666665,
+                "stddev": 821.206067231938
+            },
+            "last_week": {
+                "avg": 2608.6293103448274,
+                "stddev": 1048.715520504349
+            }
+        },
+        "fees": {
+            "last_day": {
+                "staking": 611000000,
+                "transaction": 35090000
+            },
+            "last_month": {
+                "staking": 9306000000,
+                "transaction": 703230000
+            },
+            "last_week": {
+                "staking": 2775000000,
+                "transaction": 196880000
+            }
+        },
+        "state_channel_counts": {
+            "last_day": {
+                "num_dcs": 3160324,
+                "num_packets": 532567
+            },
+            "last_month": {
+                "num_dcs": 100340091,
+                "num_packets": 16827145
+            },
+            "last_week": {
+                "num_dcs": 23064634,
+                "num_packets": 3876268
+            }
+        },
+        "token_supply": 66042860.58752121
     }
-  }
 }
 ```
 
@@ -122,7 +138,7 @@ Returns the circulating token supply in either JSON or raw form.
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
 <TabItem value="request">
 
-_Path Parameters_
+_Query Parameters_
 
 | param             | Type     | Note                                                      |
 | ----------------- | -------- | --------------------------------------------------------- |
@@ -133,7 +149,7 @@ _Path Parameters_
 
 200: OK
 
-RAWN form of the result when called with `/v1/stats/token_supply?format=raw`
+RAW form of the result when called with `/v1/stats/token_supply?format=raw`
 
 ```json
 49450470.73544278
