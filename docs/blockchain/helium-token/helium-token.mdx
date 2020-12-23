@@ -13,21 +13,21 @@ at 09:43PM UTC as part of the genesis block that was mined with the Helium
 Network launch. Prior to this date, there was no premine of `HNT`.
 
 :::info
-For statistics on $HNT, [see the Market section on the Helium Explorer](https://explorer.helium.com/market).
+For statistics on HNT, [see the Market section on the Helium Explorer](https://explorer.helium.com/market).
 :::
 
 ## Helium Token Usage
 
-The Helium Token is designed to serve the needs of the two primary parties of
+The Helium Token is designed to serve the needs of the two primary parties in
 the Helium blockchain ecosystem:
 
 1. **Hotspot Hosts and Network Operators**. Host
    [mine HNT](/docs/blockchain/mining) while deploying and maintaining network
    coverage.
 2. **Enterprises and developers using the Helium Network** to connect devices
-   and build applications. Data Credits, which are a $USD-pegged utility token
+   and build IoT applications. Data Credits, which are a $USD-pegged utility token
    derived from HNT in a burn transaction,
-   [are used pay transaction fees](/docs/blockchain/transaction-fees) for the
+   [are used pay transaction fees](/docs/blockchain/transaction-fees) for wireless
    data transmissions on the network (in addition to things like adding Hotspots
    and sending).
 
@@ -51,7 +51,7 @@ schedule.
 :::info
 In the below issuance schedule, year 1 starts on **August 1, 2020**.
 Therefore the first halving will happen on day one of year three, which is
-**August 1, 2022**.  
+**August 1, 2021**.  
 :::
 
 | Year | HNT at start of year | Total HNT Minted |
@@ -108,28 +108,28 @@ Therefore the first halving will happen on day one of year three, which is
 | 50   | 239,999,989          | 3.6              |
 
 :::important
-While the above schedule will states approximately `240,000,000`
+While the above schedule states approximately `240,000,000`
 HNT will be produced, year one of the blockchain only produced around
 `43,000,000` of the target `60,000,000` due to some slow block times. So the
 actual maximum supply is `223,000,000` HNT.
 :::
 
-### Data Credits and Burn and Mint
+### Data Credits and Burn-and-Mint Economics
 
 As noted above, **Data Credits** are a $USD-pegged utility token derived from
 HNT in a burn transaction and used to pay
 [all transaction fees](/docs/blockchain/transaction-fees) on the Helium Network.
 One Data Credit will always cost `$0.00001`. Or, `$1.00` will always buy you
 `100,000` Data Credits. But, as noted above, Data Credits are produced by
-burning $HNT. And the market price of HNT will of course fluctuate.
+burning HNT. And the market price of HNT will of course fluctuate.
 
 This HNT to DC relationship is based on a design commonly called a
-“[burn and mint equilibrium](https://multicoin.capital/2018/02/13/new-models-utility-tokens/)”
+[burn and mint equilibrium](https://multicoin.capital/2018/02/13/new-models-utility-tokens/)
 and is intended to allow for the supply of HNT to respond to network usage
 trends such that, when equilibrium is found, the amount of HNT that exists
 remains static month on month. (Helium borrowed heavily from Factom’s usage of
 this design though other blockchains have also used it.) The amount of Data
-Credits produced by burning $HNT will move up and down based on the $USD price
+Credits produced by burning HNT will move up and down based on the USD price
 of HNT as reported by the [HNT Oracles](/docs/blockchain/oracles). Let's look at
 a few examples of how this works on-chain.
 
@@ -142,7 +142,8 @@ a few examples of how this works on-chain.
 **Example 2**
 
 A Helium Network user requires `50,000` DCs per month to send data for their
-fleet of Helium-connected Mouse traps. To acquire these 50,000 DCs per month,
+fleet of Helium-connected mouse traps. (Yes, these actually exist, and they are 
+glorious.) To acquire these 50,000 DCs per month,
 they would burn .5 HNT using the following math:
 
 - Again, the price of DC is `$.00001`
@@ -152,9 +153,14 @@ they would burn .5 HNT using the following math:
 :::important
 Once burned, DCs are owned by the Helium wallet specified in the
 burn transaction. They are non-transferrable and can only be used by the wallet
-owner. :::
+owner. 
+:::
 
 ### Net Emissions
+
+:::info
+Though Net Emissions was introduced as part of HIP 20, it has not yet been activated on chain.
+:::
 
 At this point, the astute reader might be asking themselves the following
 question:
@@ -164,14 +170,23 @@ question:
 
 **Yes.** This is where the idea of Net Emissions comes in. Along with with Max
 Supply, [HIP 20](https://github.com/helium/HIP/issues/73) also introduced the
-idea of Net Emissions. The
-[complete Net Emissions discussion in the HIP](https://github.com/helium/HIP/blob/master/0020-hnt-max-supply.md#net-emissions)
+idea of Net Emissions. Net Emissions give the protocol enough HNT to reward consensus 
+group members and Hotspots in perpetuity. 
+
+The [complete Net Emissions discussion in the HIP](https://github.com/helium/HIP/blob/master/0020-hnt-max-supply.md#net-emissions)
 is the best resource on this, but we'll provide a quick summary here:
 
-- In its simplest implementation, the blockchain would monitor how many HNT were
-  burnt for Data Credits that epoch and adds them to the number of HNT to be
-  minted that epoch. So in this simple implementation, if 10 HNT were burned for
-  Data Credits in an epoch, the system would mint 3,434 HNT instead of 3,424
-  HNT.
--
--
+- Using Net Emissions, the blockchain would monitor how many HNT were
+  burnt for Data Credits in a given epoch and add them to the number of HNT to be
+  minted that epoch. For example, if 10 HNT were burned for
+  Data Credits in an epoch, the system would mint 10 more HNT than were expected in 
+  that given epoch. 
+- Because HNT produced via Net Emissions do not add to the total outstanding, they
+  do not violate max supply. 
+- However, Net Emissions would counteract the desired, deflationary effect of Burn and
+  Mint. If the system replaces all the HNT that are burned to create Data Credits, there
+  is no resulting reduction of supply. 
+- Because of this, when implemented, there will be a cap on the number of HNT 
+  that can be created via Net Emissions per epoch. When the HNT burned for DCs exceeds 
+  this cap, there will be a reduction in supply.  
+
