@@ -341,6 +341,37 @@ Another fun tidbit: for production hotspots sold by Helium, the swarm key is
 stored inside of a secure element and is thus unable to be migrated \(or
 compromised/accidentally lost unless physically damaged\).
 
+#### Backing up the Blockchain with Snapshots
+
+Snapshots are summaries of the current state of the blockchain. Since you don't
+need every single block ever to sync with the blockchain, it's really just a
+summary of the last few blocks and the account balance of every account on the
+blockchain. You generally want to be careful who you accept snapshots as they
+might give you an incorrect state. When managing miners though, snapshots can
+really help in syncing one up that's stalled or if you need to migrate from one
+machine to another.
+
+The process is pretty straightforward. To take a snapshot:
+
+```
+miner snapshot take /path/to/snapshot
+```
+
+Naming the snapshot something like `snap-XXXXXX`, where `XXXXXX` is the height
+of the blockchain is a nice convention. Also, when using a Docker, it's usually
+a good idea to save the snapshot to `/var/data` so that you can easily copy the
+snapshot out of the Docker and into the host system.
+
+Loading the snapshot is as follows:
+
+```
+miner snapshot load /path/to/snapshot
+```
+
+Sometimes the load command times out. If so, try to tail the logs and see if
+blocks are being applied. It's working just fine! It just needs a moment to
+finish loading the snapshot.
+
 #### Providing Coverage
 
 While participating in libp2p is helpful for the network, the Helium Blockchain
