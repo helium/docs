@@ -5,11 +5,19 @@
 Documentation for the Helium network.
 
 ## Requirements
+<<<<<<< HEAD
 
 - [Node.js](https://nodejs.org/en/download) version >= 10.15.1
 
 - [Yarn](https://classic.yarnpkg.com/en/docs/install) version >= 1.5
 
+=======
+
+- [Node.js](https://nodejs.org/en/download) version >= 10.15.1
+
+- [Yarn](https://classic.yarnpkg.com/en/docs/install) version >= 1.5
+
+>>>>>>> staging
 ## Installation
 
 ```
@@ -62,10 +70,10 @@ readability of the raw markdown and makes common links reusable in the same doc.
 
 Abbreviated Links Example:  
 If you would like to link to the development devices introduction page found at
-`/docs/use-the-network/devices/development`, use
+`/use-the-network/devices/development`, use
 `[development devices][devices.development]` inline with your text content.
 Next, create the link to the full path at the very bottom of the doc markdown
-like this `[devices.development]: /docs/use-the-network/devices/development`.
+like this `[devices.development]: /use-the-network/devices/development`.
 
 ## Adding Images
 

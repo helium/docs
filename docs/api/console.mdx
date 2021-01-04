@@ -1,0 +1,417 @@
+---
+id: console
+hide_title: true
+sidebar_label: Console
+slug: /api/console
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+## Console API
+
+The Console API is a set of HTTP Request that allows you to programatically
+interact with Console. It's the lowest level building block and is ideal for
+integrating with back-end services, for example.
+
+### Base URL
+
+```
+https://console.helium.com/api
+```
+
+### Authentication
+
+All Console API requests require an API Key which provides access to devices
+owned by the **organization** which owns the device. Devices are never
+associated to a single user, but instead to an organization.
+
+To create an account key, go to your
+[profile](https://console.helium.com/profile) on Helium Console. From the top
+right corner, click: `Account -> Profile`.
+
+From there, you may generate a key for your organization. _The key will only
+display once._
+
+**You must confirm the API key** creation by clicking a link that is emailed to
+the account that created the API key.
+
+From then on, you will want to include the API key in all of your API requests.
+You do this by placing your API key in an HTTP header field called "key.
+
+---
+
+### Devices List
+
+```
+GET https://console.helium.com/api/v1/devices
+```
+
+##### Response
+
+200: OK
+
+```json
+[
+    Device {
+        app_eui: "70B3D57ED0008E64",
+        app_key: "30EACA8A2CAF0C5315D0E4A1B7F7B55B",
+        dev_eui: "008000000401261D",
+        id: "747246dd-d9b6-4e68-96c1-2c489ab33280",
+        name: "Basement Temp",
+        organization_id: "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
+        oui: 1,
+    },
+    Device {
+        app_eui: "CE1BAF8A8824FD1D",
+        app_key: "2A37E7FACF2F0B7833413E9F8988C4EF",
+        dev_eui: "9C069EEE66D3ABCD",
+        id: "916fc471-87f1-43a8-939e-c36589f33232",
+        name: "Water Level North",
+        organization_id: "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
+        oui: 1,
+    },
+]
+```
+
+---
+
+### Devices by AppEui, AppKey, DevEui
+
+```
+GET https://console.helium.com/api/v1/devices?app_eui={app_eui}&app_key={app_key}&dev_eui={dev_eui}
+```
+
+Returns a device descriptor if device is found.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| Parameter Name     | Type     | Description                                                                                           |
+| ------------------ | -------- | ----------------------------------------------------------------------------------------------------- |
+| dev_eui (required) | _string_ | LoRaWAN Device EUI uniquely identifies a device                                                       |
+| app_eui (required) | _string_ | LoRaWAN App EUI uniquely identifies the application of the device                                     |
+| app_key (required) | _string_ | LoRaWAN App Key is a shared secret key which is used to derive secure sessions via the Join mechanism |
+
+</TabItem>
+<TabItem value="response">
+
+```json
+Device {
+    app_eui: "70B3D57ED0008E64",
+    app_key: "30EACA8A2CAF0C5315D0E4A1B7F7B55B",
+    dev_eui: "008000000401261D",
+    id: "747246dd-d9b6-4e68-96c1-2c489ab33280",
+    name: "Basement Temp",
+    organization_id: "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
+    oui: 1,
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Device by UUID
+
+```
+GET https://console.helium.com/api/v1/devices/:device_id
+```
+
+Returns a device descriptor if device is found..
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| Parameter Name | Type     | Description        |
+| -------------- | -------- | ------------------ |
+| id (required)  | _string_ | UUID of the device |
+
+</TabItem>
+<TabItem value="response">
+
+```json
+Device {
+    app_eui: "70B3D57ED0008E64",
+    app_key: "30EACA8A2CAF0C5315D0E4A1B7F7B55B",
+    dev_eui: "008000000401261D",
+    id: "747246dd-d9b6-4e68-96c1-2c489ab33280",
+    name: "Basement Temp",
+    organization_id: "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
+    oui: 1,
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Create Device
+
+```
+POST https://console.helium.com/api/v1/devices
+```
+
+Creates a device with corresponding name, Application EUI, Application Key, and
+Device EUI.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Body Parameters_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| name (required)    | _string_ | A human-friendly name for the device |
+| app_eui (required) | _string_ | LoRaWAN Application EUI              |
+| app_key (required) | _string_ | LoRaWAN Application Key              |
+| dev_eui (required) | _string_ | LoRaWAN Device EUI                   |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```
+
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Delete Device by UUID
+
+```
+DELETE https://console.helium.com/api/v1/devices/:id
+```
+
+Deletes device record by UUID.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| Parameter Name | Type     | Description                      |
+| -------------- | -------- | -------------------------------- |
+| id (required)  | _string_ | UUID of the device to be deleted |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```
+Device deleted
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Labels
+
+```
+GET https://console.helium.com/api/v1/labels
+```
+
+Returns a list of label descriptors associated with the organization.
+
+##### Response
+
+200: OK
+
+```json
+[
+    Label {
+        id: "20515fce-2f7c-4025-8841-4be47cb9ec3c",
+        name: "Test LoRaWAN",
+    },
+    Label {
+        id: "d20d5d32-f699-40a7-a5a7-b9a49dfe2b4a",
+        name: "AWS",
+    },
+    Label {
+        id: "a332bb1e-888e-43d9-ad38-f4043fff791f",
+        name: "RequestBinDownlink",
+    },
+    Label {
+        id: "19bee2e7-b222-461f-a271-15b3c52d5532",
+        name: "MQTT-Test",
+    },
+]
+```
+
+---
+
+### Create Label
+
+```
+POST https://console.helium.com/api/v1/labels
+```
+
+Create a new label with the given name.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Body Parameters_
+
+| Parameter Name  | Type     | Description                 |
+| --------------- | -------- | --------------------------- |
+| name (required) | _string_ | A unique name for the label |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+Label {
+    id: "868ea783-f252-4fc4-b724-a155680c0bc9",
+    name: "Blue Label",
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Delete Label
+
+```
+DELETE https://console.helium.com/api/v1/labels/:label_id
+```
+
+Delete a device label, along with all of its device links.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Body Parameters_
+
+| Parameter Name      | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| label_id (required) | _string_ | The UUID of the label to be deleted |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+Label {
+    id: "868ea783-f252-4fc4-b724-a155680c0bc9",
+    name: "Blue Label",
+}
+```
+
+404: Not Found
+
+```json
+{ "errors": { "error": ["Label not found"] } }
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Add Device Label
+
+```
+POST  https://console.helium.com/api/v1/devices/:device_id/labels
+```
+
+Add Device to Label
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| Parameter Name       | Type     | Description    |
+| -------------------- | -------- | -------------- |
+| device_id (required) | _string_ | UUID of device |
+
+_Body Parameters_
+
+| Parameter Name   | Type     | Description   |
+| ---------------- | -------- | ------------- |
+| label (required) | _string_ | UUID of label |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+Device added to label successfully
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Remove Device Label
+
+```
+DELETE  https://console.helium.com/api/v1/devices/:device_id/labels
+```
+
+Add Device to Label
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| Parameter Name       | Type     | Description    |
+| -------------------- | -------- | -------------- |
+| device_id (required) | _string_ | UUID of device |
+| label_id (required)  | _string_ | UUID of label  |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+Device removed from label successfully
+```
+
+</TabItem>
+</Tabs>

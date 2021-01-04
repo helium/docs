@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Helium Documentation',
   tagline: 'Documentation for the Helium Network',
-  url: 'https://helium-docs.herokuapp.com',
+  url: 'https://docs.helium.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon/favicon.ico',
@@ -35,7 +35,7 @@ module.exports = {
           'aria-label': 'GitHub repository',
         },
         {
-          to: 'docs',
+          to: '/',
           label: 'Docs',
           position: 'left',
           activeBaseRegex: `docs`,
@@ -59,7 +59,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebarsDocs.js'),
-          routeBasePath: 'docs',
+          routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
             'https://github.com/helium/docs/edit/staging',
@@ -71,15 +71,5 @@ module.exports = {
     ],
   ],
   plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'api',
-        path: 'api',
-        editUrl: 'https://github.com/helium/docs/edit/staging',
-        routeBasePath: 'api',
-        sidebarPath: require.resolve('./sidebarsAPI.js'),
-      },
-    ],
   ],
 };
