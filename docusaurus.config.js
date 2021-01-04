@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Helium Documentation',
   tagline: 'Documentation for the Helium Network',
-  url: 'https://helium-docs.herokuapp.com',
+  url: 'https://docs.helium.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon/favicon.ico',
