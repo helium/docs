@@ -71,15 +71,5 @@ module.exports = {
     ],
   ],
   plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'api',
-        path: 'api',
-        editUrl: 'https://github.com/helium/docs/edit/staging',
-        routeBasePath: 'api',
-        sidebarPath: require.resolve('./sidebarsAPI.js'),
-      },
-    ],
   ],
 };
