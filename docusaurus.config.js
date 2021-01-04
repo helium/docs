@@ -35,7 +35,7 @@ module.exports = {
           'aria-label': 'GitHub repository',
         },
         {
-          to: 'docs',
+          to: '/',
           label: 'Docs',
           position: 'left',
           activeBaseRegex: `docs`,
