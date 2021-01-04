@@ -14,7 +14,7 @@ module.exports = {
 
       // Hides the switch in the navbar
       // Useful if you want to support a single color mode
-      disableSwitch: true,
+      disableSwitch: false,
 
       // Should we use the prefers-color-scheme media-query,
       // using user system preferences, instead of the hardcoded defaultMode
@@ -34,6 +34,18 @@ module.exports = {
           className: 'header-github-link',
           'aria-label': 'GitHub repository',
         },
+        {
+          to: 'docs',
+          label: 'Docs',
+          position: 'left',
+          activeBaseRegex: `docs`,
+        },
+        {
+          to: 'api',
+          label: 'API',
+          position: 'left',
+          activeBaseRegex: `api`,
+        },
       ],
     },
     footer: {
@@ -46,15 +58,27 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          routeBasePath: '/',
+          sidebarPath: require.resolve('./sidebarsDocs.js'),
+          routeBasePath: 'docs',
           // Please change this to your repo.
           editUrl:
-            'https://github.com/helium/docs/edit/master',
+            'https://github.com/helium/docs/edit/staging',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+      },
+    ],
+  ],
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'api',
+        path: 'api',
+        editUrl: 'https://github.com/helium/docs/edit/staging',
+        routeBasePath: 'api',
+        sidebarPath: require.resolve('./sidebarsAPI.js'),
       },
     ],
   ],

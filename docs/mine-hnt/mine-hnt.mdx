@@ -1,0 +1,42 @@
+---
+id: mine-hnt
+hide_title: true
+sidebar_label: What is a Helium Miner?
+slug: /mine-hnt
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# What is a Helium Miner?
+
+<img src={useBaseUrl("img/mine-hnt/mint-hnt-hotspot.jpg")} />
+
+Every Miner on the Helium Blockchain is first and foremost a LoRaWAN coverage
+provider. A Miner provides long-range wireless coverage for very low power and
+inexpensive IoT devices.
+
+Therefore, a Miner boils down to two principle components:
+
+- a LoRaWAN gateway
+- [the Miner Client](https://github.com/helium/miner)
+
+<img src={useBaseUrl("img/mine-hnt/mine-hnt-arch.png")} />
+
+Every LoRaWAN gateway provides some "packet forwarder" application which is how
+the Miner sends and receives radio packets. In turn, the Miner uses libp2p over
+some standard Internet to communicate with other Miners and with Helium Network
+Servers (ie: the servers that "own" the devices on the network).
+
+The mechanics of mining and earnings on the Network are more fully covered in
+[other sections](blockchain/mining). This section focuses on practical hardware
+and software requirements for operating a Miner.
+
+We will cover everything from [prebuilt Hotspots](mine-hnt/prebuilt-hotspots),
+generic LoRaWAN gateways which require running your own Miner, to building your
+own gateway using a Raspberry Pi.
+
+**Note**: The ability to mine HNT with anything other than prebuilt Hotspots is
+currently under development following the conclusion of the DIY Alpha program.
+Please join the Helium Discord Server and the #hotspot-diy-hardware channel for
+the latest updates on the roadmap here. To be a Helium Miner, there are three
+principle components to know about
