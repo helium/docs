@@ -59,7 +59,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebarsDocs.js'),
-          routeBasePath: 'docs',
+          routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
             'https://github.com/helium/docs/edit/staging',
