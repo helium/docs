@@ -32,11 +32,21 @@ module.exports = {
       collapsed: true,
     },
   ],
+  api: [
+    'api/home',
+   { 
+      type: 'category',
+      label: 'Blockchain',
+      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis'],
+      collapsed: true,
+    },
+    'api/console',
+  ],
   console: [
    {
       type: 'link',
       label: '<- Back',
-      href: '/docs/use-the-network/console'
+      href: '/use-the-network/console'
     }, 
     {
       type: 'category',
@@ -49,7 +59,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Console',
-      href: '/docs/use-the-network/console/integrations'
+      href: '/use-the-network/console/integrations'
     }, 
     {
       type: 'category',
@@ -62,7 +72,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Console',
-      href: '/docs/use-the-network/console/migrating-devices'
+      href: '/use-the-network/console/migrating-devices'
     }, 
     {
       type: 'category',
@@ -75,7 +85,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Back',
-      href: '/docs/use-the-network/coverage-mapping'
+      href: '/use-the-network/coverage-mapping'
     }, 
     {
       type: 'category',
@@ -88,7 +98,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: '/docs/use-the-network/devices'
+      href: '/use-the-network/devices'
     }, 
     {
       type: 'category',
@@ -101,7 +111,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Devices',
-      href: '/docs/use-the-network/devices'
+      href: '/use-the-network/devices'
     }, 
     {
       type: 'category',
@@ -114,7 +124,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- ST B-L072Z-LRWAN1',
-      href: '/docs/use-the-network/devices/development/st-b-l072z-lrwan1'
+      href: '/use-the-network/devices/development/st-b-l072z-lrwan1'
     }, 
     {
       type: 'category',
@@ -127,7 +137,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Sparkfun Pro RF',
-      href: '/docs/use-the-network/devices/development/sparkfun-pro-rf'
+      href: '/use-the-network/devices/development/sparkfun-pro-rf'
     }, 
     {
       type: 'category',
@@ -140,7 +150,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Adafruit Feather M0 RFM95',
-      href: '/docs/use-the-network/devices/development/adafruit-feather-m0-rfm95'
+      href: '/use-the-network/devices/development/adafruit-feather-m0-rfm95'
     }, 
     {
       type: 'category',
@@ -153,7 +163,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Heltec Cubecell HTCC AB01',
-      href: '/docs/use-the-network/devices/development/heltec-cubecell-htcc-ab01'
+      href: '/use-the-network/devices/development/heltec-cubecell-htcc-ab01'
     }, 
     {
       type: 'category',
@@ -166,7 +176,7 @@ module.exports = {
    {
       type: 'link',
       label: '<- Heltec WiFi LoRa 32 V2',
-      href: '/docs/use-the-network/devices/development/heltec-wifi-lora-32-v2'
+      href: '/use-the-network/devices/development/heltec-wifi-lora-32-v2'
     }, 
     {
       type: 'category',
