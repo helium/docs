@@ -62,8 +62,8 @@ module.exports = {
           label: 'Github',
         },
          {
-          href: 'https://github.com/helium',
-          label: 'Whitepaper (2017)',
+          href: 'http://whitepaper.helium.com',
+          label: 'Whitepaper (2018)',
           position: 'right',
         },
 
