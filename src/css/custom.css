@@ -7,7 +7,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #474cfe;
+  --ifm-color-primary: #fff;
   --ifm-color-primary-dark: #272dfe;
   --ifm-color-primary-darker: #171dfe;
   --ifm-color-primary-darkest: #0107e2;
@@ -15,10 +15,195 @@
   --ifm-color-primary-lighter: #777bfe;
   --ifm-color-primary-lightest: #a8aaff;
   --ifm-code-font-size: 95%;
+  --ifm-toc-border-color: #ffffff;
+  --ifm-menu-color-active: #A334FB;
+  --ifm-menu-color-background-active: #FCF9FF;
+--ifm-menu-color: #1C1E21;
+--ifm-navbar-link-hover-color: #333;
+--ifm-color-info: #A334FB;
+
+
 }
+
+
 
 .react-toggle-track {
   background-color: rgba(0,0,0,0.2) !important;
+}
+
+.navbar {
+  box-shadow: none;
+  background: rgba(255,255,255,0.7);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+backdrop-filter: saturate(180%) blur(20px);
+}
+
+.menu {
+  padding-top: 30px !important;
+  font-weight: 400;
+}
+
+.tech--item {
+  display: flex;
+  align-items: center; 
+  margin-bottom: 40px;
+}
+
+img.techicon {
+  width: 45px;
+}
+
+.tech--item_text {
+  padding-left: 10px;
+}
+
+.tech--item_text a {
+  color: #1C1E21;
+
+}
+
+.tech--item_text p {
+  color: #8D8E90;
+}
+
+.tech--item_text a h4, .tech--item_text p {
+
+  margin-bottom: 0;
+}
+
+.menu__list-item .menu__list .menu__list-item a.menu__link {
+  font-size: 14px;
+line-height: 14px;
+}
+
+a {
+  color: #A334FB;
+}
+a:hover {
+  color: #6600B7;
+  text-decoration: none;
+}
+
+a:hover img.docicon {
+  padding-right: 3px;
+  padding-left: 3px;
+
+}
+
+.badge--secondary {
+  color: #697386;
+  font-weight: 500;
+  margin-right: 6px;
+  background: #F3F3F3;
+    transition: all .2s ease;
+    border-radius: 4px;
+
+}
+
+.badge--secondary:hover {
+  color: #697386;
+  background: #e9e9e9;
+    transition: all .2s ease;
+
+}
+
+a.button {
+  background: #A334FB;
+  color: white;
+  border-radius: 6px;
+  padding: 10px 20px;
+  position: relative;
+  top:0;
+  font-weight: 400;
+  font-size: 16px;
+  transition: all .2s ease;
+  margin-bottom: 30px;
+}
+
+a.button:hover {
+  top: 1px;
+  background:#942AE9;
+  transition: all .2s ease;
+
+
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #CACACA;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.menu__link--sublist:after {
+  background-size: 1rem 1rem;
+}
+
+p.podtext {
+  width: 100%;
+  max-width: 440px;
+}
+
+img.homeicon {
+  width: 76px;
+  margin-bottom: 10px;
+}
+img.docicon {
+  padding-right: 6px;
+}
+
+h1 {
+  font-size: 2.75rem;
+  letter-spacing: -0.5px;
+  margin-top: 20px;
+  line-height: 2.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h2.subtitle {
+  font-weight: 300;
+  font-size: 20px;
+  letter-spacing: -1%;
+  line-height: 26px;
+  color: #A334FB;
+  margin-bottom: 20px;
+}
+
+h5 {
+  margin-top: 40px;
+  letter-spacing: 7%;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #1C1E21;
+  opacity: 0.5;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.admonition h5 {
+  font-size: var(--ifm-h5-font-size);
+  color: white;
+}
+
+.admonition code {
+  background-color: #B04BFF;
+  color: white;
+}
+
+.admonition a:hover {
+  color: white;
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+a.block {
+  display: block;
 }
 
 .docusaurus-highlight-code-line {
@@ -28,11 +213,17 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
+.padding-vert--lg {
+      padding-bottom: 5rem !important;
+      padding-top: 5rem !important;
+    }
+
 html[data-theme='light'] {
   --ifm-background-color: #fff;
   --ifm-table-stripe-background: #F6F7FE;
   --ifm-menu-color-background-active: #F6F7FE ;
   --ifm-menu-color-background-hover: #F6F7FE ;
+  --ifm-navbar-link-hover-color: #333;
 
 }
 .react-toggle .react-toggle-thumb, .react-toggle--checked .react-toggle-thumb {
@@ -44,6 +235,9 @@ html[data-theme='dark'] {
 
 }
 
+.navbar__link:hover, .navbar__link--active, .table-of-contents__link:hover, .table-of-contents__link:hover code, .table-of-contents__link--active, .table-of-contents__link--active code {
+  color: #A334FB;
+}
 
 
 .header-github-link:hover {

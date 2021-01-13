@@ -8,13 +8,27 @@ module.exports = {
   organizationName: 'helium', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
   themeConfig: {
+
+ algolia: {
+      apiKey: 'YOUR_API_KEY',
+      indexName: 'YOUR_INDEX_NAME',
+
+      // Optional: see doc section bellow
+      contextualSearch: true,
+
+      // Optional: Algolia search parameters
+      searchParameters: {},
+
+      //... other Algolia params
+    },
+
     colorMode: {
       // "light" | "dark"
       defaultMode: 'light',
 
       // Hides the switch in the navbar
       // Useful if you want to support a single color mode
-      disableSwitch: false,
+      disableSwitch: true,
 
       // Should we use the prefers-color-scheme media-query,
       // using user system preferences, instead of the hardcoded defaultMode
@@ -25,26 +39,43 @@ module.exports = {
       style: 'primary',
       logo: {
         alt: 'Helium Logo',
-        src: 'img/icons/logo.svg',
+        src: 'img/icons/logoblack.svg',
+        srcDark: 'img/logowhite.svg',
       },
       items: [
-        {
-          href: 'https://github.com/helium',
-          position: 'right',
-          className: 'header-github-link',
-          'aria-label': 'GitHub repository',
-        },
+       
         {
           to: '/',
           label: 'Docs',
-          position: 'left',
+          position: 'right',
           activeBaseRegex: `docs`,
         },
         {
           to: 'api',
           label: 'API',
-          position: 'left',
+          position: 'right',
           activeBaseRegex: `api`,
+        },
+         {
+          href: 'https://github.com/helium',
+          position: 'right',
+          label: 'Github',
+        },
+         {
+          href: 'http://whitepaper.helium.com',
+          label: 'Whitepaper (2018)',
+          position: 'right',
+        },
+
+           {
+          href: 'https://explorer.helium.com',
+          label: 'Explorer',
+          position: 'right',
+        },
+          {
+          href: 'https://network.helium.com/coverage',
+          label: 'Coverage Map',
+          position: 'right',
         },
       ],
     },
