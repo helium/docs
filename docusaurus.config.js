@@ -93,7 +93,7 @@ module.exports = {
           routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
-            'https://github.com/helium/docs/edit/staging',
+            'https://github.com/helium/docs/edit/master',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
