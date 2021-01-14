@@ -37,7 +37,7 @@ module.exports = {
    { 
       type: 'category',
       label: 'Blockchain',
-      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis'],
+      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/locations', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis'],
       collapsed: true,
     },
     'api/console',
