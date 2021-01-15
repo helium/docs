@@ -8,8 +8,10 @@ module.exports = {
   organizationName: 'helium', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
   themeConfig: {
-
- algolia: {
+    googleAnalytics: {
+      trackingID: 'UA-52432858-10',
+    },
+    algolia: {
       apiKey: 'YOUR_API_KEY',
       indexName: 'YOUR_INDEX_NAME',
 
@@ -21,7 +23,6 @@ module.exports = {
 
       //... other Algolia params
     },
-
     colorMode: {
       // "light" | "dark"
       defaultMode: 'light',
@@ -43,7 +44,7 @@ module.exports = {
         srcDark: 'img/logowhite.svg',
       },
       items: [
-       
+
         {
           to: '/',
           label: 'Docs',
@@ -56,23 +57,23 @@ module.exports = {
           position: 'right',
           activeBaseRegex: `api`,
         },
-         {
+        {
           href: 'https://github.com/helium',
           position: 'right',
           label: 'Github',
         },
-         {
+        {
           href: 'http://whitepaper.helium.com',
           label: 'Whitepaper (2018)',
           position: 'right',
         },
 
-           {
+        {
           href: 'https://explorer.helium.com',
           label: 'Explorer',
           position: 'right',
         },
-          {
+        {
           href: 'https://network.helium.com/coverage',
           label: 'Coverage Map',
           position: 'right',
