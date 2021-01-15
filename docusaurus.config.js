@@ -14,7 +14,7 @@ module.exports = {
     algolia: {
       apiKey: 'd5ff5c42607f0141934032162dab2cc2',
       indexName: 'helium',
-      contextualSearch: true,
+      contextualSearch: false,
     },
     colorMode: {
       // "light" | "dark"
