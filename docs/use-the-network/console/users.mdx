@@ -1,43 +1,62 @@
 ---
 id: users
 hide_title: true
-sidebar_label: Users
+sidebar_label: Users and Organizations
 slug: /use-the-network/console/users
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-# Users
+# Users and Organizations
+
+This section describes the system of Users and Organizations within Helium Console. At a high level:
+
+* A `user` is someone registered for Console via their email address.
+* An `organization` can have any number of `users`.
+* A `user` can be part of any number of `organizations`.
+
 
 ## User Roles
 
 The first user to register a new organization is given the highest role of
-administrator. To add a new user, navigate to the **Users** page using the left
-side navigation, and then click **+ Add User** in the upper right. You will be
-presented with the screen below. You will find more details about the access
-that each role has further below.
+`Administrator`. 
 
-<img src={useBaseUrl("img/use-the-network/console/console-new-user.png")} />
+### User Role Definitions
 
-### User Role Details
+User permissions and privileges are as follows:
 
-- Administrator
-  - Manage Devices
-  - Manage Labels
-  - Manage Data Credits
-  - Manage Users
-- Manager
-  - Manage Devices
-  - Manage Labels
-- Read-Only
-  - View Devices
+**Administrator**
+* Manage Devices
+* Manage Labels
+* Manage Data Credits
+* Manage Users
+* Manage API Keys
 
+**Manager**
+* Manage Devices
+* Manage Labels
+
+**Read-Only**
+* View Devices
+
+### Managing Users  
+
+If you're an administrator, you can manage users for your organizations. To add a new user, once logged in, [navigate to the Users page](https://console.helium.com/users) and then click **+ Add User** in the upper right. You will be presented with a pop-up that asks you to supply the email of the new user, and select their desired access level. Once you've done this, hit **Submit** and they will be invited to join the organization via email. 
+  
+ 
 ## Organizations
 
-An Organization is created when registering an account. You can add additional
-Organizations by navigating to the **Dashboard** page using the left side
+An Organization is created when first registering an account. All Organizations of which you're a member can be [viewed and managed from here](https://console.helium.com/organizations). From this screen you can switch between Organizations, delete Organizations (with appropriate permissions), view your DC balances, and make all devices for an organization either `Active` or `Inactive`(with appropriate permissions). 
+
+Users can add additional Organizations by navigating to the **Dashboard** page using the left side
 navigation, and then click **+ Add Organization** in the upper right. To switch
 to another Organization click the **Switch** button on the list of Organizations
 on the **Dashboard** page.
 
-<img src={useBaseUrl("img/use-the-network/console/console-new-org.png")} />
+
+<img src={useBaseUrl("img/use-the-network/console/organizations.png")} />
+
+
+
+
+
