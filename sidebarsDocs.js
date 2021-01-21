@@ -51,7 +51,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Console',
-      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account'],
+      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/console-adr', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account'],
       collapsed: false,
     }
   ],
