@@ -12,16 +12,9 @@ module.exports = {
       trackingID: 'UA-52432858-10',
     },
     algolia: {
-      apiKey: 'YOUR_API_KEY',
-      indexName: 'YOUR_INDEX_NAME',
-
-      // Optional: see doc section bellow
-      contextualSearch: true,
-
-      // Optional: Algolia search parameters
-      searchParameters: {},
-
-      //... other Algolia params
+      apiKey: 'd5ff5c42607f0141934032162dab2cc2',
+      indexName: 'helium',
+      contextualSearch: false,
     },
     colorMode: {
       // "light" | "dark"
