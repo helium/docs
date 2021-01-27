@@ -10,7 +10,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt','mine-hnt/prebuilt-hotspots/prebuilt-hotspots', 'mine-hnt/build-a-hotspot/build-a-hotspot', 'mine-hnt/convert-lorawan-gateway/convert-lorawan-gateway', 'mine-hnt/run-a-miner/run-a-miner'],
+      items: ['mine-hnt/mine-hnt','mine-hnt/prebuilt-hotspots/prebuilt-hotspots', 'mine-hnt/hotspot-manufacturers/hotspot-makers', 'mine-hnt/build-a-hotspot/build-a-hotspot', 'mine-hnt/convert-lorawan-gateway/convert-lorawan-gateway', 'mine-hnt/run-a-miner/run-a-miner'],
       collapsed: true,
     },
     {
