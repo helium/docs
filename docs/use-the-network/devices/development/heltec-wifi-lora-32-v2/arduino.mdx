@@ -192,7 +192,7 @@ The last step before we upload our sketch is to select the LoRaWAN Uplink Mode, 
 
 ### Required Change to Default DataRate
 
-The Helium network does not fully support ADR \(Adapative Data Rate\), read more [here](https://developer.helium.com/longfi/mac-commands-fopts-adr#linkadrreq-linkadrans). In this example sketch, ADR is turned off, therefore you must manually set the desired data rate for your payload size manually. This library uses a default data rate that is not supported by the Helium Network so you must change it to one in the following range DR\_0 - DR\_4. To do this change the default data rate on line 20 in the file found below for your operating system
+In this example sketch, ADR is turned off, therefore you must manually set the desired data rate for your payload size manually. This library uses a default data rate that is not supported by the Helium Network so you must change it to one in the following range DR\_0 - DR\_4. To do this change the default data rate on line 20 in the file found below for your operating system
 
 `linux: /home/{user}/Arduino/libraries/ESP32_LoRaWAN-master/src/ESP32_LoRaWAN.cpp`
 
@@ -205,6 +205,13 @@ The Helium network does not fully support ADR \(Adapative Data Rate\), read more
 ```text
 #define LORAWAN_DEFAULT_DATARATE                    DR_3
 ```
+
+
+:::info
+
+If you don't want to change data rate manually, [Helium now supports ADR](/use-the-network/console/adr)
+
+:::
 
 ### Upload Sketch
 
