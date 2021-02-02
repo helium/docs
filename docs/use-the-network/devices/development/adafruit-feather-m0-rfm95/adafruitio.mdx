@@ -1,5 +1,5 @@
 ---
-id: adafruitio 
+id: adafruitio
 hide_title: true
 sidebar_label: AdafruitIO Guide
 slug: /use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruitio
@@ -14,12 +14,11 @@ import TabItem from "@theme/TabItem";
 
 ## Introduction to Guide
 
-:::important 
+:::important
 
-Before we begin, please make sure you've followed the steps from
-the Console quickstart [here](/use-the-network/console/quickstart).
-This will ensure you have a Console account and have created a new
-device.
+Before we begin, please make sure you've followed the steps from the Console
+quickstart [here](/use-the-network/console/quickstart). This will ensure you
+have a Console account and have created a new device.
 
 :::
 
@@ -27,31 +26,33 @@ device.
 
 In this guide, you will learn how to:
 
-* Connect your hardware
-* Setup your firmware environment
-* Program a basic application that will send packets over the Helium Network
-* Verify real-time packets sent to the Helium Console via Hotspot that's in range
-* Create an AdafruitIO integration and attach to device
+- Connect your hardware
+- Setup your firmware environment
+- Program a basic application that will send packets over the Helium Network
+- Verify real-time packets sent to the Helium Console via Hotspot that's in
+  range
+- Create an AdafruitIO integration and attach to device
 
 For this example, you will need the following:
 
 ### Hardware
 
-* [Adafruit Feather M0 - RFM95](https://www.adafruit.com/product/3178)
-* [DHT22 Temperature and Humidity Sensor](https://www.adafruit.com/product/385)
-* Micro USB Type B Cable - [Example](https://www.amazon.com/AmazonBasics-Male-Micro-Cable-Black/dp/B0719H12WD/ref=sr_1_2_sspa?)
-* Jumper cables
+- [Adafruit Feather M0 - RFM95](https://www.adafruit.com/product/3178)
+- [DHT22 Temperature and Humidity Sensor](https://www.adafruit.com/product/385)
+- Micro USB Type B Cable -
+  [Example](https://www.amazon.com/AmazonBasics-Male-Micro-Cable-Black/dp/B0719H12WD/ref=sr_1_2_sspa?)
+- Jumper cables
 
 ### Software
 
-* [Arduino software \(IDE\)](https://www.arduino.cc/en/Main/Software) 
-* [Helium Console](https://console.helium.com/) 
+- [Arduino software \(IDE\)](https://www.arduino.cc/en/Main/Software)
+- [Helium Console](https://console.helium.com/)
 
 ## Hardware Setup
 
-This step will cover adding an antenna, jumping pins on the LoRaWAN radio, and finally
-wiring the DHT22 temperature and humidity sensor. Below is a breadboard wiring diagram
-that you can reference for your setup.
+This step will cover adding an antenna, jumping pins on the LoRaWAN radio, and
+finally wiring the DHT22 temperature and humidity sensor. Below is a breadboard
+wiring diagram that you can reference for your setup.
 
 <img
   src={useBaseUrl(
@@ -61,11 +62,16 @@ that you can reference for your setup.
 
 ### Adding the Antenna
 
-Please visit Adafruit's Documentation for antenna options and instructions [here](https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/antenna-options).
+Please visit Adafruit's Documentation for antenna options and instructions
+[here](https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/antenna-options).
 
 ### Jumping IO1 to Pin6
 
-In order to use the RFM95 radio module onboard the Feather M0 for LoRaWAN we'll need to connect two pins together.  The pins are labeled `io1` and `6` on the board, as shown below. If you have the headers soldered on, you can use a female to female jumper cable to connect them, or you can simply solder a wire from pin to pin.
+In order to use the RFM95 radio module onboard the Feather M0 for LoRaWAN we'll
+need to connect two pins together. The pins are labeled `io1` and `6` on the
+board, as shown below. If you have the headers soldered on, you can use a female
+to female jumper cable to connect them, or you can simply solder a wire from pin
+to pin.
 
 <img
   src={useBaseUrl(
@@ -75,23 +81,26 @@ In order to use the RFM95 radio module onboard the Feather M0 for LoRaWAN we'll 
 
 ### Wiring the DHT22 Sensor
 
-Connect the signal pin `2` of the DHT22 sensor to pin `12` on the feather board. You will also need to 
-add a pull up resister (20-50k) between the signal pin `2` of the DHT22 sensor and the 3.3V supply.
-Last, connect the power(3.3V or 5V) and ground pins. Please reference the breadboard diagram above.
+Connect the signal pin `2` of the DHT22 sensor to pin `12` on the feather board.
+You will also need to add a pull up resister (20-50k) between the signal pin `2`
+of the DHT22 sensor and the 3.3V supply. Last, connect the power(3.3V or 5V) and
+ground pins. Please reference the breadboard diagram above.
 
 ## Software Setup
 
 ### Getting the Arduino IDE
 
-Download and install the latest version of [Arduino IDE](https://www.arduino.cc/en/Main/Software) for your preferred OS.
+Download and install the latest version of
+[Arduino IDE](https://www.arduino.cc/en/Main/Software) for your preferred OS.
 
-* [Windows](https://www.arduino.cc/en/Guide/Windows)
-* [Linux](https://www.arduino.cc/en/Guide/linux)
-* [Mac OSX](https://www.arduino.cc/en/Guide/MacOSX)
+- [Windows](https://www.arduino.cc/en/Guide/Windows)
+- [Linux](https://www.arduino.cc/en/Guide/linux)
+- [Mac OSX](https://www.arduino.cc/en/Guide/MacOSX)
 
 ### Arduino Board Support
 
-The Adafruit Feather M0 requires two Arduino board support packages. Follow the instructions below to install both.
+The Adafruit Feather M0 requires two Arduino board support packages. Follow the
+instructions below to install both.
 
 #### Arduino SAMD Boards \(32-bits ARM Cortex-M0+\)
 
@@ -105,7 +114,8 @@ To install, open your Arduino IDE:
 
 To install, open your Arduino IDE:
 
-1. Navigate to **\(File &gt; Preferences\), \(Arduino &gt; Preferences\) on MacOS.**
+1. Navigate to **\(File &gt; Preferences\), \(Arduino &gt; Preferences\) on
+   MacOS.**
 2. Find the section at the bottom called **Additional Boards Manager URLs:**
 
 <img
@@ -125,17 +135,20 @@ https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
 Next, to install this board support package:
 
 1. Navigate to \(**Tools &gt; Boards &gt; Boards Manager...\)**
-2. Search for  **Adafruit SAMD Boards**
+2. Search for **Adafruit SAMD Boards**
 3. Select the newest version and click Install
 
 ### Arduino Library
 
-To communicate with Helium's LoRaWAN network, we'll need to install an Arduino library.
+To communicate with Helium's LoRaWAN network, we'll need to install an Arduino
+library.
 
 To install, open your Arduino IDE:
 
-1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage Libraries**\).
-2. In the search box, type **IBM LMIC framework** into the search, select the version shown below, and click Install.
+1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage
+   Libraries**\).
+2. In the search box, type **IBM LMIC framework** into the search, select the
+   version shown below, and click Install.
 
 <img
   src={useBaseUrl(
@@ -147,8 +160,10 @@ To communicate with the DHT22 sensor, we'll need to install an Arduino library.
 
 To install, open your Arduino IDE:
 
-1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage Libraries**\).
-2. In the search box, type **DHT22 sensor library** into the search, select the version shown below, and click Install.
+1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage
+   Libraries**\).
+2. In the search box, type **DHT22 sensor library** into the search, select the
+   version shown below, and click Install.
 
 <img
   src={useBaseUrl(
@@ -160,8 +175,10 @@ To encode our data with CayenneLPP, we'll need to install an Arduino library.
 
 To install, open your Arduino IDE:
 
-1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage Libraries**\).
-2. In the search box, type **CayenneLPP** into the search, select the version shown below, and click Install.
+1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage
+   Libraries**\).
+2. In the search box, type **CayenneLPP** into the search, select the version
+   shown below, and click Install.
 
 <img
   src={useBaseUrl(
@@ -171,19 +188,31 @@ To install, open your Arduino IDE:
 
 #### Update IBM LMIC framework config.h
 
-This library requires that a config file be setup properly. After you have installed the `IBM LMIC framework` library, navigate to it's directory on your operating system found below. Next, replace the `config.h` file in this directory with this [config.h](https://github.com/helium/longfi-arduino/blob/master/Adafruit-Feather-M0-RFM95/longfi-us915/config.h) file.
+This library requires that a config file be setup properly. After you have
+installed the `IBM LMIC framework` library, navigate to it's directory on your
+operating system found below. Next, replace the `config.h` file in this
+directory with this
+[config.h](https://github.com/helium/longfi-arduino/blob/master/Adafruit-Feather-M0-RFM95/longfi-us915/config.h)
+file.
 
-linux: /home/{user}/Arduino/libraries/IBM\_LMIC\_framework/src/lmic  
-windows: Documents/Arduino/libraries/IBM\_LMIC\_framework/src/lmic  
-mac os: Documents/Arduino/libraries/IBM\_LMIC\_framework/src/lmic
+linux: /home/{user}/Arduino/libraries/IBM_LMIC_framework/src/lmic  
+windows: Documents/Arduino/libraries/IBM_LMIC_framework/src/lmic  
+mac os: Documents/Arduino/libraries/IBM_LMIC_framework/src/lmic
 
 ### Programming Example Sketch
 
-Now that we have the required Arduino board support and library installed, lets program the board with the provided example sketch.
+Now that we have the required Arduino board support and library installed, lets
+program the board with the provided example sketch.
 
-To create a new Arduino sketch, open your Arduino IDE, \(**File &gt; New\).** Next, replace the template sketch with the sketch found [here](https://github.com/helium/longfi-arduino/blob/master/Adafruit-Feather-M0-RFM95/longfi-us915-cayenne-dht22/longfi-us915-cayenne-dht22.ino), copy and paste the entirety of it.
+To create a new Arduino sketch, open your Arduino IDE, \(**File &gt; New\).**
+Next, replace the template sketch with the sketch found
+[here](https://github.com/helium/longfi-arduino/blob/master/Adafruit-Feather-M0-RFM95/longfi-us915-cayenne-dht22/longfi-us915-cayenne-dht22.ino),
+copy and paste the entirety of it.
 
-Next we'll need to fill in the AppEUI\(lsb\), DevEUI\(lsb\), and AppKey\(msb\), in the sketch, which you can find on the device details page on Console. Be sure to use the formatting buttons to match the endianess and formatting required for the sketch, shown below.
+Next we'll need to fill in the AppEUI\(lsb\), DevEUI\(lsb\), and AppKey\(msb\),
+in the sketch, which you can find on the device details page on Console. Be sure
+to use the formatting buttons to match the endianess and formatting required for
+the sketch, shown below.
 
 <img
   src={useBaseUrl(
@@ -191,7 +220,8 @@ Next we'll need to fill in the AppEUI\(lsb\), DevEUI\(lsb\), and AppKey\(msb\), 
   )}
 />
 
-At the top of the sketch, replace the three **FILL\_ME\_IN** fields, with the matching field from Console, example shown below.
+At the top of the sketch, replace the three **FILL_ME_IN** fields, with the
+matching field from Console, example shown below.
 
 <img
   src={useBaseUrl(
@@ -201,19 +231,34 @@ At the top of the sketch, replace the three **FILL\_ME\_IN** fields, with the ma
 
 ### Selecting Board
 
-Next, we need to select the correct board to build for in the Arduino IDE. Navigate to \(**Select Tools &gt; Board: &gt; Adafruit Feather M0\).**
+Next, we need to select the correct board to build for in the Arduino IDE.
+Navigate to \(**Select Tools &gt; Board: &gt; Adafruit Feather M0\).**
 
 ### Enter Bootloader Mode
 
-Next, we need to place the board into bootloader mode, which allows us to update it with new firmware. To do this, first plug the device into your computer, make sure the power switch is turned on \(you should see a red LED on\). Next, quickly double click the reset push button on the top side of the board, you should see the red LED slowly blink. If you see this then you have successfully entered bootloader mode.
+Next, we need to place the board into bootloader mode, which allows us to update
+it with new firmware. To do this, first plug the device into your computer, make
+sure the power switch is turned on \(you should see a red LED on\). Next,
+quickly double click the reset push button on the top side of the board, you
+should see the red LED slowly blink. If you see this then you have successfully
+entered bootloader mode.
 
 ### Selecting Port
 
-We're almost ready to upload our sketch, the very last step is to select the correct Serial port in the Arduino IDE. Navigate to \(**Tools &gt; Port: Adafruit Feather M0**\). You will also see either **COM\# or /dev/ttyACM\#** depending on whether you are on Windows, Mac, or Linux. If you do not see a port, please visit the Drivers section in [Adafruit's Docs](https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/using-with-arduino-ide#install-drivers-windows-7-and-8-only-6-11) to make sure you have what's needed for your operating system.
+We're almost ready to upload our sketch, the very last step is to select the
+correct Serial port in the Arduino IDE. Navigate to \(**Tools &gt; Port:
+Adafruit Feather M0**\). You will also see either **COM\# or /dev/ttyACM\#**
+depending on whether you are on Windows, Mac, or Linux. If you do not see a
+port, please visit the Drivers section in
+[Adafruit's Docs](https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/using-with-arduino-ide#install-drivers-windows-7-and-8-only-6-11)
+to make sure you have what's needed for your operating system.
 
 ### Upload Sketch
 
-We're finally ready to upload our sketch to the board. In the Arduino IDE, click the right arrow button, or navigate to \(**Sketch &gt; Upload\),** to build and upload your new firmware to the board. You should see something similar to the image below at the bottom of your Arduino IDE, when the upload is successful.
+We're finally ready to upload our sketch to the board. In the Arduino IDE, click
+the right arrow button, or navigate to \(**Sketch &gt; Upload\),** to build and
+upload your new firmware to the board. You should see something similar to the
+image below at the bottom of your Arduino IDE, when the upload is successful.
 
 <img
   src={useBaseUrl(
@@ -223,7 +268,14 @@ We're finally ready to upload our sketch to the board. In the Arduino IDE, click
 
 ### Viewing Serial Output
 
-When your firmware update completes, the board will reset, and begin by joining the network. Let's use the Serial Monitor in the Arduino IDE to view the output from the board. We first need to select the serial port again, but this time it will be a **different port** than the one we selected to communicate with the bootloader. Once again, navigate to \(**Tools &gt; Port: Adafruit Feather M0**\), but make sure the serial device, either COM\# or ttyACM\#, is different! Next navigate to \(**Tools &gt; Serial Monitor**\), you should begin to see output similar to below.
+When your firmware update completes, the board will reset, and begin by joining
+the network. Let's use the Serial Monitor in the Arduino IDE to view the output
+from the board. We first need to select the serial port again, but this time it
+will be a **different port** than the one we selected to communicate with the
+bootloader. Once again, navigate to \(**Tools &gt; Port: Adafruit Feather
+M0**\), but make sure the serial device, either COM\# or ttyACM\#, is different!
+Next navigate to \(**Tools &gt; Serial Monitor**\), you should begin to see
+output similar to below.
 
 <img
   src={useBaseUrl(
@@ -231,7 +283,8 @@ When your firmware update completes, the board will reset, and begin by joining 
   )}
 />
 
-Now let's head back to [Helium Console](https://console.helium.com) and look at our device page, you should see something similar to the screenshot below.
+Now let's head back to [Helium Console](https://console.helium.com) and look at
+our device page, you should see something similar to the screenshot below.
 
 <img
   src={useBaseUrl(
@@ -239,13 +292,15 @@ Now let's head back to [Helium Console](https://console.helium.com) and look at 
   )}
 />
 
-Congratulations! You have just transmitted data on the Helium network! The next step is to create and attach the AdafruitIO integration.
+Congratulations! You have just transmitted data on the Helium network! The next
+step is to create and attach the AdafruitIO integration.
 
 ## Adafruit IO
 
 Next we'll create and attach the Adafruit IO integration.
 
-You can sign up for a free account at [https://io.adafruit.com](https://io.adafruit.com/).
+You can sign up for a free account at
+[https://io.adafruit.com](https://io.adafruit.com/).
 
 To add the integration in Console, go to **Integrations** on the left-hand menu.
 Select the integration to add - in this case, the **Adafruit IO** integration as
@@ -316,9 +371,9 @@ _Create Integration_ to finish.
 
 ### Connecting AdafruitIO Integration to Device
 
-Now that we have our integration created, the last step is to attach the label to our
-device. To do this, navigate your device page and click the `Add Label` button shown
-below.
+Now that we have our integration created, the last step is to attach the label
+to our device. To do this, navigate your device page and click the `Add Label`
+button shown below.
 
 <img
   src={useBaseUrl(
@@ -334,7 +389,8 @@ Search for the AdafruitIO label, select, and finally click Add Label.
   )}
 />
 
-You should now see your data appearing on Adafruit IO under Feeds as shown below.
+You should now see your data appearing on Adafruit IO under Feeds as shown
+below.
 
 <img
   src={useBaseUrl(
