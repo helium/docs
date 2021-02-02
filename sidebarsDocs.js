@@ -10,13 +10,13 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt','mine-hnt/prebuilt-hotspots/prebuilt-hotspots', 'mine-hnt/build-a-hotspot/build-a-hotspot', 'mine-hnt/convert-lorawan-gateway/convert-lorawan-gateway', 'mine-hnt/run-a-miner/run-a-miner'],
+      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-manufacturers/hotspot-makers', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'Use The Network',
-      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/network-servers/network-servers', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
+      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
       collapsed: true,
     },
     {
