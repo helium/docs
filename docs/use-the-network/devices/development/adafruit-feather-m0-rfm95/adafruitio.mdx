@@ -1,13 +1,13 @@
 ---
-id: arduino
+id: adafruitio 
 hide_title: true
-sidebar_label: Arduino
-slug: /use-the-network/devices/development/adafruit-feather-m0-rfm95/arduino
+sidebar_label: AdafruitIO Guide
+slug: /use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruitio
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-## Adafruit Feather M0 RFM95 Arduino Guide
+## Adafruit IO Guide with Adafruit Feather M0 RFM95
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -17,7 +17,9 @@ import TabItem from "@theme/TabItem";
 :::important 
 
 Before we begin, please make sure you've followed the steps from
-the Console quickstart [here](/use-the-network/console/quickstart). 
+the Console quickstart [here](/use-the-network/console/quickstart).
+This will ensure you have a Console account and have created a new
+device.
 
 :::
 
@@ -25,16 +27,20 @@ the Console quickstart [here](/use-the-network/console/quickstart).
 
 In this guide, you will learn:
 
-* How to setup your environment
+* How to connect your hardware
+* Setup your firmware environment
 * How to program a basic application that will send packets over the Helium Network
 * Verify real-time packets sent to the Helium Console via Hotspot that's in range
+* Create an AdafruitIO integration and attach to device
 
 For this example, you will need the following:
 
 ### Hardware
 
 * [Adafruit Feather M0 - RFM95](https://www.adafruit.com/product/3178)
+* [DHT22 Temperature and Humidity Sensor](https://www.adafruit.com/product/385)
 * Micro USB Type B Cable - [Example](https://www.amazon.com/AmazonBasics-Male-Micro-Cable-Black/dp/B0719H12WD/ref=sr_1_2_sspa?)
+* Jumper cables
 
 ### Software
 
@@ -43,7 +49,15 @@ For this example, you will need the following:
 
 ## Hardware Setup
 
-This step will cover adding an antenna and closing the LoRaWAN jumpers on this board.
+This step will cover adding an antenna, jumping pins on the LoRaWAN radio, and finally
+wiring the DHT22 temperature and humidity sensor. Below is a breadboard wiring diagram
+that you can reference for your setup.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-adafruitio-breadboard.png"
+  )}
+/>
 
 ### Adding the Antenna
 
@@ -58,6 +72,12 @@ In order to use the RFM95 radio module onboard the Feather M0 for LoRaWAN we'll 
     "img/use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95-jumper-pins.jpg"
   )}
 />
+
+### Wiring the DHT22 Sensor
+
+Connect the signal pin 2 of the DHT22 sensor to pin 12 on the feather board. You will also need to 
+add a pull up resister (20-50k) between the signal pin 2 of the DHT22 sensor and the 3.3V supply.
+Last, connect the power(3.3V or 5V) and ground pins. Please reference the breadboard diagram above.
 
 ## Software Setup
 
@@ -123,6 +143,32 @@ To install, open your Arduino IDE:
   )}
 />
 
+To communicate with the DHT22 sensor, we'll need to install an Arduino library.
+
+To install, open your Arduino IDE:
+
+1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage Libraries**\).
+2. In the search box, type **DHT22 sensor library** into the search, select the version shown below, and click Install.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95-arduino-add-dht22-library.png"
+  )}
+/>
+
+To encode our data with CayenneLPP, we'll need to install an Arduino library.
+
+To install, open your Arduino IDE:
+
+1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage Libraries**\).
+2. In the search box, type **CayenneLPP** into the search, select the version shown below, and click Install.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95-arduino-add-cayennelpp-library.png"
+  )}
+/>
+
 #### Update IBM LMIC framework config.h
 
 This library requires that a config file be setup properly. After you have installed the `IBM LMIC framework` library, navigate to it's directory on your operating system found below. Next, replace the `config.h` file in this directory with this [config.h](https://github.com/helium/longfi-arduino/blob/master/Adafruit-Feather-M0-RFM95/longfi-us915/config.h) file.
@@ -135,7 +181,7 @@ mac os: Documents/Arduino/libraries/IBM\_LMIC\_framework/src/lmic
 
 Now that we have the required Arduino board support and library installed, lets program the board with the provided example sketch.
 
-To create a new Arduino sketch, open your Arduino IDE, \(**File &gt; New\).** Next, replace the template sketch with the sketch found [here](https://github.com/helium/longfi-arduino/blob/master/Adafruit-Feather-M0-RFM95/longfi-us915/longfi-us915.ino), copy and paste the entirety of it.
+To create a new Arduino sketch, open your Arduino IDE, \(**File &gt; New\).** Next, replace the template sketch with the sketch found [here](https://github.com/helium/longfi-arduino/blob/master/Adafruit-Feather-M0-RFM95/longfi-us915-cayenne-dht22/longfi-us915-cayenne-dht22.ino), copy and paste the entirety of it.
 
 Next we'll need to fill in the AppEUI\(lsb\), DevEUI\(lsb\), and AppKey\(msb\), in the sketch, which you can find on the device details page on Console. Be sure to use the formatting buttons to match the endianess and formatting required for the sketch, shown below.
 
@@ -193,4 +239,107 @@ Now let's head back to [Helium Console](https://console.helium.com) and look at 
   )}
 />
 
-Congratulations! You have just transmitted data on the Helium network! The next step is to learn how to use your device data to build applications, visit our Integrations docs here.
+Congratulations! You have just transmitted data on the Helium network! The next step is to create and attach the AdafruitIO integration.
+
+## Adafruit IO
+
+Next we'll create and attach the Adafruit IO integration.
+
+You can sign up for a free account at [https://io.adafruit.com](https://io.adafruit.com/).
+
+To add the integration in Console, go to **Integrations** on the left-hand menu.
+Select the integration to add - in this case, the **Adafruit IO** integration as
+shown below.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/integrations/integrations-select-adafruitio.png"
+  )}
+/>
+
+The next step is to enter your Adafruit IO username and key. These can be found
+by visiting [https://io.adafruit.com](https://io.adafruit.com/) and clicking
+_MyKey_ in the top right corner as shown below.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/integrations/integrations-adafruitio-mykey.png"
+  )}
+/>
+
+You will then be presented with both your username and key as shown below.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/integrations/integrations-adafruitio-get-user-key.png"
+  )}
+/>
+
+Copy these values into the username and key fields in Console for the
+integration configuration shown below.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/integrations/integrations-adafruitio-enter-user-key.png"
+  )}
+/>
+
+Last for this step, you can optionally change the group name that is set to
+`{{device_id}}` by default. The group name is used to group one or more data
+values that is received from a device and sent to AdafruitIO in a single
+message. This name is used as the default because it is guaranteed to be unique
+for every Helium device. You can use any of the the available template tags
+which are auto populated when messages are actually sent, which are
+`{{device_id}}`, `{{device_eui}}`, and `{{device_name}}`. This integration uses
+group topics to send device data to AdafruitIO over MQTT, you can read more
+about it [here](https://io.adafruit.com/api/docs/mqtt.html#group-topics).
+
+Next let's name the integration in step 3, you will use this name later to
+identify the integration when attaching it to devices.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/integrations/integrations-adafruitio-label.png"
+  )}
+/>
+
+The very last step is to select the decoder that will be used to decode the data
+payload received from your device. We will be using the _CayenneLPP_ decoder as
+shown below and encoding the sensor data with CayenneLPP. Last be sure to click
+_Create Integration_ to finish.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/integrations/integrations-adafruitio-choose-decoder.png"
+  )}
+/>
+
+### Connecting AdafruitIO Integration to Device
+
+Now that we have our integration created, the last step is to attach the label to our
+device. To do this, navigate your device page and click the `Add Label` button shown
+below.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95-console-add-label.png"
+  )}
+/>
+
+Search for the AdafruitIO label, select, and finally click Add Label.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95-console-select-label.png"
+  )}
+/>
+
+You should now see your data appearing on Adafruit IO under Feeds as shown below.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95-adafruitio-feeds.png"
+  )}
+/>
+
+That completes this guide!

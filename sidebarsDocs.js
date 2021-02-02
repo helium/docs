@@ -158,6 +158,12 @@ module.exports = {
       items: ['use-the-network/devices/development/adafruit-feather-m0-rfm95/arduino'],
       collapsed: false,
     },
+    {
+      type: 'category',
+      label: 'Guides',
+      items: ['use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruitio'],
+      collapsed: false,
+    },
   ],
   helteccubecelhtccab01: [
    {
