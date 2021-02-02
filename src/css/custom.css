@@ -21,6 +21,8 @@
 --ifm-menu-color: #1C1E21;
 --ifm-navbar-link-hover-color: #333;
 --ifm-color-info: #A334FB;
+--ifm-tabs-padding-horizontal: 20px;
+--ifm-tabs-padding-vertical: 10px;
 
 
 }
@@ -48,6 +50,30 @@ backdrop-filter: saturate(180%) blur(20px);
   align-items: center; 
   margin-bottom: 40px;
 }
+
+.tabs--block .tabs__item {
+  background: var(--ifm-menu-color-background-active);
+  margin-right: 10px;
+  flex-grow: 0;
+}
+
+
+.tabs--block .tabs__item.tabs__item--active {
+  background: var(--ifm-menu-color-active);
+  color: white;
+  border-bottom-left-radius: var(--ifm-global-radius);
+  border-bottom-right-radius: var(--ifm-global-radius);
+}
+
+.tabs__item--active:hover {
+  background: var(--ifm-menu-color-active);
+  color: white;
+}
+
+.tabs--block {
+  margin-bottom: 30px;
+}
+
 
 img.techicon {
   width: 45px;
