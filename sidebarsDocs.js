@@ -129,7 +129,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Makers',
-      items: ['mine-hnt/hotspot-makers/approved-makers', 'mine-hnt/hotspot-makers/maker-approval-auditing', 'mine-hnt/hotspot-makers/hotspot-integration-testing'],
+      items: ['mine-hnt/hotspot-makers/approved-makers', 'mine-hnt/hotspot-makers/maker-approval-auditing', 'mine-hnt/hotspot-makers/hotspot-integration-testing', 'mine-hnt/hotspot-makers/hotspot-ble-services', 'mine-hnt/hotspot-makers/hotspot-wifi-configuration'],
       collapsed: false,
     },
   ],  
