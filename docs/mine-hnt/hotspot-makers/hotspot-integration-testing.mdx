@@ -1,0 +1,176 @@
+---
+id: hotspot-integration-testing
+hide_title: true
+sidebar_label: Hotspot Integration Testing
+slug: /mine-hnt/hotspot-makers/hotspot-integration-testing
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+
+# Hotspot Integration Testing
+
+This guide is intended for companies that have been approved via HIP19, or are considering submitting an application. 
+
+## Helium Hotspot Wallet App Compatibility
+
+For optimal user experience, we recommend Hotspots be equipped with compatible bluetooth and Wi-Fi functionality. This allows a seamless onboarding experience. 
+
+To add your Hotspot to the Hotspot App, [submit an issue and a pull request to the Hotspot Github Repo](https://github.com/helium/hotspot-app/). 
+
+In this codebase, you’ll want to modify the onboarding flow to add a UI element that enables users to select your Hotspot type on this screen:
+
+
+:::info
+
+Product names on this page should follow [Helium branding guidelines](https://www.helium.com/brand) and image assets must conform with existing user experience. If you require help, please reach out to the Helium team.
+
+:::
+
+
+Here is a recommended list of what you should change/add:
+
+* New UI element in [src/features/hotspots/setup/HotspotSelectionScreen.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/HotspotSelectionScreen.tsx)
+* New picture in [src/assets/images](https://github.com/helium/hotspot-app/blob/main/src/assets/images)
+* Update `HotspotType` and `HotspotName` in [src/store/connectedHotspot/connectedHotspotSlice.ts](https://github.com/helium/hotspot-app/blob/main/src/store/connectedHotspot/connectedHotspotSlice.ts)
+* New prompt message for power screen and pairing screen in [src/locales/en.ts](https://github.com/helium/hotspot-app/blob/main/src/locales/en.ts)
+* Setup instructions in [src/locales/en.ts](https://github.com/helium/hotspot-app/blob/main/src/locales/en.ts)
+
+
+
+### Bluetooth Pairing
+
+
+The Helium Hotspot App will start scanning for broadcasting Hotspots. Makers will need to update the `localname` with the product name and include the last 6 digits of the MAC identifier. The character limit is 170 but we do not recommend anyone go beyond 25-30 characters in the product name.
+
+The `localname` is the name used on the **Found Hotspots** page.
+
+### Constructing the Transaction
+
+If you’re using [Helium’s miner image](https://github.com/helium/miner), constructing a transaction is relatively easy. For testing, you can use the following: 
+
+```
+payer = 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr
+```
+
+When testing with this `payer` address, adding hotspots and asserting location transactions will be submitted and you’ll see them as pending transactions in the Hotspot App. However, once it reaches the blockchain, the transaction will be discarded as the payer address does not exist in the blockchain’s `chain_var` of valid addresses. This ensures no Data Credits are spent on testing, but allows trial and error as Makers finish app integration.
+
+Once submitted, you can view the pending transaction using this API:
+
+* [https://api.helium.io/v1/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr/pending_transactions](https://api.helium.io/v1/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr/pending_transactions)
+
+:::warning 
+
+By design, this transaction will fail, as this is a test account.
+
+:::
+
+Once you’re ready to proceed, request a Maker account and replace the test payer address with your own maker address.
+
+
+## Requesting a Maker Account
+
+Once you are confident that the transaction is sound and well crafted, request a Maker Account from your DeWi or Helium contact. In your request, include the Maker Name and how many location asserts you will include for your customers. A minimum of `1` included location assertion is required. That value is denoted under `locationNonceLimit`.
+
+All Maker Accounts are public on the blockchain [and can be found here](https://helium-onboarding-server.herokuapp.com/api/v2/makers). 
+
+Make note of the `Payer` address. This is the account address you will burn HNT into to generate DCs for onboarding your Hotspots.
+
+:::info
+
+Maker IDs are sequential and cannot be customized.
+
+:::
+
+
+
+## Funding the Maker Account
+
+In order to fund the Maker account, you’ll need to [create a CLI wallet](https://github.com/helium/helium-wallet-rs). Once created, fund this wallet with HNT and use this HNT to produce Data Credits for your Hotspots. For each Hotspot onboarded, the [transaction fees](/blockchain/transaction-fees#transaction-fee-schedule) are as follows:
+
+* **Add Gateway**: `4000000 DCs`
+* **Assert Location**: `1000000 DCs`
+
+The `payee` in the burn transaction will be your Maker account. This is where the Data Credits will be deposited. 
+
+:::warning 
+
+Remember, Data Credits are NON-TRANSFERABLE. Triple check that the `payee` address is your correct `maker` address.
+
+:::
+
+
+
+## Adding Hotspots to the Onboarding Server
+
+### Testing
+
+When you’re ready to start integration with the Test Maker account with the mobile wallet app, send us details about your Test Hotspot in this JSON format:
+
+```json
+"id": 6488, 
+"mac_eth0": "dc:a6:32:d8:e7:5c", 
+"mac_wlan0": "dc:a6:32:d8:e7:5e", 
+"onboarding_address": "blah", 
+"rpi_serial": "0000011031311847"
+```
+
+### Production
+
+When you move to production, the JSON should be formatted like this. Note the addition of the `batch` field:
+
+```json
+"batch": "batch_name",  
+"id": 6488, 
+"mac_eth0": "dc:a6:32:d8:e7:5c", 
+"mac_wlan0": "dc:a6:32:d8:e7:5e", 
+"onboarding_address": "blah", 
+"rpi_serial": "0000011031311847"
+```
+
+
+## Wallet App, Onboarding, and Data Credits
+
+### Testing 
+
+While testing, the miner will use the test payer address to construct the `add_gateway` transaction. The Hotspot app will take that transaction, sign it, and check the onboarding server to see if the Hotspot `mac`, `id`, and `Maker` matches and exists. 
+
+If it does, the app submits the transaction to the blockchain. If done correctly, you should see a [pending transaction here](https://api.helium.io/v1/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr/pending_transactions). 
+
+Note that the blockchain WILL NOT process this transaction because the payer address is not part of the chain variable of approved Makers. After a short period, the pending transaction will disappear from the API and the app. This is normal and expected.
+
+
+### Production
+
+Prior to production, you will have sent the list of Hotspots to the DeWi or your Helium contact to upload to the Onboarding Server on your behalf. You should also have Data Credits in your Maker account.  And if not added already, notify the Helium team to include your Maker address in the chain variable.
+
+The final steps and flow for production onboarding are as follows:
+
+1. Update the `miner` to use your Maker account as payer.
+2. Onboard a Hotspot that you know is included in the upload to the Onboarding Server.
+3. Go through the Onboarding process in the Hotspot app. The app will check the Onboarding server for the Hotspot and verify the Maker ID. The app will then sign the transaction and submit to the blockchain.
+4. You’ll see a pending transaction in your Maker address. 
+5. The blockchain will process the `add_gateway` and `assert_location` transaction and verify that the maker address is in the chain variable.
+6. The transaction will go through and Data Credits will be deducted from the Maker account.
+7. The Pending transaction in the Hotspot app will update to **Confirmed**.
+
+:::warning
+
+* If the Hotspot `mac`, `serial`, or `Maker` does not match, the transaction will silently fail.
+* If there are insufficient Data Credits in the maker account, the transaction will silently fail.
+
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+

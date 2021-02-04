@@ -10,7 +10,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-manufacturers/hotspot-makers', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
+      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
       collapsed: true,
     },
     {
@@ -120,6 +120,19 @@ module.exports = {
       collapsed: false,
     },
   ],
+  hotspotMakers: [
+   {
+      type: 'link',
+      label: '<- Hotspot Makers',
+      href: '/mine-hnt/hotspot-makers'
+    }, 
+    {
+      type: 'category',
+      label: 'Makers',
+      items: ['mine-hnt/hotspot-makers/approved-makers', 'mine-hnt/hotspot-makers/maker-approval-auditing', 'mine-hnt/hotspot-makers/hotspot-integration-testing'],
+      collapsed: false,
+    },
+  ],  
   bL072zLrwan1: [
    {
       type: 'link',
