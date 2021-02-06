@@ -12,28 +12,28 @@ over a given period, there are some higher level concepts, design elements, and
 rules to keep in mind that will help better explain what you might earn and why.
 This section covers these, as well as some mining and token reward basics.
 
-## How Do Miners Earn Helium Tokens?
+## How Do Hotspots Earn Helium Tokens?
 
-The Helium blockchain rewards Miners for providing wireless coverage and
+The Helium blockchain rewards Hotspots for providing wireless coverage and
 verifying the Helium Network. Hotspots are rewarded in Helium Token, $HNT.
 
 Every epoch, the current consensus group mines approximately 30 blocks on the
-blockchain. In each block, Miners perform various types of work and are awarded
+blockchain. In each block, Hotspots perform various types of work and are awarded
 according to the following distribution:
 
 | Reward Type           | Description                                                                                                       |
 | :-------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| PoC Challenger        | Rewarded to any Miner that creates a valid PoC challenge and submits the corresponding receipt to the blockchain. |
-| PoC Challengees       | Awarded to any Miner that completes a stage of a PoC challenge.                                                   |
-| Witnesses             | Distributed to all Miners that witness a packet as part of a PoC Challenge.                                       |
-| Consensus Group       | Divided equally among the 16 Miners that are part of outgoing Consensus Group, responsible for mining blocks.     |
+| PoC Challenger        | Rewarded to any Hotspot that creates a valid PoC challenge and submits the corresponding receipt to the blockchain. |
+| PoC Challengees       | Awarded to any Hotspot that transmits a POC packet after being targeted by the challenger.                                                   |
+| Witnesses             | Distributed to all Hotspots that witness a beacon packet as part of a PoC Challenge.                                       |
+| Consensus Group       | Divided equally among the 16 Hotspots that are part of outgoing Consensus Group, responsible for mining blocks.     |
 | Security              | Awarded to Helium, Inc and other Network investors who hold Security Tokens.                                      |
-| Network Data Transfer | Distributed each epoch to Miners that route LongFi sensor data for sensors on the Network during that epoch.      |
+| Network Data Transfer | Distributed each epoch to Hotspots that route LongFi sensor data for sensors on the Network during that epoch.      |
 
 **_Do I Have To Actively Participate to Earn Rewards Once My Hotspot is
 Deployed?_**
 
-No. Once your Miner is completely deployed and fully synced with the Helium
+No. Once your Hotspot is completely deployed and fully synced with the Helium
 blockchain, you as the owner are not required to do anything else in order to
 earn $HNT. Your Hotspot will perform all of the above activities on its own
 while it runs.
@@ -79,8 +79,8 @@ the following reward types:
 | Reward Type           | Percentage    | HNT Earned by Reward Type |
 | :-------------------- | :------------ | :------------------------ |
 | PoC Challenger        | .95%          | 32.53427                  |
-| PoC Challengees       | 18%           | 616.43880                 |
-| Witnesses             | 8.55%         | 292.80843                 |
+| PoC Challengees       | 5.31%         | 181.849446                |
+| Witnesses             | 21.24%        | 727.397784                |
 | Consensus Group       | 6%            | 205.4796                  |
 | Security Tokens       | 34%           | 1164.3844                 |
 | Network Data Transfer | _Up to 32.5%_ | _Up to 1113.0145_         |
@@ -101,7 +101,7 @@ As noted above,
 [HIP10 was activated on August 24th, 2020](https://github.com/helium/HIP/blob/master/0010-usage-based-data-transfer-rewards.md).
 HIP10 was introduced by Helium Community Member `hashc0de` and was adopted by
 the Helium Community. It ensures that $HNT is rewarded at a rate of 1:1 to the
-amount of Data Credits (DCs) routed by any given Miner per epoch. In doing so,
+amount of Data Credits (DCs) routed by any given Hotspot per epoch. In doing so,
 the Network Data Transfer reward is proportional to the DC spent that epoch.
 This proportional relationship between Network Data Transfer reward type and DC
 is capped at 32.5% (1113.0145 HNT). Therefore, if the DC burned doesn't equal
@@ -116,13 +116,13 @@ Here are a few examples to illustrate how this works in practice:
 - The HNT Oracle Price is `$2.00`
 - In this scenario, total HNT value of DC transferred in this epoch is `10HNT`.
   This calculation is:`(2,000,000 DC * $0.00001 / $2 HNT Oracle Price)`
-- These `10 HNT` would be split proportionally to the Miners who did the work
+- These `10 HNT` would be split proportionally to the Hotspots who did the work
   routing packets at the 1:1 rate.
 - The remaining `1103.0145 HNT` from the Network Data Transfer reward would be
   distributed ratably among the Challengers, Witnesses and Challengees.
   - `38.10413727` to the Challenger group
-  - `342.9372355` to the Witness group
-  - `721.9731273` to the Challengee group
+  - `851.9282902` to the Witness group
+  - `212.9820725` to the Challengee group
 
 **Example 2: DC Burn exceeds 32.5% HNT**
 
@@ -134,24 +134,24 @@ In this scenario, total HNT value of DC transferred in this epoch is `2500HNT`.
 This calculation is:`(500,000,000 DC * $0.00001 / $2 HNT Oracle Price)`
 
 - Because the Network DC burn exceeded the `1113.0145HNT` available to the
-  Network Data Transfer reward, all Miners who did the work over this epoch with
+  Network Data Transfer reward, all Hotspots who did the work over this epoch with
   split the full `1113.0145HNT` proportionally.
 
 **Additional Notes on Reward Types and Payouts**
 
-- All Miners in the `Consensus` group will earn an equal reward.
-- All Miners participating in PoC, including `Challengers`, `Challengees` and
+- All Hotspots in the `Consensus` group will earn an equal reward.
+- All Hotspots participating in PoC, including `Challengers`, `Challengees` and
   `Witnesses` will earn rewards proportional to how many events they
   participated in out of the total number of events per epoch.
-- All Miners participating in `Network Data Transfer` will earn rewards
+- All Hotspots participating in `Network Data Transfer` will earn rewards
   proportional to their share of the total data transfer in that epoch, as shown
   above.
-- Miners can earn one or more reward types during any given epoch.
-- Miners are only eligible to submit one Proof of Coverage Challenge - which
+- Hotspots can earn one or more reward types during any given epoch.
+- Hotspots are only eligible to submit one Proof of Coverage Challenge - which
   results in them earning the `PoC Challenger` reward - **once per 120 blocks**.
 - `PoC Challenger`, `PoC Challengee`, and `Witness` reward types get distributed
   in the epoch that includes the corresponding PoC receipt.
-- A Miners can earn more than one `PoC Challengee` and `Witness` rewards per
+- A Hotspots can earn more than one `PoC Challengee` and `Witness` rewards per
   epoch.
 
 ## HNT Proration and Slow Block Times
