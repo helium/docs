@@ -21,6 +21,12 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Wallets',
+      items: ['wallets/wallets', 'wallets/wallets/ledger'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Community and Governance',
       items: ['community-governance/community-governance'],
       collapsed: true,
