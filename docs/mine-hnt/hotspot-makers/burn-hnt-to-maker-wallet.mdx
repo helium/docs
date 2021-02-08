@@ -1,0 +1,79 @@
+---
+id: burn-hnt-to-maker-wallet
+hide_title: true
+sidebar_label: Burning HNT to Maker Wallet
+slug: /mine-hnt/hotspot-makers/burn-hnt-to-maker-wallet
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Burning HNT to Your Maker Wallet
+
+Any [approved Hotspot Maker](/mine-hnt/approved-makers) is responsible for supplying Data Credits (DCs) to the onboarding server for their Hotspots. They do this by burning HNT to their 
+specific maker address. 
+
+:::info 
+
+A full list of approved maker wallet addresses [can be seen via this API](https://onboarding.dewi.org/api/v2/makers).
+
+:::
+
+## Maker Wallet Address Integration
+
+As an approved Maker, you've been supplying the DeWi with the onboarding details for all the Hotspots you manufacture and distribute. In turn, the DeWi adds them to the onboarding server. When a Hotspot is onboarded by your end customer, the onboarding server knows to associate it with your Maker ID, and associated Maker Wallet address. If, when a Hotspot is onboarded, it's present in the onboarding server and you have ample Data Credits to pay the onboarding fees, the blockchain will add the Hotspot. And if you've [integrated your Hotspot in the Helium Mobile Wallet onboarding flow](/mine-hnt/hotspot-makers/hotspot-integration-testing), the Wallet knows to use your approved Maker Wallet address. At this point, the Data Credits will be flushed from your wallet address. 
+
+
+## Hotspot Data Credit Fees
+
+In order for any Hotspot to join the Helium blockchain, its maker address must have sufficient Data Credits. A full list of [Helium blockchain data credit fees can be found here](/blockchain/transaction-fees). Hotspot Makers need to account for at least `5,000.000` total Data Credits per Hotspot. Specifically, for each Hotspot, a Maker must supply:
+
+* `4,000,000` Data Credits for the **Add Hotspot** fee. This is a one-time fee.
+* `1,000,000` Data Credits for the **Assert Location** fee. Each Hotspot Maker is required to supply at least one **Assert Location* for their Hotspots. 
+
+As a maker, if you only the one-time **Add Hotspot** fee and one **Assert Location** fee, you'll supply `5,000.000` total Data Credits per Hotspot. Add `1,000,000` Data Credits for each additional **Assert Location** fee you with to supply.
+
+:::warning 
+
+If your wallet address does not have enough DCs to pay for required Hotspot Transactions, they will fail. 
+
+:::
+
+
+## Maker Integration Test Wallet Address
+
+During the course of your testing, you can use the Maker Integration Test wallet address created by the DeWi.  Here is that address:
+
+
+[https://explorer.helium.com/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr](https://explorer.helium.com/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr)
+
+
+## Burning HNT to Supply Data Credits 
+
+:::warning
+
+Once you burn HNT to a specified wallet address, they are lost and gone forever. The resulting DCs are non-transferable. Please double-check any wallet address before executing any HNT burn. 
+:::
+
+
+The actual mechanism for burning HNT to DCs is via an on-chain burn transaction [using the Helium Blockchain Wallet CLI](https://github.com/helium/helium-wallet-rs). Follow the instructions to download and install the CLI Wallet on your local machine. Once installed, you'll use the `burn` command to supply data credits to your specified maker wallet. 
+
+You can run `$ helium-wallet burn -h` for a full print-out of what options are available, but here's the basic command structure:
+
+```shell
+$ helium-wallet burn --amount <amount> --payee <payee> --commit
+```
+
+* `amount` is the amount of HNT you wish to burn to DCs 
+* `payee` is the target wallet address to which you wish to burn DCs
+
+You can also supply a `memo` input but it's not required. 
+
+So, for example, if you want to burn `10,000` HNT to the Maker Test Integration address, the full command would look like this:
+
+
+```shell
+$ helium-wallet burn --amount 10,000 --payee 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr --commit
+```
+
+When this runs, you'll be asked to supply the passphrase for your HNT wallet. If this is correct, and you have enough HNT to pay for the specified burn amount, it will succeed. 
+
