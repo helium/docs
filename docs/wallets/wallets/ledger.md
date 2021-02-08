@@ -2,7 +2,7 @@
 id: ledger
 hide_title: true
 sidebar_label: Ledger
-slug: /ledger
+slug: /wallets/ledger
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
