@@ -9,8 +9,6 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 # Ledger Hardware Wallet
 
-<img src={useBaseUrl("img/wallets/ledger/ledger-header.jpg")} />
-
 The Helium blockchain has support for Ledger hardware wallets. When installed on
 a Nano S, the Helium ledger app allows you to view your Helium address, check
 your balance, and submit transactions while using the companion app.
