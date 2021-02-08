@@ -44,3 +44,6 @@ If you wish to proceed with using it, please follow the documentation
 The Helium Ledger Wallet is an application that runs on the Ledger Hardware
 wallet. The Ledger Hardware wallet is the most secure way to send and receive
 the Helium Network Token (HNT), but currently supports no other transactions.
+
+Learn more about usage [here](/wallets/wallets/ledger). Source code is 
+available on [Github](https://github.com/helium/helium-ledger-app).
