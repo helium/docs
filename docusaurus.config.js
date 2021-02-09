@@ -31,7 +31,7 @@ module.exports = {
     announcementBar: {
       id: 'join_discord',
       content:
-        '<a target="_blank" rel="noopener noreferrer" href="https://discord.gg/helium">Join</a> more than 11,000 Community Members in the Helium Discord Server',
+        '<a target="_blank" rel="noopener noreferrer" href="https://discord.gg/helium">Join more than 11,000 Community Members in the Helium Discord Server</a>',
       backgroundColor: '#A334FB',
       textColor: '#FFFFFF',
       isCloseable: true,
