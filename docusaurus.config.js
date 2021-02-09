@@ -28,6 +28,14 @@ module.exports = {
       // using user system preferences, instead of the hardcoded defaultMode
       respectPrefersColorScheme: false,
     },
+    announcementBar: {
+      id: 'join_discord', // Any value that will identify this message.
+      content:
+        '<a target="https://discord.gg/helium" rel="noopener noreferrer" href="#">Join</a> 11,000 others in the Helium Discord Server!',
+      backgroundColor: '#A334FB', // Defaults to `#fff`.
+      textColor: '#FFFFFF', // Defaults to `#000`.
+      isCloseable: true, // Defaults to `true`.
+    },
     navbar: {
       title: '',
       style: 'primary',
