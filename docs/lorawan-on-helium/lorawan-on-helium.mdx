@@ -20,7 +20,7 @@ central entity, the LNS operator of the network.
 
 Therefore, we want to enable the _multi-tenancy_ of LNS’s on the same Public
 LoRaWAN Network. Achieving this distinguishes Helium’s LoRaWAN Network from any
-other: public wireless infrastructure has become compatible with privately-run
+other: public wireless infrastructure is now compatible with privately-run
 network servers.
 
 ## The OUI
@@ -30,12 +30,14 @@ Organizationally Unique Identifier (OUI). This registers the LNS with the
 blockchain and allocates two very important routing objects owned and maintained
 by the OUI operator:
 
-- up to five **filters**, allowing gateways to route Join frames
-- one or more **slabs** of DevAddrs
+- up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the
+  LNS
+- one or more **slabs** of DevAddrs, reserving an address space for the OUI's
+  devices on the Helium Network
 
-### Join Frames and Filters
+### Join Request Frames and Filters
 
-A LoRaWAN **Join** packet has the following unencrypted header:
+A Join Request frame has the following unencrypted header:
 
 ```bash
 ___________________________________________________________
@@ -45,19 +47,16 @@ ___________________________________________________________
 ```
 
 From the gateways perspective, the (AppEUI, DevEUI) may be used to figure out if
-one or more OUI's may be interested in the Join Request.
+one or more OUI's are interested in the Join Request.
 
 This is done by querying every filter maintained and written to the blockchain
 by every OUI. The filters themselves are _xorhash_ tables, thus the AppEui and
-DevEui cannot be extracted. With an AppEui and DevEui in-hand though, the
+DevEui cannot be extracted. Only with the AppEui and DevEui in-hand can the
 gateway can run it through the table and see if it is in the table.
 
-In typical LoRaWAN fashion, the
-[LongFi Network Server](https://github.com/helium/devdocs/tree/67b988ec351854ec4b7608e12b5b8f47f2456abf/longfi/longfi-network-server/README.md)
-then responds with a DevAddr \(and lots of other information which is used to
-derive session keys\).
-
-This DevAddr is important because it is now part of the **Data** packets.
+In response to the Join Request, a Join Accept is sent down, assigning the
+DevAddr. Due to the multi-tenancy on the Helium Network, the LNS may only assign
+DevAddrs within its slab(s).
 
 ### Data Frames and DevAddr Slabs
 
@@ -71,5 +70,6 @@ ________________________________________________________________________
 ```
 
 From the gateways perspective, it is able to use DevAddr to determine the OUI of
-Data frames. Note that the look-up and routing by DevAddr instead of \(AppEUI,
-DevEUI\) is much faster.
+Data frames. A quick query can say which OUI owns this DevAddr slab. This
+look-up and routing by DevAddr instead of by \(AppEUI, DevEUI\) via _xorhash_
+filters is generally much quicker.
