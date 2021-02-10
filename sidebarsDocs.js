@@ -15,6 +15,12 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'LoRaWAN on Helium',
+      items: ['lorawan-on-helium/lorawan-on-helium', 'lorawan-on-helium/frequency-plans/frequency-plans'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Use The Network',
       items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
       collapsed: true,
