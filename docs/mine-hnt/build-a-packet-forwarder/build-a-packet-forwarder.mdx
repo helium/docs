@@ -281,15 +281,15 @@ grep avx /proc/cpuinfo
 grep avx2 /proc/cpuinfo
 ```
 
-If nothing is returned from these commands, you're host system does not have AVX
+If nothing is returned from these commands, your host system does not have AVX
 support and your Miner may not be stable.
 
 #### Start Container
 
 Before running the container for the first time, it is advisable to pick a
-'system mount point\`, ie: a directory in your host system; some long-term miner
+'system mount point\`, i.e. a directory in your host system; some long-term miner
 data is stored there. This allows you to easily maintain your miner's blockchain
-identity \(ie: swarm keys\) and blockchain state through miner image updates.
+identity \(i.e. swarm keys\) and blockchain state through miner image updates.
 
 If you are using a Linux system, you can just create a directory in your user's
 home directory:
@@ -314,7 +314,7 @@ docker run -d \
 quay.io/team-helium/miner:miner-xxxNN_YYYY.MM.DD
 ```
 
-Replace xxxNN with the architecture used, ie: amd64 or arm64, and with the
+Replace xxxNN with the architecture used, i.e. amd64 or arm64, and with the
 release date of the image.
 
 The `-d` option runs in detached mode, which makes the command return or not;
@@ -322,7 +322,7 @@ you may want to omit if you have a daemon manager running the docker for you.
 
 The `-env REGION_OVERRIDE=US915` tells your miner that you are connecting to a
 packet forwarder configured for the US915 region. You will want to change this
-to your region, ie:
+to your region i.e.
 `US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923 | KR920 | IN865`
 
 > Note: REGION_OVERRIDE may be completely omitted once your Miner has asserted
@@ -334,7 +334,7 @@ the image on boot and restarting the image if it crashes. Depending on how you
 installed Docker in your system, it'll start on boot. In the AWS AMI above, we
 use systemd \(`systemctl status docker` to check\).
 
-The `--publish 1680:1680/udp` binds your system port 1680 to the containers port
+The `--publish 1680:1680/udp` binds your system port 1680 to the container's port
 1680, where the Miner is hosting a packet forwarder UDP server; this is
 necessary if you want to do any radio interactions with your miner.
 
@@ -356,7 +356,7 @@ to keep your miner running.
 
 You may want to interrogate the Miner or interact with it it as described in the
 [using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner). Docker's
-`exec` command enables this, eg:
+`exec` command enables this e.g.
 
 ```text
 docker exec miner miner info height
@@ -386,7 +386,7 @@ preserved through updates.
 
 These commands will assume you are running in Docker and they have the same
 prefix to get you executing a command within the docker: `docker exec miner` .
-If you want to make it easier, you can always created an an alias such as:
+If you want to make it easier, you can always create an an alias such as:
 `alias miner="docker exec miner miner"`.
 
 #### Checking the Logs
@@ -488,7 +488,7 @@ simple curl command to check in a Terminal:
 
 Periodically, we may release updates or you may want to migrate your miner from
 one machine to another. The most important thing is that you maintain a copy of
-your miner's private key, ie: `swarm_key`. Fun tidbit: this is also how your
+your miner's private key, i.e. `swarm_key`. Fun tidbit: this is also how your
 three-word name is generated.
 
 Assuming you've mounted the Docker image as detailed above, it is located at:
@@ -506,7 +506,7 @@ compromised/accidentally lost unless physically damaged\).
 Snapshots are summaries of the current state of the blockchain. Since you don't
 need every single block ever to sync with the blockchain, it's really just a
 summary of the last few blocks and the account balance of every account on the
-blockchain. You generally want to be careful who you accept snapshots as they
+blockchain. You generally want to be careful who you accept snapshots from as they
 might give you an incorrect state. When managing miners though, snapshots can
 really help in syncing one up that's stalled or if you need to migrate from one
 machine to another.
@@ -518,7 +518,7 @@ miner snapshot take /path/to/snapshot
 ```
 
 Naming the snapshot something like `snap-XXXXXX`, where `XXXXXX` is the height
-of the blockchain is a nice convention. Also, when using a Docker, it's usually
+of the blockchain is a nice convention. Also, when using a Docker container, it's usually
 a good idea to save the snapshot to `/var/data` so that you can easily copy the
 snapshot out of the Docker and into the host system.
 
@@ -544,7 +544,7 @@ forwarder directory:
 nano ~/sx1302_hal/lora_pkt_fwd/global_conf.json
 ```
 
-You want to change the field "server_address" from "localhost" the the IP
+You want to change the field "server_address" from "localhost" to the IP
 address of the server, so in this case:
 
 You'll need to restart the packet forwarder for the configuration change to take
