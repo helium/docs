@@ -316,9 +316,9 @@ Delete a device label, along with all of its device links.
 
 _Body Parameters_
 
-| Parameter Name      | Type     | Description                         |
-| ------------------- | -------- | ----------------------------------- |
-| label_id (required) | _string_ | The UUID of the label to be deleted |
+| Parameter Name      | Type     | Description                              |
+| ------------------- | -------- | ---------------------------------------- |
+| label_id (required) | _string_ | The UUID of the label being searched for |
 
 </TabItem>
 <TabItem value="response">
@@ -329,6 +329,90 @@ _Body Parameters_
 Label {
     id: "868ea783-f252-4fc4-b724-a155680c0bc9",
     name: "Blue Label",
+}
+```
+
+404: Not Found
+
+```json
+{ "errors": { "error": ["Label not found"] } }
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Search for Label
+
+```
+GET https://console.helium.com/api/v1/labels/:label_id
+```
+
+Search for a label by UUID.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| Parameter Name      | Type     | Description   |
+| ------------------- | -------- | ------------- |
+| label_id (required) | _string_ | UUID of label |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "id": "868ea783-f252-4fc4-b724-a155680c0bc9",
+  "multi_buy": 1,
+  "name": "Blue Label"
+}
+```
+
+404: Not Found
+
+```json
+{ "errors": { "error": ["Label not found"] } }
+```
+
+</TabItem>
+</Tabs>
+
+```
+GET https://console.helium.com/api/v1/labels
+```
+
+Search for label by name.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| Parameter Name  | Type     | Description   |
+| --------------- | -------- | ------------- |
+| name (required) | _string_ | name of label |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "id": "868ea783-f252-4fc4-b724-a155680c0bc9",
+  "multi_buy": 1,
+  "name": "Blue Label"
 }
 ```
 
