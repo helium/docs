@@ -10,7 +10,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 ## Mappers Quickstart
 
 This guide will show you step by step how to contribute data to the Mappers
-project with an off the shelf tracker. This guide will use the
+project with an off-the-shelf tracker. This guide will use the
 [Dragino LGT92](https://www.dragino.com/products/lora/item/142-lgt-92.html), but
 any LoRaWAN compatible tracker will work.
 
@@ -52,12 +52,12 @@ Next we'll fill in the details, see instructions and image below.
 
 Next, we'll be creating a Function decoder to decode the payload from the device
 and properly format it for the API endpoint. The decoder is specific to the
-encoding scheme used to encode the data before the device transmits it. For off
-the shelf devices this is usually manufacture specific. For development devices,
+encoding scheme used to encode the data before the device transmits it. For off-the-shelf 
+devices this is usually manufacturer specific. For development devices,
 [CayenneLPP](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload)
 if often used. For this guide we'll be using a decoder specifically made for
 this tracking device and slightly modifying it by adding two additional required
-field. The original decoder can be found from the manufacture's website
+fields. The original decoder can be found from the manufacturer's website
 [here](https://www.dragino.com/downloads/downloads/LGT_92/Decoder/LGT92-v1.5.0_decoder_20191129.txt).
 
 To start, navigate to the Functions page using the left navigation and then
@@ -120,7 +120,7 @@ click _Create New Function_.
   ```  
   
    Next we need to add two more fields that are required by the Mappers API but
-   missing from the function, you'll see these at the bottom of the editor
+   missing from the function. You'll see these at the bottom of the editor
    window in the screen shot below. Altitude is permanently set to zero because
    this device does not output altitude and we will assume that the tracker will
    be used at ground level. Accuracy is set to three meters since this device
