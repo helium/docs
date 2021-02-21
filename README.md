@@ -131,25 +131,3 @@ When adding items use the raw id path, slug paths will not work.
 
 This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern
 static website generator.
-
-
-ENOSPC, max file watchers
-Listen uses inotify by default on Linux to monitor directories for changes. It's not uncommon to encounter a system limit on the number of files you can monitor. For example, Ubuntu Lucid's (64bit) inotify limit is set to 8192.
-
-You can get your current inotify file watch limit by executing:
-
-$ cat /proc/sys/fs/inotify/max_user_watches
-
-When this limit is not enough to monitor all files inside a directory, the limit must be increased for Listen to work properly.
-
-You can set a new limit temporarily with:
-
-$ sudo sysctl fs.inotify.max_user_watches=524288
-$ sudo sysctl -p
-
-If you like to make your limit permanent, use:
-
-$ sudo sh -c "echo fs.inotify.max_user_watches=524288 >> /etc/sysctl.conf"
-$ sudo sysctl -p
-
-You may also need to pay attention to the values of max_queued_events and max_user_instances if Listen keeps on complaining.
