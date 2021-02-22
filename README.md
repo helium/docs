@@ -46,7 +46,7 @@ difficult.
 Instead, from time to time, `prettier` will be run against the documents and
 those unimportant commits will be added to `.git-blame-ignore-revs`
 
-Use the style guide found [here](docs/style-guide) to learn what markdown syntax
+Use the style guide found [here](docs/style-guide.md) to learn what markdown syntax
 is available.
 
 For more advanced content consider using

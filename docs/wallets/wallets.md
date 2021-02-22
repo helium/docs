@@ -24,7 +24,7 @@ phones and provides simple pairing and setup with
 [Hotspots](/mine-hnt/hotspot-makers).
 
 Generally, this wallet focuses on people who want to send or receive HNT or
-manage hotspots. Other activities, such as managing end-devices and OUIs (ie:
+manage hotspots. Other activities, such as managing end-devices and OUIs (i.e.
 users of the network) are generally best suited for the command line wallet.
 
 To learn more about the wallet, please visit
