@@ -9,18 +9,16 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 # Build a Packet Forwarder
 
-:::warning 
+:::warning
 
-The ability to mine HNT with anything other than [Approved Hotspots](https://helium.com/mine) is 
-not supported. Please join the #diy-packet-forwarder in the [Helium Discord Server](https://discorg.gg/helium) for the 
-latest updates.
+The ability to mine HNT with anything other than
+[Approved Hotspots](https://helium.com/mine) is not supported. Please join the
+#diy-packet-forwarder in the [Helium Discord Server](https://discorg.gg/helium)
+for the latest updates.
 
 :::
 
-
-
 ## Packet Forwarder Architecture
-
 
 <img src={useBaseUrl("img/mine-hnt/mine-hnt-arch.png")} />
 
@@ -35,7 +33,7 @@ To be a Helium Miner, there are three principle components to know about
   component is interested in receiving the packets relating to its devices and
   handles downlink responses when appropriate
 
-When you buy [an approved hotspot](https://www.helium.com/mine), you are
+When you buy [an approved hotspot](/mine-hnt/prebuilt-hotspots), you are
 buying a Packet Forwarder and a Miner in a convenient package. Everything is
 ready to go from the moment you plug it in and the device is kept up to date by
 Helium, Inc.
@@ -260,9 +258,7 @@ example.
 For AWS, for example, you will want to configure the "Security Group" of your
 EC2 as so:
 
-<img
-  src={useBaseUrl("img/mine-hnt/run-a-miner-security-group.png")}
-/>
+<img src={useBaseUrl("img/mine-hnt/run-a-miner-security-group.png")} />
 
 ### Run a Docker Container
 
@@ -287,9 +283,10 @@ support and your Miner may not be stable.
 #### Start Container
 
 Before running the container for the first time, it is advisable to pick a
-'system mount point\`, i.e. a directory in your host system; some long-term miner
-data is stored there. This allows you to easily maintain your miner's blockchain
-identity \(i.e. swarm keys\) and blockchain state through miner image updates.
+'system mount point\`, i.e. a directory in your host system; some long-term
+miner data is stored there. This allows you to easily maintain your miner's
+blockchain identity \(i.e. swarm keys\) and blockchain state through miner image
+updates.
 
 If you are using a Linux system, you can just create a directory in your user's
 home directory:
@@ -334,8 +331,8 @@ the image on boot and restarting the image if it crashes. Depending on how you
 installed Docker in your system, it'll start on boot. In the AWS AMI above, we
 use systemd \(`systemctl status docker` to check\).
 
-The `--publish 1680:1680/udp` binds your system port 1680 to the container's port
-1680, where the Miner is hosting a packet forwarder UDP server; this is
+The `--publish 1680:1680/udp` binds your system port 1680 to the container's
+port 1680, where the Miner is hosting a packet forwarder UDP server; this is
 necessary if you want to do any radio interactions with your miner.
 
 The `--name miner` names the container, which makes interacting with the docker
@@ -355,16 +352,17 @@ to keep your miner running.
 ### Interact with the Miner within the Container
 
 You may want to interrogate the Miner or interact with it it as described in the
-[using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner). Docker's
-`exec` command enables this e.g.
+[using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner).
+Docker's `exec` command enables this e.g.
 
 ```text
 docker exec miner miner info height
 ```
 
 In other words, prepend `docker exec miner` to any of the commands documented in
-the [using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner)). Or
-create an alias such as: `alias miner="docker exec miner miner"`
+the
+[using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner)).
+Or create an alias such as: `alias miner="docker exec miner miner"`
 
 ### Updating the Docker Image
 
@@ -501,30 +499,70 @@ Another fun tidbit: for production hotspots sold by Helium, the swarm key is
 stored inside of a secure element and is thus unable to be migrated \(or
 compromised/accidentally lost unless physically damaged\).
 
-### Backing up the Blockchain with Snapshots
+### Snapshots
 
 Snapshots are summaries of the current state of the blockchain. Since you don't
 need every single block ever to sync with the blockchain, it's really just a
 summary of the last few blocks and the account balance of every account on the
-blockchain. You generally want to be careful who you accept snapshots from as they
-might give you an incorrect state. When managing miners though, snapshots can
-really help in syncing one up that's stalled or if you need to migrate from one
-machine to another.
+blockchain.
 
-The process is pretty straightforward. To take a snapshot:
+You generally want to be careful who you accept snapshots from as they might
+give you an incorrect state. However, we also store hashes of valid snapshots in
+the blockchain.
 
+#### Chain-based
+
+You can query a running Miner to see what snapshots it (1) knows about and (2)
+has a copy of:
+
+```text
+$ miner snapshot list
+Height 731521
+Hash <<129,14,18,225,133,83,34,24,205,69,10,10,84,42,129,207,42,186,18,28,192,
+       157,187,76,109,233,4,108,198,197,111,176>>
+Have true
+
+Height 730801
+Hash <<80,90,115,7,10,195,115,217,87,173,24,11,63,116,201,22,150,6,252,168,204,
+       60,65,83,106,68,94,19,7,13,72,165>>
+Have true
 ```
+
+A Miner knows about a snapshot in two ways: it either syncs a block where the
+snapshot hash and height have been saved, or the configuration file of the Miner
+(`sys.config`) has the **blessed** height and hash written into it (ie:
+`blessed_snapshot_block_height` and `blessed_snapshot_block_hash`).
+
+If you have a fully synced Miner, you can extract these values from
+`snapshot list` and write them into the `sys.config` of another non-fully synced
+Miner. Restart the Miner to reload the `sys.config` and it will be able to
+"quick sync" to that snapshot. To make things go even faster, try manually
+connecting your Miner to one of your Miners that has the snapshot.
+
+```text
+miner  peer connect /ip4/192.168.0.0.1/tcp/44158
+```
+
+The only down-side of this approach is that snapshots happen at some rhythm
+defined by the blockchain (currently 720 blocks). You can use the manual
+approach to pass around arbitrary snapshots by hand.
+
+#### Manual
+
+You can also manually move a snapshot file around. To take a snapshot:
+
+```text
 miner snapshot take /path/to/snapshot
 ```
 
 Naming the snapshot something like `snap-XXXXXX`, where `XXXXXX` is the height
-of the blockchain is a nice convention. Also, when using a Docker container, it's usually
-a good idea to save the snapshot to `/var/data` so that you can easily copy the
-snapshot out of the Docker and into the host system.
+of the blockchain is a typical convention. Also, when using a Docker container,
+it's usually a good idea to save the snapshot to `/var/data` so that you can
+easily copy the snapshot out of the Docker and into the host system.
 
 Loading the snapshot is as follows:
 
-```
+```text
 miner snapshot load /path/to/snapshot
 ```
 
@@ -532,27 +570,27 @@ Sometimes the load command times out. If so, try to tail the logs and see if
 blocks are being applied. It's working just fine! It just needs a moment to
 finish loading the snapshot.
 
+## Connecting a Packet Forwarder to the Miner
 
-## Connecting to the Miner
-
-You're almost done. The last step after you have your Miner running is to connect to it. 
+You're almost done. The last step after you have your Miner running is to
+connect to it.
 
 With your favorite editor, open `global_conf.json` that lives in the packet
 forwarder directory:
 
-```
+```text
 nano ~/sx1302_hal/lora_pkt_fwd/global_conf.json
 ```
 
-You want to change the field "server_address" from "localhost" to the IP
-address of the server, so in this case:
+You want to change the field "server_address" from "localhost" to the IP address
+of the server, so in this case:
 
 You'll need to restart the packet forwarder for the configuration change to take
 effect.
 
 To verify that things are working, you can follow the logs on your miner. eg:
 
-```
+```text
 docker exec miner tail -f /var/data/log/console.log | grep lora
 ```
 
