@@ -1,0 +1,49 @@
+---
+id: docker-integration
+hide_title: true
+sidebar_label: Docker Integration
+slug: /mine-hnt/hotspot-makers/docker-integration
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Docker Integration
+
+We generally recommend that Makers use Docker for running Miner. This allow you to pull images from [Helium's Quay repository](https://quay.io/repository/team-helium/miner?tab=tags),
+avoiding the need to maintain your own Miner build & release pipeline along with all of Miner's system dependencies such as Erlang. If you prefer, you can [build Miner from source](https://github.com/helium/miner),
+but this guide is for those that are running the Docker image.
+
+## The Docker Release Process
+
+Before we get into the details, it's useful to understand how the Quay releases integrate with the Miner release flow. Helium maintains the [Miner repository](https://github.com/helium/miner)
+and maintains firmware images for the original Helium hotspots (Raspberry Pi 3B+ and 4 based). When we have a release candidate, you will see a tag with the date of the release candidate. This usually
+means that we are testing a release candidate. This testing process has many stages, but if and when a release passes, it will graduate to "General Availability" and be re-tagged
+with the `_GA` suffix. This triggers an automatic build of the Docker images which get pushed to Quay when complete. In addition, a "Blockchain Release" will be posted on [engineering.helium.com](https://engineering.helium.com/).
+
+As a blockchain is decentralized in its nature, we are careful not to do breaking changes that require immediate and synchronized updates of the Miner. This means, we generally expect
+to give actors on the Helium Blockchain 2 to 3 days at a minimum to update their Miners; ideally a week or more. When breaking changes need to be deployed, they tend to be gated by a
+"chain variable" (aka `chainvar`) which signals to the Miners that the new behavior is to take affect. Only when this chain variable is activated do stale Miners stop working.
+
+## Initial Testing of the Docker on Your Host System
+
+The Docker image is tailored to be able to run very simply at first, but will generally require additional customization to integration well with your host system.
+
+Start by following [these instructions](https://docs.helium.com/mine-hnt/build-a-packet-forwarder#run-the-miner). If that ends up being no problem, then you're doing great! The extra
+sections in this guide will discuss things you should do to deviate from this example.
+
+## Omit REGION_OVERRIDE
+
+Setting `REGION_OVERRIDE` is only useful if you want a hotspot to forward packets without being asserted on-chain (ie: they will not earn HNT). In a production system, the override can be detrimental as it will lock the device into that specific region. Instead, if you omit the override, the Miner watch the chain to figure out which region it is in. In fact, in Helium's firwmare image, we actually use this information to also determine
+which packet forwarder configuration to select, so our startup routine for packet forwarder will actually block as it requests region from miner
+
+``` bash
+# Wait until miner knows the regulatory region.
+while ! /opt/miner/bin/miner info region > /dev/null 2>&1; do
+    sleep 1
+done
+```
+
+This allows you to ship a single firmware image that will work in any region.
+
+## Omit REGION_OVERRIDE
+
