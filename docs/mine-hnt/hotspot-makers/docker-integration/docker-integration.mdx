@@ -36,13 +36,15 @@ on [engineering.helium.com](https://engineering.helium.com/).
 
 As a blockchain is decentralized in its nature, we are careful not to do
 breaking changes that require immediate and synchronized updates of the Miner.
-This means, we generally expect to give actors on the Helium Blockchain 1 to 3
-days at a minimum to update their Miners; ideally a week or more.
 
 When breaking changes need to be deployed, they tend to be gated by a "chain
 variable" (aka `chainvar`) which signals to the Miners that the new behavior is
 to take affect. Only when this chain variable is activated do stale Miners stop
 working.
+
+Other than in the event of an emergency, we generally give actors about a week
+to update their images. However, it is generally recommended to automate the
+process by checking our Quay every half hour or so.
 
 ## Initial Testing of the Docker on Your Host System
 
