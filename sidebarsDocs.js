@@ -141,7 +141,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Makers',
-      items: ['mine-hnt/hotspot-makers/approved-makers/approved-makers', 'mine-hnt/hotspot-makers/maker-approval-auditing/maker-approval-auditing', 'mine-hnt/hotspot-makers/hotspot-integration-testing/hotspot-integration-testing', 'mine-hnt/hotspot-makers/hotspot-ble-services/hotspot-ble-services', 'mine-hnt/hotspot-makers/hotspot-wifi-configuration/hotspot-wifi-configuration', 'mine-hnt/hotspot-makers/burn-hnt-to-maker-wallet/burn-hnt-to-maker-wallet'],
+      items: ['mine-hnt/hotspot-makers/approved-makers/approved-makers', 'mine-hnt/hotspot-makers/maker-approval-auditing/maker-approval-auditing', 'mine-hnt/hotspot-makers/hotspot-integration-testing/hotspot-integration-testing', 'mine-hnt/hotspot-makers/docker-integration/docker-integration', 'mine-hnt/hotspot-makers/hotspot-ble-services/hotspot-ble-services', 'mine-hnt/hotspot-makers/hotspot-wifi-configuration/hotspot-wifi-configuration', 'mine-hnt/hotspot-makers/burn-hnt-to-maker-wallet/burn-hnt-to-maker-wallet'],
       collapsed: false,
     },
   ],  
