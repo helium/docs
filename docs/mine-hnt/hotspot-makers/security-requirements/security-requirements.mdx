@@ -15,6 +15,14 @@ it was made clear that open and easy access to the `swarm_key` is not permitted
 at this time. This helps insure that the Miner is running on real hardware and
 increases the barriers to dishonest actors.
 
+:::info
+
+The `swarm_key` is an ECC Compact Key used by the Miner to sign all blockchain
+and libp2p transactions. The three word animal name (e.g. angry-purple-tiger) is actually
+derived from the public key of the `swarm_key`.
+
+:::
+
 While formalizing the audit process, DeWi has determined that the only approved
 approach to guaranteeing this at this time is using the ECC608 to generate and
 store the key during manufacturing. Other approaches are possible, but they
