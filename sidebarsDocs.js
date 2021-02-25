@@ -128,7 +128,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Development',
-      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1', 'use-the-network/devices/development/sparkfun-pro-rf/sparkfun-pro-rf', 'use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95', 'use-the-network/devices/development/heltec-cubecell-htcc-ab01/heltec-cubecell-htcc-ab01', 'use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2'],
+      items: ['use-the-network/devices/development/development', 'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1', 'use-the-network/devices/development/sparkfun-pro-rf/sparkfun-pro-rf', 'use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95', 'use-the-network/devices/development/heltec-cubecell-htcc-ab01/heltec-cubecell-htcc-ab01', 'use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2', 'use-the-network/devices/development/rak-wisblock-starter/rak-wisblock-starter'],
       collapsed: false,
     },
   ],
@@ -154,7 +154,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/st-b-l072z-lrwan1/arduino'],
+      items: ['use-the-network/devices/development/st-b-l072z-lrwan1/arduino','use-the-network/devices/development/st-b-l072z-lrwan1/platformio'],
       collapsed: false,
     },
   ],
@@ -199,10 +199,23 @@ module.exports = {
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/heltec-cubecell-htcc-ab01/arduino'],
+      items: ['use-the-network/devices/development/heltec-cubecell-htcc-ab01/arduino', 'use-the-network/devices/development/heltec-cubecell-htcc-ab01/platformio'],
       collapsed: false,
     },
   ],
+  rakwisblockstarter: [
+    {
+       type: 'link',
+       label: '<- RAK-Wireless WisBlock Starter Kit',
+       href: '/use-the-network/devices/development/rak-wisblock-starter'
+     }, 
+     {
+       type: 'category',
+       label: 'Firmware', 
+       items: ['use-the-network/devices/development/rak-wisblock-starter/platformio'],
+       collapsed: false,
+     },
+   ],
   heltecwifilora32v2: [
    {
       type: 'link',
