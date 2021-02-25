@@ -22,7 +22,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Use The Network',
-      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
+      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/run-a-network-server/run-a-network-server', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
       collapsed: true,
     },
     {
@@ -92,6 +92,19 @@ module.exports = {
       items: ['use-the-network/console/migrating-devices/ttn-import', 'use-the-network/console/migrating-devices/ttn-manual'],
       collapsed: false,
     },
+  ],
+  runanetworkserver: [
+      {
+          type: 'link',
+          label: '<- Back',
+          href: '/use-the-network/run-a-network-server'
+      },
+      {
+          type: 'category',
+          label: 'Run a Network Server',
+          items: ['use-the-network/run-a-network-server/buy-an-oui/buy-an-oui', 'use-the-network/run-a-network-server/run-console/run-console'],
+          collapsed: false,
+      },
   ],
   coveragemapping: [
    {
