@@ -133,15 +133,13 @@ The key point is `ROUTER_CONSOLE_SECRET` from this file, matches
 `ROUTER_SECRETS` from `.env`. You can ignore these other fields for now, but we
 can revisit them later.
 
-### Modify some files before building
+### Modify a files before building
 
-- in `/config/prod.exs`, comment out everything except for `use Mix.Config`
-- in `/config/releases.exs`, update your host from `example.com` to `localhost`
-- at to the bottom of `/assets/webpack.config.js`, follow the instructions
+In `/config/releases.exs`, update your host from `example.com` to `localhost`.
 
 ### Run it!
 
-`docker-compose up` launches the three containers: Console, Router, and
+`docker-compose up` builds Console and launches it with two other containers: Router and
 Postgres. You might see `helium_router` crash a few times as it waits for
 `helium_console` to start up and allow the socket connection between the two.
 
