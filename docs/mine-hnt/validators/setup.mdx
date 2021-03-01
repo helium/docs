@@ -15,10 +15,18 @@ The following options exist to build a Validator node:
 * From [docker image](#docker-image)
 * From [source](#source)
 
-Regardless of the option, the genesis block needs to be installed (how)?
+Regardless of the option, the genesis block needs to be installed:
+
+``` Download command goes here```
+```miner genesis load </absolute/path/to/genesis/block>```
+
 
 ## Configure Cloud Platform for Initial Blockhain Sync
 If you choose to run your validator in a cloud platform (e.g., Amazon AWS) your CPU usage credits could easily be depleted during the initial sync of the blockchain. To avoid having your instance throttled (e.g., Amazon EC2 instances), check with your cloud platform to see if you can temporarily uncap your instance by setting CPU credit usage to unlimited.
+
+## Port Forwarding
+
+Regardless of using docker or source, before launching a validator node configure the TCP port on your network. Validators communicate to peers over port: 2154/TCP. The networking logic knows how to get around a lack of forwarding, but validators will gain improved performance by forwarding the port.
 
 ## <a name="docker-image"></a>From Docker image
 
@@ -31,14 +39,15 @@ Then, install Docker:
 
 ```sudo apt-get install docker.io```
 
-To avoid needing to user docker with sudo privileges, add your user to the docker group, replacing ```$USER``` with your username:
+To avoid needing to use docker with sudo privileges, add your user to the docker group, replacing ```$USER``` with your username:
 
 ```sudo usermod -aG docker $USER```
 
-Log in and out of your account to apply these changes. You are now ready to use Docker!
-```Run a Docker Container```
+Log in and out of your account to apply these changes. You are now ready to use Docker.
 
-Note: on amd64 systems, AVX support is required. Verify that it exists on your host system:
+### Run a Docker Container
+
+Note: on amd64 systems AVX support is required. Verify that it exists on your host system:
 ```
 grep avx /proc/cpuinfo
 grep avx2 /proc/cpuinfo
@@ -73,13 +82,16 @@ The ```--restart always``` option asks Docker to keep the image running, startin
 The ```--name miner``` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
 
 The ```--mount``` with the parameters above will mount the container's ```/var/data/``` directory to the systems directory ```/home/ec2-user/miner_data```.
-Interact with the Validator within the Container
 
-You may want to interrogate the Validator or interact with it. Docker's exec command enables this e.g.
+### Interact with the Validator within the Container
+
+You may want to interrogate the Validator or interact with it. Docker's ```exec``` command enables this e.g.:
 ```docker exec miner miner info height```
 
 In other words, prepend ```docker exec miner``` to any of the commands documented or create an alias such as: ```alias miner="docker exec miner miner"```.
-And start the container again as described above, but with the new release tag! Thanks to the ```--mount``` option, the blockchain data and the validator keys are preserved through updates.
+And start the container again as described above, but with the new release tag. 
+
+Thanks to the ```--mount``` option, the blockchain data and the validator keys are preserved through updates.
 
 After setup is complete, check [Monitor a validator section](/mine-hnt/validators/validator-monitor).
 
@@ -89,7 +101,7 @@ See technical requirements [here](/mine-hnt/validators/requirements).
 
 Software packages:
 * miner software
-* erlang package
+* erlang package (the latest 22 or 23 versions are supported, the 24 release candidate will explicity NOT work)
 * libwxgtk package
 
 First, you'll need [git](https://git-scm.com/). If you don't have it installed:
@@ -97,22 +109,22 @@ First, you'll need [git](https://git-scm.com/). If you don't have it installed:
 ```sudo apt-get install git```
 
 Clone the git repository:
-git clone https://github.com/helium/miner.git
+[git clone](https://github.com/helium/miner.git).
 
 ### Instructions
 
 ```sudo apt-get update -y```
 
-#### clone Validator Branch of miner
+#### Clone validator branch of miner
 ```git clone -b pevm/validators https://github.com/helium/miner.git```
 
-#### get Erlang 22.3.1 package
+#### Get Erlang 22.3.1 package
 ```wget https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb```
 
-#### get libwxgtk package
+#### Get libwxgtk package
 ```wget http://mirrors.kernel.org/ubuntu/pool/universe/w/wxwidgets3.0/libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb```
 
-#### install dependencies
+#### Install dependencies
 ```sudo apt install -y libdbus-1-dev autoconf automake libtool flex libgmp-dev cmake libsodium-dev libssl-dev bison libsnappy-dev libclang-dev doxygen make cargo```
 
 

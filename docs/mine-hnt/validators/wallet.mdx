@@ -11,12 +11,12 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 # Configure wallet
 
 You’ll need an owner wallet to:
-* Stake your testing tokens (TNT)
+* Stake your test tokens (TNT)
 * Receive validator node consensus group rewards
 
 Note: you can have a single wallet for multiple validator nodes. However multiple wallets for a single validator node is not supported.
 
-For instructions to build the wallet go here: https://github.com/helium/helium-wallet-rs
+For instructions to build the wallet go [here](https://github.com/helium/helium-wallet-rs).
 
 At any time use ```-h``` or ```--help``` to get more help for a command.
 
@@ -24,26 +24,27 @@ At any time use ```-h``` or ```--help``` to get more help for a command.
 
 ### Create a wallet
 
-```./helium-wallet create basic wallet``` 
+```./bin/helium-wallet create basic wallet --network testnet``` 
 
 ### View wallet balance and public key
-```./bin/helium-wallet balance info``` view public key and TNT balance. You’ll need this public key address to obtain testing tokens needed for staking. 
+```./bin/helium-wallet balance info``` view public key and TNT balance. You’ll need this public key address to obtain TNT needed for staking. 
 
 To obtain TNT tokens visit [Obtain testing token (TNT)](/mine-hnt/validators/validator-tnt).
 
 ### Stake tokens
 After you have received your TNT you need to stake these tokens. 
 
-As part of the staking process, the validator node address needs to be in the staking transaction and it also needs to sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node and receives the validator rewards.
+As part of the staking process the validator node address needs to be in the staking transaction and also needs to sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives the validator rewards.
 
 #### To stake tokens perform the following:
 
 * Obtain the validator node address:
     * On the validator, run ```miner peer addr```.  This will produce something like: ```/p2p/112sSfUCQrVNAfFKVZWUSCeLs67wH8o1xz4yj4nKSPJKBT8bUkXi```
 
-    The part following the final slash (in this example ```112sSfUCQrVNAfFKVZWUSCeLs67wH8o1xz4yj4nKSPJKBT8bUkXi```), is the validator node's public address.
+    The part following the final slash, in this example ```112sSfUCQrVNAfFKVZWUSCeLs67wH8o1xz4yj4nKSPJKBT8bUkXi```, is the validator node's public address.
 
-* ```./helium-wallet validators stake <public-address> <stake> --commit```
+* Stake the TNT:
+    * ```./bin/helium-wallet validators stake <public-address> <stake> --commit```
 
 ### Unstake tokens
 If you unstake tokens the validator node enters a cooldown period. During this cooldown period the validator node will not earn rewards and at the end of the cooldown period (currently 250,000 blocks or approximately 5 months) your initial staking amount will be returned to the wallet. 
@@ -59,9 +60,29 @@ A wallet can be paired with multiple validator nodes. Validator nodes can be tra
 
 To transfer the stake to someone else:
 
-```./bin/helium-wallet --format json validators transfer --new-address <new-public-address> --old-address <old-public-address> --new-owner <new-owner-public-address> ```
+```./bin/helium-wallet --format json validators transfer --new-address <new-public-address> --old-address <old-public-address> --new-owner <new-owner-public-address>```
 
-You'll then need to send the JSON produced to the new owner and have them sign it.
+This will produce an output similar to the following:
+
+```
+{
+  "amount": 0.0,
+  "fee": 0,
+  "hash": null,
+  "new_address": "1YwbuihaJrCxxHMi7Cxu5u57W8LFpfD4J2N6NJLMCYZ2FbQ5hNg",
+  "new_owner": "1ZxcEMNnUUwujudHSfYMS9YUoQPQHor6wceRLxdpL8txWCJ7UKZ",
+  "nonce": 2,
+  "old_address": "1YwbuihaJrCxxHMi7Cxu5u57W8LFpfD4J2N6NJLMCYZ2FbQ5hNg",
+  "old_owner": "1ZxcEMNnUUwujudHSfYMS9YUoQPQHor6wceRLxdpL8txWCJ7UKZ",
+  "txn": "8gHQAQohEG6PJ7AZkUSGBqEO89CmdQAu8Y6SepBx11wgw2IY7WWGEiEQbo8nsBmRRIYGoQ7z0KZ1AC7xjpJ6kHHXXCDDYhjtZYYaIRD0idqz8SRyoUMBZhygY/fgpX9juEX+46Pya8ZyMMxa0yIhEdxxIOJxUVrnbQo2f/htY/kWQy3bWq5o0hVz4DQMZdPzMkBmtCjmV++wGbLp5oSVoUQJMYCE2u4AuhBhTZFWa2vhew6XBTYY4UIdqGiK0Fb9AD5qed7OW18smUP66Yfg+swISAI="
+}
+```
+
+You'll then need to send the JSON produced to the new owner and have them sign it by calling:
+
+```./bin/helium-wallet validators transfer accept --commit <txn>```
+
+Where ```<txn>``` is replaced by the unquoted version of the ```txn``` field in the JSON above.
 
 
 More general wallet commands here: https://github.com/helium/helium-wallet-rs
