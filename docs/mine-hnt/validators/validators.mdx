@@ -1,16 +1,33 @@
 ---
 id: validators
-title: Validators
+title: Validators (Testnet)
 hide_title: true
-sidebar_label: Validators
+sidebar_label: Validators (Testnet)
 slug: /mine-hnt/validators
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-# Validators
+# Validators (Testnet)
 
-Overview
+## Overview
 
-* [Requirements](/mine-hnt/validators/requirements)
-* [Testnet](/mine-hnt/validators/testnet)
+Validators are a new entity on the Helium Blockchain that will perform the work of the consensus group including verifying transactions and adding new blocks to the blockchain.
+
+To test validator nodes:
+* users need test tokens (TNT) to stake test validator nodes
+* the testnet consensus group will be sized dynamically based on the number of active testnet participants
+* block production and epochs are accelerated (10 second blocks, 10 minute epochs)
+* the cooldown period (number of blocks after unstaking when the validator node doesn't earn rewards, and the stake is returned to the owner's wallet) is shortened to 360 blocks (approx. an hour)
+
+To run a testnet validator node refer to the following:
+
+* [Technical requirements](/mine-hnt/validators/requirements)
+* [Configure wallet](/mine-hnt/validators/validator-wallet)
+* [Obtain testing tokens (TNT)](/mine-hnt/validators/validator-tnt)
+* [Run a validator](/mine-hnt/validators/validator-run)
+* [Monitor a validator](/mine-hnt/validators/validator-monitor)
+* [Troubleshooting](/mine-hnt/validators/validator-troubleshooting)
+* [Test cases](/mine-hnt/validators/validator-testcases)
+
+Use the ```#validator``` channel on our [Discord](https://discord.gg/helium) server to provide feedback and report issues.
