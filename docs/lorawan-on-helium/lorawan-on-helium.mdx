@@ -36,7 +36,7 @@ by the OUI operator:
 
 - up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the
   LNS
-- one or more **slabs** of NwkAddrs, reserving an address space for the OUI's
+- one or more **slabs** of DevAddrs, reserving NwkAddr space for the OUI's
   devices on the Helium Network
 
 ### Join Request Frames and Filters
@@ -61,9 +61,9 @@ gateway run it through the table and to see if it's there.
 
 In response to the Join Request, a Join Accept is sent down, assigning the
 NwkAddr. Due to the multi-tenancy on the Helium Network, the LNS may only assign
-NwkAddrs within its slab(s).
+NwkAddrs within its DevAddr slab(s).
 
-### Data Frames and NwkAddr Slabs
+### Data Frames and DevAddr Slabs
 
 Data packets have the followed unencrypted header (FHDR):
 
@@ -75,11 +75,11 @@ Data packets have the followed unencrypted header (FHDR):
 +----------------------------------------------------------------------+
 ```
 
-Within NwkAddr, there is the NwkAddr of a device:
+Within DevAddr, there is the NwkAddr of a device:
 
 ```bash
 +------------------------------------------------+
-|                     NwkAddr                    |
+|                     DevAddr                    |
 +------------------------+-----------------------+
 |   NwkID (bits 31–25)   |  NwkAddr (bits 24–0)  |
 +-----------+--------------------+---------------+
@@ -89,8 +89,8 @@ Within NwkAddr, there is the NwkAddr of a device:
 ```
 
 
-From the gateways perspective, it is able to use NwkAddr to determine the OUI of
-Data frames. A quick query can say which OUI owns this NwkAddr slab. This look-up and routing by NwkAddr instead of by \(AppEUI, DevEUI\) via _xorhash_
+From the gateways perspective, it is able to use DevAddr to determine the OUI of
+Data frames. A quick query can say which OUI owns this DevAddr slab. This look-up and routing by DevAddr instead of by \(AppEUI, DevEUI\) via _xorhash_
 filters is generally much quicker.
 
 
