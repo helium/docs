@@ -16,18 +16,18 @@ by the OUI operator:
 
 - up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the
   LNS
-- one or more **slabs** of NwkAddrs, reserving an address space for the OUI's
+- one or more **slabs** of DevAddrs, reserving an address space for the OUI's
   devices on the Helium Network
 
 # OUI Cost
 
 The OUI is purchased with data credits (DC). Costs are subject to change, but
-currently the OUI itself costs $100 worth of DCs and each NwkAddr cost an
+currently the OUI itself costs $100 worth of DCs and each DevAddr cost an
 additional $100 in DC.
 
-NwkAddr are sold in sequential blocks between 8 and 65,536 and any power of two.
+DevAddr are sold in sequential blocks between 8 and 65,536 and any power of two.
 You must purchase a slab when purchasing an OUI, therefore, the minimum cost for
-an OUI is $800 for 8 NwkAddr's and $100 for the OUI itself.
+an OUI is $800 for 8 DevAddr's and $100 for the OUI itself.
 
 [The OUI purchase transaction itself](https://github.com/helium/proto/blob/master/src/blockchain_txn_oui_v1.proto)
 incurs a fee based as does any other blockchain transaction; generally this will
@@ -45,7 +45,7 @@ and to have a bit over $900 in HNT.
 
 Many fees benefit from
 [implicit burn](http://localhost:3000/blockchain/transaction-fees#transaction-fees-and-implicit-burn),
-but when paying for OUIs and NwkAddr's, the Data Credits must be part of the
+but when paying for OUIs and DevAddr's, the Data Credits must be part of the
 purchasers balance.
 
 ```text
