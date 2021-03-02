@@ -69,7 +69,7 @@ Now you can try the ```run``` command to start your container for the first time
 docker run -d \
 --restart always \
 --publish 2154:2154/tcp \
---name miner \
+--name validator \
 --mount type=bind,source=/home/ubuntu/miner_data,target=/var/data \
 quay.io/team-helium/validator:miner-val-{arch}_val{version}
 ```
