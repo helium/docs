@@ -10,7 +10,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 # Run a validator
 
-The following options exist to build a Validator node:
+The following options exist to build a validator node:
 
 * From [docker image](#docker-image)
 * From [source](#source)
@@ -58,7 +58,9 @@ If nothing is returned from these commands, your host system does not have AVX s
 
 ### Start container
 
-Before running the container for the first time, it is advisable to pick a "system mount point", i.e., a directory in your host system; some long-term data is stored there. This allows you to easily maintain your validator's blockchain identity (i.e. swarm keys) and blockchain state through image updates. The validator directory should be created on a persistent ebs volume (if aws) or something similar that lives across server lifetimes.
+Before running the container for the first time, it is advisable to pick a "system mount point". This allows you to easily maintain your validator's blockchain identity (i.e. swarm keys) and blockchain state through image updates. 
+
+The validator directory should be created on a persistent ebs volume (if aws) or something similar that lives across server lifetimes.
 
 ```mkdir $HOME/validator_data; source=$HOME/validator_data```
 
@@ -81,14 +83,14 @@ The ```--restart always``` option asks Docker to keep the image running, startin
 
 The ```--name validator``` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
 
-The ```--mount``` with the parameters above will mount the container's ```/var/data/``` directory to the systems directory ```/home/ec2-user/validator_data```. You will want this folder to be persistent across runs of the docker container as it will contain both the blockchain data and the miner key of your validator. 
+The ```--mount``` with the parameters above will mount the container's ```/var/data/``` directory to the systems directory ```/home/ubuntu/validator_data```. You will want this folder to be persistent across runs of the docker container as it will contain both the blockchain data and the miner key of your validator. 
 
 ### Interact with the validator within the container
 
 You may want to interrogate the Validator or interact with it. Docker's ```exec``` command enables this e.g.:
-```docker exec miner miner info height```
+```docker exec validator miner info height```
 
-In other words, prepend ```docker exec miner``` to any of the commands documented or create an alias such as: ```alias miner="docker exec miner miner"```.
+In other words, prepend ```docker exec validator``` to any of the commands documented or create an alias such as: ```alias validator="docker exec validator miner"```.
 And start the container again as described above, but with the new release tag. 
 
 Thanks to the ```--mount``` option, the blockchain data and the validator keys are preserved through updates.
