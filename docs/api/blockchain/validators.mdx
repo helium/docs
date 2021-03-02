@@ -1,0 +1,431 @@
+---
+id: validators
+hide_title: true
+sidebar_label: Validators
+slug: /api/blockchain/validators
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Validators
+
+---
+
+:::warning 
+
+These docs reflect the Validator Mainnet API. However, it is **not yet live**. We are currently on Testnet. During the Testnet period, please use the following as the base url for the Testnet API:
+
+```
+https://testnet-api.helium.wtf/v1/
+```
+
+:::
+
+
+## List Validators
+
+```
+GET https://api.helium.io/v1/validators
+```
+
+List known validators as registered on the blockchain.The results are paged. If a
+`cursor` field is present in the response, more results are available.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param             | Type     | Note                         |
+| ----------------- | -------- | ---------------------------- |
+| cursor (optional) | _string_ | Cursor for the page to fetch |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Validators successfully retrieved.
+
+```json
+{
+  "data": [
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1asiQ5qDAmVB8toPH37zdD4T6qtVuKeWCU8yooAckSZvSYijcRH",
+      "last_heartbeat": 412,
+      "block": 440,
+      "address": "1ZrCRaUMnpgVxM2r6sUbWSxDTneVFWD8E1oiYnSMf8X6e9r4Jp4"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1bBTWn843DwTXTyH3hbSMmDoJXHCU1D1U8cAYRdVE5rDnaS7fLb",
+      "last_heartbeat": 397,
+      "block": 440,
+      "address": "1YeCAsuBq3fDTv8x4iB1fJn9zBbopHhjhXGpvVwN43JDptqMT11"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1aPh5LpH9AFMV3gHALYEZyZfiXvktnqADV6fKMkrgh37u5oZUnC",
+      "last_heartbeat": 427,
+      "block": 440,
+      "address": "1ZJmbSPJeGt9QHikNUGCd5qorvBxtGK5qc18sXRiQKcSyETFMVm"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1bg9LGCsDYMEH9QawHUrZBUxQcTaFj5rRhyjuHDRDqMoHwF8uxC",
+      "last_heartbeat": 394,
+      "block": 440,
+      "address": "1ZLbFZo9Am6emv8ZoBAtsJEbtzwEPaGi7Uq56ECXASUqmHmuKn6"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "unstaked",
+      "stake": 0,
+      "owner": "1aXQ6WyNkibzhHXCFYiJQAa3BEkJnbZFsuezo4qjpW7FAgDw9Xx",
+      "last_heartbeat": 175,
+      "block": 440,
+      "address": "1ZFavPP8drcqAXJPT6mLuZQqwjWNhWGr9vJ3Ajs3uJyFGW7sUMX"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "unstaked",
+      "stake": 0,
+      "owner": "1aXQ6WyNkibzhHXCFYiJQAa3BEkJnbZFsuezo4qjpW7FAgDw9Xx",
+      "last_heartbeat": 112,
+      "block": 440,
+      "address": "1YpifvrQWUFoHDGyYZoA2FAxmXPNcMNjnRd27uv81t8CzBBNW85"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 401,
+      "block": 440,
+      "address": "1YdBWwpRimEoPZ5WDxgv9ZBUfxhXyVFTkpX1oRLwmncWRvqj7Vh"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 405,
+      "block": 440,
+      "address": "1YqV6er1KDWBR9zRcXm3ktqY2Gi3r7QZRD8mDPq6yz5JNxt2zxy"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 401,
+      "block": 440,
+      "address": "1ZAxCrEsigGVbLUM37Jki6p88kyZ5NVqjVC6oHSbqu49t7bQDym"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 401,
+      "block": 440,
+      "address": "1Zmw2S5ksj4oxDMYFz3vQxFNnQsE7Sc3Mv9YrkiWktLznwng935"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 401,
+      "block": 440,
+      "address": "1ZPNnNd9k5qiQXXigKifQpCPiy5HTbszQDSyLM56ywk7ihNRvt6"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 401,
+      "block": 440,
+      "address": "1ZYe21WzqJGkWjXvyEt2c8ALSrufPfjzqfQP2SGy61UJd2h9EbL"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+## Validator for Address
+
+```
+GET https://api.helium.io/v1/validators/:address
+```
+
+Fetch a validator with a given address.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                        |
+| ------------------ | -------- | --------------------------- |
+| address            | _string_ | Address of validator to fetch |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": {
+    "version_heartbeat": 2,
+    "status": "staked",
+    "stake": 1000000000000,
+    "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+    "last_heartbeat": 401,
+    "block": 442,
+    "address": "1ZAxCrEsigGVbLUM37Jki6p88kyZ5NVqjVC6oHSbqu49t7bQDym"
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+
+## Currently Elected Validators
+
+```
+GET https://api.helium.io/v1/validators/elected
+```
+
+Returns the list of validators that are currently elected to the consensus group.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_No Parameters_
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+{
+  "data": [
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1aPh5LpH9AFMV3gHALYEZyZfiXvktnqADV6fKMkrgh37u5oZUnC",
+      "last_heartbeat": 427,
+      "block": 466,
+      "address": "1ZJmbSPJeGt9QHikNUGCd5qorvBxtGK5qc18sXRiQKcSyETFMVm"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1bBTWn843DwTXTyH3hbSMmDoJXHCU1D1U8cAYRdVE5rDnaS7fLb",
+      "last_heartbeat": 447,
+      "block": 466,
+      "address": "1YeCAsuBq3fDTv8x4iB1fJn9zBbopHhjhXGpvVwN43JDptqMT11"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 451,
+      "block": 466,
+      "address": "1ZAxCrEsigGVbLUM37Jki6p88kyZ5NVqjVC6oHSbqu49t7bQDym"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 455,
+      "block": 466,
+      "address": "1YqV6er1KDWBR9zRcXm3ktqY2Gi3r7QZRD8mDPq6yz5JNxt2zxy"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+
+## Elected Validators at a Block
+
+```
+GET https://api.helium.io/v1/validators/elected/:height
+```
+
+Returns the list of validators that were in the consensus group at a given block height
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param             | Type     | Note              |
+| ----------------- | -------- | ----------------- |
+| height (required) | _number_ | Blockchain Height |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": [
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1aPh5LpH9AFMV3gHALYEZyZfiXvktnqADV6fKMkrgh37u5oZUnC",
+      "last_heartbeat": 427,
+      "block": 474,
+      "address": "1ZJmbSPJeGt9QHikNUGCd5qorvBxtGK5qc18sXRiQKcSyETFMVm"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1bBTWn843DwTXTyH3hbSMmDoJXHCU1D1U8cAYRdVE5rDnaS7fLb",
+      "last_heartbeat": 447,
+      "block": 474,
+      "address": "1YeCAsuBq3fDTv8x4iB1fJn9zBbopHhjhXGpvVwN43JDptqMT11"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 451,
+      "block": 474,
+      "address": "1ZAxCrEsigGVbLUM37Jki6p88kyZ5NVqjVC6oHSbqu49t7bQDym"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 451,
+      "block": 474,
+      "address": "1ZYe21WzqJGkWjXvyEt2c8ALSrufPfjzqfQP2SGy61UJd2h9EbL"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+
+## Elected Validators in an Election
+
+```
+GET https://api.helium.io/v1/validators/elected/hash/:hash
+```
+
+Returns the list of validators that were elected in the consensus group
+transcation indicated by the given transaction hash.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param             | Type     | Note              |
+| ----------------- | -------- | ----------------- |
+| hash (required)   | _number_ | Transaction Hash  |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": [
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 451,
+      "block": 480,
+      "address": "1Zmw2S5ksj4oxDMYFz3vQxFNnQsE7Sc3Mv9YrkiWktLznwng935"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 451,
+      "block": 480,
+      "address": "1ZPNnNd9k5qiQXXigKifQpCPiy5HTbszQDSyLM56ywk7ihNRvt6"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 451,
+      "block": 480,
+      "address": "1YdBWwpRimEoPZ5WDxgv9ZBUfxhXyVFTkpX1oRLwmncWRvqj7Vh"
+    },
+    {
+      "version_heartbeat": 2,
+      "status": "staked",
+      "stake": 1000000000000,
+      "owner": "1ZLXHYHZY36wKZDBfjjo8ERgio8wenhCTtJGw9tNSQeAwPEMSMG",
+      "last_heartbeat": 455,
+      "block": 480,
+      "address": "1YqV6er1KDWBR9zRcXm3ktqY2Gi3r7QZRD8mDPq6yz5JNxt2zxy"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
