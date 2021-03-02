@@ -212,7 +212,7 @@ module.exports = {
      {
        type: 'category',
        label: 'Firmware', 
-       items: ['use-the-network/devices/development/rak-wisblock-starter/platformio'],
+       items: ['use-the-network/devices/development/rak-wisblock-starter/arduino', 'use-the-network/devices/development/rak-wisblock-starter/platformio'],
        collapsed: false,
      },
    ],
