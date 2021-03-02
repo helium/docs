@@ -10,20 +10,22 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 # Run a Validator
 
-The following options exist to build a validator node:
+## Genesis block
 
-* From [docker image](#docker-image)
-* From [source](#source)
-
-Regardless of the option, the genesis block needs to be installed:
+Validator nodes need a genesis block to run. The testnet genesis block is included in the docker image, however if you’re planning to run the validator node from source the genesis block needs to be downloaded and installed:
 
 ```
-Download command goes here
+wget https://snapshots.helium.wtf/genesis.testnet
 miner genesis load </absolute/path/to/genesis/block>
 ```
 
 ## Configure cloud platform for initial blockhain sync
 If you choose to run your validator in a cloud platform (e.g., Amazon AWS) your CPU usage credits could easily be depleted during the initial sync of the blockchain. To avoid having your instance throttled (e.g., Amazon EC2 instances), check with your cloud platform to see if you can temporarily uncap your instance by setting CPU credit usage to unlimited.
+
+The following options exist to build a validator node:
+
+* From [docker image](#docker-image)
+* From [source](#source)
 
 ## Port forwarding
 
