@@ -73,7 +73,7 @@ docker run -d \
 --restart always \
 --publish 2154:2154/tcp \
 --name validator \
---mount type=bind,source=/home/ubuntu/validator_data,target=/var/data \
+--mount type=bind,source=$HOME/validator_data/validator_data,target=/var/data \
 quay.io/team-helium/validator:miner-val-amd64_val0.1.7
 ```
 
