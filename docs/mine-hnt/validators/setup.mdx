@@ -29,9 +29,11 @@ If you choose to run your validator in a cloud platform (e.g., Amazon AWS) your 
 
 Regardless of using docker or source, before launching a validator node configure the TCP port on your network. Validators communicate to peers over port: 2154/TCP. The networking logic knows how to get around a lack of forwarding, but validators will gain improved performance by forwarding the port.
 
-## <a name="docker-image"></a>From docker image
+## <a name="docker-image"></a>From Docker image
 
 See technical requirements [here](/mine-hnt/validators/requirements).
+
+### Install Docker
 
 First, update the package manager registry:
 
@@ -47,8 +49,6 @@ To avoid needing to use docker with sudo privileges, add your user to the docker
 
 Log in and out of your account to apply these changes. You are now ready to use Docker.
 
-### Run a docker container
-
 Note: on amd64 systems AVX support is required. Verify that it exists on your host system:
 ```
 grep avx /proc/cpuinfo
@@ -56,7 +56,7 @@ grep avx2 /proc/cpuinfo
 ```
 If nothing is returned from these commands, your host system does not have AVX support and your validator may not be stable.
 
-### Start container
+### Run a container
 
 Before running the container for the first time, it is advisable to pick a "system mount point". This allows you to easily maintain your validator's blockchain identity (i.e. swarm keys) and blockchain state through image updates. 
 
@@ -103,7 +103,7 @@ See technical requirements [here](/mine-hnt/validators/requirements).
 
 Software packages:
 * miner software
-* erlang package (the latest 22 or 23 versions are supported, the 24 release candidate will explicity NOT work)
+* erlang package (the latest 22 or 23 versions are supported, the 24 release candidate will NOT work)
 * libwxgtk package
 
 First, you'll need [git](https://git-scm.com/). If you don't have it installed:
@@ -159,4 +159,4 @@ sudo apt update -y
 #### build miner (validator)
 ```./rebar3 as validator release```
 
-After setup is complete, check [Monitor a validator section](/mine-hnt/validators/validator-monitor).
+After setup is complete check [Monitor a Validator](/mine-hnt/validators/validator-monitor) section.
