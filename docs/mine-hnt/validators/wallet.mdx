@@ -24,10 +24,10 @@ At any time use ```-h``` or ```--help``` to get more help for a command.
 
 ### Create a wallet
 
-```./bin/helium-wallet create basic --network testnet``` 
+```./helium-wallet create basic --network testnet``` 
 
 ### View wallet balance and public key
-```./bin/helium-wallet info``` view public key and TNT balance. You’ll need this public key address to obtain TNT needed for staking. 
+```./helium-wallet info``` view public key and TNT balance. You’ll need this public key address to obtain TNT needed for staking. 
 
 To obtain TNT tokens visit [Obtain Testnet Network Tokens (TNT)](/mine-hnt/validators/validator-tnt).
 
@@ -50,13 +50,13 @@ As part of the staking process the validator node address needs to be in the sta
     In this example the part following the final slash is the validator node's public address: ```112sSfUCQrVNAfFKVZWUSCeLs67wH8o1xz4yj4nKSPJKBT8bUkXi```.
 
 * Stake the TNT:
-    * ```./bin/helium-wallet validators stake <public-address> 10000 --commit```
+    * ```./helium-wallet validators stake <public-address> 10000 --commit```
 
 ### Unstake tokens
 If you unstake tokens the validator node enters a cooldown period. During this cooldown period the validator node will not earn rewards and at the end of the cooldown period (currently 250,000 blocks or approximately 5 months) your initial staking amount will be returned to the wallet. The cooldown period will be shortened for the testnet to 360 blocks (approx. an hour).
 
 #### To unstake tokens from a validator node perform the following:
-```./bin/helium-wallet unstake <public-address> --commit```
+```./helium-wallet unstake <public-address> --commit```
 
 ### Transfer stake 
 A validator node's stake can be transferred to other validator nodes in the same wallet or a different one. 
@@ -65,7 +65,7 @@ If the stake is transferred to a validator node in a different wallet, the owner
 
 
 #### To transfer stake to a new validator node in the same wallet:
-```./bin/helium-wallet validators transfer create --new-address <new-public-address> --old-address <old-public-address> --commit```
+```./helium-wallet validators transfer create --new-address <new-public-address> --old-address <old-public-address> --commit```
 
 This will produce an output similar to the following:
 
@@ -86,7 +86,7 @@ This will produce an output similar to the following:
 
 #### To transfer stake to a new validator node in a different wallet:
 
-```./bin/helium-wallet --format json validators transfer --new-address <new-public-address> --old-address <old-public-address> --new-owner <new-owner-wallet-public-address>```
+```./helium-wallet --format json validators transfer --new-address <new-public-address> --old-address <old-public-address> --new-owner <new-owner-wallet-public-address>```
 
 **Note: you must transfer the stake to a new validator node. **
 
@@ -110,7 +110,7 @@ You'll then need to send the txn value (a base64 string) to the new owner to be 
 
 #### To accept the transfer the new owner performs the following:
 
-```./bin/helium-wallet validators transfer accept --commit <txn>```
+```./helium-wallet validators transfer accept --commit <txn>```
 
 
 More general wallet commands [here](https://github.com/helium/helium-wallet-rs).
