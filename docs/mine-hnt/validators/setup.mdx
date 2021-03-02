@@ -74,10 +74,8 @@ docker run -d \
 --publish 2154:2154/tcp \
 --name validator \
 --mount type=bind,source=/home/ubuntu/validator_data,target=/var/data \
-quay.io/team-helium/validator:miner-val-ARCHVSN
+quay.io/team-helium/validator:miner-val-amd64_val0.1.7
 ```
-
-Replace`ARCHVSN` with the architecture used, i.e. `amd64` or `arm64`, and with the version number of the image. We advise not using the latest tags as the underlying container will not be consistent.
 
 The ```-d``` option runs in detached mode, which makes the command return or not; you may want to omit if you have a daemon manager running the docker for you.
 
@@ -85,7 +83,17 @@ The ```--restart always``` option asks Docker to keep the image running, startin
 
 The ```--name validator``` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
 
-The ```--mount``` with the parameters above will mount the container's ```/var/data/``` directory to the systems directory ```/home/ubuntu/validator_data```. You will want this folder to be persistent across runs of the docker container as it will contain both the blockchain data and the miner key of your validator. 
+The ```--mount``` with the parameters above will mount the container's ```/var/data/``` directory to the systems directory ```$HOME/validator_data```. You will want this folder to be persistent across runs of the docker container as it will contain both the blockchain data and the miner key of your validator. 
+
+### Upgrade your docker container
+
+We anticipate a number of updates during testnet and recommend using the latest tag found [here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
+
+To upgrade your docker container to the latest version:
+
+ ```docker stop validator && docker rm validator```
+ 
+ Then re-launch docker with the same command as above with the updated version tag.
 
 ### Interact with the validator within the container
 

@@ -16,11 +16,11 @@ You’ll need an owner wallet to:
 
 Note: you can have a single wallet for multiple validator nodes. However multiple wallets for a single validator node is not supported.
 
-For instructions to build the wallet go [here](https://github.com/helium/helium-wallet-rs).
-
-At any time use ```-h``` or ```--help``` to get more help for a command.
+To download the wallet go [here](https://github.com/helium/helium-wallet-rs).
 
 ## Wallet commands
+
+At any time use ```-h``` or ```--help``` to get more help for a command.
 
 ### Create a wallet
 
@@ -66,6 +66,23 @@ If the stake is transferred to a validator node in a different wallet, the owner
 
 #### To transfer stake to a new validator node in the same wallet:
 ```./bin/helium-wallet validators transfer create --new-address <new-public-address> --old-address <old-public-address> --commit```
+
+This will produce an output similar to the following:
+
+```
+
+{
+  "amount": 0.0,
+  "fee": 55000,
+  "hash": "q4Q7WTT0lD-EyjVFsW8hhdIw8Js339TgZpwTdA8_uPs",
+  "new_address": "1ZFavPP8drcqAXJPT6mLuZQqwjWNhWGr9vJ3Ajs3uJyFGW7sUMX",
+  "new_owner": "current",
+  "old_address": "1YpifvrQWUFoHDGyYZoA2FAxmXPNcMNjnRd27uv81t8CzBBNW85",
+  "old_owner": "1aXQ6WyNkibzhHXCFYiJQAa3BEkJnbZFsuezo4qjpW7FAgDw9Xx",
+  "txn": "8gGvAQohEF7t+Kbveqj9hsmO9c/3krgGUVnL8rHv8Eg29JMiE8IGEiEQl2RGoxd+aznItHIVxL7Qizw0ng3t4tcA2kZA7mPqJMcaIRE+/nQNU16ZXpbzMmszzlSw+AiGAXeKg0q7kx1DdLlY7ypAM4Zz4UOX4tKcg2y079UGPhQ99hi8lSZwAwAUjxNMO9jGk5pGA1wP1BqidFWqtcPrIGuom+mdrOQLdEuBU0rFBDjYrQM="
+}
+
+```
 
 #### To transfer stake to a new validator node in a different wallet:
 
