@@ -71,7 +71,7 @@ docker run -d \
 --publish 2154:2154/tcp \
 --name miner \
 --mount type=bind,source=/home/ubuntu/miner_data,target=/var/data \
-quay.io/team-helium/miner:miner-xxxNN_YYYY.MM.DD
+quay.io/team-helium/validator:miner-val-{arch}_val{version}
 ```
 
 Replace ```xxxNN``` with the architecture used, i.e. amd64 or arm64, and with the release date of the image.
