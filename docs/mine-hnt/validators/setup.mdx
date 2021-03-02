@@ -82,7 +82,7 @@ The ```--restart always``` option asks Docker to keep the image running, startin
 
 The ```--name validator``` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
 
-The ```--mount``` with the parameters above will mount the container's ```/var/data/``` directory to the systems directory ```/home/ec2-user/miner_data```.
+The ```--mount``` with the parameters above will mount the container's ```/var/data/``` directory to the systems directory ```/home/ec2-user/validator_data```. You will want this folder to be persistent across runs of the docker container as it will contain both the blockchain data and the miner key of your validator. 
 
 ### Interact with the validator within the container
 
