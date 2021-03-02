@@ -80,7 +80,7 @@ The ```-d``` option runs in detached mode, which makes the command return or not
 
 The ```--restart always``` option asks Docker to keep the image running, starting the image on boot and restarting the image if it crashes. Depending on how you installed Docker in your system, it'll start on boot. In the AWS AMI above, we use systemd (```systemctl status docker``` to check).
 
-The ```--name miner``` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
+The ```--name validator``` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
 
 The ```--mount``` with the parameters above will mount the container's ```/var/data/``` directory to the systems directory ```/home/ec2-user/miner_data```.
 
