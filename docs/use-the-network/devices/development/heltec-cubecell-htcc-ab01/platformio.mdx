@@ -489,15 +489,48 @@ Mac OS: /Users/XXXXX/.platformio/packages/framework-arduinoasrmicro650x/
 ```
 
 #### Verify LoRaWAN Data Rate
-Within an editor of your choice open the file path formed by prepending the above described IDE/platform specific top level directory structure to the following file:
+Within an editor of your choice open the file path formed by prepending the above described platform specific top level directory structure to the following file:
 ```text
-libraries/LoRa/src/LoRaWan_APP.cpp
+libraries/LoRa/src/LoRaWan_APP.cpp    (Linux/Mac)
+libraries\LoRa\src\LoRaWan_APP.cpp     (Windows)
 ```
+Within this file look for 
+```
+#define defaultDrForNoAdr
+```
+
+Depending on the version of the Heltec runtime that is installed this default may be
+set to DR\_0, DR\_3, DR\_5 or some other value. Note: DR\_5 is not
+valid for US915, the North American market.
+
+The defaultDrForNoAdr setting is tied directly to the maximum size
+of the data packet you are transferring.
 
 NOTE: If you try to transfer a packet that is larger than this setting allows, your device may successfully join the network but the data transmit will fail silently.
 
-Update the LORAWAN\_DEFAULT\_DATARATE as appropriate for your application needs.
+| Data Rate \(DR\) | Max Application Payload |
+| :--- | :--- |
+| DR\_0 | 11 bytes |
+| DR\_1 | 53 bytes |
+| DR\_2 | 125 bytes |
+| DR\_3 | 242 bytes |
+| DR\_4 | 242 bytes |
+| DR\_5 - 7 | Not Valid |
+
+Update the defaultDrForNoAdr as appropriate for your application needs.
+
 The above values are valid for the US902-928MHz region\(North America\), the values may differ for other LoRa regions, which you can find [here](https://lora-alliance.org/resource-hub/rp2-101-lorawanr-regional-parameters).
+
+#### Dynamic Data Rate Change
+If your application needs to change the current uplink data rate dynamically and Adaptive Data Rate 
+(ADR) is not enabled, one
+can call the
+```
+LoRaWAN.setDataRateForNoADR(int8_t dataRate)
+```
+API within your sketch. If you do call this API it must be called after the 
+LoRaWAN.init() within your sketch for the change to be effective.
+
 
 #### Verify LoRaWAN preamble size
 There are some versions of the Heltec runtime libraries that may set a LoRaWAN preamble size that is incompatible with the current LoRaWan specification. If the preamble size is not set correctly your device cannot join the network.
