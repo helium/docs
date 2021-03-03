@@ -1,5 +1,5 @@
 ---
-id: validator-testcases
+id: validators-cli-and-api
 title: Test Cases
 hide_title: true
 sidebar_label: Validators CLI and API
@@ -19,7 +19,7 @@ There is a complete API for Helium Validators. It's [documented here as part of 
 The `validator` CLI functionality is part of the the Helium CLI Wallet. This section will highlight the relevant CLI commands for working with validators. For complete installation, usage docs, and source code, please see the [Helium CLI Wallet Repo on GitHub](https://github.com/helium/helium-wallet-rs). 
 
 
-### Create Wallet
+### Create Testnet Wallet
 
 ```
 $ helium-wallet create basic --network testnet
@@ -39,4 +39,42 @@ helium-wallet validators stake [FLAGS] <address> <stake>
 * **address** - Your testnet wallet address
 * **stake** - The amount of TNT you're staking. This is always `10000` per validator. 
 
-  
+ 
+### Transfer Stake
+
+
+**Usage**
+
+```
+helium-wallet validators transfer <SUBCOMMAND>
+```
+
+**SUBCOMMANDS**
+
+* `accept` - Accept a given stake transfer transaction by signing it and committing to the API if requested. The transaction is signed as either (or both) the new owner or the old owner if the owner keys match the public key of the given wallet. User must supply the Base64 encoded transaction to sign. 
+
+```
+helium-wallet validators transfer accept [FLAGS] [TRANSACTION]
+```
+
+* `create` - Onboard a given encoded validator staking transaction with this wallet transaction signed by the Helium staking server. The current (old) or new owner are set to the public key of the given wallet if not specified.
+
+```
+helium-wallet validators transfer create --amount <amount> --new-address <new-address> --old-address <old-address>
+```
+
+### Unstake 
+
+**Usage**
+
+```
+helium-wallet validators unstake [FLAGS] <address>
+```
+
+* `address` - The public address of the validator node you're unstaking.
+
+
+
+
+
+
