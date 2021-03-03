@@ -26,17 +26,17 @@ disambiguate.
 
 # OUI Cost
 
-The OUI is purchased with data credits (DC). Costs are subject to change, but
+The OUI is purchased with [data credits (DC)](/blockchain/transaction-fees). Costs are subject to change, but
 currently the OUI itself costs $100 worth of DCs and each DevAddr cost an
 additional $100 in DC.
 
 DevAddr are sold in sequential blocks between 8 and 65,536 and any power of two.
 You must purchase a slab when purchasing an OUI, therefore, the minimum cost for
-an OUI is $800 for 8 DevAddr's and $100 for the OUI itself.
+an OUI is $800 for eight DevAddr's and $100 for the OUI itself.
 
 [The OUI purchase transaction itself](https://github.com/helium/proto/blob/master/src/blockchain_txn_oui_v1.proto)
 incurs a fee based as does any other blockchain transaction; generally this will
-be $0.35-1.00 worth of DC based on how the fields get filled and change the
+be $0.35-1.00 worth of DCs based on how the fields get filled and change the
 transaction size.
 
 # Purchase Transaction
@@ -44,7 +44,7 @@ transaction size.
 You need [the Helium wallet](https://github.com/helium/helium-wallet-rs) to go
 any further. You'll want to
 [create a wallet](https://github.com/helium/helium-wallet-rs#create-a-wallet)
-and to have a bit over $900 in HNT.
+and to have at least $900 in HNT (base on current HNT Oracle pricing).
 
 ## Create Data Credits
 
@@ -62,7 +62,7 @@ $ ./helium-wallet balance
 +-----------------------------------------------------+------------+--------------+-----------------+
 ```
 
-If we don't have an account balance of at least 90000000 DCs ($900), we need to
+If we don't have an account balance of at least `90,000,000` DCs ($900), we need to
 create the data credits now.
 
 Inspect
@@ -75,8 +75,7 @@ represented in 10^-8 dollars. Suppose it is currently $4.5, so we would get:
 ```
 
 Since 1 DC = $.00001 = $10^-5 and we need to normalize with the $10^-8 from the
-oracle price, we can plug the following into our favorite calculate (Python for
-me):
+oracle price, we can plug the following into our favorite calculate (for example, in Python):
 
 ```text
 >>> 90000000*10**3/450000000
@@ -130,4 +129,4 @@ and on
 [this list here](https://api.helium.io/v1/ouis?cursor=eyJ0eXBlcyI6Im91aV92MSIsImJsb2NrIjo3MDUxMDAsImFuY2hvcl9ibG9jayI6NzA1MTAwf).
 
 Congratulations! You are the proud owner of a Helium Network OUI. OUIs are
-numbered sequentially, so you get street cred for small numbers.
+numbered sequentially, so the lower you are, the earlier you were on the Network!.
