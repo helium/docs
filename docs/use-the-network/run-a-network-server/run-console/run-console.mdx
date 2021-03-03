@@ -31,7 +31,9 @@ Before we being, you should have the following:
 
 Optionally, you should also:
 
-- have a fully sync'ed Miner or ETL instance to extract a snapshot from
+- have a fully sync'ed Miner or ETL instance to extract a snapshot from. To
+  learn how to setup a Miner,
+  [please read here](/mine-hnt/build-a-packet-forwarder#run-the-miner).
 - be able to configure ports on a firewall
 
 ## Console Setup
@@ -65,8 +67,9 @@ DATABASE_DB=console
 DATABASE_HOST=postgres
 ```
 
-The auth0 fields are taken from your auth0 dashboard where you create an app for
-Console:
+The auth0 fields are taken from
+[your auth0 dashboard](https://manage.auth0.com/dashboard) where you create an
+app for Console:
 
 <img
   src={useBaseUrl(
@@ -151,7 +154,24 @@ Just as a heads up, all of your important data is in the `data` in this
 This is a good time to open up port `2154` for incoming TCP connections. Things
 may still work without that but performance will be degraded.
 
-## OUI Update
+### Load a snapshot
+
+Optionally, you can load a snapshot so that your Console is immediately ready
+for action. Technically, the Router component of Console is what keeps up with
+the blockchain. You can check its current height
+
+```
+docker exec helium_router router info height
+```
+
+You are likely quite a ways from the tip of the blockchain, but you can load a
+snapshot from an active miner (or ETL instance or blockchain-node). Details
+about how to do this are [here](/mine-hnt/build-a-packet-forwarder#snapshots).
+
+Simply replace `miner` with `docker exec helium_router router` for most of the
+commands to work.
+
+### OUI Update
 
 At this point, we have the software running and we have an OUI, but the
 blockchain does not know that the address of Router is associated with the OUI.
@@ -179,10 +199,10 @@ Monitor the account in explorer to verify that Router is doing this
 appropriately. eg:
 `https://explorer.helium.com/accounts/11xHXS5AgLyjYRCJ4ctcWcsMRULS8jro9Pb1GPaTG1neGk1dNcf`
 
-## Test a Device
+### Test a Device
 
-Login to Console and create an organization and a device. If you ever need help
-with Console as a user,
+Login to your local Console instnace (localhost:4000) and create an organization
+and a device. If you ever need help with Console as a user,
 [much documentation exists here](/use-the-network/console). If you see a
 successful Join Request, then you are successfully running your private LoRaWAN
 Network Server. Congratulations!

@@ -19,6 +19,11 @@ by the OUI operator:
 - one or more **slabs** of DevAddrs, reserving an address space for the OUI's
   devices on the Helium Network
 
+A device, defined by (AppEui, DevEui), can be allocated any of the DevAddrs
+owned by the OUI. It is even possible to multiplex many devices on the same
+DevAddr at the same time, using the Message Integrity Check (MIC) to
+disambiguate.
+
 # OUI Cost
 
 The OUI is purchased with data credits (DC). Costs are subject to change, but
@@ -81,7 +86,11 @@ me):
 I need to **200 HNT** to get $900 of DC (plus a little extra for the OUI txn
 fee). From _any_ wallet with ~201 HNT, I need to initiate the following
 transaction, which sets the wallet I just created as the beneficiary of the
-burn:
+burn.
+
+Note: I burn an extra 0.5 HNT ~= $2 with the values in this example. This should
+be sufficient for fees. That extra amount changes depending on the current
+oracle price.
 
 ```text
 ./helium-wallet burn --amount 200.5 --payee 12yUUZmsVyVaomxkvuNXtD2rAHYWgYwJLXtz4H9FjYgE2WcniLx --commit

@@ -39,6 +39,10 @@ by the OUI operator:
 - one or more **slabs** of DevAddrs, reserving NwkAddr space for the OUI's
   devices on the Helium Network
 
+A device defined by (AppEui, DevEui) can be allocated any of the DevAddrs owned
+by the OUI. It is even possible to multiplex many devices on the same DevAddr
+at the same time, using the Message Integrity Check (MIC) to disambiguate.
+
 ### Join Request Frames and Filters
 
 A Join Request frame has the following unencrypted header:
