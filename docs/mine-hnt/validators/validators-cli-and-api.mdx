@@ -1,0 +1,42 @@
+---
+id: validator-testcases
+title: Test Cases
+hide_title: true
+sidebar_label: Validators CLI and API
+slug: /mine-hnt/validators/validators-cli-and-api
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Validators CLI and API 
+
+## API 
+
+There is a complete API for Helium Validators. It's [documented here as part of the Helium Blockchain API](/api/blockchain/validators).
+
+## CLI 
+
+The `validator` CLI functionality is part of the the Helium CLI Wallet. This section will highlight the relevant CLI commands for working with validators. For complete installation, usage docs, and source code, please see the [Helium CLI Wallet Repo on GitHub](https://github.com/helium/helium-wallet-rs). 
+
+
+### Create Wallet
+
+```
+$ helium-wallet create basic --network testnet
+```
+
+Note the `--network testnet` flag that results in a testnet-compatible wallet. 
+
+
+### Stake HNT 
+
+**Usage** 
+
+```
+helium-wallet validators stake [FLAGS] <address> <stake>
+```
+
+* **address** - Your testnet wallet address
+* **stake** - The amount of TNT you're staking. This is always `10000` per validator. 
+
+  
