@@ -136,11 +136,14 @@ Start by updating your packager manager registry:
 sudo apt-get update
 ```
 
-And install Docker itself:
+And install Docker itself. (If needed, full directions on installing Docker on Ubuntu [can be found here](https://docs.docker.com/engine/install/ubuntu/).)
 
 ```
 sudo apt-get install docker.io
 ```
+
+
+
 
 To avoid needing to use Docker with `sudo` privileges, add your user to the docker group, replacing $USER with your username here:
 
@@ -165,12 +168,12 @@ If nothing is returned from these commands, your host system does not have AVX s
 
 #### Run a Docker Container
 
-Before running the container for the first time, it is advisable to pick a "system mount point". This allows you to easily maintain your Validator's blockchain identity - specifically it `swarm keys - and blockchain state through image updates.
+Before running the container for the first time, it is advisable to pick a "system mount point". This allows you to easily maintain your Validator's blockchain identity - specifically it `swarm keys` - and blockchain state through image updates. Without doing this, you will lose these items when upgrading docker images and starting updating containers.
 
 The validator directory should be created on a persistent EBS volume (if you're using AWS) or something similar that lives across server lifetimes.
 
 ```
-mkdir $HOME/validator_data; source=$HOME/validator_data
+mkdir $HOME/validator_data
 ```
 
 You can then use the `run` command to start your container for the first time:
@@ -214,7 +217,7 @@ docker exec validator miner info height
 As shown above, you can prepend `docker exec validator` to any of the commands documented or create an alias such as
 
 ```
-alias validator="docker exec validator miner
+alias validator="docker exec validator miner"
 ```
 
 And start the container again as described above, but with the new release tag.
@@ -358,6 +361,10 @@ After running this, you'll need to input your wallet passphrase to sign the tran
 
 And with that, you're done. Congratulations! You're running a Helium Network Validator. 
 
+
+## Verifying Validator Victory
+
+Now that you're up and running with a Validator, there are a few things you can examine to make sure things are hunky dory. 
 
 
 
