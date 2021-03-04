@@ -372,23 +372,78 @@ And with that, you're done. Congratulations! You're running a Helium Network Val
 
 Now that you're up and running with a Validator, there are a few things you can examine to make sure things are hunky dory. 
 
+### Check the API
+https://testnet-api.helium.wtf/v1/validators/ or https://testnet-api.helium.wtf/v1/validators/<validator_address>
+You should see JSON output that looks similar to this. You are looking for `"online": "online"` and `"stake_status": "staked"`
+```
+{
+  "data": {
+    "version_heartbeat": 2,
+    "status": {
+    "online": "online",
+    "listen_addrs": [
+        "/ip4/1.2.3.4/tcp/2154"
+    ],
+    "height": xxxx
+  },
+  "stake_status": "staked",
+  "stake": 1000000000000,
+  "owner": "1aHpEUzcsBvjw1xv8PnoYAYM5yrodqbXKwBitHS8hamWT4TQVDp",
+  "last_heartbeat": xxxx,
+  "block": xxx,
+  "address": "1ZobTUK43hjTwTvwihEoCvh3SuuvfGp9AAR85c8mQdpULjntYWH"
+  }
+}
+```
+
+### Status commands to run on the validator server.
+You may need to adjust these if you're running in docker.
+
+```
+> miner info p2p_status
+
++---------+------+
+|  name   |result|
++---------+------+
+|connected| yes  |
+|dialable | yes  |
+|nat_type | none |
+| height  | 2447 |
++---------+------+
+```
+- `connected` means you have at least one connection to a peer (outgoing connections OK)
+- `dialable` means peers can reach you (incoming connections OK)
+- `nat_type` of `none` is best for validators. Anything else means the validator code thinks it is behind some kind of NAT
+- `height` is the currently synced block
 
 
+```
+>val peer book -s
 
++------------------------------------------------+-------------+----------+---------+---+----------+
+|                    address                     |    name     |listen_add|connectio|nat|last_updat|
++------------------------------------------------+-------------+----------+---------+---+----------+
+|/p2p/1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB|short-umber-b|    1     |    4   |non| 111.88s  |
++------------------------------------------------+-------------+----------+---------+---+----------+
 
++----------------------------+
+| listen_addrs (prioritized) |
++----------------------------+
+|/ip4/173.230.156.39/tcp/2154|
++----------------------------+
 
++-----------------+--------------------+---------------------------------------+-------------------+
+|      local      |       remote       |                  p2p                  |       name        |
++-----------------+--------------------+---------------------------------------+-------------------+
+|/ip4/172.17.0.2/t|/ip4/50.16.94.64/tcp|/p2p/1Y9MoitLaEbXPdrZZogURSNQ54eXcp2Ljv|agreeable-tweed-pir|
+|/ip4/172.17.0.2/t|/ip4/143.110.235.209|/p2p/1YAFBayNk8bXkkEpqXdxu73kFTjtMqXKTy|prehistoric-hemp-ra|
+|/ip4/172.17.0.2/t|/ip4/73.2.34.208/tcp|/p2p/1YEC3g9Hep4hzbDwLFbJ4SqrthTcjGDWdP|wonderful-arctic-ch|
+|/ip4/172.17.0.2/t|/ip4/172.90.214.198/|/p2p/1YLJC8DSN6SF17S9nXfYEwTXKtoXpgqBSX|howling-ultraviolet|
+|/ip4/172.17.0.2/t|/ip4/13.59.168.136/t|/p2p/1YZhCNPj181YL21aHECXLS1zvDzVY43px9|macho-chocolate-but|
++-----------------+--------------------+---------------------------------------+-------------------+
+```
 
-
-
-
-
-
-
-
-
-
-
-
+You're looking for `listen_addrs`. If you don't have at least one, your validator hasn't settled on how to tell other peers to reach it. Often this can take 15-30min, sometimes longer. 
 
 
 
