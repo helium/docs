@@ -30,48 +30,99 @@ Note the `--network testnet` flag that results in a testnet-compatible wallet.
 
 ### Stake HNT 
 
+As part of the staking process the validator address needs to be in the staking transaction and also needs to sign the transaction. After a wallet stakes a validator, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
+
 **Usage** 
 
 ```
 helium-wallet validators stake [FLAGS] <address> <stake>
 ```
 
-* **address** - Your testnet wallet address
-* **stake** - The amount of TNT you're staking. This is always `10000` per validator. 
+* `address` - The address of the validator you wish to stake
+* `stake` - The amount of TNT you're staking. This is always `10000` per validator. 
 
  
 ### Transfer Stake
 
+A validator's stake can be transferred to other validator nodes in the same wallet or a different wallet. If the stake is transferred to a validator in a different wallet, the owner of the other wallet must accept the transfer to complete the transaction.
 
+Available arguments for `transfer`
+
+* `new-address` - the public address of the new validator
+* `old-address` - the public address of the old validator
+* `amount` - the amount of HNT to transfer from the new to the old owner as part of the stake transfer **[default: 0]**
+                                       
 **Usage**
 
 ```
 helium-wallet validators transfer <SUBCOMMAND>
 ```
 
-**SUBCOMMANDS**
-
-* `accept` - Accept a given stake transfer transaction by signing it and committing to the API if requested. The transaction is signed as either (or both) the new owner or the old owner if the owner keys match the public key of the given wallet. User must supply the Base64 encoded transaction to sign. 
+**Transfer stake to new Validator in the same wallet**
 
 ```
-helium-wallet validators transfer accept [FLAGS] [TRANSACTION]
+helium-wallet validators transfer create --new-address <new-public-address> --old-address <old-public-address> --commit
 ```
 
-* `create` - Onboard a given encoded validator staking transaction with this wallet transaction signed by the Helium staking server. The current (old) or new owner are set to the public key of the given wallet if not specified.
+This will produce an output similar to the following (output styled as `json` after the fact):
 
 ```
-helium-wallet validators transfer create --amount <amount> --new-address <new-address> --old-address <old-address>
+{
+  "amount": 0.0,
+  "fee": 55000,
+  "hash": "q4Q7WTT0lD-EyjVFsW8hhdIw8Js339TgZpwTdA8_uPs",
+  "new_address": "1ZFavPP8drcqAXJPT6mLuZQqwjWNhWGr9vJ3Ajs3uJyFGW7sUMX",
+  "new_owner": "current",
+  "old_address": "1YpifvrQWUFoHDGyYZoA2FAxmXPNcMNjnRd27uv81t8CzBBNW85",
+  "old_owner": "1aXQ6WyNkibzhHXCFYiJQAa3BEkJnbZFsuezo4qjpW7FAgDw9Xx",
+  "txn": "8gGvAQohEF7t+Kbveqj9hsmO9c/3krgGUVnL8rHv8Eg29JMiE8IGEiEQl2RGoxd+aznItHIVxL7Qizw0ng3t4tcA2kZA7mPqJMcaIRE+/nQNU16ZXpbzMmszzlSw+AiGAXeKg0q7kx1DdLlY7ypAM4Zz4UOX4tKcg2y079UGPhQ99hi8lSZwAwAUjxNMO9jGk5pGA1wP1BqidFWqtcPrIGuom+mdrOQLdEuBU0rFBDjYrQM="
+}
 ```
 
-### Unstake 
+**Transfer stake to a new validator node in a different wallet**
+
+This is a two step process. First, create the transfer transaction. Then the owner of the target wallet must accept it.
+
+To create the transaction:
+
+```
+helium-wallet validators transfer create --new-address <new-public-address> --old-address <old-public-address> --new-owner <new-owner-wallet-public-address>
+```
+
+This will produce an output similar to the following (output styled as `json` after the fact):
+
+```
+{
+  "amount": 0.0,
+  "fee": 60000,
+  "hash": null,
+  "new_address": "1YeCAsuBq3fDTv8x4iB1fJn9zBbopHhjhXGpvVwN43JDptqMT11",
+  "new_owner": "1bBTWn843DwTXTyH3hbSMmDoJXHCU1D1U8cAYRdVE5rDnaS7fLb",
+  "old_address": "1ZFavPP8drcqAXJPT6mLuZQqwjWNhWGr9vJ3Ajs3uJyFGW7sUMX",
+  "old_owner": "1aXQ6WyNkibzhHXCFYiJQAa3BEkJnbZFsuezo4qjpW7FAgDw9Xx",
+  "txn": "8gHSAQohEJdkRqMXfms5yLRyFcS+0Is8NJ4N7eLXANpGQO5j6iTHEiEQRwd/IDnFy67A2NbC3IyYvLZUrsAojyJH85aeNi3SLA0aIRE+/nQNU16ZXpbzMmszzlSw+AiGAXeKg0q7kx1DdLlY7yIhEZVpU2QzwJ1SmikaTlSEyKCQ5mCRx/xOIUAsw5MYPIsWKkD3+X75w1+267InX30CD077Y8X3JK31FEg/X1bSpFehIQa6eY/DqfDEfDjLyq6UHpxsfBEE8M0zGs9okipefnAOOODUAw=="
+}
+```
+
+Then, to accept the stake transfer, the new owner performs the following:
+
+```
+helium-wallet validators transfer accept --commit <txn>
+```
+
+Note the `txn` value is listed in the output above from the original `transfer create` command. 
+
+### Unstake Tokens
+
+If you unstake tokens, the validator enters a cooldown period. During this cooldown period the validator will not earn rewards. At the end of the cooldown period (currently planned for 250,000 blocks or approximately 5 months on mainnet) the initial staking amount will be returned to the wallet that staked it. The cooldown period will be shortened for the testnet to 360 blocks (approximately one hour) on Testnet
 
 **Usage**
 
 ```
-helium-wallet validators unstake [FLAGS] <address>
+helium-wallet validators unstake [FLAGS] <address> --commit
 ```
 
-* `address` - The public address of the validator node you're unstaking.
+ 
 
 
 
