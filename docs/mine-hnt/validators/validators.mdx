@@ -10,11 +10,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 # Validators (Testnet)
 
-## Overview
-
 Validators are a new entity on the Helium Blockchain that will perform the work of the consensus group including verifying transactions and adding new blocks to the blockchain. 
-
-For more information about validators and to register interest in staking, go [here](https://www.helium.com/stake).
 
 :::info
 
@@ -28,13 +24,14 @@ During the Testnet, expect frequent updates which could result in API and Faucet
 
 :::
 
-To test validator nodes:
-* users need Testnet Network Tokens (TNT) to stake test validator nodes
-* the testnet consensus group will be sized dynamically based on the number of active testnet participants
-* block production and epochs are accelerated (10 second blocks, 10 minute epochs)
-* the cooldown period (number of blocks after unstaking when the validator node doesn't earn rewards, and the stake is returned to the owner's wallet) is shortened to 360 blocks (approx. an hour)
 
-To run a testnet validator node refer to the following:
+## Deploy a Validator 
+
+Ready to deploy a Validator to the Testnet ? The [complete Validator Deployment Guide](/mine-hnt/validators/validator-deployment-guide) will walk you through the entire process.
+
+## Validator Resources 
+
+To run a Testnet Validator node refer to the following:
 
 * [Technical Requirements](/mine-hnt/validators/requirements)
 * [Configure Wallet](/mine-hnt/validators/validator-wallet)
@@ -43,3 +40,12 @@ To run a testnet validator node refer to the following:
 * [Monitor a Validator](/mine-hnt/validators/validator-monitor)
 * [Troubleshooting](/mine-hnt/validators/validator-troubleshooting)
 * [Test Cases](/mine-hnt/validators/validator-testcases)
+
+## Testnet Overview and Design
+
+As stated above, we are currently running the Testnet. As such, a few things are slightly modified from what will eventually be Mainnet. Specifically:
+
+* Developers need Testnet Network Tokens (TNT) to stake test validator nodes. You can get them [via the Faucet](https://faucet.helium.wtf) but, before you do that, read the [Validator Deployment Guide](/mine-hnt/validators/validator-deployment-guide) so you know how to use them.
+* The Testnet Consensus Group will be sized dynamically based on the number of active testnet participants. 
+* Testnet block production and epochs are accelerated. They are 10 second blocks and 10 minute epochs (mainnet targets 60 second blocks and 30 minute epochs).
+* The cooldown period - defined as the number of blocks after unstaking when the validator node doesn't earn rewards, and the stake is returned to the owner's wallet - is shortened to 360 blocks (or approximately 60 minutes). On mainnet this period will be closer to 200000 blocks. 
