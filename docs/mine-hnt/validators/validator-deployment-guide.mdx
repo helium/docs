@@ -275,18 +275,7 @@ wget http://mirrors.kernel.org/ubuntu/pool/universe/w/wxwidgets3.0/libwxgtk3.0-0
 And finish thins off by acquiring a some wonderful dependencies:
 
 ```
-sudo apt install -y libdbus-1-dev autoconf automake libtool flex libgmp-dev cmake libsodium-dev libssl-dev bison libsnappy-dev libclang-dev doxygen make cargo
-```
-
-```
-sudo apt install g++ -y
-sudo apt install -y libsctp1
-sudo apt install -y libncurses5
-sudo apt install -y libwxbase3.0-0v5
-sudo apt install -y build-essential cmake
-sudo apt install -y libdbus-1-dev
-sudo apt install -y mosh vim 
-sudo apt install -y parallel
+sudo apt install -y libdbus-1-dev autoconf automake libtool flex libgmp-dev cmake libsodium-dev libssl-dev bison libsnappy-dev libclang-dev doxygen make cargo g++ libsctp1 libncurses5 libwxbase3.0-0v5 build-essential cmake libdbus-1-dev mosh vim parallel
 ```
 
 Then we need to unpack and install all of this stuff. Start with `libwxgtk`:
@@ -312,26 +301,36 @@ Then navigate to your `miner` directory:
 cd miner
 ```
 
-And, finally, build the `miner`
+Build the `miner`
 
 ```
 ./rebar3 as validator release
 ```
 
+Then start the `miner`:
+
+```
+_build/validator/rel/miner/bin/miner start
+```
+
+
 #### Load the Genesis Block
 
-One last step. When building from source, you'll need to manually load the genesis block once your miner is deployed and running. To do this:
+One last step. When building from source, you'll need to manually load the genesis block once your miner is deployed and running. To do this, run the following:
 
 ```
 wget https://snapshots.helium.wtf/genesis.testnet
 miner genesis load </absolute/path/to/genesis/block>
 ```
 
+Note that in the above `miner` command, the `miner` binary here is nested within `_build/validator/rel/miner/bin/miner`.
+
+
 ## Stake Tokens to Your Validator
 
 Now that your Validator node is running, the final step in the process is to formally stake TNT to your Validator. As part of the staking process the Validator address needs to both be in the staking transaction and sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
 
-First, double check your wallet balance to make sure you have the `10000` TNT required:
+First, double check your wallet balance to make sure you have the `10000` TNT required to stake, along with a few extra to cover the transaction fees. (The faucet provides all of this.)
 
 
 ```
@@ -373,7 +372,21 @@ And with that, you're done. Congratulations! You're running a Helium Network Val
 Now that you're up and running with a Validator, there are a few things you can examine to make sure things are hunky dory. 
 
 ### Check the API
-https://testnet-api.helium.wtf/v1/validators/ or https://testnet-api.helium.wtf/v1/validators/<validator_address>
+
+The [Validator API](/api/blockchain/validators) provides several useful calls to help monitor your Validator and the state of the Testnet. 
+
+```
+https://testnet-api.helium.wtf/v1/validators/ 
+```
+
+or 
+
+```
+https://testnet-api.helium.wtf/v1/validators/<validator_address>
+```
+
+will be very useful. 
+
 You should see JSON output that looks similar to this. You are looking for `"online": "online"` and `"stake_status": "staked"`
 ```
 {
@@ -397,7 +410,8 @@ You should see JSON output that looks similar to this. You are looking for `"onl
 ```
 
 ### Status commands to run on the validator server.
-You may need to adjust these if you're running in docker.
+
+Note that you may need to adjust these if you're running in Docker. 
 
 ```
 > miner info p2p_status
