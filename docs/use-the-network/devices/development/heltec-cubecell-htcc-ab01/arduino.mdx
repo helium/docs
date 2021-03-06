@@ -58,7 +58,7 @@ Next, lets connect our board to our computer with a USB 2.0 A-Male to Micro B ca
 Download and install the latest version of [Arduino IDE](https://www.arduino.cc/en/Main/Software) for your preferred OS.
 
 * ​[Windows](https://www.arduino.cc/en/Guide/Windows)​
-* ​[Linux](https://www.arduino.cc/en/Guide/linux)​
+* ​[Linux](https://www.arduino.cc/en/Guide/Linux)​
 * ​[Mac OSX](https://www.arduino.cc/en/Guide/MacOSX)​
 
 ### Arduino Board Support <a id="arduino-board-support"></a>
@@ -121,16 +121,23 @@ C:\Users\XXXX\AppData\Local\Arduino15\packages\CubeCell\hardware\CubeCell\1.0.0
 ```text
 /Users/XXXXX/Library/Arduino15/packages/CubeCell/hardware/CubeCell/1.0.0
 ```
-#### Verify Data Rate
+#### Verify LoRaWAN Data Rate
 Within an editor of your choice open the file path formed by prepending the above described platform specific top level directory structure to the following file:
 ```text
 libraries/LoRa/src/LoRaWan_APP.cpp    (Linux/Mac)
 libraries\LoRa\src\LoRaWan_APP.cpp     (Windows)
 ```
-Within this file look for \#define LORAWAN\_DEFAULT\_DATARATE  
-Depending on the version of the Heltec runtime that is installed this default may be set to DR\_0, DR\_3, DR\_5 or some other value. Note: DR\_5 is not valid for US915, the North American market.
+Within this file look for 
+```
+#define defaultDrForNoAdr
+```
 
-The LORAWAN\_DEFAULT\_DATARATE setting is tied directly to the maximum size of the data packet you are transferring. While other runtime versions may allow programatic overide of this default, the Heltec implementation does not currently support overriding.
+Depending on the version of the Heltec runtime that is installed this default may be
+set to DR\_0, DR\_3, DR\_5 or some other value. Note: DR\_5 is not
+valid for US915, the North American market.
+
+The defaultDrForNoAdr setting is tied directly to the maximum size
+of the data packet you are transferring.
 
 NOTE: If you try to transfer a packet that is larger than this setting allows, your device may successfully join the network but the data transmit will fail silently.
 
@@ -143,9 +150,20 @@ NOTE: If you try to transfer a packet that is larger than this setting allows, y
 | DR\_4 | 242 bytes |
 | DR\_5 - 7 | Not Valid |
 
-Update the LORAWAN\_DEFAULT\_DATARATE as appropriate for your application needs.
+Update the defaultDrForNoAdr as appropriate for your application needs.
 
 The above values are valid for the US902-928MHz region\(North America\), the values may differ for other LoRa regions, which you can find [here](https://lora-alliance.org/resource-hub/rp2-101-lorawanr-regional-parameters).
+
+#### Dynamic Data Rate Change
+If your application needs to change the current uplink data rate dynamically and Adaptive Data Rate 
+(ADR) is not enabled, one
+can call the
+```
+LoRaWAN.setDataRateForNoADR(int8_t dataRate)
+```
+API within your sketch. If you do call this API it must be called after the 
+LoRaWAN.init() within your sketch for the change to be effective.
+
 
 #### LoRaWAN preamble size
 
@@ -287,5 +305,5 @@ Now let's head back to [Helium Console](https://console.helium.com/) and look at
   )}
 />
 
-Congratulations! You have just transmitted data on the Helium network! The next step is to learn how to use your device data to build applications, visit our Integrations docs here.
+Congratulations! You have just transmitted data on the Helium network! The next step is to learn how to use your device data to build applications, visit our Integrations docs [here](/use-the-network/console/integrations).
 
