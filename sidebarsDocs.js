@@ -10,7 +10,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
+      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/validators/validators', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
       collapsed: true,
     },
     {
@@ -22,7 +22,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Use The Network',
-      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
+      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/run-a-network-server/run-a-network-server', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
       collapsed: true,
     },
     {
@@ -46,10 +46,10 @@ module.exports = {
   ],
   api: [
     'api/home',
-   { 
+   {
       type: 'category',
       label: 'Blockchain',
-      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/locations', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis'],
+      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/validators', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/locations', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis'],
       collapsed: true,
     },
     'api/console',
@@ -59,7 +59,7 @@ module.exports = {
       type: 'link',
       label: '<- Back',
       href: '/use-the-network/console'
-    }, 
+    },
     {
       type: 'category',
       label: 'Console',
@@ -72,7 +72,7 @@ module.exports = {
       type: 'link',
       label: '<- Console',
       href: '/use-the-network/console/integrations'
-    }, 
+    },
     {
       type: 'category',
       label: 'Integrations',
@@ -85,7 +85,7 @@ module.exports = {
       type: 'link',
       label: '<- Console',
       href: '/use-the-network/console/migrating-devices'
-    }, 
+    },
     {
       type: 'category',
       label: 'Migrating Devices',
@@ -93,12 +93,25 @@ module.exports = {
       collapsed: false,
     },
   ],
+  runanetworkserver: [
+      {
+          type: 'link',
+          label: '<- Back',
+          href: '/use-the-network/run-a-network-server'
+      },
+      {
+          type: 'category',
+          label: 'Run a Network Server',
+          items: ['use-the-network/run-a-network-server/buy-an-oui/buy-an-oui', 'use-the-network/run-a-network-server/run-console/run-console'],
+          collapsed: false,
+      },
+  ],
   coveragemapping: [
    {
       type: 'link',
       label: '<- Back',
       href: '/use-the-network/coverage-mapping'
-    }, 
+    },
     {
       type: 'category',
       label: 'Coverage Mapping',
@@ -111,7 +124,7 @@ module.exports = {
       type: 'link',
       label: '<- Devices',
       href: '/use-the-network/devices'
-    }, 
+    },
     {
       type: 'category',
       label: 'Ready To Use',
@@ -124,7 +137,7 @@ module.exports = {
       type: 'link',
       label: '<- Devices',
       href: '/use-the-network/devices'
-    }, 
+    },
     {
       type: 'category',
       label: 'Development',
@@ -137,20 +150,33 @@ module.exports = {
       type: 'link',
       label: '<- Hotspot Makers',
       href: '/mine-hnt/hotspot-makers'
-    }, 
+    },
     {
       type: 'category',
       label: 'Makers',
       items: ['mine-hnt/hotspot-makers/approved-makers/approved-makers', 'mine-hnt/hotspot-makers/maker-approval-auditing/maker-approval-auditing', 'mine-hnt/hotspot-makers/hotspot-integration-testing/hotspot-integration-testing', 'mine-hnt/hotspot-makers/docker-integration/docker-integration', 'mine-hnt/hotspot-makers/security-requirements/security-requirements','mine-hnt/hotspot-makers/hotspot-ble-services/hotspot-ble-services', 'mine-hnt/hotspot-makers/hotspot-wifi-configuration/hotspot-wifi-configuration', 'mine-hnt/hotspot-makers/burn-hnt-to-maker-wallet/burn-hnt-to-maker-wallet'],
       collapsed: false,
     },
-  ],  
+  ],
+  validators: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/mine-hnt/validators'
+    },
+    {
+      type: 'category',
+      label: 'Validators',
+      items: ['mine-hnt/validators/validator-deployment-guide','mine-hnt/validators/requirements', 'mine-hnt/validators/validator-wallet', 'mine-hnt/validators/validator-tnt', 'mine-hnt/validators/validator-run', 'mine-hnt/validators/validator-monitor', 'mine-hnt/validators/validator-troubleshooting', 'mine-hnt/validators/validator-testcases'],
+      collapsed: false,
+    },
+  ],
   bL072zLrwan1: [
    {
       type: 'link',
       label: '<- ST B-L072Z-LRWAN1',
       href: '/use-the-network/devices/development/st-b-l072z-lrwan1'
-    }, 
+    },
     {
       type: 'category',
       label: 'Firmware',
@@ -163,7 +189,7 @@ module.exports = {
       type: 'link',
       label: '<- Sparkfun Pro RF',
       href: '/use-the-network/devices/development/sparkfun-pro-rf'
-    }, 
+    },
     {
       type: 'category',
       label: 'Firmware',
@@ -176,7 +202,7 @@ module.exports = {
       type: 'link',
       label: '<- Adafruit Feather M0 RFM95',
       href: '/use-the-network/devices/development/adafruit-feather-m0-rfm95'
-    }, 
+    },
     {
       type: 'category',
       label: 'Firmware',
@@ -195,7 +221,7 @@ module.exports = {
       type: 'link',
       label: '<- Heltec Cubecell HTCC AB01',
       href: '/use-the-network/devices/development/heltec-cubecell-htcc-ab01'
-    }, 
+    },
     {
       type: 'category',
       label: 'Firmware',
@@ -208,10 +234,10 @@ module.exports = {
        type: 'link',
        label: '<- RAK-Wireless WisBlock Starter Kit',
        href: '/use-the-network/devices/development/rak-wisblock-starter'
-     }, 
+     },
      {
        type: 'category',
-       label: 'Firmware', 
+       label: 'Firmware',
        items: ['use-the-network/devices/development/rak-wisblock-starter/arduino', 'use-the-network/devices/development/rak-wisblock-starter/platformio'],
        collapsed: false,
      },
@@ -221,7 +247,7 @@ module.exports = {
       type: 'link',
       label: '<- Heltec WiFi LoRa 32 V2',
       href: '/use-the-network/devices/development/heltec-wifi-lora-32-v2'
-    }, 
+    },
     {
       type: 'category',
       label: 'Firmware',
