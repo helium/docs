@@ -1,0 +1,36 @@
+---
+id: validator-troubleshooting
+title: Troubleshooting
+hide_title: true
+sidebar_label: Troubleshooting
+slug: /mine-hnt/validators/validator-troubleshooting
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Troubleshooting
+
+There is a ```#validator``` [Discord](https://discord.gg/helium)  channel available to reach other testnet participants. Also use this channel to share feedback and report issues.
+
+## View logs
+This is always helpful to get an idea of what's going on:
+
+```tail -f ~/validator_data/log/console.log```
+
+## Compromised server
+If you find that the server has been compromised just wipe it (save the blocks to avoid having to resync the entire blockchain), close the hole, stand up a new validator and then transfer the stake to it.
+
+## Syncing to the blockchain
+Syncing to the blockchain could be impacted for the following reasons:
+* slow internet connection
+* your validator is disconnecting
+* you just launched an AMI instance (if using AWS)
+
+## Resources
+
+* [HIP 25](https://github.com/helium/HIP/blob/master/0025-validators.md)- where it all started the approved validator proposal
+* [HIP 25 explainer video](https://www.youtube.com/watch?v=qOEAxXaANkI&t=1s)- starring validator core developer
+* [Frequently asked questions](https://github.com/helium/HIP/blob/master/0025-validators.md#frequently-asked-questions)
+* [Wallet software repo](https://github.com/helium/helium-wallet-rs)
+* [Validator node (miner) software repo](https://github.com/helium/miner)
+* [helium.com/stake](https://www.helium.com/stake)- state your intention to stake once mainnet goes live
