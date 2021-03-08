@@ -26,9 +26,9 @@ disambiguate.
 
 # OUI Cost
 
-The OUI is purchased with [data credits (DC)](/blockchain/transaction-fees). Costs are subject to change, but
-currently the OUI itself costs $100 worth of DCs and each DevAddr cost an
-additional $100 in DC.
+The OUI is purchased with [data credits (DC)](/blockchain/transaction-fees).
+Costs are subject to change, but currently the OUI itself costs $100 worth of
+DCs and each DevAddr cost an additional $100 in DC.
 
 DevAddr are sold in sequential blocks between 8 and 65,536 and any power of two.
 You must purchase a slab when purchasing an OUI, therefore, the minimum cost for
@@ -62,8 +62,8 @@ $ ./helium-wallet balance
 +-----------------------------------------------------+------------+--------------+-----------------+
 ```
 
-If we don't have an account balance of at least `90,000,000` DCs ($900), we need to
-create the data credits now.
+If we don't have an account balance of at least `90,000,000` DCs ($900), we need
+to create the data credits now.
 
 Inspect
 [the current oracle price](https://api.helium.io/v1/oracle/prices/current) and
@@ -75,7 +75,8 @@ represented in 10^-8 dollars. Suppose it is currently $4.5, so we would get:
 ```
 
 Since 1 DC = $.00001 = $10^-5 and we need to normalize with the $10^-8 from the
-oracle price, we can plug the following into our favorite calculate (for example, in Python):
+oracle price, we can plug the following into our favorite calculate (for
+example, in Python):
 
 ```text
 >>> 90000000*10**3/450000000
@@ -129,4 +130,5 @@ and on
 [this list here](https://api.helium.io/v1/ouis?cursor=eyJ0eXBlcyI6Im91aV92MSIsImJsb2NrIjo3MDUxMDAsImFuY2hvcl9ibG9jayI6NzA1MTAwf).
 
 Congratulations! You are the proud owner of a Helium Network OUI. OUIs are
-numbered sequentially, so the lower you are, the earlier you were on the Network!.
+numbered sequentially, so the lower you are, the earlier you were on the
+Network!.

@@ -205,16 +205,17 @@ Login to your local Console instance (localhost:4000) and create an organization
 and a device. If you ever need help with Console as a user,
 [much documentation exists here](/use-the-network/console).
 
-Once you've created the device on console, go to a terminal window on server running
-Console and execute the following command to tell Router to update the `xor filter`
-on the blockchain:
+Once you've created the device on console, go to a terminal window on server
+running Console and execute the following command to tell Router to update the
+`xor filter` on the blockchain:
 
 ```
-docker exec helium_router router device xor
+docker exec helium_router router device xor --commit
 ```
 
-Give the transaction some time to process (you can track it on explorer). Once it has
-been processed, you can try joining the device. If you see a successful Join Request,
-then you are successfully running your private LoRaWAN Network Server.
+Give the transaction some time to process (you can track it on explorer). Once
+it has been processed, you can try joining the device. If you see a successful
+Join Request, then you are successfully running your private LoRaWAN Network
+Server.
 
 Congratulations!
