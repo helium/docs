@@ -347,7 +347,7 @@ To stake tokens, we need to get the validator node address. Obtain it using the 
 
 
 ```
-miner peer addr
+validator peer addr
 ```
 
 The resulting output will look like this (except with your specific validator address). The string after `/p2p/` is your Validator address:
@@ -414,7 +414,7 @@ You should see JSON output that looks similar to this. You are looking for `"onl
 Note that you may need to adjust these if you're running in Docker. 
 
 ```
-> miner info p2p_status
+> validator info p2p_status
 
 +---------+------+
 |  name   |result|
@@ -432,7 +432,7 @@ Note that you may need to adjust these if you're running in Docker.
 
 
 ```
->val peer book -s
+> validator peer book -s
 
 +------------------------------------------------+-------------+----------+---------+---+----------+
 |                    address                     |    name     |listen_add|connectio|nat|last_updat|
