@@ -272,27 +272,24 @@ Next, get the `libwxgtk` package:
 wget http://mirrors.kernel.org/ubuntu/pool/universe/w/wxwidgets3.0/libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb
 ```
 
-And finish thins off by acquiring a some wonderful dependencies:
+Then acquiring the following dependencies:
 
 ```
 sudo apt install -y libdbus-1-dev autoconf automake libtool flex libgmp-dev cmake libsodium-dev libssl-dev bison libsnappy-dev libclang-dev doxygen make cargo g++ libsctp1 libncurses5 libwxbase3.0-0v5 build-essential cmake libdbus-1-dev mosh vim parallel
 ```
 
-Then we need to unpack and install all of this stuff. Start with `libwxgtk`:
+When this completes, install `libwxgtk`:
 
 ```
-sudo dpkg -i libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb
+sudo apt-get install libwxgtk3.0-gtk3-dev
 sudo apt update -y
 ```
 
-Then onto Erlang. First `unpack` then `install`:
+Then install Erlang:
 
 ```
-sudo dpkg -i esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
-```
-
-```
-sudo apt-get install -f
+sudo apt-get install erlang
+sudo apt update -y
 ```
 
 Then navigate to your `miner` directory:
