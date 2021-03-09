@@ -13,9 +13,14 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 There is a ```#validator``` [Discord](https://discord.gg/helium)  channel available to reach other testnet participants. Also use this channel to share feedback and report issues.
 
 ## View logs
-This is always helpful to get an idea of what's going on:
+Tailing the `console.log` is always helpful to get an idea of what's going on. Assuming your data is mounted at `~/validator_data`, run:
 
 ```tail -f ~/validator_data/log/console.log```
+
+This can be run directly on the Docker container as well:
+
+```docker exec validator tail -f /var/data/log/console.log```
+
 
 ## Compromised server
 If you find that the server has been compromised just wipe it (save the blocks to avoid having to resync the entire blockchain), close the hole, stand up a new validator and then transfer the stake to it.
