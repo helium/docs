@@ -16,12 +16,20 @@ any LoRaWAN compatible tracker will work.
 
 ### Steps
 
-1. Create new Label and HTTP integration with Mappers API ingest endpoint.
-2. Create Function Decoder to decode device payload and attach to Label created
+1. Add device to Console.
+2. Create new Label and HTTP integration with Mappers API ingest endpoint.
+3. Create Function Decoder to decode device payload and attach to Label created
    in first step.
-3. Attach Label to tracking device and verify data is being sent successfully.
+4. Attach Label to tracking device and verify data is being sent successfully.
 
-### 1. Create HTTP Integration
+### 1. Add Device to Console
+
+To start, you'll need to add your device to Console. You should have been
+provided with a DevEUI, AppEUI, and AppKey from the seller of the device.
+Follow our [quickstart](/use-the-network/console/quickstart) for instructions on how to add a new device to
+Console.
+
+### 2. Create HTTP Integration
 
 To start, we'll create a new HTTP integration in Console. Navigate to the
 Integrations page using the left navigation and then select the HTTP
@@ -48,7 +56,7 @@ Next we'll fill in the details, see instructions and image below.
   )}
 />
 
-### 2. Create Function Decoder
+### 3. Create Function Decoder
 
 Next, we'll be creating a Function decoder to decode the payload from the device
 and properly format it for the API endpoint. The decoder is specific to the
@@ -137,7 +145,7 @@ click _Create New Function_.
   )}
 />
 
-### 3. Attach Label to Device
+### 4. Attach Label to Device
 
 Next we'll attach the _Mappers Integration_ label to the device. Navigate to
 your device page and click the Add Label button shown below.
