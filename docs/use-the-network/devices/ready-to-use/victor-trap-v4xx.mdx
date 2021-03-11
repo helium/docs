@@ -85,4 +85,26 @@ Search for the _VLINK Integration_ label and click _Add Label_ as shown below.
 
 
 You are now ready to add your device to VLINK and power on your device in range
-of a Hotspot.
+of a Hotspot. See VLINK onboarding instructions [here](https://helium-docs.s3-us-west-2.amazonaws.com/VLINK_Tunnel_Trap_Setup_Instructions.pdf).
+
+### FAQ
+
+#### What does ErrorCode in the Event Log mean?
+* ErrorCode: 0 = Lid Closed
+* ErrorCode: 1 = Lid is Open
+
+#### What sequence of messages should I expect (in Console)?
+1. Series of 10-15 messages - These include network join, power up status, other status messages
+2. Then 5 messages 10 minutes apart
+3. Then a status message every 23 hours
+
+#### What sequence of messages should I expect (in VLINK dashboard)?
+In the event log you will see "Trap Powered Up" and a series of "Trap Status" logs.
+
+#### What are the button presses?
+If unit is off:
+* Pressing the button will turn it on and initialize the unit
+
+If unit is on:
+* 1 quick button press will send a status message
+* 1 Long button press will turn the unit off
