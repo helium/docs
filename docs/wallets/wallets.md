@@ -5,6 +5,10 @@ sidebar_label: Overview
 slug: /wallets
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<img className="docsheader" src={useBaseUrl("img/wallets/header.png")} />
+
 # Wallets
 
 In blockchain projects, various wallet applications exist to help users manage
