@@ -214,13 +214,13 @@ docker run -d \
 -v /var/run/docker.sock:/var/run/docker.sock \
 containrrr/watchtower \
 --cleanup \
---interval 7200
+--interval 1800
 ```
 
 - `-v /var/run/docker.sock:/var/run/docker.sock` A volume flag to allow the watchtower container to monitor running containers.
 - `containrrr/watchtower` The Image of the watchtower container
 - `--cleanup` Passes a flag into the watchtower container. This instructs watchtower to remove old images after updating.
-- `--interval 7200` Poll interval (in seconds). This value controls how frequently watchtower will poll for new images. Every 2 hours for the purpose of testnet is recommended.
+- `--interval 1800` Poll interval (in seconds). This value controls how frequently watchtower will poll for new images. For Testnet, the recommendation is to check for an updated image every 30 minutes.
 
 Additional flags that may be helpful:
 
