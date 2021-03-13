@@ -224,7 +224,7 @@ containrrr/watchtower \
 
 Additional flags that may be helpful:
 
-- `quay.io/team-helium/validator:latest-val-amd64` Include the image text as the last line in the command above. Including this at the end simply tells watchtower to only monitor the validator image and not an of the other images in your docker server. This is included here for convenience if there are other docker containers running on the host. If the validator is the only service running, this can be ommitted.
+- `quay.io/team-helium/validator:latest-val-amd64` Include the image text as the last line in the command above. Including this at the end simply tells watchtower to only monitor the validator image and not any of the other images in your docker server. This is included here for convenience if there are other docker containers running on the host. If the validator is the only service running, this can be omitted.
 
 That's it! Watchtower will check to ensure the running validator has the latest image and will automatically stop, update, and run your container if required. Watchtower will also monitor and update the watchtower image itself.
 
