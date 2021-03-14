@@ -128,7 +128,7 @@ You have two options for deploying the Validator. You just need to do ONE of the
 - [Deploy the Miner Using Docker](#deploy-the-miner-using-docker). Recommended if you are unfamiliar with building software.
 - [Build the Miner form Source](#deploy-miner-from-source)
 
-### Deploy the Miner Using Docker
+### Deploy the Miner Using Docker - RECOMMENDED
 
 Start by updating your packager manager registry:
 
@@ -165,7 +165,7 @@ If nothing is returned from these commands, your host system does not have AVX s
 
 Now that docker is installed and ready, let's run the Validator.
 
-#### Run the Docker Container - RECOMMENDED
+#### Run the Docker Container
 
 Before running the container for the first time, it is mandatory to pick a "system mount point". This allows you to easily maintain your Validator's blockchain identity - specifically it `swarm keys` - and blockchain state through image updates. Without doing this, you will lose these items when upgrading docker images.
 
@@ -226,7 +226,15 @@ Additional flags that may be helpful:
 
 - `quay.io/team-helium/validator:latest-val-amd64` Include the image text as the last line in the command above. Including this at the end simply tells watchtower to only monitor the validator image and not any of the other images in your docker server. This is included here for convenience if there are other docker containers running on the host. If the validator is the only service running, this can be omitted.
 
-That's it! Watchtower will check to ensure the running validator has the latest image and will automatically stop, update, and run your container if required. Watchtower will also monitor and update the watchtower image itself.
+That's it! Watchtower will check to ensure the running validator has the latest image and will automatically stop, update, and run your container if required. Watchtower will also monitor and update the watchtower image itself.  
+
+Finally, you may be asking if there's a method to know if watchtower was successful in identifying an upgrade and installing it.  Read through the [Watchtower notifications options](https://containrrr.dev/watchtower/notifications/) page how you can extend this guide further and receive notifications through Slack, Teams, Discord, Pushover, email or other methods.
+
+:::info
+
+If you choose to not run Watchtower for automatic updates of the Docker image during Testnet, please watch and respond to upgrade requests on the `#validators-announcements` channel on the [Helium Discord](https://discord.gg/helium) server in a timely manner.
+
+:::
 
 #### Upgrade your Docker container manually - Not needed if running watchtower
 
@@ -488,4 +496,4 @@ You're looking for `listen_addrs`. If you don't have at least one, your validato
 
 ### Check the Explorer
 
-Head over to the [Helium Testnet Explorer's Validators Page](https://explorer.helium.wtf/validators) and search for your validator. This may take 10 to 15 minutes from the time that your Validator is online and staked. You should see your validators name (short-umber-bull in the example above) listed. It may be easier to sort by #, Decending, as your new Validator will be near the top of the list.
+Head over to the [Helium Testnet Explorer's Validators Page](https://explorer.helium.wtf/validators) and search for your validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked. You should see your 3-word validators name (short-umber-bull in the example above) listed. It may be easier to sort by #, decending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`.
