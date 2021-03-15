@@ -201,6 +201,74 @@ _Path Parameters_
 
 ---
 
+## Hotspots for Name
+
+```
+GET https://api.helium.io/v1/hotspots/name/:name
+```
+
+Fetch the hotspots which map to the given 3-word animal name. The name must be
+all lower-case with dashes between the words, e.g. tall-plum-griffin. Because
+of collisions in the Angry Purple Tiger algorithm, the given name might map to
+**more than one hotspot**.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                        |
+| ------------------ | -------- | --------------------------- |
+| name               | _string_ | Name of hotspot(s) to fetch |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": [
+    {
+      "address": "11cxkqa2PjpJ9YgY9qK3Njn4uSFu6dyK9xV8XE4ahFSqN1YN2db",
+      "block": 397024,
+      "block_added": 395575,
+      "geocode": {
+        "long_city": "San Francisco",
+        "long_country": "United States",
+        "long_state": "California",
+        "long_street": "Bryant Street",
+        "short_city": "SF",
+        "short_country": "US",
+        "short_state": "CA",
+        "short_street": "Bryant St",
+        "city_id": "c2FuIGZyYW5jaXNjb2NhbGlmb3JuaWF1bml0ZWQgc3RhdGVz"
+      },
+      "lat": 37.784056617819544,
+      "lng": -122.39186733984285,
+      "location": "8c283082a1a19ff",
+      "name": "tall-plum-griffin",
+      "nonce": 1,
+      "owner": "14e35CChhsnuHJxjjzYAxsHKBKDgjUop4GuD8esB7gE2VDoyPXT",
+      "score": 0.25,
+      "score_update_height": 395577,
+      "status": {
+        "height": 394065,
+        "online": "offline"
+      }
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
 ## Hotspot Activity
 
 ```
