@@ -223,7 +223,7 @@ docker exec validator miner info height
 As shown above, you can prepend `docker exec validator` to any of the commands documented or create an alias such as
 
 ```
-alias validator="docker exec validator miner"
+alias miner="docker exec validator miner"
 ```
 
 And start the container again as described above, but with the new release tag.
@@ -347,7 +347,7 @@ To stake tokens, we need to get the validator node address. Obtain it using the 
 
 
 ```
-validator peer addr
+miner peer addr
 ```
 
 The resulting output will look like this (except with your specific validator address). The string after `/p2p/` is your Validator address:
@@ -414,7 +414,7 @@ You should see JSON output that looks similar to this. You are looking for `"onl
 Note that you may need to adjust these if you're running in Docker. 
 
 ```
-> validator info p2p_status
+> miner info p2p_status
 
 +---------+------+
 |  name   |result|
@@ -432,7 +432,7 @@ Note that you may need to adjust these if you're running in Docker.
 
 
 ```
-> validator peer book -s
+> miner peer book -s
 
 +------------------------------------------------+-------------+----------+---------+---+----------+
 |                    address                     |    name     |listen_add|connectio|nat|last_updat|
