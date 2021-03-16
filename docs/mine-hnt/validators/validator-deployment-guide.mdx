@@ -115,7 +115,7 @@ Glorious. You have the `10000` TNT to stake one validator, and a bit extra to co
 
 ## Run a Validator
 
-With TNT in hand, it's time to deploy and run the actual Validator (referred to here as `miner`).
+With TNT in hand, it's time to deploy and run the actual Validator (can also be referred to as `miner` as the validator is part of the `miner` code base).
 
 :::info
 
@@ -125,10 +125,10 @@ If you haven't already, please review the [Validator Technical Requirements](/mi
 
 You have two options for deploying the Validator. You just need to do ONE of the following:
 
-- [Deploy the Miner Using Docker](#deploy-the-miner-using-docker). Recommended if you are unfamiliar with building software.
-- [Build the Miner form Source](#deploy-miner-from-source)
+- [Deploy the Validator Using Docker](#deploy-the-miner-using-docker). Recommended if you are unfamiliar with building software.
+- [Build the Validator form Source](#deploy-miner-from-source)
 
-### Deploy the Miner Using Docker - RECOMMENDED
+### Deploy the Validator Using Docker - RECOMMENDED
 
 Start by updating your packager manager registry:
 
@@ -187,6 +187,7 @@ quay.io/team-helium/validator:latest-val-amd64
 ```
 
 - `-d` option runs in detached mode, which makes the command return or not; you may want to omit if you have a daemon manager running the docker for you.
+- `--init` to indicate that an init process should be used as the PID 1 in the container.  This ensures the usual responsibilities of an init system, such as reaping zombie processes, are performed inside the created container.  When `docker exec` commands are run, it's possible for these to create zombie processes on the host.  This eliminates that issue. You can read more about this [here](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/) and [here](https://docs.docker.com/engine/reference/commandline/run/).
 - `--restart always` asks Docker to keep the image running, starting the image on boot and restarting the image if it crashes. Depending on how you installed Docker in your system, it'll start on boot. In the AWS AMI above, we use systemd (systemctl status docker to check).
 - `--publish 2154:2154/tcp` maps the port 2154 on the docker container to 2154 on the host machine. This allows inbound connections on port 2154 to the host machine to be routed to the validator container. In addition to this mapping, it is up to you to ensure that this port is available from the public internet to the host machine. This will require modifying firewall and/or security group settings in your cloud provider of choice.
 - `--name validator` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
@@ -196,7 +197,7 @@ quay.io/team-helium/validator:latest-val-amd64
 Additional flags that may be helpful:
 
 - `-e "NAT_INTERNAL_IP=192.168.0.139"` If your host machine is behind a firewall that is performing network address translation (NAT), adding this flag will assist the Validator to quickly determine the IP address of the host machine. Replace the IP with yours from `ip addr`. This goes hand-in-hand with the following flag:
-- `-e "NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )"` This also assists the Validator in quickly identifying the external IP of the NAT. The `curl` commmand simply queries an external provider and returns the public IP address of the interface. You can remove this and replace with your external IP if it is known.
+- `-e "NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )"` This also assists the Validator in quickly identifying the external IP of the NAT. The `curl` commmand simply queries an external provider and returns the public IP address of the interface. You can remove this and replace with your external IP if it is known and will not change (static IP).
 - Similar commands are available with `NAT_INTERNAL_PORT` and `NAT_EXTERNAL_PORT` if any port translations are occuring. If not, these may be omitted.
 
 Once you run the command above, docker will retrieve the latest Validator image, and start the docker process. Barring any errors, your Validator is running.
@@ -238,7 +239,7 @@ If you choose to not run Watchtower for automatic updates of the Docker image du
 
 #### Upgrade your Docker container manually - Not needed if running watchtower
 
-As mentioned, we anticipate numerous, frequent updates during Testnet and recommend using the [latest miner tag found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags). We highly recommend to use the updated
+As mentioned, we anticipate numerous, frequent updates during Testnet and recommend using the [latest miner tag found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
 
 To upgrade your docker container to the latest version:
 
@@ -250,7 +251,7 @@ docker pull quay.io/team-helium/validator:latest-val-amd64
 docker image prune -f
 ```
 
-These commands will stop the running container, delete the container. Pull an updated Validator docker image from the repository. Delete any out of date Validator docker images.
+These commands will stop the running container, then delete the container. Pull an updated Validator docker image from the repository. Delete any out of date Validator docker images.
 
 Finally, re-launch docker with the same command as above under the Run the Docker Container section.
 
