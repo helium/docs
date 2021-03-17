@@ -1,0 +1,61 @@
+---
+id: light-hotspots
+title: Light Hotspots - Beta
+hide_title: true
+sidebar_label: Light Hotspots - BETA
+slug: /mine-hnt/light-hotspots
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Light Hotspots - Beta
+
+This document describes the architecture and technical roadmap planned for Light Hotspots.
+
+:::warning
+
+Everything here is very much beta and subject to change. 
+
+:::
+
+## What is a Light Hotspot?
+
+Light Hotspots are the evolution of how physical LoRaWAN gateways will interact with the Helium blockchain. Since the genesis block, the Helium blockchain has run entirely on the physical Hotspot itself. This is no small feat, especially considering it's now running on [tens of thousands of globally-distributed Hotspots](https://explorer.helium.com/hotspots). But in the interest of greater scalability and security, the Helium blockchain needs to be moved off of the physical Hotspots and onto more robust cloud-based servers ([called Validators](/mine-hnt/validators), being developed in parallel). This will simplify the architecture immensely, an enable us to grow the Network exponentially while keeping blocktimes and epochs stable. 
+
+## Light Hotspot Properties
+
+When Light Hotspots are fully developed and in production (which will happen with the completion of Milestone 4 detailed below) they will satisfy the following properties:
+
+* A Hotspot on the Helium network that, via [Validators](/mine-hnt/validators), can participate in PoC beacons and witnesses, and forwards data packets.
+* Does not store a copy of the Blockchain.
+* Does not create challenges (instead relies on Validators to create challenges on their behalf)
+* Does not participate in Consensus Groups (again, relies on Validators for block production)
+* Will be eligible to earn $HNT for all [packet forwarding and all POC-related mining rewards](/blockchain/mining/#how-do-hotspots-earn-helium-tokens) except for the Consensus Group rewards (which will only be mined by Validators). 
+
+
+## Light Hotspot Code and Development 
+
+The bulk of the code that enables Light Hotspots on actual LoRaWAN gateways is called [gateway-rs](https://github.com/helium/gateway-rs). It's easiest to this of this as Helium's next-generation packet forwarder.
+
+Development of this code takes place in the above GitHub repo, as well at the `#gateway` channel on the [Helium Discord Server](https://discord.gg/helium).
+
+## Development Milestones 
+
+The development of Light Hotspots will be broken up into the four following milestones. 
+
+### Milestone 1
+
+Planned Date: 
+
+### Milestone 2
+
+Planned Date: 
+
+### Milestone 3
+
+Planned Date: 
+
+### Milestone 4
+
+Planned Date: 
+
