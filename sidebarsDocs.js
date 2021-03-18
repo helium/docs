@@ -10,7 +10,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/validators/validators', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
+      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/validators/validators','mine-hnt/light-hotspots/light-hotspots', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
       collapsed: true,
     },
     {
