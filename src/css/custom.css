@@ -27,7 +27,13 @@
 
 }
 
+.admonition pre, .admonition code {
+  background-color: rgba(0,0,0,0.15);
+}
 
+.admonition pre code {
+  background: none;
+}
 
 .react-toggle-track {
   background-color: rgba(0,0,0,0.2) !important;
@@ -36,9 +42,10 @@
 .navbar {
   box-shadow: none;
   background: rgba(255,255,255,0.7);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: blur(10px);
+
 }
+
 
 .menu {
   padding-top: 30px !important;
@@ -102,6 +109,38 @@ img.techicon {
 line-height: 14px;
 }
 
+.flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-top: 60px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid #dadfeb;
+}
+
+.headertext {
+  max-width: 750px;
+}
+
+.borderTop div:first-of-type{
+  padding-top: 50px !important;
+  margin-top: 50px;
+  border-top: 1px solid #dadfeb;
+
+
+
+}
+
+.borderTop div:first-of-type p {
+  max-width: 90%;
+}
+
+
+img.headericon {
+  height: 155px;
+  margin-right: 40px;
+}
+
 a {
   color: #A334FB;
 }
@@ -117,18 +156,19 @@ a:hover img.docicon {
 }
 
 .badge--secondary {
-  color: #697386;
+  color: #96A5CA;
   font-weight: 500;
   margin-right: 6px;
-  background: #F3F3F3;
+  background: #F2F5FC;
     transition: all .2s ease;
     border-radius: 4px;
+    border: none;
 
 }
 
 .badge--secondary:hover {
-  color: #697386;
-  background: #e9e9e9;
+  color: #7085BA;
+  background: #DFE6F6;
     transition: all .2s ease;
 
 }
@@ -184,12 +224,21 @@ h1 {
   margin-top: 20px;
   line-height: 2.5rem;
 }
+
+h1.bigger {
+  font-size: 4rem;
+  letter-spacing: -0.5px;
+  margin-top: 20px;
+  line-height: 3.5rem;
+}
 h2 {
   font-size: 2rem;
 }
 
 h3 {
   font-size: 1.5rem;
+  font-weight: 600;
+
 }
 
 h2.subtitle {
@@ -200,6 +249,9 @@ h2.subtitle {
   color: #A334FB;
   margin-bottom: 20px;
 }
+
+
+  
 
 h5 {
   margin-top: 40px;
@@ -218,7 +270,6 @@ h5 {
 }
 
 .admonition code {
-  background-color: #B04BFF;
   color: white;
 }
 
@@ -230,6 +281,8 @@ h5 {
 
 a.block {
   display: block;
+  width: fit-content;
+  cursor: pointer;
 }
 
 .docusaurus-highlight-code-line {
@@ -285,3 +338,53 @@ html[data-theme='light'] .header-github-link:before {
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
     no-repeat;
 }
+
+.announcementBarContent_node_modules-\@docusaurus-theme-classic-lib-next-theme-AnnouncementBar-  a {
+  text-decoration: none !important;
+}
+
+img.docsheadersmall {
+display: none;
+}
+
+
+
+  @media only screen and (max-width: 996px) {
+.navbar {
+  box-shadow: none;
+  background: rgba(255,255,255,0.7);
+      backdrop-filter:none;
+
+}
+
+img.docsheaderhome {
+  display: none;
+}
+
+img.docsheadersmall {
+  display: block;
+  width: 400px;
+  margin-bottom: 20px;
+}
+
+  }
+
+
+  @media only screen and (max-width: 768px) {
+
+    .flex {
+      flex-direction: column;
+      margin-top: 0;
+    }
+
+    .padding-vert--lg {
+      padding-bottom: 2rem !important;
+padding-top: 2rem !important;
+    }
+
+    img.headericon {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 20px;
+    }
+  }

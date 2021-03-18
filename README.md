@@ -117,6 +117,11 @@ shown will not have repeating sections names in it.
 ```
 slug: use-the-network/devices
 ```
+## Check for dead links
+
+`yarn build` does a good job of checking for dead links.
+
+TODO: add to CI
 
 ## Sidebar Links
 

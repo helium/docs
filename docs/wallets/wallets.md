@@ -5,6 +5,10 @@ sidebar_label: Overview
 slug: /wallets
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<img className="docsheader" src={useBaseUrl("img/wallets/header.png")} />
+
 # Wallets
 
 In blockchain projects, various wallet applications exist to help users manage
@@ -18,7 +22,7 @@ Depending on your situation, one of the wallets here may be the best fit.
 ### App Wallet
 
 The Helium App wallets is by far the easiest to use. It may be downloaded for
-[iOS](itms-apps://?action=discover&referrer=app-store) or
+[iOS](https://apps.apple.com/us/app/helium-hotspot/id1450463605) or
 [Android](https://play.google.com/store/apps/details?id=com.helium.wallet)
 phones and provides simple pairing and setup with
 [Hotspots](/mine-hnt/hotspot-makers).

@@ -1,0 +1,126 @@
+---
+id: validator-wallet
+title: Configure a Wallet
+hide_title: true
+sidebar_label: Configure a Wallet
+slug: /mine-hnt/validators/validator-wallet
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Configure a Wallet
+
+You’ll need an owner wallet to:
+* Stake your Testnet Network Tokens (TNT)
+* Receive validator node consensus group rewards
+
+:::note
+
+You can have a single wallet for multiple validator nodes. However multiple wallets for a single validator node is not supported.
+
+:::
+
+To download the wallet go [here](https://github.com/helium/helium-wallet-rs).
+
+## Wallet Commands
+
+At any time use ```-h``` or ```--help``` to get more help for a command.
+
+### Create a Wallet
+
+```./helium-wallet create basic --network testnet``` 
+
+#### Create or Use Wallet without Password Input
+For security reasons, it is generally recommended that you type in your password every time. Storing the password in an environmental variable makes it very easy for the password to get compromised. Sometimes though, despite the security risks, you may want to interact with the CLI without inputting the password. In this case, using the environmental variable `HELIUM_WALLET_PASSWORD` enables this.
+```
+HELIUM_WALLET_PASSWORD=p4ssw0rd ./helium-wallet create basic --network testnet
+``` 
+
+
+### View wallet balance and public key
+```./helium-wallet info``` view public key and TNT balance. You’ll need this public key address to obtain TNT needed for staking. 
+
+To obtain TNT tokens visit [Obtain Testnet Network Tokens (TNT)](/mine-hnt/validators/validator-tnt).
+
+:::warning
+
+ Always make sure to inspect the transaction _before_ adding the **--commit**  option to sign and submit it to the api. There is no undo.
+
+:::
+
+### Stake Tokens
+After you have received your TNT you need to stake these tokens. 
+
+As part of the staking process the validator node address needs to be in the staking transaction and also needs to sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
+
+#### To stake tokens perform the following:
+
+* Obtain the validator node address:
+    * On the validator, run ```miner peer addr```.  This will produce something like: ```/p2p/112sSfUCQrVNAfFKVZWUSCeLs67wH8o1xz4yj4nKSPJKBT8bUkXi```
+
+    In this example the part following the final slash is the validator node's public address: ```112sSfUCQrVNAfFKVZWUSCeLs67wH8o1xz4yj4nKSPJKBT8bUkXi```.
+
+* Stake the TNT:
+    * ```./helium-wallet validators stake <public-address> 10000 --commit```
+
+### Unstake Tokens
+If you unstake tokens the validator node enters a cooldown period. During this cooldown period the validator node will not earn rewards and at the end of the cooldown period (currently 250,000 blocks or approximately 5 months) your initial staking amount will be returned to the wallet. The cooldown period will be shortened for the testnet to 360 blocks (approx. an hour).
+
+#### To unstake tokens from a validator node perform the following:
+```./helium-wallet validators unstake <public-address> --commit```
+
+### Transfer stake 
+A validator node's stake can be transferred to other validator nodes in the same wallet or a different one. 
+
+If the stake is transferred to a validator node in a different wallet, the owner of the other wallet must accept the transfer to complete the transaction.
+
+
+#### To transfer stake to a new validator node in the same wallet:
+```./helium-wallet validators transfer create --new-address <new-public-address> --old-address <old-public-address> --commit```
+
+This will produce an output similar to the following:
+
+```
+
+{
+  "amount": 0.0,
+  "fee": 55000,
+  "hash": "q4Q7WTT0lD-EyjVFsW8hhdIw8Js339TgZpwTdA8_uPs",
+  "new_address": "1ZFavPP8drcqAXJPT6mLuZQqwjWNhWGr9vJ3Ajs3uJyFGW7sUMX",
+  "new_owner": "current",
+  "old_address": "1YpifvrQWUFoHDGyYZoA2FAxmXPNcMNjnRd27uv81t8CzBBNW85",
+  "old_owner": "1aXQ6WyNkibzhHXCFYiJQAa3BEkJnbZFsuezo4qjpW7FAgDw9Xx",
+  "txn": "8gGvAQohEF7t+Kbveqj9hsmO9c/3krgGUVnL8rHv8Eg29JMiE8IGEiEQl2RGoxd+aznItHIVxL7Qizw0ng3t4tcA2kZA7mPqJMcaIRE+/nQNU16ZXpbzMmszzlSw+AiGAXeKg0q7kx1DdLlY7ypAM4Zz4UOX4tKcg2y079UGPhQ99hi8lSZwAwAUjxNMO9jGk5pGA1wP1BqidFWqtcPrIGuom+mdrOQLdEuBU0rFBDjYrQM="
+}
+
+```
+
+#### To transfer stake to a new validator node in a different wallet:
+
+```./helium-wallet --format json validators transfer create --new-address <new-public-address> --old-address <old-public-address> --new-owner <new-owner-wallet-public-address>```
+
+**Note: you must transfer the stake to a new validator node. **
+
+This will produce an output similar to the following:
+
+```
+{
+  "amount": 0.0,
+  "fee": 60000,
+  "hash": null,
+  "new_address": "1YeCAsuBq3fDTv8x4iB1fJn9zBbopHhjhXGpvVwN43JDptqMT11",
+  "new_owner": "1bBTWn843DwTXTyH3hbSMmDoJXHCU1D1U8cAYRdVE5rDnaS7fLb",
+  "old_address": "1ZFavPP8drcqAXJPT6mLuZQqwjWNhWGr9vJ3Ajs3uJyFGW7sUMX",
+  "old_owner": "1aXQ6WyNkibzhHXCFYiJQAa3BEkJnbZFsuezo4qjpW7FAgDw9Xx",
+  "txn": "8gHSAQohEJdkRqMXfms5yLRyFcS+0Is8NJ4N7eLXANpGQO5j6iTHEiEQRwd/IDnFy67A2NbC3IyYvLZUrsAojyJH85aeNi3SLA0aIRE+/nQNU16ZXpbzMmszzlSw+AiGAXeKg0q7kx1DdLlY7yIhEZVpU2QzwJ1SmikaTlSEyKCQ5mCRx/xOIUAsw5MYPIsWKkD3+X75w1+267InX30CD077Y8X3JK31FEg/X1bSpFehIQa6eY/DqfDEfDjLyq6UHpxsfBEE8M0zGs9okipefnAOOODUAw=="
+}
+```
+
+You'll then need to send the txn value (a base64 string) to the new owner to be accepted. 
+
+#### To accept the transfer the new owner performs the following:
+
+```./helium-wallet validators transfer accept --commit <txn>```
+
+
+More general wallet commands [here](https://github.com/helium/helium-wallet-rs).

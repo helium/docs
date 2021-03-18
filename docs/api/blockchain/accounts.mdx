@@ -856,15 +856,27 @@ A single pending transaction for a given account
 
 ---
 
-## Reward Total for an Account
+## Reward Totals for an Account
 
 ```
-GET https://api.helium.io/v1/accounts/:address/rewards/sums
+GET https://api.helium.io/v1/accounts/:address/rewards/sum
 ```
 
 Returns the total rewards for a given account in a given timeframe. Timestamps
-are given in ISO 8601 format. The block that contains the `max_time` timestamp
-is **excluded** from the result.
+can be given in ISO 8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative
+time (e.g. `-1 week`, which when url esacped becomes `-1%20week`). When ommitted
+the current time is assumed.
+
+The results can also be bucketed in time by specifying a `bucket` query
+parameter which buckets information per bucket in the given timeframe. Data is
+bucketed per hotspot and time for the account to make hotspot performance
+comparison possible. Valid bucket values include `hour`, `day` and `week`).
+
+For example to get the last 7 days of rewards bucketed by day use the following
+path/parameters: `?min_time=-7%20day&bucket=day`
+
+The block that contains the `max_time` timestamp is
+**excluded** from the result.
 
 <Tabs
   block={true}
@@ -882,8 +894,9 @@ _Query Parameters_
 
 | param               | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| min_time (required) | _string_ | First timestamp to include rewards for |
-| max_time (required) | _string_ | Last timestmap to include rewards for  |
+| min_time (required) | _string_ | First time to include rewards for      |
+| max_time (required) | _string_ | Last time to include rewards for       |
+| bucket (optional)   | _string_ | Bucket specifier                       |
 
 </TabItem>
 <TabItem value="response">

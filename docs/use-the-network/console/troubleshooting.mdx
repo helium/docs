@@ -1,0 +1,52 @@
+---
+id: troubleshooting
+hide_title: true
+title: Console Troubleshooting
+sidebar_label: Troubleshooting
+slug: /use-the-network/console/troubleshooting
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Console Troubleshooting
+
+## Common issues
+
+### I just added my device in Console. Why am I not receiving data?
+
+If you are having issues receiving data after adding a new device, the first
+thing to check is that the keys from the device (dev eui, app eui, app key)
+match exactly what is provided by the device; it is very common for app eui and
+dev eui in particular to be swapped You may also want to ensure that you are
+using the correct byte ordering or “endianness” this is often labeled as MSB
+(Most Significant Bit) and LSB (Least Significant Bit). Reversing byte order is
+a very common mistake when adding a new device to the network. You may also want
+to check that your device is a Class A device as we do not currently support
+Class B, or C devices.
+
+### How can I view Decoded Payloads?
+
+To view a decoded payload using the Debug tool, you will need to first create a
+function. To access Debug mode, go to your device > and click on the little bug
+on the right hand side. The Decoder Function can be written using custom
+JavaScript code provided by the user or selected from prebuilt decoders
+(currently Browan Object Locator and Cayenne LPP). Once the function has been
+created it will need to be attached to a Label or Integration. This Label that
+attaches to the device must also be applied to the device. Please see 
+[complete Function documentation for more information](/use-the-network/console/functions/).
+
+### How do I manage my Hotspots on Console?
+
+Currently Hotspots can’t be managed or connected on Console. You will need to 
+use the Helium Mobile app to manage your Hotspots.
+
+### What does it mean when my label is greyed out?
+
+When a label looks greyed out, like the image below, this would indicate that it
+does not have a function attached to it.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/console-troubleshooting-label-greyed.png"
+  )}
+/>
