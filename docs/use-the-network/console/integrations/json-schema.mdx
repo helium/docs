@@ -27,7 +27,7 @@ Here is an example of data received:
             "frequency": 912.2999877929688,
             "id": "11KHJW1ePkfhLYptMwKyDzn4opLc62daahbi35uxhH3wwi7p6xr",
             "name": "icy-fiery-hippo",
-            "reported_at": 1586868546,
+            "reported_at": 15868685461234,
             "rssi": -54,
             "snr": 9.800000190734863,
             "spreading": "SF9BW125",
@@ -37,7 +37,7 @@ Here is an example of data received:
             "frequency": 912.2999877929688,
             "id": "11ni2CACdVUAshDvXif2pYUduAsvoawoxvVub6aqgHjSNsPEapZ",
             "name": "cool-chiffon-hornet",
-            "reported_at": 1586868546,
+            "reported_at": 15868685461235,
             "rssi": -51,
             "snr": 9,
             "spreading": "SF9BW125",
@@ -57,7 +57,7 @@ Here is an example of data received:
     "name": "Test Me",
     "payload": "SGVsbG8sIHdvcmxkIQ==",
     "port": 1,
-    "reported_at": 1586868546
+    "reported_at": 15868685461234
 }
 ```
 
@@ -76,6 +76,7 @@ Here is an example of data received:
 | **payload**      | String                            | Data transmitted by your device as a base64 encoded String. Most computer languages will have some built-in libraries for parsing this \(e.g. base64.decode\(payload\)\)                          |
 | **payload_size** | Number                            | Size of the payload in bytes; you can use this to verify your libraries parsing output                                                                                                           |
 | **port**         | Number                            | LoRaWAN FPort on which the data was transmitted; this can be useful for routing data within the application                                                                                      |
+| **reported_at**  | Number                            | Timestamp in milliseconds                                                                                      |
 
 ### Hotspot
 
@@ -84,6 +85,7 @@ Here is an example of data received:
 | **frequency** | Number | In MHz, the frequency which the packet was received upon                                                                                                                                                                                             |
 | **id**        | String | A base58 encoding of the hotspot's public key; this may serve as a concise unique identifier                                                                                                                                                         |
 | **name**      | String | A human-friendly three-word encoding of the hotspot's public key; link to [JavaScript](https://github.com/helium/angry-purple-tiger) and [Erlang](https://github.com/helium/erl_angry_purple_tiger) implementations                                  |
+| **reported_at**  | Number                            | Timestamp in milliseconds                                                                                      |
 | **rssi**      | Number | Received Signal Strength Indicator is reported by the hotspot and indicates how strong the signal device's radio signal was; the larger the number \(closer to 0\), the better the signal                                                            |
 | **snr**       | Number | In dB, Signal to Noise Ratio is reported by the hotspot to indicate how clear the signal was relative to environmental noise; this generally ranges between -20 and +10 and the larger the number \(closer to 10 dB\) the better                     |
 | **spreading** | String | LoRa Spreading Factor and Bandwidth used for the radio transmission. In the US, spreading factor ranges from 7 to 10 and bandwidth is always 125 kHz. For example, "SF7BW125" means a Spreading Factor of 7 was used and a channel width of 125 kHz. |
