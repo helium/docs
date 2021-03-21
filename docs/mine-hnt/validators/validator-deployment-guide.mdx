@@ -208,6 +208,14 @@ Having all Testnet Validators running the latest release of Validator software i
 
 To ensure that each Validator gets updated quickly without your manual involvement, we will use a docker container process called [Watchtower](https://containrrr.dev/watchtower/). This is a docker container that, based on an interval, reviews the running containers to see if there is an updated image available for the container. If so, it stops the running container, and creates a new container with the updated image.
 
+:::info
+
+Watchtower simply reviews the `docker run` commands that were used to launch the running containers and checks for newer images for these containers.  Therefore it is imperative that your validator `docker run` command reference the `latest-val-amd64` or `latest-val-arm64` image tag or **it will never update**.
+
+:::
+
+Start watchtower with the following command:
+
 ```
 docker run -d \
 --restart always \
