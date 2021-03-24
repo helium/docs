@@ -167,7 +167,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Validators',
-      items: ['mine-hnt/validators/requirements', 'mine-hnt/validators/validator-deployment-guide', 'mine-hnt/validators/validator-troubleshooting', 'mine-hnt/validators/validator-testcases','mine-hnt/validators/validator-faqs-resources'],
+      items: ['mine-hnt/validators/requirements', 'mine-hnt/validators/validator-wallet', 'mine-hnt/validators/validator-deployment-guide', 'mine-hnt/validators/validator-troubleshooting', 'mine-hnt/validators/validator-testcases','mine-hnt/validators/validator-faqs-resources'],
       collapsed: false,
     },
   ],
