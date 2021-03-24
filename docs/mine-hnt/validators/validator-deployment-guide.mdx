@@ -406,6 +406,12 @@ We can now use this address with the Helium Wallet CLI `validators stake` comman
 helium-wallet validators stake 1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR 10000 --commit
 ```
 
+:::warning
+
+ Always make sure to inspect the transaction _before_ adding the **--commit**  option to sign and submit it to the api. There is no undo.
+
+:::
+
 After running this, you'll need to input your wallet passphrase to sign the transaction.
 
 And with that, you're done. Congratulations! You're running a Helium Network Validator.
@@ -564,5 +570,5 @@ Getting back on chain is easy now that you've got everything installed:
 
 - Follow the same process from [Stake Tokens to Your Validator](/mine-hnt/validators/validator-deployment-guide#stake-tokens-to-your-validator) to stake the 10,000 TNT received from the faucet for your Testnet validator.  If you kept the `swarm_key` file above, your validator node address will be the same.  If you deleted that file, you'll have to ensure you have the new node address by running `miner peer addr` as outlined in that section.
 
-That's it!  You're back on the new chain and should see similar output as defined in [Verifying Validator Victory](/mine-hnt/validators/validator-deployment-guide#verifying-validator-victory).
+Note, a validator node can only be staked once. That's it!  You're back on the new chain and should see similar output as defined in [Verifying Validator Victory](/mine-hnt/validators/validator-deployment-guide#verifying-validator-victory).
 
