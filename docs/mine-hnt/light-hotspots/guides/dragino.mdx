@@ -74,7 +74,8 @@ Your Dragino gateway should now be setup and forwarding LoRaWAN data traffic to 
 If you have a LoRaWAN device configured through the Helium Console, you should now see it uplinking traffic through the Dragino. You can verify this by turning on your device within range of the Dragino and looking for traffic in Console associated to the Dragino's hotspot name (note, currently you will have to assume the hotspot animal name based on it being different than other known gateways / hotspots in the area - eventually, you will be able to determine the gateway's name via the command line). 
 
 ### Through the Dragino Logs
-Using the Dragino system log found in the web interface, search for the following messages to confirm that the Helium Gateway is running. If you do see these, try restarting the Dragino as they may have aged out of the log. These messages indicate that the Helium Gateway service has started up on the Dragino.
+Using the Dragino system log found in the web interface, search for the following messages to confirm that the Helium Gateway is running. If you do not see these, try restarting the Dragino as they may have aged out of the log. These messages indicate that the Helium Gateway service has started up on the Dragino.
+
 `Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.184 INFO starting server, key: <public key>, version: 1.0.0-alpha.4
 Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.289 INFO starting, module: gateway
 Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.306 INFO starting, module: router`
