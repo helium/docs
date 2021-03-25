@@ -274,7 +274,7 @@ docker exec validator miner info height
 As shown above, you can prepend `docker exec validator` to any of the commands documented or create an alias such as
 
 ```
-alias validator="docker exec validator miner"
+alias miner="docker exec validator miner"
 ```
 
 And start the container again as described above, but with the new release tag.
@@ -482,7 +482,7 @@ Note that you may need to adjust these if you're running in Docker.
 - `height` is the currently synced block
 
 ```
->val peer book -s
+> miner peer book -s
 
 +------------------------------------------------+-------------+----------+---------+---+----------+
 |                    address                     |    name     |listen_add|connectio|nat|last_updat|
