@@ -269,6 +269,460 @@ _Path Parameters_
 
 ---
 
+## Hotspot Name Search
+
+```
+GET https://api.helium.io/v1/hotspots/name?search=<term>
+```
+
+Fetch the hotspots which match a search term in the given `search` term query
+parameter. The search parameter needs to be at least one character, with 3 or
+more recommended.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param             | Type     | Note                                          |
+| ----------------- | -------- | --------------------------------------------- |
+| search            | _string_ | The name fragment to search for               |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Search results for `search=clever-gray`
+
+```json
+{                                                                                                                                                               [74/4462]
+    "data": [
+        {
+            "address": "112sBjb6sHaEf9MbCaDEH3k4yFM4e2rHZxGTzpV9RTtfDqxX9CCC",
+            "block": 768022,
+            "block_added": 750477,
+            "geocode": {
+                "city_id": "c2FuIGZyYW5jaXNjb2NhbGlmb3JuaWF1bml0ZWQgc3RhdGVz",
+                "long_city": "San Francisco",
+                "long_country": "United States",
+                "long_state": "California",
+                "long_street": "Cerritos Avenue",
+                "short_city": "SF",
+                "short_country": "US",
+                "short_state": "CA",
+                "short_street": "Cerritos Ave"
+            },
+            "last_change_block": 750502,
+            "last_poc_challenge": null,
+            "lat": 37.72614653945264,
+            "lng": -122.47020118178871,
+            "location": "8c28309510699ff",
+            "name": "clever-grape-boa",
+            "nonce": 1,
+            "owner": "13NrTQR32bCjPejvzLwKmBjeieZykBVbmoR7FKqKHFjVJocecak",
+            "reward_scale": 1.0,
+            "status": {
+                "height": 745390,
+                "listen_addrs": null,
+                "online": "offline"
+            },
+            "timestamp_added": "2021-03-08T16:24:54.000000Z"
+        },
+        {
+            "address": "11ZbFBWirta2WCW14SDoTbFpXa8C6ZYoN4QuWL6dQDLiHajmHce",
+            "block": 768022,
+            "block_added": 742230,
+            "geocode": {
+                "city_id": "cGhpbGFkZWxwaGlhcGVubnN5bHZhbmlhdW5pdGVkIHN0YXRlcw",
+                "long_city": "Philadelphia",
+                "long_country": "United States",
+                "long_state": "Pennsylvania",
+                "long_street": "City Avenue",
+                "short_city": "Philadelphia",
+                "short_country": "US",
+                "short_state": "PA",
+                "short_street": "City Ave"
+            },
+            "last_change_block": 742262,
+            "last_poc_challenge": null,
+            "lat": 40.00814845396687,
+            "lng": -75.20963332539121,
+            "location": "8c2a1348e5a4bff",
+            "name": "clever-graphite-hyena",
+            "nonce": 1,
+            "owner": "148f6FrFVro4Yoc9FBoWRPVrEMusDGWZew2zgeSWBybK2CHmNKW",
+           "reward_scale": 1.0,                                                                                                                                [18/4462]
+            "status": {
+                "height": 738310,
+                "listen_addrs": null,
+                "online": "offline"
+            },
+            "timestamp_added": "2021-03-01T19:58:41.000000Z"
+        },
+        {
+            "address": "11QpxYxhrhG3E2FbuJSV5mgQW6cyp2rXMrjYoBN9y29e2XegDWY",
+            "block": 768022,
+            "block_added": 143709,
+            "geocode": {
+                "city_id": "bGl2ZXJtb3JlY2FsaWZvcm5pYXVuaXRlZCBzdGF0ZXM",
+                "long_city": "Livermore",
+                "long_country": "United States",
+                "long_state": "California",
+                "long_street": "Glasgow Circle",
+                "short_city": "Livermore",
+                "short_country": "US",
+                "short_state": "CA",
+                "short_street": "Glasgow Cir"
+            },
+            "last_change_block": 767734,
+            "last_poc_challenge": 767734,
+            "lat": 37.69373462966,
+            "lng": -121.75659980161144,
+            "location": "8c2830d36ba49ff",
+            "name": "clever-green-beetle",
+            "nonce": 4,
+            "owner": "13auTVmhWAhV6MV6hQ9huecHhLZTXH1MbUnMTKEBtTFJVaC5bic",
+            "reward_scale": 0.5555572509765625,
+            "status": {
+                "height": 767999,
+                "listen_addrs": [
+                    "/p2p/112qupChNrC4UVv5dHztTrtp6UWH6ooa9WQCbmXFuLxDHow82CY3/p2p-circuit/p2p/11QpxYxhrhG3E2FbuJSV5mgQW6cyp2rXMrjYoBN9y29e2XegDWY"
+                ],
+                "online": "online"
+            },
+            "timestamp_added": "2019-12-21T08:26:08.000000Z"
+        },
+        {
+            "address": "112pCaom9T5B7bmK8p6CRhBtWrxM1DEM2p4gjh44azuwjCzex2oE",
+            "block": 768022,
+            "block_added": 553919,
+            "geocode": {
+                "city_id": "ZGVhcmJvcm4gaGVpZ2h0c21pY2hpZ2FudW5pdGVkIHN0YXRlcw",
+                "long_city": "Dearborn Heights",
+                "long_country": "United States",
+                "long_state": "Michigan",
+                "long_street": "Nightingale Street",
+                "short_city": "Dearborn Heights",
+                "short_country": "US",
+                "short_state": "MI",
+                "short_street": "Nightingale St"
+            },
+            "last_change_block": 767950,
+            "last_poc_challenge": 767950,
+            "lat": 42.33796350854145,
+            "lng": -83.28504344820625,
+            "location": "8c2ab2cd14833ff",
+            "name": "clever-ginger-meerkat",
+            "nonce": 3,
+            "owner": "13NQcBoZyngE8FbjxJZ1bHE2m7SLQyMPSMDAL3MRAquzgGttZN1",
+            "reward_scale": 1.0,
+            "status": {
+                "height": 767963,
+                "listen_addrs": [
+                    "/p2p/11254xZhWECFDcvZLPJEj6YmaWvTeUL1yrWdbTEVcV34C83am7w9/p2p-circuit/p2p/112pCaom9T5B7bmK8p6CRhBtWrxM1DEM2p4gjh44azuwjCzex2oE"
+                ],
+                "online": "online"
+            },
+            "timestamp_added": "2020-10-22T16:49:16.000000Z"
+        }
+    ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+## Hotspot Location Distance Search
+
+```
+GET https://api.helium.io/v1/hotspots/location/distance
+```
+
+Fetch the hotspots which are within a given number of meters from the given `lat` and `lon` coordinates. This
+route is paged using a `cursor`.
+
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param             | Type      | Note                                          |
+| ----------------- | --------- | --------------------------------------------- |
+| lat               | _float_   | Latitude of the location to search around     |
+| lon               | _float_   | Longitude of the location to search around    |
+| distance          | _integer_ | Distance from location to search within       |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Search results for `?lat=38.12129445739087&lon=-122.52885074963571&distance=1000`
+
+```json
+{
+  "data": [
+    {
+      "lng": -122.52885074963571,
+      "lat": 38.12129445739087,
+      "timestamp_added": "1970-01-01T00:00:00.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/ip4/76.102.181.228/tcp/44158"
+        ],
+        "height": 771115
+      },
+      "reward_scale": 0.5,
+      "owner": "13buBykFQf5VaQtv7mWj2PBY9Lq4i1DeXhg7C4Vbu3ppzqqNkTH",
+      "nonce": 0,
+      "name": "curly-berry-coyote",
+      "location": "8c2830aa2529dff",
+      "last_poc_challenge": 771113,
+      "last_change_block": 771113,
+      "geocode": {
+        "short_street": "Andale Ave",
+        "short_state": "CA",
+        "short_country": "US",
+        "short_city": "Novato",
+        "long_street": "Andale Avenue",
+        "long_state": "California",
+        "long_country": "United States",
+        "long_city": "Novato",
+        "city_id": "bm92YXRvY2FsaWZvcm5pYXVuaXRlZCBzdGF0ZXM"
+      },
+      "block_added": 1,
+      "block": 771120,
+      "address": "112Z6fYnkQa8VAyMWHoaZJVzrxbWPoJV2NCfdZmaNoG1pYxWdGwD"
+    },
+    {
+      "lng": -122.52885074963571,
+      "lat": 38.12129445739087,
+      "timestamp_added": "1970-01-01T00:00:00.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/ip4/76.102.181.228/tcp/44160"
+        ],
+        "height": 768806
+      },
+      "reward_scale": 0.5,
+      "owner": "13buBykFQf5VaQtv7mWj2PBY9Lq4i1DeXhg7C4Vbu3ppzqqNkTH",
+      "nonce": 0,
+      "name": "immense-eggplant-stallion",
+      "location": "8c2830aa2529dff",
+      "last_poc_challenge": 768733,
+      "last_change_block": 771071,
+      "geocode": {
+        "short_street": "Andale Ave",
+        "short_state": "CA",
+        "short_country": "US",
+        "short_city": "Novato",
+        "long_street": "Andale Avenue",
+        "long_state": "California",
+        "long_country": "United States",
+        "long_city": "Novato",
+        "city_id": "bm92YXRvY2FsaWZvcm5pYXVuaXRlZCBzdGF0ZXM"
+      },
+      "block_added": 1,
+      "block": 771120,
+      "address": "11VKaN7fEvDm6NaGhcZtNSU1KAQQmTSwuuJsYYEqzh8mSWkoEUd"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+
+## Hotspot Location Box Search
+
+```
+GET https://api.helium.io/v1/hotspots/location/box
+```
+
+Fetch the hotspots which are within a given geographic boundary indicated by
+it's south-wesetern and north-eastern co-ordinates. This route is paged using a
+`cursor`.
+
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param             | Type      | Note                                          |
+| ----------------- | --------- | --------------------------------------------- |
+| swlat             | _float_   | Latitude of the south-west corner             |
+| swlon             | _float_   | Longitude of the south-west corner            |
+| nelat             | _float_   | Latitude of the north-east corner             |
+| nelon             | _float_   | Longitude of the north-east corner            |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Search results for `?swlat=38.0795392&swlon=-122.5671627&nelat=38.1588012&nelon=-122.5046937`
+
+```json
+{
+  "data": [
+    {
+      "lng": -122.51688114452725,
+      "lat": 38.109947587584905,
+      "timestamp_added": "2019-08-02T00:13:25.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/ip4/64.7.85.50/tcp/28762"
+        ],
+        "height": 769399
+      },
+      "reward_scale": 1,
+      "owner": "13fTdByCpUDRKuVh4VZcUWh7rdehrh4UfjMdFt17ew4h93nD86s",
+      "nonce": 9,
+      "name": "agreeable-walnut-weasel",
+      "location": "8c2830ab51653ff",
+      "last_poc_challenge": 750521,
+      "last_change_block": 750521,
+      "geocode": {
+        "short_street": "Lockton Ln",
+        "short_state": "CA",
+        "short_country": "US",
+        "short_city": "Novato",
+        "long_street": "Lockton Lane",
+        "long_state": "California",
+        "long_country": "United States",
+        "long_city": "Novato",
+        "city_id": "bm92YXRvY2FsaWZvcm5pYXVuaXRlZCBzdGF0ZXM"
+      },
+      "block_added": 3805,
+      "block": 771120,
+      "address": "11tWRj2Qhnn177iVYm3KUmbPdMyhRfeqHqk9kCyiR7y57hdG9JA"
+    },
+    {
+      "lng": -122.55193831997157,
+      "lat": 38.1204024903364,
+      "timestamp_added": "2019-08-01T15:44:31.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/ip4/76.102.181.228/tcp/44159"
+        ],
+        "height": 771118
+      },
+      "reward_scale": 1,
+      "owner": "13buBykFQf5VaQtv7mWj2PBY9Lq4i1DeXhg7C4Vbu3ppzqqNkTH",
+      "nonce": 7,
+      "name": "magic-rainbow-wasp",
+      "location": "8c2830aa2a63dff",
+      "last_poc_challenge": 771079,
+      "last_change_block": 771079,
+      "geocode": {
+        "short_street": "Morning Star Ct",
+        "short_state": "CA",
+        "short_country": "US",
+        "short_city": "Novato",
+        "long_street": "Morning Star Court",
+        "long_state": "California",
+        "long_country": "United States",
+        "long_city": "Novato",
+        "city_id": "bm92YXRvY2FsaWZvcm5pYXVuaXRlZCBzdGF0ZXM"
+      },
+      "block_added": 3301,
+      "block": 771120,
+      "address": "112aeWRZdyz61Y7EQeMbXwqERNMPnciDvsxyFmhz1UfA9hte4R4W"
+    },
+    {
+      "lng": -122.52885074963571,
+      "lat": 38.12129445739087,
+      "timestamp_added": "1970-01-01T00:00:00.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/ip4/76.102.181.228/tcp/44158"
+        ],
+        "height": 771115
+      },
+      "reward_scale": 0.5,
+      "owner": "13buBykFQf5VaQtv7mWj2PBY9Lq4i1DeXhg7C4Vbu3ppzqqNkTH",
+      "nonce": 0,
+      "name": "curly-berry-coyote",
+      "location": "8c2830aa2529dff",
+      "last_poc_challenge": 771113,
+      "last_change_block": 771113,
+      "geocode": {
+        "short_street": "Andale Ave",
+        "short_state": "CA",
+        "short_country": "US",
+        "short_city": "Novato",
+        "long_street": "Andale Avenue",
+        "long_state": "California",
+        "long_country": "United States",
+        "long_city": "Novato",
+        "city_id": "bm92YXRvY2FsaWZvcm5pYXVuaXRlZCBzdGF0ZXM"
+      },
+      "block_added": 1,
+      "block": 771120,
+      "address": "112Z6fYnkQa8VAyMWHoaZJVzrxbWPoJV2NCfdZmaNoG1pYxWdGwD"
+    },
+    {
+      "lng": -122.52885074963571,
+      "lat": 38.12129445739087,
+      "timestamp_added": "1970-01-01T00:00:00.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/ip4/76.102.181.228/tcp/44160"
+        ],
+        "height": 768806
+      },
+      "reward_scale": 0.5,
+      "owner": "13buBykFQf5VaQtv7mWj2PBY9Lq4i1DeXhg7C4Vbu3ppzqqNkTH",
+      "nonce": 0,
+      "name": "immense-eggplant-stallion",
+      "location": "8c2830aa2529dff",
+      "last_poc_challenge": 768733,
+      "last_change_block": 771071,
+      "geocode": {
+        "short_street": "Andale Ave",
+        "short_state": "CA",
+        "short_country": "US",
+        "short_city": "Novato",
+        "long_street": "Andale Avenue",
+        "long_state": "California",
+        "long_country": "United States",
+        "long_city": "Novato",
+        "city_id": "bm92YXRvY2FsaWZvcm5pYXVuaXRlZCBzdGF0ZXM"
+      },
+      "block_added": 1,
+      "block": 771120,
+      "address": "11VKaN7fEvDm6NaGhcZtNSU1KAQQmTSwuuJsYYEqzh8mSWkoEUd"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
 ## Hotspot Activity
 
 ```
@@ -340,6 +794,58 @@ transaction at the time of the request.
 
 </TabItem>
 </Tabs>
+
+---
+
+## Hotspots Activity Counts
+
+```
+GET https://api.helium.io/v1/hotspots/:address/activity/count
+```
+
+Count transactions that indicate activity for a hotspot.
+
+The results are a map keyed by the given `filter_types` and the count of
+transaction of that type.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                                      |
+| ------------------ | -------- | ----------------------------------------- |
+| address (required) | _string_ | Hotspot B58 address to fetch counts for   |
+
+_Query Parameters_
+
+| param             | Type     | Note                                          |
+| ----------------- | -------- | --------------------------------------------- |
+| filter_types      | _string_ | Comma separated list of transasction types    |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Fetch counts with `filter_types=assert_location_v1` for hotspot
+`/11yTLDH2QbVLyRnBykzdLLP2j2DoAzjSp3obNrnxhUXpVdaYCZF`
+
+```json
+{
+    "data": {
+        "assert_location_v1": 2
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+
 
 ---
 

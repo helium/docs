@@ -10,7 +10,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/validators/validators', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
+      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/validators/validators','mine-hnt/light-hotspots/light-hotspots', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
       collapsed: true,
     },
     {
@@ -76,7 +76,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Integrations',
-      items: ['use-the-network/console/integrations/json-schema', 'use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo', 'use-the-network/console/integrations/mydevices-cayenne', 'use-the-network/console/integrations/adafruitio', 'use-the-network/console/integrations/ubidots'],
+      items: ['use-the-network/console/integrations/json-schema', 'use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo', 'use-the-network/console/integrations/mydevices-cayenne', 'use-the-network/console/integrations/adafruitio', 'use-the-network/console/integrations/ubidots', 'use-the-network/console/integrations/tago'],
       collapsed: false,
     },
   ],
@@ -167,7 +167,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Validators',
-      items: ['mine-hnt/validators/requirements', 'mine-hnt/validators/validator-deployment-guide', 'mine-hnt/validators/validator-troubleshooting', 'mine-hnt/validators/validator-testcases','mine-hnt/validators/validator-faqs-resources'],
+      items: ['mine-hnt/validators/requirements', 'mine-hnt/validators/validator-deployment-guide', 'mine-hnt/validators/validator-wallet', 'mine-hnt/validators/validator-troubleshooting', 'mine-hnt/validators/validator-testcases','mine-hnt/validators/validator-faqs-resources'],
       collapsed: false,
     },
   ],

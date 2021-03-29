@@ -1,6 +1,6 @@
 ---
 id: validator-deployment-guide
-title: Test Cases
+title: Validator Deployment Guide
 hide_title: true
 sidebar_label: Validator Deployment Guide
 slug: /mine-hnt/validators/validator-deployment-guide
@@ -208,6 +208,14 @@ Having all Testnet Validators running the latest release of Validator software i
 
 To ensure that each Validator gets updated quickly without your manual involvement, we will use a docker container process called [Watchtower](https://containrrr.dev/watchtower/). This is a docker container that, based on an interval, reviews the running containers to see if there is an updated image available for the container. If so, it stops the running container, and creates a new container with the updated image.
 
+:::info
+
+Watchtower simply reviews the `docker run` commands that were used to launch the running containers and checks for newer images for these containers.  Therefore it is imperative that your validator `docker run` command reference the `latest-val-amd64` or `latest-val-arm64` image tag or **it will never update**.
+
+:::
+
+Start watchtower with the following command:
+
 ```
 docker run -d \
 --restart always \
@@ -266,7 +274,7 @@ docker exec validator miner info height
 As shown above, you can prepend `docker exec validator` to any of the commands documented or create an alias such as
 
 ```
-alias validator="docker exec validator miner"
+alias miner="docker exec validator miner"
 ```
 
 And start the container again as described above, but with the new release tag.
@@ -406,6 +414,12 @@ And with that, you're done. Congratulations! You're running a Helium Network Val
 
 Now that you're up and running with a Validator, there are a few things you can examine to make sure things are hunky dory.
 
+### Time Expectations
+
+The blockchain takes time.  The distributed nature of verifying transactions into the blockchain takes time.  The validator information gossiped on the blockchain takes time.  APIs that run to update the [explorer](https://explorer.helium.wtf) are scheduled and have intervals.  Basically, you won't be able to run the validator and instantly see that everything is "good".
+
+After the validator has been up and running for 15 minutes, proceed with some of the steps below.
+
 ### Check the API
 
 The [Validator API](/api/blockchain/validators) provides several useful calls to help monitor your Validator and the state of the Testnet.
@@ -468,7 +482,7 @@ Note that you may need to adjust these if you're running in Docker.
 - `height` is the currently synced block
 
 ```
->val peer book -s
+> miner peer book -s
 
 +------------------------------------------------+-------------+----------+---------+---+----------+
 |                    address                     |    name     |listen_add|connectio|nat|last_updat|
@@ -497,4 +511,58 @@ You're looking for `listen_addrs`. If you don't have at least one, your validato
 
 ### Check the Explorer
 
-Head over to the [Helium Testnet Explorer's Validators Page](https://explorer.helium.wtf/validators) and search for your validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked. You should see your 3-word validators name (short-umber-bull in the example above) listed. It may be easier to sort by #, decending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`.
+Head over to the [Helium Testnet Explorer's Validators Page](https://explorer.helium.wtf/validators) and search for your validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked. You should see your 3-word validators name (short-umber-bull in the example above) listed. It may be easier to sort by #, decending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`. 
+
+Thank you for being a part of the Helium Validators initiative.
+
+## What to Do When There Is a Chain Restart
+
+You may be here because there was an alert on `#validators-announcements` on the [Helium Discord Server](https://discord.gg/helium) that the chain has been restarted.  This short guide will walk you through the reasons and steps for what to do to get back on the new chain.
+
+### What happened and why?
+
+The goal of the Validator initiative is to ultimately bring together a more robust Helium network through a resiliant consensus group model – ensuring that transactions are verified and blocks are added to the blockchain.  To build resiliency means that it's the job of the Testnet process to rigorously _test_ the functionality and capabilities of the validator network.
+
+The announcement in `#validators-announcements` means that this stress testing has stalled the chain.  This means that either the concensus group is unable to elect a new group, or that the group has stopped making blocks, or another reason for the chain to fail.  In these cases, there is a "restart" of the chain, beginning with a new [genesis block](https://www.investopedia.com/terms/g/genesis-block.asp) and starting the block count from `1`.  The next chain will contain additional fixes and functionality to build robustness, and the testing will continue.
+
+What this means is that your validator will not participate in the new chain without the steps taken below.
+
+### How do you know if there was a chain restart?
+
+There are a few things you will notice may happen if you're "off chain".
+
+- You read an announcement on `#validators-announcement`
+- Your validator block height (`miner info height`) is higher than the block height reported on [explorer](https://explorer.helium.wtf)
+- Your validator block height is not moving.
+- Your wallet had TNT in it before, but now it's showing `0`
+- The version of your validator seems to be way behind other versions reported on explorer
+
+### Steps to Get Back On the Current Chain
+
+Getting back on chain is easy now that you've got everything installed:
+
+#### Fund the Wallet
+
+- You do not need to delete and re-create the wallet.  The wallet balance will show `0`, since this is a new blockchain and you have no TNT.  If you happen to run `helium-wallet balance` and receive and error, give it a few minutes.  The API may still be restarting after pointing to the new chain.  Your wallet password is the same.
+- When the balance shows `0`, add funds to your wallet from the [Faucet](https://faucet.helium.wtf/) exactly how you performed the task earlier.  Follow the [Acquire TNT from the Testnet Faucet](/mine-hnt/validators/validator-deployment-guide#acquire-tnt-from-the-testnet-faucet) directions.
+
+#### Reset the Validator - Docker Edition
+
+- `docker stop validator && docker rm validator` - Stop the running container, delete the container.
+- `cd` into the `validator_data` directory you setup earlier in the Deploy step above.  Then run `sudo rm -rf blockchain* ledger.db state_channels.db log`  This will delete everything in this folder except for the `miner` folder. Please be sure you're in the correct folder before running `rm` commands.
+- The `miner` folder contains a single `swarm_key` file.  If you want to keep the 3-word name of your miner, keep this file.  If you want a new one, you can delete this file as well. 
+- There will be a new validator version when the chain is relaunched, so force pull the new docker image version prior to starting the validator.  `docker pull quay.io/team-helium/validator:latest-val-amd64`
+- Restart the validator with your `docker run` command that you used [during the install](/mine-hnt/validators/validator-deployment-guide#deploy-the-validator-using-docker---recommended).
+- Watchtower should still be running from our install and will continue to update the docker image automatically.
+
+#### Reset the Validator - From Source
+
+- Stop the validator, delete the entire `miner` folder - saving the `swarm_key` file in `/miner/_build/validator/rel/miner/data/miner` if you like.  Pull from source with the updated version tag, start the validator.
+- Load the new genesis block `wget https://snapshots.helium.wtf/genesis.testnet` `miner genesis load </absolute/path/to/genesis/block>`. 
+
+#### Restake 
+
+- Follow the same process from [Stake Tokens to Your Validator](/mine-hnt/validators/validator-deployment-guide#stake-tokens-to-your-validator) to stake the 10,000 TNT received from the faucet for your Testnet validator.  If you kept the `swarm_key` file above, your validator node address will be the same.  If you deleted that file, you'll have to ensure you have the new node address by running `miner peer addr` as outlined in that section.
+
+That's it!  You're back on the new chain and should see similar output as defined in [Verifying Validator Victory](/mine-hnt/validators/validator-deployment-guide#verifying-validator-victory).
+

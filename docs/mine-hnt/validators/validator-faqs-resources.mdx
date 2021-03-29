@@ -12,36 +12,69 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 ## FAQs 
 
-**How much HNT does it require to stake and become a Validator?**
+### General 
+
+**How much HNT does it require to stake and become a validator?**
 
 10,000 HNT. 
 
-**What’s the minimum number of Validators needed to go to mainnet?** 
+**What’s the minimum number of validators needed to go to mainnet?** 
 
-The current proposal is 100 with no maximum number of Validators that can participate. We will activate a separate chain variable when we reach the proposed minimum which will enable Consensus Group election from the Validator pool. 
+The current proposal is 100 with no maximum number of validators that can participate. We will activate a separate chain variable when we reach the proposed minimum which will enable Consensus Group election from the validator pool. 
 
-**What is the expect APY of running Helium Validator?**
+**Is there a validator cap?**
 
-It depends on the number of Validators and how often a Validator is randomly chosen to participate in the consensus group. Validators split the Consensus Group reward, [which is 6% of all HNT mined](/blockchain/mining/#mining-and-token-rewards).
+No. 
+
+**How many validators are elected to the consensus group?**
+
+Initially 16, but expect to quickly grow the number.
+
+**When a validator is in the consensus group can I update it?**
+
+Yes. There are no issues with updating a validator while it's in the consensus group.
+
+**My validator is connected. Why can't I see it in the Explorer?**
+
+API status updates can take up to 10 minutes for fully connected nodes.
+
+### Rewards 
+
+**What is the expect APY of running Helium validator?**
+
+It depends on the number of validators and how often a validator is randomly chosen to participate in the consensus group. Validators split the Consensus Group reward, [which is 6% of all HNT mined](/blockchain/mining/#mining-and-token-rewards).
 
 The community has produced several models which should be instructive. Please do your own analysis before deciding to stake. 
 
 * [Basic $HNT Projections Model](https://docs.google.com/spreadsheets/u/1/d/1C0Tsz31Qa2b8PHXrl0gMDh2_fXcd2qSWVgF0hmg9Hqg/edit#gid=63991307) 
 * [Helium Validator Rewards Forecasting with Validator Ramp Calculations](https://docs.google.com/spreadsheets/d/1E4XLpF-a3xo3ZtNpJzd9g6EcuMZ1nSKKvtmKy_LVjhE/edit#gid=1705424601)
 
+**When can I get my validator rewards?**
 
-**Is there a Validator cap?**
+There is no rewards distribution lock up. After staking, validators elected into the consensus group immediately receive rewards at the end of that epoch. 
 
-No. 
+### Staking and Unstaking
 
-**How long is the cooldown/unbonding period (the length of time the staking amount is locked)? Do I earn $HNT after my stake is unbonded?**
+**What happens when I unstake a validator?**
 
-If a wallet decides to unstake a Validator, the current proposal is for a 250,000 block unbonding / cooldown period (which is approximately 5 months). Once a stake is unbonded, it no longer earns $HNT. 
-
+It enters an unbonding state for approximately 5 months (250,000 blocks) and cannot be restaked. During this state the **validator does NOT earn rewards and the staked amount cannot be transferred or withdrawn**. After the unbonding state has passed, the stake is returned to the original owner’s wallet.
 
 **Is overstaking permitted? If so, what’s the benefit?**
 
 Initially there will be no overstaking. We'll decide later, via the HIP process, what kind of overstaking the network should allow and what it will mean for election into the Consensus Group and ultimately rewards.
+
+**Can I restake an unstaked validator?**
+
+No. Once a validator has been unstaked it cannot be restaked.
+
+**Can I transfer stake to an existing validator node that had been previously staked?**
+
+No.
+
+**If a validator is in the consensus group, can I unstake it or transfer stake?**
+
+No. You must wait until the validator is out of the consensus group.
+
 
 
 ## Resources 
@@ -64,6 +97,6 @@ Links to these Staking Providers are provided as is. Helium, Inc. is not directl
 
 * [Helium Rising](https://www.heliumrising.com)
 * [Argon.build](https://www.argon.build)
-* [hntvalidators.com](https://www.hntvalidators.com)
+* [HNT Validators](https://www.hntvalidators.com)
 * [Managed Helium Validator Service](https://heliumvalidators.com)
 * [StakeMyHNT](https://www.stakemyhnt.com)
