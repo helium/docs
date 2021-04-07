@@ -38,6 +38,22 @@ Yes. There are no issues with updating a validator while it's in the consensus g
 
 API status updates can take up to 10 minutes for fully connected nodes.
 
+### Technical
+
+**Why do you [discourage running validators from home](/mine-hnt/validators/requirements)?**
+
+Many community members possess hardware that easily meets or exceeds the recommended CPU, memory, and storage guidelines. However, most home users rely on residential internet service providers. This is potentially problematic for the following reasons:
+
+* Residential ISPs rarely offer service level agreements (SLA) that guarantee network uptime. If your neighborhood experiences a service outage due to headend hardware failure, software misconfiguration, or your neighbor trenching their front lawn and slicing a fiber line, you will need to wait for service to return just like any other residential customer.
+* Most residential ISPs lack distributed denial of service (DDoS) or denial of service (DoS) protection. If a bad actor decides to target your public IP address with a botnet, you may see your cable modem, DSL modem, or optical network terminal crash spectacularly. You may not have control over the assignment of a new public IP address, so power-cycling your modem may not allow you to recover from a continuous attack. Remember, your public IP is broadcast across the helium peer-to-peer network when you connect.
+* Your ISP may implement QoS (Quality of Service) or traffic shaping policies that dynamically prioritize or deprioritize certain types of traffic without your knowledge. This could potentially impact latency between your validator nodes and other nodes in a consensus group. Bad latency can result in your eviction from a consensus group.
+* Bad actors may target your public IP address with port scanners or other scanning techniques to identify entry points. Outdated router software, poor port management, or zero-day exploits could put your entire home network (including your personal computers, crypto wallets, mobile devices, and IoT devices) at risk for attack and compromise.
+* Your ISP may automatically throttle your connection speed if the sustained traffic or connection load exceeds a value that could negatively impact the performance of other customers in your neighborhood. 
+
+Despite the warnings above, some community members will decide to run their validator from home. Remember that Helium is not responsible for security, performance, or network issues that may result from your validator configuration.
+
+
+
 ### Rewards 
 
 **What is the expect APY of running Helium validator?**
