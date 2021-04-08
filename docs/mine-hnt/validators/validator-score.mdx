@@ -1,0 +1,40 @@
+---
+id: validator-score
+title: Validator Scores and Penalties
+hide_title: true
+sidebar_label: Scores and Penalties
+slug: /mine-hnt/validators/validator-score
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Validator Scores and Penalties
+
+## Validator Scores
+
+Validator nodes earn rewards for work performed while in the consensus group.
+
+Validator nodes start with a base score 1.0. The network uses the score to choose which validator nodes join, and when they are removed from the consensus group.
+
+The score naturally increases when a validator node joins the consensus group and for each round it remains in it.
+
+After the validator node is unelected from the consensus group, over time its score reverts back to 1.0.
+
+| Score | Join or remain in consensus group |
+| --- | :---: |
+| Lower | Higher chance |
+| Higher| Lower chance |
+
+Use of score:
+* Limits the amount of time a validator node stays in the consensus group.
+* Prevents a validator node from rejoining the consensus group too quickly.
+
+## Validator Penalites
+
+The consensus group is made up of validator nodes that are rewarded with $HNT for working together to verify transactions and producing blocks. 
+
+However, if a validator node prevents the consensus group from performing its task, for example, uses insufficient computing resources or a weak network connection (equally strong upstream and downstream is needed), the validator node will incur penalties that can affect the amount of rewards earned.
+
+Using the validator scoring mechanism, the network will penalize bad acting validator nodes by increasing their score. As noted above, validator nodes with higher scores will be ejected from the consensus group sooner, and will have a lower probability of joining the consensus group. Over time a validator’s score will revert back to its base score of 1.0.
+
+The negative impact of a higher score (early removal or not being selected) is weighted based on comparison with scores of other validator nodes in the consensus group.
