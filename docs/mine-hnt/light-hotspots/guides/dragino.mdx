@@ -1,92 +1,165 @@
 ---
-id: dragino-light-hotspot
-title: Dragino LoRaWAN Gateway Setup
+id: dragino
+title: Dragino Light Hotspot Setup
 hide_title: true
-sidebar_label: Dragino LoRaWAN Gateways
-slug: /mine-hnt/light-hotspots/lorawan-gateways
+sidebar_label: Dragino LPS80/DLOS8
+slug: /mine-hnt/light-hotspots/guides/dragino
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 # Dragino LoRaWAN Gateway Setup
 
-This guide provides instructions on how to configure an 8-channel Dragino LoRaWAN gateway such as the LPS8 or DLOS8 to work with the Helium network. 
+This guide provides instructions on how to configure an 8-channel Dragino
+LoRaWAN gateway such as the LPS8 or DLOS8 to work with the Helium network.
 
 :::warning
 
-The ability to mine HNT with anything other than [Approved Hotspots](https://helium.com/mine) is not currently supported. Please join the [#gateway](https://discord.gg/helium) in the Helium Discord Server for the latest updates. 
+The ability to mine HNT with anything other than
+[Approved Hotspots](https://helium.com/mine) is not currently supported. Please
+join the [#gateway](https://discord.gg/helium) in the Helium Discord Server for
+the latest updates.
 
 :::
 
+## Prerequisites
 
-## Prerequisites 
+Prior to configuring your Dragino to work with the Helium network, please
+confirm that it is connected to the Internet and updated to the latest firmware.
+Refer to the user guide provided on the
+[Dragino download site](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/)
+for more detailed instructions.
 
-Prior to configuring your Dragino to work with the Helium network, please confirm that it is connected to the Internet and updated to the latest firmware. Refer to the user guide provided on the [Dragino download site](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/) for more detailed instructions.
 - Connect to a Wi-Fi or Ethernet network with Internet access.
-- Update to the latest firmware from [Dragino](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/). As recommended by Dragino, leave "Preserve Settings" _unchecked_ when upgrading firmware to avoid issues caused by incompatibility of settings between versions. This guide assumes the standard firmware. The OpenVPN firmware uses different port numbers in some cases.
+- Update to the latest firmware from
+  [Dragino](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/). As
+  recommended by Dragino, leave "Preserve Settings" _unchecked_ when upgrading
+  firmware to avoid issues caused by incompatibility of settings between
+  versions. This guide assumes the standard firmware. The OpenVPN firmware uses
+  different port numbers in some cases.
 - Change the root password from the default of 'dragino', if desired.
 
 ## Configure LoRa Frequency Plan
 
-To be able to send and receive LoRa data, your gateway must be configured to the frequencies specified for your region. While the Helium network follows common frequency plans for LoRa network, the pre-defined frequency bands in the Dragino are not compatible with the Helium network due to difference in transmit frequencies required for PoC.
+To be able to send and receive LoRa data, your gateway must be configured to the
+frequencies specified for your region. While the Helium network follows common
+frequency plans for LoRa network, the pre-defined frequency bands in the Dragino
+are not compatible with the Helium network due to difference in transmit
+frequencies required for PoC.
 
-1. Log into the Dragino gateway web interface. In the standard Dragino firmware connect via your browser at `http://<ip_address>:8000` once the Dragino is connected to your network.
+1. Log into the Dragino gateway web interface. In the standard Dragino firmware
+   connect via your browser at `http://<ip_address>:8000` once the Dragino is
+   connected to your network.
 2. Navigate to Lora > Lora from the Menu.
-3. Under Radio Settings, select `Customized Bands`. 
-4. Populate the Customized Channel Settings based on the Helium frequencies for your region. Refer to the [Helium sample LoRa packet forwarder global.conf files](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder) for your region as a guide to the values to use.
+3. Under Radio Settings, select `Customized Bands`.
+4. Populate the Customized Channel Settings based on the Helium frequencies for
+   your region. Refer to the
+   [Helium sample LoRa packet forwarder global.conf files](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder)
+   for your region as a guide to the values to use.
 
-<img className="docsheader" src={useBaseUrl("img/mine-hnt/guides/dragino-guide-lora-config-US915.png")} />
+<img
+  className="docsheader"
+  src={useBaseUrl("img/mine-hnt/guides/dragino-guide-lora-config-US915.png")}
+/>
 
 5. If desired, set Static GPS coordinates.
 6. Click Save & Apply.
 
 ## Configure LoRaWAN Settings
 
-Next, you will configure the LoRa packet forwarder on the Dragino to forward packets to the Helium Gateway service which will be installed on the Dragino in the next step. 
+Next, you will configure the LoRa packet forwarder on the Dragino to forward
+packets to the Helium Gateway service which will be installed on the Dragino in
+the next step.
+
 1. From the Dragino web interface, navigate to LoRaWAN > LoRaWAN from the menu.
 2. Select `Custom / Private LoRaWAN` from the Service Provider.
-3. Set the Server Address to `127.0.0.1` and both Uplink and Downlink ports to `1680`. This will configure the forwarder to use the default port used by Helium Gateway.
+3. Set the Server Address to `127.0.0.1` and both Uplink and Downlink ports to
+   `1680`. This will configure the forwarder to use the default port used by
+   Helium Gateway.
 
-<img className="docsheader" src={useBaseUrl("img/mine-hnt/guides/dragino-guide-lorawan-server-settings.png")} />
+<img
+  className="docsheader"
+  src={useBaseUrl(
+    "img/mine-hnt/guides/dragino-guide-lorawan-server-settings.png"
+  )}
+/>
 
 4. Click Save & Apply.
 
 ## Install Helium Gateway (gateway-rs) on the Dragino
 
-Finally, you will install the Helium Gateway service. This requires SSH access to the Dragino.
+Finally, you will install the Helium Gateway service. This requires SSH access
+to the Dragino.
 
-1. Connect to the Dragino over SSH. By default, the standard Dragino firmware uses port 2222 for SSH (the OpenVPN firmware uses port 22) and the root user has access. 
-`ssh root@<ip address> -p 2222`
-2. Copy the Helium Gateway package to the Dragino. The latest [source code](https://github.com/helium/gateway-rs) and pre-built [releases](https://github.com/helium/gateway-rs/releases) are available on GitHub.
-    1. Option 1 Download from GitHub: 
-On the Dragino run `cd /tmp` and `wget -O helium-gateway-<version>-dragino.ipk https://github.com/helium/gateway-rs/releases/download/<version>/helium-gateway-<version>-dragino.ipk`.
-    2. Option 2 Copy from another computer: 
-Run this command from on the computer within the directory containing the package `scp helium-gateway-<version>-dragino.ipk <dragino ip>:/tmp/`.
-3. Update the package list on the Dragino so that the necessary dependencies are found `opkg update`.
-4. Install the Helium Gateway package `opkg install /tmp/helium-gateway-<version>-dragino.ipk`.
-5. Backup your key file `/etc/helium_gateway/keypair.bin` and keep in a safe place. This will be needed to recover this gateway especially if it is onboarded to the blockchain.
+1. Connect to the Dragino over SSH. By default, the standard Dragino firmware
+   uses port 2222 for SSH (the OpenVPN firmware uses port 22) and the root user
+   has access. `ssh root@<ip address> -p 2222`
+2. Copy the Helium Gateway package to the Dragino. The latest
+   [source code](https://github.com/helium/gateway-rs) and pre-built
+   [releases](https://github.com/helium/gateway-rs/releases) are available on
+   GitHub. 1. Option 1 Download from GitHub: On the Dragino run `cd /tmp` and
+   `wget -O helium-gateway-<version>-dragino.ipk https://github.com/helium/gateway-rs/releases/download/<version>/helium-gateway-<version>-dragino.ipk`. 2.
+   Option 2 Copy from another computer: Run this command from on the computer
+   within the directory containing the package
+   `scp helium-gateway-<version>-dragino.ipk <dragino ip>:/tmp/`.
+3. Update the package list on the Dragino so that the necessary dependencies are
+   found `opkg update`.
+4. Install the Helium Gateway package
+   `opkg install /tmp/helium-gateway-<version>-dragino.ipk`.
+5. Backup your key file `/etc/helium_gateway/keypair.bin` and keep in a safe
+   place. This will be needed to recover this gateway especially if it is
+   onboarded to the blockchain.
 
-Helium Gateway is now installed and should be running. Use the command `helium_gateway key info` to view the public key address and animal name of your gateway.
+Helium Gateway is now installed and should be running. Use the command
+`helium_gateway key info` to view the public key address and animal name of your
+gateway.
 
+## Verify
 
-## Verify 
-Your Dragino gateway should now be setup and forwarding LoRaWAN data traffic to the Helium Network. 
+Your Dragino gateway should now be setup and forwarding LoRaWAN data traffic to
+the Helium Network.
 
 ### Through Helium Console
-If you have a LoRaWAN device configured through the Helium Console, you should now see it uplinking traffic through the Dragino gateway. You can verify this by turning on your device within range of the Dragino and looking for traffic in Console associated to the Dragino gateway's animal name. 
+
+If you have a LoRaWAN device configured through the Helium Console, you should
+now see it uplinking traffic through the Dragino gateway. You can verify this by
+turning on your device within range of the Dragino and looking for traffic in
+Console associated to the Dragino gateway's animal name.
 
 ### Through the System Logs
-Use the Dragino system log to verify that Helium Gateway has started. You can view the log in the web interface or by using logread on the commandline interface (e.g, `logread | grep helium_gateway`). In the logs, you should see messages indicating helium_gateway is starting. If you do not see these, try restarting the service (`/etc/init.d/helium_gateway restart`) or reboot the Dragino as the messages may have rotated out of the log. 
+
+Use the Dragino system log to verify that Helium Gateway has started. You can
+view the log in the web interface or by using logread on the commandline
+interface (e.g, `logread | grep helium_gateway`). In the logs, you should see
+messages indicating helium_gateway is starting. If you do not see these, try
+restarting the service (`/etc/init.d/helium_gateway restart`) or reboot the
+Dragino as the messages may have rotated out of the log.
 
 _Example logs showing the Helium Gateway service starting_
+
 ```
 Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.184 INFO starting server, key: <public key>, version: 1.0.0-alpha.4
 Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.289 INFO starting, module: gateway
 Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.306 INFO starting, module: router
 ```
 
-Additionally, the LoRa Packet Forwarder log can provide some clues as to whether the LoRaWAN server configuration is correct. Search the system log for PULL_DATA messages and confirm that they are acknowledged such as `REPORT~ # PULL_DATA sent: 1 (100.00% acknowledged)`. This indicates that the packet forwarder is communicating with the Helium Gateway service running on the Dragino and is getting replies from the service as expected. Note, this is not a foolproof way to confirm it is configured correctly. By default, the LoRaWAN Server settings are configured for the TTN EU server which will also provide acknowledgement. However, the absence of acknowledgement could indicate the the LoRaWAN settings are not correct per the above.
-
+Additionally, the LoRa Packet Forwarder log can provide some clues as to whether
+the LoRaWAN server configuration is correct. Search the system log for PULL_DATA
+messages and confirm that they are acknowledged such as
+`REPORT~ # PULL_DATA sent: 1 (100.00% acknowledged)`. This indicates that the
+packet forwarder is communicating with the Helium Gateway service running on the
+Dragino and is getting replies from the service as expected. Note, this is not a
+foolproof way to confirm it is configured correctly. By default, the LoRaWAN
+Server settings are configured for the TTN EU server which will also provide
+acknowledgement. However, the absence of acknowledgement could indicate the the
+LoRaWAN settings are not correct per the above.
 
 ## COMING SOON: Onboard Gateway
-As part of Milestone 1.5 of the Light Gateway roadmap, you will be able to onboard light gateways such as the Dragino to appear on the coverage map and earn HNT for data transfers (but not for Proof of Coverage). See [Light Gateways - BETA](https://docs.helium.com/mine-hnt/light-hotspots) for more information. This process will require using the Helium [command-line interface (CLI) Wallet](https://github.com/helium/helium-wallet-rs) to submit the onboarding and assert location transactions.
+
+As part of Milestone 1.5 of the Light Gateway roadmap, you will be able to
+onboard light gateways such as the Dragino to appear on the coverage map and
+earn HNT for data transfers (but not for Proof of Coverage). See
+[Light Gateways - BETA](https://docs.helium.com/mine-hnt/light-hotspots) for
+more information. This process will require using the Helium
+[command-line interface (CLI) Wallet](https://github.com/helium/helium-wallet-rs)
+to submit the onboarding and assert location transactions.
