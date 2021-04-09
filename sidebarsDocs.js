@@ -171,6 +171,19 @@ module.exports = {
       collapsed: false,
     },
   ],
+   hotspotMakers: [
+   {
+       type: 'link',
+       label: '<- Light Hotspot',
+       href: '/mine-hnt/light-hotspots'
+   },
+   {
+       type: 'category',
+       label: 'Light Hotspot Guides',
+       items: ['mine-hnt/light-hotspots/guides/dragino'],
+       collapsed: false,
+   },
+  ],
   bL072zLrwan1: [
    {
       type: 'link',
