@@ -117,9 +117,15 @@ Glorious. You have the `10000` TNT to stake one validator, and a bit extra to co
 
 With TNT in hand, it's time to deploy and run the actual Validator (can also be referred to as `miner` as the validator is part of the `miner` code base).
 
-:::info
+:::warning
 
-If you haven't already, please review the [Validator Technical Requirements](/mine-hnt/validators/requirements)
+If you haven't already, please review the [Validator Technical Requirements](/mine-hnt/validators/requirements).  Specifically, on non-ARM systems `AVX` support is required. Verify that it exists on your host system by running the following:
+
+```
+grep avx /proc/cpuinfo
+```
+
+If nothing is returned from this command, your host system does not have AVX support and your validator may not be stable.
 
 :::
 
@@ -149,19 +155,6 @@ sudo usermod -aG docker $USER
 ```
 
 Log in and out of your account to apply these changes. You are now ready to use Docker.
-
-:::warning
-
-On amd64 systems `AVX` support is required. Verify that it exists on your host system by running the following:
-
-```
-grep avx /proc/cpuinfo
-grep avx2 /proc/cpuinfo
-```
-
-If nothing is returned from these commands, your host system does not have AVX support and your Validator may not be stable.
-
-:::
 
 Now that docker is installed and ready, let's run the Validator.
 
