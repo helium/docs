@@ -302,13 +302,13 @@ Before we get started, make sure you're fully up to date:
 sudo apt-get update -y
 ```
 
-Next, let's install all the things. Start by cloning the `validator` branch of `miner`:
+Start by cloning the validator testnet branch of `miner`:
 
 ```
-git clone -b pevm/validators https://github.com/helium/miner.git
+git clone -b adt/erlang-tc https://github.com/helium/miner.git
 ```
 
-Then proceed to get you some Erlang (here we're specifying `22.3.1`):
+Then proceed to get Erlang (here we're specifying `22.3.1`):
 
 ```
 wget https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
@@ -320,24 +320,26 @@ Next, get the `libwxgtk` package:
 wget http://mirrors.kernel.org/ubuntu/pool/universe/w/wxwidgets3.0/libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb
 ```
 
-And finish thins off by acquiring a some wonderful dependencies:
+Acquire the needed dependencies:
 
 ```
 sudo apt install -y libdbus-1-dev autoconf automake libtool flex libgmp-dev cmake libsodium-dev libssl-dev bison libsnappy-dev libclang-dev doxygen make cargo g++ libsctp1 libncurses5 libwxbase3.0-0v5 build-essential cmake libdbus-1-dev mosh vim parallel
 ```
 
-Then we need to unpack and install all of this stuff. Start with `libwxgtk`:
+Then we need to unpack and install. Start with `libwxgtk`:
 
 ```
 sudo dpkg -i libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb
 sudo apt update -y
 ```
 
-Then onto Erlang. First `unpack` then `install`:
+Then onto Erlang:
 
 ```
 sudo dpkg -i esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
 ```
+
+Force the install of required dependencies from the Erlang install by running the following:
 
 ```
 sudo apt-get install -f
