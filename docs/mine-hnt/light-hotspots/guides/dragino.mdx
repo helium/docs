@@ -35,35 +35,43 @@ for more detailed instructions.
   [Dragino](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/). As
   recommended by Dragino, leave "Preserve Settings" _unchecked_ when upgrading
   firmware to avoid issues caused by incompatibility of settings between
-  versions. This guide assumes the standard firmware. The OpenVPN firmware uses
-  different port numbers in some cases.
+  versions. This guide assumes the standard firmware version v5.4.1618196981 or 
+  later. Earlier firmware versions may require ca-bundle to be installed prior 
+  to gateway-rs (via SSH: `opkg update` and `opkg install ca-bundle`). Note, 
+  the OpenVPN firmware may be used however port numbers may differ from what's 
+  included here.
 - Change the root password from the default of 'dragino', if desired.
 
 ## Configure LoRa Frequency Plan
 
 To be able to send and receive LoRa data, your gateway must be configured to the
-frequencies specified for your region. While the Helium network follows common
-frequency plans for LoRa network, the pre-defined frequency bands in the Dragino
-are not compatible with the Helium network due to difference in transmit
-frequencies required for PoC.
+frequencies specified for your region. You may be able to use the predefined 
+frequency in the Dragino or some cases may need to manually set them per the
+frequencies used by Helium in your region.
 
 1. Log into the Dragino gateway web interface. In the standard Dragino firmware
    connect via your browser at `http://<ip_address>:8000` once the Dragino is
    connected to your network.
 2. Navigate to Lora > Lora from the Menu.
-3. Under Radio Settings, select `Customized Bands`.
-4. Populate the Customized Channel Settings based on the Helium frequencies for
-   your region. Refer to the
-   [Helium sample LoRa packet forwarder global.conf files](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder)
-   for your region as a guide to the values to use.
+3. Under Radio Settings, select your region in the Frequency Plan drop down and, 
+   if applicable, the Frequency Sub Band. For example, in the US, select US915
+   for the frequency plan and 2 for the sub band.
+4. If desired, set Static GPS coordinates.
+5. Click Save & Apply.
 
+For some regions, it my be necessary to manually populate Populate the Customized 
+Channel Settings based on the Helium frequencies for your region. Refer to the 
+[Helium sample LoRa packet forwarder global.conf files](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder) for your region as a 
+guide to the values to use. You can check the values used by the pre-defined 
+frequency plans by viewing the global_conf.json file: 
+`cat /etc/lora/global_conf.json`
+
+_Example of customized channel settings using the US915 frequency plan for Helium_
 <img
   className="docsheader"
   src={useBaseUrl("img/mine-hnt/guides/dragino-guide-lora-config-US915.png")}
 />
 
-5. If desired, set Static GPS coordinates.
-6. Click Save & Apply.
 
 ## Configure LoRaWAN Settings
 
@@ -97,16 +105,15 @@ to the Dragino.
 2. Copy the Helium Gateway package to the Dragino. The latest
    [source code](https://github.com/helium/gateway-rs) and pre-built
    [releases](https://github.com/helium/gateway-rs/releases) are available on
-   GitHub. 1. Option 1 Download from GitHub: On the Dragino run `cd /tmp` and
-   `wget -O helium-gateway-<version>-dragino.ipk https://github.com/helium/gateway-rs/releases/download/<version>/helium-gateway-<version>-dragino.ipk`. 2.
-   Option 2 Copy from another computer: Run this command from on the computer
+   GitHub. 
+   Option 1: Download from GitHub: On the Dragino run `cd /tmp` and
+   `wget -O helium-gateway-<version>-dragino.ipk https://github.com/helium/gateway-rs/releases/download/<version>/helium-gateway-<version>-dragino.ipk`.
+   Option 2: Copy from another computer: Run this command from on the computer
    within the directory containing the package
    `scp helium-gateway-<version>-dragino.ipk <dragino ip>:/tmp/`.
-3. Update the package list on the Dragino so that the necessary dependencies are
-   found `opkg update`.
-4. Install the Helium Gateway package
+3. Install the Helium Gateway package
    `opkg install /tmp/helium-gateway-<version>-dragino.ipk`.
-5. Backup your key file `/etc/helium_gateway/keypair.bin` and keep in a safe
+4. Backup your key file `/etc/helium_gateway/keypair.bin` and keep in a safe
    place. This will be needed to recover this gateway especially if it is
    onboarded to the blockchain.
 
