@@ -21,7 +21,8 @@ Self Provisioning Guide for Victor Connected Rodent Control Devices
 
 :::info
 
-If you need any help provisioning this sensor, please join the `#console` channel on [the Helium Discord Server](https://discord.gg/helium).
+If you need any help provisioning this sensor, please join the `#console`
+channel on [the Helium Discord Server](https://discord.gg/helium).
 
 :::
 
@@ -33,14 +34,15 @@ If you need any help provisioning this sensor, please join the `#console` channe
 
 ### Add device in Console
 
-To start, you'll need to create a Helium Console account and add your device. 
-You should have been provided with a DevEUI, AppEUI, and AppKey from your seller,
-which are needed to add the device. Follow our [quick start for instructions](/use-the-network/console/quickstart).
+To start, you'll need to create a Helium Console account and add your device.
+You should have been provided with a DevEUI, AppEUI, and AppKey from your
+seller, which are needed to add the device. Follow our
+[quick start for instructions](/use-the-network/console/quickstart).
 
 ### Integration Configuration for VLINK
 
 Once you have added your device to Console, you'll next need to create an
-integration to send your device data to Victor VLINK. 
+integration to send your device data to Victor VLINK.
 
 #### 1. Create HTTP Integration
 
@@ -56,13 +58,14 @@ integration.
 
 Next we'll fill in the details, see instructions and image below.
 
-1. Enter the VLINK Endpoint URL: 
+1. Enter the VLINK Endpoint URL:
    `https://ibgsq3pdbl.execute-api.us-west-2.amazonaws.com/default/console-to-victormouse-translator`
-2. Enter the HTTP Header - Key: `x-api-key` and Value: `peKuqRvLce7CuqUE0EkR1aE9bt0Hy3nJnYSh7yM3` 
-2. Enter the name for this Integration: _VLINK Integration_
-3. Create and apply a Label for this Integration, we've used the same name as
+2. Enter the HTTP Header - Key: `x-api-key` and Value:
+   `peKuqRvLce7CuqUE0EkR1aE9bt0Hy3nJnYSh7yM3`
+3. Enter the name for this Integration: _VLINK Integration_
+4. Create and apply a Label for this Integration, we've used the same name as
    the integration.
-4. Finally, click _Add Integration_ to complete.
+5. Finally, click _Add Integration_ to complete.
 
 <img
   src={useBaseUrl(
@@ -72,8 +75,8 @@ Next we'll fill in the details, see instructions and image below.
 
 #### 2. Attach Label to Device
 
-Next we'll attach the _VLINK Integration_ label to the device. Navigate to
-your device page and click the Add Label button shown below.
+Next we'll attach the _VLINK Integration_ label to the device. Navigate to your
+device page and click the Add Label button shown below.
 
 <img
   src={useBaseUrl(
@@ -89,38 +92,45 @@ Search for the _VLINK Integration_ label and click _Add Label_ as shown below.
   )}
 />
 
-
-### Add Device to VLINK Platform 
+### Add Device to VLINK Platform
 
 :::info
 
-You will need a VLINK account to finish the onboarding steps above. You should have received these account details when you purchased the device.
+You will need a VLINK account to finish the onboarding steps above. You should
+have received these account details when you purchased the device.
 
 :::
 
-
 You are now ready to add your device to VLINK and power on your device in range
-of a Hotspot. See VLINK onboarding instructions [here](https://helium-docs.s3-us-west-2.amazonaws.com/VLINK_Tunnel_Trap_Setup_Instructions.pdf).
-
+of a Hotspot. See VLINK onboarding instructions
+[here](https://helium-docs.s3-us-west-2.amazonaws.com/VLINK_Tunnel_Trap_Setup_Instructions.pdf).
 
 ### FAQ
 
 #### What does ErrorCode in the Event Log mean?
-* ErrorCode: 0 = Lid Closed
-* ErrorCode: 1 = Lid is Open
+
+- ErrorCode: 0 = Lid Closed
+- ErrorCode: 1 = Lid is Open
 
 #### What sequence of messages should I expect (in Console)?
-1. Series of 10-15 messages - These include network join, power up status, other status messages
+
+1. Series of 10-15 messages - These include network join, power up status, other
+   status messages
 2. Then 5 messages 10 minutes apart
 3. Then a status message every 23 hours
 
 #### What sequence of messages should I expect (in VLINK dashboard)?
-In the event log you will see "Trap Powered Up" and a series of "Trap Status" logs.
+
+In the event log you will see "Trap Powered Up" and a series of "Trap Status"
+logs.
 
 #### What are the button presses?
+
 If unit is off:
-* Pressing the button will turn it on and initialize the unit
+
+- Pressing the button will turn it on and initialize the unit
 
 If unit is on:
-* 1 quick button press will send a status message
-* 1 Long button press will turn the unit off
+
+- 1 quick button press will send a status message
+- 1 Long button press will turn the unit off
