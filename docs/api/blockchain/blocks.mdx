@@ -14,8 +14,54 @@ import TabItem from "@theme/TabItem";
 
 ## Height
 
+Gets the current height of the blockchainn.
+
+If `max_time` is speified this returns highest block height that was valid (but
+not equal to) the given time.`max_time` can be given as an ISO8601 timestamp or
+relative time can be used.
+
 ```
 GET https://api.helium.io/v1/blocks/height
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param               | Type     | Note                                  |
+| ------------------- | -------- | ------------------------------------- |
+| max_time (optional) | _string_ | Last time to include in height search |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": {
+    "height": 644081
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+## Block Stats
+
+Get statistics on block production times.
+
+```
+
+GET https://api.helium.io/v1/blocks/stats
+
 ```
 
 <Tabs
@@ -33,21 +79,38 @@ No Parameters
 
 ```json
 {
-    "data": {
-        "height": 644081
+  "data": {
+    "last_day": {
+      "avg": 62.31024531024531,
+      "stddev": 27.476995228717882
+    },
+    "last_hour": {
+      "avg": 57.04838709677419,
+      "stddev": 14.35889787468274
+    },
+    "last_month": {
+      "avg": 60.905921680993316,
+      "stddev": 45.412766632370634
+    },
+    "last_week": {
+      "avg": 61.16405380803075,
+      "stddev": 28.40161296349413
     }
+  }
 }
 ```
 
 </TabItem>
 </Tabs>
 
----
+--
 
 ## Block Descriptions
 
 ```
+
 GET https://api.helium.io/v1/blocks
+
 ```
 
 Retrieves block descriptions. Blocks descriptions are paged. A `cursor` field

@@ -98,6 +98,56 @@ Returns a list of recent Oracle Prices and at which block they took effect.
 
 ---
 
+## Oracle Price Stats
+
+```
+GET https://api.helium.io/v1/oracle/prices/stats
+```
+
+Gets statistics on Oracle prices.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param               | Type     | Note                           |
+| ------------------- | -------- | ------------------------------ |
+| min_time (required) | _string_ | First time to include in stats |
+| max_time (required) | _string_ | Last time to include in stats  |
+
+</TabItem>
+<TabItem value="response">
+
+Returns Oracle price statistics over the last 30 days by specifying
+`?min_time=-30%20day`
+
+200: OK
+
+```json
+{
+  "data": {
+    "avg": 12.433719079615384,
+    "max": 20.0,
+    "median": 12.53731614,
+    "min": 6.0,
+    "stddev": 3.50807814
+  },
+  "meta": {
+    "max_time": "2021-04-20T15:52:28Z",
+    "min_time": "2021-03-21T15:52:28Z"
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
 ## Oracle Price at a Specific Block
 
 ```
