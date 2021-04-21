@@ -18,7 +18,7 @@ For optimal user experience, we recommend Hotspots be equipped with compatible B
 
 To add your Hotspot to the Hotspot App, [submit an issue and a pull request to the Hotspot Github Repo](https://github.com/helium/hotspot-app/). 
 
-In this codebase, you’ll want to modify the onboarding flow to add a UI element that enables users to select your Hotspot type on this screen:
+In this codebase, you’ll want to modify the onboarding flow to add a UI element that enables users to select your Hotspot type on this screen, add support emails to Diagnostic Reports, and include default antenna TX/RX gain:
 
 
 :::info
@@ -33,10 +33,14 @@ Here is a recommended list of what you should change/add:
 * New UI element in [src/features/hotspots/setup/HotspotSelectionScreen.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/HotspotSelectionScreen.tsx)
 * New picture in [src/assets/images](https://github.com/helium/hotspot-app/blob/main/src/assets/images)
 * Update `HotspotType` and `HotspotName` in [src/store/connectedHotspot/connectedHotspotSlice.ts](https://github.com/helium/hotspot-app/blob/main/src/store/connectedHotspot/connectedHotspotSlice.ts)
+* Hotspot Selection in Add Hotspot page in [src/features/hotspots/setup/HotspotSelectionListItem.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/HotspotSelectionListItem.tsx)
 * New prompt message for power screen and pairing screen in [src/locales/en.ts](https://github.com/helium/hotspot-app/blob/main/src/locales/en.ts)
-* Setup instructions in [src/locales/en.ts](https://github.com/helium/hotspot-app/blob/main/src/locales/en.ts)
-
-
+* Add a case for your Diagnostics Screen in Onboarding in [src/features/hotspots/setup/HotspotSetupDiagnosticsScreen.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/HotspotSetupDiagnosticsScreen.tsx)
+* Setup instructions, antenna gain, and Maker names in [src/locales/en.ts](https://github.com/helium/hotspot-app/blob/main/src/locales/en.ts)
+* Add Hotspot image in Bluetooth pairing list in [src/components/HotspotPairingList.tsx](https://github.com/helium/hotspot-app/blob/main/src/components/HotspotPairingList.tsx)
+* Add Support Email to diagnostic reports in [src/utils/stakingClient.ts](https://github.com/helium/hotspot-app/blob/main/src/utils/stakingClient.ts#L55)
+* Add Hotspot Antenna Type in Hotspot Settings in [src/components/HotspotConfigurationPicker.tsx](hotspot-app/src/components/HotspotConfigurationPicker.tsx)
+* Add a case for your Antenna type in Antenna Setup in [src/features/hotspots/setupAntennaSetupScreen.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/AntennaSetupScreen.tsx#L34)
 
 ### Bluetooth Pairing
 
