@@ -1,39 +1,97 @@
 ---
 id: validator-score
-title: Validator Scores and Penalties
+title: Validator Penalties and Impact on Rewards
 hide_title: true
-sidebar_label: Scores and Penalties
+sidebar_label: Penalties
 slug: /mine-hnt/validators/validator-score
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-# Validator Scores and Penalties
+# Validator Penalties and Impact on Rewards
 
-## Validator Scores
+Validators are a new entity on the Helium Blockchain that will perform the work of the consensus group including verifying transactions and adding new blocks to the blockchain.  As Validators will play an important role in the expansion, stability and success of the Helium network moving forward, it's critical that community run Validators meet the performance requirements of their role.
+
+The consensus group is made up of Validator nodes that are rewarded with $HNT for working together to verify transactions and producing blocks. 
+
+However, if a Validator node prevents the consensus group from performing its task, for example, uses insufficient computing resources or a weak network connection (equally strong upstream and downstream is needed), the Validator node will incur penalties that can affect the amount of rewards earned.
+
+:::info
+
+Be sure to first review the [Validator Technical Requirements](http://localhost:3000/mine-hnt/validators/requirements)
+
+:::
+
+First, we'll discuss the consensus group election process and the roles penalties play during these events.  Then we'll discuss how penalties are "earned" and "burned" to better understand the overall process.
+
+## The Election Process
+
+At the end of each consensus group, an election is performed.  During this election process, 25% of the Validators in the current concensus group are chosen to be ejected and replaced with non-elected Validators.
+
+Penalties play a role in both the ejection and election processes:
+
+**25% of the Validators in the consensus group are ejected:**
+* This is a probabilistic determination based on the current penalty scores of the Validators in the current concensus group.
+* Validators with _higher_ penalty score will have a _higher_ chance of being ejected
+* Validators with _lower_ penalty score will have a _lower_ chance of being ejected
 
 
-Upon joining the Network, validator nodes start with a base score `1.0`. The network uses the score to choose which validator nodes join consensus, and when they are removed from the consensus group.
+**The ejected 25% is replaced by available Validators:**  
+* This is also probabilistic, based on the current penalty scores of the Validators available to be included in the consensus group.
+* Validators with _higher_ penalty score will have a _lower_ chance of being elected
+* Validators with _lower_ penalty score will have a _higher_ chance of being elected
 
-After being elected to the consensus group, a validator node's score increases for each round it remains in the group. 
+It's important to understand that elections are still based on probability. Merely having a high penalty will not ensure a Validator is removed from a consensus group. By contrast, having a low penalty score does not ensure that a Validator will _remain_ in a consensus group. 
 
-After the validator node is unelected from the consensus group, its score will naturally revert towards 1.0.
+Upon joining the Network, Validator nodes start with a base penalty of `0.0`. 
 
-| Score | Join or remain in consensus group |
-| --- | :---: |
-| Lower | Higher chance |
-| Higher| Lower chance |
+## Penalty Types
 
-Use of score:
-* Limits the amount of time a validator node stays in the consensus group.
-* Prevents a validator node from rejoining the consensus group too quickly.
+Now that there's a high-level description of how penalties affect the election process, let's define how penalties are assessed:
 
-## Validator Penalites
+### Consensus Group Participation
 
-The consensus group is made up of validator nodes that are rewarded with $HNT for working together to verify transactions and producing blocks. 
+To ensure that consensus groups members are continually churned, and that no individual Validator participates for too long, penalties are added. This is not a performance based penalty and is added to _all_ Validators that participate in a consensus group.
 
-However, if a validator node prevents the consensus group from performing its task, for example, uses insufficient computing resources or a weak network connection (equally strong upstream and downstream is needed), the validator node will incur penalties that can affect the amount of rewards earned.
+A penalty of `1.0` is added at the end of each consensus group for each Validator that participated in that group.  If the Validator is not ejected from the concensus group, it will receive another `1.0` penalty at the end of the 2nd concensus group, now having a score of `2.0`.  
 
-Using the validator scoring mechanism, the network will penalize bad acting validator nodes by increasing their score. As noted above, validator nodes with higher scores will be ejected from the consensus group sooner, and will have a lower probability of joining the consensus group. Over time a validator’s score will revert back to its base score of 1.0.
+This penalty of `1.0` is added even if the Validator is ejected from the concensus group as it is a penalty added for participating in the ending consensus group.
 
-The negative impact of a higher score (early removal or not being selected) is weighted based on comparison with scores of other validator nodes in the consensus group.
+
+### Performance Based
+
+The details of the HoneyBadgerBFT protocol used is out of scope for this document, but this can be read more about [here](https://eprint.iacr.org/2016/199.pdf).  What's important is that there are a few different types of failures that will create performance penalties that can be applied to a Validator while in consensus:
+
+**Seen Penalties**
+* This penalty can occur if a majority of other Validators in the consensus group report your Validator as not being "seen"
+* This is equivalent to the Validator being offline, not available, or not responding to the group.
+* This is a penalty of `0.33` for each occurance
+* This is a chain variable, able to be viewed by `miner ledger variables election_seen_penalty`
+
+**BBA Penalties**
+* This penalty can occur when the Validator is seen but fails to contribute a bundle of transactions and metadata to the block.  
+* Acquiring this penalty usually means the Validator is slow/underpowered, or poorly connected.
+* this is a penalty of `0.1` for each occurance
+* This is a chain variable, able to be viewed by `miner ledger variables election_bba_penalty`
+
+**DKG Penalties**
+* This penalty can occur if an election fails, and the Validator was part of the reason for the election to fail.
+* At the end of the election, all Validators vote and sign the election result.  If the election fails, Validators that a majority agree did not sign the election results are penalized.
+* This is a penalty of `1.0` for each occurance
+* Thiis is a chain variable, able to be viewed by running `miner ledger variables dkg_penalty`
+
+
+## Penalty Decay
+
+Penalties must also decrease over time.  
+
+Each penalty, when assessed, also decays at the same rate.  This decay rate is a chain variable, able to be viewed by running `miner ledger variables penalty_history_limit`.  
+
+Every time a penalty is assessed, it begins to decay at `penalty * (1 - age/penalty_history_limit)`, where age is the # of blocks that have occurred since the penalty was put in place.  This means that as blocks are formed, each penalty decays over time, bringing a Validator back down to `0.0`.
+
+## Penalty Objectives
+
+Through these rules, the penalties help maintain the the goals of the Validator network:
+* Ensuring that poor performing Validators have a less favorable chance of being included in a consensus group
+* Ensuring that poor performing Validators have an increased chance of being ejected in an election
+* A more even distribution of rewards by increasing a Validator's chance for ejection as they participate in sequential consensus groups
