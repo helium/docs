@@ -26,12 +26,12 @@ First, we'll discuss the consensus group election process and the roles penaltie
 
 ## The Election Process
 
-At the end of each consensus group, an election is performed.  During this election process, 25% of the Validators in the current concensus group are chosen to be ejected and replaced with non-elected Validators.
+At the end of each consensus group, an election is performed.  During this election process, 25% of the Validators in the current consensus group are chosen to be ejected and replaced with non-elected Validators.
 
 Penalties play a role in both the ejection and election processes:
 
 **25% of the Validators in the consensus group are ejected:**
-* This is a probabilistic determination based on the current penalty scores of the Validators in the current concensus group.
+* This is a probabilistic determination based on the current penalty scores of the Validators in the current consensus group.
 * Validators with _higher_ penalty score will have a _higher_ chance of being ejected
 * Validators with _lower_ penalty score will have a _lower_ chance of being ejected
 
@@ -53,9 +53,9 @@ Now that there's a high-level description of how penalties affect the election p
 
 To ensure that consensus groups members are continually churned, and that no individual Validator participates for too long, penalties are added. This is not a performance based penalty and is added to _all_ Validators that participate in a consensus group.
 
-A penalty of `1.0` is added at the end of each consensus group for each Validator that participated in that group.  If the Validator is not ejected from the concensus group, it will receive another `1.0` penalty at the end of the 2nd concensus group, now having a score of `2.0`.  
+A penalty of `1.0` is added at the end of each consensus group for each Validator that participated in that group.  If the Validator is not ejected from the consensus group, it will receive another `1.0` penalty at the end of the 2nd consensus group, now having a score of `2.0`.  
 
-This penalty of `1.0` is added even if the Validator is ejected from the concensus group as it is a penalty added for participating in the ending consensus group.
+This penalty of `1.0` is added even if the Validator is ejected from the consensus group as it is a penalty added for participating in the ending consensus group.
 
 
 ### Performance Based
@@ -65,19 +65,19 @@ The details of the HoneyBadgerBFT protocol used is out of scope for this documen
 **Seen Penalties**
 * This penalty can occur if a majority of other Validators in the consensus group report your Validator as not being "seen"
 * This is equivalent to the Validator being offline, not available, or not responding to the group.
-* This is a penalty of `0.33` for each occurance
+* This is a penalty of `0.33` for each occurrence
 * This is a chain variable, able to be viewed by `miner ledger variables election_seen_penalty`
 
 **BBA Penalties**
 * This penalty can occur when the Validator is seen but fails to contribute a bundle of transactions and metadata to the block.  
 * Acquiring this penalty usually means the Validator is slow/underpowered, or poorly connected.
-* this is a penalty of `0.1` for each occurance
+* this is a penalty of `0.1` for each occurrence
 * This is a chain variable, able to be viewed by `miner ledger variables election_bba_penalty`
 
 **DKG Penalties**
 * This penalty can occur if an election fails, and the Validator was part of the reason for the election to fail.
 * At the end of the election, all Validators vote and sign the election result.  If the election fails, Validators that a majority agree did not sign the election results are penalized.
-* This is a penalty of `1.0` for each occurance
+* This is a penalty of `1.0` for each occurrence
 * Thiis is a chain variable, able to be viewed by running `miner ledger variables dkg_penalty`
 
 
