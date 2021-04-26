@@ -14,7 +14,7 @@ Validators are a new entity on the Helium Blockchain that will perform the work 
 
 The consensus group is made up of Validator nodes that are rewarded with $HNT for working together to verify transactions and producing blocks. 
 
-However, if a Validator node prevents the consensus group from performing its task, for example, uses insufficient computing resources or a weak network connection (equally strong upstream and downstream is needed), the Validator node will incur penalties that can affect the amount of rewards earned.
+However, if a Validator node prevents the consensus group from performing its task, for example if it provides insuffient computing resources or has a weak network connection (equally strong upstream and downstream is needed), the Validator node will incur penalties that can affect the amount of rewards earned.
 
 :::info
 
@@ -80,13 +80,14 @@ The details of the HoneyBadgerBFT protocol used is out of scope for this documen
 
 **Seen Penalties**
 * This penalty can occur if a majority of other Validators in the consensus group report your Validator as not being "seen"
-* This is equivalent to the Validator being offline, not available, or not responding to the group.
+* This is equivalent to the Validator being offline, not available, or not communicating with the group.
 * This penalty is applied for each occurrence, which can happen multiple times during a consensus group.
 * The amount applied per occurrence is a chain variable, currently set at `0.33`. The variable is viewable by running `miner ledger variables election_seen_penalty`.
 
 **BBA (Byzantine Binary Agreement) Penalties**
 * This penalty can occur when the Validator is seen but fails to contribute a bundle of transactions and metadata to the block.  
 * Acquiring this penalty usually means the Validator is slow/underpowered, or poorly connected.
+* This may also occur if the time on your Validator is skewed vs the group time.  [Run `ntp`](https://en.wikipedia.org/wiki/Network_Time_Protocol)!
 * This penalty is applied for each occurrence, which can happen multiple times during a consensus group.
 * The amount applied per occurrence is a chain variable, currently set at `0.1`. The variable is viewable by running `miner ledger variables election_bba_penalty`.
 * Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_fault) and their affect on [Consensus](https://en.wikipedia.org/wiki/Consensus_(computer_science))
