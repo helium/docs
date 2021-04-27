@@ -16,7 +16,7 @@ The consensus group is made up of Validator nodes that are rewarded with $HNT fo
 
 However, if a Validator node prevents the consensus group from performing its task, for example if it provides insuffient computing resources or has a weak network connection (equally strong upstream and downstream is needed), the Validator node will incur penalties that can affect the amount of rewards earned.
 
-:::info
+:::tip Before you continue
 
 Be sure to first review the [Validator Technical Requirements](/mine-hnt/validators/requirements)
 
@@ -47,7 +47,7 @@ It's important to understand that elections are still based on probability. Mere
 
 HNT rewards are earned by Validators when they participate in Consensus Groups. 
 
-Therefore, Validators with higher penalties than their peers will be chosen less _and_ will participate in consensus for shorter time periods.  Penalties directly affect your rewards.
+Therefore, Validators with higher penalties than their peers will be chosen less _and_ will participate in consensus for shorter time periods.  **Penalties directly affect your rewards.**
 
 :::
 
@@ -71,8 +71,12 @@ This penalty of `1.0` is added even if the Validator is ejected from the consens
 * At the end of the election, all Validators vote and sign the election result.  If the election fails, Validators that a majority agree did not sign the election results are penalized.
 * This penalty is applied once per consensus.
 * The amount applied is a chain variable, currently set at `1.0`. The variable is viewable by running `miner ledger variables dkg_penalty`.
-* Learn more about [Distributed Key Generation](https://en.wikipedia.org/wiki/Distributed_key_generation)
 
+:::info
+
+Learn more about [Distributed Key Generation](https://en.wikipedia.org/wiki/Distributed_key_generation)
+
+:::
 
 ### Performance Penalty
 
@@ -90,8 +94,12 @@ The details of the HoneyBadgerBFT protocol used is out of scope for this documen
 * This may also occur if the time on your Validator is skewed vs the group time.  [Run `ntp`](https://en.wikipedia.org/wiki/Network_Time_Protocol)!
 * This penalty is applied for each occurrence, which can happen multiple times during a consensus group.
 * The amount applied per occurrence is a chain variable, currently set at `0.1`. The variable is viewable by running `miner ledger variables election_bba_penalty`.
-* Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_fault) and their affect on [Consensus](https://en.wikipedia.org/wiki/Consensus_(computer_science))
 
+:::info
+
+Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_fault) and their affect on [Consensus](https://en.wikipedia.org/wiki/Consensus_(computer_science))
+
+:::
 
 ## Penalty Decay
 
@@ -114,7 +122,7 @@ There are a several tools available to you to view the current penalties of your
 
 **Viewing the Ledger**
 
-Metadata about validators, as well as current penalty data is available in the ledger. View the ledger by running the following command:
+Metadata about validators, as well as current penalty data, is available in the ledger. View the ledger by running the following command:
 
 ```
 miner ledger validators
