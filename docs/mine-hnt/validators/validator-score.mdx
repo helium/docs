@@ -99,7 +99,7 @@ Penalties decay over time.
 
 Each penalty, when assessed, also decays at the same rate.  This decay rate is a chain variable, able to be viewed by running `miner ledger variables penalty_history_limit`.  
 
-Every time a penalty is assessed, it begins to decay at `penalty * (1 - age/penalty_history_limit)`, where age is the # of blocks that have occurred since the penalty was put in place.  This means that as blocks are formed, each penalty decays over time, bringing a Validator back down to `0.0`.
+Every time a penalty is assessed, it begins to decay at `penalty * (1 - age/penalty_history_limit)`, where age is the number of blocks that have occurred since the penalty was put in place.  This means that as blocks are formed, each penalty decays over time, bringing a Validator back down to `0.0`.
 
 ## Penalty Objectives
 
