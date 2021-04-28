@@ -305,58 +305,38 @@ module.exports = {
       type: 'category',
       label: 'Development',
       items: [
-        'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1', 
-        'use-the-network/devices/development/sparkfun-pro-rf/sparkfun-pro-rf', 
-        'use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95', 
-        'use-the-network/devices/development/heltec-cubecell-htcc-ab01/heltec-cubecell-htcc-ab01', 
-        'use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2', 
-        'use-the-network/devices/development/rak-wisblock-starter/rak-wisblock-starter',
+        'use-the-network/devices/development/development'
+      ],
+      collapsed: false,
+    },
+  ],
+  adafruit: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Arduino',
+      items: [
+        'use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95'
+      ],
+      collapsed: false,
+    },
+  ],
+  arduino: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Arduino',
+      items: [
         'use-the-network/devices/development/arduino/mkr-wan-1310',
-        'use-the-network/devices/development/arduino/lora-vision-shield',
-        'use-the-network/devices/development/mcci/catena4430',
-        'use-the-network/devices/development/mcci/catena4450',
-        'use-the-network/devices/development/mcci/catena4460',
-        'use-the-network/devices/development/mcci/catena4470',
-        'use-the-network/devices/development/mcci/catena4610',
-        'use-the-network/devices/development/mcci/catena4612',
-        'use-the-network/devices/development/mcci/catena4618',
-        'use-the-network/devices/development/mcci/catena4618m201',
-        'use-the-network/devices/development/mcci/catena4801',
-        'use-the-network/devices/development/mcci/catena4802',
-        'use-the-network/devices/development/mcci/model4811',
-        'use-the-network/devices/development/mcci/model4821',
-        'use-the-network/devices/development/mcci/model4822',
-        'use-the-network/devices/development/mcci/model4823',
-        'use-the-network/devices/development/mcci/model4831',
-        'use-the-network/devices/development/mcci/model4832',
-        'use-the-network/devices/development/mcci/model4841',
-        'use-the-network/devices/development/multi-tech/multi-tech-xdot',
-        'use-the-network/devices/development/embit/emb-lr1280s',
-        'use-the-network/devices/development/embit/emb-lrwl55',
-        'use-the-network/devices/development/embit/emb-lr1280-mpci-4x',
-        'use-the-network/devices/development/embit/emb-lr1302-mpci',
-        'use-the-network/devices/development/rakwireless/wisblock-4631',
-        'use-the-network/devices/development/rakwireless/rak7431',
-        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc1',
-        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc2',
-        'use-the-network/devices/development/heltec/cubecell-gps-6502',
-        'use-the-network/devices/development/heltec/cubecell-dev-board',
-        'use-the-network/devices/development/heltec/cubecell-dev-board-plus',
-        'use-the-network/devices/development/heltec/cubecell-1-2-aa-node',
-        'use-the-network/devices/development/heltec/cubecell-capsule-sensor',
-        'use-the-network/devices/development/heltec/cubecell-solar-sensor',
-        'use-the-network/devices/development/heltec/cubecell-module',
-        'use-the-network/devices/development/heltec/cubecell-module-plus',
-        'use-the-network/devices/development/heltec/wifi-lora-32',
-        'use-the-network/devices/development/heltec/wireless-stick',
-        'use-the-network/devices/development/heltec/wireless-stick-lite',
-        'use-the-network/devices/development/heltec/wireless-shell',
-        'use-the-network/devices/development/heltec/lora-kit-151',
-        'use-the-network/devices/development/heltec/lora-node-151',
-        'use-the-network/devices/development/heltec/turtle-board',
-        'use-the-network/devices/development/midatronics/windy-module',
-        'use-the-network/devices/development/midatronics/windy-mkr',
-        'use-the-network/devices/development/midatronics/sharky-module' 
+        'use-the-network/devices/development/arduino/lora-vision-shield'
       ],
       collapsed: false,
     },
@@ -430,18 +410,18 @@ module.exports = {
    {
       type: 'link',
       label: '<- Adafruit Feather M0 RFM95',
-      href: '/use-the-network/devices/development/adafruit-feather-m0-rfm95'
+      href: '/use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/adafruit-feather-m0-rfm95/arduino'],
+      items: ['use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/arduino'],
       collapsed: false,
     },
     {
       type: 'category',
       label: 'Guides',
-      items: ['use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruitio'],
+      items: ['use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruitio'],
       collapsed: false,
     },
   ],
