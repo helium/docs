@@ -59,17 +59,17 @@ Now that there's a high-level description of how penalties affect the election p
 
 ### Tenure Penalty (Consensus Group Participation)
 
-To ensure that consensus groups members are continually churned, and that no individual Validator participates for too long, penalties are added. This is not a performance based penalty and is added to _all_ Validators that participate in a consensus group.
+To ensure that consensus groups members are continually churned, and that no individual Validator participates for too long, penalties are added. **This is not a performance based penalty and is added to _all_ Validators that participate in a consensus group.**
 
-A penalty of `1.0` is added at the end of each consensus group for each Validator that participated in that group.  If the Validator is not ejected from the consensus group, it will receive another `1.0` penalty at the end of the 2nd consensus group, now having a score of `2.0`.  
-
-This penalty of `1.0` is added even if the Validator is ejected from the consensus group as it is a penalty added for participating in the ending consensus group. This penalty is called the `tenure_penalty`.
+* A penalty of `1.0` is added at the end of each consensus group for each Validator that participated in that group.  If the Validator is not ejected from the consensus group, it will receive another `1.0` penalty at the end of the 2nd consensus group, now having a score of `2.0`.  
+* This penalty of `1.0` is added even if the Validator is ejected from the consensus group as it is a penalty added for participating in the ending consensus group. This penalty is called the `tenure_penalty`.
 
 
 ### DKG (Distributed Key Generation) Penalty
-* This penalty can occur if an election fails, and the Validator was part of the reason for the election to fail.
+A DKG penalty can occur if an election fails, and the Validator was part of the reason for the election to fail.  This can occur throughout the dkg process or signature phase.
 * At the end of the election, all Validators vote and sign the election result.  If the election fails, Validators that a majority agree did not sign the election results are penalized.
-* This penalty is applied once per consensus.
+* This penalty can be assessed for Validators in the current consensus group _or_ Validators attempting to be elected into the consensus group.  
+* This penalty can be applied once per consensus group per Validator.
 * The amount applied is a chain variable, currently set at `1.0`. The variable is viewable by running `miner ledger variables dkg_penalty`.
 
 :::info
@@ -105,9 +105,9 @@ Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_
 
 Penalties decay over time.  
 
-Each penalty, when assessed, also decays at the same rate.  This decay rate is a chain variable, able to be viewed by running `miner ledger variables penalty_history_limit`.  
+Each penalty, when assessed, also decays at the same rate.  This decay rate is in blocks, and is stored as a chain variable. View the current decay block limit by running `miner ledger variables penalty_history_limit`.  
 
-Every time a penalty is assessed, it begins to decay at `penalty * (1 - age/penalty_history_limit)`, where age is the number of blocks that have occurred since the penalty was put in place.  This means that as blocks are formed, each penalty decays over time, bringing a Validator back down to `0.0`.
+Every time a penalty is assessed, it begins to decay at `penalty * (1 - age/penalty_history_limit)`, where age is the number of blocks that have occurred since the penalty was put in place.  This means that as blocks are formed, each penalty decays over time bringing a Validator back down to `0.0`.
 
 ## Penalty Objectives
 
