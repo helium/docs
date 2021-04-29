@@ -368,14 +368,14 @@ module.exports = {
       label: 'Heltec',
       items: [
         'use-the-network/devices/development/heltec/cubecell-gps-6502',
-        'use-the-network/devices/development/heltec/cubecell-dev-board',
+        'use-the-network/devices/development/heltec/cubecell-dev-board/cubecell-dev-board',
         'use-the-network/devices/development/heltec/cubecell-dev-board-plus',
         'use-the-network/devices/development/heltec/cubecell-1-2-aa-node',
         'use-the-network/devices/development/heltec/cubecell-capsule-sensor',
         'use-the-network/devices/development/heltec/cubecell-solar-sensor',
         'use-the-network/devices/development/heltec/cubecell-module',
         'use-the-network/devices/development/heltec/cubecell-module-plus',
-        'use-the-network/devices/development/heltec/wifi-lora-32',
+        'use-the-network/devices/development/heltec/wifi-lora-32-v2/wifi-lora-32-v2',
         'use-the-network/devices/development/heltec/wireless-stick',
         'use-the-network/devices/development/heltec/wireless-stick-lite',
         'use-the-network/devices/development/heltec/wireless-shell',
@@ -473,13 +473,13 @@ module.exports = {
   helteccubecelhtccab01: [
    {
       type: 'link',
-      label: '<- Heltec Cubecell HTCC AB01',
-      href: '/use-the-network/devices/development/heltec-cubecell-htcc-ab01'
+      label: '<- HTCC-AB01',
+      href: '/use-the-network/devices/development/heltec/cubecell-dev-board'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/heltec-cubecell-htcc-ab01/arduino', 'use-the-network/devices/development/heltec-cubecell-htcc-ab01/platformio'],
+      items: ['use-the-network/devices/development/heltec/cubecell-dev-board/arduino', 'use-the-network/devices/development/heltec/cubecell-dev-board/platformio'],
       collapsed: false,
     },
   ],
@@ -499,13 +499,13 @@ module.exports = {
   heltecwifilora32v2: [
    {
       type: 'link',
-      label: '<- Heltec WiFi LoRa 32 V2',
-      href: '/use-the-network/devices/development/heltec-wifi-lora-32-v2'
+      label: '<- WiFi LoRa 32 V2',
+      href: '/use-the-network/devices/development/heltec/wifi-lora-32-v2'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/heltec-wifi-lora-32-v2/arduino'],
+      items: ['use-the-network/devices/development/heltec/wifi-lora-32-v2/arduino'],
       collapsed: false,
     },
   ]
