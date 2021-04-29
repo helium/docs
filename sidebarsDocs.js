@@ -341,6 +341,51 @@ module.exports = {
       collapsed: false,
     },
   ],
+  embit: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Embit',
+      items: [
+        'use-the-network/devices/development/embit/emb-lr1280s',
+        'use-the-network/devices/development/embit/emb-lrwl55'
+      ],
+      collapsed: false,
+    },
+  ],
+  heltec: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Heltec',
+      items: [
+        'use-the-network/devices/development/heltec/cubecell-gps-6502',
+        'use-the-network/devices/development/heltec/cubecell-dev-board',
+        'use-the-network/devices/development/heltec/cubecell-dev-board-plus',
+        'use-the-network/devices/development/heltec/cubecell-1-2-aa-node',
+        'use-the-network/devices/development/heltec/cubecell-capsule-sensor',
+        'use-the-network/devices/development/heltec/cubecell-solar-sensor',
+        'use-the-network/devices/development/heltec/cubecell-module',
+        'use-the-network/devices/development/heltec/cubecell-module-plus',
+        'use-the-network/devices/development/heltec/wifi-lora-32',
+        'use-the-network/devices/development/heltec/wireless-stick',
+        'use-the-network/devices/development/heltec/wireless-stick-lite',
+        'use-the-network/devices/development/heltec/wireless-shell',
+        'use-the-network/devices/development/heltec/lora-kit-151',
+        'use-the-network/devices/development/heltec/lora-node-151',
+        'use-the-network/devices/development/heltec/turtle-board' 
+      ],
+      collapsed: false,
+    },
+  ],
   hotspotMakers: [
    {
       type: 'link',
