@@ -386,6 +386,117 @@ module.exports = {
       collapsed: false,
     },
   ],
+  mcci: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'MCCI',
+      items: [
+        'use-the-network/devices/development/mcci/catena4430',
+        'use-the-network/devices/development/mcci/catena4450',
+        'use-the-network/devices/development/mcci/catena4460',
+        'use-the-network/devices/development/mcci/catena4470',
+        'use-the-network/devices/development/mcci/catena4610',
+        'use-the-network/devices/development/mcci/catena4612',
+        'use-the-network/devices/development/mcci/catena4618',
+        'use-the-network/devices/development/mcci/catena4618m201',
+        'use-the-network/devices/development/mcci/catena4801',
+        'use-the-network/devices/development/mcci/catena4802',
+        'use-the-network/devices/development/mcci/model4811',
+        'use-the-network/devices/development/mcci/model4821',
+        'use-the-network/devices/development/mcci/model4822',
+        'use-the-network/devices/development/mcci/model4823',
+        'use-the-network/devices/development/mcci/model4831',
+        'use-the-network/devices/development/mcci/model4832',
+        'use-the-network/devices/development/mcci/model4841'
+      ],
+      collapsed: false,
+    },
+  ],
+  midatronics: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Midatronics',
+      items: [
+        'use-the-network/devices/development/midatronics/windy-module',
+        'use-the-network/devices/development/midatronics/windy-mkr',
+        'use-the-network/devices/development/midatronics/sharky-module'
+      ],
+      collapsed: false,
+    },
+  ],
+  multitech: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Multi-Tech',
+      items: [
+        'use-the-network/devices/development/multi-tech/multi-tech-xdot'
+      ],
+      collapsed: false,
+    },
+  ],
+  rakwireless: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'RAK Wireless',
+      items: [
+        'use-the-network/devices/development/rakwireless/wisblock-4631/wisblock-4631',
+        'use-the-network/devices/development/rakwireless/rak7431'
+      ],
+      collapsed: false,
+    },
+  ],
+  sparkfun: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Sparkfun',
+      items: [
+        'use-the-network/devices/development/sparkfun/pro-rf/pro-rf',
+      ],
+      collapsed: false,
+    },
+  ],
+  stmicroelectronics: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'STMicroelectronics',
+      items: [
+        'use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/st-b-l072z-lrwan1',
+        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc1',
+        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc2'
+      ],
+      collapsed: false,
+    },
+  ],
   hotspotMakers: [
    {
       type: 'link',
@@ -429,12 +540,12 @@ module.exports = {
    {
       type: 'link',
       label: '<- ST B-L072Z-LRWAN1',
-      href: '/use-the-network/devices/development/st-b-l072z-lrwan1'
+      href: '/use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/st-b-l072z-lrwan1/arduino','use-the-network/devices/development/st-b-l072z-lrwan1/platformio'],
+      items: ['use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/arduino','use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/platformio'],
       collapsed: false,
     },
   ],
@@ -442,12 +553,12 @@ module.exports = {
    {
       type: 'link',
       label: '<- Sparkfun Pro RF',
-      href: '/use-the-network/devices/development/sparkfun-pro-rf'
+      href: '/use-the-network/devices/development/sparkfun/pro-rf'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/sparkfun-pro-rf/arduino'],
+      items: ['use-the-network/devices/development/sparkfun/pro-rf/arduino'],
       collapsed: false,
     },
   ],
@@ -483,16 +594,16 @@ module.exports = {
       collapsed: false,
     },
   ],
-  rakwisblockstarter: [
+  rakwisblock4631: [
     {
        type: 'link',
        label: '<- RAK-Wireless WisBlock Starter Kit',
-       href: '/use-the-network/devices/development/rak-wisblock-starter'
+       href: '/use-the-network/devices/development/rakwireless/wisblock-4631'
      },
      {
        type: 'category',
        label: 'Firmware',
-       items: ['use-the-network/devices/development/rak-wisblock-starter/arduino', 'use-the-network/devices/development/rak-wisblock-starter/platformio'],
+       items: ['use-the-network/devices/development/rakwireless/wisblock-4631/arduino', 'use-the-network/devices/development/rakwireless/wisblock-4631/platformio'],
        collapsed: false,
      },
    ],
