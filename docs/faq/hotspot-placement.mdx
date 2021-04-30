@@ -1,0 +1,25 @@
+---
+id: hotspot-placement
+hide_title: true
+title: Hotspot Placement FAQ
+sidebar_label: Hotspot Placement
+slug: /faq/hotspot-placement
+---
+
+# FAQ - Hotspot Placement
+
+If there aren’t other Hotspots within range, or they can’t witness your Beacons due to environmental factors, your Hotspot can still earn tokens.  
+Just being online means that your hotspot will automatically construct 1 challenge every 240 blocks. The biggest thing to note is that it’s based 
+on the block height, rather than the time in seconds, minutes, or hours. A variety of factors can influence how much time it takes to complete the 
+240 blocks, which can extend the timing of the next challenge.  So when looking at how long it’s been since the last challenge, it should be thought 
+of like “how many blocks have passed since the last challenge”. 
+ 
+A new Consensus Group election is attempted every 30 blocks as well (which we call the Epoch). Upon election, the tokens get distributed when the elected Consensus Group confirms the transactions.   The thing is, even if no election has occurred, the rewards would get accumulated and would be distributed when the next election does happen.  
+So for example: 
+- Constructing a Challenge earns you X HNT. This means you earn X HNT every 240 blocks. 
+- If an election happens every 30 blocks, you would get X tokens added to your balance each time your Constructed Challenge is validated within those 30 blocks. 
+- If the election doesn't happen and you have constructed your Challenge, after the 240 blocks you would still be able to construct a new Challenge, but the payout would be pending. 
+- The network would try to elect again at 60 blocks.  If a new Consensus still can't be elected, it tries again at 90 blocks, then at 120, etc. Once the election is successful, you would be rewarded for all Constructed Challenges that have been validated during that time.
+
+If a Constructed Challenge is not validated, a new challenge will be constructed as well.  This can happen for a few different reasons, but are generally because the Hotspot yours is Challenging is offline so it can’t receive the Challenge, or because the request times out before the Consensus Group can validate it.
+

@@ -43,6 +43,12 @@ module.exports = {
       items: ['open-source/open-source'],
       collapsed: true,
     },
+    {
+      type: 'category',
+      label: 'FAQ',
+      items: ['faq/helium-network', 'faq/security', 'faq/hotspot-resellers', 'faq/hotspot-placement', 'faq/build-on-network', 'faq/data-credits', 'faq/longfi'],
+      collapsed: true,
+    },
   ],
   api: [
     'api/home',
