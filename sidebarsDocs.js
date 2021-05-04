@@ -76,7 +76,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Integrations',
-      items: ['use-the-network/console/integrations/json-schema', 'use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo', 'use-the-network/console/integrations/mydevices-cayenne', 'use-the-network/console/integrations/adafruitio', 'use-the-network/console/integrations/ubidots', 'use-the-network/console/integrations/tago'],
+      items: ['use-the-network/console/integrations/json-schema', 'use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo', 'use-the-network/console/integrations/datacake', 'use-the-network/console/integrations/mydevices-cayenne', 'use-the-network/console/integrations/adafruitio', 'use-the-network/console/integrations/ubidots', 'use-the-network/console/integrations/tago'],
       collapsed: false,
     },
   ],
@@ -305,14 +305,97 @@ module.exports = {
       type: 'category',
       label: 'Development',
       items: [
-        'use-the-network/devices/development/st-b-l072z-lrwan1/st-b-l072z-lrwan1', 
-        'use-the-network/devices/development/sparkfun-pro-rf/sparkfun-pro-rf', 
-        'use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95', 
-        'use-the-network/devices/development/heltec-cubecell-htcc-ab01/heltec-cubecell-htcc-ab01', 
-        'use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2', 
-        'use-the-network/devices/development/rak-wisblock-starter/rak-wisblock-starter',
+        'use-the-network/devices/development/development'
+      ],
+      collapsed: false,
+    },
+  ],
+  adafruit: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Arduino',
+      items: [
+        'use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95'
+      ],
+      collapsed: false,
+    },
+  ],
+  arduino: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Arduino',
+      items: [
         'use-the-network/devices/development/arduino/mkr-wan-1310',
-        'use-the-network/devices/development/arduino/lora-vision-shield',
+        'use-the-network/devices/development/arduino/lora-vision-shield'
+      ],
+      collapsed: false,
+    },
+  ],
+  embit: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Embit',
+      items: [
+        'use-the-network/devices/development/embit/emb-lr1280s',
+        'use-the-network/devices/development/embit/emb-lrwl55'
+      ],
+      collapsed: false,
+    },
+  ],
+  heltec: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Heltec',
+      items: [
+        'use-the-network/devices/development/heltec/cubecell-gps-6502',
+        'use-the-network/devices/development/heltec/cubecell-dev-board/cubecell-dev-board',
+        'use-the-network/devices/development/heltec/cubecell-dev-board-plus',
+        'use-the-network/devices/development/heltec/cubecell-1-2-aa-node',
+        'use-the-network/devices/development/heltec/cubecell-capsule-sensor',
+        'use-the-network/devices/development/heltec/cubecell-solar-sensor',
+        'use-the-network/devices/development/heltec/cubecell-module',
+        'use-the-network/devices/development/heltec/cubecell-module-plus',
+        'use-the-network/devices/development/heltec/wifi-lora-32-v2/wifi-lora-32-v2',
+        'use-the-network/devices/development/heltec/wireless-stick',
+        'use-the-network/devices/development/heltec/wireless-stick-lite',
+        'use-the-network/devices/development/heltec/wireless-shell',
+        'use-the-network/devices/development/heltec/lora-kit-151',
+        'use-the-network/devices/development/heltec/lora-node-151',
+        'use-the-network/devices/development/heltec/turtle-board' 
+      ],
+      collapsed: false,
+    },
+  ],
+  mcci: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'MCCI',
+      items: [
         'use-the-network/devices/development/mcci/catena4430',
         'use-the-network/devices/development/mcci/catena4450',
         'use-the-network/devices/development/mcci/catena4460',
@@ -329,34 +412,87 @@ module.exports = {
         'use-the-network/devices/development/mcci/model4823',
         'use-the-network/devices/development/mcci/model4831',
         'use-the-network/devices/development/mcci/model4832',
-        'use-the-network/devices/development/mcci/model4841',
-        'use-the-network/devices/development/multi-tech/multi-tech-xdot',
-        'use-the-network/devices/development/embit/emb-lr1280s',
-        'use-the-network/devices/development/embit/emb-lrwl55',
-        'use-the-network/devices/development/embit/emb-lr1280-mpci-4x',
-        'use-the-network/devices/development/embit/emb-lr1302-mpci',
-        'use-the-network/devices/development/rakwireless/wisblock-4631',
-        'use-the-network/devices/development/rakwireless/rak7431',
-        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc1',
-        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc2',
-        'use-the-network/devices/development/heltec/cubecell-gps-6502',
-        'use-the-network/devices/development/heltec/cubecell-dev-board',
-        'use-the-network/devices/development/heltec/cubecell-dev-board-plus',
-        'use-the-network/devices/development/heltec/cubecell-1-2-aa-node',
-        'use-the-network/devices/development/heltec/cubecell-capsule-sensor',
-        'use-the-network/devices/development/heltec/cubecell-solar-sensor',
-        'use-the-network/devices/development/heltec/cubecell-module',
-        'use-the-network/devices/development/heltec/cubecell-module-plus',
-        'use-the-network/devices/development/heltec/wifi-lora-32',
-        'use-the-network/devices/development/heltec/wireless-stick',
-        'use-the-network/devices/development/heltec/wireless-stick-lite',
-        'use-the-network/devices/development/heltec/wireless-shell',
-        'use-the-network/devices/development/heltec/lora-kit-151',
-        'use-the-network/devices/development/heltec/lora-node-151',
-        'use-the-network/devices/development/heltec/turtle-board',
+        'use-the-network/devices/development/mcci/model4841'
+      ],
+      collapsed: false,
+    },
+  ],
+  midatronics: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Midatronics',
+      items: [
         'use-the-network/devices/development/midatronics/windy-module',
         'use-the-network/devices/development/midatronics/windy-mkr',
-        'use-the-network/devices/development/midatronics/sharky-module' 
+        'use-the-network/devices/development/midatronics/sharky-module'
+      ],
+      collapsed: false,
+    },
+  ],
+  multitech: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Multi-Tech',
+      items: [
+        'use-the-network/devices/development/multi-tech/multi-tech-xdot'
+      ],
+      collapsed: false,
+    },
+  ],
+  rakwireless: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'RAK Wireless',
+      items: [
+        'use-the-network/devices/development/rakwireless/wisblock-4631/wisblock-4631',
+        'use-the-network/devices/development/rakwireless/rak7431'
+      ],
+      collapsed: false,
+    },
+  ],
+  sparkfun: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Sparkfun',
+      items: [
+        'use-the-network/devices/development/sparkfun/pro-rf/pro-rf',
+      ],
+      collapsed: false,
+    },
+  ],
+  stmicroelectronics: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'STMicroelectronics',
+      items: [
+        'use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/st-b-l072z-lrwan1',
+        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc1',
+        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc2'
       ],
       collapsed: false,
     },
@@ -404,12 +540,12 @@ module.exports = {
    {
       type: 'link',
       label: '<- ST B-L072Z-LRWAN1',
-      href: '/use-the-network/devices/development/st-b-l072z-lrwan1'
+      href: '/use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/st-b-l072z-lrwan1/arduino','use-the-network/devices/development/st-b-l072z-lrwan1/platformio'],
+      items: ['use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/arduino','use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/platformio'],
       collapsed: false,
     },
   ],
@@ -417,12 +553,12 @@ module.exports = {
    {
       type: 'link',
       label: '<- Sparkfun Pro RF',
-      href: '/use-the-network/devices/development/sparkfun-pro-rf'
+      href: '/use-the-network/devices/development/sparkfun/pro-rf'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/sparkfun-pro-rf/arduino'],
+      items: ['use-the-network/devices/development/sparkfun/pro-rf/arduino'],
       collapsed: false,
     },
   ],
@@ -430,57 +566,57 @@ module.exports = {
    {
       type: 'link',
       label: '<- Adafruit Feather M0 RFM95',
-      href: '/use-the-network/devices/development/adafruit-feather-m0-rfm95'
+      href: '/use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/adafruit-feather-m0-rfm95/arduino'],
+      items: ['use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/arduino'],
       collapsed: false,
     },
     {
       type: 'category',
       label: 'Guides',
-      items: ['use-the-network/devices/development/adafruit-feather-m0-rfm95/adafruitio'],
+      items: ['use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruitio'],
       collapsed: false,
     },
   ],
   helteccubecelhtccab01: [
    {
       type: 'link',
-      label: '<- Heltec Cubecell HTCC AB01',
-      href: '/use-the-network/devices/development/heltec-cubecell-htcc-ab01'
+      label: '<- HTCC-AB01',
+      href: '/use-the-network/devices/development/heltec/cubecell-dev-board'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/heltec-cubecell-htcc-ab01/arduino', 'use-the-network/devices/development/heltec-cubecell-htcc-ab01/platformio'],
+      items: ['use-the-network/devices/development/heltec/cubecell-dev-board/arduino', 'use-the-network/devices/development/heltec/cubecell-dev-board/platformio'],
       collapsed: false,
     },
   ],
-  rakwisblockstarter: [
+  rakwisblock4631: [
     {
        type: 'link',
        label: '<- RAK-Wireless WisBlock Starter Kit',
-       href: '/use-the-network/devices/development/rak-wisblock-starter'
+       href: '/use-the-network/devices/development/rakwireless/wisblock-4631'
      },
      {
        type: 'category',
        label: 'Firmware',
-       items: ['use-the-network/devices/development/rak-wisblock-starter/arduino', 'use-the-network/devices/development/rak-wisblock-starter/platformio'],
+       items: ['use-the-network/devices/development/rakwireless/wisblock-4631/arduino', 'use-the-network/devices/development/rakwireless/wisblock-4631/platformio'],
        collapsed: false,
      },
    ],
   heltecwifilora32v2: [
    {
       type: 'link',
-      label: '<- Heltec WiFi LoRa 32 V2',
-      href: '/use-the-network/devices/development/heltec-wifi-lora-32-v2'
+      label: '<- WiFi LoRa 32 V2',
+      href: '/use-the-network/devices/development/heltec/wifi-lora-32-v2'
     },
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/heltec-wifi-lora-32-v2/arduino'],
+      items: ['use-the-network/devices/development/heltec/wifi-lora-32-v2/arduino'],
       collapsed: false,
     },
   ]
