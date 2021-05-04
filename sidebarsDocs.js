@@ -46,7 +46,7 @@ module.exports = {
     {
       type: 'category',
       label: 'FAQ',
-      items: ['faq/helium-network', 'faq/security', 'faq/hotspot-resellers', 'faq/build-on-network', 'faq/data-credits'],
+      items: ['faq/helium-network', 'faq/security', 'faq/hotspot-manufacturers', 'faq/build-on-network', 'faq/data-credits'],
       collapsed: true,
     },
   ],
