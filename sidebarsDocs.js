@@ -155,6 +155,21 @@ module.exports = {
       collapsed: false,
     },
   ],
+  devquickstart: [
+   {
+      type: 'link',
+      label: '<- Devices',
+      href: '/use-the-network/devices'
+    },
+    {
+      type: 'category',
+      label: 'Development Quickstart',
+      items: [
+        'use-the-network/devices/development/quickstart-guides'
+      ],
+      collapsed: false,
+    },
+  ],
   adafruit: [
    {
       type: 'link',
