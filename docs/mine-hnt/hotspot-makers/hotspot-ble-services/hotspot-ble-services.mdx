@@ -11,8 +11,16 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 The Helium Hotspot provides a Bluetooth Low Energy\(BLE\) interface for users to
 configure several aspects of the device. The BLE services and advertisement data
-are provided below. You must first press the black button on left side of the
-Hotspot to activate the BLE advertising before attempting to connect.
+are provided below.
+
+It is generally recommended that the user first press a button on the Hotspot to
+activate the BLE advertising. Alternatively, enabling BLE for ~5 minutes after
+power up is acceptable. Maintaining BLE generally available is not
+recommended.to
+
+Hotspot Makers make develop their own BLE service which complies with the
+specification herein. In addition, they may leverage Helium's open-source
+example: [`gateway-config`](https://github.com/helium/gateway-config)
 
 :::info
 
