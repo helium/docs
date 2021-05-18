@@ -833,7 +833,7 @@ module.exports = {
       collapsed: false,
     },
   ],
-  seeedstudio: [
+  seeedstudiortu: [
    {
       type: 'link',
       label: '<- Back',
@@ -848,7 +848,25 @@ module.exports = {
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-light',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-co2',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-pressure',
-        'use-the-network/devices/ready-to-use/seeed-studio/loramodule-e5',
+      ],
+
+      collapsed: false,
+    },
+  ],
+  seeedstudiodev: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Seeed Studio',
+      items: [
+        'use-the-network/devices/development/seeed-studio/loramodule-e5',
+        'use-the-network/devices/development/seeed-studio/loramodule-e5-devkit',
+        'use-the-network/devices/development/seeed-studio/loramodule-e5-mini',
+        'use-the-network/devices/development/seeed-studio/loramodule-e5-grove'
       ],
 
       collapsed: false,
