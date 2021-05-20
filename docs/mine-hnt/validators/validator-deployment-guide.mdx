@@ -172,6 +172,7 @@ You can then use the `run` command to start your container for the first time:
 
 ```
 docker run -d --init \
+--ulimit nofile=64000:64000 \
 --restart always \
 --publish 2154:2154/tcp \
 --name validator \
@@ -180,6 +181,8 @@ quay.io/team-helium/validator:latest-val-amd64
 ```
 
 - `-d` option runs in detached mode, which makes the command return or not; you may want to omit if you have a daemon manager running the docker for you.
+- `--init` to indicate that an init process should be used as the PID 1 in the container.  This ensures the usual responsibilities of an init system, such as reaping zombie processes, are performed inside the created container.  When `docker exec` commands are run, it's possible for these to create zombie processes on the host.  This eliminates that issue. You can read more about this [here](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/) and [here](https://docs.docker.com/engine/reference/commandline/run/).
+- `ulimit nofile=64000:64000` allows the container to have up to 64k file handlers, which is important when accessing the blockchain database (rocksdb)
 - `--init` to indicate that an init process should be used as the PID 1 in the container.  This ensures the usual responsibilities of an init system, such as reaping zombie processes, are performed inside the created container.  When `docker exec` commands are run, it's possible for these to create zombie processes on the host.  This eliminates that issue. You can read more about this [here](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/) and [here](https://docs.docker.com/engine/reference/commandline/run/).
 - `--restart always` asks Docker to keep the image running, starting the image on boot and restarting the image if it crashes. Depending on how you installed Docker in your system, it'll start on boot. In the AWS AMI above, we use systemd (systemctl status docker to check).
 - `--publish 2154:2154/tcp` maps the port 2154 on the docker container to 2154 on the host machine. This allows inbound connections on port 2154 to the host machine to be routed to the validator container. In addition to this mapping, it is up to you to ensure that this port is available from the public internet to the host machine. This will require modifying firewall and/or security group settings in your cloud provider of choice.
