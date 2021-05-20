@@ -44,7 +44,13 @@ variable" (aka `chainvar`) which signals to the Miners that the new behavior is
 to take affect. Only when this chain variable is activated do stale Miners stop
 working.
 
-It is highly recommended that Makers automate the process by checking the Quay repository for `_GA` tags every half hour, and plan on deploying at least once a day in case there are emergency releases.
+:::info
+
+It is highly recommended that Makers automate the process by checking the Quay
+repository for `_GA` tags every half hour, and plan on deploying at least once a
+day in case there are emergency releases.
+
+:::
 
 ## Initial Testing of the Docker on Your Host System
 
@@ -144,4 +150,5 @@ typically at: /etc/dbus-1/system.d/com.helium.Miner.conf`
 
 ## Setting the ulimit
 
-Set the ulimit to a minimum of `64000` for optimal miner performance.
+Ensure the ulimit is set to a minimum of `64000` for optimal miner performance. This is done with the Docker run argument
+`--ulimit nofile=64000:64000`.
