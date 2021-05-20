@@ -14,11 +14,11 @@ This guide is intended for companies that have been approved via HIP19, or are c
 
 ## Hotspot App Compatibility
 
-For optimal user experience, we recommend Hotspots be equipped with compatible Bluetooth and Wi-Fi functionality. This allows a seamless onboarding experience. 
+For optimal user experience, we recommend Hotspots be equipped with compatible Bluetooth and Wi-Fi functionality. This allows a seamless onboarding experience. This integration guide will walk through both Bluetooth onboarding and QR code onboarding (to support Hotspots without Bluetooth radios)
 
 To add your Hotspot to the Hotspot App, [submit an issue and a pull request to the Hotspot Github Repo](https://github.com/helium/hotspot-app/). 
 
-In this codebase, you’ll want to modify the onboarding flow to add a UI element that enables users to select your Hotspot type on this screen, add support emails to Diagnostic Reports, and include default antenna TX/RX gain:
+In this codebase, you’ll want to modify the onboarding flow to add a UI element that enables users to select your Hotspot type on this screen, add support emails to Diagnostic Reports (Bluetooth only), and include default antenna TX/RX gain:
 
 
 :::info
@@ -29,6 +29,8 @@ Product names on this page should follow [Helium branding guidelines](https://ww
 
 
 Here is a recommended list of what you should change/add:
+
+### Bluetooth Onboarding:
 
 * New UI element in [src/features/hotspots/setup/HotspotSelectionScreen.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/HotspotSelectionScreen.tsx)
 * New picture in [src/assets/images](https://github.com/helium/hotspot-app/blob/main/src/assets/images)
@@ -42,14 +44,30 @@ Here is a recommended list of what you should change/add:
 * Add Hotspot Antenna Type in Hotspot Settings in [src/components/HotspotConfigurationPicker.tsx](hotspot-app/src/components/HotspotConfigurationPicker.tsx)
 * Add a case for your Antenna type in Antenna Setup in [src/features/hotspots/setupAntennaSetupScreen.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/AntennaSetupScreen.tsx#L34)
 
-### Bluetooth Pairing
+### QR Code Onboarding:
 
+:::info
+
+For an example onboarding flow using QR Code, please visit [the QR Code Onboarding Guide](/mine-hnt/hotspot-makers/hotspot-qr-onboarding)
+
+:::
+
+
+* New UI element in [src/features/hotspots/setup/HotspotSelectionScreen.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/HotspotSelectionScreen.tsx)
+* New picture in [src/assets/images](https://github.com/helium/hotspot-app/blob/main/src/assets/images)
+* Hotspot Selection in Add Hotspot page in [src/features/hotspots/setup/HotspotSelectionListItem.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/HotspotSelectionListItem.tsx)
+* Setup instructions, antenna gain, and Maker names in [src/locales/en.ts](https://github.com/helium/hotspot-app/blob/main/src/locales/en.ts)
+* Add Hotspot Antenna Type in Hotspot Settings in [src/components/HotspotConfigurationPicker.tsx](hotspot-app/src/components/HotspotConfigurationPicker.tsx)
+* Add a case for your Antenna type in Antenna Setup in [src/features/hotspots/setupAntennaSetupScreen.tsx](https://github.com/helium/hotspot-app/blob/main/src/features/hotspots/setup/AntennaSetupScreen.tsx#L34)
+
+
+## Bluetooth Pairing
 
 The Helium Hotspot App will start scanning for broadcasting Hotspots. Makers will need to update the `localname` with the product name and include the last 6 digits of the MAC identifier. The character limit is 170 but we do not recommend anyone go beyond 25-30 characters in the product name.
 
 The `localname` is the name used on the **Found Hotspots** page.
 
-### Constructing the Transaction
+# Constructing the Add Gateway Transaction
 
 If you’re using [Helium’s miner image](https://github.com/helium/miner), constructing a transaction is relatively easy. For testing, you can use the following: 
 
