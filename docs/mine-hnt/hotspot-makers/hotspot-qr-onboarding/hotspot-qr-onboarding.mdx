@@ -1,0 +1,52 @@
+---
+id: hotspot-qr-onboarding
+sidebar_label: Hotspot QR Code Onboarding
+slug: /mine-hnt/hotspot-makers/hotspot-qr-onboarding
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Hotspot QR Code Onboarding
+
+The Helium Hotspot provides a Bluetooth Low Energy\(BLE\) interface for users to
+configure several aspects of the device. The BLE services and advertisement data
+are provided below.
+
+For those Makers that choose not to include a Bluetooth Radio in their hardware design, they can use QR Code Onboarding to register Hotspots to the Helium Blockchain.
+
+## Overall Process
+
+### Bluetooth Only
+
+The typical Hotspot Onboarding process using Bluetooth is as follows:
+1. Enter the Hotspot Onboarding flow by selecting a Maker
+2. Instructions to power on and pair with the Bluetooth (Maker-specific)
+3. Set up Wi-Fi or Ethernet
+4. Set Location and Antenna
+5. Submit add_gateway and assert_loc_v2 transactions to the Blockchain
+
+### QR Code Onboarding
+A QR Code onboarding process combines both Helium App and an Maker-supplied web dashboard.
+1. Enter the Hotspot Onboarding flow and select a Maker with QR Onboarding
+2. Instructions to scan a QR code from a Maker's web dashboard. Instructions on which files to update will come as soon as app-side support is added. 
+* Makers can choose to include specific URLs and further instructions off-app.
+3. Maker's web dashboard provides internet connectivity instructions to the user, gathers gateway signature, owner signature, and generates the add_gateway transaction and embeds the transaction in a QR Code.
+4. User scans QR code with the Helium App at the appropriate onboarding screen.
+5. App confirms Hotspot information.
+6. Set Location and Antenna
+7. Submit add_gateway and assert_loc_v2 transactions to the Blockchain.
+
+
+## Example Onboarding Flow (app)
+<img
+  className="docsheader"
+  style={{ marginBottom: 20 }}
+  src={useBaseUrl("img/mine-hnt/qr-onboarding-1.png")}
+/>
+
+<img
+  className="docsheader"
+  style={{ marginBottom: 20 }}
+  src={useBaseUrl("img/mine-hnt/qr-onboarding-2.png")}
+/>
+

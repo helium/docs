@@ -10,7 +10,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/validators/validators','mine-hnt/light-hotspots/light-hotspots', 'mine-hnt/build-a-packet-forwarder/build-a-packet-forwarder'],
+      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/validators/validators','mine-hnt/light-hotspots/light-hotspots'],
       collapsed: true,
     },
     {
@@ -22,7 +22,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Use The Network',
-      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/run-a-network-server/run-a-network-server', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
+      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/run-a-network-server/run-a-network-server', 'use-the-network/build-a-packet-forwarder/build-a-packet-forwarder', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
       collapsed: true,
     },
     {
@@ -121,7 +121,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Coverage Mapping',
-      items: ['use-the-network/coverage-mapping/mappers-quickstart', 'use-the-network/coverage-mapping/mappers-data', 'use-the-network/coverage-mapping/mappers-api', 'use-the-network/coverage-mapping/adeunis-mapper'],
+      items: ['use-the-network/coverage-mapping/mappers-quickstart', 'use-the-network/coverage-mapping/mappers-api', 'use-the-network/coverage-mapping/adeunis-mapper'],
       collapsed: false,
     },
   ],
@@ -833,7 +833,7 @@ module.exports = {
       collapsed: false,
     },
   ],
-  seeedstudio: [
+  seeedstudiortu: [
    {
       type: 'link',
       label: '<- Back',
@@ -848,7 +848,25 @@ module.exports = {
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-light',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-co2',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-pressure',
-        'use-the-network/devices/ready-to-use/seeed-studio/loramodule-e5',
+      ],
+
+      collapsed: false,
+    },
+  ],
+  seeedstudiodev: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development'
+    },
+    {
+      type: 'category',
+      label: 'Seeed Studio',
+      items: [
+        'use-the-network/devices/development/seeed-studio/loramodule-e5',
+        'use-the-network/devices/development/seeed-studio/loramodule-e5-devkit',
+        'use-the-network/devices/development/seeed-studio/loramodule-e5-mini',
+        'use-the-network/devices/development/seeed-studio/loramodule-e5-grove'
       ],
 
       collapsed: false,
