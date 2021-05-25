@@ -1,8 +1,7 @@
 ---
 id: build-a-packet-forwarder
-hide_title: true
 sidebar_label: Build a Packet Forwarder
-slug: /mine-hnt/build-a-packet-forwarder
+slug: /use-the-network/build-a-packet-forwarder
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
@@ -299,7 +298,8 @@ If you are using Ubuntu as user ubuntu, this path would now be
 Now you can try the `run` command to start your container for the first time:
 
 ```text
-docker run -d \
+docker run -d --init \
+--ulimit nofile=64000:64000 \
 --env REGION_OVERRIDE=US915 \
 --restart always \
 --publish 1680:1680/udp \

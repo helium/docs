@@ -1,6 +1,5 @@
 ---
 id: docker-integration
-hide_title: true
 sidebar_label: Docker Integration
 slug: /mine-hnt/hotspot-makers/docker-integration
 ---
@@ -25,7 +24,7 @@ Before we get into the details, it's useful to understand how the Quay releases
 integrate with the Miner release flow.
 
 Helium maintains the [Miner repository](https://github.com/helium/miner) and
-maintains proprietary firmware images for the original Helium hotspots
+maintains proprietary firmware images for the original Helium Hotspots
 (Raspberry Pi 3B+ and 4 based). When we have a release candidate, you will see a
 tag with the date of the release candidate. This usually means that we are
 testing a release candidate. This testing process has many stages, but if and
@@ -44,9 +43,13 @@ variable" (aka `chainvar`) which signals to the Miners that the new behavior is
 to take affect. Only when this chain variable is activated do stale Miners stop
 working.
 
-Other than in the event of an emergency, we generally give actors about a week
-to update their images. However, it is generally recommended to automate the
-process by checking our Quay every half hour or so.
+:::info
+
+It is highly recommended that Makers automate the process by checking the Quay
+repository for `_GA` tags every half hour, and plan on deploying at least once a
+day in case there are emergency releases.
+
+:::
 
 ## Initial Testing of the Docker on Your Host System
 
@@ -112,7 +115,7 @@ The default Docker overrides are seen
 a few things that make the image more portable, such as disabling D-bus
 (`{use_ebus, false}`) and the ECC608 (`{key, undefined}`).
 
-As a hotspot vendor using Docker, you will want to revert these `sys.config`
+As a Hotspot vendor using Docker, you will want to revert these `sys.config`
 overrides by simply deleting them. You can do this in a way that persists over
 Docker updates by maintaining your own configuration file outside of the Docker
 (similar to what we do with `/var/data/`).
@@ -143,3 +146,19 @@ Docker container, and connect D-bus to the Docker container:
 You'll want to install
 [the Miner's DBus config](https://github.com/helium/miner/blob/master/config/com.helium.Miner.conf),
 typically at: /etc/dbus-1/system.d/com.helium.Miner.conf`
+
+## Setting the ulimit
+
+Ensure the ulimit system is set to a *minimum* of `64000`; anything lower will be insufficient but more is welcome.
+
+You'll want to include the Docker run argument `--ulimit nofile=64000:64000`.
+
+**In addition**, you'll need to verify that your Linux system allows for such file limits. For example,
+
+```bash
+$ ulimit -Sn
+64000
+```
+
+If the host system does not allow for 64,000 file handles, then the `docker run` argument will not be sufficient.
+
