@@ -65,20 +65,20 @@ The development of Light Hotspots will be broken up into the five following mile
 * **Target Completion Date: March 18**
 * **Status: COMPLETE**
 
-At the completion of Milestone 1, any LoRaWAN gateways running [gateway-rs](https://github.com/helium/gateway-rs) can route packets to and from the Helium Network **but not earn HNT.** This means an DIY gateway can send and receive data on the Network.
+At the completion of Milestone 1, any LoRaWAN gateways running [gateway-rs](https://github.com/helium/gateway-rs) can route packets to and from the Helium Network **but not earn HNT.** This means an DIY gateway can send and receive data on the Network. These LoRaWAN Gateways running Gateway-rs are known as "non-PoC Light Hotspots".
 
 
 ### Milestone 1.5 
-#### Add Light Hotspot to Blockchain
+#### Add Hotspot to Blockchain
 
 * **Target Completion: June**
 * **Status: IN DEVELOPMENT**
 
-**Please note that while the target completion date has been pushed back, we are actively testing on Testnet with chain vars activated.**
+At the completion of Milestone 1.5, non-PoC Light Hotspots (aka LoRaWAN gateway running gateway-rs) can be added to the blockchain, assert its location, and be seen on explorer.helium.com. These non-PoC Light Hotspots will *not* participate in Proof-of-Coverage.
 
-When  Milestone 1.5 is done, Light Hotspots that will not participate in Proof of Coverage can be formally added to blockchain by anyone and be seen on the [Helium Coverage Map](https://explorer.helium.com/hotspots). These Light Hotspots will be required to pay $20 transaction fee to join the blockchain, and $10 assert location fee. (Full Hotspots pay $40 and $10 for add assert, respectively.) 
+Non-PoC Light Hotspots can be added to the blockchain by paying a $20 Add Gateway transaction fee, and a $10 Assert location transaction fee.
 
-At this phase, Light Hotspots will be onboarded using the [Helium Wallet CLI](https://github.com/helium/helium-wallet-rs), and **will not earn any HNT**. Note: Once upgraded, these Light Hotspots will only earn HNT for transferring packets. They will not be eligible for Proof of Coverage mining rewards.
+At this phase, these non-PoC Light Hotspots onboarded using the [Helium Wallet CLI](https://github.com/helium/helium-wallet-rs), and **will not earn any HNT**. 
 
 ### Milestone 2
 #### Paid Packet Forwarding
@@ -86,18 +86,22 @@ At this phase, Light Hotspots will be onboarded using the [Helium Wallet CLI](ht
 * **Target Completion: Summer 2021**
 * **Status: NOT YET STARTED**
 
-All Light Hotspots will be able to earn HNT for packet forwarding. 
+Non-PoC Light Hotspots added to the blockchain will start earning HNT for packet forwarding.
 
 
 ### Milestone 3
-#### Earn HNT for POC
+#### Earn HNT for PoC
 
 * **Target Completion: Post Milestone 2**
 * **Status: NOT YET STARTED**
 
-At this point, Light Hotspots from [HIP19-approved manufacturers](/mine-hnt/hotspot-makers/approved-makers) will be able to earn HNT for POC. (Kerlink is the first approved maker to submit a [light hotspot design](https://github.com/helium/HIP/blob/master/0019-third-party-manufacturers/kerlink.md).) And onboarding for these Light Hotspots will be done via the standard Helium Wallet app onboarding. The fees will be equivalent to Full Hotspots ($40 and $10 for add assert, respectively). 
+At this point, Light Hotspots from [HIP19-approved manufacturers](/mine-hnt/hotspot-makers/approved-makers) will be able to earn HNT for PoC. (Kerlink is the first approved maker to submit a [light hotspot design](https://github.com/helium/HIP/blob/master/0019-third-party-manufacturers/kerlink.md).) And onboarding for these Light Hotspots will be done via the standard Helium Wallet app onboarding. The fees will be equivalent to Full Hotspots ($40 and $10 for add assert, respectively). 
 
-This milesone is dependent on Validators being fully live on mainnet with the ability to generate challenges and process witness receipts 
+At this stage, there will be three types of Hotspots:
+
+1. Full Hotspot (HIP-19 approved, earns HNT for PoC and Packet Forwarding, follows Blockchain)
+2. Light Hotspot (HIP-19 approved, earns HNT for PoC and Packet Forwarding)
+3. Non-PoC Light Hotspot (not HIP-19 approved, earns HNT for Packet Forwarding)
 
 ### Milestone 4
 #### All Hotspots Operate as Light Hotspots
@@ -106,4 +110,7 @@ This milesone is dependent on Validators being fully live on mainnet with the ab
 * **Status: NOT YET STARTED**
 
 In the final milestone, all existing Hotspots on the Network will be converted to run [gateway-rs](https://github.com/helium/gateway-rs) and will be dependent on Validators to generate challenges and process witness receipts.
+
+All Hotspots will not need to follow the Blockchain.
+
 
