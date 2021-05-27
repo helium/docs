@@ -545,7 +545,7 @@ Getting back on chain is easy now that you've got everything installed:
 #### Reset the Validator - Docker Edition
 
 - `docker stop validator && docker rm validator` - Stop the running container, delete the container.
-- `cd` into the `validator_data` directory you setup earlier in the Deploy step above.  Then run `sudo rm -rf blockchain* ledger.db state_channels.db log`  This will delete everything in this folder except for the `miner` folder. Please be sure you're in the correct folder before running `rm` commands.
+- `cd` into the `validator_data` directory you setup earlier in the Deploy step above.  Then run `sudo rm -rf blockchain* ledger.db state_channels.db log checkpoints`  This will delete everything in this folder except for the `miner` folder. Please be sure you're in the correct folder before running `rm` commands.
 - The `miner` folder contains a single `swarm_key` file.  If you want to keep the 3-word name of your miner, keep this file.  If you want a new one, you can delete this file as well. 
 - There will be a new validator version when the chain is relaunched, so force pull the new docker image version prior to starting the validator.  `docker pull quay.io/team-helium/validator:latest-val-amd64`
 - Restart the validator with your `docker run` command that you used [during the install](/mine-hnt/validators/validator-deployment-guide#deploy-the-validator-using-docker---recommended).
