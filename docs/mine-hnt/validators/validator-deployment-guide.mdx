@@ -16,9 +16,8 @@ This guide will cover the end-to-end process of deploying a Helium Validator. It
 
 :::info
 
-- We're currently operating the Testnet, so you'll be deploying to the Testnet until Mainnet is live. This guide reflects deploying to the Testnet ONLY.
-- Please review the [Expectations for Running a Validator on Testnet](/mine-hnt/validators) prior to beginning this process.
-- These instructions are for Testnet ONLY. An updated guide will be produced when Validators are ready for Mainnet.
+- Please read and understand the [Expectations for Running a Validator](/mine-hnt/validators) prior to beginning this process.
+- These instructions are for Mainnet ONLY.
 
 :::
 
@@ -27,11 +26,6 @@ This guide will cover the end-to-end process of deploying a Helium Validator. It
 To successfully deploy a Helium Validator, you'll need to do the following:
 
 - Install the [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs). You are welcome to build from source, but easiest to download the latest binary release.
-- Deploy a virtual server on a cloud service like AWS, GCP, Azure, or Digital Ocean. Or deploy a physical server on which to run the validator. [The recommended hardware and networking requirements can be found here](/mine-hnt/validators/requirements/).
-
-## Create Testnet Wallet
-
-Once you have your [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs) installed locally, it's time to create your Testnet Wallet. Run the following command to create it. (This command format assumes you're using the executable. If you've built the wallet from source it'll look slightly different.)
 
 :::warning
 
@@ -39,8 +33,14 @@ It is a best practice to create your Helium CLI wallet on a separate machine fro
 
 :::
 
+- Deploy a virtual server on a cloud service like AWS, GCP, Azure, or Digital Ocean. Or deploy a physical server on which to run the validator. [The recommended hardware and networking requirements can be found here](/mine-hnt/validators/requirements/).
+
+## Create Testnet Wallet
+
+Once you have your [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs) installed locally, it's time to create your Wallet. Run the following command to create it. (This command format assumes you're using the executable. If you've built the wallet from source it'll look slightly different.)
+
 ```
-helium-wallet create basic --network testnet
+helium-wallet create basic
 ```
 
 You'll be prompted to supply a new passphrase to complete it. This is used to encrypt/decrypt the `wallet.key` file, and is needed to sign transactions. **Don't lose it.**
@@ -69,7 +69,7 @@ The output will look similar to this:
 +--------------------+-----------------------------------------------------+
 | Address            | 1aP7nm6mGLMFtgiHQQxbPgKcBwnuQ6ehgTgTN8zjFuxByzJ8eA5 |
 +--------------------+-----------------------------------------------------+
-| Network            | testnet                                             |
+| Network            | mainnet                                             |
 +--------------------+-----------------------------------------------------+
 | Type               | ed25519                                             |
 +--------------------+-----------------------------------------------------+
@@ -85,23 +85,24 @@ The output will look similar to this:
 +--------------------+-----------------------------------------------------+
 ```
 
-Note the `Balance | 0.00000000`.
+Your new wallet is now ready to recieve HNT.  Note that 
 
-Sad? Yes. But don't fret. It's only temporary. The next step is to acquire some Testnet Tokens (TNT). Lucky for you, they are free.
+:::info
 
-## Acquire TNT from the Testnet Faucet
+- Staking a validator requires 10,000 HNT per validator.
+- It is possible to stake more than one validator from the same wallet as long as that wallet contains 10,000 HNT for each validator that is staked.
+- The staking transaction will burn HNT as a fee, so it is reccomended to have 5-10 extra HNT per validator in order to cover the fee. Excess HNT can then be withdrawn after the staking transaction is complete. 
 
-Running a Validator requires a stake. This stake is `10000` tokens per Validator. For the Testnet we are using TNTs.
+:::
 
-To acquire them, head to [faucet.helium.wtf](https://faucet.helium.wtf/) and input your the public key from the wallet you just create. **Use your public wallet address. If you copy and paste the one above the TNT will be sent to someone else.**
 
-Once you've input your address, the Faucet will deliver just over `10000` TNT to your Testnet Wallet. This can take up to 10 minutes so please be patient. Make a cup of coffee, issue a compelling tweet, then check your wallet balance using the `balance` command:
+Once HNT has been deposited into the wallet, confirm the balance.
 
 ```
 helium-wallet balance
 ```
 
-If all went to plan, you'll see this:
+You should see something like this:
 
 ```
 +-----------------------------------------------------+----------------+--------------+-----------------+
@@ -111,11 +112,11 @@ If all went to plan, you'll see this:
 +-----------------------------------------------------+----------------+--------------+-----------------+
 ```
 
-Glorious. You have the `10000` TNT to stake one validator, and a bit extra to cover the transaction fees. Now it's time to get your Validator running.
+Glorious. You have the `10000 HNT` required to stake one validator, and a bit extra to cover the transaction fees. Now it's time to get your Validator running.
 
 ## Run a Validator
 
-With TNT in hand, it's time to deploy and run the actual Validator (can also be referred to as `miner` as the validator is part of the `miner` code base).
+With the proper amount of HNT in the wallet, it's time to deploy and run the actual Validator (can also be referred to as `miner` as the validator is part of the `miner` code base).
 
 :::warning
 
@@ -139,13 +140,13 @@ You have two options for deploying the Validator. You just need to do ONE of the
 Start by updating your packager manager registry:
 
 ```
-sudo apt-get update
+sudo apt-get update -y && sudo apt-get upgrade -y
 ```
 
 And install Docker itself. (If needed, full directions on installing Docker on Ubuntu [can be found here](https://docs.docker.com/engine/install/ubuntu/).)
 
 ```
-sudo apt-get install docker.io
+sudo apt-get install docker.io -y
 ```
 
 To avoid needing to use Docker with `sudo` privileges, add your user to the docker group, replacing $USER with your username here:
@@ -200,11 +201,11 @@ Once you run the command above, docker will retrieve the latest Validator image,
 
 #### Configure your Docker to update the Validator automatically - RECOMMENDED
 
-Having all Testnet Validators running the latest release of Validator software is crucial to quickly test code additions, changes, and bug fixes. Having an out-of-date Validators can increase election times or even stall the chain depending on the changes made.
+Having all Validators running the latest release of Validator software is crucial to the stability of the blockchain and your validators ability to successfully participate in the Consensus Group and earn rewards. Having an out-of-date Validators can increase election times, reduce your vaildators chances of (or completely prohibit) entry into the Consensus Group, and may possibly stall the chain depending on the changes made.
 
-To ensure that each Validator gets updated quickly without your manual involvement, we will use a docker container process called [Watchtower](https://containrrr.dev/watchtower/). This is a docker container that, based on an interval, reviews the running containers to see if there is an updated image available for the container. If so, it stops the running container, and creates a new container with the updated image.
+To ensure that each Validator gets updated quickly without your manual involvement, you will need use a docker container process called [Watchtower](https://containrrr.dev/watchtower/). This is a docker container that, based on an interval, reviews the running containers to see if there is an updated image available for the container. If so, it stops the running container, and creates a new container with the updated image.
 
-:::info
+:::warning
 
 Watchtower simply reviews the `docker run` commands that were used to launch the running containers and checks for newer images for these containers.  Therefore it is imperative that your validator `docker run` command reference the `latest-val-amd64` or `latest-val-arm64` image tag or **it will never update**.
 
@@ -237,13 +238,13 @@ Finally, you may be asking if there's a method to know if watchtower was success
 
 :::info
 
-If you choose to not run Watchtower for automatic updates of the Docker image during Testnet, please watch and respond to upgrade requests on the `#validators-announcements` channel on the [Helium Discord](https://discord.gg/helium) server in a timely manner.
+If you choose to not run Watchtower for automatic updates of the Docker Image during, please monitor and respond to upgrade requests on the `#validators-announcements` channel on the [Helium Discord](https://discord.gg/helium) server in a timely manner.
 
 :::
 
 #### Upgrade your Docker container manually - Not needed if running watchtower
 
-As mentioned, we anticipate numerous, frequent updates during Testnet and recommend using the [latest miner tag found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
+There will always be a need for updates and we strongly recommend using the [latest miner tag found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
 
 To upgrade your docker container to the latest version:
 
@@ -258,6 +259,29 @@ docker image prune -f
 These commands will stop the running container, then delete the container. Pull an updated Validator docker image from the repository. Delete any out of date Validator docker images.
 
 Finally, re-launch docker with the same command as above under the Run the Docker Container section.
+
+#### Manually upgrade or downgrade your Docker container to a specific version
+
+To manually install a specific version, look for the version tag in [the repository](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags) and then reference that version in the docker pull command.
+
+For example, to specifically install ARM version 0.1.54:
+
+```
+docker stop validator && docker rm validator
+
+docker pull quay.io/team-helium/validator:miner-val-arm64_val0.1.54
+
+docker image prune -f
+```
+
+Then re-launch docker with the same command as above under the Run the Docker Container section.
+
+:::info
+
+Manually installing a specific version may be neccesary in the rare event that Validators are required to roll back to a previous version.
+
+:::
+
 
 #### Interact with the Validator within the Container
 
@@ -362,7 +386,7 @@ _build/validator/rel/miner/bin/miner start
 One last step. When building from source, you'll need to manually load the genesis block once your miner is deployed and running. To do this, run the following:
 
 ```
-wget https://snapshots.helium.wtf/genesis.testnet
+wget https://snapshots.helium.wtf/genesis.mainnet
 miner genesis load </absolute/path/to/genesis/block>
 ```
 
@@ -370,9 +394,9 @@ Note that in the above `miner` command, the `miner` binary here is nested within
 
 ## Stake Tokens to Your Validator
 
-Now that your Validator node is running, the final step in the process is to formally stake TNT to your Validator. As part of the staking process the Validator address needs to both be in the staking transaction and sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
+Now that your Validator node is running, the final step in the process is to formally stake HNT to your Validator. As part of the staking process the Validator address needs to both be in the staking transaction and sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
 
-First, double check your wallet balance to make sure you have the `10000` TNT required to stake, along with a few extra to cover the transaction fees. (The faucet provides all of this.)
+First, double check your wallet balance to make sure you have the `10000 HNT` required to stake, along with a few extra to cover the transaction fees. 
 
 ```
 helium-wallet balance
@@ -396,7 +420,7 @@ The resulting output will look like this (except with your specific validator ad
 /p2p/1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR
 ```
 
-We can now use this address with the Helium Wallet CLI `validators stake` command to formally stake the `10000` TNT required. Here's the full command using the Validator address from above as an example. (**Make sure you replace it with yours.**)
+We can now use this address with the Helium Wallet CLI `validators stake` command to formally stake the `10000 HNT` required. Here's the full command using the Validator address from above as an example. (**Make sure you replace it with yours.**)
 
 ```
 helium-wallet validators stake 1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR 10000 --commit
@@ -421,13 +445,13 @@ After the validator has been up and running for 15 minutes, proceed with some of
 The [Validator API](/api/blockchain/validators) provides several useful calls to help monitor your Validator and the state of the Testnet.
 
 ```
-https://testnet-api.helium.wtf/v1/validators/
+https://api.helium.wtf/v1/validators/
 ```
 
 or
 
 ```
-https://testnet-api.helium.wtf/v1/validators/<validator_address>
+https://api.helium.wtf/v1/validators/<validator_address>
 ```
 
 will be very useful.
@@ -483,7 +507,7 @@ miner peer book -s
 +------------------------------------------------+-------------+----------+---------+---+----------+
 |                    address                     |    name     |listen_add|connectio|nat|last_updat|
 +------------------------------------------------+-------------+----------+---------+---+----------+
-|/p2p/1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB|short-umber-b|    1     |    4   |non| 111.88s  |
+|/p2p/1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB|short-umber-b|    1     |    4    |non| 111.88s  |
 +------------------------------------------------+-------------+----------+---------+---+----------+
 
 +----------------------------+
@@ -507,58 +531,6 @@ You're looking for `listen_addrs`. If you don't have at least one, your validato
 
 ### Check the Explorer
 
-Head over to the [Helium Testnet Explorer's Validators Page](https://explorer.helium.wtf/validators) and search for your validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked. You should see your 3-word validators name (short-umber-bull in the example above) listed. It may be easier to sort by #, decending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`. 
+Head over to the [Helium Explorer's Validators Page](https://explorer.helium.wtf/validators) and search for your validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked. You should see your 3-word validators name (short-umber-bull in the example above) listed. It may be easier to sort by #, decending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`. 
 
 Thank you for being a part of the Helium Validators initiative.
-
-## What to Do When There Is a Chain Restart
-
-You may be here because there was an alert on `#validators-announcements` on the [Helium Discord Server](https://discord.gg/helium) that the chain has been restarted.  This short guide will walk you through the reasons and steps for what to do to get back on the new chain.
-
-### What happened and why?
-
-The goal of the Validator initiative is to ultimately bring together a more robust Helium network through a resiliant consensus group model – ensuring that transactions are verified and blocks are added to the blockchain.  To build resiliency means that it's the job of the Testnet process to rigorously _test_ the functionality and capabilities of the validator network.
-
-The announcement in `#validators-announcements` means that this stress testing has stalled the chain.  This means that either the concensus group is unable to elect a new group, or that the group has stopped making blocks, or another reason for the chain to fail.  In these cases, there is a "restart" of the chain, beginning with a new [genesis block](https://www.investopedia.com/terms/g/genesis-block.asp) and starting the block count from `1`.  The next chain will contain additional fixes and functionality to build robustness, and the testing will continue.
-
-What this means is that your validator will not participate in the new chain without the steps taken below.
-
-### How do you know if there was a chain restart?
-
-There are a few things you will notice may happen if you're "off chain".
-
-- You read an announcement on `#validators-announcement`
-- Your validator block height (`miner info height`) is higher than the block height reported on [explorer](https://explorer.helium.wtf)
-- Your validator block height is not moving.
-- Your wallet had TNT in it before, but now it's showing `0`
-- The version of your validator seems to be way behind other versions reported on explorer
-
-### Steps to Get Back On the Current Chain
-
-Getting back on chain is easy now that you've got everything installed:
-
-#### Fund the Wallet
-
-- You do not need to delete and re-create the wallet.  The wallet balance will show `0`, since this is a new blockchain and you have no TNT.  If you happen to run `helium-wallet balance` and receive an error, give it a few minutes.  The API may still be restarting after pointing to the new chain.  Your wallet password is the same.
-- When the balance shows `0`, add funds to your wallet from the [Faucet](https://faucet.helium.wtf/) exactly how you performed the task earlier.  Follow the [Acquire TNT from the Testnet Faucet](/mine-hnt/validators/validator-deployment-guide#acquire-tnt-from-the-testnet-faucet) directions.
-
-#### Reset the Validator - Docker Edition
-
-- `docker stop validator && docker rm validator` - Stop the running container, delete the container.
-- `cd` into the `validator_data` directory you setup earlier in the Deploy step above.  Then run `sudo rm -rf blockchain* ledger.db state_channels.db log`  This will delete everything in this folder except for the `miner` folder. Please be sure you're in the correct folder before running `rm` commands.
-- The `miner` folder contains a single `swarm_key` file.  If you want to keep the 3-word name of your miner, keep this file.  If you want a new one, you can delete this file as well. 
-- There will be a new validator version when the chain is relaunched, so force pull the new docker image version prior to starting the validator.  `docker pull quay.io/team-helium/validator:latest-val-amd64`
-- Restart the validator with your `docker run` command that you used [during the install](/mine-hnt/validators/validator-deployment-guide#deploy-the-validator-using-docker---recommended).
-- Watchtower should still be running from our install and will continue to update the docker image automatically.
-
-#### Reset the Validator - From Source
-
-- Stop the validator, delete the entire `miner` folder - saving the `swarm_key` file in `/miner/_build/validator/rel/miner/data/miner` if you like.  Pull from source with the updated version tag, start the validator.
-- Load the new genesis block `wget https://snapshots.helium.wtf/genesis.testnet` `miner genesis load </absolute/path/to/genesis/block>`. 
-
-#### Restake 
-
-- Follow the same process from [Stake Tokens to Your Validator](/mine-hnt/validators/validator-deployment-guide#stake-tokens-to-your-validator) to stake the 10,000 TNT received from the faucet for your Testnet validator.  If you kept the `swarm_key` file above, your validator node address will be the same.  If you deleted that file, you'll have to ensure you have the new node address by running `miner peer addr` as outlined in that section.
-
-That's it!  You're back on the new chain and should see similar output as defined in [Verifying Validator Victory](/mine-hnt/validators/validator-deployment-guide#verifying-validator-victory).
-

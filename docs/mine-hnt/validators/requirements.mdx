@@ -2,29 +2,34 @@
 id: requirements
 title: Validator Requirements
 hide_title: true
-sidebar_label: Technical Requirements
+sidebar_label: Validator Requirements
 slug: /mine-hnt/validators/requirements
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
+# Staking Requirements
+
+10,000 HNT is required to stake a single validator
+
+
 # Technical Requirements
 
-Based on early tests, validator node requirements include:
+Mainnet validator system requirements:
 
 - Operating system: 
   - Planning on running from docker: Any linux based system capable of running docker
   - Planning on running from source: Ubuntu 20.04 LTS
 - CPU: 
-  - Intel, AMD or ARM based processor 3.0 GHz or above with 2 cores or equivalent
+  - Intel, AMD or ARM based processor 3.0 GHz or above with 2 or more cores
   - In testnet, scores of [GeekBench 5](https://www.geekbench.com/) Multi-Core of greater than 2,200 have performed well
   - For Intel and AMD systems, [AVX2 or AVX support](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions) is required. Verify your CPU supports these extensions by checking `grep avx /proc/cpuinfo` and verifying that AVX support is included in the output.
   - These recommendations may change for mainnet as the size of consensus groups grow and hotspot transactions are added
 - Memory: 8 GB or above
-- Storage: 256 GB or more for mainnet.  64GB is sufficient for testnet.
-- If using AWS, a t2.large or t2.xlarge EC2 instance or equivalent is recommended. If using another cloud provider, like GCP, Azure, or Digital Ocean, an instance with similar capabilities should be the target.
-- Static IP address with port `2154`(TCP) opened in your firewall with a route available to your validator host.
-- Running on stable network connection free of things like proxies, NAT, etc. The load is largely symmetrical when producing blocks, so good upstream connectivity recommended.
-- It is [discouraged to run Mainnet Validators at home](/mine-hnt/validators/validator-faqs-resources#technical).
+- Storage: 256 GB or more.
+- If using AWS, a t2.large or t2.xlarge EC2 instance or equivalent is recommended. If using another cloud provider, like GCP, Azure, or Digital Ocean, an instance with similar capabilities should be targeted.
+- Static IP address with port `2154` (TCP) opened in the firewall with a route available to your validator host.
+- Running on stable network connection free of things like proxies, NAT, etc. The load is largely symmetrical when producing blocks, so good upstream connectivity is recommended.
+- It is [discouraged to run Mainnet Validators from home](/mine-hnt/validators/validator-faqs-resources#technical).
 
-Please review the [Expectations for Running a Validator on Testnet](/mine-hnt/validators) for additional expectations.
+Please review the [Expectations for Running a Validator](/mine-hnt/validators) for additional expectations.
