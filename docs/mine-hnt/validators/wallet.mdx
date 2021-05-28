@@ -72,11 +72,11 @@ Use `--commit` after preview to submit the transaction to network.
 
 ### Unstake Tokens
 
-If you unstake tokens the validator node enters a cooldown period. During this cooldown period the validator node will not earn rewards and at the end of the cooldown period (currently 125,000 blocks or approximately 3 months in mainnet) your initial staking amount will be returned to the wallet.
+If you unstake tokens the validator node enters a cooldown period. During this cooldown period the validator node will not earn rewards and at the end of the cooldown period (currently 250,000 blocks or approximately 5 months in mainnet) your initial staking amount will be returned to the wallet.
 
 You need to include the stake release block height which should be at least the current block height plus the cooldown period, and 5-10 blocks to allow for chain processing delays.
 
-For example, if the current block height was 5000, you'd add 125,000 for a stake release height plus an additional 10 to allow for chain processing delays. Therefore the `stake-release-height` is `5000 + 250000 + 10` or `255010`.
+For example, if the current block height was 5000, you'd add 250,000 for a stake release height plus an additional 10 to allow for chain processing delays. Therefore the `stake-release-height` is `5000 + 250000 + 10` or `255010`.
 
 :::info
 
@@ -94,7 +94,7 @@ Use `--commit` after previewing to submit the transaction to network. If you wai
 
 :::warning
 
-Once the unstake command is committed, this cannot be reversed. The validator will cease earning rewards and the stake amount will not be returned to the staking wallet until the 125,000 block cooldown period has completed.
+Once the unstake command is committed, this cannot be reversed. The validator will cease earning rewards and the stake amount will not be returned to the staking wallet until the 250,000 block cooldown period has completed.
 
 :::
 
