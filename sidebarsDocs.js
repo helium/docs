@@ -60,6 +60,19 @@ module.exports = {
     },
     'api/console',
   ],
+  appwallet: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/wallets/app-wallet'
+    },
+    {
+      type: 'category',
+      label: 'App Wallet',
+      items: ['wallets/app-wallet/twelve-words'],
+      collapsed: false,
+    }
+  ],
   console: [
    {
       type: 'link',
