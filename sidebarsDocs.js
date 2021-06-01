@@ -52,7 +52,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Troubleshooting',
-      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting'],
+      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting', 'troubleshooting/hotspot-led'],
       collapsed: true,
     },
   ],
@@ -75,7 +75,7 @@ module.exports = {
     {
       type: 'category',
       label: 'App Wallet',
-      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/rak-hotspot-setup'],
+      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/transfer-hotspot', 'wallets/app-wallet/rak-hotspot-setup'],
       collapsed: false,
     }
   ],
