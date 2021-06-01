@@ -1,0 +1,147 @@
+---
+id: transfer-hotspot
+title: Transfer Hotspot
+sidebar_label: Transfer Hotspot
+slug: /wallets/app-wallet/transfer-hotspot
+---
+
+# Transfer Hotspot
+
+As requested by the Community via HIP13, the Transfer Hotspot feature is
+available for Hotspot owners of the Network to transfer their Hotspots to
+another owner. Transfer Hotspots
+
+This feature enables Hotspot owners to transfer ownership of a Hotspot to
+another user. Once transferred, the new owner will receive all future Hotspot
+mining rewards. Requirements:
+
+- Only the owning wallet can initiate a transfer.
+- This feature is only available on app version 2.8.0 or newer. Both parties
+  must have 2.8.0 or newer for Transfer Hotspots to succeed. Parties do not need
+  to be physically next to the Hotspot for transfer to succeed.
+- This feature requires both users to have a valid Helium wallet account and the
+  buyer must have enough balance in their wallet account to pay for the
+  transaction fee which is typically 55,000 DC.
+- The Hotspot must be fully synced with the location asserted, and have recent
+  network activity for the transaction to succeed.
+
+:::warning
+
+Things to keep in mind: Helium assumes no liability on the functionality of
+Hotspot hardware defined in the Transfer Hotspot transaction. Buyers must verify
+with the Seller the Hotspot is in good, working condition and once transferred,
+understand there is no guarantee that the Hotspot hardware will arrive in
+working condition.
+
+:::
+
+#### As a Seller, to initiate a Transfer Hotspot transaction:
+
+1. Navigate to the Hotspot to transfer and tap Settings > Transfer Hotspot.
+2. Acknowledge that you, the Seller, will no longer earn mining rewards from
+   that Hotspot once transferred.
+3. Enter the Hotspot name in the text field to confirm you want to transfer the
+   Hotspot.
+4. You’ll see the payment user interface next. Enter the Buyer’s wallet address
+   and a cost for the Hotspot (optional).
+5. Press Send Transfer Request and a notification will appear on the Buyer’s
+   notification center. The Hotspot transfer will not complete until the Buyer
+   accepts the transaction. Note: If you need to change the price, you’ll need
+   to cancel the transaction. Please see the Cancel Transaction Section.
+6. Once the Buyer accepts the transfer Hotspot transaction, the Seller will
+   receive a confirmation in their notification center.
+7. Once the transfer Hotspot transaction clears the blockchain, the Hotspot will
+   no longer appear in the Sellers account.
+8. The Seller will see an activity entry on their Account page showing the
+   Hotspot Transfer.
+
+#### As a Seller, to cancel Transfer Hotspot transaction
+
+1. To cancel a pending transfer Hotspot transaction, go to the Hotspot, tap
+   Settings, find Transfer Hotspot, and press Cancel
+2. Confirm that you want to cancel the transaction.
+3. The buyer will receive a cancellation notification and the Hotspot will
+   remain in the Seller’s account.
+
+:::info
+
+If the Buyer attempts to view the original Transfer Hotspot transaction that's
+been cancelled, the app will let them know the transfer's been cancelled and the
+transaction is no longer valid.
+
+:::
+
+#### As a Buyer, to accept a Transfer Hotspot transaction:
+
+1. Once the Seller has initiated the transaction, a notification will appear in
+   the Buyer’s notification center.
+2. Tap on the notification to view the transaction.
+3. A payment user interface will appear with the Hotspot name, the amount
+   requested, and the transaction fee. Also included is a “last activity
+   reported” check. You want to see a very recent "last activity reported", not
+   days, weeks, or months. This is a courtesy to illustrate the Hotspot was
+   recently mining, but does not guarantee the Hotspot will arrive functional.
+   Make sure this is a trustworthy Seller.
+4. Press Complete Transfer to submit the transaction to the blockchain. Note:
+   The Buyer pays for the transaction fee and the Buyer must have a non-zero
+   wallet balance in order for the transfer to succeed.
+5. Buyers will see a pending transfer Hotspot transaction on the Account page,
+   and once cleared, the Hotspot will appear in the Hotspot list.
+
+### Common Questions
+
+#### Can the price be zero?
+
+Yes. The Hotspot price can be 0 on the blockchain if you’d like to complete the
+purchase using fiat (PayPal is highly recommended for Buyer protection).
+
+#### Can I undo the transaction?
+
+No. Once transferred, the Hotspot and its mining rewards moving forward belong
+to the Buyer.
+
+#### Who pays for the transaction fee?
+
+The Buyer pays for the transaction fee.
+
+#### Is this available on the CLI?
+
+Yes. Wallet CLI is available for this feature.
+https://developer.helium.com/blockchain/blockchain-cli
+
+#### Can I change the price after sending the transfer to the Buyer, but BEFORE they accept?
+
+Yes. Go to the Hotspot and cancel the transfer. Create a new transfer Hotspot
+request with the new price.
+
+#### Will this be recorded in the blockchain?
+
+Yes. Transfer Hotspot transactions are on-chain.
+
+#### What if the activity check reveals the Hotspot hasn’t done anything recently?
+
+You won’t be able to transfer the Hotspot.
+
+#### I saw a transfer hotspot notification but when I open the app, it's not there. Where did it go?
+
+If you are not on 2.8.0 or later, you will not be able to see the notification.
+Upgrade the app to 2.8.0 and try again.
+
+#### How do I make sure the Hotspot physically changes hands?
+
+It is the buyer's responsibility to confirm the Hotspot is fully functional and
+will arrive in the same, working condition.
+
+#### Do I need to be next to the Hotspot to transfer or receive?
+
+No. You do not need to be physically next to the Hotspot as a buyer or seller to
+transfer the Hotspot.
+
+#### Is the history of the Hotspot transferred to the new owner as well?
+
+Yes. All mining history from the Hotspot will transfer to the new owner as well.
+This cannot be cleared as all history is from the ledger.
+
+#### Will I be able to see the history of all transfers for a Hotspot in explorer?
+
+Yes. Transferred Hotspots will show up as a transaction in Explorer.

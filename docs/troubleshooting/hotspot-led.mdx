@@ -1,0 +1,21 @@
+---
+id: hotspot-led
+title: Hotspot LED Meaning
+sidebar_label: Hotspot LED Meaning 
+slug: /troubleshooting/hotspot-led
+---
+
+# Hotspot LED Meaning  
+
+#### Here's a guide on what different colored lights on your Hotspot mean
+On the top of the Hotspot:
+* YELLOW: Connected to power, but not connected to the internet.  
+* GREEN: Online / connected to the internet
+* BLUE:  Bluetooth pairing mode to connect to your phone
+* WHITE: The Firmware is being automatically updated.  This can take several minutes and will go back to Green once it completes.
+
+#### The lights on the Raspberry Pi (for both RAK Hotspot Miners and inside the original Helium Hotspot):
+* Red LED: Solid red is good, it means Pi is getting power. In normal operation only solid red should be seen. Flashing red means there is some issue with power supply, in which case you can try unplugging it and reconnecting power to check again.
+* Green LED: At power-up Green LED will blink in random ways but after about 5 seconds it should stop. If Green blinking repeatedly for a long time it means there is some problem - usually this will be the SD card but may be a power issue too.
+* In the case of a constant blinking Green it is recommended to:* Unplug USB-C power* Extract microSD card, check it and re-insert it making sure it’s well seated, The card could have moved in shipping it may have inserted it incorrectly (e.g. upside down) after backup.* Reconnect USB-C power making sure it's plugged in all the all way.
+* If the lights on the pi are continue to blink in a specific sequence, you can review the different combinations here to get an idea of what’s going on: https://www.raspberrypi.org/documentation/configuration/led_blink_warnings.md

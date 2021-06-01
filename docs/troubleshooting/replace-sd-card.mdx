@@ -1,0 +1,58 @@
+---
+id: replace-sd-card
+title: Replacing SD Card
+sidebar_label: Replacing SD Card
+slug: /troubleshooting/replace-sd-card
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Replacing SD Card
+
+Required Tools:
+
+- Phillips Head or T8 bit screwdriver
+- Strong fingernails, tweezers, or needle-nose pliers to remove the old SD card
+- The ability to read/write a 64gb microSD card (unless pre-flashed card is
+  acquired)
+
+In the even that your microSD card fails, here are the steps to re-flash it or
+replace it with a brand new one:
+
+1. Unplug and remove the 4 screws from the bottom of the unit using a Phillips
+   head screwdriver (Note that 1st gen Hotspots will need a T8 bit screwdriver,
+   and also have a gps antenna wire attaching the top plastic to the board, this
+   should stay connected.)
+2. Carefully remove the installed microSD card located by the fan - tweezers or
+   needle-nose pliers may help with this. (see image below)
+   <img src={useBaseUrl("img/troubleshooting/hotspot-sd-card.jpg")} />
+3. Format the new card or re-format the existing card into ExFat format.
+4. Download and install a program to Flash the card such as Etcher, if needed:
+   https://www.balena.io/etcher
+5. Download the image file to Flash:
+   https://helium-nextgate.s3-us-west-2.amazonaws.com/artifacts/2021.05.29.1-sdcard.img.gz
+6. Unzip the file.
+7. Use Etcher to Flash the newly formatted microSD card with the file.
+8. Place the newly flashed card back into the card reader slot.
+9. Plug the Hotspot back and and confirm that it boots up.
+10. Screw the Hotspot back together.
+
+#### If you have purchased a pre-flashed card, the only steps you need are:
+
+1. Unplug and remove the 4 screws from the bottom of the unit using a Phillips
+   head screwdriver (Note that 1st gen Hotspots will need a T8 bit screwdriver,
+   and also have a gps antenna wire attaching the top plastic to the board, this
+   should stay connected.)
+2. Carefully remove the installed microSD card located by the fan - tweezers or
+   needle-nose pliers may help with this. (see image below)
+3. Place the pre-flashed card into the card reader slot.
+4. Plug the Hotspot back and and confirm that it boots up.
+5. Screw the Hotspot back together.
+
+If successful, everything should boot up normally.
+
+A card like
+[this](https://www.amazon.com/gp/product/B07FCMBLV6/ref=ppx_yo_dt_b_asin_title_o06_s00?ie=UTF8&psc=1)
+would work, but anything comparable would also suffice.  
+You can also buy pre-flashed ones from
+[Parley Labs](https://shop.parleylabs.com/collections/mine-hnt/products/sandisk-64gb-extreme-microsdxc-with-helium-firmware).

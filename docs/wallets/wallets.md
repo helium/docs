@@ -21,7 +21,7 @@ Depending on your situation, one of the wallets here may be the best fit.
 
 ### App Wallet
 
-The Helium App wallets is by far the easiest to use. It may be downloaded for
+The Helium App wallet is by far the easiest to use. It may be downloaded for
 [iOS](https://apps.apple.com/us/app/helium-hotspot/id1450463605) or
 [Android](https://play.google.com/store/apps/details?id=com.helium.wallet)
 phones and provides simple pairing and setup with

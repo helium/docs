@@ -28,7 +28,7 @@ module.exports = {
     {
       type: 'category',
       label: 'HNT Wallets',
-      items: ['wallets/wallets', 'wallets/wallets/ledger'],
+      items: ['wallets/wallets', 'wallets/app-wallet/app-wallet', 'wallets/ledger'],
       collapsed: true,
     },
     {
@@ -49,6 +49,12 @@ module.exports = {
       items: ['faq/helium-network', 'faq/security', 'faq/hotspot-manufacturers', 'faq/build-on-network', 'faq/data-credits'],
       collapsed: true,
     },
+    {
+      type: 'category',
+      label: 'Troubleshooting',
+      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/replace-sd-card', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting', 'troubleshooting/hotspot-led'],
+      collapsed: true,
+    },
   ],
   api: [
     'api/home',
@@ -59,6 +65,19 @@ module.exports = {
       collapsed: true,
     },
     'api/console',
+  ],
+  appwallet: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/wallets/app-wallet'
+    },
+    {
+      type: 'category',
+      label: 'App Wallet',
+      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/transfer-hotspot', 'wallets/app-wallet/rak-hotspot-setup'],
+      collapsed: false,
+    }
   ],
   console: [
    {

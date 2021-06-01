@@ -1,0 +1,75 @@
+---
+id: network-troubleshooting
+title: Network Troubleshooting
+sidebar_label: Network Troubleshooting
+slug: /troubleshooting/network-troubleshooting
+---
+
+# Network Troubleshooting
+
+Can't connect to the internet? Connected but can't transmit? Here are some steps
+that may help!
+
+Helium Hotspots may not work if the Hotspot is behind a firewall or uses an
+incompatible NAT type. Other times it may be because of a router configuration
+or the internet is offline. This article aims to help resolve any issues you may
+have.
+
+:::info
+
+If none of the below fixes your Hotspot connection, please visit the Helium
+Community Discord, #hotspot-setup-help.
+
+:::
+
+1. Check Your Cables If using Ethernet, make sure your Ethernet cable is
+   securely plugged into the Hotspot and your internet provider modem. A
+   blinking amber light next to the Ethernet port on the Hotspot means there is
+   a good connection. Cables can also fail from time to time, so trying a
+   different cable can help may also help.
+
+2. Check Your Internet Connection Confirm that you are able to connect to the
+   Internet from your location using your home computer, on the same network. If
+   you cannot connect to the Internet, you will need to contact your Internet
+   Service Provider (ISP) for additional assistance on your account/connection.
+
+If using Wi-Fi, confirm that you can connect to your wireless network with your
+WEP or WPA security password. If you do not know how to operate or access your
+wireless modem, you will need to contact the manufacturer of the equipment
+directly.
+
+If you're able to connect to the internet, power cycle your router. Unplug your
+Hotspot and router from your wall or power strip for 2 minutes. Then, plug them
+back in to see if you are able to connect to the Internet.
+
+3. Internet Works and Cannot Connect to Helium Network/Hotspot is being Relayed
+   If you are able to connect to the Internet, but cannot get an inbound or
+   outbound connection to the network, it may be a firewall issue or your
+   Hotspot is being Relayed.
+
+Hotspots being Relayed are not directly connected to the internet, but through
+another Hotspot on the network and can adversely affect mining and earnings.
+Relayed Hotspots can be identified in Explorer.
+
+We recommend enabling TCP Ports 44158 in both directions in your modem. Check
+your Router's manufacturing instructions on how to open ports 44158.
+
+To get started with port forwarding, check out https://portforward.com
+
+For support and firmware updates, we will need ports 22 and 443 open Outbound.
+
+4. Router NAT Type Incompatible
+
+This information can be used to judge the ease or difficulty of connecting to
+the network and is available by going to your router.
+
+- Type 1 / Open: The system is connected directly to the Internet and will
+  provide the best connection quality.
+- Type 2 / Moderate: The system is connected to the Internet with a router, and
+  can only connect with other using Type 1 / Open or Type 2 / Moderate.
+- Type 3 / Strict: The system is connected to the Internet with a router and can
+  only connect to those who use Type 1 / Open, meaning some or all connections
+  may be being blocked.
+
+Check your modem settings and documentation for more information on how to
+configure NAT Type.
