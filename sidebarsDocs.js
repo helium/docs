@@ -52,7 +52,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Troubleshooting',
-      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting', 'troubleshooting/hotspot-led'],
+      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/replace-sd-card', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting', 'troubleshooting/hotspot-led'],
       collapsed: true,
     },
   ],
