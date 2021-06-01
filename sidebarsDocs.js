@@ -981,7 +981,7 @@ module.exports = {
       collapsed: false,
     },
   ],
-   hotspotMakers: [
+   lightHotspots: [
    {
        type: 'link',
        label: '<- Light Hotspot',
@@ -990,7 +990,7 @@ module.exports = {
    {
        type: 'category',
        label: 'Light Hotspot Guides',
-       items: ['mine-hnt/light-hotspots/guides/dragino'],
+       items: ['mine-hnt/light-hotspots/guides/dragino', 'mine-hnt/light-hotspots/guides/kerlink'],
        collapsed: false,
    },
   ],
