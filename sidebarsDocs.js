@@ -69,7 +69,7 @@ module.exports = {
     {
       type: 'category',
       label: 'App Wallet',
-      items: ['wallets/app-wallet/twelve-words'],
+      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/hotspot-setup-troubleshooting'],
       collapsed: false,
     }
   ],
