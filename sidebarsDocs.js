@@ -49,6 +49,12 @@ module.exports = {
       items: ['faq/helium-network', 'faq/security', 'faq/hotspot-manufacturers', 'faq/build-on-network', 'faq/data-credits'],
       collapsed: true,
     },
+    {
+      type: 'category',
+      label: 'Troubleshooting',
+      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting'],
+      collapsed: true,
+    },
   ],
   api: [
     'api/home',
@@ -69,7 +75,7 @@ module.exports = {
     {
       type: 'category',
       label: 'App Wallet',
-      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/hotspot-setup-troubleshooting', 'wallets/app-wallet/rak-hotspot-setup', 'wallets/app-wallet/improving-poc'],
+      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/rak-hotspot-setup'],
       collapsed: false,
     }
   ],
