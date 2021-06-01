@@ -299,18 +299,18 @@ plug it in again.
 
 ## Security Model
 
-The attack surface for using the Helium wallet app on a Ledger Nano S comprises
-the Helium app itself, the system firmware running on the Nano S, the computer
-that the Nano S is connected to, and posession/control of the device. For our
-purposes, the app only needs to ensure its own correctness and protect the user
-from the computer that the Nano S is connected to. Other attack surfaces are
-beyond our control; we assume that the user physically controls the device, is
-not running malicious/buggy software on the device, and follows proper security
-protocols. The goal of the Helium app is to achieve perfect security given these
-assumptions.
+The attack surface for using the Helium wallet app on a Ledger comprises
+the Helium app itself, the system firmware running on the Ledger Hardware Wallet,
+the computer that the Ledger Hardware Wallet is connected to, and possession/control
+of the device. For our purposes, the app only needs to ensure its own correctness
+and protect the user from the computer that the Ledger Hardware Wallet is connected
+to. Other attack surfaces are beyond our control; we assume that the user physically
+controls the device, is not running malicious/buggy software on the device, and
+follows proper security protocols. The goal of the Helium app is to achieve security
+given these assumptions.
 
 The main attack vector that we are concerned with, then, is a computer running
-malicious sofware. This software may imitate programs like `helium-ledger-cli`
+malicious software. This software may imitate programs like `helium-ledger-cli`
 in such a way that the user cannot tell the difference, but secretly act
 maliciously. Specifically, the computer can do the following:
 
