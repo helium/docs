@@ -28,7 +28,7 @@ module.exports = {
     {
       type: 'category',
       label: 'HNT Wallets',
-      items: ['wallets/wallets', 'wallets/wallets/ledger'],
+      items: ['wallets/wallets', 'wallets/app-wallet/app-wallet', 'wallets/ledger'],
       collapsed: true,
     },
     {
