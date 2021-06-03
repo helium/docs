@@ -35,7 +35,7 @@ It is a best practice to create your Helium CLI wallet on a separate machine fro
 
 - Deploy a virtual server on a cloud service like AWS, GCP, Azure, or Digital Ocean. Or deploy a physical server on which to run the validator. [The recommended hardware and networking requirements can be found here](/mine-hnt/validators/requirements/).
 
-## Create Testnet Wallet
+## Create Wallet
 
 Once you have your [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs) installed locally, it's time to create your Wallet. Run the following command to create it. (This command format assumes you're using the executable. If you've built the wallet from source it'll look slightly different.)
 
@@ -43,7 +43,7 @@ Once you have your [Helium CLI Wallet](https://github.com/helium/helium-wallet-r
 helium-wallet create basic
 ```
 
-You'll be prompted to supply a new passphrase to complete it. This is used to encrypt/decrypt the `wallet.key` file, and is needed to sign transactions. **Don't lose it.**
+You'll be prompted to supply a new wallet password. This is used to encrypt/decrypt the `wallet.key` file, and is needed to sign transactions. **Don't lose it.**
 
 This command will produce a `wallet.key` file on your machine, along with output similar to the following:
 
@@ -91,7 +91,7 @@ Your new wallet is now ready to recieve HNT.
 
 - Staking a validator requires 10,000 HNT per validator.
 - It is possible to stake more than one validator from the same wallet as long as that wallet contains 10,000 HNT for each validator that is staked.
-- The staking transaction will burn HNT as a fee, so it is reccomended to have 5-10 extra HNT per validator in order to cover the fee. Excess HNT can then be withdrawn after the staking transaction is complete. 
+- The staking transaction will burn HNT as a fee, so it is recommended to have 5-10 extra HNT per validator in order to cover the fee. Excess HNT can then be withdrawn after the staking transaction is complete. 
 
 :::
 
@@ -201,7 +201,7 @@ Once you run the command above, docker will retrieve the latest Validator image,
 
 #### Configure your Docker to update the Validator automatically - RECOMMENDED
 
-Having all Validators running the latest release of Validator software is crucial to the stability of the blockchain and your validators ability to successfully participate in the Consensus Group and earn rewards. Having an out-of-date Validators can increase election times, reduce your vaildators chances of (or completely prohibit) entry into the Consensus Group, and may possibly stall the chain depending on the changes made.
+Having all Validators running the latest release of Validator software is crucial to the stability of the blockchain and your validators ability to successfully participate in the Consensus Group and earn rewards. Having out-of-date Validators can increase election times, reduce your vaildators chances of (or completely prohibit) entry into the Consensus Group, and may possibly stall the chain depending on the changes made.
 
 To ensure that each Validator gets updated quickly without your manual involvement, you will need use a docker container process called [Watchtower](https://containrrr.dev/watchtower/). This is a docker container that, based on an interval, reviews the running containers to see if there is an updated image available for the container. If so, it stops the running container, and creates a new container with the updated image.
 
@@ -226,7 +226,7 @@ containrrr/watchtower \
 - `-v /var/run/docker.sock:/var/run/docker.sock` A volume flag to allow the watchtower container to monitor running containers.
 - `containrrr/watchtower` The Image of the watchtower container
 - `--cleanup` Passes a flag into the watchtower container. This instructs watchtower to remove old images after updating.
-- `--interval 1800` Poll interval (in seconds). This value controls how frequently watchtower will poll for new images. For Testnet, the recommendation is to check for an updated image every 30 minutes.
+- `--interval 1800` Poll interval (in seconds). This value controls how frequently watchtower will poll for new images. 
 
 Additional flags that may be helpful:
 
@@ -264,17 +264,25 @@ Finally, re-launch docker with the same command as above under the Run the Docke
 
 To manually install a specific version, look for the version tag in [the repository](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags) and then reference that version in the docker pull command.
 
-For example, to specifically install ARM version 0.1.54:
-
 ```
 docker stop validator && docker rm validator
 
-docker pull quay.io/team-helium/validator:miner-val-arm64_val0.1.54
+docker pull quay.io/team-helium/validator:miner-val-amd64_val0.1.55
 
 docker image prune -f
 ```
 
-Then re-launch docker with the same command as above under the Run the Docker Container section.
+Then re-launch docker with:
+
+```
+docker run -d --init \
+--ulimit nofile=64000:64000 \
+--restart always \
+--publish 2154:2154/tcp \
+--name validator \
+--mount type=bind,source=$HOME/validator_data,target=/var/data \
+quay.io/team-helium/validator:miner-val-amd64_val0.1.55
+```
 
 :::info
 
@@ -442,7 +450,7 @@ After the validator has been up and running for 15 minutes, proceed with some of
 
 ### Check the API
 
-The [Validator API](/api/blockchain/validators) provides several useful calls to help monitor your Validator and the state of the Testnet.
+The [Validator API](/api/blockchain/validators) provides several useful calls to help monitor your Validator.
 
 ```
 https://api.helium.wtf/v1/validators/
