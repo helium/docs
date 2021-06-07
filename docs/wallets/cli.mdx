@@ -1,0 +1,116 @@
+---
+id: cli-wallet
+sidebar_label: CLI
+slug: /wallets/cli-wallet
+hide_title: true
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Command Line Interface Wallet
+
+The Command Line Interface (CLI) The Helium Command Line Interface (CLI) wallet
+is the most flexible but it also requires more technical knowledge. As such, it
+is suitable for all types of transactions, but requires more caution on behalf
+of its users.
+
+## Installing CLI Wallet
+
+Releases of the CLI wallet are [tagged and hosted on Github](https://github.com/helium/helium-wallet-rs/tags).
+Click on "Downloads" for the most recent release and select the appropriate
+package for your operating system.
+
+Unpack the zip file and place the helium-wallet binary in your $PATH somewhere.
+This operation differs depending on your operating system, but is a common
+task and easily searchable.
+
+## Usage
+
+At any time, use `--help` to see the most recent documentation and help for the
+CLI wallet.
+
+At time of this writing, version 1.5.4 looks like this:
+
+```
+$ helium-wallet --help
+helium-wallet 1.5.5
+Common options for most wallet commands
+
+USAGE:
+    helium-wallet [OPTIONS] <SUBCOMMAND>
+
+FLAGS:
+    -h, --help
+            Prints help information
+
+    -V, --version
+            Prints version information
+
+
+OPTIONS:
+    -f, --file <files>...
+            File(s) to use [default: wallet.key]
+
+        --format <format>
+            Output format to use [default: table]  [possible values: table, json]
+
+
+SUBCOMMANDS:
+    balance       Get the balance for a wallet. The balance is given in HNT and has a precision of 8 decimals
+    burn          Burn HNT to Data Credits (DC) from this wallet to given payees wallet
+    create        Create a new wallet
+    help          Prints this message or the help of the given subcommand(s)
+    hotspots      Display list of hotspots associated with wallet or transfer a hotspot to another wallet
+    htlc          Create or Redeem from an HTLC address
+    info          Get wallet information
+    multisig      Commands multi signature transactions
+    oracle        Report an oracle price to the blockchain
+    oui           Create or update an OUI
+    pay           Send one (or more) payments to given addresses. If an input file is specified for multiple
+                  payments, the payee, amount and memo arguments are ignored
+    request       Construct various request (like payment) in a QR code
+    securities    Work with security tokens
+    upgrade       Upgrade a wallet to the latest supported version of the given format. The same password is used to
+                  decrypt the old and encrypt the new wallet
+    validators    Commands for validators
+    vars          Commands for chain variables
+    verify        Verify an encypted wallet
+
+```
+
+Exploring the help menu is always a good way to orient yourself. To learn more
+about a certain transaction (or subcommand), simply append `--help`. eg:
+
+```
+helium-wallet pay --help
+```
+
+This documentation will not cover every single command, but we will provide some basic examples
+to help you get familiar.
+
+## Create Wallet
+
+`helium-wallet create basic`
+
+This command will create a wallet as a single key, stored in `wallet.key` which gets output
+in whatever directory you ran this command.
+
+Upon creation, the CLI will prompt you for a password which encrypts the file. A strong password
+will make it difficult for someone to brute force the file should the file be compromised.
+
+## Pay
+
+
+
+
+## Specifying wallets
+
+You can specify a more precise location or filename when _creating a wallet_ by using the
+`--output` flag. eg:
+
+`helium-wallet create basic --output ~/my-wallets/wallet-5.key`
+
+When _using a wallet_, you can specify a file other than the default `./wallet.key` by using
+the the global option `--file`. eg:
+
+`helium-wallet -f ~/my-wallets/wallet-5.key pay <AMOUNT> <ADDRESS>`
