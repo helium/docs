@@ -89,10 +89,14 @@ get the appropriate region from Miner and use the appropriate configuration for
 a packet forwarder.
 
 :::info
-
 If you need examples of our regional packet forwarder configurations, please see
 [here](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder).
+:::
 
+:::warning
+If you are using our packet forwarder, be sure to customize the `rssi_offset`
+field for your particular concentrator design. Misconfiguring this value may
+result in decreased Proof-of-Coverage performance for your customers.
 :::
 
 ## Enable ECC608 and D-Bus
