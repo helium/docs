@@ -97,14 +97,16 @@ When creating a new doc, use the following front matter at the very top of the
 doc with the following fields:
 
 `id: ` This should match the filename without the extension.  
-`hide_title: ` Always set this true.  
+`title: ` The title of your document. If this field is not present, the document's title will default to its id.  
+`description: ` The description of your document.  
 `sidebar_label: ` This should match id name but with spaces and capitalized
 first letters.
 
 ```
 ---
 id: devices
-hide_title: true
+title: Devices
+description: Learn about Helium Devices
 sidebar_label: Devices
 ---
 ```
