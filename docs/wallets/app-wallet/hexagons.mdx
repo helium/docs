@@ -120,20 +120,30 @@ It's important to be truthful in where your Hotspot is located for Proof-of-Cove
 
 
 
-# FAQ
-1. Q: Why are there hexagons now instead of exact Hotspot locations?
+## FAQ
+1. 
+Q: Why are there hexagons now instead of exact Hotspot locations?
+
 A: To protect Hotspot owner's privacy, the Helium app and Explorer will use hexagons instead of precise locations to display coverage. 
 
-2. Q: Why is my Hotspot location so far off from the center of the hexagon?
+2. 
+Q: Why is my Hotspot location so far off from the center of the hexagon?
+
 A: For every Hotspot at a resolution 12, we scale up to a resolution 8 and snap the Hotspot location to the center of resolution 8. This is why you may see the location shift. This will not affect how the system calculates proof-of-coverage.
 
-3. Q: Why is my Hotspot so close to its neighboring Hotspot if I asserted 300 meters away?
+3. 
+Q: Why is my Hotspot so close to its neighboring Hotspot if I asserted 300 meters away?
+
 A: Two Hotspots may occupy the same resolution 8 hexagons even if they are more than 300 meters away. Remember that a resolution 8 hexagon has an area of 737.3276 m² with edges measuring 461.354684 meters.
 
-4. Q: Why do Hotspots in a hex have such varied scaling values?
+4. 
+Q: Why do Hotspots in a hex have such varied scaling values?
+
 A: Each Hotspot's transmit scale is a formula based on its density in a number of resolutions (from resolution 12 to resolution 4). Hotspot A that occupies the same resolution as Hotspot B may be in a very dense resolution 10 hexagon, thus lowering their scale, while Hotspot B may be the only Hotspot occupying its resolution 10 hexagon, meaning their scale is not affected. 
 
-5. Q: Are Assert Locations still precise?
+5. 
+Q: Are Assert Locations still precise?
+
 A: Yes. Assert Locations are still precise (at a resolution 12). The precise location helps the network formulate proof-of-coverage challenges. Any changes to the assert location resolution will be presented in a HIP and brought to a community vote. There is no ETA for this at the moment.
 
 
