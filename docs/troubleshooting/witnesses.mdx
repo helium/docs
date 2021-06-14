@@ -7,7 +7,9 @@ slug: /troubleshooting/understanding-witnesses
 
 # Understanding Witnesses
 
-Witnesses on the Helium network are Hotspots that have seen (or witnessed) a Proof-of-Coverage packet from a Hotspot. This single-stage Proof-of-Coverage challenge is also known as a "Beacon".
+Witnesses on the Helium network are Hotspots that have seen (or witnessed) a Proof-of-Coverage packet from a Hotspot. This single-stage Proof-of-Coverage challenge is also known as a <a href="https://docs.helium.com/blockchain/proof-of-coverage/#witnesses">"Beacon"</a>.
+
+Witness lists used to be used to construct multi-hop challenges, but since the move to single-hop challenges (or beacons), it is no longer used and only exists for informational purposes only.
 
 
 :::info
@@ -17,13 +19,13 @@ Beacons happen automatically, and Hotspots witness automatically. Successful Wit
 :::
 
 ## Witness List in Explorer and Helium App
-The list you find in explorer.helium.com and the Helium app are a historical, cumulative set of Hotspots that have witnessed your Hotspot emit a Beacon. This list is based on 5 previous days of Proof-of-Coverage <a href="https://docs.helium.com/blockchain/blockchain-primitives/#transactions">receipts</a>, and is a rolling count. This means every day, the oldest of 5 days worth of witnessese will no longer count.
+The list you find in explorer.helium.com and the Helium app are a historical, cumulative set of Hotspots that have witnessed your Hotspot emit a Beacon. This list is based on 5 previous days of Proof-of-Coverage <a href="https://docs.helium.com/blockchain/blockchain-primitives/#transactions">receipts</a>/
 
 Here is an example:
 
-| January 1        |      January 2      |   January 3 | January 4 | January 5 |
-| :-------------: | :-----------: | :-----: | :------: | :------: | :------: | 
-| 13      | 4 | 5 | 10 | 10 |
+| January 1        |      January 2      |   January 3 | January 4 | January 5 
+| :-------------: | :-----------: | :-----: | :------: | :------: | :------: 
+| 13      | 4 | 5 | 10 | 10 
 
 Total: 42 Witnesses
 
@@ -35,15 +37,14 @@ The following day, the witnesses from January 1 is rolled over and a new day's w
 
 Total: 37 Witnesses
 
-This Hotspot is still passing its Proof-of-Coverage, and the number of Witnesses in the list has no bearing on its ability to earn rewards. 
+
 
 :::note
 
-Witnesses are a *historical* view and not indicative of future earnings.
+Witnesses are *historical and informational only*. It is not indicative of future earnings.
 
 :::
 
-The window of witnesses included in the witness list count changes daily, which is why the numbers also change.
 
 ### Witness List Resets 
 Any time a Hotspot updates its location, antenna, or elevation, the list automatically resets. This does not affect earnings.
