@@ -89,10 +89,14 @@ get the appropriate region from Miner and use the appropriate configuration for
 a packet forwarder.
 
 :::info
-
 If you need examples of our regional packet forwarder configurations, please see
 [here](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder).
+:::
 
+:::warning
+If you are using our packet forwarder, be sure to customize the `rssi_offset`
+field for your particular concentrator design. Misconfiguring this value may
+result in decreased Proof-of-Coverage performance for your customers.
 :::
 
 ## Enable ECC608 and D-Bus
@@ -131,14 +135,14 @@ where these are enabled.
 
 You will also want to add a few arguments to your Docker run command which
 create the extra mount point for the config, connect the i2c-device to the
-Docker container, and connect D-bus to the Docker container:
+Docker container, and connect D-bus to the Docker container. For example:
 
 ```bash
- --device /dev/i2c-1
- --net host
- --privileged
- -v /var/run/dbus:/var/run/dbus
- --mount type=bind,source=/home/ubuntu/miner_data,target=/var/data \
+ --device /dev/i2c-1 \
+ --net host \
+ --privileged \
+ -v /var/run/dbus:/var/run/dbus \
+ --mount type=bind,source=/home/ubuntu/overlay/docker.config,target=/opt/miner/releases/0.1.0/sys.config
 ```
 
 ## Define the DBus Config

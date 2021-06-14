@@ -1,0 +1,89 @@
+---
+id: understanding-witnesses
+title: Understanding Witnesses
+sidebar_label: Understanding Witnesses and Relayed Hotspots
+slug: /troubleshooting/understanding-witnesses
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Understanding Witnesses and Relayed Hotspots
+
+Witnesses on the Helium network are Hotspots that have seen (or witnessed) a Proof-of-Coverage packet from a Hotspot. This single-stage Proof-of-Coverage challenge is also known as a <a href="https://docs.helium.com/blockchain/proof-of-coverage/#witnesses">"Beacon"</a>.
+
+Witness lists used to be used to construct multi-hop challenges, but since the network moved to use single-hop challenges (or beacons), it is no longer used and only exists for informational purposes only.
+
+
+:::info
+
+Beacons happen automatically, and Hotspots witness automatically. Successful Witnessing, Challenging, and Beaconing relies on a stable and fast internet connection. This means *relayed* Hotspots will often fail these tasks. More below.
+
+:::
+
+## Witness List in Explorer and Helium App
+The list you find in explorer.helium.com and the Helium app are a historical, cumulative set of Hotspots that have witnessed your Hotspot emit a Beacon. This list is based on 5 previous days of Proof-of-Coverage <a href="https://docs.helium.com/blockchain/blockchain-primitives/#transactions">receipts</a>.
+
+Here is an example:
+
+| January 1 |  January 2  | January 3 | January 4 | January 5 |
+| :----: | :----: | :----: | :----: | :----: | 
+| 13 | 4 | 5 | 10 | 10 |
+
+Total: 42 Witnesses
+
+The following day, the witnesses from January 1 is rolled over and a new day's worth of data is added.
+
+| January 2  |  January 3 |   January 4 | January 5 | January 6 |
+| :----: | :----: | :----: | :----: | :----: | 
+| 4 | 5 | 10 | 10 | 8 |
+
+Total: 37 Witnesses
+
+
+
+:::note
+
+Witnesses are *historical and informational only*. It is not indicative of future earnings.
+
+:::
+
+
+### Witness List Resets 
+Any time a Hotspot updates its location, antenna, or elevation, the list automatically resets. This does not affect earnings.
+
+## Relayed Hotspots and the importance of opening ports
+
+Relayed Hotspots do not just affect the Hotspot owner, but can affect its neighbors and the network.
+
+### Relayed Hotspot as a Challenger
+When a Hotspot that is relayed issues a challenge, the receipt (or acknowledgement of the challenge) by the challengee and witnessing Hotspots may not arrive in time to be accepted. Why? Because the receipt has to traverse various other Hotspot connections in order to arrive at the relayed challenger.
+
+Any witnesses that heard the beacon will have issues submitting their receipts to the challenger in a timely manner.
+
+The Challenger does not earn HNT, Challengee does not earn HNT, witnesses do not earn HNT.
+
+### Relayed Hotspot as a Challengee (Beaconer)
+A Challenger that sends a request to the Challengee expects an acknowledgement or a receipt by the Challangee within a certain period of time. If the Challengee is relayed, the initial request can take too long to arrive at the relayed Hotspot, and the request becomes stale and invalid. 
+
+The Challenger does not earn HNT, Challengee does not earn HNT, witnesses that respond do not earn HNT.
+
+### Relayed Hotspot as a Witness
+Hotspots that witness Beacons have to submit their receipt to the Challenger in a timely manner in order to earn HNT. If the witnessing Hotspot is relayed, then they are unlikely to submit their receipt in time.
+
+:::info
+
+To figure out if your Hotspot is relayed, check explorer, the app, or the API itself. Go to api.helium.io/v1/hotspots/:hotspot_address, and look at "listen_addrs". If there is a /p2p/ connection there, the Hotspot is relayed. 
+
+:::
+
+Visit the <a href="https://docs.helium.com/troubleshooting/network-troubleshooting">Network Troubleshooting guide </a>for more information.
+
+# FAQ
+**My Hotspot went from x witnesses to y! What's wrong? I didn't do anything!**
+
+This is normal! The witnesses in the list is a historical summary of who has witnessed a beacon recently. This number can vary day to day and only Hotspots that sent receipts back to the challenger in a timely manner is included.
+
+**My witnesses dropped to zero! Will this affect my earnings?**
+
+Witnesses reset when a Hotspot updates its location, antenna dBi, or elevation. There is nothing to be concerned about and this will not affect your earnings. Keep in mind that as the network grows, the rewards going to each Hotspot goes lower day over day. 
+
