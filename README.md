@@ -75,7 +75,9 @@ id: my-doc
 title: My Doc
 ---
 
-// Add to the top of the file below the front matter.
+# Doc Title
+
+// Add to the top of the file below the front matter and title.
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 ...
