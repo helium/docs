@@ -39,6 +39,10 @@ Since the genesis block, Hotspot locations have been represented (and continue t
 
 To improve privacy, security, and understand scaling, Helium is introducing hexagons in the Helium app.
 
+**These new hexagons will replace Hotspot dots.**
+
+The hex your Hotspot belongs to is derived from its resolution 12 location, and scaled up to its parent resolution 8 hexagon.
+
 ## Resolution 8 Hexagons
 
 The Helium app displays resolution 8 hexagons, which has an area of 0.7373276 km², and edge length of 0.461354684 km. About 130 resolution 8 hexagons covers the city of San Francisco. 
@@ -74,7 +78,9 @@ The **Owned and Followed Hotspot** Map layer is displayed by default.
 
 ## Map Layers
 
-App version 3.3.0 introduces three new map layers. 
+Removing point location and grouping Hotspots in a hexagon resulted in new design challenges: How do we show different Hotspot attributes as a group? What if a hexagon had a mixture of different transmit scales, or what if only one of three Hotspots in a hex is a witness?
+
+To address these challenges, app version 3.3.0 introduces three new map filters:
 
 <img src={useBaseUrl("img/wallets/helium-app/map-filters.png")} />
 
@@ -83,7 +89,7 @@ App version 3.3.0 introduces three new map layers.
 3. Scaling
 
 ### Owned and Followed Hotspots 
-This layer colors hexagons where you own or follow Hotspots. If the owned or followed Hotspot occupies a hexagon alongside non-owned or followed Hotspots, you will see a color indicator in the Hotspot selector (blue or purple).
+This layer colors hexagons where you own or follow Hotspots. If the hexagon contains both followed and unfollowed and/or owned and unowned Hotspots, you will see a blue or purple color indicator.
 
 By default, if there is an owned Hotspot in a hexagon, it will be colored blue, even if there is a followed Hotspot occupying that hexagon.
 
@@ -92,12 +98,12 @@ By default, if there is an owned Hotspot in a hexagon, it will be colored blue, 
 
 ### Witness
 
-This map layer, when selected, shows yellow hexagons of Hotspots that have witnessed the *selected* Hotspot (outlined in white). 
+This map layer, when selected, shows yellow hexagons of Hotspots that have witnessed the *selected Hotspot* (outlined in white - in this case, Magic Fleece Terrier).
 
 <img src={useBaseUrl("img/wallets/helium-app/hotspot-tab-witnesses-hex.png")} />
 
 
-To view a list of Hotspots that your Hotspot has witnessed, switch to the Witnesses tab.
+To view a list of your witnessed Hotspots, switch to the Witnesses tab.
 
 <img src={useBaseUrl("img/wallets/helium-app/hotspot-tab-witnesses.png")} />
 
@@ -106,7 +112,11 @@ These Hotspots have recently witnessed a Beacon from Magic Fleece Terrier based 
 
 ### Transmit Scale
 
-Previously known as Reward Scale, the Transmit Scale has been renamed to properly explain what this number conveys: this number is a multiplier that is applied to rewards of *any Hotspot that witness you*. The scale also affects how many rewards you receive as a Challenger. 
+Previously known as Reward Scale, the Transmit Scale has been renamed to properly explain what this number conveys. 
+
+
+**Transmit scale is a multiplier that is applied to rewards of *any Hotspot that witness you*. The scale also affects how many rewards you receive as a Challenger.**
+
 
 The number is a representation of how dense a hexagon is (how many Hotspots occupy that hex) at various resolutions (from resolution 12 down to resolution 4). This means that if any Hotspots asserts themselves between 0.3 m² to 1,770.3235517 km² away from your Hotspot, its scale can change. If you're interested in how this is calculated, check out the <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">engineering blog</a>.
 
@@ -140,9 +150,6 @@ Hotspot can now see how many other Hotspots are occupying hexagons next to them.
 It's important to be truthful in where your Hotspot is located for Proof-of-Coverage. Randomly selecting an empty hexagon will not mean the Hotspot will mine more. 
 
 :::
-
-<img src={useBaseUrl("img/wallets/helium-app/hotspot-app-assert.png")} />
-
 
 
 
