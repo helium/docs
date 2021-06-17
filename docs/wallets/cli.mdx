@@ -98,7 +98,21 @@ in whatever directory you ran this command.
 Upon creation, the CLI will prompt you for a password which encrypts the file. A strong password
 will make it difficult for someone to brute force the file should the file be compromised.
 
-### Discovering Features with the Help Menu
+### Display Wallet
+
+Displaying information for one or more wallets without needing its password can be done using;
+```
+    helium-wallet info
+```
+
+To display a QR code for the public key of the given wallet use:
+```
+    helium-wallet info --qr
+```
+
+This is useful for sending tokens to the wallet from the mobile wallet.
+
+### Wallet Creation Features
 
 Creating a wallet above is easy, but there's a lot more flexibility you might not know about. It's
 always recommended to explore the help menu to learn more:
@@ -125,7 +139,7 @@ OPTIONS:
                                  bip39, mobile]
 ```
 
-You can see there's a lot more you can do with this command. Let's try a few out.
+We'll go through a few examples next.
 
 ### Managing Multiple Wallets
 
@@ -138,6 +152,54 @@ When _using a wallet_, you can specify a file other than the default `./wallet.k
 the the global option `--file`. eg:
 
 `helium-wallet -f ~/my-wallets/wallet-5.key pay <AMOUNT> <ADDRESS>`
+
+### Sharded Wallet
+
+Sharding wallet keys is supported via Shamir's Secret Sharing. A key can be broken into N shards such that
+recovering the original key needs K distinct shards. This can be done by passing options to create:
+
+```
+    helium-wallet create sharded -n 5 -k 3
+```
+
+This will create wallet.key.1 through wallet.key.5 (the base name of the wallet file can be supplied with
+the `--output` parameter).
+
+When keys are sharded using verify will require at least K distinct keys.
+
+The `--seed` option described above can also be used to construct a sharded wallet.
+
+#### Implementation details
+
+A ed25519 key is generated via libsodium. The provided password is run through PBKDF2, with a configurable
+number of iterations and a random salt, and the resulting value is used as an AES key. When sharding is
+enabled, an additional AES key is randomly generated and the 2 keys are combined using a sha256 HMAC into
+the final AES key.
+
+The private key is then encrypted with AES256-GCM and stored in the file along with the sharding information,
+the key share (if applicable), the AES initialization vector, the PBKDF2 salt and iteration count and the
+AES-GCM authentication tag.
+
+### Import Seed
+
+The `--seed` flag enables you to import a wallet generated elsewhere. For example, you may want to import
+you key from the mobile wallet, so that you can submit transactions that may not be supported in the mobile
+wallet.
+
+Enter the command:
+
+```
+$ helium-wallet create basic --seed
+```
+
+After you press enter, you will be prompted for your seed words.
+
+::: info
+Remember, your seed is your private key. Keep it safe and private. When you import the seed as a CLI wallet,
+you do not "log yourself out" of your mobile wallet; you've only copied the private key from your mobile
+wallet into the CLI. Mobile wallet and CLI wallet both have a local copies of  the key and can submit
+transactions to the blockchain API.
+:::
 
 ## Pay Transaction Example
 
