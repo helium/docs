@@ -33,7 +33,7 @@ At time of this writing, version 1.5.4 looks like this:
 
 ```
 $ helium-wallet --help
-helium-wallet 1.5.5
+helium-wallet 1.5.6
 Common options for most wallet commands
 
 USAGE:
@@ -98,12 +98,36 @@ in whatever directory you ran this command.
 Upon creation, the CLI will prompt you for a password which encrypts the file. A strong password
 will make it difficult for someone to brute force the file should the file be compromised.
 
-## Pay
+### Discovering Features with the Help Menu
 
+Creating a wallet above is easy, but there's a lot more flexibility you might not know about. It's
+always recommended to explore the help menu to learn more:
 
+```
+$ helium-wallet create basic --help
 
+helium-wallet-create-basic 1.5.6
+Create a new basic wallet
 
-## Specifying wallets
+USAGE:
+    helium-wallet create basic [FLAGS] [OPTIONS]
+
+FLAGS:
+        --force      Overwrite an existing file
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --key-type <key-type>    The type of key to generate (ecc_compact/ed25519) [default: ed25519]
+        --network <network>      The network to generate the wallet (testnet/mainnet) [default: mainnet]
+    -o, --output <output>        Output file to store the key in [default: wallet.key]
+        --seed <seed>            Use a BIP39 or mobile app seed phrase to generate the wallet keys [possible values:
+                                 bip39, mobile]
+```
+
+You can see there's a lot more you can do with this command. Let's try a few out.
+
+### Managing Multiple Wallets
 
 You can specify a more precise location or filename when _creating a wallet_ by using the
 `--output` flag. eg:
@@ -114,3 +138,78 @@ When _using a wallet_, you can specify a file other than the default `./wallet.k
 the the global option `--file`. eg:
 
 `helium-wallet -f ~/my-wallets/wallet-5.key pay <AMOUNT> <ADDRESS>`
+
+## Pay Transaction Example
+
+If you explore the pay command, you will see the following:
+
+```
+$ helium-wallet pay --help
+
+helium-wallet-pay 1.5.6
+Send one (or more) payments to given addresses.
+
+The payment is not submitted to the system unless the '--commit' option is given.
+
+USAGE:
+helium-wallet pay [FLAGS] [OPTIONS] <SUBCOMMAND>
+
+FLAGS:
+    --commit
+        Commit the payment to the API
+    -h, --help
+        Prints help information
+    -V, --version
+        Prints version information
+
+[..]
+
+SUBCOMMANDS:
+help     Prints this message or the help of the given subcommand(s)
+multi    Multiple payees (requires file input). Check "helium-wallet pay multi --help" for details
+one      Single payee
+```
+
+Let's explore the `one` subcommand to figure out usage for a single payment:
+
+```
+$ helium-wallet pay one --help
+
+helium-wallet-pay-one 1.5.6
+Single payee
+
+USAGE:
+    helium-wallet pay one [OPTIONS] <address> <amount>
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --memo <memo>    Memo field to include. Provide as a base64 encoded string [default: AAAAAAAAAAA=]
+
+ARGS:
+    <address>    Address to send the tokens to
+    <amount>     Amount of HNT to send
+```
+
+The `USAGE` section is is very helpful: `helium-wallet pay one [OPTIONS] <address> <amount>`.
+
+For example, if I want to send 5.0 HNT to `14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz5S`,
+it would look like this:
+
+```
+helium-wallet pay one 14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz5S 5 --commit
+```
+
+The `--commit` FLAG is a global option to the `pay` command - you'll recall it was documented at the
+scope of `helium-wallet pay --help`. It's critical for **all transactions** to confirm that you want
+the transaction to be submitted to the blockchain API.
+
+When you commit a transaction to the API, you will be provided with a **transaction hash**. This is
+a unique identifier for your transaction on the blockchain and you can track your transcation status
+using the API endpoint:
+
+```
+https://api.helium.io/v1/pending_transactions/YOUR_HASH_HERE
+```
