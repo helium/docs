@@ -65,7 +65,7 @@ devices this is usually manufacturer specific. For development devices,
 if often used. For this guide we'll be using a decoder specifically made for
 this tracking device and slightly modifying it by adding two additional required
 fields. The original decoder can be found from the manufacturer's website
-[here](https://www.dragino.com/downloads/downloads/LGT_92/Decoder/LGT92-v1.5.0_decoder_20191129.txt).
+[here](https://www.dragino.com/downloads/downloads/LGT_92/Decoder/LGT92-v1.6.4_decoder_TTN.txt).
 
 To start, navigate to the Functions page using the left navigation and then
 click _Add Function_.
@@ -75,55 +75,50 @@ click _Add Function_.
    from the drop down.
 2. Copy and paste the complete decoder function provided by the manufacturer
    found
-   [here](https://www.dragino.com/downloads/downloads/LGT_92/Decoder/LGT92-v1.5.0_decoder_20191129.txt) or below.
+   [here](https://www.dragino.com/downloads/downloads/LGT_92/Decoder/LGT92-v1.6.4_decoder_TTN.txt) or below.
 
    ```javascript
-   function Decoder(bytes, port) {
-    return {
-      // GPS coordinates; signed 32 bits integer, MSB; unit: Â°
-      // When power is low (<2.84v), GPS wonâ€™t be able to get location
-      // info and GPS feature will be disabled and the location field
-      // will be filled with 0x0FFFFFFF, 0x0FFFFFFF. 
-    
-      Latitude: 
-        (bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3]) / 1000000,
-      
-      Longitude:
-        (bytes[4]<<24 | bytes[5]<<16 | bytes[6]<<8 | bytes[7]) / 1000000,
-
-      // Alarm status: boolean
-      ALARM_status: (bytes[8] & 0x40) > 0,
-
-      // Battery; 14 bits; unit: V
-      BatV: ((bytes[8] & 0x3f)<<8 | bytes[9]) / 1000,
-
-      // Motion detection mode; 2 bits
-      MD: {
-        "0": "Disable",
-        "1": "Move",
-        "2": "Collide",
-        "3": "Custom"
-      }[bytes[10]>>6],
-
-      // LED status for position, uplink and downlink; 1 bit
-      LON: (bytes[10] & 0x20) ? "ON" : "OFF",
-
-      // Firmware version; 5 bits 
-      FW:150+(bytes[10] & 0x1f),
-
-      // Roll; signed 16 bits integer, MSB; unit: Â°
-
-      // Sign-extend to 32 bits to support negative values: shift 16 bytes
-
-      // too far to the left, followed by sign-propagating right shift
-
-      Roll: (bytes[11]<<24>>16 | bytes[12]) / 100,
-
-      // Pitch: signed 16 bits integer, MSB, unit: Â°
-
-      Pitch: (bytes[13]<<24>>16 | bytes[14]) / 100,
-    };
-  }
+function Decoder(bytes, port) {
+// Decode an uplink message from a buffer
+// (array) of bytes to an object of fields.
+var value=bytes[0]<<16 | bytes[1]<<8 | bytes[2];
+if(bytes[0] & 0x80)
+{
+value |=0xFFFFFF000000;
+}
+var latitude=value/10000;//gps latitude,units: °
+value=bytes[3]<<16 | bytes[4]<<8 | bytes[5];
+if(bytes[3] & 0x80)
+{
+value |=0xFFFFFF000000;
+}
+var longitude=value/10000;//gps longitude,units: °
+var alarm=(bytes[6] & 0x40)?"TRUE":"FALSE";//Alarm status
+value=((bytes[6] & 0x3f) <<8) | bytes[7];
+var batV=value/1000;//Battery,units:V
+value=bytes[8]<<8 | bytes[9];
+if(bytes[8] & 0x80)
+{
+value |=0xFFFF0000;
+}
+var roll=value/100;//roll,units: °
+value=bytes[10]<<8 | bytes[11];
+if(bytes[10] & 0x80)
+{
+value |=0xFFFF0000;
+}
+var pitch=value/100; //pitch,units: °
+return {
+Latitude: latitude,
+Longitude: longitude,
+Roll: roll,
+Pitch:pitch,
+BatV:batV,
+ALARM_status:alarm,
+Altitude: 0,
+Accuracy: 3,
+};
+}
   ```  
   
    Next we need to add two more fields that are required by the Mappers API but
@@ -133,7 +128,7 @@ click _Add Function_.
    be used at ground level. Accuracy is set to three meters since this device
    does not output a measure of accuracy and this is a reasonable measure of
    precision to be expected for this device. Find more details on the API
-   specification [here](./mappers-api).
+   specification [here](/use-the-network/coverage-mapping/mappers-api).
 3. Next search for and add the _Mappers Integration_ label we created with the
    integration.
 4. Finally save your function.
