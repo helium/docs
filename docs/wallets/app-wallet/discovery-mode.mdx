@@ -65,7 +65,9 @@ Make sure your Hotspot is not relayed. Hotspots that are relayed may not receive
 
 :::
 
-Once Discovery Mode starts, the Hotspot sends out 10 packets. Responders that heard a Discovery Mode packet will be highlighted in a yellow hexagon. Tapping on the yellow hexagon will bring up the name of the Hotspot that responded.
+Once Discovery Mode starts, the Hotspot sends out 10 packets and takes about a minute to send all 10. 
+
+Responders that hear a Discovery Mode packet will be highlighted in a yellow hexagon. Tapping on the yellow hexagon will bring up the name of the Hotspot that responded.
 
 <img src={useBaseUrl("img/wallets/helium-app/hotspot-app-disco-results.png")} />
 
@@ -76,20 +78,26 @@ Router sometimes receives late packets from Hotspots. By extending session lengt
 
 # FAQ
 **Q. Is Discovery Mode a good representation of what a Hotspot can mine?**
+
 A. Discovery Mode is a tool meant to understand coverage and to compare if one setup or configuration is better than another. Discovery Mode ignores all the rules and logic of Proof-of-Coverage, so if you have lots of Hotspots nearby (within 300 meters), you may see them as valid responders in Discovery Mode, but they may be invalid witnesses for Proof-of-Coverage purposes.
 Discovery Mode also circumvents the issue with Relayed Hotspots. Any Hotspots that witness a beacon but is relayed, is unlikely to appear as a valid witness but may appear as a responder in Discovery Mode.
 
 **Q. How should I use Discovery Mode?**
+
 A. Use Discovery Mode to compare different antennas, different locations, elevations, inside, or outside. 
 
 **Q. Do I need to set a location before running Discovery Mode?**
+
 A. A location is not required before running Discovery Mode.
 
 **Q. What does it mean that my Hotspot was unable to initiate a session?**
+
 A. If the Hotspot is not relayed, it could mean that there were no responders or the Hotspot's firmware version is not up to date. 
 
 **Q. I have a relayed Hotspot. Can I run Discovery Mode?**
+
 A. We have seen varying levels of success when relayed Hotspots run Discovery Mode. Some succeed and some don't. We recommend getting your Hotspot out of Relayed status for optimal performance.
 
 **Q. My Discovery Mode results vary. What explains this?**
+
 A. Assuming all components of Discovery Mode are working properly (no outages on Router, app API, Console), differences between back to back sessions should not exist. But! Atmospheric and environmental impacts can affect whether a Hotspot can receive a packet. 
