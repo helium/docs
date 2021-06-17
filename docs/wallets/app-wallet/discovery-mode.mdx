@@ -1,0 +1,71 @@
+---
+id: discovery
+title: Discovery Mode Guide
+sidebar_label: Discovery Mode Guide
+slug: /wallets/app-wallet/discovery-mode
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+
+# Discovery Mode
+
+Discovery Mode are one of the tools available for Hotspot owners to understand their Hotspot coverage and optimize their Hotspot setup.
+
+## How does Discovery Mode work?
+
+Discovery Mode is a marriage between several core components on the Helium network: Helium App, Router, Console, and the Miner. Hotspots, when in Discovery Mode, acts like a device on the Helium network, sending data just like any sensor would. 
+
+:::note
+
+Hotspots that hear Discovery Mode packets are able to confirm directly with Router, even if they're relayed. This is different than how receipts work with Proof-of-Coverage. More on that later.
+
+:::
+
+### Helium App
+The Helium App's role in Discovery Mode is initiating the initial request and displaying the results. It primarily talks to the API to retrieve Discovery Mode responses, but also requests the initial Discovery Mode session.
+
+### Router
+Router's role is to wait and listen from a Discovery Mode request from the API. Once it hears a request to initiate Discovery Mode, it tells the Miner on the Hotspot to get ready and send Discovery Mode packets.
+Router also creates an object in Console, known as a device.
+
+### Console
+Once a Hotspot device is created in console, an integration is automatically associated with the device, where responses to Discovery Mode packets are stored. The packet data is stored in a database that only the API has access to.
+
+:::note
+
+Data Credits are used to send device data on the Helium network. For a limited time, Helium will cover the cost to send Discovery Mode packets.
+
+:::
+
+### Miner
+After receiving a request from Router, the miner on Hotspots is instructed to start sending packets. These packets are similar in size to Proof-of-Coverage packets.
+Miner is instructed to send 10 Discovery Mode packets.
+
+:::note
+
+Discovery Mode sends 10x more packets than a normal Beacon for Proof-of-Coverage. It is normal to see more Hotspots respond to Discovery Mode than Beacons. Also keep in mind that Relayed Hotspots do not affect acknowledging Discovery Mode packets, but do affect witnessing Beacons.
+
+:::
+
+GRAPHIC FROM BELO GOES HERE
+
+
+# Running Discovery Mode
+To start Discovery Mode for your Hotspot, go to the Hotspot and tap the **Settings** icon.
+
+Then tap Discovery Mode.
+
+:::tip
+
+Make sure your Hotspot is not relayed. Hotspots that are relayed may not receive instructions from Router in a timely manner, preventing it from starting a session.
+
+:::
+
+Once Discovery Mode starts, the Hotspot sends out 10 packets. Hotspots that hear it will eventually light up as yellow hexagons.
+
+Discovery Mode runs for 5 minutes. You may close the app and do something else during this time.
+
+*Why 5 minutes?*
+Router sometimes receives late packets from Hotspots. By extending session lengths to 5 minutes, we can capture and display all the Hotspots that heard a Discovery Mode packet, even if they're late.
+
