@@ -40,8 +40,8 @@ The Helium Command Line Interface (CLI) wallet is the most flexible but it also
 requires more technical knowledge. As such, it is suitable for all types of
 transactions, but requires more caution on behalf of its users.
 
-If you wish to proceed with using it, please follow the documentation
-[from the GitHub repository](https://github.com/helium/helium-wallet-rs).
+Learn more about usage [here](/wallets/cli). Source code is
+available on [Github](https://github.com/helium/helium-wallet-rs).
 
 ### Ledger Wallet
 
@@ -50,4 +50,4 @@ wallet. The Ledger Hardware wallet is the most secure way to send and receive
 the Helium Network Token (HNT), but currently supports no other transactions.
 
 Learn more about usage [here](/wallets/ledger). Source code is 
-available on [Github](https://github.com/helium/helium-ledger-app).
+available on [Github](https://github.com/helium/helium-ledger-cli).
