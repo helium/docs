@@ -52,7 +52,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Troubleshooting',
-      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/replace-sd-card', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting', 'troubleshooting/hotspot-led','troubleshooting/understanding-witnesses','troubleshooting/discovery-mode','troubleshooting/hexagons'],
+      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/replace-sd-card', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting', 'troubleshooting/hotspot-led','troubleshooting/understanding-witnesses'],
       collapsed: true,
     },
   ],
@@ -75,7 +75,7 @@ module.exports = {
     {
       type: 'category',
       label: 'App Wallet',
-      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/transfer-hotspot', 'wallets/app-wallet/rak-hotspot-setup', 'wallets/app-wallet/hexagons'],
+      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/transfer-hotspot', 'wallets/app-wallet/rak-hotspot-setup', 'wallets/app-wallet/hexagons', 'wallets/app-wallet/discovery-mode'],
       collapsed: false,
     }
   ],
