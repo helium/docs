@@ -79,13 +79,17 @@ Responders that hear a Discovery Mode packet will be highlighted in a yellow hex
 Discovery Mode runs for 5 minutes. You may close the app and do something else during this time.
 
 *Why 5 minutes?*
+
 Router sometimes receives late packets from Hotspots. By extending session lengths to 5 minutes, we can capture and display all the Hotspots that heard a Discovery Mode packet, even if they're late.
 
 # FAQ
 **Q. Is Discovery Mode a good representation of what a Hotspot can mine?**
 
-A. Discovery Mode is a tool meant to understand coverage and to compare if one setup or configuration is better than another. Discovery Mode ignores all the rules and logic of Proof-of-Coverage, so if you have lots of Hotspots nearby (within 300 meters), you may see them as valid responders in Discovery Mode, but they may be invalid witnesses for Proof-of-Coverage purposes.
-Discovery Mode also circumvents the issue with Relayed Hotspots. Any Hotspots that witness a beacon but is relayed, is unlikely to appear as a valid witness but may appear as a responder in Discovery Mode.
+A. Discovery Mode is a tool meant to understand coverage and to compare if one setup or configuration is better than another. 
+
+Discovery Mode ignores all the rules and logic of Proof-of-Coverage, so if you have lots of Hotspots nearby (within 300 meters), you may see them as valid responders in Discovery Mode, but they may be invalid witnesses for Proof-of-Coverage purposes.
+
+[Discovery Mode also ignores the issue with Relayed Hotspots](https://docs.helium.com/troubleshooting/understanding-witnesses/#relayed-hotspot-as-a-witness). Any Hotspots that witness a beacon but is relayed, is unlikely to appear as a valid witness but may appear as a responder in Discovery Mode.
 
 **Q. How should I use Discovery Mode?**
 
@@ -106,3 +110,19 @@ A. We have seen varying levels of success when relayed Hotspots run Discovery Mo
 **Q. My Discovery Mode results vary. What explains this?**
 
 A. Assuming all components of Discovery Mode are working properly (no outages on Router, app API, Console), differences between back to back sessions should not exist. But! Atmospheric and environmental impacts can affect whether a Hotspot can receive a packet. 
+
+**Q. How many sessions can I run per day?**
+
+A. Every Hotspot can run 5 Discovery Mode sessions per day, resetting to 0 at 12AM UTC.
+
+**Q. Who pays for Discovery Mode?**
+
+A. Discovery Mode is free to use and no Data Credits are required.
+
+**Q. I don't own the Hotspot. Can I run Discovery Mode on it?**
+
+A. No. Only Hotspot owners can run Discovery Mode.
+
+**Q. What are the basic requirements to run Discovery Mode?**
+
+A. The Hotspot firmware version should be on `2021.05.12.0` or newer, with app version `3.2.0` or newer.
