@@ -52,7 +52,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Troubleshooting',
-      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/replace-sd-card', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting', 'troubleshooting/hotspot-led','troubleshooting/understanding-witnesses'],
+      items: ['troubleshooting/hotspot-setup-troubleshooting', 'troubleshooting/replace-sd-card', 'troubleshooting/improving-poc', 'troubleshooting/network-troubleshooting', 'troubleshooting/hotspot-led','troubleshooting/understanding-witnesses','troubleshooting/discovery-mode','troubleshooting/hexagons'],
       collapsed: true,
     },
   ],
