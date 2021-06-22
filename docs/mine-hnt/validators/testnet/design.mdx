@@ -1,0 +1,14 @@
+---
+id: validators-testnet-design
+title: Validators Design (Testnet)
+sidebar_label: Design
+slug: /mine-hnt/validators/testnet/design
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+A few things are slightly modified from what will eventually be Mainnet. Specifically:
+
+* Developers need Testnet Network Tokens (TNT) to stake test validator nodes. You can get them [via the Faucet](https://faucet.helium.wtf) but, before you do that, read the [Validator Deployment Guide](/mine-hnt/validators/testnet/deployment-guide) so you know how to use them.
+* The Testnet Consensus Group will be sized dynamically based on the number of active testnet participants.
+* The cooldown period - defined as the number of blocks after unstaking when the validator node doesn't earn rewards, and the stake is returned to the owner's wallet - is shortened to 180 blocks (or approximately 3 hours). On Mainnet this period will be 250,000 blocks (or approximately 5.8 months).

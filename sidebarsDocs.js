@@ -988,6 +988,25 @@ module.exports = {
     },
   ],
   validators: [
+    {
+       type: 'link',
+       label: '<- Back',
+       href: '/mine-hnt/validators'
+     },
+     {
+       type: 'category',
+       label: 'Validators',
+       items: [
+         'mine-hnt/validators/validators-requirements',
+         'mine-hnt/validators/validators-monitoring',
+         'mine-hnt/validators/validators-troubleshooting',
+         'mine-hnt/validators/validators-penalties',
+         'mine-hnt/validators/validators-faqs-resources-providers',
+       ],
+       collapsed: false,
+     },
+   ],
+   validators_testnet: [
    {
       type: 'link',
       label: '<- Back',
@@ -995,8 +1014,14 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Validators',
-      items: ['mine-hnt/validators/requirements', 'mine-hnt/validators/validator-deployment-guide', 'mine-hnt/validators/validator-wallet', 'mine-hnt/validators/validator-score', 'mine-hnt/validators/validator-troubleshooting', 'mine-hnt/validators/validator-testcases','mine-hnt/validators/validator-faqs-resources'],
+      label: 'Validators (Testnet)',
+      items: [
+        'mine-hnt/validators/testnet/validators-testnet-expectations',
+        'mine-hnt/validators/testnet/validators-testnet-design',
+        'mine-hnt/validators/testnet/validators-testnet-deployment-guide',
+        'mine-hnt/validators/testnet/validators-testnet-wallet',
+        'mine-hnt/validators/testnet/validators-testnet-test-cases',
+      ],
       collapsed: false,
     },
   ],
