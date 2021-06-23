@@ -90,7 +90,14 @@ The output will look similar to this:
 
 ## Each Validator Requires 10000 HNT
 
-Running a Validator on Mainnet requires a stake of `10000 HNT` per Validator. After you've created your wallet, transfer a little more than `10000 HNT` into it for each Validator you intend to run. (The extra will cover the transaction costs required for the staking and unstaking operations. An additional `2` HNT per Validator will be more than enough to cover this.) 
+Running a Validator on Mainnet requires a stake of `10000 HNT` per Validator. After you've created your wallet, transfer a little more than `10000 HNT` into it for each Validator you intend to run. 
+
+:::info
+
+As is the case with every transaction on the Helium blockchain, `staking` requires a small fee paid in Data Credits. [Read more about transaction fees here](/blockchain/transaction-fees).
+
+:::
+
 
 ## Run a Validator
 
@@ -177,6 +184,12 @@ Once you run the command above, docker will retrieve the latest Validator image,
 #### Configure your Docker to update the Validator automatically - RECOMMENDED
 
 Having all Mainnet Validators running the latest release of Validator software is crucial for the security and stability of the Network. Out-of-date Validators can increase election times or even stall the chain depending on the changes made and possibly incur penalties that would negatively impact earnings.
+
+:::warning 
+
+Full documentation on Validator penalties and how they impact HNT rewards [can be found here](/mine-hnt/validators/penalties/).
+
+:::
 
 To ensure that each Validator gets updated quickly without your manual involvement, we will use a docker container process called [Watchtower](https://containrrr.dev/watchtower/). This is a docker container that, based on an interval, reviews the running containers to see if there is an updated image available for the container. If so, it stops the running container, and creates a new container with the updated image.
 
