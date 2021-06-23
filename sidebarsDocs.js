@@ -1025,6 +1025,21 @@ module.exports = {
       collapsed: false,
     },
   ],
+  validators_mainnet: [
+  {
+     type: 'link',
+     label: '<- Back',
+     href: '/mine-hnt/validators'
+   },
+   {
+     type: 'category',
+     label: 'Validators (Mainnet)',
+     items: [
+       'mine-hnt/validators/mainnet/validators-mainnet-deployment-guide',
+     ],
+     collapsed: false,
+   },
+ ],
    lightHotspots: [
    {
        type: 'link',
