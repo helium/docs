@@ -174,7 +174,7 @@ Once you run the command above, docker will retrieve the latest Validator image,
 
 #### Configure your Docker to update the Validator automatically - RECOMMENDED
 
-Having all Mainnet Validators running the latest release of Validator software is crucial for the security and stability of the Network. Out-of-date Validators can increase election times or even stall the chain depending on the changes made.
+Having all Mainnet Validators running the latest release of Validator software is crucial for the security and stability of the Network. Out-of-date Validators can increase election times or even stall the chain depending on the changes made and possibly incur penalties that would negatively impact earnings.
 
 To ensure that each Validator gets updated quickly without your manual involvement, we will use a docker container process called [Watchtower](https://containrrr.dev/watchtower/). This is a docker container that, based on an interval, reviews the running containers to see if there is an updated image available for the container. If so, it stops the running container, and creates a new container with the updated image.
 
