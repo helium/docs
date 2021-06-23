@@ -532,7 +532,7 @@ Getting back on chain is easy now that you've got everything installed:
 #### Fund the Wallet
 
 - You do not need to delete and re-create the wallet.  The wallet balance will show `0`, since this is a new blockchain and you have no TNT.  If you happen to run `helium-wallet balance` and receive an error, give it a few minutes.  The API may still be restarting after pointing to the new chain.  Your wallet password is the same.
-- When the balance shows `0`, add funds to your wallet from the [Faucet](https://faucet.helium.wtf/) exactly how you performed the task earlier.  Follow the [Acquire TNT from the Testnet Faucet](/mine-hnt/validators/validator-deployment-guide#acquire-tnt-from-the-testnet-faucet) directions.
+- When the balance shows `0`, add funds to your wallet from the [Faucet](https://faucet.helium.wtf/) exactly how you performed the task earlier.  Follow the [Acquire TNT from the Testnet Faucet](#acquire-tnt-from-the-testnet-faucet) directions.
 
 #### Reset the Validator - Docker Edition
 
@@ -540,7 +540,7 @@ Getting back on chain is easy now that you've got everything installed:
 - `cd` into the `validator_data` directory you setup earlier in the Deploy step above.  Then run `sudo rm -rf blockchain* ledger.db state_channels.db log checkpoints`  This will delete everything in this folder except for the `miner` folder. Please be sure you're in the correct folder before running `rm` commands.
 - The `miner` folder contains a single `swarm_key` file.  If you want to keep the 3-word name of your miner, keep this file.  If you want a new one, you can delete this file as well. 
 - There will be a new validator version when the chain is relaunched, so force pull the new docker image version prior to starting the validator.  `docker pull quay.io/team-helium/validator:latest-val-amd64`
-- Restart the validator with your `docker run` command that you used [during the install](/mine-hnt/validators/validator-deployment-guide#deploy-the-validator-using-docker---recommended).
+- Restart the validator with your `docker run` command that you used [during the install](#deploy-the-validator-using-docker---recommended).
 - Watchtower should still be running from our install and will continue to update the docker image automatically.
 
 #### Reset the Validator - From Source
@@ -550,7 +550,7 @@ Getting back on chain is easy now that you've got everything installed:
 
 #### Restake 
 
-- Follow the same process from [Stake Tokens to Your Validator](/mine-hnt/validators/validator-deployment-guide#stake-tokens-to-your-validator) to stake the 10,000 TNT received from the faucet for your Testnet validator.  If you kept the `swarm_key` file above, your validator node address will be the same.  If you deleted that file, you'll have to ensure you have the new node address by running `miner peer addr` as outlined in that section.
+- Follow the same process from [Stake Tokens to Your Validator](#stake-tokens-to-your-validator) to stake the 10,000 TNT received from the faucet for your Testnet validator.  If you kept the `swarm_key` file above, your validator node address will be the same.  If you deleted that file, you'll have to ensure you have the new node address by running `miner peer addr` as outlined in that section.
 
-That's it!  You're back on the new chain and should see similar output as defined in [Verifying Validator Victory](/mine-hnt/validators/validator-deployment-guide#verifying-validator-victory).
+That's it!  You're back on the new chain and should see similar output as defined in [Verifying Validator Victory](#verifying-validator-victory).
 
