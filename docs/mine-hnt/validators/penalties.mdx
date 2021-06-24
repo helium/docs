@@ -61,8 +61,9 @@ Now that there's a high-level description of how penalties affect the election p
 
 To ensure that consensus groups members are continually churned, and that no individual Validator participates for too long, penalties are added. **This is not a performance based penalty and is added to _all_ Validators that participate in a consensus group.**
 
-- A penalty of `0.5` is added at the beginning of each consensus group for each Validator that in participating in the group. If the Validator is not ejected from the consensus group, it will receive another `0.5` penalty at the beginning of the 2nd consensus group, now having a score of `1.0`.
+- A tenure penalty of `0.5` is added at the beginning of each consensus group for each Validator participating in that group. If the Validator is not ejected from the consensus group, it will receive another `0.5` penalty at the beginning of each subsequent epoch.
 - This penalty is called the `tenure_penalty` and is a chain variable. You can view this variable by running `miner ledger variables tenure_penalty`.
+- At the start of each epoch, any performance penalties that have been accumulated during the prior epoch will be applied to each member of the outgoing consensus group.
 
 ### DKG (Distributed Key Generation) Penalty
 
@@ -108,9 +109,11 @@ Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_
 
 Penalties decay as blocks are formed.
 
-Each penalty, when assessed, also decays at the same rate. This decay rate is in blocks, and is stored as a chain variable. View the current decay block limit by running `miner ledger variables penalty_history_limit`. This value is set to `10080` blocks for mainnet, or a target of 1 week.
+This decay rate is in blocks, and is stored as a chain variable. View the current decay block limit by running `miner ledger variables penalty_history_limit`. This value is set to `10080` blocks for mainnet, or a target of 1 week.
 
-Every time a penalty is assessed, it begins to decay at `penalty * (1 - age/penalty_history_limit)`, where age is the number of blocks that have occurred since the penalty was put in place. This means that as blocks are formed, each penalty decays over time bringing a Validator back down to `0.0`.
+To phrase it in a different way, every time a penalty is assessed it begins to decay at `penalty * (1 - age/penalty_history_limit)` where `age` is the number of blocks that have occurred since the penalty was put in place.
+
+Each penalty accrued decays to `0.0` in `10080` blocks, regardless of its initial magnitude.
 
 ## Penalty Objectives
 
