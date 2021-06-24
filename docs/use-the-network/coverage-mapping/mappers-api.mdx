@@ -13,16 +13,13 @@ import TabItem from "@theme/TabItem";
 
 The Mappers API is a set of HTTP requests used for submitting data to the
 Mappers project. Data submitted is viewable on
-[mappers.helium.com](https://mappers.helium.com) and updated every six hours
-starting at 04:20 UTC.
+[mappers.helium.com](https://mappers.helium.com) and updated in real time.
 
 ---
 
-## Authentication
+### Authentication
 
 There is currently no authentication required.
-
----
 
 ### Ingest Uplink
 
@@ -37,10 +34,10 @@ Requests are intended to be sent from an HTTP integration within Console.
 Metadata from the standard JSON message is used in addition to the required
 fields detailed below.
 
-All required fields can be located at any level within the `decoded`JSON
+All required fields can be located at any level within the `decoded` JSON
 field.  
-All of the following fields are required `latitude`, `longitude`, `altitude`.  
-One or more of the following are required `accuracy`, `hdop`, `sats`.
+All of the following fields are required `latitude`, `longitude`, `altitude`
+, `accuracy`.
 
 <Tabs
   block={true}
@@ -50,14 +47,12 @@ One or more of the following are required `accuracy`, `hdop`, `sats`.
 
 _Body Parameters_
 
-| Parameter Name         | Type     | Description                            |
-| ---------------------- | -------- | -------------------------------------- |
-| latitude (required)    | _number_ | Device Latitude Value                  |
-| longitude (required)   | _number_ | Device Longitude Value                 |
-| altitude (required)    | _number_ | Device Altitude Value                  |
-| accuracy (one or more) | _number_ | Device GPS Accuracy Value              |
-| sats (one or more)     | _number_ | Device Visible Satellites Value (1-16) |
-| hdop (one or more)     | _number_ | Device HDOP Value (1-10)               |
+| Parameter Name  | Type     | Description                 | Expected Unit   | Example                |
+| --------------- | -------- | --------------------------- | --------------- | ---------------------- |
+| latitude        | _number_ | Device Latitude Value       | Decimal Degrees | `  37.79518664339426`  |
+| longitude       | _number_ | Device Longitude Value      | Decimal Degrees | `-122.39384483747301`  |
+| altitude        | _number_ | Device Altitude Value       | Meters          | `10`                   |
+| accuracy        | _number_ | Device GPS Accuracy Value   | Meters          | `2.3`                  |
 
 </TabItem>
 <TabItem value="response">
