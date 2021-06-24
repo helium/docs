@@ -117,10 +117,10 @@ If nothing is returned from this command, your host system does not have AVX sup
 
 You have two options for deploying the Validator. You just need to do ONE of the following:
 
-- [Deploy the Validator Using Docker](#deploy-the-miner-using-docker). Recommended if you are unfamiliar with building software.
+- [Deploy the Validator Using Docker](#deploy-the-miner-using-docker)
 - [Build the Validator form Source](#deploy-miner-from-source)
 
-### Deploy the Validator Using Docker - RECOMMENDED
+### Deploy the Validator Using Docker
 
 Start by updating your packager manager registry:
 
@@ -181,60 +181,17 @@ Additional flags that may be helpful:
 
 Once you run the command above, docker will retrieve the latest Validator image, and start the docker process. Barring any errors, your Validator is running.
 
-#### Configure your Docker to update the Validator automatically - RECOMMENDED
-
-Having all Mainnet Validators running the latest release of Validator software is crucial for the security and stability of the Network. Out-of-date Validators can increase election times or even stall the chain depending on the changes made and possibly incur penalties that would negatively impact earnings.
-
-:::warning 
-
-Full documentation on Validator penalties and how they impact HNT rewards [can be found here](/mine-hnt/validators/penalties/).
-
-:::
-
-To ensure that each Validator gets updated quickly without your manual involvement, we will use a docker container process called [Watchtower](https://containrrr.dev/watchtower/). This is a docker container that, based on an interval, reviews the running containers to see if there is an updated image available for the container. If so, it stops the running container, and creates a new container with the updated image.
-
 :::info
 
-Watchtower simply reviews the `docker run` commands that were used to launch the running containers and checks for newer images for these containers.  Therefore it is imperative that your `docker run` command reference the `latest-validator-amd64` or `latest-validator-arm64` image tag or **it will never update**.
+Please watch and respond to upgrade requests on the `#validators-announcements` channel on the [Helium Discord](https://discord.gg/helium) server in a timely manner.
 
 :::
 
-Start watchtower with the following command:
+#### Upgrade your Docker container
 
-```
-docker run -d \
---restart always \
---name watchtower \
--v /var/run/docker.sock:/var/run/docker.sock \
-containrrr/watchtower \
---cleanup \
---interval 1800
-```
+To do manual upgrades, the latest miner tag [can be found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
 
-- `-v /var/run/docker.sock:/var/run/docker.sock` A volume flag to allow the watchtower container to monitor running containers.
-- `containrrr/watchtower` The Image of the watchtower container
-- `--cleanup` Passes a flag into the watchtower container. This instructs watchtower to remove old images after updating.
-- `--interval 1800` Poll interval (in seconds). This value controls how frequently watchtower will poll for new images. The recommendation is to check for an updated image every 30 minutes.
-
-Additional flags that may be helpful:
-
-- `validator` Include the name of the container as the last line in the command above. Including this at the end simply tells watchtower to only monitor the validator container and not any of the other containers running on your docker server. This is included here for convenience if there are other docker containers running on the host. If the validator is the only service running, this can be omitted.
-
-That's it! Watchtower will check to ensure the running validator has the latest image and will automatically stop, update, and run your container if required. Watchtower will also monitor and update the watchtower image itself.  
-
-Finally, you may be asking if there's a method to know if watchtower was successful in identifying an upgrade and installing it.  Read through the [Watchtower notifications options](https://containrrr.dev/watchtower/notifications/) page how you can extend this guide further and receive notifications through Slack, Teams, Discord, Pushover, email or other methods.
-
-:::info
-
-If you choose to not run Watchtower or something like it for automatic updates of the Docker image, please watch and respond to upgrade requests on the `#validators-announcements` channel on the [Helium Discord](https://discord.gg/helium) server in a timely manner.
-
-:::
-
-#### Upgrade your Docker container manually - Not needed if running watchtower
-
-If you're planning to do manual upgrades, the latest miner tag [can be found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
-
-To upgrade your docker container to the latest version, do the following. These commands will stop the running container then delete it; pull ann updated Validator docker image from the repository; and finally delete any out of date Validator docker images.
+To upgrade your docker container to the latest version, do the following. These commands will stop the running container then delete it; pull an updated Validator docker image from the repository; and finally delete any out of date Validator docker images.
 
 ```
 docker stop validator && docker rm validator
@@ -244,7 +201,7 @@ docker pull quay.io/team-helium/validator:latest-validator-amd64
 docker image prune -f
 ```
 
-Finally, re-launch docker with the same command as above under the [Run the Docker Container](#deploy-the-validator-using-docker---recommended) section.
+Finally, re-launch docker with the same command as above under the [Run the Docker Container](#deploy-the-validator-using-docker) section.
 
 #### Interact with the Validator within the Container
 
