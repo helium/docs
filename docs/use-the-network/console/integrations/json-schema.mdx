@@ -107,8 +107,12 @@ Here is an example of data received:
 }
 ```
 
-| Type            | Description |                                                                                                                                                                         |
+| Field           | Description |                                                                                                                                                                         |
 | :-------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **payload_raw** | String      | Data transmitted to your device as a base64 encoded String. Most computer languages will have some built-in libraries for parsing this \(e.g. base64.encode\(payload\)\) |
 | **port**        | Number      | LoRaWAN FPort on which the data was transmitted; this can be useful for routing data within the application                                                             |
 | **confirmed**   | Bool        | Whether or not a device acknowledgement is required                                                                                                                     |
+
+### Clearing a Device Queue
+
+If the **payload_raw** field is the base64 encoded value `'__clear_downlink_queue__'` any downlinks queued for that device will be removed.
