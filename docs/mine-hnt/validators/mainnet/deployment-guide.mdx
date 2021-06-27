@@ -160,6 +160,7 @@ You can then use the `run` command to start your container for the first time:
 docker run -d --init \
 --restart always \
 --publish 2154:2154/tcp \
+--publish 8080:8080/tcp \
 --name validator \
 --mount type=bind,source=$HOME/validator_data,target=/var/data \
 quay.io/team-helium/validator:latest-validator-amd64
@@ -169,6 +170,7 @@ quay.io/team-helium/validator:latest-validator-amd64
 - `--init` to indicate that an init process should be used as the PID 1 in the container.  This ensures the usual responsibilities of an init system, such as reaping zombie processes, are performed inside the created container.  When `docker exec` commands are run, it's possible for these to create zombie processes on the host.  This eliminates that issue. You can read more about this [here](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/) and [here](https://docs.docker.com/engine/reference/commandline/run/).
 - `--restart always` asks Docker to keep the image running, starting the image on boot and restarting the image if it crashes. Depending on how you installed Docker in your system, it'll start on boot. In the AWS AMI above, we use systemd (systemctl status docker to check).
 - `--publish 2154:2154/tcp` maps the port 2154 on the docker container to 2154 on the host machine. This allows inbound connections on port 2154 to the host machine to be routed to the validator container. In addition to this mapping, it is up to you to ensure that this port is available from the public internet to the host machine. This will require modifying firewall and/or security group settings in your cloud provider of choice.
+- `--publish 8080:8080/tcp` maps the port 8080 on the docker container to 8080 on the host machine. This allows inbound connections on port 8080 to the host machine to be routed to the validator container. In addition to this mapping, it is up to you to ensure that this port is available from the public internet to the host machine. This will require modifying firewall and/or security group settings in your cloud provider of choice.
 - `--name validator` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
 - `--mount` the parameters above will mount the container's `/var/data/` directory to the systems directory `$HOME/validator_data`. You will want this folder to be persistent across runs of the docker container as it will contain both the blockchain data and the miner key of your Validator.
 - `quay.io/team-helium/validator:latest-validator-amd64` Lastly, this points to the docker **_image_** for the Validator that is tagged as the "latest" for the amd64 architecture. For arm architectures, replace with `latest-validator-arm64`.
