@@ -224,6 +224,7 @@ containrrr/watchtower \
 Additional flags that may be helpful:
 
 - `validator` Include the name of the container as the last line in the command above. Including this at the end simply tells watchtower to only monitor the validator container and not any of the other containers running on your docker server. This is included here for convenience if there are other docker containers running on the host. If the validator is the only service running, this can be omitted.
+- `--publish 8080:8888/tcp` There is a conflict with the Watchtower API port and the validator support of the Light HotSpot Project. You will have to remap the Watchtower API port with this command.
 
 That's it! Watchtower will check to ensure the running validator has the latest image and will automatically stop, update, and run your container if required. Watchtower will also monitor and update the watchtower image itself.  
 
