@@ -314,6 +314,16 @@ miner genesis load </absolute/path/to/genesis/block>
 
 Note that in the above `miner` command, the `miner` binary here is nested within `_build/validator/rel/miner/bin/miner`.
 
+#### A Note on Errors
+
+Source builders have sometimes reported error messages (after the miner has been running well for a while) referencing `Too many open files`. This can occur when a `ulimit` limitation is exceeded for the number of open files.
+
+You can check your soft limit (often `1024` by default) with:
+
+```ulimit -Sn```
+
+Specifics instructions to increase the `ulimit` vary by OS (readily found with a Google search) and are beyond the scope of this guide.
+
 ## Stake HNT to Your Validator
 
 Now that your Validator node is running, the final step in the process is to formally stake HNT to your Validator. As part of the staking process the Validator address needs to both be in the staking transaction and sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
