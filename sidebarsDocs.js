@@ -10,7 +10,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/validators/validators','mine-hnt/light-hotspots/light-hotspots'],
+      items: ['mine-hnt/mine-hnt', 'mine-hnt/full-hotspots/full-hotspots', 'mine-hnt/validators/validators','mine-hnt/light-hotspots/light-hotspots'],
       collapsed: true,
     },
     {
@@ -974,16 +974,24 @@ module.exports = {
       collapsed: false,
     },
   ],
-  hotspotMakers: [
+  become_a_maker: [
    {
       type: 'link',
-      label: '<- Hotspot Makers',
-      href: '/mine-hnt/hotspot-makers'
+      label: '<- Full Hotspots',
+      href: '/mine-hnt/full-hotspots'
     },
     {
       type: 'category',
-      label: 'Makers',
-      items: ['mine-hnt/hotspot-makers/approved-makers/approved-makers', 'mine-hnt/hotspot-makers/maker-approval-auditing/maker-approval-auditing', 'mine-hnt/hotspot-makers/hotspot-integration-testing/hotspot-integration-testing', 'mine-hnt/hotspot-makers/docker-integration/docker-integration', 'mine-hnt/hotspot-makers/security-requirements/security-requirements','mine-hnt/hotspot-makers/hotspot-ble-services/hotspot-ble-services', 'mine-hnt/hotspot-makers/hotspot-wifi-configuration/hotspot-wifi-configuration', 'mine-hnt/hotspot-makers/burn-hnt-to-maker-wallet/burn-hnt-to-maker-wallet'],
+      label: 'Become a Maker',
+      items: [
+          'mine-hnt/full-hotspots/become-a-maker/maker-approval-auditing',
+          'mine-hnt/full-hotspots/become-a-maker/hotspot-integration-testing',
+          'mine-hnt/full-hotspots/become-a-maker/docker-integration',
+          'mine-hnt/full-hotspots/become-a-maker/security-requirements',
+          'mine-hnt/full-hotspots/become-a-maker/hotspot-ble-services',
+          'mine-hnt/full-hotspots/become-a-maker/hotspot-wifi-configuration',
+          'mine-hnt/full-hotspots/become-a-maker/burn-hnt-to-maker-wallet'
+      ],
       collapsed: false,
     },
   ],
