@@ -11,8 +11,9 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 This document describes the architecture and technical roadmap planned for
 converting existing Approved Hotspots to Light Hotspots. As part of this
-migration, we will also introduce a new Hotspot variant onto the network, called
-a Data Only Hotspot (more below).
+migration, we have introduced a new Hotspot variant onto the network, called
+a [Data Only Hotspot](/mine-hnt/data-only-hotspots). More details on progress
+and timeline are listed below.
 
 :::warning
 
@@ -46,9 +47,9 @@ increasing demand and continue to expand network coverage.
 
 ## Light Hotspot Properties
 
-When Light Hotspots are fully developed and in production (which will happen
-with the completion of Milestone 4 detailed below) they will satisfy the
-following properties:
+When the Light Hotspot Client is fully developed and in production (which
+will happen with the completion of Milestone 4 detailed below) they will
+satisfy the following properties:
 
 - A Hotspot on the Helium network that, via [Validators](/mine-hnt/validators),
   can participate in PoC beacons and witnesses, and forwards data packets;
@@ -58,6 +59,10 @@ following properties:
 - Does not participate in Consensus Groups (relies on Validators for block
   production);
 - Will be eligible to earn $HNT(see table below)
+
+In other words, the client will allow the hotspot to participate as a
+[Full Hotspot](/mine-hnt/full-hotspots), without the extra overhead of maintaining a local copy
+of the blockchain.
 
 ### Data Only Hotspots
 
@@ -111,7 +116,7 @@ as Data Only Hotspots.
 
 #### Add Hotspot to Blockchain
 
-- **Target Completion: June**
+- **Target Completion: early July**
 - **Status: Pending Activation on Mainnet**
 
 At the completion of Milestone 1.5, Data Only Hotspots can be added to the
