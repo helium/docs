@@ -998,7 +998,6 @@ module.exports = {
        label: 'Validators',
        items: [
          'mine-hnt/validators/validators-requirements',
-		 'mine-hnt/validators/testnet-to-mainnet-migration',  
          'mine-hnt/validators/validators-monitoring',
          'mine-hnt/validators/validators-troubleshooting',
          'mine-hnt/validators/validators-penalties',
