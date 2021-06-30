@@ -4,25 +4,52 @@ module.exports = {
     {
       type: 'category',
       label: 'Blockchain',
-      items: ['blockchain/blockchain', `blockchain/blockchain-primitives/blockchain-primitives`, 'blockchain/mining/mining', 'blockchain/proof-of-coverage/proof-of-coverage', 'blockchain/packet-purchasing/packet-purchasing','blockchain/consensus-protocol/consensus-protocol', 'blockchain/helium-token/helium-token', 'blockchain/oracles/oracles', 'blockchain/transaction-fees/transaction-fees'],
+      items: [
+          'blockchain/blockchain',
+          `blockchain/blockchain-primitives/blockchain-primitives`,
+          'blockchain/mining/mining',
+          'blockchain/proof-of-coverage/proof-of-coverage',
+          'blockchain/packet-purchasing/packet-purchasing',
+          'blockchain/consensus-protocol/consensus-protocol',
+          'blockchain/helium-token/helium-token',
+          'blockchain/oracles/oracles',
+          'blockchain/transaction-fees/transaction-fees'
+      ],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt', 'mine-hnt/full-hotspots/full-hotspots', 'mine-hnt/validators/validators','mine-hnt/light-hotspots/light-hotspots'],
+      items: [
+          'mine-hnt/mine-hnt',
+          'mine-hnt/full-hotspots/full-hotspots',
+          'mine-hnt/data-only-hotspots',
+          'mine-hnt/validators/validators'
+      ],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'LoRaWAN on Helium',
-      items: ['lorawan-on-helium/lorawan-on-helium', 'lorawan-on-helium/frequency-plans/frequency-plans'],
+      items: [
+          'lorawan-on-helium/lorawan-on-helium',
+          'lorawan-on-helium/frequency-plans/frequency-plans'
+      ],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'Use The Network',
-      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/run-a-network-server/run-a-network-server', 'use-the-network/build-a-packet-forwarder/build-a-packet-forwarder', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
+      items: [
+          'use-the-network/use-the-network',
+          'use-the-network/devices/devices',
+          'use-the-network/console/console',
+          'use-the-network/run-a-network-server/run-a-network-server',
+          'use-the-network/light-hotspots/light-hotspots',
+          'use-the-network/setup-a-packet-forwarder',
+          'use-the-network/community-projects/community-projects',
+          'use-the-network/coverage-mapping/coverage-mapping'
+      ],
       collapsed: true,
     },
     {
@@ -1052,12 +1079,12 @@ module.exports = {
    {
        type: 'link',
        label: '<- Light Hotspot',
-       href: '/mine-hnt/light-hotspots'
+       href: '/use-the-network/light-hotspots'
    },
    {
        type: 'category',
        label: 'Light Hotspot Guides',
-       items: ['mine-hnt/light-hotspots/guides/dragino', 'mine-hnt/light-hotspots/guides/kerlink'],
+       items: ['use-the-network/light-hotspots/guides/dragino', 'use-the-network/light-hotspots/guides/kerlink'],
        collapsed: false,
    },
   ],

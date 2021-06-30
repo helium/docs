@@ -1,184 +1,116 @@
 ---
 id: data-only-hotspots
-title: Data-Only Hotspots
-sidebar_label: Data-Only Hotspots
+title: Data Only Hotspots
+sidebar_label: Data Only Hotspots
 slug: /mine-hnt/data-only-hotspots
 ---
 
-# Light Hotspots - Beta
+# Data Only Hotspots
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-This document describes the architecture and technical roadmap planned for
-converting exisiting Approved Hotspots to Light Hotspots. As part of this
-migration, we will also introduce a new Hotspot variant onto the network, called
-a Data Only Hotspot (more below).
+Data Only Hotspots are eligible for **Network Data Transfer Rewards** but not
+**Proof of Coverage Rewards**.
+
+Since Data Only Hotspots do not earn Proof of Coverage rewards, they may be
+permissionlessly added to the blockchain. Once added to the blockchain and
+with location asserted, they will earn data credits when forwarding network
+data.
+
+# Setup a data only hotspot
+
+## Transactions & Cost
+
+Every hotspot on the blockchain goes through two transactions:
+* **add hotspot**: links the hotspot's key (`swarm_key`) of a hotspot to a
+user's wallet
+* **assert location**: provides GPS location, altitude, and dBi antenna
+output for the hotspot
+
+The fee schedule is as follows:
+* **add data only hotspot**: 500000 DC ($5)
+* **assert location**: 1000000 DC ($10)
+
+## Pre-requisites
+
+You should [setup a packet forwarder](/use-the-network/setup-a-packet-forwarder)
+with the [light hotspot client](/use-the-network/light-hotspots).
+
+In addition, you should setup a [CLI wallet](/wallets/cli-wallet) as this
+is currently the only wallet that supports data only hotspots.
+
+**Note**: you can import a mobile wallet to the CLI.
+**Another note**: you should __not__ install the CLI on your gateway
+
+## Add Hotspot
+
+From a terminal on the device where the light hotspot client is installed,
+you need to generate the `add hotspot` transaction.
+
+```
+./helium_gateway add --owner WALLET_ADDRESS --payer WALLET_ADDRESS
+```
+
+The output is a JSON object:
+
+```
+{
+  "address": "11TL62V8NYvSTXmV5CZCjaucskvNR1Fdar1Pg4Hzmzk5tk2JBac",
+  "fee": 65000,
+  "mode": "dataonly",
+  "owner": "14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz6S",
+  "payer": "14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz6S",
+  "staking fee": 500000,
+  "txn": "CrkBCiEBrlImpYLbJ0z0hw5b4g9isRyPrgbXs9X+RrJ4pJJc9MkSIQA7yIy7F+9oPYCTmDz+v782GMJ4AC+jM+VfjvUgAHflWSJGMEQCIGfugfLkXv23vJcfwPYjLlMyzYhKp+Rg8B2YKwnsDHaUAiASkdxUO4fdS33D7vyid8Tulizo9SLEL1lduyvda9YVRCohAa5SJqWC2ydM9IcOW+IPYrEcj64G17PV/kayeKSSXPTJOMCEPUDo+wM="
+}
+```
+
+The `txn` field needs to be used as the input to the wallet command
+`helium-wallet hotspot add`. For example:
+
+```
+helium-wallet hotspots add CrkBCiEBrlImpYLbJ0z0hw5b4g9isRyPrgbXs9X+RrJ4pJJc9MkSIQA7yIy7F+9oPYCTmDz+v782GMJ4AC+jM+VfjvUgAHflWSJGMEQCIGfugfLkXv23vJcfwPYjLlMyzYhKp+Rg8B2YKwnsDHaUAiASkdxUO4fdS33D7vyid8Tulizo9SLEL1lduyvda9YVRCohAa5SJqWC2ydM9IcOW+IPYrEcj64G17PV/kayeKSSXPTJOMCEPUDo+wM=
+```
+
+After you verify the transaction, use append the command with `--commit`
+to submit it to the API. Note that you need sufficient funds to cover
+both the transaction cost (65000 DC) and the `staking_fee` (500000 DC).
+Thanks to the ["implicit burn" mechanism](/blockchain/transaction-fees/#transaction-fees-and-implicit-burn),
+available HNT will be used to cover the transaction if you have
+insufficient DCs.
+
+You can track the transactions progress in being processed by using the
+transaction hash at the following endpoint: `https://api.helium.io/v1/pending_transactions/TXN_HASH`
+
+Once the transaction clears, you're done linking the hotspot with your
+wallet.
 
 :::warning
-
-This project is in progress and subject to change.
-
+At this point, you will want to be certain that you've backed up the
+light hotspot's keypair. It's location can be customized in the client's
+`settings.toml`, but by default, it's located at
+`/etc/helium_gateway/key.bin`
 :::
 
-:::info
+## Assert Hotspot
 
-For real-time development and community support of Data Only Hotspots and Light
-Hotspots, please join the #gateway-development channel on
-[Helium Discord](https://discord.gg/helium)
+To assert the gateway using the `helium-wallet hotspots assert`
+```
+helium-wallet hotspots assert --gateway LIGHT_GATEWAY_PUBKEY --lat=37.7806295 --lon=-122.4008481
+```
 
-:::
+The `LIGHT_GATEWAY_PUBKEY` in the example from the previous section
+would be `11TL62V8NYvSTXmV5CZCjaucskvNR1Fdar1Pg4Hzmzk5tk2JBac`.
 
-## What is a Light Hotspot?
+After you verify the transaction, use append the command with `--commit`
+to submit it to the API. Note that you need sufficient funds to cover
+both the transaction cost (65000 DC) and the `staking_fee` (1000000 DC).
+Thanks to the ["implicit burn" mechanism](/blockchain/transaction-fees/#transaction-fees-and-implicit-burn),
+available HNT will be used to cover the transaction if you have
+insufficient DCs.
 
-Light Hotspots are the evolution of how LoRaWAN gateways will interact with the
-Helium blockchain. Since the genesis block, the Helium blockchain has run
-entirely on the physical Hotspot itself. As the blockchain network grows, each
-Hotspot running a full node undergoes increasing load and are starting to fall
-out of sync due to the higher compute requirements.
+You can track the transactions progress in being processed by using the
+transaction hash at the following endpoint: `https://api.helium.io/v1/pending_transactions/TXN_HASH`
 
-To mitigate this, the **Hotspot's consensus work will be moved off of physical
-Hotspots and onto Validators**. This will simplify the architecture and enable
-us to grow the Network exponentially while keeping blocktimes and epochs stable.
-
-As all approved Hotspots transition to a Light Hotspot architecture, we also
-introduce a new type of Hotspot known as Data Only Hotspots to satisfy the
-increasing demand and continue to expand network coverage.
-
-## Light Hotspot Properties
-
-When Light Hotspots are fully developed and in production (which will happen
-with the completion of Milestone 4 detailed below) they will satisfy the
-following properties:
-
-- A Hotspot on the Helium network that, via [Validators](/mine-hnt/validators),
-  can participate in PoC beacons and witnesses, and forwards data packets;
-- Does not store a copy of the Blockchain, eliminating synchronization;
-- Does not create challenges (relies on Validators to create challenges on their
-  behalf);
-- Does not participate in Consensus Groups (relies on Validators for block
-  production);
-- Will be eligible to earn $HNT(see table below)
-
-### Data Only Hotspots
-
-With the introduction of the Light Hotspot, we also introduce a new type of
-Hotspot Miner on the Helium Network, namely a Data Only Hotspot that is a
-LoRaWAN Gateway running gateway-rs, that earns $HNT for device packet transfer.
-
-<img src={useBaseUrl("img/mine-hnt/light-hotspot-table.png")} />
-
-## Architecture
-
-This image shows the progression to Light Hotspots, with the role of Miner being
-deprecated as we move the blockchain off the Hotspots and into the Validator
-infrastructure. At the conclusion of Milestone 4, the entire Helium blockchain,
-and the coordination of Proof of Coverage, will be handled by Validators.
-
-<img
-  className="docsheader"
-  src={useBaseUrl("img/mine-hnt/validator-hotspot-dev.jpg")}
-/>
-
-## Code and Development
-
-The bulk of the code that enables Light Hotspots on actual LoRaWAN gateways is
-called [gateway-rs](https://github.com/helium/gateway-rs). It's easiest to think
-of this as Helium's next-generation packet forwarder.
-
-Development of this code takes place in the above GitHub repo, as well at the
-`#gateway-developement` channel on the
-[Helium Discord Server](https://discord.gg/helium).
-
-## Development Milestones
-
-The development of Light Hotspots will be broken up into the five following
-milestones.
-
-### Milestone 1
-
-#### Free Packet Forwarding
-
-- **Target Completion Date: March 18**
-- **Status: COMPLETE**
-
-At the completion of Milestone 1, any LoRaWAN gateways running
-[gateway-rs](https://github.com/helium/gateway-rs) can route packets to and from
-the Helium Network **but not earn HNT.** This means an DIY gateway can send and
-receive data on the Network. These LoRaWAN Gateways running Gateway-rs are known
-as Data Only Hotspots.
-
-### Milestone 1.5
-
-#### Add Hotspot to Blockchain
-
-- **Target Completion: June**
-- **Status: Pending Activation on Mainnet**
-
-At the completion of Milestone 1.5, Data Only Hotspots can be added to the
-blockchain, assert its location, and be seen on explorer.helium.com.
-
-Data Only Hotspots are added to the blockchain by paying a $10 Add Gateway
-transaction fee, and a $5 Assert location transaction fee using the
-[Helium Wallet CLI](https://github.com/helium/helium-wallet-rs) and will not
-earn $HNT.
-
-### Milestone 2
-
-#### Earn HNT For Device Packet Transfer
-
-- **Target Completion: Summer 2021**
-- **Status: NOT YET STARTED**
-
-Data Only Hotspots will earn $HNT for device data transfer.
-
-### Milestone 3
-
-#### Introduction of Light Hotspots
-
-- **Target Completion: Post Milestone 2**
-- **Status: NOT YET STARTED**
-
-At this point, Approved Hotspots from
-[HIP19-approved manufacturers](/mine-hnt/hotspot-makers/approved-makers) with
-lower compute requirements can be added to the network and participate in PoC.
-(Kerlink is the first approved maker to submit a
-[light hotspot design](https://github.com/helium/HIP/blob/master/0019-third-party-manufacturers/kerlink.md).)
-
-Onboarding for these Light Hotspots will be done via the standard Helium Wallet
-app onboarding. The fees will be equivalent to other Approved Hotspots ($40 and
-$10 for add assert, respectively).
-
-At this stage, there will be three types of Hotspots:
-
-1. Approved Hotspot (HIP-19 approved, earns HNT for PoC and Data Transfer,
-   follows Blockchain)
-2. Light Hotspot (HIP-19 approved, earns HNT for PoC and Data Transfer)
-3. Data Only Hotspot (DIY LoRaWAN Gateway, earns HNT for Data Transfer)
-
-### Milestone 4
-
-#### All Approved Hotspots Operate as Light Hotspots
-
-- **Target Completion: Post Milestone 3**
-- **Status: NOT YET STARTED**
-
-In the final milestone, all Approved Hotspots on the Network will be converted
-to run [gateway-rs](https://github.com/helium/gateway-rs) and will be dependent
-on Validators to generate challenges and process witness receipts.
-
-All Hotspots will not need to follow the Blockchain.
-
-## Data-Only Hotspot Setup Guides
-
-- [Dragino LPS80/DLOS8](/mine-hnt/light-hotspots/guides/dragino)
-  - Draginos will only mine HNT as a Data Only Hotspot
-- [Kerlink gateways](/mine-hnt/light-hotspots/guides/kerlink)
-  - Kerlink gateways will only mine HNT as Data Only Hotspot unless it is
-    specified as a Helium-Compatible Kerlink Miner.
-
-:::info
-
-Gateways running a Packet Forwarder and Miner is not considered a Light Hotspot
-and will never earn HNT.
-
-:::
+Once the transaction clears, you're data only hotspot is ready to start
+earning!
