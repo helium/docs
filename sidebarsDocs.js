@@ -1013,6 +1013,7 @@ module.exports = {
       items: [
           'mine-hnt/full-hotspots/become-a-maker/maker-approval-auditing',
           'mine-hnt/full-hotspots/become-a-maker/hotspot-integration-testing',
+          'mine-hnt/full-hotspots/become-a-maker/basic-miner-operation',
           'mine-hnt/full-hotspots/become-a-maker/docker-integration',
           'mine-hnt/full-hotspots/become-a-maker/security-requirements',
           'mine-hnt/full-hotspots/become-a-maker/hotspot-ble-services',

@@ -1,13 +1,18 @@
-## Run the Miner
+---
+id: basic-miner-operation
+sidebar_label: Basic Miner Operation
+slug: /mine-hnt/full-hotspots/become-a-maker/basic-miner-operation
+---
 
-Running a Helium Miner is a great way to get some exposure to the blockchain and
-to support the network. If you have your own hardware deployed, this is
-necessary for routing LoRaWAN packets on the Helium Network.
+## Basic Miner Operation
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+As you can see below, the Miner is central in routing data across the Helium
+Network. It is one of three pieces:
 
 <img src={useBaseUrl("img/mine-hnt/mine-hnt-arch.png")} />
 
-As you can see above, the Miner is central in routing data across the Helium
-Network. It is one of three pieces:
 
 - Packet Forwarder: this is a utility that interacts with the radio front-end
 and sends and receives raw radio packets with the Helium Miner
@@ -18,13 +23,22 @@ micro-transactions brokered via libp2p
 is interested in receiving the packets relating to its devices and handles
 downlink messages when appropriate
 
-In addition to packet routing, the Miner is central in connecting to other
-Miners over libp2p where, amongst other things, it is gossiping and saving
-blocks, while maintaining a ledger of the blockchain.
+In addition to packet routing, the Miner also participates in POC and submits
+POC packets as witness events. When challenge, the Miner sends packets to the
+packet forwarder for transmission.
+
+The Miner connects to other Miners over libp2p where, amongst other things,
+it is gossiping and saving blocks, while maintaining a ledger of the blockchain.
+Constantly syncing the blockchain and downloading blocks uses significant
+bandwidth and CPU.
 
 In this guide, we will explain how to get a Docker image of the Helium Miner
 running on Ubuntu 20.04 LTS, and finally some tips on how to interact with a
 running Miner.
+
+When preparing the Miner for a Hotspot product, you will want to go a little
+further and follow the steps outlined [here](/mine-hnt/full-hotspots/become-a-maker/docker-integration),
+where you will learn how to integrate it with security modules and BLE.
 
 If you are interested in contributing to Miner development and code-review,
 please visit
