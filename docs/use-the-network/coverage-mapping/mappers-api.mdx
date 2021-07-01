@@ -34,8 +34,19 @@ Requests are intended to be sent from an HTTP integration within Console.
 Metadata from the standard JSON message is used in addition to the required
 fields detailed below.
 
-All required fields can be located at any level within the `decoded` JSON
-field.  
+All required fields must be in the top level of the decoded payload section as
+shown below:
+```
+"decoded": { 
+  "payload" : {
+    "accuracy": 2,
+    "altitude": 2,
+    "latitude": 38.811706,
+    "longitude": -121.607035
+  }
+ }
+```
+
 All of the following fields are required `latitude`, `longitude`, `altitude`
 , `accuracy`.
 
