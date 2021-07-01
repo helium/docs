@@ -1968,10 +1968,7 @@ _Query Parameters_
 GET https://api.helium.io/v1/hotspots/:address/witnesses
 ```
 
-Retrieves the last known list of witnesses for a given hotspot.In addition to
-the hotspot result information, the result will also include a `witness_for` and
-a `witness_info` field which are the given hotspot address and bucket histogram
-information on witnessed signal strengths.
+Retrieves the list of witnesses for a given hotspot over a number of blocks.
 
 <Tabs
   block={true}
@@ -1992,100 +1989,82 @@ _Path Parameters_
 
 ```json
 {
-  "data": [
-    {
-      "address": "1117PRWasdEhTUEeGykmjx5bcQbsRQ7mCuYRHERtrgb4hqBio4u",
-      "block": 290247,
-      "block_added": 192280,
-      "geocode": {
-        "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz",
-        "long_city": "Atlanta",
-        "long_country": "United States",
-        "long_state": "Georgia",
-        "long_street": "West Peachtree Street Northwest",
-        "short_city": "Atlanta",
-        "short_country": "US",
-        "short_state": "GA",
-        "short_street": "W Peachtree St NW"
-      },
-      "lat": 33.779308359988256,
-      "lng": -84.38786168354673,
-      "location": "8c44c1a8e2737ff",
-      "name": "small-neon-finch",
-      "nonce": 1,
-      "owner": "14C18AnFwMVXovgR4mskV5AyDH8n9vAx2PPNEjM5NVjFuK9GaTN",
-      "score": 0.25,
-      "score_update_height": 290229,
-      "status": {
-        "height": 468420,
-        "online": "online"
-      },
-      "witness_for": "112hYxknRPeCP9PLtkAy3f86fWpXaRzRffjPj5HcrS7qePttY3Ek",
-      "witness_info": {
-        "first_time": 1581085089619105739,
-        "histogram": {
-          "-100": 0,
-          "-108": 0,
-          "-116": 3,
-          "-124": 0,
-          "-132": 0,
-          "-60": 0,
-          "-68": 0,
-          "-76": 0,
-          "-84": 0,
-          "-92": 0,
-          "28": 0
+    "data": [
+        {
+            "lng": -84.38947964027781,
+            "lat": 33.77442909128778,
+            "timestamp_added": "2021-06-24T22:12:07.000000Z",
+            "status": {
+                "online": "online",
+                "listen_addrs": [
+                    "/p2p/11PhkxBRa6SXjKTj32RdDhbU9jwPNvmL1rgPScfT8VwHJWTkmG6/p2p-circuit/p2p/112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
+                ],
+                "height": 900645
+            },
+            "reward_scale": 1.0,
+            "owner": "14ZDTJZE41rQJPxrSHgp3UKuyZnB1KZuE3pZgMAhJraKfEF6X7D",
+            "nonce": 2,
+            "name": "merry-blood-otter",
+            "mode": "full",
+            "location_hex": "8844c1a8ebfffff",
+            "location": "8c44c1a8eadebff",
+            "last_poc_challenge": 900303,
+            "last_change_block": 900738,
+            "geocode": {
+                "short_street": "Spring St NW",
+                "short_state": "GA",
+                "short_country": "US",
+                "short_city": "Atlanta",
+                "long_street": "Spring Street Northwest",
+                "long_state": "Georgia",
+                "long_country": "United States",
+                "long_city": "Atlanta",
+                "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
+            },
+            "gain": 23,
+            "elevation": 50,
+            "block_added": 895576,
+            "block": 900768,
+            "address": "112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
         },
-        "recent_time": 1581506570759026847
-      }
-    },
-    {
-      "address": "11TdnjY3VAL71LLd1KMMhY4SzMUAiYo1uP9bgBJSZJhDZ8rUfNh",
-      "block": 290247,
-      "block_added": 226358,
-      "geocode": {
-        "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz",
-        "long_city": "Atlanta",
-        "long_country": "United States",
-        "long_state": "Georgia",
-        "long_street": "14th Street Northeast",
-        "short_city": "Atlanta",
-        "short_country": "US",
-        "short_state": "GA",
-        "short_street": "14th St NE"
-      },
-      "lat": 33.78595728279224,
-      "lng": -84.3810410259127,
-      "location": "8c44c1a8a8e41ff",
-      "name": "long-chartreuse-goat",
-      "nonce": 4,
-      "owner": "13YuCz3mZ55HZ6hJJvQHCZXGgE8ooe2CSvbtSHQR3m5vZ1EVCNZ",
-      "score": 0.05584716796875,
-      "score_update_height": 290195,
-      "status": {
-        "height": 468407,
-        "online": "online"
-      },
-      "witness_for": "112hYxknRPeCP9PLtkAy3f86fWpXaRzRffjPj5HcrS7qePttY3Ek",
-      "witness_info": {
-        "first_time": 1583557733646152170,
-        "histogram": {
-          "-100": 1,
-          "-108": 7,
-          "-116": 10,
-          "-124": 2,
-          "-132": 0,
-          "-60": 0,
-          "-68": 0,
-          "-76": 0,
-          "-84": 0,
-          "-92": 0,
-          "28": 2
-        },
-        "recent_time": 1586567745906235190
-      }
-    }
-  ]
+        {
+            "lng": -84.41078918647065,
+            "lat": 33.78627614557136,
+            "timestamp_added": "2021-06-22T15:33:09.000000Z",
+            "status": {
+                "online": "online",
+                "listen_addrs": [
+                    "/p2p/113hRKavKYh8oRg1qTPWyB9a24tVrSRLP67jUbRutm2AcHC4bAj/p2p-circuit/p2p/11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
+                ],
+                "height": 900645
+            },
+            "reward_scale": 1.0,
+            "owner": "13CsDkkHCroh7EFKjEkT74JmC7qkr4PuJn4jybqShBzYYrR4p7B",
+            "nonce": 1,
+            "name": "fun-hazel-gorilla",
+            "mode": "full",
+            "location_hex": "8844c1a88bfffff",
+            "location": "8c44c1a88a2c9ff",
+            "last_poc_challenge": 900738,
+            "last_change_block": 900763,
+            "geocode": {
+                "short_street": "14th St NW",
+                "short_state": "GA",
+                "short_country": "US",
+                "short_city": "Atlanta",
+                "long_street": "14th Street Northwest",
+                "long_state": "Georgia",
+                "long_country": "United States",
+                "long_city": "Atlanta",
+                "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
+            },
+            "gain": 12,
+            "elevation": 0,
+            "block_added": 892710,
+            "block": 900768,
+            "address": "11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
+        }
+    ]
 }
 ```
 
