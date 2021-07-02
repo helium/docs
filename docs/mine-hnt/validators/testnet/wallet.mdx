@@ -12,13 +12,22 @@ You’ll need an owner wallet to:
 - Stake your Testnet Network Tokens (TNT)
 - Receive validator node consensus group rewards
 
-:::note
-
-You can have a single wallet for multiple validator nodes. However multiple wallets for a single validator node is not supported.
+:::info
+You can have a single wallet for multiple validator nodes. However multiple wallets for a single validator node is not supported. A single stake transaction from a single wallet must be used to stake a validator.
 
 :::
 
-To download the wallet go [here](https://github.com/helium/helium-wallet-rs).
+:::warning
+
+Do NOT run or store the helium-wallet or wallet.key file on your validator. Backup the wallet.key file and protect the password used to create the wallet.
+
+:::
+
+Download the command line wallet application from the [Helium wallet-rs github release page](https://github.com/helium/helium-wallet-rs/releases) and choose the appropriate architecture for your environment. Download the associated architecture .checksum file.
+
+Before running wallet commands, verify the integrity of the downloaded helium-wallet archive. For example, run `sha256sum helium-wallet-v1.6.4-x86-64-macos.tar.gz` and verify the resulting checksum matches the checksum provided in the `helium-wallet-v1.6.4-x86-64-macos.checksum` file.
+
+The `sha256sum` binary is included in linux and MacOS distributions. For Windows users, run `certUtil -hashfile .\helium-wallet-v1.6.4-x86-64-win.zip SHA256` to produce the sha256sum.
 
 ## Wallet Commands
 
@@ -67,6 +76,20 @@ As part of the staking process the validator node address needs to be in the sta
 
 Use `--commit` after preview to submit the transaction to network.
 
+### List Associated Validators
+
+It's possible to view a list of associated validators to a wallet, along with their current status. `./helium-wallet validators list` will produce a table similar to below:
+
+```
++-----------------------------------------------------+-----------------------------------------------------+----------------+--------+
+| Address                                             | Owner                                               | Stake          | Status |
++-----------------------------------------------------+-----------------------------------------------------+----------------+--------+
+| 1Za3L1R32qPJJ546kteo7WP9t2DzWtTMw5u9jKfpJxZ9bswTgVG | 1a58oCFw79zAZCdkVBvnFSjqx7QM5FzSW5ppMVCf1HJeu8g1ywS | 10000.00000000 | staked |
++-----------------------------------------------------+-----------------------------------------------------+----------------+--------+
+```
+
+This can be helpful in verifying staked validators or validators currently in cooldown after being unstaked.
+
 ### Unstake Tokens
 
 If you unstake tokens the validator node enters a stake cooldown period. During this cooldown period the validator node will not earn rewards and at the end of the cooldown period (currently 250,000 blocks or approximately 5.7 months in mainnet) your initial staking amount will be released to the wallet.
@@ -83,8 +106,6 @@ For testnet, the cooldown period is shortened to 180 blocks, approximately 3 hou
 
 The cooldown length, in blocks, is called `stake_withdrawal_cooldown` and is a chain variable. This variable is viewable by running `miner ledger variables stake_withdrawal_cooldown`.
 
-Once the unstake process is completed, the validator process may be terminated and destroyed. A validator that has been unstaked will not earn rewards and cannot be restaked after it has been unstaked.
-
 #### To unstake tokens from a validator node perform the following:
 
 Obtain the validator node public address as described in [the stake command](#stake-tokens) and calculate the `stake-release-height` as defined above.
@@ -92,6 +113,8 @@ Obtain the validator node public address as described in [the stake command](#st
 `./helium-wallet validators unstake <public-address> --stake-release-height <stake release height>`
 
 Use `--commit` after previewing to submit the transaction to network. If you wait too long to commit, you may need to recalculate the `stake-release-height` value.
+
+To check the status of the unstake transaction, it's possible to copy the received hash into the Explorer, or query the [API transaction](http://localhost:3000/api/blockchain/transactions). A successful unstake transaction will also change the status to `cooldown` when viewing [associated validators](#list-associated-validators) to the wallet.
 
 :::warning
 
@@ -101,7 +124,7 @@ Once the unstake command is committed, this cannot be reversed. The validator wi
 
 :::info
 
-Once a validator has been unstaked, it cannot be staked again. The validator may be deleted, including the `swarm_key`. Wallet commands to stake this validator's public address again will fail.
+Once a validator has been successfully unstaked, it cannot be staked again. The validator may be stopped and deleted, including the `swarm_key`. Wallet commands to stake this validator's public address again will fail.
 
 :::
 
