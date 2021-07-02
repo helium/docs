@@ -119,6 +119,19 @@ module.exports = {
       collapsed: false,
     }
   ],
+  console2beta: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/console'
+    },
+    {
+      type: 'category',
+      label: 'Console 2.0 Beta',
+      items: ['use-the-network/console/console-v2-beta'],
+      collapsed: false,
+    }
+  ],
   integrations: [
    {
       type: 'link',
