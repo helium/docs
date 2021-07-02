@@ -1,0 +1,91 @@
+---
+id: transaction_failures
+title: Transaction Failures
+sidebar_label: Types of Transaction Failures
+slug: /wallets/app-wallet/transaction-failures
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+
+# Types of Transaction Failures
+
+The Helium app automatically notifies users whenevr a transaction fails. Transactions can fail for a number of reasons, the most common is typically insufficient funds (not enough $HNT in the wallet) or a nonce issue.
+
+:::note
+
+What is a nonce?
+Nonce is a number included in every transaction to guarantee the data is "live" and not replayed, preventing the blockchain from replay attacks. The Helium app uses a speculative nonce, which increments for every type of transaction. In some cases, the blockchain's transaction manager processes these transactions out of order, that causes some transactions to fail.
+
+:::
+
+## Payment Transaction Failures
+
+`{invalid,wrong_txn_fee}`
+
+Transaction fees are required on the network to prevent spamming. These fees use Data Credits (DC) and the Helium app uses implicit burn to determine the appropriate amount of HNT to burn to generate these DCs.
+
+How much HNT to burn, depends on the [Oracle price](https://docs.helium.com/blockchain/oracles/#hnt-price-oracles). The oracle price is the median $HNT from a list of individual oracles and used to weather large swings in price changes. In special cases, the price of $HNT may shift enough in a short time period such that the amount of HNT burned to generate DCs *is not enough*. 
+
+:::info
+
+1 DC = $0.00001 HNT
+
+:::
+
+*Workaround*: If you see this failure, the best thing to do is to first confirm the transaction did not occur (check your wallet balance), then submit the payment transaction again.
+
+`{invalid,invalid_nonce}`
+
+If you see this error message for payment transactions, it could mean that multiple payments were sent in quick succession without waiting for the prior payment to clear.
+
+To remedy this, we recommend sending payments one at a time and waiting for it to clear before attempting the next.
+
+The core developers are actively looking at ways to improve this experience.
+
+## Transfer Hotspot Transaction Failures
+
+Please check out the [Transfer Hotspot Guide](https://docs.helium.com/wallets/app-wallet/transfer-hotspot/) for full instructions and best practices.
+
+`{invalid,gateway_too_stale}`
+
+Due to the decentralized nature of the Helium network, it’s important that owners and new owners of Hotspots know what they’re getting is a functional unit that is able to sync the blockchain and participate in PoC (the way Hotspots mine $HNT). Before transferring a Hotspot, the blockchain checks to see if it has had recent activity in the last 1200 blocks. Activity counts as creating a challenge, witnessing a challenge, or sending a beacon. It also checks that it’s fully synced to the blockchain.
+
+If you see this notification, it means the the Hotspot you’re about to purchase has not shown “proof of life” recently. Notify the person you’re purchasing this Hotspot from that they should plug the Hotspot back into internet and monitor the Hotspot for activity before trying again.
+
+`{invalid,buyer_insufficient_hnt_balance}`
+
+The network facilitates transferring Hotspots at zero cost or at a price the seller determines. Even if the cost is zero, there is always a transaction fee for every transaction on the network to prevent spamming. In the case of transferring Hotspots, the buyer is the one to pay the transaction fee, which is typically 55,000 DC. A recommendation of 1-2 HNT in the buyer’s wallet is usually more than enough to account for the transaction.
+
+If you see this notification, the buyer should fund their wallet, seller should cancel and reinitiate the transfer request to try again.
+
+## Assert Location Transaction Failures
+
+`{invalid,invalid_nonce}`
+
+If you see this error message, it could mean that multiple attempts to update a Hotspot’s location, gain, or elevation was attempted in quick succession, or, attempting to add multiple Hotspots in quick succession without waiting for the prior change to clear.
+
+To remedy this, we recommend setting location for Hotspots one at a time and waiting for it to clear before attempting the next. 
+
+`{invalid,invalid_staking_fee}`
+
+If you see this error message, it could mean that the app calculated the fees to pay for a location update incorrectly. We recommend checking the API to confirm that the update never made it to the blockchain, then trying again. 
+
+To check the API, first copy your Hotspot address. You can find this on explorer.helium.com, enter the Hotspot name, then click on the clipboard icon next to the name.
+
+<img src={useBaseUrl("img/wallets/helium-app/copy-icon.png")} />
+
+Then paste the address where it says :hotspotaddress
+
+api.helium.com/v1/hotspots/:hotspotaddress
+
+<img src={useBaseUrl("img/wallets/helium-app/hotspot-address.png")} />
+
+If you updated gain, look for “gain”. Please note this value is multiplied by ten. So if you typed in 2.1 in the app, it will appear as 21. This is expected.
+
+If you updated elevation, look for “elevation”. This is in meters.
+
+If you updated the location, look for “lng”, “lat” or “geocode”.
+
+
+
