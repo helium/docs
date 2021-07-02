@@ -1,198 +1,44 @@
 ---
-id: build-a-packet-forwarder
-sidebar_label: Build a Packet Forwarder
-slug: /use-the-network/build-a-packet-forwarder
+id: basic-miner-operation
+sidebar_label: Basic Miner Operation
+slug: /mine-hnt/full-hotspots/become-a-maker/basic-miner-operation
 ---
 
-# Build a Packet Forwarder
+## Basic Miner Operation
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-:::warning
-
-The ability to earn from [PoC](https://docs.helium.com/blockchain/proof-of-coverage) with anything other than an [Approved Hotspot](https://helium.com/mine) 
-is not supported. 
-
-Packet forwarders are designed for sensor developers to test usage without needing a Hotspot. If you're interested in using the Helium network and earning from data transfer from your existing hardware, please check out the [Light Hotspots](https://docs.helium.com/mine-hnt/light-hotspots/).
-
-Gateways running Packet Forwarders WILL NOT EARN HNT.
-
-:::
-
-## Packet Forwarder Architecture
-
-<img src={useBaseUrl("img/mine-hnt/mine-hnt-arch.png")} />
-
-To be a Helium Miner, there are three principle components to know about
-
-- **Packet Forwarder**: this is a utility that interacts with the radio
-  front-end and sends and receives raw radio packets with the Helium Miner
-- **Miner**: the Helium Blockchain comes into the picture here; the Miner is
-  responsible for routing packets to the appropriate Router (see our Routing
-  article) entering into microtransactions brokered via libp2p
-- **Router**: a Helium compatible LoRaWAN Network Server, basically; this
-  component is interested in receiving the packets relating to its devices and
-  handles downlink responses when appropriate
-
-When you buy [an approved hotspot](https://helium.com/mine), you are
-buying a Packet Forwarder and a Miner in a convenient package. Everything is
-ready to go from the moment you plug it in and the device is kept up to date by
-Helium, Inc.
-
-However, any device that can run an 8 channel LoRa front-end (such as SX1301 or
-SX1302) can be used to participate in the Helium Network. The Miner is designed
-to send and receive packets using the Semtech Gateways Messaging Protocol
-(GWMP), making it compatible with almost every LoRaWAN Gateway on the Market.
-Many off-the-shelf LoRaWAN gateways work very well and using one of them gives
-you one less thing to worry about as the Packet Forwarder is setup and ready to
-go.
-
-This guide, however, is for those that want a more hands-on experience. We will
-essentially be assembling a LoRaWAN gateway with discrete parts, loading up an
-open-source Linux distribution, compiling the packet forwarder, and running it
-all ourselves. In short, we'll be learning gateways that hard way!
-
-<center>
-  <i>
-    This guide is experimental and for advanced users only, and you may run in
-    to various issues trying to get this working.
-  </i>
-</center>
-
-### Example Custom Hardware
-
-If you don’t have your own hardware yet, we recommend using a Raspberry Pi 4B
-running the latest
-[64-bit RaspiOS](https://downloads.raspberrypi.org/raspios_arm64/images/) image.
-
-We recommend this configuration in particular if you are interested in running
-the Miner on the gateway itself; it's easy to run
-[our Docker image from Quay](https://quay.io/repository/team-helium/miner) on a
-64-bit ARM system. If you choose to run the Miner elsewhere, it's possible to
-downgrade all the way to a Pi0, for example, since you will only be running the
-packet forwarder on the gateway.
-
-RAK Wireless sells multiple "Pi Hats" that provide the 8-channel front-end:
-
-- [the RAK2245 (SX1301)](https://store.rakwireless.com/products/rak2245-pi-hat?variant=22914482733156)
-- [the RAK2287 (SX1302)](https://store.rakwireless.com/collections/wislink-lpwan/products/rak2287-lpwan-gateway-concentrator-module?variant=34533841535134)
-
-Or you can check out their
-[WisGate Developer](https://store.rakwireless.com/collections/wisgate-developer)
-line where they provide bundles:
-
-- the D3/D3+/D4/D4+/D4P are all based off of the RAK2245
-- the D4H is based off of the RAK2245
-
-Ultimately, which configuration works for you depends on your situation, but all
-of them will work with this guide with little adjustment.
-
-### Preparing the SD Card
-
-You can create an SD card from this image by looking for the recently inserted
-SD card in your system
-
-```
-$ ls -al /dev | grep sd
-```
-
-Generally, the timestamp is enough to indicate which device is the SD card. Next
-write the image to the SD card. For example:
-
-```
-dd if=~/2020-08-20-raspios-buster-arm64.img of=/dev/sdX bs=1M
-```
-
-Use the command `sync` to make sure the filesystem is written before trying to
-remove the SD card. Once the `sync` command returns, you can eject and remove
-the SD card from your system.
-
-## Preparing RaspiOS
-
-With a keyboard, mouse, and monitor plugged in, power on the Raspberry Pi.
-Proceed through the guided RaspiOS setup where you will update your password,
-configure your WiFi, etc.
-
-Enable SPI and I2C using the raspi-config tool: `sudo raspi-config`
-
-Select `Interface Options`, and enable `I2C` and `SPI` from within the menu
-system. This is also a good time to enable SSH if you want it.
-
-## Installing the Semtech Packet Forwarder
-
-Depending on which SX130x radio you are running, you will want to select the
-appropriate packet forwarder application.
-
-#### Packet Forwarder SX1302
-
-Pull down Helium's fork of the SX1302 packet forwarder:
-
-`git clone https://github.com/helium/sx1302_hal.git`
-
-Go into the directory and build:
-
-```
-$ cd sx1302_hal
-$ make
-```
-
-Next, go into the the packet_forwarder directory, where we will create a link to
-the reset script:
-
-```
-$ cd packet_forwarder
-$ ln -s ../tools/reset_lgw.sh reset_lgw.sh
-```
-
-We will also create a link to the appropriate regional configuration. For
-example:
-
-```
-ln -s global_conf.json.sx1250.US915 global_conf.json
-```
-
-We are now ready to test the start-up. From `~/sx1302_hal/packet_forwarder` try:
-
-```
-./lora_pkt_fwd
-```
-
-If you get the following output, you are good to go:
-
-```
-INFO: [main] concentrator started, packet can now be received
-INFO: concentrator EUI: 0x????????????????
-```
-
-With `CTRL+D`, exit out of the program and go to the next section.
-
-## Run the Miner
-
-Running a Helium Miner is a great way to get some exposure to the blockchain and
-to support the network. If you have your own hardware deployed, this is
-necessary for routing LoRaWAN packets on the Helium Network.
-
-<img src={useBaseUrl("img/mine-hnt/mine-hnt-arch.png")} />
-
-As you can see above, the Miner is central in routing data across the Helium
+As you can see below, the Miner is central in routing data across the Helium
 Network. It is one of three pieces:
 
-- Packet Forwarder: this is a utility that interacts with the radio front-end
-  and sends and receives raw radio packets with the Helium Miner
-- Miner: the Helium Blockchain comes into the picture here; the Miner is
-  responsible for routing packets to the appropriate Router and entering into
-  micro-transactions brokered via libp2p
-- Router: a Helium compatible LoRaWAN Network Server, basically; this component
-  is interested in receiving the packets relating to its devices and handles
-  downlink messages when appropriate
+<img src={useBaseUrl("img/mine-hnt/mine-hnt-arch.png")} />
 
-In addition to packet routing, the Miner is central in connecting to other
-Miners over libp2p where, amongst other things, it is gossiping and saving
-blocks, while maintaining a ledger of the blockchain.
+
+- Packet Forwarder: this is a utility that interacts with the radio front-end
+and sends and receives raw radio packets with the Helium Miner
+- Miner: the Helium Blockchain comes into the picture here; the Miner is
+responsible for routing packets to the appropriate Router and entering into
+micro-transactions brokered via libp2p
+- Router: a Helium compatible LoRaWAN Network Server, basically; this component
+is interested in receiving the packets relating to its devices and handles
+downlink messages when appropriate
+
+In addition to packet routing, the Miner also participates in POC and submits
+POC packets as witness events. When challenge, the Miner sends packets to the
+packet forwarder for transmission.
+
+The Miner connects to other Miners over libp2p where, amongst other things,
+it is gossiping and saving blocks, while maintaining a ledger of the blockchain.
+Constantly syncing the blockchain and downloading blocks uses significant
+bandwidth and CPU.
 
 In this guide, we will explain how to get a Docker image of the Helium Miner
 running on Ubuntu 20.04 LTS, and finally some tips on how to interact with a
 running Miner.
+
+When preparing the Miner for a Hotspot product, you will want to go a little
+further and follow the steps outlined [here](/mine-hnt/full-hotspots/become-a-maker/docker-integration),
+where you will learn how to integrate it with security modules and BLE.
 
 If you are interested in contributing to Miner development and code-review,
 please visit
@@ -246,10 +92,10 @@ Before launching the Miner, you will want to configure ports on your network to
 forward two ports:
 
 - **44158/TCP**: the Miner communicates to other Miners over this port. The
-  networking logic knows how to get around a lack of forwarding here, but you
-  will get better performance by forwarding the port
+networking logic knows how to get around a lack of forwarding here, but you
+will get better performance by forwarding the port
 - **1680/UDP**: the radio connects to the Miner over this port. You will not be
-  able to forward packets or participate in Proof of Coverage without this
+able to forward packets or participate in Proof of Coverage without this
 
 "Forwarding" on the second port is less relevant if you are running a radio
 packet forwarder on the same system at the miner \(both on a Raspberry Pi, for

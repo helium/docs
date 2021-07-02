@@ -24,7 +24,7 @@ permissionless.
 Before we begin, you should have the following:
 
 - [purchased an OUI](/use-the-network/buy-an-oui) and noted its number
-- installed Docker
+- installed Docker and docker-compose
 - you have some spare HNT to burn ($10-100 worth), for funding your OUI address
 - an Auth0 account for user account management
 - at least an AWS t2.xlarge (or equivalent), especially if running both Console and its backend (Router) on one server
@@ -47,7 +47,7 @@ git clone https://github.com/helium/console.git
 ### Customize Console environment
 
 ```
-cp .env-template .env
+cp templates/.env .env
 ```
 
 Then edit `.env`. Here's an example of what it should look like:
@@ -65,6 +65,8 @@ AUTH_0_DOMAIN=router-dev.us.auth0.com
 AUTH0_BASE_URL=https://router-dev.us.auth0.com
 DATABASE_DB=console
 DATABASE_HOST=postgres
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
 ```
 
 The auth0 fields are taken from
@@ -99,7 +101,7 @@ later:
 We will do something similar for `.env-router`:
 
 ```
-cp .env-router-template .env-router
+cp templates/.env-router .env-router
 ```
 
 Then edit `.env-router`. Here's an example of what it should look like:
@@ -136,11 +138,12 @@ The key point is that `ROUTER_CONSOLE_SECRET` from this file matches
 `ROUTER_SECRETS` from `.env`. You can ignore these other fields for now, but we
 can revisit them later.
 
-### Modify a files before building
-
-In `/config/releases.exs`, update your host from `example.com` to `localhost`.
-
 ### Run it!
+
+Copy the local docker-compose file
+```
+cp templates/docker-compose-local.yaml docker-compose.yaml
+```
 
 `docker-compose up` builds Console and launches it with two other containers:
 Router and Postgres. You might see `helium_router` crash a few times as it waits
