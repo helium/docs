@@ -4,25 +4,52 @@ module.exports = {
     {
       type: 'category',
       label: 'Blockchain',
-      items: ['blockchain/blockchain', `blockchain/blockchain-primitives/blockchain-primitives`, 'blockchain/mining/mining', 'blockchain/proof-of-coverage/proof-of-coverage', 'blockchain/packet-purchasing/packet-purchasing','blockchain/consensus-protocol/consensus-protocol', 'blockchain/helium-token/helium-token', 'blockchain/oracles/oracles', 'blockchain/transaction-fees/transaction-fees'],
+      items: [
+          'blockchain/blockchain',
+          `blockchain/blockchain-primitives/blockchain-primitives`,
+          'blockchain/mining/mining',
+          'blockchain/proof-of-coverage/proof-of-coverage',
+          'blockchain/packet-purchasing/packet-purchasing',
+          'blockchain/consensus-protocol/consensus-protocol',
+          'blockchain/helium-token/helium-token',
+          'blockchain/oracles/oracles',
+          'blockchain/transaction-fees/transaction-fees'
+      ],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['mine-hnt/mine-hnt', 'mine-hnt/hotspot-makers/hotspot-makers', 'mine-hnt/validators/validators','mine-hnt/light-hotspots/light-hotspots'],
+      items: [
+          'mine-hnt/mine-hnt',
+          'mine-hnt/full-hotspots/full-hotspots',
+          'mine-hnt/data-only-hotspots',
+          'mine-hnt/validators/validators'
+      ],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'LoRaWAN on Helium',
-      items: ['lorawan-on-helium/lorawan-on-helium', 'lorawan-on-helium/frequency-plans/frequency-plans'],
+      items: [
+          'lorawan-on-helium/lorawan-on-helium',
+          'lorawan-on-helium/frequency-plans/frequency-plans'
+      ],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'Use The Network',
-      items: ['use-the-network/use-the-network', 'use-the-network/devices/devices', 'use-the-network/console/console', 'use-the-network/run-a-network-server/run-a-network-server', 'use-the-network/build-a-packet-forwarder/build-a-packet-forwarder', 'use-the-network/community-projects/community-projects', 'use-the-network/coverage-mapping/coverage-mapping'],
+      items: [
+          'use-the-network/use-the-network',
+          'use-the-network/devices/devices',
+          'use-the-network/console/console',
+          'use-the-network/run-a-network-server/run-a-network-server',
+          'use-the-network/light-hotspots/light-hotspots',
+          'use-the-network/setup-a-packet-forwarder',
+          'use-the-network/community-projects/community-projects',
+          'use-the-network/coverage-mapping/coverage-mapping'
+      ],
       collapsed: true,
     },
     {
@@ -89,6 +116,19 @@ module.exports = {
       type: 'category',
       label: 'Console',
       items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/console-adr', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting'],
+      collapsed: false,
+    }
+  ],
+  console2beta: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/console'
+    },
+    {
+      type: 'category',
+      label: 'Console 2.0 Beta',
+      items: ['use-the-network/console/console-v2-beta'],
       collapsed: false,
     }
   ],
@@ -974,16 +1014,25 @@ module.exports = {
       collapsed: false,
     },
   ],
-  hotspotMakers: [
+  become_a_maker: [
    {
       type: 'link',
-      label: '<- Hotspot Makers',
-      href: '/mine-hnt/hotspot-makers'
+      label: '<- Full Hotspots',
+      href: '/mine-hnt/full-hotspots'
     },
     {
       type: 'category',
-      label: 'Makers',
-      items: ['mine-hnt/hotspot-makers/approved-makers/approved-makers', 'mine-hnt/hotspot-makers/maker-approval-auditing/maker-approval-auditing', 'mine-hnt/hotspot-makers/hotspot-integration-testing/hotspot-integration-testing', 'mine-hnt/hotspot-makers/docker-integration/docker-integration', 'mine-hnt/hotspot-makers/security-requirements/security-requirements','mine-hnt/hotspot-makers/hotspot-ble-services/hotspot-ble-services', 'mine-hnt/hotspot-makers/hotspot-wifi-configuration/hotspot-wifi-configuration', 'mine-hnt/hotspot-makers/burn-hnt-to-maker-wallet/burn-hnt-to-maker-wallet'],
+      label: 'Become a Maker',
+      items: [
+          'mine-hnt/full-hotspots/become-a-maker/maker-approval-auditing',
+          'mine-hnt/full-hotspots/become-a-maker/hotspot-integration-testing',
+          'mine-hnt/full-hotspots/become-a-maker/basic-miner-operation',
+          'mine-hnt/full-hotspots/become-a-maker/docker-integration',
+          'mine-hnt/full-hotspots/become-a-maker/security-requirements',
+          'mine-hnt/full-hotspots/become-a-maker/hotspot-ble-services',
+          'mine-hnt/full-hotspots/become-a-maker/hotspot-wifi-configuration',
+          'mine-hnt/full-hotspots/become-a-maker/burn-hnt-to-maker-wallet'
+      ],
       collapsed: false,
     },
   ],
@@ -998,7 +1047,6 @@ module.exports = {
        label: 'Validators',
        items: [
          'mine-hnt/validators/validators-requirements',
-		 'mine-hnt/validators/testnet-to-mainnet-migration',  
          'mine-hnt/validators/validators-monitoring',
          'mine-hnt/validators/validators-troubleshooting',
          'mine-hnt/validators/validators-penalties',
@@ -1045,12 +1093,12 @@ module.exports = {
    {
        type: 'link',
        label: '<- Light Hotspot',
-       href: '/mine-hnt/light-hotspots'
+       href: '/use-the-network/light-hotspots'
    },
    {
        type: 'category',
        label: 'Light Hotspot Guides',
-       items: ['mine-hnt/light-hotspots/guides/dragino', 'mine-hnt/light-hotspots/guides/kerlink'],
+       items: ['use-the-network/light-hotspots/guides/dragino', 'use-the-network/light-hotspots/guides/kerlink'],
        collapsed: false,
    },
   ],
