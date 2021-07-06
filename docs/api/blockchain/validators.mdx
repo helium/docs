@@ -7510,7 +7510,7 @@ Rewards for a validator in the last 24 hours: `min_time=-24%20hour`
 ## Reward Total for all Validators
 
 ```
-GET https://api.helium.io/v1/validators/:rewards/sum
+GET https://api.helium.io/v1/validators/rewards/sum
 ```
 
 Returns the total rewards earned for all validators over a given time range.
@@ -7523,18 +7523,12 @@ includes the `max_time` timestamp is **excluded** from the result.
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
 <TabItem value="request">
 
-_Path Parameters_
-
-| param              | Type     | Note                         |
-| ------------------ | -------- | ---------------------------- |
-| address (required) | _string_ | B58 address of the validator |
-
 _Query Parameters_
 
 | param               | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| max_time (required) | _string_ | Last timestamp to include rewards for  |
-| min_time (required) | _string_ | First timestamp to include rewards for |
+| max_time (optional) | _string_ | Last timestamp to include rewards for  |
+| min_time (optional) | _string_ | First timestamp to include rewards for |
 
 </TabItem>
 <TabItem value="response">
