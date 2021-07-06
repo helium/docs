@@ -12,13 +12,22 @@ You’ll need an owner wallet to:
 - Stake your Testnet Network Tokens (TNT)
 - Receive validator node consensus group rewards
 
-:::note
-
-You can have a single wallet for multiple validator nodes. However multiple wallets for a single validator node is not supported.
+:::info
+You can have a single wallet for multiple validator nodes. However multiple wallets for a single validator node is not supported. A single stake transaction from a single wallet must be used to stake a validator.
 
 :::
 
-To download the wallet go [here](https://github.com/helium/helium-wallet-rs).
+:::warning
+
+Do NOT run or store the helium-wallet or wallet.key file on your validator. Backup the wallet.key file and protect the password used to create the wallet.
+
+:::
+
+Download the command line wallet application from the [Helium wallet-rs github release page](https://github.com/helium/helium-wallet-rs/releases) and choose the appropriate architecture for your environment. Download the associated architecture .checksum file.
+
+Before running wallet commands, verify the integrity of the downloaded helium-wallet archive. For example, run `sha256sum helium-wallet-v1.6.4-x86-64-macos.tar.gz` and verify the resulting checksum matches the checksum provided in the `helium-wallet-v1.6.4-x86-64-macos.checksum` file.
+
+The `sha256sum` binary is included in linux and MacOS distributions. For Windows users, run `certUtil -hashfile .\helium-wallet-v1.6.4-x86-64-win.zip SHA256` to produce the sha256sum.
 
 ## Wallet Commands
 
@@ -67,19 +76,35 @@ As part of the staking process the validator node address needs to be in the sta
 
 Use `--commit` after preview to submit the transaction to network.
 
+### List Associated Validators
+
+It's possible to view a list of associated validators to a wallet, along with their current status. `./helium-wallet validators list` will produce a table similar to below:
+
+```
++-----------------------------------------------------+-----------------------------------------------------+----------------+--------+
+| Address                                             | Owner                                               | Stake          | Status |
++-----------------------------------------------------+-----------------------------------------------------+----------------+--------+
+| 1Za3L1R32qPJJ546kteo7WP9t2DzWtTMw5u9jKfpJxZ9bswTgVG | 1a58oCFw79zAZCdkVBvnFSjqx7QM5FzSW5ppMVCf1HJeu8g1ywS | 10000.00000000 | staked |
++-----------------------------------------------------+-----------------------------------------------------+----------------+--------+
+```
+
+This can be helpful in verifying staked validators or validators currently in cooldown after being unstaked.
+
 ### Unstake Tokens
 
-If you unstake tokens the validator node enters a cooldown period. During this cooldown period the validator node will not earn rewards and at the end of the cooldown period (currently 250,000 blocks or approximately 5 months in mainnet) your initial staking amount will be returned to the wallet.
+If you unstake tokens the validator node enters a stake cooldown period. During this cooldown period the validator node will not earn rewards and at the end of the cooldown period (currently 250,000 blocks or approximately 5.7 months in mainnet) your initial staking amount will be released to the wallet.
 
-You need to include the stake release block height which should be at least the current block height plus the cooldown period, and 5-10 blocks to allow for chain processing delays.
+To ensure the operator understands this unstake operation is not reversible and cannot be shortened, there are additional calculations to be performed in the unstake command. You need to include the stake release block height which should be at least the current block height plus the cooldown period, and 5-10 blocks to allow for chain processing delays.
 
-For example, if the current block height was 5000, you'd add 250,000 for a stake release height plus an additional 10 to allow for chain processing delays. Therefore the `stake-release-height` is `5000 + 250000 + 10` or `255010`.
+For example, if the current block height was 5000, you'd add 250,000 for the stake withdrawl cooldown period, plus an additional 10 blocks to allow for chain processing delays. Therefore the `stake-release-height` = `5000 + 250000 + 10` or `255010`.
 
 :::info
 
-For testnet, the cooldown period is shortened to 360 blocks (approx. an hour). In the above calculation, replace `250000` with `360`.
+For testnet, the cooldown period is shortened to 180 blocks, approximately 3 hours. In the above calculation, replace `250000` with `180`.
 
 :::
+
+The cooldown length, in blocks, is called `stake_withdrawal_cooldown` and is a chain variable. This variable is viewable by running `miner ledger variables stake_withdrawal_cooldown`.
 
 #### To unstake tokens from a validator node perform the following:
 
@@ -89,6 +114,8 @@ Obtain the validator node public address as described in [the stake command](#st
 
 Use `--commit` after previewing to submit the transaction to network. If you wait too long to commit, you may need to recalculate the `stake-release-height` value.
 
+To check the status of the unstake transaction, it's possible to copy the received hash into the Explorer, or query the [API transaction](http://localhost:3000/api/blockchain/transactions). A successful unstake transaction will also change the status to `cooldown` when viewing [associated validators](#list-associated-validators) to the wallet.
+
 :::warning
 
 Once the unstake command is committed, this cannot be reversed. The validator will cease earning rewards and the stake amount will not be returned to the staking wallet until the 250,000 block cooldown period has completed.
@@ -97,7 +124,7 @@ Once the unstake command is committed, this cannot be reversed. The validator wi
 
 :::info
 
-Once a validator has been unstaked, it cannot be staked again. The validator may be deleted, including the `swarm_key`. Wallet commands to stake this validator's public address again will fail.
+Once a validator has been successfully unstaked, it cannot be staked again. The validator may be stopped and deleted, including the `swarm_key`. Wallet commands to stake this validator's public address again will fail.
 
 :::
 
