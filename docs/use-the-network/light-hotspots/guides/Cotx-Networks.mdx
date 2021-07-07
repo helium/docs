@@ -31,8 +31,8 @@ If your supported LoRa gateway did not come with helium-gateway pre-installed, m
 
 1. Configure the packet forwarder on the gateway to forward to the helium-gateway application. This varies per gateway but the goal is to set the packet forwarder to forward to the (default) configured helium-gateway on `127.0.0.1` at udp port `1680`
 2. Connect to the Cotx X3 over SSH. 
-3. `scp` a downloaded release package for the supported platform to the gateway. Copy the Helium Gateway package to the Cotx X3. Run this command from on the computer within the directory containing the package `scp helium-gateway-<version>-<platform>.deb <gateway>:/tmp/`.
-4. Install the Helium Gateway package `dpkg --install /tmp/helium-gateway-<version>-<platform>.deb`.
+3. Copy the Helium Gateway package to the Cotx X3. The latest [source code](https://github.com/helium/gateway-rs) and pre-built [releases](https://github.com/helium/gateway-rs/releases) are available on GitHub. Option 1: Download from GitHub: On the Cotx X3 run `cd /tmp` and `wget -O helium-gateway-<version>-raspi234.deb https://github.com/helium/gateway-rs/releases/download/<version>/helium-gateway-<version>-raspi234.deb`. Option 2: Copy from another computer: Run this command from on the computer within the directory containing the package `scp helium-gateway-<version>-raspi234.deb /tmp/`.
+4. Install the Helium Gateway package `dpkg --install /tmp/helium-gateway-<version>-raspi234.deb`.
 5. The default region of the gateway is `US915`, if your region is different you can set the right one in `/etc/helium_gateway/settings.toml`. Just add the following line : `region = "<region>"` . Possible values are : `US915| EU868 | EU433 | CN470 | CN779 | AU915 | AS923 | KR920 | IN865`.
 6. Backup your key file `/etc/helium_gateway/keypair.bin` and keep in a safe place. This will be needed to recover this gateway especially if it is onboarded to the blockchain.
 
