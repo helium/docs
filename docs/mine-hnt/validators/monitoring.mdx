@@ -41,4 +41,25 @@ If you’re syncing, something similar to the following should appear:
 14        449
 ```
 
-The first number is the **election epoch** and the second number is the **block height** of your validator. 
+The first number is the **election epoch** and the second number is the **block height** of your validator. The **height** will be within 100 of the number displayed on [https://explorer.helium.com/](https://explorer.helium.com/) if your validator is caught up. This may take a few days if your validator is new.
+
+## View p2p summary
+
+When your validator is running, you can check the summary of the connection, NAT, and block height:
+
+Source: ```miner info p2p_status```
+
+Docker: ```docker exec validator miner info p2p_status```
+
+If you are properly connected and staked, it should look similar to this:
+```
+~$ docker exec validator miner info p2p_status
++---------+------+
+|  name   |result|
++---------+------+
+|connected| yes  |
+|dialable | yes  |
+|nat_type | none |
+| height  |911834|
++---------+------+
+```
