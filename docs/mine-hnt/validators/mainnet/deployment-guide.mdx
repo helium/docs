@@ -461,6 +461,17 @@ miner peer book -s
 
 You're looking for `listen_addrs`. If you don't have at least one, your Validator hasn't settled on how to tell other peers to reach it. Often this can take 15-30 mins, sometimes longer.
 
+### Copying your swarm_key
+Your validator's swarm_key is located in the validator_data/miner directory
+
+In order to copy the swarm_key locally to your personal computer, you'll need to use scp (outside of/instead of an ssh session).  Replace the user name and IP address (`root@192.0.2.1`) in the example below with the actual user name and IP address of your docker container instance.
+
+```
+scp root@192.0.2.1:validator_data/miner/swarm_key .
+```
+
+The `.` at the end of the example above is a placeholder for your current directory on your local machine.  This is where your swarm_key will be copied to on your local machine.  Use the command `pwd` to determine the location where the file was copied to.
+
 ### Check the Explorer
 
 Head over to the [Validator Mainnet Explorer](https://explorer-beta.helium.com/validators) and search for your Validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked before it appears on explorer. You should see your 3-word validator name (`short-umber-bull` in the example above) listed. It may be easier to sort by `#`, descending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`. 
