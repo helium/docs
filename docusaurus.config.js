@@ -31,8 +31,8 @@ module.exports = {
     announcementBar: {
       id: 'join_discord',
       content:
-        '<a href="/mine-hnt/validators">Helium Validator Initial Staking is available!</a>',
-      backgroundColor: '#A334FB',
+        '<a href="/use-the-network/console/console-v2-beta/">Console 2.0 beta is now on staging: Test and earn swag!</a>',
+      backgroundColor: '#474DFF',
       textColor: '#FFFFFF',
       isCloseable: true,
     },
