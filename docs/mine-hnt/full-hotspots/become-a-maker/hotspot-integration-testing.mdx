@@ -67,7 +67,7 @@ The `localname` is the name used on the **Found Hotspots** page.
 
 # Constructing the Add Gateway Transaction
 
-If you’re using [Helium’s miner image](https://github.com/helium/miner), constructing a transaction is relatively easy. For testing, you can use the following: 
+If you’re using [Helium’s miner image](https://github.com/helium/miner), constructing a transaction is relatively easy. 
 
 Every Hotspot on the blockchain goes through two transactions:
 * **add hotspot**: links the Hotspot's key (`swarm_key`) of a Hotspot to a
@@ -82,7 +82,9 @@ Use `gateway_config` to generate the `add hotspot` transaction,
 ./helium_gateway add --owner WALLET_ADDRESS --payer WALLET_ADDRESS
 ```
 
-For testing, you'll see `payer` as `payer = 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr`. When testing with this `payer` address, adding hotspots and asserting location transactions will be submitted and you’ll see them as pending transactions in the Hotspot App. However, once it reaches the blockchain, the transaction will be discarded as the payer address does not exist in the blockchain’s `chain_var` of valid addresses. This ensures no Data Credits are spent on testing, but allows trial and error as Makers finish app integration.
+For testing, you'll set `payer` as `payer = 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr`. In production, the Payer will be your unique Maker Account Address and will be provided at the appropriate stage with the Manufacturing Oversight Committee. The current list can be found [here](https://onboarding.dewi.org/api/v2/makers). 
+
+When testing with this `payer` address, adding hotspots and asserting location transactions will be submitted and you’ll see them as pending transactions in the Hotspot App. However, once it reaches the blockchain, the transaction will be discarded as the payer address does not exist in the blockchain’s `chain_var` of valid addresses. This ensures no Data Credits are spent on testing, but allows trial and error as Makers finish app integration.
 
 Once submitted, you can view the pending transaction using this API:
 
