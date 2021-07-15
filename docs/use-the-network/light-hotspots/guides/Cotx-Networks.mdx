@@ -33,7 +33,7 @@ If your supported LoRa gateway did not come with helium-gateway pre-installed, m
 2. Connect to the Cotx X3 over SSH. 
 3. Copy the Helium Gateway package to the Cotx X3. The latest [source code](https://github.com/helium/gateway-rs) and pre-built [releases](https://github.com/helium/gateway-rs/releases) are available on GitHub. Option 1: Download from GitHub: On the Cotx X3 run `cd /tmp` and `wget -O helium-gateway-<version>-cotx.deb https://github.com/helium/gateway-rs/releases/download/<version>/helium-gateway-<version>-cotx.deb`. Option 2: Copy from another computer: Run this command from on the computer within the directory containing the package `scp helium-gateway-<version>-cotx.deb /tmp/`.
 4. Install the Helium Gateway package `dpkg --install /tmp/helium-gateway-<version>-cotx.deb`.
-5. The default region of the gateway is `US915`, if your region is different you can set the right one in `/etc/helium_gateway/settings.toml`. Just add the following line : `region = "<region>"` . Possible values are : `US915| EU868 | EU433 | CN470 | CN779 | AU915 | AS923 | KR920 | IN865`.
+5. The default region of the gateway is `US915`, if your region is different you can set the right one in `/etc/helium_gateway/settings.toml`. Just add the following line : `region = "<region>"` . Possible values are : `US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923_1 | AS923_2 | AS923_3 | AS923_4 | KR920 | IN865`.
 6. Backup your key file `/etc/helium_gateway/keypair.bin` and keep in a safe place. This will be needed to recover this gateway especially if it is onboarded to the blockchain.
 
 Helium Gateway is now installed and should be running. Use the command `helium_gateway key info` to view the public key address and animal name of your gateway. 
