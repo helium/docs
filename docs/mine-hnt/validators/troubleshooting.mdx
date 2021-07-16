@@ -24,16 +24,41 @@ This can be run directly on the Docker container as well:
 ## Compromised server
 If you find that the server has been compromised just wipe it (save the blocks to avoid having to resync the entire blockchain), close the hole, stand up a new validator and then transfer the stake to it.
 
+
 ## Syncing to the blockchain
 Syncing to the blockchain could be impacted for the following reasons:
 * slow internet connection
 * your validator is disconnecting
 * you just launched an AMI instance (if using AWS)
 
+
 ## Validator stuck at a block
 If your validator appears to be stuck at a particular block and no longer syncing, you may need to take manual action for your validator to make progress.
 
 1. Reset the validator. You can reference this [testnet step](https://docs.helium.com/mine-hnt/validators/testnet/deployment-guide/#steps-to-get-back-on-the-current-chain) for commands.
+
+
+## Performance and DKG Penalties
+If you aren't yet familiar with the penalty system, check out [Validator Penalties and Impact on Rewards](https://docs.helium.com/mine-hnt/validators/penalties/).
+
+Low-grade Performance and DKG penalties are very noisy and difficult to troubleshoot.
+
+Based on early data, it appears that if your validator has penalties where the sum (Performance + DKG) is less than (Tenure), your validator is performant in-line with expectations.
+
+The most common cause of Perf/DKG penalties is bad luck (due to bad peers or otherwise).
+
+A few other penalty root causes exist, each requiring detailed monitoring capabilities to troubleshoot.
+
+For the time/blocks when your validator accrued penalties, check your metrics dashboard (e.g., Grafana)
+* CPU steal: was this spiking when you were in the CG? Is this at an elevated level generally (<1% is normal)? If regularly high, change hosting providers.
+* Internet connectivity issues: did rate of network ingress / egress plateau or fall off while in consensus group? Check if your network usage is throttled.
+* Slow disk write speeds: do your disk write speeds exceed 4ms/op (not a fixed line, just a level where "you could get dinged")? See if you can improve disk quality.
+* Other metrics: memory usage, disk volume, disk i/o, write latency
+
+If you don't have a metrics dashboard and think a non-luck element may have caused your penalty, please set up metrics monitoring.
+
+One option is [Tedder's miner_exporter](https://github.com/tedder/miner_exporter), which can be used in conjunction with Grafana (and Prometheus's built-in node_exporter) for detailed validator monitoring.
+
 
 ## Resources
 
