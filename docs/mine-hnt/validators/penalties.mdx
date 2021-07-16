@@ -107,11 +107,11 @@ Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_
 
 Penalties decay as blocks are formed.
 
-This decay rate is in blocks, and is stored as a chain variable. View the current decay block limit by running `miner ledger variables penalty_history_limit`. This value is set to `10080` blocks for mainnet, or a target of 1 week.
+This decay rate is in blocks, and is stored as a chain variable. View the current decay block limit by running `miner ledger variables penalty_history_limit`. This value is set to `20160` blocks for mainnet, or a target of 2 weeks.
 
 To phrase it in a different way, every time a penalty is assessed it begins to decay at `penalty * (1 - age/penalty_history_limit)` where `age` is the number of blocks that have occurred since the penalty was put in place.
 
-Each penalty accrued decays to `0.0` in `10080` blocks, regardless of its initial magnitude.
+Each penalty accrued decays to `0.0` in `20160` blocks, regardless of its initial magnitude.
 
 ## Penalty Objectives
 
