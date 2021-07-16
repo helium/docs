@@ -10,16 +10,9 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 This guide will cover the end-to-end process of deploying a Helium Validator on Mainnet. It assumes you're starting from scratch. At the end, you'll have a Helium Validator deployed on the Network.
 
 
-:::warning
-
-Although initial staking has officially been enabled on Mainnet, Validators are not yet elected into the Consensus Group - and therefore are not yet earning HNT. This will be enabled at a later date, after the core developers believe it's safe to activate the chain variables. The current expectation is that this will be possible about 10-14 days after Mainnet reaches 100 staked Validators.
-
-:::
-
-
 :::info
 
-- If at any point during this process you need assistance or have general questions, please join the `#validator` channel on [Helium Discord](https://discord.gg/helium).
+If at any point during this process you need assistance or have general questions, please join the `#validator` channel on [Helium Discord](https://discord.gg/helium).
 
 :::
 
@@ -32,7 +25,7 @@ To successfully deploy a Helium Validator, you'll need to do the following:
 
 ## Create Wallet
 
-Once you have your [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs) installed locally, it's time to create your Helium Wallet. Run the following command to create it. (This command format assumes you're using the executable. If you've built the wallet from source it'll look slightly different.) 
+Once you have your [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs) installed locally, it's time to create your Helium Wallet. Run the following command to create it. (This command format assumes you're using the executable. If you've built the wallet from source it'll look slightly different.)
 
 At any time use -h or --help to get more help for a command.
 
@@ -43,7 +36,7 @@ It is a best practice to create your Helium CLI wallet on a separate machine fro
 :::
 
 ```
-helium-wallet create basic 
+helium-wallet create basic
 ```
 
 You'll be prompted to supply a new passphrase to complete it. This is used to encrypt/decrypt the `wallet.key` file, and is needed to sign transactions. **Don't lose it.**
@@ -90,7 +83,7 @@ The output will look similar to this:
 
 ## Each Validator Requires 10000 HNT
 
-Running a Validator on Mainnet requires a stake of `10000 HNT` per Validator. After you've created your wallet, transfer a little more than `10000 HNT` into it for each Validator you intend to run. 
+Running a Validator on Mainnet requires a stake of `10000 HNT` per Validator. After you've created your wallet, transfer a little more than `10000 HNT` into it for each Validator you intend to run.
 
 :::info
 
@@ -477,6 +470,6 @@ The `swarm_key` equates to your validator's unique identity on the Helium blockc
 
 ### Check the Explorer
 
-Head over to the [Validator Mainnet Explorer](https://explorer-beta.helium.com/validators) and search for your Validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked before it appears on explorer. You should see your 3-word validator name (`short-umber-bull` in the example above) listed. It may be easier to sort by `#`, descending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`. 
+Head over to the [Validator Mainnet Explorer](https://explorer-beta.helium.com/validators) and search for your Validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked before it appears on explorer. You should see your 3-word validator name (`short-umber-bull` in the example above) listed. It may be easier to sort by `#`, descending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`.
 
 Thank you for being a part of the Helium Validators initiative.
