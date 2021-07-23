@@ -115,7 +115,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Console',
-      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/console-adr', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting'],
+      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/console-adr', 'use-the-network/console/flows/flows', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting'],
       collapsed: false,
     }
   ],
@@ -131,6 +131,19 @@ module.exports = {
       items: ['use-the-network/console/console-v2-beta'],
       collapsed: false,
     }
+  ],
+  flows: [
+   {
+      type: 'link',
+      label: '<- Console',
+      href: '/use-the-network/console/flows'
+    },
+    {
+      type: 'category',
+      label: 'Flows',
+      items: ['use-the-network/console/flows/section1'],
+      collapsed: false,
+    },
   ],
   integrations: [
    {
