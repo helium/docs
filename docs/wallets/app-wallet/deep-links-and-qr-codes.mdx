@@ -1,0 +1,95 @@
+---
+id: deep-links-and-qr-codes
+title: Deep Links and QR Codes
+sidebar_label: Deep Links and QR Codes
+slug: /wallets/app-wallet/deep-links-and-qr-codes
+---
+
+# Deep Links
+
+### View Hotspot
+
+`helium://hotspot/:address`
+
+### Add Gateway
+
+`helium://add_gateway/:base64url_encoded_txn`
+
+### Assert Location
+
+// TODO: Not yet implemented
+
+# Internal QR Scanner
+
+### Burn HNT
+
+Generated from console
+
+```json
+{
+  "type": "dc_burn",
+  "address": ":address",
+  "amount": "1.00",
+  "memo": "n0XU06JdNNs="
+}
+```
+
+### Payment
+
+Single Payee without memo
+
+```json
+{
+  "type": "payment",
+  "address": ":address",
+  "amount": 1
+}
+```
+
+Single Payee with memo
+
+```json
+{
+  "type": "payment",
+  "address": ":address",
+  "amount": 1,
+  "memo": "n0XU06JdNNs="
+}
+```
+
+Multiple Payee without memo
+
+```json
+{
+	"type": "payment",
+	"payees": {
+		":address1": 10.2,
+		":address2": 1.2
+}
+```
+
+Multiple Payee with memo
+
+```json
+{
+  "type": "payment",
+  "payees": {
+    ":address1": {
+      "amount": 10.2,
+      "memo": "n0XU06JdNNs="
+    },
+    ":address2": {
+      "amount": 1.2,
+      "memo": "n0XU06JdNNs="
+    }
+  }
+}
+```
+
+### Wallet address QR code
+
+Create a qr code with a valid wallet address
+
+```
+12ORy9GjFASqWWxHmUq4tNXcjvr5Xfno8qimGMrNReMsSaM9T8f
+```
