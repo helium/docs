@@ -102,7 +102,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Helium App',
-      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/transfer-hotspot', 'wallets/app-wallet/rak-hotspot-setup', 'wallets/app-wallet/hexagons', 'wallets/app-wallet/discovery', 'wallets/app-wallet/transaction-failures', 'wallets/app-wallet/fleet-mode'],
+      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/transfer-hotspot', 'wallets/app-wallet/rak-hotspot-setup', 'wallets/app-wallet/hexagons', 'wallets/app-wallet/discovery', 'wallets/app-wallet/transaction-failures', 'wallets/app-wallet/fleet-mode', 'wallets/app-wallet/deep-links-and-qr-codes'],
       collapsed: false,
     }
   ],
@@ -300,7 +300,7 @@ module.exports = {
         'use-the-network/devices/development/heltec/wireless-shell',
         'use-the-network/devices/development/heltec/lora-kit-151',
         'use-the-network/devices/development/heltec/lora-node-151',
-        'use-the-network/devices/development/heltec/turtle-board' 
+        'use-the-network/devices/development/heltec/turtle-board'
       ],
       collapsed: false,
     },
@@ -446,7 +446,7 @@ module.exports = {
       type: 'category',
       label: 'Adeunis',
       items: [
-        'use-the-network/devices/ready-to-use/adeunis/adeunis-field-test-device', 
+        'use-the-network/devices/ready-to-use/adeunis/adeunis-field-test-device',
       ],
 
       collapsed: false,
@@ -1065,7 +1065,7 @@ module.exports = {
       type: 'category',
       label: 'Validators (Testnet)',
       items: [
-        'mine-hnt/validators/testnet/validators-testnet-expectations', 
+        'mine-hnt/validators/testnet/validators-testnet-expectations',
         'mine-hnt/validators/testnet/validators-testnet-design',
         'mine-hnt/validators/testnet/validators-testnet-deployment-guide',
         'mine-hnt/validators/testnet/validators-testnet-wallet',
