@@ -1098,7 +1098,7 @@ module.exports = {
    {
        type: 'category',
        label: 'Light Hotspot Guides',
-       items: ['use-the-network/light-hotspots/guides/dragino', 'use-the-network/light-hotspots/guides/kerlink'],
+       items: ['use-the-network/light-hotspots/guides/dragino', 'use-the-network/light-hotspots/guides/kerlink', 'use-the-network/light-hotspots/guides/rak-concentrators'],
        collapsed: false,
    },
   ],
