@@ -24,34 +24,65 @@ The Workspace is optimized for manipulation of visual elements, and there’s a 
 Whenever you change elements on the workspace, save your changes so it’s the same when you come back to it after navigating to other parts of Console.
 
 ## Nodes and Edges
-Nodes are graphical representations of Console elements and for quick identification are color coded:
 
-- Devices (gray) and labels (blue) [LINK]
-- Functions (purple): users can transform and/or parse payloads before sending to an endpoint [LINK]
-- Integrations (green): enable devices to customer endpoints over HTTP or MQTT [LINK]
+### Nodes
 
-[GRAPHICS]
+Nodes are graphical representations of Console elements and for quick identification are color coded. Connection points are used to create relationships among nodes.
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows/node-connection.png"
+  )}
+/>
 
-Edges represent the flow of data among nodes from left to right. Edges use connection points on nodes to create relationships among nodes.
+Devices: device nodes represent the hardware that is sending the packets. Since devices are the source of data and integrations can only receive data there’s only one connection point for edges. 
 
-[GRAPHICS]
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows/node-device.png"
+  )}
+/>
 
-Since devices are the source of data and integrations can only receive data there’s only one connection point for edges. 
+Labels: label nodes represent a group of devices with a common 
 
-[GRAPHICS]
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows/node-label.png"
+  )}
+/>
 
-Functions can both receive data from devices and continue sending data after taking action to integrations. 
+Functions: users can transform and/or parse payloads before sending to an endpoint. Functions can both receive data from devices and continue sending data after taking action to integrations. 
 
-[GRAPHICS]
 
-## Data Flow
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows/node-function.png"
+  )}
+/>
 
-Users can control the flow of device data using edges to provide the following connections from devices/groups of devices to functions (via labels):
+
+Integrations: enable devices to customer endpoints over HTTP or MQTT.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows/node-integration.png"
+  )}
+/>
+
+
+### Edges 
+
+Edges represent the flow of data from device or label nodes moving from left to right. Edges use connection points create relationships among nodes.
+
+Users can control the flow of device data using edges to provide the following connections from devices/groups of devices (via labels):
 - to integrations
 - to functions
 - to function and on to integrations
 
-[GRAPHICS]
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows/node-edges.png"
+  )}
+/>
 
 ## Inspector 
 The Inspector provides the ability to:

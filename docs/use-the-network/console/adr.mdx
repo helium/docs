@@ -1,12 +1,28 @@
 ---
 id: console-adr
-sidebar_label: ADR
+sidebar_label: Configurations
 slug: /use-the-network/console/adr
 ---
 
-# ADR
+# Device Configurations
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
+
+There's a number of device configurations available including: 
+
+- [ADR](adr#adr)
+- [CF List](adr#cf-list) 
+- [Alerts](adr#alerts) 
+- [Multiple Packets](adr#multiple-packets)
+
+If there's a conflict between configuration settings set for devices and labels, the device setting takes priority. 
+
+ADR and CF List settings are either enabled/disabled and applied to device or label nodes directly using the Inspector. 
+
+Alerts and Multiple Packets features provide various options which users need to initially configure and then apply to device or label nodes using the Inspector. 
+
+
+## ADR
 
 Adaptive Data Rate or ADR is a mechanism for adapting the data rate of devices
 in a LoRaWAN network. This allows a device's airtime and power consumption to be
@@ -23,7 +39,7 @@ portal
   
 :::
 
-## ADR Algorithm
+### ADR Algorithm
 
 The network server behind Console implements a specific algorithm for
 determining the optimal data rate and transmit power to send down to the device.
@@ -35,28 +51,60 @@ commands, either alone or with already-scheduled downlink packets. The network
 server clears its ADR history whenever a device sends an uplink packet with ADR
 set to `0`.
 
-## Allowing ADR in Console
+### Configuring ADR
 
-ADR is managed via [Label settings in Console](/use-the-network/console/labels#labels-settings). To
-allow ADR for one device or a group of devices, simply toggle the Allow ADR in
-your Label settings. You can either create a Label strictly for managing ADR, or
-adjust the setting on a Label you already have attached to your devices. To
-change the settings for a label, navigate to the Label management page and click
-Label Settings as shown below.
+To configure ADR, navigate to the Flows Inspector. 
 
-<img
-  src={useBaseUrl("img/use-the-network/console/console-adr-label-settings.png")}
-/>
+Choose the device or group of devices (label) to configure ADR.
 
-Next you will be presented with the Label settings window shown below, click the
-ADR tab.
+On the Inspector click ADR.
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/console/console-adr-label-settings-adr.png"
+    "img/use-the-network/console/flows-inspector-adr.png"
   )}
 />
 
-Here you can toggle the Allow ADR setting and apply the changes to the Label
-settings. Last, if you don't already have the Label attached to your device or
-devices then you will need to do that before these settings are applied.
+For quick identification, an ADR symbol appears on the node.
+
+## CF List
+
+The Join-Accept CF List configures channels according to the LoRaWAN spec to use sub-band 2. Devices that have not correctly implemented the LoRaWAN spec may experience transfer issues when this setting is enabled.
+- Enabled, the server will send a CF List with every other join.
+- Disabled, the server will not send a CF List. The channel mask is still transmitted via ADR command.
+
+By default this setting is disabled.
+
+**Note:** This setting is only applicable to US915 devices.  
+
+### Configuring CF List
+
+To configure CF List, navigate to the Flows Inspector. 
+
+Choose the device or group of devices (label) to configure CF List.
+
+On the Inspector click CF List.
+
+For quick identification, a symbol appears on the node.
+
+
+## Alerts
+
+Alerts (email and webhooks) are avaialble for a number of conditions related to devices and integrations including when devices are deleted, Integrations updated or deleted.
+
+Helium Console will deliver email-based notifications for various events that happen for devices. For each notification, either `Administrators`, `Managers`, or both can be notified via email. The current
+list of supported notifications are:
+
+To access this setting, choose Label from the side menu > Label Settings > Notifications > Webhooks. 
+To obtain a webhook key for authorization, choose Organizations from the side menu and copy relevant webhook key.
+
+### Configuring Alerts
+
+
+## Multiple Packets
+
+The ability to pay for additional packets for redundancy and location triangulation purposes. 
+
+**Note:** Even if you don’t use the multiple packet purchase feature, there are certain conditions which the system will purchase multiple packets to help ensure successful packet transmission. These include: initial joining of the device (up to 5 packets), downlink (up to 3 packets), and for acknowledgements (up to 3 packets).
+
+### Configuring Multiple Packets
