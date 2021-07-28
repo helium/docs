@@ -15,12 +15,15 @@ There's a number of device configurations available including:
 - [Alerts](adr#alerts) 
 - [Multiple Packets](adr#multiple-packets)
 
-If there's a conflict between configuration settings set for devices and labels, the device setting takes priority. 
-
-ADR and CF List settings are either enabled/disabled and applied to device or label nodes directly using the Inspector. 
+ADR and CF List settings are either enabled/disabled and applied to device or label nodes directly using the Flows Inspector. 
 
 Alerts and Multiple Packets features provide various options which users need to initially configure and then apply to device or label nodes using the Inspector. 
 
+:::important
+
+If there's a conflict between configuration settings set for devices and labels, the device setting takes priority. 
+
+:::
 
 ## ADR
 
@@ -53,11 +56,11 @@ set to `0`.
 
 ### Configuring ADR
 
-To configure ADR, navigate to the Flows Inspector. 
+To configure ADR, navigate to the Flows workspace. 
 
 Choose the device or group of devices (label) to configure ADR.
 
-On the Inspector click ADR.
+On the Inspector click **ADR**.
 
 <img
   src={useBaseUrl(
@@ -73,32 +76,46 @@ The Join-Accept CF List configures channels according to the LoRaWAN spec to use
 - Enabled, the server will send a CF List with every other join.
 - Disabled, the server will not send a CF List. The channel mask is still transmitted via ADR command.
 
-By default this setting is disabled.
-
-**Note:** This setting is only applicable to US915 devices.  
+**Notes:** By default this setting is disabled and only applicable to US915 devices.  
 
 ### Configuring CF List
 
-To configure CF List, navigate to the Flows Inspector. 
+To configure CF List, navigate to the Flows workspace. 
 
-Choose the device or group of devices (label) to configure CF List.
+Choose a Device/Label node to configure CF List.
 
-On the Inspector click CF List.
+On the Inspector click **CF List**.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows-inspector-cflist.png"
+  )}
+/>
 
 For quick identification, a symbol appears on the node.
 
 
 ## Alerts
 
-Alerts (email and webhooks) are avaialble for a number of conditions related to devices and integrations including when devices are deleted, Integrations updated or deleted.
+Alerts (email or webhooks) can be configured for a number of conditions related to devices and integrations including when devices are deleted, integrations updated or deleted.
 
-Helium Console will deliver email-based notifications for various events that happen for devices. For each notification, either `Administrators`, `Managers`, or both can be notified via email. The current
-list of supported notifications are:
-
-To access this setting, choose Label from the side menu > Label Settings > Notifications > Webhooks. 
-To obtain a webhook key for authorization, choose Organizations from the side menu and copy relevant webhook key.
+User types (e.g., Administrator or Managers) can be specified to receive alerts.
 
 ### Configuring Alerts
+
+To configure alerts from the Flows workspace, select a Device/Label node or Integration node depending on the type of alert to configure and select the Inspector tab. 
+
+Select an existing alert or create a new one.
+
+To create a new one, select Create New Alert choose a name, alert type (email, webhook), and the alert. 
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows-inspector-alerts.png"
+  )}
+/>
+
+**Note:** for webhook alerts obtain a webhook key for authorization, by choosing Organizations from the side menu and copying relevant webhook key.
 
 
 ## Multiple Packets
@@ -108,3 +125,35 @@ The ability to pay for additional packets for redundancy and location triangulat
 **Note:** Even if you don’t use the multiple packet purchase feature, there are certain conditions which the system will purchase multiple packets to help ensure successful packet transmission. These include: initial joining of the device (up to 5 packets), downlink (up to 3 packets), and for acknowledgements (up to 3 packets).
 
 ### Configuring Multiple Packets
+
+Configuring multiple packets for a device a group of devices involved two main steps:
+
+1. Set up the multiple packet configuration.
+  - Select **Multiple Packets** on the side menu. 
+
+  <img
+  src={useBaseUrl(
+    "img/use-the-network/console/multiple-packets.png"
+  )}
+/>
+  
+  - Click the Add **+** icon. 
+
+  <img
+  src={useBaseUrl(
+    "img/use-the-network/console/multiple-packets1.png"
+  )}
+/>
+
+  - Enter a name and choose the desired number of packets.
+  - Click **Create Multiple Packet Config**
+
+2. Apply the Multiple Packet configuration to a device or group of devices.
+ - On the Flows Workspace, choose a Device/Label node and select the Inspector tab. 
+ - Select **Packets** and choose the configuration to apply.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows-inspector-packets.png"
+  )}
+/>
