@@ -141,7 +141,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Flows',
-      items: ['use-the-network/console/flows/section1'],
+      items: ['use-the-network/console/flows/actions', 'use-the-network/console/flows/flows-faq', 'use-the-network/console/flows/orientation'],
       collapsed: false,
     },
   ],
