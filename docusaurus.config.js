@@ -28,14 +28,6 @@ module.exports = {
       // using user system preferences, instead of the hardcoded defaultMode
       respectPrefersColorScheme: false,
     },
-    announcementBar: {
-      id: 'join_discord',
-      content:
-        '<a href="/use-the-network/console/console-v2-beta/">Console 2.0 beta is now on staging: Test and earn swag!</a>',
-      backgroundColor: '#474DFF',
-      textColor: '#FFFFFF',
-      isCloseable: true,
-    },
     navbar: {
       title: '',
       style: 'primary',
