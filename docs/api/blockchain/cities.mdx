@@ -77,18 +77,28 @@ Lists all known hotspots for a given `city_id`. The `city_id` captures the city,
 state and country and is included in the city list result.This route is paged
 with a cursor.
 
+The `filter_modes` parameter can be used to filter hotspot by how they were
+added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
+comma separated list (no whitespace) can be used to filter for multiple modes.
+
 <Tabs
   block={true}
   defaultValue="request"
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
 <TabItem value="request">
 
-_Query Parameters_
+_Path Parameters_
 
 | param              | Type     | Note                                                |
 | ------------------ | -------- | --------------------------------------------------- |
-| city_id (optional) | _string_ | The id for the city are returned by the cities list |
-| cursor (optional)  | _string_ | Cursor for the page of results to fetch             |
+| city_id (required) | _string_ | The id for the city are returned by the cities list |
+
+_Query Parameters_
+
+| param                   | Type     | Note                                    |
+| ----------------------- | -------- | --------------------------------------- |
+| cursor (optional)       | _string_ | Cursor for the page of results to fetch |
+| filter_modes (optional) | _string_ | Filter hotspot types                    |
 
 </TabItem>
 <TabItem value="response">

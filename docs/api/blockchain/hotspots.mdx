@@ -20,6 +20,10 @@ GET https://api.helium.io/v1/hotspots
 List known hotspots as registered on the blockchain.The results are paged. If a
 `cursor` field is present in the response, more results are available.
 
+The `filter_modes` parameter can be used to filter hotspot by how they were
+added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
+comma separated list (no whitespace) can be used to filter for multiple modes.
+
 <Tabs
   block={true}
   defaultValue="request"
@@ -28,9 +32,10 @@ List known hotspots as registered on the blockchain.The results are paged. If a
 
 _Query Parameters_
 
-| param             | Type     | Note                         |
-| ----------------- | -------- | ---------------------------- |
-| cursor (optional) | _string_ | Cursor for the page to fetch |
+| param                   | Type     | Note                         |
+| ----------------------- | -------- | ---------------------------- |
+| cursor (optional)       | _string_ | Cursor for the page to fetch |
+| filter_modes (optional) | _string_ | Filter hotspot types         |
 
 </TabItem>
 <TabItem value="response">
@@ -1989,82 +1994,82 @@ _Path Parameters_
 
 ```json
 {
-    "data": [
-        {
-            "lng": -84.38947964027781,
-            "lat": 33.77442909128778,
-            "timestamp_added": "2021-06-24T22:12:07.000000Z",
-            "status": {
-                "online": "online",
-                "listen_addrs": [
-                    "/p2p/11PhkxBRa6SXjKTj32RdDhbU9jwPNvmL1rgPScfT8VwHJWTkmG6/p2p-circuit/p2p/112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
-                ],
-                "height": 900645
-            },
-            "reward_scale": 1.0,
-            "owner": "14ZDTJZE41rQJPxrSHgp3UKuyZnB1KZuE3pZgMAhJraKfEF6X7D",
-            "nonce": 2,
-            "name": "merry-blood-otter",
-            "mode": "full",
-            "location_hex": "8844c1a8ebfffff",
-            "location": "8c44c1a8eadebff",
-            "last_poc_challenge": 900303,
-            "last_change_block": 900738,
-            "geocode": {
-                "short_street": "Spring St NW",
-                "short_state": "GA",
-                "short_country": "US",
-                "short_city": "Atlanta",
-                "long_street": "Spring Street Northwest",
-                "long_state": "Georgia",
-                "long_country": "United States",
-                "long_city": "Atlanta",
-                "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
-            },
-            "gain": 23,
-            "elevation": 50,
-            "block_added": 895576,
-            "block": 900768,
-            "address": "112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
-        },
-        {
-            "lng": -84.41078918647065,
-            "lat": 33.78627614557136,
-            "timestamp_added": "2021-06-22T15:33:09.000000Z",
-            "status": {
-                "online": "online",
-                "listen_addrs": [
-                    "/p2p/113hRKavKYh8oRg1qTPWyB9a24tVrSRLP67jUbRutm2AcHC4bAj/p2p-circuit/p2p/11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
-                ],
-                "height": 900645
-            },
-            "reward_scale": 1.0,
-            "owner": "13CsDkkHCroh7EFKjEkT74JmC7qkr4PuJn4jybqShBzYYrR4p7B",
-            "nonce": 1,
-            "name": "fun-hazel-gorilla",
-            "mode": "full",
-            "location_hex": "8844c1a88bfffff",
-            "location": "8c44c1a88a2c9ff",
-            "last_poc_challenge": 900738,
-            "last_change_block": 900763,
-            "geocode": {
-                "short_street": "14th St NW",
-                "short_state": "GA",
-                "short_country": "US",
-                "short_city": "Atlanta",
-                "long_street": "14th Street Northwest",
-                "long_state": "Georgia",
-                "long_country": "United States",
-                "long_city": "Atlanta",
-                "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
-            },
-            "gain": 12,
-            "elevation": 0,
-            "block_added": 892710,
-            "block": 900768,
-            "address": "11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
-        }
-    ]
+  "data": [
+    {
+      "lng": -84.38947964027781,
+      "lat": 33.77442909128778,
+      "timestamp_added": "2021-06-24T22:12:07.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/p2p/11PhkxBRa6SXjKTj32RdDhbU9jwPNvmL1rgPScfT8VwHJWTkmG6/p2p-circuit/p2p/112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
+        ],
+        "height": 900645
+      },
+      "reward_scale": 1.0,
+      "owner": "14ZDTJZE41rQJPxrSHgp3UKuyZnB1KZuE3pZgMAhJraKfEF6X7D",
+      "nonce": 2,
+      "name": "merry-blood-otter",
+      "mode": "full",
+      "location_hex": "8844c1a8ebfffff",
+      "location": "8c44c1a8eadebff",
+      "last_poc_challenge": 900303,
+      "last_change_block": 900738,
+      "geocode": {
+        "short_street": "Spring St NW",
+        "short_state": "GA",
+        "short_country": "US",
+        "short_city": "Atlanta",
+        "long_street": "Spring Street Northwest",
+        "long_state": "Georgia",
+        "long_country": "United States",
+        "long_city": "Atlanta",
+        "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
+      },
+      "gain": 23,
+      "elevation": 50,
+      "block_added": 895576,
+      "block": 900768,
+      "address": "112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
+    },
+    {
+      "lng": -84.41078918647065,
+      "lat": 33.78627614557136,
+      "timestamp_added": "2021-06-22T15:33:09.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/p2p/113hRKavKYh8oRg1qTPWyB9a24tVrSRLP67jUbRutm2AcHC4bAj/p2p-circuit/p2p/11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
+        ],
+        "height": 900645
+      },
+      "reward_scale": 1.0,
+      "owner": "13CsDkkHCroh7EFKjEkT74JmC7qkr4PuJn4jybqShBzYYrR4p7B",
+      "nonce": 1,
+      "name": "fun-hazel-gorilla",
+      "mode": "full",
+      "location_hex": "8844c1a88bfffff",
+      "location": "8c44c1a88a2c9ff",
+      "last_poc_challenge": 900738,
+      "last_change_block": 900763,
+      "geocode": {
+        "short_street": "14th St NW",
+        "short_state": "GA",
+        "short_country": "US",
+        "short_city": "Atlanta",
+        "long_street": "14th Street Northwest",
+        "long_state": "Georgia",
+        "long_country": "United States",
+        "long_city": "Atlanta",
+        "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
+      },
+      "gain": 12,
+      "elevation": 0,
+      "block_added": 892710,
+      "block": 900768,
+      "address": "11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
+    }
+  ]
 }
 ```
 
