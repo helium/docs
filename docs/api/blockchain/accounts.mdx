@@ -227,7 +227,8 @@ Fetches hotspots owned by a given account address.The list of returned hotspots
 is paged. If a `cursor` field is present more results are available.
 
 The `filter_modes` parameter can be used to filter hotspot by how they were
-added to the blockchain. Supported values are `full`, `dataonly`, or `light`.
+added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
+comma separated list (no whitespace) can be used to filter for multiple modes.
 
 Note: The cursor for accounts is valid for a limited time. If you receive a
 `400` http response code for a cursor based request, you will need to start
