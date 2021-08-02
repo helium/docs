@@ -1973,7 +1973,7 @@ _Query Parameters_
 GET https://api.helium.io/v1/hotspots/:address/witnesses
 ```
 
-Retrieves the list of witnesses for a given hotspot over a number of blocks.
+Retrieves the list of witnesses for a given hotspot over about the last 5 days of blocks.
 
 <Tabs
   block={true}
@@ -1985,7 +1985,7 @@ _Path Parameters_
 
 | param              | Type     | Note                                 |
 | ------------------ | -------- | ------------------------------------ |
-| address (optional) | _string_ | B58 address for a hotspot to look up |
+| address (required) | _string_ | B58 address for a hotspot to look up |
 
 </TabItem>
 <TabItem value="response">
@@ -2068,6 +2068,118 @@ _Path Parameters_
       "block_added": 892710,
       "block": 900768,
       "address": "11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Witnessed for a Hotspot
+
+```
+GET https://api.helium.io/v1/hotspots/:address/witnessed
+```
+
+Retrieves the list of hotspots the given hotspot witnessed over the last 5 days.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                                 |
+| ------------------ | -------- | ------------------------------------ |
+| address (required) | _string_ | B58 address for a hotspot to look up |
+
+</TabItem>
+<TabItem value="response">
+
+Shows the hotspots that hotspot
+`11sYnfeGAbFzDhXJ9NujYY2v2CnrcXPrewiF4iRN8upMs3HYUN2` witnessed
+
+200: OK
+
+```json
+{
+  "data": [
+    {
+      "address": "112ZUpjfpGjCgoHjF5d2AUVznDYSFBzZcupdcZ5AivXkS2CNkKAG",
+      "block": 943086,
+      "block_added": 909051,
+      "elevation": 35,
+      "gain": 58,
+      "geocode": {
+        "city_id": "amFiYWwgbHVibmFubGViYW5vbg",
+        "long_city": null,
+        "long_country": "Lebanon",
+        "long_state": "Jabal Lubnan",
+        "long_street": "قماطية",
+        "short_city": null,
+        "short_country": "LB",
+        "short_state": "Jabal Lubnan",
+        "short_street": "قماطية"
+      },
+      "last_change_block": 943072,
+      "last_poc_challenge": 942763,
+      "lat": 33.79955623248546,
+      "lng": 35.58377688261546,
+      "location": "8c2da24de12c7ff",
+      "location_hex": "882da24de1fffff",
+      "mode": "full",
+      "name": "handsome-satin-bat",
+      "nonce": 1,
+      "owner": "13VKSpg4fW4EbroEAEe5H7JsWM5sUBAvcQHiJWgPx2ztci5HHFg",
+      "payer": "13ENbEQPAvytjLnqavnbSAzurhGoCSNkGECMx7eHHDAfEaDirdY",
+      "reward_scale": 1.0,
+      "status": {
+        "height": 942913,
+        "listen_addrs": ["/ip4/185.187.130.9/tcp/44158"],
+        "online": "online",
+        "timestamp": "2021-07-29T08:27:35.292000Z"
+      },
+      "timestamp_added": "2021-07-06T12:25:11.000000Z"
+    },
+    {
+      "address": "112KiUgwQjH3HWC8DRD1AwzBd6JYVQhcyTm2cuH9S52VAEufUTxx",
+      "block": 943086,
+      "block_added": 586187,
+      "elevation": 40,
+      "gain": 58,
+      "geocode": {
+        "city_id": "amFiYWwgbHVibmFubGViYW5vbg",
+        "long_city": null,
+        "long_country": "Lebanon",
+        "long_state": "Jabal Lubnan",
+        "long_street": "قماطية",
+        "short_city": null,
+        "short_country": "LB",
+        "short_state": "Jabal Lubnan",
+        "short_street": "قماطية"
+      },
+      "last_change_block": 943077,
+      "last_poc_challenge": 943053,
+      "lat": 33.80608713927618,
+      "lng": 35.573540070314635,
+      "location": "8c2da24d12c19ff",
+      "location_hex": "882da24d13fffff",
+      "mode": "full",
+      "name": "furry-mossy-spider",
+      "nonce": 5,
+      "owner": "14CTinSvsJJDfYmbVfNUscB8ZW1GWSDmCodK3SE2kCW9oAVpERU",
+      "payer": "14fzfjFcHpDR1rTH8BNPvSi5dKBbgxaDnmsVPbCjuq9ENjpZbxh",
+      "reward_scale": 0.8333282470703125,
+      "status": {
+        "height": 942453,
+        "listen_addrs": ["/ip4/185.187.130.21/tcp/44158"],
+        "online": "online",
+        "timestamp": "2021-07-29T01:09:21.481000Z"
+      },
+      "timestamp_added": "2020-11-12T17:15:45.000000Z"
     }
   ]
 }
