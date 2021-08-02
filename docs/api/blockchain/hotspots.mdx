@@ -20,6 +20,10 @@ GET https://api.helium.io/v1/hotspots
 List known hotspots as registered on the blockchain.The results are paged. If a
 `cursor` field is present in the response, more results are available.
 
+The `filter_modes` parameter can be used to filter hotspot by how they were
+added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
+comma separated list (no whitespace) can be used to filter for multiple modes.
+
 <Tabs
   block={true}
   defaultValue="request"
@@ -28,9 +32,10 @@ List known hotspots as registered on the blockchain.The results are paged. If a
 
 _Query Parameters_
 
-| param             | Type     | Note                         |
-| ----------------- | -------- | ---------------------------- |
-| cursor (optional) | _string_ | Cursor for the page to fetch |
+| param                   | Type     | Note                         |
+| ----------------------- | -------- | ---------------------------- |
+| cursor (optional)       | _string_ | Cursor for the page to fetch |
+| filter_modes (optional) | _string_ | Filter hotspot types         |
 
 </TabItem>
 <TabItem value="response">
