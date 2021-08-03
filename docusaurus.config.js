@@ -31,7 +31,7 @@ module.exports = {
     announcementBar: {
       id: 'join_discord',
       content:
-        '<a href="/use-the-network/console/console-v2-beta/">Console 2.0 beta is now on staging: Test and earn swag!</a>',
+        '<a href="/use-the-network/console">Console 2.0 has arrived! Read more and get started here!</a>',
       backgroundColor: '#474DFF',
       textColor: '#FFFFFF',
       isCloseable: true,
