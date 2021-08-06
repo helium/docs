@@ -76,10 +76,10 @@ user's wallet
 output for the Hotspot
 
 ## Generate an Add Hotspot Transaction
-Use `gateway_config` to generate the `add hotspot` transaction, 
+Use `miner` to generate the `add hotspot` transaction, 
 
 ```
-./helium_gateway add --owner WALLET_ADDRESS --payer WALLET_ADDRESS
+miner txn add owner=WALLET_ADDRESS --payer WALLET_ADDRESS
 ```
 
 For testing, you'll set `payer` as `payer = 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr`. In production, the Payer will be your unique Maker Account Address and will be provided at the appropriate stage with the Manufacturing Oversight Committee. The current list can be found [here](https://onboarding.dewi.org/api/v2/makers). 
