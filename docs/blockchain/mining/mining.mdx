@@ -44,8 +44,8 @@ while it runs.
 
 ## Target $HNT Production Per Epoch
 
-The target production rate for new $HNT minted per month is `5,000,000`. This
-means that, if the blockchain performs as designed, it will produce `5,000,000`
+As of August 1, 2021 (the most-recent halving), the target production rate for new $HNT minted per month is `2,500,000`. This
+means that, if the blockchain performs as designed, it will produce `2,500,000`
 HNT per month. This target rate is based on the following two parameters, as
 defined in their specific chain variables:
 
@@ -57,38 +57,36 @@ transactions, and epochs are comprised of all the blocks mined by the current
 Consensus Group since the last epoch.
 
 So, if the Network achieves its target block time of `60` seconds, and target
-epoch of `30` blocks, the blockchain will produce 5,000,000 HNT per month. Per
-epoch, this equals roughly `3424.66` HNT. The math for this is as follows:
+epoch of `30` blocks, the blockchain will produce `2,500,000` HNT per month. Per
+epoch, this equals roughly `1712.704154343` HNT. The math for this is as follows:
 
-- `(43800 minutes per month / 30 minutes per epoch) = 1460 epochs per month`
-- `(5000000 tokens minted per month / 1460 epochs per month) = 3424.65753424658 HNT per epoch`
+- `(43200 minutes per month / 30 minutes per epoch) = 1440 epochs per month`
+- `(2500000 tokens minted per month / 1440 epochs per month) = 1736.1111 HNT per epoch`
 
 ### What Are The Current Block and Epoch Times?
 
 At any point you can go to the
 [Helium blockchain Explorer](http://explorer.helium.com/) to view recent block
-and epoch statistics, past $HNT production numbers, and much more. Your
-[Helium Mobile Wallet](https://helium.com/app) will also give you the average
-block and epoch times for the trailing 24 hour period.
+and epoch statistics, past $HNT production numbers, and much more. 
 
 ## HNT Distributions Per Epoch
 
-As calculated above, the target `HNT` per epoch is approximately `3424.66`. The
+As calculated above, the target `HNT` per epoch is approximately `1736.1111`. The
 next logical question is, "Where does all this HNT go?" Let's take a look.
 
-Below are the mining rewards per epoch. For every complete epoch, marked by the
-election of a new Consensus Group, all the `HNT` produced get distributed over
+Below are the mining rewards per epoch as of August 1, 2021. For every complete epoch, marked by the
+election of a new Consensus Group, all the `HNT` produced are distributed over
 the following reward types:
 
 | Reward Type           | Percentage    | HNT Earned by Reward Type |
 | :-------------------- | :------------ | :------------------------ |
-| PoC Challenger        | .95%          | 32.53427                  |
-| PoC Challengees       | 5.31%         | 181.849446                |
-| Witnesses             | 21.24%        | 727.397784                |
-| Consensus Group       | 6%            | 205.4796                  |
-| Security Tokens       | 34%           | 1164.3844                 |
-| Network Data Transfer | _Up to 32.5%_ | _Up to 1113.0145_         |
-| **Total**             | **100%**      | **3424.66**               |
+| PoC Challenger        | 0.90%         | 15.6250               |
+| PoC Challengees       | 5.02%         | 87.1527               |
+| Witnesses             | 20.08%        | 348.6111              |
+| Consensus Group       | 6%            | 104.1666              |
+| Security Tokens       | 33%           | 572.9166              |
+| Network Data Transfer | _Up to 35%_   | _Up to 607.6389       |
+| **Total**             | **100%**      | **1736.1111**         |
 
 **Rewards Change Over Time**
 
@@ -97,7 +95,7 @@ accordance with HIP 10 (described below). If you want to see the current reward
 type percentage, you can always query the
 [Chain Variables API](/api/blockchain/chain-variables).
 The next maximum allotted rewards change is currently scheduled for **August
-1, 2021.**
+1, 2022.**
 
 ## HIP10 and Variable HNT Rewards for Network Data Transfer
 
@@ -108,13 +106,13 @@ the Helium Community. It ensures that $HNT is rewarded at a rate of 1:1 to the
 amount of Data Credits (DCs) routed by any given Hotspot per epoch. In doing so,
 the Network Data Transfer reward is proportional to the DC spent that epoch.
 This proportional relationship between Network Data Transfer reward type and DC
-is capped at 32.5% (1113.0145 HNT). Therefore, if the DC burned doesn't equal
-the value of `1113.0145` HNT, the remaining HNT is redistributed to the Proof of
+is capped at 35% (607.6389 HNT). Therefore, if the DC burned doesn't equal
+the value of `607.6389` HNT, the remaining HNT is redistributed to the Proof of
 Coverage (PoC) rewards groups pro-rata.
 
 Here are a few examples to illustrate how this works in practice:
 
-**Example 1: DC Burn does not exceed 32.5% HNT**
+**Example 1: DC Burn does not exceed 35% HNT**
 
 - In a given epoch, `2,000,000` DCs are transferred across the network
 - The HNT Oracle Price is `$2.00`
@@ -122,13 +120,13 @@ Here are a few examples to illustrate how this works in practice:
   This calculation is:`(2,000,000 DC * $0.00001 / $2 HNT Oracle Price)`
 - These `10 HNT` would be split proportionally to the Hotspots who did the work
   routing packets at the 1:1 rate.
-- The remaining `1103.0145 HNT` from the Network Data Transfer reward would be
+- The remaining `597.6389` from the Network Data Transfer reward would be
   distributed ratably among the Challengers, Witnesses and Challengees.
-  - `38.10413727` to the Challenger group
-  - `851.9282902` to the Witness group
-  - `212.9820725` to the Challengee group
+  - `20.6457` to the Challenger group
+  - `461.5945` to the Witness group
+  - `115.3986` to the Challengee group
 
-**Example 2: DC Burn exceeds 32.5% HNT**
+**Example 2: DC Burn exceeds 35% HNT**
 
 - In a given epoch, `500,000,000` DCs are spent on data transfer across the
   network
@@ -137,13 +135,13 @@ Here are a few examples to illustrate how this works in practice:
 In this scenario, total HNT value of DC transferred in this epoch is `2500HNT`.
 This calculation is:`(500,000,000 DC * $0.00001 / $2 HNT Oracle Price)`
 
-- Because the Network DC burn exceeded the `1113.0145HNT` available to the
+- Because the Network DC burn exceeded the `607.6389` available to the
   Network Data Transfer reward, all Hotspots who did the work over this epoch with
   split the full `1113.0145HNT` proportionally.
 
 **Additional Notes on Reward Types and Payouts**
 
-- All Hotspots in the `Consensus` group will earn an equal reward.
+- All Valdators in the `Consensus` group will earn an equal reward.
 - All Hotspots participating in PoC, including `Challengers`, `Challengees` and
   `Witnesses` will earn rewards proportional to how many events they
   participated in out of the total number of events per epoch.
@@ -152,7 +150,7 @@ This calculation is:`(500,000,000 DC * $0.00001 / $2 HNT Oracle Price)`
   above.
 - Hotspots can earn one or more reward types during any given epoch.
 - Hotspots are only eligible to submit one Proof of Coverage Challenge - which
-  results in them earning the `PoC Challenger` reward - **once per 120 blocks**.
+  results in them earning the `PoC Challenger` reward - **up to once per 360 blocks**.
 - `PoC Challenger`, `PoC Challengee`, and `Witness` reward types get distributed
   in the epoch that includes the corresponding PoC receipt.
 - A Hotspots can earn more than one `PoC Challengee` and `Witness` rewards per
@@ -163,14 +161,14 @@ This calculation is:`(500,000,000 DC * $0.00001 / $2 HNT Oracle Price)`
 The Helium blockchain is still new and growing quickly, so there are bugs to be
 squashed and optimizations to be made. Target block and epoch times can be
 difficult to attain consistently. To account for this, the Helium blockchain
-uses something called `proration` to ensure that the target of `5,000,000` is
+uses something called `proration` to ensure that the target of `2,500,000` is
 achieved even if block and epoch times aren't on target.
 
 **Target HNT Depends on Blocks, Not Clocks**
 
 It's easiest to think of target HNT production over the span of one month. If
 the blockchain performs on target, resulting in roughly 1460 epochs per month,
-then `5,000,000` new HNT will be produced. "One month" is a period of time
+then `2,500,000` new HNT will be produced. "One month" is a period of time
 measured by a clock. However, under the hood, we use block time, and the
 resulting epochs, to mark HNT production against our target. So when blocks are
 slow, HNT production is reduced proportionally.
@@ -181,14 +179,14 @@ Occasionally, due to the rapid growth of the network, there can be
 less-than-optimal block times. This results in slower epochs. When this happens
 the blockchain will produce **less** HNT over the same period of time. This may
 seem counterintuitive. _Shouldn't the blockchain produce more HNT when block
-times are slower to ensure the `5,000,000` per month target is hit?_ No. Again,
+times are slower to ensure the `2,500,000` per month target is hit?_ No. Again,
 think blocks, not clocks. Here's a step-by-step example to make it clearer:
 
 - Let's assume for a given `60` minute period, the average block time was `120`
   seconds (which is double the target of `60` seconds).
 - This would mark `30` blocks over the `60` minute period, conclude an epoch,
   and result in HNT rewards being distributed.
-- As with any epoch, we would distribute the target of (approximately) `3424.66`
+- As with any epoch, we would distribute the target of (approximately) `1736.1111`
   HNT.
 - However, since this epoch took twice as long as normal - `60` minutes versus
   `30` minute target - the blockchain essentially distributes HNT at **half the

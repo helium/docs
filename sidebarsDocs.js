@@ -88,7 +88,7 @@ module.exports = {
    {
       type: 'category',
       label: 'Blockchain',
-      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/validators', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/locations', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis', 'api/blockchain/rewards', 'api/blockchain/dc_burns'],
+      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/validators', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/locations', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis', 'api/blockchain/rewards', 'api/blockchain/dc_burns', 'api/blockchain/state_channels', 'api/blockchain/assert_locations'],
       collapsed: true,
     },
     'api/console',
@@ -102,7 +102,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Helium App',
-      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/transfer-hotspot', 'wallets/app-wallet/rak-hotspot-setup', 'wallets/app-wallet/hexagons', 'wallets/app-wallet/discovery', 'wallets/app-wallet/transaction-failures'],
+      items: ['wallets/app-wallet/twelve-words', 'wallets/app-wallet/transfer-hotspot', 'wallets/app-wallet/rak-hotspot-setup', 'wallets/app-wallet/hexagons', 'wallets/app-wallet/discovery', 'wallets/app-wallet/transaction-failures', 'wallets/app-wallet/fleet-mode', 'wallets/app-wallet/deep-links-and-qr-codes'],
       collapsed: false,
     }
   ],
@@ -115,22 +115,22 @@ module.exports = {
     {
       type: 'category',
       label: 'Console',
-      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/console-adr', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting'],
+      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/device-configurations', 'use-the-network/console/flows/flows', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting'],
       collapsed: false,
     }
   ],
-  console2beta: [
+  flows: [
    {
       type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/console'
+      label: '<- Console',
+      href: '/use-the-network/console/flows'
     },
     {
       type: 'category',
-      label: 'Console 2.0 Beta',
-      items: ['use-the-network/console/console-v2-beta'],
+      label: 'Flows',
+      items: ['use-the-network/console/flows/orientation', 'use-the-network/console/flows/actions', 'use-the-network/console/flows/flows-faq'],
       collapsed: false,
-    }
+    },
   ],
   integrations: [
    {
@@ -300,7 +300,7 @@ module.exports = {
         'use-the-network/devices/development/heltec/wireless-shell',
         'use-the-network/devices/development/heltec/lora-kit-151',
         'use-the-network/devices/development/heltec/lora-node-151',
-        'use-the-network/devices/development/heltec/turtle-board' 
+        'use-the-network/devices/development/heltec/turtle-board'
       ],
       collapsed: false,
     },
@@ -446,7 +446,7 @@ module.exports = {
       type: 'category',
       label: 'Adeunis',
       items: [
-        'use-the-network/devices/ready-to-use/adeunis/adeunis-field-test-device', 
+        'use-the-network/devices/ready-to-use/adeunis/adeunis-field-test-device',
       ],
 
       collapsed: false,
@@ -1065,7 +1065,7 @@ module.exports = {
       type: 'category',
       label: 'Validators (Testnet)',
       items: [
-        'mine-hnt/validators/testnet/validators-testnet-expectations', 
+        'mine-hnt/validators/testnet/validators-testnet-expectations',
         'mine-hnt/validators/testnet/validators-testnet-design',
         'mine-hnt/validators/testnet/validators-testnet-deployment-guide',
         'mine-hnt/validators/testnet/validators-testnet-wallet',
@@ -1098,7 +1098,7 @@ module.exports = {
    {
        type: 'category',
        label: 'Light Hotspot Guides',
-       items: ['use-the-network/light-hotspots/guides/dragino', 'use-the-network/light-hotspots/guides/kerlink'],
+       items: ['use-the-network/light-hotspots/guides/dragino', 'use-the-network/light-hotspots/guides/kerlink', 'use-the-network/light-hotspots/guides/rak-concentrators'],
        collapsed: false,
    },
   ],

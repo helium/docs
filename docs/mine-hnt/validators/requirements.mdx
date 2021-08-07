@@ -13,13 +13,26 @@ Based on early tests, validator node requirements include:
   - Planning on running from docker: Any linux based system capable of running docker
   - Planning on running from source: Ubuntu 20.04 LTS
 - CPU: 
-  - Intel, AMD or ARM based processor 3.0 GHz or above with 2 cores or equivalent
+  - Intel, AMD or ARM based processor 3.0 GHz or above with 4 cores or equivalent.
   - In testnet, scores of [GeekBench 5](https://www.geekbench.com/) Multi-Core of greater than 2,200 have performed well
   - For Intel and AMD systems, [AVX2 or AVX support](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions) is required. Verify your CPU supports these extensions by checking `grep avx /proc/cpuinfo` and verifying that AVX support is included in the output.
   - These recommendations may change for mainnet as the size of consensus groups grow and hotspot transactions are added
 - Memory: 8 GB or above
-- Storage: 256 GB or more for mainnet.  64GB is sufficient for testnet.
-- If using AWS, a t2.large or t2.xlarge EC2 instance or equivalent is recommended. If using another cloud provider, like GCP, Azure, or Digital Ocean, an instance with similar capabilities should be the target.
+- Storage: 256 GB or more for mainnet.  64GB is sufficient for testnet. It is recommended that you keep your validator data on a separate disk.
+- If using AWS, a t2.xlarge or c5a.xlarge EC2 instance or equivalent is recommended. If using another cloud provider, like GCP, Azure, or Digital Ocean, an instance with similar capabilities should be the target.
 - Static IP address with ports `2154`(TCP) and `8080`(TCP) opened in your firewall with a route available to your validator host.
 - Running on stable network connection free of things like proxies, NAT, etc. The load is largely symmetrical when producing blocks, so good upstream connectivity recommended.
 - It is [discouraged to run Validators at home](/mine-hnt/validators/faqs-resources-providers/#technical). The one exception to this is if you live at an actual data center. If that's the case, you're allowed to run Validators at home.
+
+- Overall Baselining (do this after the validator is caught up to the tip of the chain, and running normally for a few hours)
+  - Review the underlying hardware your provider is using. You can review your instance cpu speeds by using `cat /proc/cpuinfo | egrep  -i "name|stepping|Mhz" | sort | uniq -c`.  Some providers use the Turbo speeds as marketing and others the regular speed of the processor.
+  - Install sar package using `sudo apt install sysstat`
+    - Confirm that sar is enabled in `/etc/default/sysstat` review that the `ENABLED` line is set to `true`.
+    - Review the cron job and is set to the correct schedule that you would like to collect stats on. You can `sudo vi etc/cron.d/sysstat` file to adjust the default of collecting every 10 minutes `*/10 ...`.
+  - You can review your CPU steal using `sar` and looking at the `%steal` column. Averages of over 1% you should think about moving providers. You can also see this metric in `top` look for the `st` cpu metric on the second line.
+  - You can review your IOPS using `sar -b` 
+  - You can review your Disk Bandwidth using `sar -d -p | egrep "sd[a-z]|DEV"` NOTE: this example command line is assumes `/dev/sd<some letter>` device names. Your instance may have disks with different device names, so change this command as needed.
+  - You can review your Disk Latency with `sar -d -p | egrep "sd[a-z]|DEV"` review the `await` which should be < 10ms
+  - Review your Absorb and Commit Block times and they should be < 2500ms on average, not including the rewards blocks that will be much higher. To check ongoing times you can use `tail -f log/console.log | grep -E 'add_block|absorb_and_commit'`
+  - Once your validator is caught up you can use `grep -E 'add_block|absorb_and_commit' log/console.log | awk '{print $6 $8 }' | sed ':a;N;$!ba;s/\ngossipped/ /g'` as a historical listing of your console.log
+  - If you believe you are having trouble getting the advertised disk performance you can install and run the `fio` package to give you a full baseline of disk performance. Make sure to not be in a Consensus Group while benchmarking using `fio`.  You can do this by running `miner info in_consensus`.
