@@ -31,8 +31,9 @@ for more detailed instructions.
 
 - Connect to a Wi-Fi or Ethernet network with Internet access.
 - Update to the latest firmware from
-  [Dragino](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/). As
-  recommended by Dragino, leave "Preserve Settings" _unchecked_ when upgrading
+  [Dragino](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/). 
+  Search for the model of your hotspot > Firmware > Release > and download the .bin file.
+  As recommended by Dragino, leave "Preserve Settings" _unchecked_ when upgrading
   firmware to avoid issues caused by incompatibility of settings between
   versions. This guide assumes the standard firmware version v5.4.1618196981 or 
   later. Earlier firmware versions may require ca-bundle to be installed prior 
@@ -76,7 +77,7 @@ _Example of customized channel settings using the US915 frequency plan for Heliu
 
 Next, you will configure the LoRa packet forwarder on the Dragino to forward
 packets to the Helium Gateway service which will be installed on the Dragino in
-the next step.
+the next step. 
 
 1. From the Dragino web interface, navigate to LoRaWAN > LoRaWAN from the menu.
 2. Select `Custom / Private LoRaWAN` from the Service Provider.
@@ -95,8 +96,27 @@ the next step.
 
 ## Install Helium Gateway (gateway-rs) on the Dragino
 
-Finally, you will install the Helium Gateway service. This requires SSH access
-to the Dragino.
+Then, you will install the Helium Gateway service by choosing one of the following:
+
+### If using latest firmware, via web interface
+Refer to the user guide provided on the [Dragino wiki](https://wiki.dragino.com/index.php?title=Notes_for_Helium) for more detailed instructions.
+
+1. Log into the Dragino gateway web interface AFTER upgrading the firmware. 
+2. Navigate to LoraWAN > Helium IoT from the Menu.
+3. Click Download_Helium Server button. Wait for the confirmation message.
+4. Click on Install_Helium_Server button. Wait for the confirmation message.
+5. Click Save & Apply.
+
+Helium Gateway is now installed and should be running. Login via SSH and use the command
+`helium_gateway key info` to view the public key address and animal name of your
+gateway.
+Remember to backup your key file `/etc/helium_gateway/keypair.bin` and keep in a safe
+place. This will be needed to recover this gateway especially if it is onboarded to the blockchain.
+
+
+### If using older firmware, via SSH access
+
+This requires SSH access to the Dragino.
 
 1. Connect to the Dragino over SSH. By default, the standard Dragino firmware
    uses port 2222 for SSH (the OpenVPN firmware uses port 22) and the root user
@@ -163,12 +183,10 @@ Server settings are configured for the TTN EU server which will also provide
 acknowledgement. However, the absence of acknowledgement could indicate the the
 LoRaWAN settings are not correct per the above.
 
-## COMING SOON: Onboard as Data-Only Hotspot
-
-As part of Milestone 1.5 of the Light Gateway project roadmap, you will be able to
-onboard light gateways such as the Dragino to appear on the coverage map, and then,
-in Milestone 2, earn HNT for data transfers (but not for Proof of Coverage). See
-[Light Gateways - BETA](https://docs.helium.com/mine-hnt/light-hotspots) for
-more information. This process will require using the Helium
+## Onboard as Data Only Hotspot
+Data Only Hotspots can be added to the blockchain, assert its location, and be seen on explorer.helium.com.
+Then, in [Milestone 2](https://docs.helium.com/use-the-network/light-hotspots/), you will earn HNT for data transfers (but not for Proof of Coverage). See
+[Data Only Hotspots](https://docs.helium.com/mine-hnt/data-only-hotspots) for
+the onboarding procedure. This process will require using the Helium
 [command-line interface (CLI) Wallet](https://github.com/helium/helium-wallet-rs)
-to submit the onboarding and assert location transactions.
+to submit the onboarding and assert location transactions. You will need the public key address of your hotspot that you got earlier via SSH, after installing Helium Gateway (gateway-rs) on the Dragino.
