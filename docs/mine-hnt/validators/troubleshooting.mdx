@@ -30,16 +30,16 @@ Syncing to the blockchain could be impacted for the following reasons:
 * you just launched an AMI instance (if using AWS)
 
 ## Grab the latest blessed snapshot from Helium
-* On a running Validator run `miner snapshot list` or you can use the API to get the latest blessed snapshot going to this web address `https://api.helium.io/v1/snapshots`
-* Find the highest "Height" block and download the snapshot from Helium via `curl -O https://snapshots.helium.wtf/mainnet/snap-<height>`
-* Move that file into your `validator_data` directory
-* Temporarily pause transaction sync via ```miner repair sync_pause```
-* Cancel any in-progress transaction sync via ```miner repair sync_cancel```
-* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>``` This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
-* Wait a few minutes before confirming the status using the following commands
-* Confirm that they sync state is `active` via `miner repair sync_state` If this is not active you can resume transaction syncing via ```miner repair sync_resume```
-* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step
-* Wait at least 5 minutes and re-confirm that your chain is adding more blocks
+* On a running Validator run `miner snapshot list` or you can use the API to get the latest blessed snapshot going to this web address `https://api.helium.io/v1/snapshots`.
+* Find the highest "Height" block and download the snapshot from Helium via `curl -O https://snapshots.helium.wtf/mainnet/snap-<height>`.
+* Move that file into your `validator_data` directory.
+* Temporarily pause transaction sync via ```miner repair sync_pause```.
+* Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
+* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
+* Wait a few minutes before confirming the status using the following commands.
+* Confirm that they sync state is `active` via `miner repair sync_state`. If this is not active you can resume transaction syncing via ```miner repair sync_resume```.
+* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step.
+* Wait at least 5 minutes and re-confirm that your chain is adding more blocks.
 
 NOTE: If you build the Validator from source the paths may be different. For this Docker example `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system
 
@@ -51,18 +51,18 @@ Besure to trust the Validator that you take your snapshot from, shenanigans coul
 
 :::
 
-* On the source Validator run `miner info p2p_status`
-* Temporarily pause transaction sync via ```miner repair sync_pause```
-* Cancel any in-progress transaction sync via ```miner repair sync_cancel```
-* On the source Validator take a snapshot via `miner snapshot take /var/data/snap-<height>` using the height you determined from the first step. 
-* On the source Validator resume transaction syncing via ```miner repair sync_resume```
-* Move the `/var/data/snap-<height>` file into your root of the `validator_data` directory on the destination Validator
-* Temporarily pause transaction sync via ```miner repair sync_pause```
-* Cancel any in-progress transaction sync via ```miner repair sync_cancel```
-* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>``` This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
-* Resume transaction syncing via ```miner repair sync_resume```
-* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step
-* Wait at least 5 minutes and re-confirm that your chain is adding more blocks
+* On the source Validator run `miner info p2p_status`.
+* Temporarily pause transaction sync via ```miner repair sync_pause```.
+* Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
+* On the source Validator take a snapshot via `miner snapshot take /var/data/snap-<height>` using the height you determined from the first step.
+* On the source Validator resume transaction syncing via ```miner repair sync_resume```.
+* Move the `/var/data/snap-<height>` file into your root of the `validator_data` directory on the destination Validator.
+* Temporarily pause transaction sync via ```miner repair sync_pause```.
+* Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
+* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
+* Resume transaction syncing via ```miner repair sync_resume```.
+* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step.
+* Wait at least 5 minutes and re-confirm that your chain is adding more blocks.
 
 NOTE: If you build the Validator from source the paths may be different. For this Docker example `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system
 
