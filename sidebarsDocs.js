@@ -1085,6 +1085,7 @@ module.exports = {
      label: 'Validators (Mainnet)',
      items: [
        'mine-hnt/validators/mainnet/validators-mainnet-deployment-guide',
+       'mine-hnt/validators/mainnet/validators-mainnet-release',
      ],
      collapsed: false,
    },
