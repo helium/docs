@@ -561,9 +561,12 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param        | Type     | Note                                       |
-| ------------ | -------- | ------------------------------------------ |
-| filter_types | _string_ | Comma separated list of transaction types |
+| param                  | Type     | Note                                      |
+| ---------------------- | -------- | ----------------------------------------- |
+| filter_types(optional) | _string_ | Comma separated list of transaction types |
+| min_time (optional)    | _string_ | First time to include data for            |
+| max_time (optional)    | _string_ | Last time to include data for             |
+| limit (optional)       | _number_ | Maximum number of items to return         |
 
 </TabItem>
 <TabItem value="response">
@@ -711,8 +714,8 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param        | Type     | Note                                       |
-| ------------ | -------- | ------------------------------------------ |
+| param        | Type     | Note                                      |
+| ------------ | -------- | ----------------------------------------- |
 | filter_types | _string_ | Comma separated list of transaction types |
 
 </TabItem>
@@ -759,6 +762,14 @@ _Path Parameters_
 | param              | Type     | Note                                      |
 | ------------------ | -------- | ----------------------------------------- |
 | address (required) | _string_ | Account B58 address to fetch activity for |
+
+_Query Parameters_
+
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
 
 </TabItem>
 <TabItem value="response">
@@ -852,6 +863,14 @@ _Path Parameters_
 | param              | Type     | Note                                      |
 | ------------------ | -------- | ----------------------------------------- |
 | address (required) | _string_ | Account B58 address to fetch activity for |
+
+_Query Parameters_
+
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
 
 </TabItem>
 <TabItem value="response">
