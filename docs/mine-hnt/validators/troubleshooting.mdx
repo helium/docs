@@ -31,7 +31,7 @@ Syncing to the blockchain could be impacted for the following reasons:
 
 ## Grab the latest blessed snapshot from Helium
 * On a running Validator run `miner snapshot list` or you can use the API to get the latest blessed snapshot going to this web address `https://api.helium.io/v1/snapshots`.
-* Find the highest "Height" block and download the snapshot from Helium via `curl -O https://snapshots.helium.wtf/mainnet/snap-<height>`.
+* Find the highest "Height" block and download the snapshot from Helium via `curl -O https://snapshots.helium.wtf/mainnet/snap-<height>`. If this snapshot is not available, try the next highest as the consensus group may have not agreed upon the snapshot.
 * Move that file into your `validator_data` directory.
 * Temporarily pause transaction sync via ```miner repair sync_pause```.
 * Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
