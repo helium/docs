@@ -8,6 +8,21 @@ slug: /use-the-network/console/adding-devices
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
+### When Adding Devices for the First Time
+
+As network usage increases, a mechanism called the XOR filter allows the Console backend (router) to only process known traffic and avoid spending resources on unfamiliar packets, which significantly improves performance.
+
+However, the first time a device joins the network its keys need to be added to the blockchain and the updated block propagated to the miners (Hotspots).
+
+This initial join process could take up to 20 mins depending on:
+
+- when this transaction (batched with others) gets added to the blockchain
+- the overall performance of the blockchain
+
+After the initial join takes place future rejoining of the same device will be much quicker. 
+
+More information about XOR filters [here](https://engineering.helium.com/2021/07/29/console-updates-2.0.html).
+
 To add a device, go to **Devices** and click the **+ Add Device** icon. The Add New Device screen appears.
 
 <img
@@ -49,18 +64,6 @@ Under Import Devices choose a .csv file that contains the information for the im
 
 ## Important Information When Adding Devices
 
-### Delay When Adding Devices for the First Time
-
-As network usage increases, a mechanism called the XOR filter allows the Console backend (router) to only process known traffic and avoid spending resources on unfamiliar packets, which significantly improves performance.
-
-However, the first time a device joins the network its keys need to be added to the blockchain and the updated block propagated to the miners (Hotspots).
-
-This initial join process could take up to 20 mins depending on:
-
-- when this transaction (batched with others) gets added to the blockchain
-- the overall performance of the blockchain
-
-After the initial join takes place future rejoining of the same device will be much quicker. 
 
 ### Potential Delays Related to Sub-band
 

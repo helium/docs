@@ -88,7 +88,7 @@ module.exports = {
    {
       type: 'category',
       label: 'Blockchain',
-      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/validators', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/locations', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis', 'api/blockchain/rewards', 'api/blockchain/dc_burns', 'api/blockchain/state_channels'],
+      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/validators', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/locations', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis', 'api/blockchain/rewards', 'api/blockchain/dc_burns', 'api/blockchain/state_channels', 'api/blockchain/assert_locations'],
       collapsed: true,
     },
     'api/console',
@@ -1085,6 +1085,7 @@ module.exports = {
      label: 'Validators (Mainnet)',
      items: [
        'mine-hnt/validators/mainnet/validators-mainnet-deployment-guide',
+       'mine-hnt/validators/mainnet/validators-mainnet-release',
      ],
      collapsed: false,
    },
