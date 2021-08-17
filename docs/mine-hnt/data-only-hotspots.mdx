@@ -46,7 +46,7 @@ The fee schedule is as follows:
 ## Pre-requisites
 
 You should [setup a packet forwarder](/use-the-network/setup-a-packet-forwarder)
-with the [light hotspot client](/use-the-network/light-hotspots).
+with the [light hotspot client](/mine-hnt/light-hotspots).
 
 In addition, you should setup a [CLI wallet](/wallets/cli-wallet) as this
 is currently the only wallet that supports Data Only Hotspots.
@@ -103,7 +103,7 @@ wallet.
 
 :::warning
 At this point, you will want to be certain that you've backed up the
-light hotspot's keypair. Its location can be customized in the client's
+data only hotspot's keypair. Its location can be customized in the client's
 `settings.toml`, but by default, it's located at
 `/etc/helium_gateway/gateway_key.bin`
 :::
@@ -112,10 +112,10 @@ light hotspot's keypair. Its location can be customized in the client's
 
 To assert the Hotspot use `helium-wallet hotspots assert`
 ```
-helium-wallet hotspots assert --gateway LIGHT_GATEWAY_PUBKEY --lat=37.7806295 --lon=-122.4008481 --mode dataonly
+helium-wallet hotspots assert --gateway DATA_ONLY_HOTSPOT_PUBKEY --lat=37.7806295 --lon=-122.4008481 --mode dataonly
 ```
 
-The `LIGHT_GATEWAY_PUBKEY` in the example from the previous section
+The `DATA_ONLY_HOTSPOT_PUBKEY` in the example from the previous section
 would be `11TL62V8NYvSTXmV5CZCjaucskvNR1Fdar1Pg4Hzmzk5tk2JBac`.
 
 `--elevation` and `--gain` can be also set. Use `helium-wallet hotspots assert --help` for more info.
@@ -132,3 +132,20 @@ transaction hash at the following endpoint: `https://api.helium.io/v1/pending_tr
 
 Once the transaction clears, your Data Only Hotspot is ready to start
 earning!
+
+## Data-Only Hotspot Setup Guides
+
+- [Dragino LPS80/DLOS8](/mine-hnt/data-only-guides/dragino)
+  - Draginos will only mine HNT as a Data Only Hotspot
+- [Kerlink gateways]((/mine-hnt/data-only-guides/kerlink)
+  - Kerlink gateways will only mine HNT as Data Only Hotspot unless it is
+    specified as a Helium-Compatible Kerlink Miner.
+- [RAK Concentrator (RAK2245/RAK2247/RAK2287) + Raspberry Pi 2, 3, or 4]((/mine-hnt/data-only-guides/rak-concentrators)
+  - This setup will only mine HNT as a Data Only Hotspot.
+
+:::info
+
+Gateways running a Packet Forwarder and Miner is not considered a Light Hotspot
+and will never earn HNT.
+
+:::
