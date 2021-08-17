@@ -20,10 +20,8 @@ This can be run directly on the Docker container as well:
 
 ```docker exec validator tail -f /var/data/log/console.log```
 
-
 ## Compromised server
 If you find that the server has been compromised just wipe it (save the blocks to avoid having to resync the entire blockchain), close the hole, stand up a new validator and then transfer the stake to it.
-
 
 ## Syncing to the blockchain
 Syncing to the blockchain could be impacted for the following reasons:
@@ -31,12 +29,47 @@ Syncing to the blockchain could be impacted for the following reasons:
 * your validator is disconnecting
 * you just launched an AMI instance (if using AWS)
 
+## Grab the latest blessed snapshot from Helium
+* On a running Validator run `miner snapshot list` or you can use the API to get the latest blessed snapshot going to this web address `https://api.helium.io/v1/snapshots`.
+* Find the highest "Height" block and download the snapshot from Helium via `curl -O https://snapshots.helium.wtf/mainnet/snap-<height>`. If this snapshot is not available, try the next highest as the consensus group may have not agreed upon the snapshot.
+* Move that file into your `validator_data` directory.
+* Temporarily pause transaction sync via ```miner repair sync_pause```.
+* Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
+* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
+* Wait a few minutes before confirming the status using the following commands.
+* Confirm that they sync state is `active` via `miner repair sync_state`. If this is not active you can resume transaction syncing via ```miner repair sync_resume```.
+* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step.
+* Wait at least 5 minutes and re-confirm that your chain is adding more blocks.
+
+NOTE: If you build the Validator from source the paths may be different. For this Docker example `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system
+
+## Grab a snapshot from another Validator
+
+:::info
+
+Besure to trust the Validator that you take your snapshot from, shenanigans could ensue! This an advanced procedure use with caution!
+
+:::
+
+* On the source Validator run `miner info p2p_status`.
+* Temporarily pause transaction sync via ```miner repair sync_pause```.
+* Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
+* On the source Validator take a snapshot via `miner snapshot take /var/data/snap-<height>` using the height you determined from the first step.
+* On the source Validator resume transaction syncing via ```miner repair sync_resume```.
+* Move the `/var/data/snap-<height>` file into your root of the `validator_data` directory on the destination Validator.
+* Temporarily pause transaction sync via ```miner repair sync_pause```.
+* Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
+* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
+* Resume transaction syncing via ```miner repair sync_resume```.
+* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step.
+* Wait at least 5 minutes and re-confirm that your chain is adding more blocks.
+
+NOTE: If you build the Validator from source the paths may be different. For this Docker example `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system
 
 ## Validator stuck at a block
 If your validator appears to be stuck at a particular block and no longer syncing, you may need to take manual action for your validator to make progress.
 
 1. Reset the validator. You can reference this [testnet step](https://docs.helium.com/mine-hnt/validators/testnet/deployment-guide/#steps-to-get-back-on-the-current-chain) for commands.
-
 
 ## Performance and DKG Penalties
 If you aren't yet familiar with the penalty system, check out [Validator Penalties and Impact on Rewards](https://docs.helium.com/mine-hnt/validators/penalties/).
@@ -49,7 +82,7 @@ The most common cause of Perf/DKG penalties is bad luck (due to bad peers or oth
 
 A few other penalty root causes exist, each requiring detailed monitoring capabilities to troubleshoot.
 
-For the time/blocks when your validator accrued penalties, check your metrics dashboard (e.g., Grafana)
+For the time/blocks when your validator accrued penalties, check your metrics dashboard (e.g., Grafana).
 * CPU steal: was this spiking when you were in the CG? Is this at an elevated level generally (<1% is normal)? If regularly high, change hosting providers.
 * Internet connectivity issues: did rate of network ingress / egress plateau or fall off while in consensus group? Check if your network usage is throttled.
 * Slow disk write speeds: do your disk write speeds exceed 4ms/op (not a fixed line, just a level where "you could get dinged")? See if you can improve disk quality.
@@ -59,6 +92,7 @@ If you don't have a metrics dashboard and think a non-luck element may have caus
 
 One option is [Tedder's miner_exporter](https://github.com/tedder/miner_exporter), which can be used in conjunction with Grafana (and Prometheus's built-in node_exporter) for detailed validator monitoring.
 
+Baselining your instance via command line tools is also documented here [Baselining Your Validator](https://docs.helium.com/mine-hnt/validators/requirements).
 
 ## Resources
 
