@@ -6,22 +6,74 @@ Documentation for the Helium network.
 
 - [Node.js](https://nodejs.org/en/download) version >= 10.15.1
 
-- [Yarn](https://classic.yarnpkg.com/en/docs/install) version >= 1.5
+- [Yarn](https://yarnpkg.com/getting-started/install) version >= 1.5
 
 ## Installation
 
+Note: Windows Node.js installation you do not need to install the Compiler and Chocolaty dependencies.
+
+After you install Node.js, which will install Node.js and npm as a dependency you can do the following. 
+
 ```
-$ yarn
+$ npm install -g yarn
+
+> yarn@1.22.11 preinstall /path/to/npm/node_modules/yarn
+> :; (node ./preinstall.js > /dev/null 2>&1 || true)
+
+$ cd ~/path/to/project
+$ yarn set version berry
+
+Resolving berry to a url...
+Downloading https://github.com/yarnpkg/berry/raw/master/packages/berry-cli/bin/berry.js...
+Saving it into /path/to/fork/docs/.yarn/releases\yarn-berry.cjs...
+Updating /path/to/prjoect/docs/.yarnrc.yml...
+Done!
+
+$ yarn install
+
+ YN0070: Migrating from Yarn 1; automatically enabling the compatibility node-modules linker 
+ ...
+ YN0007: │ yarn@npm:1.22.10 must be built because it never has been before or the last one failed
+ YN0007: │ core-js@npm:3.12.1 must be built because it never has been before or the last one failed
+ YN0007: │ core-js-pure@npm:3.12.1 must be built because it never has been before or the last one failed
+ YN0000: └ Completed in 42s 725ms
+ YN0000: Done with warnings in 1m 31s
+
+```
+
+Check the final version and confirm that it is >= 1.5
+
+```
+yarn --version
 ```
 
 ## Local Development
 
 ```
 $ yarn start
+
+Starting the development server...
+Docusaurus website is running at: http://localhost:3000/
+
+√ Client
+  Compiled successfully in 5.90s
+
+i ｢wds｣: Project is running at http://localhost:3000/
+i ｢wds｣: webpack output is served from /
+i ｢wds｣: Content not from webpack is served from /path/to/project/docs
+i ｢wds｣: 404s will fallback to /index.html
+
+* Client ... done (99%) plugins
+ WebpackDevMiddleware
+ 
 ```
 
 This command starts a local development server and open up a browser window.
 Most changes are reflected live without having to restart the server.
+
+###NOTICE:
+
+**You can not use `git add .` anymore at the root to add all your files to the commit queue. There are yarn files in the root of the project that can not be committed**
 
 ## Contributing
 
