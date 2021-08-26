@@ -73,7 +73,7 @@ Most changes are reflected live without having to restart the server.
 
 ###NOTICE:
 
-**You can not use `git add .` anymore at the root to add all your files to the commit queue. There are yarn files in the root of the project that can not be committed**
+**You can not use `git add .` moving forward at the root of the repository. There are yarn files in the root of the project that can not be committed**
 
 ## Contributing
 
