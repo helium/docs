@@ -43,79 +43,11 @@ any further. You'll want to
 [create a wallet](https://github.com/helium/helium-wallet-rs#create-a-wallet)
 and to have at least $900 in HNT (base on current HNT Oracle pricing).
 
-## Create Data Credits
-
-Many fees benefit from
-[implicit burn](/blockchain/transaction-fees#transaction-fees-and-implicit-burn),
-but when paying for OUIs and DevAddr's, the Data Credits must be part of the
-purchasers balance.
-
-```text
-$ ./helium-wallet balance
-+-----------------------------------------------------+------------+--------------+-----------------+
-| Address                                             | Balance    | Data Credits | Security Tokens |
-+-----------------------------------------------------+------------+--------------+-----------------+
-| 12yUUZmsVyVaomxkvuNXtD2rAHYWgYwJLXtz4H9FjYgE2WcniLx | 0.00000000 | 0            | 0.00000000      |
-+-----------------------------------------------------+------------+--------------+-----------------+
-```
-
-If we don't have an account balance of at least `90,000,000` DCs ($900), we need
-to create the data credits now.
-
-Inspect
-[the current oracle price](https://api.helium.io/v1/oracle/prices/current) and
-you'll get the current price of HNT as agreed by the Helium Network; it's
-represented in 10^-8 dollars. Suppose it is currently $4.5, so we would get:
-
-```text
-{"data":{"timestamp":"2021-02-25T10:01:32.000000Z","price":450000000,"block":735970}}
-```
-
-Since 1 DC = $.00001 = $10^-5 and we need to normalize with the $10^-8 from the
-oracle price, we can plug the following into our favorite calculate (for
-example, in Python):
-
-```text
->>> 90000000*10**3/450000000
-200.0
-```
-
-I need to **200 HNT** to get $900 of DC (plus a little extra for the OUI txn
-fee). From _any_ wallet with ~201 HNT, I need to initiate the following
-transaction, which sets the wallet I just created as the beneficiary of the
-burn.
-
-Note: I burn an extra 0.5 HNT ~= $2 with the values in this example. This should
-be sufficient for fees. That extra amount changes depending on the current
-oracle price.
-
-```text
-./helium-wallet burn --amount 200.5 --payee 12yUUZmsVyVaomxkvuNXtD2rAHYWgYwJLXtz4H9FjYgE2WcniLx --commit
-```
-
-This submits the transaction and the CLI will output the transaction hash which
-you can track at the following endpoint:
-
-```
-https://api.helium.io/v1/pending_transactions/HASH
-```
-
-When the transaction clears, our balance should look like this:
-
-```text
-$ ./helium-wallet balance
-+-----------------------------------------------------+------------+--------------+-----------------+
-| Address                                             | Balance    | Data Credits | Security Tokens |
-+-----------------------------------------------------+------------+--------------+-----------------+
-| 12yUUZmsVyVaomxkvuNXtD2rAHYWgYwJLXtz4H9FjYgE2WcniLx | 0.00000000 | 90225000     | 0.00000000      |
-+-----------------------------------------------------+------------+--------------+-----------------+
-```
-
 ## Purchase the OUI
 
-The next part is simple. Submit a "create OUI" transaction:
+Submit a "create OUI" transaction:
 
-```text
+```bash
 ./helium-wallet oui create --subnet-size 8 --filter wVwCiewtCpEKAAAAAAAAAAAAcCK3fwAAAAAAAAAAAABI7IQOAHAAAAAAAAAAAAAAAQAAADBlAAAAAAAAAAAAADEAAAA2AAAAOgAAAA
 ```
 
@@ -129,3 +61,4 @@ and on
 Congratulations! You are the proud owner of a Helium Network OUI. OUIs are
 numbered sequentially, so the lower you are, the earlier you were on the
 Network!.
+
