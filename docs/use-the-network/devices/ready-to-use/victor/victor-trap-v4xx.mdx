@@ -46,9 +46,16 @@ integration to send your device data to Victor VLINK.
 
 #### 1. Create HTTP Integration
 
-To start, we'll create a new HTTP integration in Console. Navigate to the
-Integrations page using the left navigation and then select the HTTP
-integration.
+To start, we'll create a new HTTP integration in Console. Click the plus icon
+in the lower right corner of your Console window and select `Add Integration`.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/integrations/integrations-create-new.png"
+  )}
+/>
+
+Next, select the HTTP integration icon.
 
 <img
   src={useBaseUrl(
@@ -63,9 +70,7 @@ Next we'll fill in the details, see instructions and image below.
 2. Enter the HTTP Header - Key: `x-api-key` and Value:
    `peKuqRvLce7CuqUE0EkR1aE9bt0Hy3nJnYSh7yM3`
 3. Enter the name for this Integration: _VLINK Integration_
-4. Create and apply a Label for this Integration, we've used the same name as
-   the integration.
-5. Finally, click _Add Integration_ to complete.
+4. Finally, click _Add Integration_ to complete.
 
 <img
   src={useBaseUrl(
@@ -73,22 +78,19 @@ Next we'll fill in the details, see instructions and image below.
   )}
 />
 
-#### 2. Attach Label to Device
+#### 2. Attach Integration to Device with Flows
 
-Next we'll attach the _VLINK Integration_ label to the device. Navigate to your
-device page and click the Add Label button shown below.
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/devices/ready-to-use/victor-trap-v4xx-add-label.png"
-  )}
-/>
-
-Search for the _VLINK Integration_ label and click _Add Label_ as shown below.
+Next we'll attach the `VLINK Integration` to the device. Navigate to your
+Flows page with the navigator on the left. Next, click the plus icon next
+to `nodes` at the top. Here you will first drag your device out on to the 
+flows space and then your new `VLINK Integration`. To attach the two, click
+the small circle on the right of the device node and then click the small 
+circle on the left of the integration node. Finally, click save at the very 
+bottom to implement your flow.
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/ready-to-use/victor-trap-v4xx-add-label-window.png"
+    "img/use-the-network/devices/ready-to-use/victor-trap-v4xx-flows.png"
   )}
 />
 

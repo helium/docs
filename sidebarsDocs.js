@@ -23,6 +23,7 @@ module.exports = {
       items: [
           'mine-hnt/mine-hnt',
           'mine-hnt/full-hotspots/full-hotspots',
+		  'mine-hnt/light-hotspots',
           'mine-hnt/data-only-hotspots',
           'mine-hnt/validators/validators'
       ],
@@ -45,7 +46,6 @@ module.exports = {
           'use-the-network/devices/devices',
           'use-the-network/console/console',
           'use-the-network/run-a-network-server/run-a-network-server',
-          'use-the-network/light-hotspots/light-hotspots',
           'use-the-network/setup-a-packet-forwarder',
           'use-the-network/community-projects/community-projects',
           'use-the-network/coverage-mapping/coverage-mapping'
@@ -1094,12 +1094,12 @@ module.exports = {
    {
        type: 'link',
        label: '<- Light Hotspot',
-       href: '/use-the-network/light-hotspots'
+       href: '/mine-hnt/light-hotspots'
    },
    {
        type: 'category',
-       label: 'Light Hotspot Guides',
-       items: ['use-the-network/light-hotspots/guides/dragino', 'use-the-network/light-hotspots/guides/kerlink', 'use-the-network/light-hotspots/guides/rak-concentrators'],
+       label: 'Data Only Hotspot Guides',
+       items: ['mine-hnt/data-only-guides/dragino', 'mine-hnt/data-only-guides/kerlink', 'mine-hnt/data-only-guides/rak-concentrators'],
        collapsed: false,
    },
   ],

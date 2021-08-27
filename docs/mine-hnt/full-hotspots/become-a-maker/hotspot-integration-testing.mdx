@@ -76,7 +76,7 @@ output for the Hotspot
 Use `miner` to generate the `add hotspot` transaction, 
 
 ```
-miner txn add owner=WALLET_ADDRESS --payer WALLET_ADDRESS
+miner txn add_gateway owner=WALLET_ADDRESS --payer WALLET_ADDRESS
 ```
 
 For testing, you'll set `payer` as `payer = 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr`. In production, the Payer will be your unique Maker Account Address and will be provided at the appropriate stage with the Manufacturing Oversight Committee. The current list can be found [here](https://onboarding.dewi.org/api/v2/makers). 
@@ -154,14 +154,14 @@ Remember, Data Credits are NON-TRANSFERABLE. Triple check that the `payee` addre
 
 ### Testing
 
-When you’re ready to start integration with the Test Maker account with the mobile wallet app, send us details about your Test Hotspot in this JSON format:
+When you’re ready to start integration with the Test Maker account with the mobile wallet app, send us details about your Test Hotspot in this JSON format. :
 
-```json
-"id": "any_number", 
-"mac_eth0": "dc:a6:32:d8:e7:5c", 
-"mac_wlan0": "dc:a6:32:d8:e7:5e", 
-"onboarding_address": "retrieve this b58 address from mine", 
-"rpi_serial": "0000011031311847"
+```json 
+"mac_eth0": 
+"mac_wlan0": 
+"heliumSerial": 
+"onboarding_key": required
+"rpi_serial": 
 ```
 
 ### Production
@@ -170,11 +170,10 @@ When you move to production, the JSON should be formatted like this. Note the ad
 
 ```json
 "batch": "batch_name",  
-"id": "any_number", 
-"mac_eth0": "dc:a6:32:d8:e7:5c", 
-"mac_wlan0": "dc:a6:32:d8:e7:5e", 
-"onboarding_address": "retrieve this b58 address from mine", 
-"rpi_serial": "0000011031311847"
+"mac_eth0": "any_value", 
+"mac_wlan0": "any_value", 
+"onboarding_key": "base58 address from the Hotspot", 
+"rpi_serial": "any_value"
 ```
 
 
