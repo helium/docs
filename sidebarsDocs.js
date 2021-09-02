@@ -67,7 +67,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Open Source',
-      items: ['open-source/open-source'],
+      items: ['open-source/open-source','open-source/installation'],
       collapsed: true,
     },
     {

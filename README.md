@@ -6,22 +6,11 @@ Documentation for the Helium network.
 
 - [Node.js](https://nodejs.org/en/download) version >= 10.15.1
 
-- [Yarn](https://classic.yarnpkg.com/en/docs/install) version >= 1.5
+- [Yarn](https://yarnpkg.com/getting-started/install) version >= 1.5
 
 ## Installation
 
-```
-$ yarn
-```
-
-## Local Development
-
-```
-$ yarn start
-```
-
-This command starts a local development server and open up a browser window.
-Most changes are reflected live without having to restart the server.
+- [Installation Guide] (https://docs.helium.com/docs/installation)
 
 ## Contributing
 
