@@ -355,6 +355,37 @@ After running this, you'll need to input your wallet passphrase to sign the tran
 
 And with that, you're done. Congratulations! You're running a Helium Validator on Mainnet!
 
+### Stake multiple validators with one command
+
+To stake multiple validators with one command you can use the following command with the CLI wallet:
+
+```
+$ helium-wallet validators stake multi ./path/to/file/whale.json
+```
+
+The path parameter is the path to a JSON formated file with all the validator addresses and the amount to stake them with. Here is an example of the JSON format:
+
+```
+[
+    {
+        "address": "<adddress1>",
+        "stake": 10000,
+    },
+    {
+        "address": "<adddress2>",
+        "stake": 10000
+    }
+]
+```
+
+The transaction is not submitted to the system unless the `--commit` option is given.
+
+:::warning
+This command sequentially walks through the JSON and stakes one validator at a time. If this command errors out all further staking transactions will abort.
+:::
+
+
+
 ## Verifying Validator Victory
 
 Now that you're up and running with a Validator, there are a few things you can examine to make sure things are hunky dory.
