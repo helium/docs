@@ -1,0 +1,214 @@
+---
+id: validators-mainnet-wallet
+title: Configure a Wallet
+sidebar_label: Configure a Wallet
+slug: /mine-hnt/validators/mainnet/wallet
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+You’ll need an owner wallet to:
+
+- Stake your Helium (HNT)
+- Receive validator node consensus group rewards
+
+:::info
+You can have a single wallet for multiple validator nodes. However multiple wallets for a single validator node is not supported. A single stake transaction from a single wallet must be used to stake a validator.
+
+:::
+
+:::warning
+
+Do NOT run or store the helium-wallet or wallet.key file on your validator. Backup the wallet.key file and protect the password used to create the wallet.
+
+:::
+
+Download the command line wallet application from the [Helium wallet-rs github release page](https://github.com/helium/helium-wallet-rs/releases) and choose the appropriate architecture for your environment. Download the associated architecture .checksum file.
+
+Before running wallet commands, verify the integrity of the downloaded helium-wallet archive. For example, run `sha256sum helium-wallet-v1.6.4-x86-64-macos.tar.gz` and verify the resulting checksum matches the checksum provided in the `helium-wallet-v1.6.4-x86-64-macos.checksum` file.
+
+The `sha256sum` binary is included in linux and MacOS distributions. For Windows users, run `certUtil -hashfile .\helium-wallet-v1.6.4-x86-64-win.zip SHA256` to produce the sha256sum.
+
+## Wallet Commands
+
+At any time use `-h` or `--help` to get more help for a command.
+
+### Create a Wallet
+
+`./helium-wallet create basic`
+
+#### Create or Use Wallet without Password Input
+
+For security reasons, it is generally recommended that you type in your password every time. Storing the password in an environmental variable makes it very easy for the password to get compromised. Sometimes though, despite the security risks, you may want to interact with the CLI without inputting the password. In this case, using the environmental variable `HELIUM_WALLET_PASSWORD` enables this.
+
+```
+HELIUM_WALLET_PASSWORD=p4ssw0rd ./helium-wallet create basic
+```
+
+### View wallet balance and public key
+
+`./helium-wallet info` view public key and HNT balance.
+
+:::warning
+
+Always make sure to inspect the transaction _before_ adding the **--commit** option to sign and submit it to the api. There is no undo.
+
+:::
+
+### Stake Tokens
+
+After you have received your HNT you need to stake these tokens.
+
+As part of the staking process the validator node address needs to be in the staking transaction and also needs to sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
+
+#### To stake tokens perform the following:
+
+- Obtain the validator node address:
+
+  - On the validator, run `miner peer addr`. This will produce something like: `/p2p/112sSfUCQrVNAfFKVZWUSCeLs67wH8o1xz4yj4nKSPJKBT8bUkXi`
+
+  In this example the part following the final slash is the validator node's public address: `112sSfUCQrVNAfFKVZWUSCeLs67wH8o1xz4yj4nKSPJKBT8bUkXi`.
+
+- Stake single Validator with the HNT:
+  - `./helium-wallet validators stake one <public-address> 10000`
+
+Use `--commit` after preview to submit the transaction to network.
+
+#### Stake multiple validators with one command
+
+To stake multiple validators with one command you can use the following command with the CLI wallet:
+
+```
+$ helium-wallet validators stake multi ./path/to/file/whale.json
+```
+
+The path parameter is the path to a JSON formated file with all the validator addresses and the amount to stake them with. Here is an example of the JSON format:
+
+```
+[
+    {
+        "address": "<adddress1>",
+        "stake": 10000,
+    },
+    {
+        "address": "<adddress2>",
+        "stake": 10000
+    }
+]
+```
+
+The transaction is not submitted to the system unless the `--commit` option is given.
+
+:::warning
+This command sequentially walks through the JSON and stakes one validator at a time. If this command errors out all further staking transactions will abort.
+:::
+
+### List Associated Validators
+
+It's possible to view a list of associated validators to a wallet, along with their current status. `./helium-wallet validators list` will produce a table similar to below:
+
+```
++-----------------------------------------------------+-----------------------------------------------------+----------------+--------+
+| Address                                             | Owner                                               | Stake          | Status |
++-----------------------------------------------------+-----------------------------------------------------+----------------+--------+
+| 1Za3L1R32qPJJ546kteo7WP9t2DzWtTMw5u9jKfpJxZ9bswTgVG | 1a58oCFw79zAZCdkVBvnFSjqx7QM5FzSW5ppMVCf1HJeu8g1ywS | 10000.00000000 | staked |
++-----------------------------------------------------+-----------------------------------------------------+----------------+--------+
+```
+
+This can be helpful in verifying staked validators or validators currently in cooldown after being unstaked.
+
+### Unstake Tokens
+
+If you unstake tokens the validator node enters a stake cooldown period. During this cooldown period the validator node will not earn rewards and at the end of the cooldown period (currently 250,000 blocks or approximately 5.7 months in mainnet) your initial staking amount will be released to the wallet.
+
+To ensure the operator understands this unstake operation is not reversible and cannot be shortened, there are additional calculations to be performed in the unstake command. You need to include the stake release block height which should be at least the current block height plus the cooldown period, and 5-10 blocks to allow for chain processing delays.
+
+For example, if the current block height was 5000, you'd add 250,000 for the stake withdrawl cooldown period, plus an additional 10 blocks to allow for chain processing delays. Therefore the `stake-release-height` = `5000 + 250000 + 10` or `255010`.
+
+The cooldown length, in blocks, is called `stake_withdrawal_cooldown` and is a chain variable. This variable is viewable by running `miner ledger variables stake_withdrawal_cooldown`.
+
+#### To unstake tokens from a validator node perform the following:
+
+Obtain the validator node public address as described in [the stake command](#stake-tokens) and calculate the `stake-release-height` as defined above.
+
+`./helium-wallet validators unstake <public-address> --stake-release-height <stake release height>`
+
+Use `--commit` after previewing to submit the transaction to network. If you wait too long to commit, you may need to recalculate the `stake-release-height` value.
+
+To check the status of the unstake transaction, it's possible to copy the received hash into the Explorer, or query the [API transaction](/api/blockchain/transactions). A successful unstake transaction will also change the status to `cooldown` when viewing [associated validators](#list-associated-validators) to the wallet.
+
+:::warning
+
+Once the unstake command is committed, this cannot be reversed. The validator will cease earning rewards and the stake amount will not be returned to the staking wallet until the 250,000 block cooldown period has completed.
+
+:::
+
+:::info
+
+Once a validator has been successfully unstaked, it cannot be staked again. The validator may be stopped and deleted, including the `swarm_key`. Wallet commands to stake this validator's public address again will fail.
+
+:::
+
+### Transfer stake
+
+A validator node's stake can be transferred to other validator nodes in the same wallet or a different one.
+
+If the stake is transferred to a validator node in a different wallet, the owner of the other wallet must accept the transfer to complete the transaction.
+
+#### To transfer stake to a new validator node in the same wallet:
+
+`./helium-wallet validators transfer create --new-address <new-public-address> --old-address <old-public-address>`
+
+Use `--commit` after previewing to submit the transaction to network.
+
+This will produce an output similar to the following:
+
+```
+
+{
+  "amount": 0.0,
+  "fee": 55000,
+  "hash": "q4Q7WTT0lD-EyjVFsW8hhdIw8Js339TgZpwTdA8_uPs",
+  "new_address": "1ZFavPP8drcqAXJPT6mLuZQqwjWNhWGr9vJ3Ajs3uJyFGW7sUMX",
+  "new_owner": "current",
+  "old_address": "1YpifvrQWUFoHDGyYZoA2FAxmXPNcMNjnRd27uv81t8CzBBNW85",
+  "old_owner": "1aXQ6WyNkibzhHXCFYiJQAa3BEkJnbZFsuezo4qjpW7FAgDw9Xx",
+  "txn": "8gGvAQohEF7t+Kbveqj9hsmO9c/3krgGUVnL8rHv8Eg29JMiE8IGEiEQl2RGoxd+aznItHIVxL7Qizw0ng3t4tcA2kZA7mPqJMcaIRE+/nQNU16ZXpbzMmszzlSw+AiGAXeKg0q7kx1DdLlY7ypAM4Zz4UOX4tKcg2y079UGPhQ99hi8lSZwAwAUjxNMO9jGk5pGA1wP1BqidFWqtcPrIGuom+mdrOQLdEuBU0rFBDjYrQM="
+}
+
+```
+
+#### To transfer stake to a new validator node in a different wallet:
+
+`./helium-wallet --format json validators transfer create --new-address <new-public-address> --old-address <old-public-address> --new-owner <new-owner-wallet-public-address>`
+
+**Note: you must transfer the stake to a new validator node. **
+
+This will produce an output similar to the following:
+
+```
+{
+  "amount": 0.0,
+  "fee": 60000,
+  "hash": null,
+  "new_address": "1YeCAsuBq3fDTv8x4iB1fJn9zBbopHhjhXGpvVwN43JDptqMT11",
+  "new_owner": "1bBTWn843DwTXTyH3hbSMmDoJXHCU1D1U8cAYRdVE5rDnaS7fLb",
+  "old_address": "1ZFavPP8drcqAXJPT6mLuZQqwjWNhWGr9vJ3Ajs3uJyFGW7sUMX",
+  "old_owner": "1aXQ6WyNkibzhHXCFYiJQAa3BEkJnbZFsuezo4qjpW7FAgDw9Xx",
+  "txn": "8gHSAQohEJdkRqMXfms5yLRyFcS+0Is8NJ4N7eLXANpGQO5j6iTHEiEQRwd/IDnFy67A2NbC3IyYvLZUrsAojyJH85aeNi3SLA0aIRE+/nQNU16ZXpbzMmszzlSw+AiGAXeKg0q7kx1DdLlY7yIhEZVpU2QzwJ1SmikaTlSEyKCQ5mCRx/xOIUAsw5MYPIsWKkD3+X75w1+267InX30CD077Y8X3JK31FEg/X1bSpFehIQa6eY/DqfDEfDjLyq6UHpxsfBEE8M0zGs9okipefnAOOODUAw=="
+}
+```
+
+You'll then need to send the txn value (a base64 string) to the new owner to be accepted.
+
+#### To accept the transfer the new owner performs the following:
+
+`./helium-wallet validators transfer accept --commit <txn>`
+
+:::info
+
+Once a validator has had a stake transferred from it, it cannot be staked again. The validator may be deleted, including the `swarm_key`. Wallet commands to stake this validator's public address again will fail.
+
+:::
+
+More general wallet commands [here](/wallets/cli-wallet).
