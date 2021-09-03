@@ -93,6 +93,15 @@ module.exports = {
     },
     'api/console',
   ],
+  cli: [
+    'cli/minercli',
+   {
+      type: 'category',
+      label: 'Sub Commands',
+      items: ['cli/minercli-authorize', 'cli/minercli-dkg', 'cli/minercli-genesis', 'cli/minercli-hbbft', 'cli/minercli-info', 'cli/minercli-ledger', 'cli/minercli-peer', 'cli/minercli-print_keys', 'cli/minercli-repair', 'cli/minercli-snapshot', 'cli/minercli-trace', 'cli/minercli-txn'],
+      collapsed: true,
+    },
+  ],
   appwallet: [
    {
       type: 'link',

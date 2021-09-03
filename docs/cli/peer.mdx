@@ -1,0 +1,495 @@
+---
+id: minercli-peer
+sidebar_label: peer
+hide_title: true
+slug: /cli/peer
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# Peer Commands
+
+## Listen
+
+```
+miner peer listen
+```
+
+Display the addresses this node is listening on in priority order.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```
++--------------------------+
+|listen_addrs (prioritized)|
++--------------------------+
+|/ip4/30.18.38.196/tcp/2154|
+| /ip4/172.18.0.3/tcp/2154 |
++--------------------------+
+```
+or
+```
+listen_addrs (prioritized)
+/ip4/30.18.38.196/tcp/2154
+/ip4/172.18.0.3/tcp/2154
+```
+
+</TabItem>
+</Tabs>
+
+## Session
+
+```
+miner peer session
+```
+
+Display the nodes this node is connected to.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```
++----------------+---------------------+---------------------------------------+-------------------+
+|     local      |       remote        |                  p2p                  |       name        |
++----------------+---------------------+---------------------------------------+-------------------+
+|/ip4/172.18.0.3/|/ip4/27.50.141.53/tcp|/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4|magnificent-flaxen-|
+|/ip4/172.18.0.3/|/ip4/73.57.11.1/tcp/4|/p2p/1122w6JQCCCPyEXiVh3EsghXAeMkZdcuVT|interesting-velvet-|
+|/ip4/172.18.0.3/|/ip4/173.13.153.185/t|/p2p/1125DtQXhkFGjTK9VP9KtsJiiAMEjM9S2m|  precise-tin-owl  |
+|/ip4/172.18.0.3/|/ip4/217.103.237.36/t|/p2p/1125XATXBAFmzKskxrtUw12avATVsCj1Dz|modern-lava-albatro|
+|/ip4/172.18.0.3/|/ip4/31.20.113.227/tc|/p2p/1127Yukwk8ci37ES5UbZ7DZTax4vLLa2as|fierce-bamboo-scorp|
+|/ip4/172.18.0.3/|/ip4/108.22.224.100/t|/p2p/1127aNUioFZK2RCHMSG8UYeeBBJFCWugbf|bouncy-myrtle-shell|
+|/ip4/172.18.0.3/|/ip4/35.161.222.43/tc|/p2p/1127gHz2sKqNJXQN8an6mNu1U3RusHyXkq| broad-iris-sheep  |
+|/ip4/172.18.0.3/|/ip4/85.230.84.6/tcp/|/p2p/1128EPZpkiXpdcvQVe84T3a6ijpic3kyZW|tangy-tangelo-narwh|
+|/ip4/172.18.0.3/|/ip4/86.85.32.70/tcp/|/p2p/1129Ur8K7mo8v1ytRbzSEvsswRuoF6g8qk|atomic-punch-orangu|
+|/ip4/172.18.0.3/|/ip4/82.127.221.97/tc|/p2p/112AFN6SezTLetmoJBj5Zid84XupKFyjme|damaged-cedar-wease|
+|/ip4/172.18.0.3/|/ip4/104.35.173.151/t|/p2p/112AySdMmbgqorb2md6XqsHZ1W8sschZi7|skinny-viridian-but|
+|/ip4/172.18.0.3/|/ip4/105.12.4.43/tcp/|/p2p/112BHFSMar4Ccba4BuHUeupwht2t1XAdE3| teeny-green-whale |
+|/ip4/172.18.0.3/|/ip4/12.172.82.74/tcp|/p2p/112C5p3cjnKDGXPJ4kLMRKYjt4KjGRGojd|zany-bubblegum-jagu|
+|/ip4/172.18.0.3/|/ip4/73.66.192.223/tc|/p2p/112F5Vk6XAS11vXpPbGqhit8rxy97NwpHn|macho-mercurial-chi|
++----------------+---------------------+---------------------------------------+-------------------+
+```
+or
+```
+local,remote,p2p,name
+/ip4/172.18.0.3/tcp/2154,/ip4/27.50.141.53/tcp/44158,/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE,magnificent-flaxen-mandrill
+/ip4/172.18.0.3/tcp/2154,/ip4/73.57.11.1/tcp/44158,/p2p/1122w6JQCCCPyEXiVh3EsghXAeMkZdcuVTVoPuyCcfw78tK8GL5k,interesting-velvet-swan
+/ip4/172.18.0.3/tcp/2154,/ip4/173.13.153.185/tcp/44158,/p2p/1125DtQXhkFGjTK9VP9KtsJiiAMEjM9S2mgStQrc6hH3GGqB5mzF,precise-tin-owl
+/ip4/172.18.0.3/tcp/2154,/ip4/217.103.237.36/tcp/44158,/p2p/1125XATXBAFmzKskxrtUw12avATVsCj1DzDtYKGt8jAh6vygspw3,modern-lava-albatross
+/ip4/172.18.0.3/tcp/2154,/ip4/31.20.113.227/tcp/44158,/p2p/1127Yukwk8ci37ES5UbZ7DZTax4vLLa2asuzs59X8WszshK4ZnT,fierce-bamboo-scorpion
+/ip4/172.18.0.3/tcp/2154,/ip4/108.22.224.100/tcp/44158,/p2p/1127aNUioFZK2RCHMSG8UYeeBBJFCWugbfikBJg7ixhBJuEWakgJ,bouncy-myrtle-shell
+/ip4/172.18.0.3/tcp/2154,/ip4/35.161.222.43/tcp/443,/p2p/1127gHz2sKqNJXQN8an6mNu1U3RusHyXkqp9HcwpDVLNL2hqf961,broad-iris-sheep
+/ip4/172.18.0.3/tcp/2154,/ip4/85.230.84.6/tcp/44158,/p2p/1128EPZpkiXpdcvQVe84T3a6ijpic3kyZW2VhSMXFpBa12KAhBUs,tangy-tangelo-narwhal
+/ip4/172.18.0.3/tcp/2154,/ip4/86.85.32.70/tcp/44158,/p2p/1129Ur8K7mo8v1ytRbzSEvsswRuoF6g8qkwYnhhpab4jdNGt8aQ2,atomic-punch-orangutan
+/ip4/172.18.0.3/tcp/2154,/ip4/82.127.221.97/tcp/44158,/p2p/112AFN6SezTLetmoJBj5Zid84XupKFyjmezeB48aJDBRAHsyi7mQ,damaged-cedar-weasel
+/ip4/172.18.0.3/tcp/2154,/ip4/104.35.173.151/tcp/61908,/p2p/112AySdMmbgqorb2md6XqsHZ1W8sschZi7HAbQWpjsvvozoTvD4o,skinny-viridian-butterfly
+/ip4/172.18.0.3/tcp/2154,/ip4/12.172.82.74/tcp/60949,/p2p/112C5p3cjnKDGXPJ4kLMRKYjt4KjGRGojd3D26L4XMyaaiFL2Si9,zany-bubblegum-jaguar
+/ip4/172.18.0.3/tcp/2154,/ip4/73.66.192.223/tcp/44158,/p2p/112F5Vk6XAS11vXpPbGqhit8rxy97NwpHngKW7kMufsdmsyWgSVd,macho-mercurial-chimpanzee
+/ip4/172.18.0.3/tcp/2154,/ip4/71.181.67.133/tcp/44158,/p2p/112GyaGz1Zdk49zKvvsxPgKFEVkup37UZfYswKXLLn6FjkJfMEFi,beautiful-shadow-mantis
+```
+
+</TabItem>
+</Tabs>
+
+
+## Ping
+
+```
+miner peer ping :p2p
+```
+
+Ping the peer over an established or new session.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                           |
+| ------------------- | -------- | ---------------------------------------------- |
+| :p2p                | _str_    | using the ip address or p2p chain address      |
+
+</TabItem>
+<TabItem value="output">
+
+```
+$ miner peer ping /ip4/71.181.67.133/tcp/44158
+Pinged "/ip4/71.181.67.133/tcp/44158" successfully with roundtrip time: 632 ms
+```
+or
+```
+miner peer ping /p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE
+Pinged "/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE" successfully with roundtrip time: 247 ms
+
+```
+
+</TabItem>
+</Tabs>
+
+## Connect
+
+```
+miner peer connect :p2p
+```
+
+Ping the peer over an established or new session.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                           |
+| ------------------- | -------- | ---------------------------------------------- |
+| :p2p                | _str_    | using the ip address or p2p chain address      |
+
+</TabItem>
+<TabItem value="output">
+
+```
+$ miner peer connect /ip4/71.181.67.133/tcp/44158
+Connected to "/ip4/71.181.67.133/tcp/44158" successfully
+```
+or
+```
+miner peer connect /p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE
+Connected to "/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE" successfully
+
+```
+
+</TabItem>
+</Tabs>
+
+## Disconnect
+
+```
+miner peer disconnect :p2p
+```
+
+Ping the peer over an established or new session.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                           |
+| ------------------- | -------- | ---------------------------------------------- |
+| :p2p                | _str_    | using the ip address or p2p chain address      |
+
+</TabItem>
+<TabItem value="output">
+
+```
+ok
+```
+
+</TabItem>
+</Tabs>
+
+## addr
+
+```
+miner peer addr
+```
+
+Display the p2p address of this node.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```
+/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE
+```
+
+</TabItem>
+</Tabs>
+
+## Book
+
+```
+miner peer book 
+```
+
+Displays peerbook entries for a given _p2p_ address, with options
+for display the entry for this node, or all entries.
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                       |
+| ------------------- | --------- | ------------------------------------------ |
+| -s, --self          | _n/a_     | Display the peerbook entry for this node.  |
+| -a, --all           | _n/a_     | Display all peerbook entries for this node.|
+| --format=           | _csv_     | outputs to csv format                      |
+
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| :p2p                | _str_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```
+$ miner peer book -s
++---------------------------------------------+-----------------+----------+---------+---+----------+
+|                   address                   |      name       |listen_add|connectio|nat|last_updat|
++---------------------------------------------+-----------------+----------+---------+---+----------+
+|/p2p/11EtRLtNxvjrMF1wUSAzx8RyG84XPyJfaYyRcXyz|flaky-purple-lige|    1     |   17    |non|  95.22s  |
++---------------------------------------------+-----------------+----------+---------+---+----------+
+
++--------------------------+
+|listen_addrs (prioritized)|
++--------------------------+
+|/ip4/130.18.1.196/tcp/2154|
++--------------------------+
+
++-----------------+---------------------+---------------------------------------+-------------------+
+|      local      |       remote        |                  p2p                  |       name        |
++-----------------+---------------------+---------------------------------------+-------------------+
+|/ip4/172.18.0.3/t|/ip4/173.10.94.37/tcp|/p2p/1113QaUbPZCwX5vnqtgtQixe2SjM1kdmiq|bright-brunette-man|
+|/ip4/172.18.0.3/t|/ip4/82.207.239.37/tc|/p2p/1124c3Hmd26FSLycHdjcB4t6EhzQPbN7AW|wild-shamrock-sidew|
+|/ip4/172.18.0.3/t|/ip4/172.88.148.87/tc|/p2p/11269dfHJJUiQyUaBeU52QY2xBRPfyymGd| bald-orchid-carp  |
+|/ip4/172.18.0.3/t|/ip4/61.153.186.39/tc|/p2p/1126iHKdBjuvGS1Z8yi79XJ6LLqKxP4zjx|modern-felt-hedgeho|
+|/ip4/172.18.0.3/t|/ip4/37.200.249.109/t|/p2p/11LWaRreMfk3AXjDKBJvJuJJBzBiNdwoJf|glamorous-hazelnut-|
+|/ip4/172.18.0.3/t|/ip4/76.69.38.50/tcp/|/p2p/11LcLgwVyM7VwHw6yaEEVvDSnwuLGpTiR9|basic-linen-gibbon |
+|/ip4/172.18.0.3/t|/ip4/93.45.20.158/tcp|/p2p/11M6TMKA8ELZnChWP3eVUPanxv3vAwuLuF|bitter-cinnabar-har|
+|/ip4/172.18.0.3/t|/ip4/67.60.14.187/tcp|/p2p/11NU9LbZtXdrxQiDP8zgxPEbsdS3MbDjJi|clean-pastel-starli|
+|/ip4/172.18.0.3/t|/ip4/69.148.146.180/t|/p2p/11trUSYTijC61hxXko1WdxjSozoHrvaWgB|modern-opaque-perch|
+|/ip4/172.18.0.3/t|/ip4/68.2.177.125/tcp|/p2p/11tyy7j72ocyKCWWjoKT8XaPiEzurnnczq| active-mossy-fly  |
+|/ip4/172.18.0.3/t|/ip4/101.91.202.242/t|/p2p/11vNBM5U4aUkeZyAemmpABUkN8QBxvPuua|rare-ebony-anteater|
+|/ip4/172.18.0.3/t|/ip4/218.78.119.144/t|/p2p/11zRoFS2CsefJDQfB9EuBn5AZ6XoChsxiT|ripe-raspberry-must|
++-----------------+---------------------+---------------------------------------+-------------------+
+```
+or
+```
+$ miner peer book --format=csv -s
+:p2p,name,listen_addrs,connections,nat,last_updated
+/p2p/11EtRLtNxvjrMF1wUSAzx8RyG84XPyJfaYyRcXyzipUzpHMqQv7,flaky-purple-liger,1,17,none,42.267s
+listen_addrs (prioritized)
+/ip4/130.18.1.196/tcp/2154
+local,remote,p2p,name
+/ip4/172.18.0.3/tcp/2154,/ip4/173.10.94.37/tcp/44158,/p2p/1113QaUbPZCwX5vnqtgtQixe2SjM1kdmiq8fGDq5HwjJYiU7Umg,bright-brunette-mantaray
+/ip4/172.18.0.3/tcp/2154,/ip4/84.164.200.141/tcp/44158,/p2p/1122wuWiBKD9wsv89ePgL9RMVBgxzZM4MFvSSR34ZfnRHMWyos2F,gigantic-plastic-rat
+/ip4/172.18.0.3/tcp/2154,/ip4/82.207.239.37/tcp/4549,/p2p/1124c3Hmd26FSLycHdjcB4t6EhzQPbN7AWxMcDVRrfBzzfzdxhT3,wild-shamrock-sidewinder
+/ip4/172.18.0.3/tcp/2154,/ip4/172.88.148.87/tcp/44158,/p2p/11269dfHJJUiQyUaBeU52QY2xBRPfyymGdmhEXJzg7Ya3Bne57Z1,bald-orchid-carp
+/ip4/172.18.0.3/tcp/2154,/ip4/72.137.3.232/tcp/44158,/p2p/11sALSpQfAeKZ4eCxJnwrT6DR9Q3djy2ggorovMLtUkovgYbf6o,muscular-rouge-nuthatch
+/ip4/172.18.0.3/tcp/2154,/ip4/209.6.27.109/tcp/44158,/p2p/11swaqbN3pw8mrty71mdgBQb5x1r1QSBLwWUirY2gFPYm6LG5Wp,wild-daisy-okapi
+/ip4/172.18.0.3/tcp/2154,/ip4/208.93.207.131/tcp/32971,/p2p/11tDEs5keXLgbPt8jzMDdEoYZ2RFnVdBRMwhWuTLph8jerYxvcJ,brave-tortilla-carp
+/ip4/172.18.0.3/tcp/2154,/ip4/99.82.235.117/tcp/44158,/p2p/11tFw1pb54z9RHE9qxXhX6cV6Fna333K14nfu9cjDo4AKdwQr7L,bright-juniper-cobra
+/ip4/172.18.0.3/tcp/2154,/ip4/69.148.146.180/tcp/44158,/p2p/11trUSYTijC61hxXko1WdxjSozoHrvaWgBh2ZFAnTSfVMYyiEAV,modern-opaque-perch
+/ip4/172.18.0.3/tcp/2154,/ip4/218.78.119.144/tcp/44158,/p2p/11zRoFS2CsefJDQfB9EuBn5AZ6XoChsxiTGCFeLusTCSCs8uy36,ripe-raspberry-mustang
+/ip4/172.18.0.3/tcp/2154,/ip4/113.88.12.185/tcp/1050,/p2p/11zqxxZr4C3cxoP86UfaD8NzMh2XKeYRJ6rWtbaB5HdNZQdtQUC,fancy-pecan-mongoose
+```
+
+:::warning
+you can use the `-a` switch but it will download the entire peer :p2p listing for all Hotspots and Validators, so just don't do it. 
+:::
+
+</TabItem>
+</Tabs>
+
+
+## Gossip Peers
+
+```
+miner peer gossip_peers
+```
+
+Display gossip peers for this node.
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```
+$ miner peer gossip_peers
+Need
+```
+or
+```
+Need
+```
+
+</TabItem>
+</Tabs>
+
+
+## Book
+
+```
+miner peer refresh :p2p
+```
+
+Request an updated peerbook entry for :p2p addr from our gossip peers.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| :p2p             | _str_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```
+$ miner peer refresh
+Need
+```
+or
+```
+$ miner peer refresh 
+Need
+```
+</TabItem>
+</Tabs>
+
+```
+Usage: blockchain peer commands
+
+  peer listen            - Display the addresses this node is listening on.
+  peer session           - Display the nodes this node is connected to.
+  peer ping              - Ping the peer over an established or new session.
+  peer connect           - Connnect this node to another node.
+  peer disconnect        - Disconnect from a connected peer.
+  peer addr              - Display the p2p :p2p of this node.
+  peer book              - Display information from the peerbook of this node.
+  peer gossip_peers      - Display gossip peers of this node.
+  peer refresh           - command an updated peerbook for this peer from our gossip peers.
+  peer relay_reset       - Stop the current libp2p relay swarm and retry.
+
+```
+
