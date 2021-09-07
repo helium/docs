@@ -67,7 +67,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Open Source',
-      items: ['open-source/open-source','open-source/installation'],
+      items: ['open-source/open-source'],
       collapsed: true,
     },
     {
@@ -116,6 +116,19 @@ module.exports = {
       type: 'category',
       label: 'Console',
       items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/device-configurations', 'use-the-network/console/flows/flows', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting'],
+      collapsed: false,
+    }
+  ],
+  opensourcedocs: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/open-source'
+    },
+    {
+      type: 'category',
+      label: 'Docs',
+      items: ['open-source/docs/installation'],
       collapsed: false,
     }
   ],
