@@ -12,6 +12,21 @@ existing `DevEUI`, `AppEUI`, and `AppKey` to a new device in the Helium Console.
 
 The following is a list of network-specific migration guides. Join us!
 
+### When Migrating Devices for the First Time
+
+As network usage increases, a mechanism called the XOR filter allows the Console backend (router) to only process known traffic and avoid spending resources on unfamiliar packets, which significantly improves performance.
+
+However, the first time a device joins the network its keys need to be added to the blockchain and the updated block propagated to the miners (Hotspots).
+
+This initial join process could take up to 20 mins depending on:
+
+- when this transaction (batched with others) gets added to the blockchain
+- the overall performance of the blockchain
+
+After the initial join takes place future rejoining of the same device will be much quicker. 
+
+More information about XOR filters [here](https://engineering.helium.com/2021/07/29/console-updates-2.0.html).
+
 ### Migrating from The Things Network to Helium
 
 - [Importing TTN Devices with Console Tool](/use-the-network/console/migrating-devices/ttn-import)
