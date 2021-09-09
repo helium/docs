@@ -1099,6 +1099,7 @@ module.exports = {
      items: [
        'mine-hnt/validators/mainnet/validators-mainnet-deployment-guide',
        'mine-hnt/validators/mainnet/validators-mainnet-release',
+	   'mine-hnt/validators/mainnet/validators-mainnet-wallet',
      ],
      collapsed: false,
    },
