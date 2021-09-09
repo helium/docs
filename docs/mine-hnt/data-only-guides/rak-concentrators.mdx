@@ -64,7 +64,21 @@ To use the concentrator module with a Raspberry Pi HAT, you must make sure to
 order the variation with the SPI interface.
 :::
 
+The Data Only Hotspot can be installed using Raspberry Pi OS following the instructions [here](https://docs.helium.com/mine-hnt/data-only-guides/rak-concentrators/#packet-forwarder-preparation) or with balena.io using a buton to deploy with balenaCloud.
+
 Let's get started!
+
+## balena.io deployment
+
+Running this Data Only Hotspot with balena.io is as simple as deploying it to a balenaCloud application. You can do it in just one click by using the button below:
+
+[![](https://www.balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/mpous/helium-data-hotspot)
+
+This project is using the Nebra packet forwarder and gatewayrs services and it's running on Raspberry Pi 0, 3 and 4 with a RAK 2287 (SPI) concentrator (using the Device Variable `VARIANT`: `DIY-RAK2287`). By default it's based on European region, you can change that on the balenaCloud `Device Variables`.
+
+Follow instructions you can find [here](https://github.com/mpous/helium-data-hotspot). 
+
+Once the hotspot is set up, join the Helium Blockchain with your Data Only Hotspot follow [this instructions](https://github.com/mpous/helium-data-hotspot/#join-the-helium-blockchain-with-your-data-only-hotspot).
 
 ## Packet forwarder preparation
 
