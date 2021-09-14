@@ -1201,7 +1201,7 @@ module.exports = {
       collapsed: false,
     },
   ],
-  abeeway: [
+  origo: [
     {
        type: 'link',
        label: '<- Back',
