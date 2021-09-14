@@ -1200,5 +1200,21 @@ module.exports = {
       items: ['use-the-network/devices/development/heltec/wifi-lora-32-v2/arduino'],
       collapsed: false,
     },
-  ]
+  ],
+  origo: [
+    {
+       type: 'link',
+       label: '<- Back',
+       href: '/use-the-network/devices/ready-to-use'
+     },
+     {
+       type: 'category',
+       label: 'Origo',
+       items: [
+         'use-the-network/devices/ready-to-use/origo/lorawan-watch',
+         'use-the-network/devices/ready-to-use/origo/smart-badges'
+       ],
+       collapsed: false,
+     },
+   ]
 };
