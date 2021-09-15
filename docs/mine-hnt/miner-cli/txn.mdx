@@ -1,8 +1,8 @@
 ---
-id: minercli-snapshot
-sidebar_label: snapshot
+id: minercli-txn
+sidebar_label: txn
 hide_title: true
-slug: /cli/snapshot
+slug: /mine-hnt/miner-cli/txn
 ---
 
 import Tabs from "@theme/Tabs";
@@ -10,7 +10,7 @@ import TabItem from "@theme/TabItem";
 
 ---
 
-# Snapshot Commands
+# txn Commands
 
 ## Listen
 
@@ -181,13 +181,10 @@ Pinged "/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE" successfully 
 
 ```
 
-Usage: blockchain snapshot commands
+Usage: blockchain txn commands
 
-  snapshot take   - Take a snapshot at the current ledger height.
-  snapshot load   - Load a snapshot from a file.
-  snapshot grab   - Attempt to grab a snapshot from a connected peer.
-  snapshot diff   - Load two snapshots from files and find changes.
-  snapshot info   - Show information about a snapshot in a file.
-  snapshot list   - Show information about the last 5 snapshots.
+  txn queue             - Show enqueued transactions in the txn_queue.
+  txn add_gateway       - Create an add gateway transaction.
+  txn assert_location   - Create an assert location transaction.
 
 ```

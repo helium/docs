@@ -1,8 +1,8 @@
 ---
-id: minercli-trace
-sidebar_label: trace
+id: minercli-hbbft
+sidebar_label: HBBFT
 hide_title: true
-slug: /cli/trace
+slug: /mine-hnt/miner-cli/hbbft
 ---
 
 import Tabs from "@theme/Tabs";
@@ -10,7 +10,7 @@ import TabItem from "@theme/TabItem";
 
 ---
 
-# Snapshot Commands
+# hbbft Commands
 
 ## Listen
 
@@ -177,14 +177,13 @@ Pinged "/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE" successfully 
 </TabItem>
 </Tabs>
 
-
-
-
 ```
+Usage: miner hbbft commands
 
-Usage: blockchain trace commands
-
-  trace start   - Start a trace for a given filter and level.
-  trace clear   - Clears all installed traces.
+  hbbft status           - Display hbbft status.
+  hbbft queue            - Display hbbft message queue.
+  hbbft skip             - Skip current hbbft round.
+  hbbft group            - Display current hbbfr group.
+  hbbft perf             - Show performance of current group members.
 
 ```

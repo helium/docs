@@ -25,7 +25,8 @@ module.exports = {
           'mine-hnt/full-hotspots/full-hotspots',
 		  'mine-hnt/light-hotspots',
           'mine-hnt/data-only-hotspots',
-          'mine-hnt/validators/validators'
+          'mine-hnt/validators/validators',
+		  'mine-hnt/miner-cli/minercli'
       ],
       collapsed: true,
     },
@@ -94,11 +95,11 @@ module.exports = {
     'api/console',
   ],
   cli: [
-    'cli/minercli',
+    'mine-hnt/miner-cli/minercli',
    {
       type: 'category',
       label: 'Sub Commands',
-      items: ['cli/minercli-authorize', 'cli/minercli-dkg', 'cli/minercli-genesis', 'cli/minercli-hbbft', 'cli/minercli-info', 'cli/minercli-ledger', 'cli/minercli-peer', 'cli/minercli-print_keys', 'cli/minercli-repair', 'cli/minercli-snapshot', 'cli/minercli-trace', 'cli/minercli-txn'],
+      items: ['mine-hnt/miner-cli/minercli-authorize', 'mine-hnt/miner-cli/minercli-dkg', 'mine-hnt/miner-cli/minercli-genesis', 'mine-hnt/miner-cli/minercli-hbbft', 'mine-hnt/miner-cli/minercli-info', 'mine-hnt/miner-cli/minercli-ledger', 'mine-hnt/miner-cli/minercli-peer', 'mine-hnt/miner-cli/minercli-print_keys', 'mine-hnt/miner-cli/minercli-repair', 'mine-hnt/miner-cli/minercli-snapshot', 'mine-hnt/miner-cli/minercli-trace', 'mine-hnt/miner-cli/minercli-txn'],
       collapsed: true,
     },
   ],
