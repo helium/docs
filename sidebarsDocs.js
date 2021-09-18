@@ -94,12 +94,12 @@ module.exports = {
     },
     'api/console',
   ],
-  cli: [
+  minercli: [
     'mine-hnt/miner-cli/minercli',
    {
       type: 'category',
       label: 'Sub Commands',
-      items: ['mine-hnt/miner-cli/minercli-authorize', 'mine-hnt/miner-cli/minercli-dkg', 'mine-hnt/miner-cli/minercli-genesis', 'mine-hnt/miner-cli/minercli-hbbft', 'mine-hnt/miner-cli/minercli-info', 'mine-hnt/miner-cli/minercli-ledger', 'mine-hnt/miner-cli/minercli-peer', 'mine-hnt/miner-cli/minercli-print_keys', 'mine-hnt/miner-cli/minercli-repair', 'mine-hnt/miner-cli/minercli-snapshot', 'mine-hnt/miner-cli/minercli-trace', 'mine-hnt/miner-cli/minercli-txn'],
+      items: ['mine-hnt/miner-cli/minercli-toplevel', 'mine-hnt/miner-cli/minercli-authorize', 'mine-hnt/miner-cli/minercli-dkg', 'mine-hnt/miner-cli/minercli-genesis', 'mine-hnt/miner-cli/minercli-hbbft', 'mine-hnt/miner-cli/minercli-info', 'mine-hnt/miner-cli/minercli-ledger', 'mine-hnt/miner-cli/minercli-peer', 'mine-hnt/miner-cli/minercli-print_keys', 'mine-hnt/miner-cli/minercli-repair', 'mine-hnt/miner-cli/minercli-snapshot', 'mine-hnt/miner-cli/minercli-trace', 'mine-hnt/miner-cli/minercli-txn', 'mine-hnt/miner-cli/minercli-codesnips' ],
       collapsed: true,
     },
   ],

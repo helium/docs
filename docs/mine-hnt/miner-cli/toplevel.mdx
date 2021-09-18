@@ -1,0 +1,37 @@
+---
+id: minercli-toplevel
+sidebar_label: General Commands
+hide_title: true
+slug: /mine-hnt/miner-cli/toplevel
+---
+
+# Introduction
+
+Here are some commands like `eval` and advanced commands that should be documented. 
+
+```
+  foreground              Start release with output to stdout
+  remote_console          Connect remote shell to running node
+  rpc [Mod [Fun [Args]]]] Run apply(Mod, Fun, Args) on running node
+  eval [Exprs]            Run expressions on running node
+  stop                    Stop the running node
+  restart                 Restart the applications but not the VM
+  reboot                  Reboot the entire VM
+  pid                     Print the PID of the OS process
+  ping                    Print pong if the node is alive
+  console                 Start the release with an interactive shell
+  console_clean           Start an interactive shell without the release's applications
+  console_boot [File]     Start an interactive shell for boot script [File]
+  daemon                  Start release in the background with run_erl (named pipes)
+  daemon_boot [File]      Start boot script [File] in the background with run_erl (named pipes)
+  daemon_attach           Connect to node started as daemon with to_erl (named pipes)
+  upgrade [Version]       Upgrade the running release to a new version
+  downgrade [Version]     Downgrade the running release to a new version
+  install [Version]       Install a release
+  uninstall [Version]     Uninstall a release
+  unpack [Version]        Unpack a release tarball
+  versions                Print versions of the release available
+  escript                 Run an escript in the same environment as the release
+  status                  Verify node is running and then run status hook scripts
+```
+

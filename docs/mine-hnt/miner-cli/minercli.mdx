@@ -8,9 +8,73 @@ slug: /mine-hnt/miner-cli/minercli
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
----
+# Introduction
+The `miner` command controls validators and hotspot miners it is also the core software that runs all aspects of the blockchain, like adding txns, and validating blocks while in a consensus group. The CLI is used to troubleshoot and maintain these devices. 
 
-# Top Level Commands
+You can always get more detailed help in the `#blockchain-development` channel in [Discord](https://discord.com/channels/404106811252408320/730245219974381708).
+
+:::info
+
+The github repository to review the code for the miner command is found [here](https://github.com/helium/miner) Note the differing tags for validators and hotspots.
+
+:::
+
+## Example page syntax
+
+The complexity of all the different branches of the command is located on sperate pages. One for each major section of the command to keep the page length small. A navgation menu will be on the right hand column to navigate through each sub command. There is a Tab for the Command "inputs" and example outputs of each command are also on an individual tab.
+
+### Example
+```
+miner peer listen
+```
+
+Display the addresses this node is listening on in priority order.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```
++--------------------------+
+|listen_addrs (prioritized)|
++--------------------------+
+|/ip4/30.18.38.196/tcp/2154|
+| /ip4/172.18.0.3/tcp/2154 |
++--------------------------+
+```
+or
+```
+listen_addrs (prioritized)
+/ip4/30.18.38.196/tcp/2154
+/ip4/172.18.0.3/tcp/2154
+```
+
+</TabItem>
+</Tabs>
+
+
+## Top Level Commands
+
+For additional details click [here](/mine-hnt/miner-cli/toplevel)
+
 ```
   foreground              Start release with output to stdout
   remote_console          Connect remote shell to running node
@@ -40,7 +104,7 @@ import TabItem from "@theme/TabItem";
 
 ## General Commands
 
-## genesis
+### genesis
 
 For additional details click [here](/mine-hnt/miner-cli/genesis)
 
@@ -55,7 +119,7 @@ Usage: miner genesis commands
   genesis proof <privkey>                                     - create a key proof for adding a master key to the genesis block
 ```
 
-## hbbft
+### hbbft
 
 For addtional details click [here](/mine-hnt/miner-cli/hbbft)
 
@@ -71,7 +135,7 @@ Usage: miner hbbft commands
 
 ```
 
-## peer
+### peer
 
 For addtional details click [here](/mine-hnt/miner-cli/peer)
 
@@ -90,7 +154,7 @@ Usage: blockchain peer commands
   peer relay_reset       - Stop the current libp2p relay swarm and retry.
 ```
 
-## snapshot
+### snapshot
 
 For addtional details click [here](/mine-hnt/miner-cli/snapshot)
 
@@ -105,7 +169,7 @@ Usage: blockchain snapshot commands
   snapshot list   - Show information about the last 5 snapshots.
 ```
 
-## ledger
+### ledger
 
 For addtional details click [here](/mine-hnt/miner-cli/ledger)
 
@@ -118,7 +182,7 @@ Usage: blockchain ledger commands
   ledger variables           - Interact with chain variables.
 ```
 
-## info
+### info
 
 For addtional details click [here](/mine-hnt/miner-cli/info)
 
@@ -135,7 +199,7 @@ Usage: miner info commands
   info region            - Get the operatating region for this miner.
 ```
 
-## trace
+### trace
 
 For addtional details click [here](/mine-hnt/miner-cli/trace)
 
@@ -146,7 +210,7 @@ Usage: blockchain trace commands
   trace clear   - Clears all installed traces.
 ```
 
-## txn
+### txn
 
 For addtional details click [here](/mine-hnt/miner-cli/txn)
 
@@ -157,7 +221,7 @@ Usage: blockchain txn commands
   txn add_gateway       - Create an add gateway transaction.
   txn assert_location   - Create an assert location transaction.
 ```
-## dkg 
+### dkg 
 
 For addtional details click [here](/mine-hnt/miner-cli/dkg)
 
@@ -170,13 +234,13 @@ Usage: miner dkg commands
   dkg next             - Display the next block at which an election will take place.
 ```
 
-## authorize
+### authorize
 
 For addtional details click [here](/mine-hnt/miner-cli/authorize)
 
 Missing in CLI help
 
-## repair
+### repair
 
 For addtional details click [here](/mine-hnt/miner-cli/repair)
 
@@ -191,50 +255,13 @@ Usage: blockchain repair commands
   repair repair         - Attempt to repair errors in blockchain state.
 ```
 
-## print_keys
+### print_keys
 
 For addtional details click [here](/mine-hnt/miner-cli/print_keys)
 
 Missing in CLI help
 
-## Page Syntax
-```
-GET https://api.helium.io/v1/minercli/:rewards/sum
-```
+## CLI Code Snippets
 
-Returns the total rewards earned for all minercli over a given time range.
-Timestamps are given in ISO 8601 format or in relative time. The block that
-includes the `max_time` timestamp is **excluded** from the result.
+For additional details click [here](/mine-hnt/miner-cli/codesnips)
 
-<Tabs
-  block={true}
-  defaultValue="command"
-  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
-<TabItem value="command">
-
-_Path Parameters_
-
-| param              | Type     | Note                         |
-| ------------------ | -------- | ---------------------------- |
-| address (required) | _string_ | B58 address of the validator |
-
-_Query Parameters_
-
-| param               | Type     | Note                                   |
-| ------------------- | -------- | -------------------------------------- |
-| max_time (required) | _string_ | Last timestamp to include rewards for  |
-| min_time (required) | _string_ | First timestamp to include rewards for |
-
-</TabItem>
-<TabItem value="output">
-
-This is place holder explanation
-
-```
-{
-PlaceHolder
-}
-```
-
-</TabItem>
-</Tabs>
