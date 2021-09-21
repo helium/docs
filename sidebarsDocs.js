@@ -34,6 +34,7 @@ module.exports = {
       label: 'LoRaWAN on Helium',
       items: [
           'lorawan-on-helium/lorawan-on-helium',
+		  'lorawan-on-helium/lorawan-roaming/lorawan-roaming-on-helium',
           'lorawan-on-helium/frequency-plans/frequency-plans'
       ],
       collapsed: true,
