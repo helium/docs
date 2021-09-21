@@ -1,0 +1,58 @@
+---
+id: azure
+sidebar_label: Azure IoT Hub
+slug: /use-the-network/console/integrations/azure
+---
+
+# Azure IoT Hub
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+[Microsoft Azure IoT Hub](https://azure.microsoft.com/en-us/overview/iot/#overview) enables highly secure and reliable communication between your Internet of Things (IoT) application and the devices it manages.
+
+## On Azure IoT Hub
+Prior to setting up an integration in Console, the following Azure IoT Hub information is required:
+
+- Hub Name
+- Policy Name
+- Primary Key
+
+Log into your Azure IoT Hub account and on the left hand menu go to "Shared access policies".
+
+Console requires the following permissions.
+- Registry Read: query Azure for devices in your hub
+- Registry Write: create devices in your hub
+- Device Connect: send messages through http/mqtt to your azure device
+
+The `iothubowner` policy includes those by default, if you want to create another policy, just make sure it has the 3 permissions listed above.
+
+Whatever policy you choose, click it and a pane will appear. Copy the `Primary Key` information.
+
+## On Console
+To add the integration in Console, go to **Integrations** on the left-hand menu.
+
+Click the **Add** integration button.
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/integrations/integrations-add-helium-console.png"
+  )}
+/>
+
+
+Choose the **Azure IoT** integration icon.
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/integrations/integrations-azure-helium-console.png"
+  )}
+/>
+
+Enter the Azure IoT Hub information into the corresponding fields on Console:
+
+- `Hostname` (enter IoT Hub Hub Name)
+- `Shared Access Key Name` (enter IoT Hub Policy Name)
+- `Shared Access Key` (enter IoT Hub Primary Key)
+
+Remember the policy must have the following permissions enabled on your Azure IoT Hub: Registry Read, Registry Write, and Device Connect. 
+
+## Adding a device
+Every time the Azure IoT Hub integration starts up on Console, it will check if the device exists on IoT Hub, and if it doesn’t it will create one. 
