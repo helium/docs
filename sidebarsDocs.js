@@ -155,7 +155,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Integrations',
-      items: ['use-the-network/console/integrations/json-schema', 'use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo', 'use-the-network/console/integrations/datacake', 'use-the-network/console/integrations/mydevices-cayenne', 'use-the-network/console/integrations/adafruitio', 'use-the-network/console/integrations/ubidots', 'use-the-network/console/integrations/tago', 'use-the-network/console/integrations/google-sheets', 'use-the-network/console/integrations/microshare'],
+      items: ['use-the-network/console/integrations/json-schema', 'use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/azure', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo', 'use-the-network/console/integrations/datacake', 'use-the-network/console/integrations/mydevices-cayenne', 'use-the-network/console/integrations/adafruitio', 'use-the-network/console/integrations/ubidots', 'use-the-network/console/integrations/tago', 'use-the-network/console/integrations/google-sheets', 'use-the-network/console/integrations/microshare'],
       collapsed: false,
     },
   ],
