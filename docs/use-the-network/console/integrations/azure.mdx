@@ -24,7 +24,9 @@ Console requires the following permissions.
 - Registry Write: create devices in your hub
 - Device Connect: send messages through http/mqtt to your azure device
 
-The `iothubowner` policy includes those by default, if you want to create another policy, just make sure it has the 3 permissions listed above.
+:::important 
+You must create your own policy and ensure it includes the permissions listed above. Although the `iothubowner` policy includes those by default it's not designed to be used for external integrations.
+:::
 
 Whatever policy you choose, click it and a pane will appear. Copy the `Primary Key` information.
 
