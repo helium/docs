@@ -124,7 +124,7 @@ Device {
 GET https://console.helium.com/api/v1/devices/:device_id
 ```
 
-Returns a device descriptor if device is found..
+Returns a device descriptor if device is found.
 
 <Tabs
   block={true}
@@ -136,20 +136,180 @@ _Path Parameters_
 
 | Parameter Name | Type     | Description        |
 | -------------- | -------- | ------------------ |
-| id (required)  | _string_ | UUID of the device |
+| device_id (required)  | _string_ | UUID of the device |
 
 </TabItem>
 <TabItem value="response">
 
 ```json
 Device {
-    app_eui: "70B3D57ED0008E64",
-    app_key: "30EACA8A2CAF0C5315D0E4A1B7F7B55B",
-    dev_eui: "008000000401261D",
-    id: "747246dd-d9b6-4e68-96c1-2c489ab33280",
-    name: "Basement Temp",
-    organization_id: "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
-    oui: 1,
+    "adr_allowed":(true/false),
+    "app_eui": (app_eui),
+    "app_key": (app_key),
+    "cf_list_enabled":(true/false), 
+    "dc_usage": (dc_amount_used),
+    "dev_eui": (dev_eui),
+    "id": (device_id),
+    "in_xor_filter":(true/false)
+    "labels": (labels) 
+    "last_connected": (time_UTC)
+    "name": (device_name)
+    "organization_id": (org_id)
+    "oui": (oui_number)
+    "total_packets":(packets_sent)
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Device Events
+
+```
+GET https://console.helium.com/api/v1/devices/:device_id/events
+```
+
+Returns the previous 100 events for the device if found.
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| Parameter Name | Type     | Description        |
+| -------------- | -------- | ------------------ |
+| device_id (required)  | _string_ | UUID of the device |
+
+</TabItem>
+<TabItem value="response">
+
+```json
+Device {
+"category": "uplink",
+        "data": {
+            "dc": {
+                "balance": 7944423,
+                "nonce": 2,
+                "used": 2
+            },
+            "devaddr": (devaddr),
+            "fcnt": 33032,
+            "hold_time": 30,
+            "hotspot": {
+                "channel": 15,
+                "frequency": 905.2999877929688,
+                "id": ("hotspot_id"),
+                "lat": (lat),
+                "long": (long),
+                "name": ("hotspot_name"),
+                "rssi": -57.0,
+                "snr": 12.800000190734863,
+                "spreading": "SF9BW125"
+            },
+            "mac": [],
+            "payload": ("payload"),
+            "payload_size": 27,
+            "port": 1
+        },
+        "description": "Confirmed data up received",
+        "device_id": ("device_id"),
+        "frame_down": null,
+        "frame_up": 33032,
+        "organization_id": ("org_id"),
+        "reported_at": "1632352528562",
+        "router_uuid": ("router_id"),
+        "sub_category": "uplink_confirmed"
+}
+```
+
+</TabItem>
+</Tabs>
+---
+
+### Device Integration Events
+
+```
+GET https://console.helium.com/api/v1/devices/:device_id/events?sub_category=uplink_integration_req
+```
+
+Returns the previous 10 Integration events for the device if found.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| Parameter Name | Type     | Description        |
+| -------------- | -------- | ------------------ |
+| device_id (required)  | _string_ | UUID of the device |
+
+</TabItem>
+<TabItem value="response">
+
+```json
+Device {
+      "category": "uplink",
+        "data": {
+            "integration": {
+                "id": ("integration_id"),
+                "name": "azure-int",
+                "status": "success"
+            },
+            "req": {
+                "body": {
+                    "app_eui": ("app_eui)",
+                    "dev_eui": ("dev_eui",
+                    "devaddr": ("devaddr"),
+                    "fcnt": 33072,
+                    "hotspots": [
+                        {
+                            "channel": 12,
+                            "frequency": 904.7000122070313,
+                            "hold_time": 31,
+                            "id": ("hotspot_id)",
+                            "lat": ("lat"),
+                            "long": ("long",
+                            "name": ("hotspot_name"),
+                            "reported_at": 1632353389723,
+                            "rssi": -57.0,
+                            "snr": 12.5,
+                            "spreading": "SF9BW125",
+                            "status": "success"
+                        },
+                    ],
+                    "id": ("device_id"),
+                    "metadata": {
+                        "adr_allowed": false,
+                        "cf_list_enabled": false,
+                        "multi_buy": 1,
+                        "organization_id": ("org_id")
+                    },
+                    "name": ("device_name"),
+                    "payload": ("device_payload"),
+                    "payload_size": 27,
+                    "port": 1,
+                    "reported_at": 1632353389723,
+                    "uuid": ("device_id")
+                },
+                "qos": 0
+            }
+        },
+        "description": "Request sent to <<\"azure-int\">>",
+        "device_id": ("device_id"),
+        "frame_down": null,
+        "frame_up": null,
+        "organization_id": ("org_id"),
+        "reported_at": "1632353390125",
+        "router_uuid": ("router_id"),
+        "sub_category": "uplink_integration_req"
+    },
 }
 ```
 

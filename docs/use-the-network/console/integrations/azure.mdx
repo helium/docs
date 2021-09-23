@@ -10,6 +10,8 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 [Microsoft Azure IoT Hub](https://azure.microsoft.com/en-us/overview/iot/#overview) enables highly secure and reliable communication between your Internet of Things (IoT) application and the devices it manages.
 
+To help ensure stable device connectivity only use Console to connect to client ids. Other device monitoring tools in IoT Hub will connect to the device using the same client id which will cause connectivity instability. 
+
 ## On Azure IoT Hub
 Prior to setting up an integration in Console, the following Azure IoT Hub information is required:
 
@@ -50,11 +52,11 @@ Choose the **Azure IoT** integration icon.
 
 Enter the Azure IoT Hub information into the corresponding fields on Console:
 
-- `Hostname` (enter IoT Hub Hub Name)
-- `Shared Access Key Name` (enter IoT Hub Policy Name)
-- `Shared Access Key` (enter IoT Hub Primary Key)
+- `Hub Name` (note just the hub name, not the entire hostname)
+- `Policy Name`
+- `Primary Key`
 
-Remember the policy must have the following permissions enabled on your Azure IoT Hub: Registry Read, Registry Write, and Device Connect. 
+Remember the Azure IoT Hub policy must have the following permissions enabled: Registry Read, Registry Write, and Device Connect. 
 
 ## Adding a device
 Every time the Azure IoT Hub integration starts up on Console, it will check if the device exists on IoT Hub, and if it doesn’t it will create one. 
