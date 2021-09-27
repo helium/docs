@@ -100,7 +100,7 @@ milestones.
 At the completion of Milestone 1, any LoRaWAN gateways running
 [gateway-rs](https://github.com/helium/gateway-rs) can route packets to and from
 the Helium Network **but not earn HNT.** This means an DIY gateway can send and
-receive data on the Network. These LoRaWAN Gateways running Gateway-rs are known
+receive data on the Network. These LoRaWAN Gateways running `gateway-rs` are known
 as Data Only Hotspots.
 
 ### Milestone 1.5: Add Hotspot to Blockchain
@@ -124,14 +124,14 @@ earn $HNT.
 Data Only Hotspots will earn $HNT for device data transfer. A further breakdown of progress is outlined below:
 
 #### Milestone Breakdown
-- server side updates for state_channels (complete)
-- gateway-rs will use a new rust-based state_channel client (in progress)
+- server side updates for `state_channels` (complete)
+- `gateway-rs` will use a new rust-based `state_channel` client (in progress)
 - expected completion to be mid-October 2021
 
 #### Path to Milestone 3 and Milestone 4
 Developing in parallel with Milestone 2, the following work is also under development. 
 
-- Change how Hotspots route data packets by replacing its state_channel client from erlang to rust, taking advantange of the improvements in gRPC and data streaming (in progress)
+- Change how Hotspots route data packets by replacing its `state_channel` client from erlang to rust, taking advantange of the improvements in gRPC and data streaming (in progress)
 - Update how Hotspots receive, emit, and acknowledge proof-of-coverage receipts from erlang to rust (in progress, targets milestone 4)
 - Implement the work to move Challenge creation to Validators from Hotspots, to be gated behind a chain variable (HIP in progress)
 - Activate the chain variable to move Challenge creation to Validators (to be announced)
