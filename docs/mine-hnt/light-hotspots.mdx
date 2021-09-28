@@ -17,7 +17,7 @@ and timeline are listed below.
 
 :::warning
 
-This project is in progress and subject to change.
+This project is in progress and subject to change. **Last updated Monday September 27, 2021**.
 
 :::
 
@@ -37,12 +37,12 @@ entirely on the physical Hotspot itself. As the blockchain network grows, each
 Hotspot running a full node undergoes increasing load and are starting to fall
 out of sync due to the higher compute requirements.
 
-To mitigate this, the **Hotspot's consensus work will be moved off of physical
-Hotspots and onto Validators**. This will simplify the architecture and enable
+To mitigate this, the **Hotspot's consensus work has been moved off of physical
+Hotspots and onto Validators as of July 8, 2021**. This simplifies the architecture and enables
 us to grow the Network exponentially while keeping blocktimes and epochs stable.
 
 As all approved Hotspots transition to a Light Hotspot architecture, we also
-introduce a new type of Hotspot known as Data Only Hotspots to satisfy the
+introduce a new type of Hotspot known as Data Only Hotspots, **activated as of July 20, 2021**, to satisfy the
 increasing demand and continue to expand network coverage.
 
 ## Light Hotspot Properties
@@ -58,9 +58,10 @@ satisfy the following properties:
   behalf);
 - Does not participate in Consensus Groups (relies on Validators for block
   production);
-- Will be eligible to earn $HNT(see table below)
+- Will no longer depend on libp2p or "gossip", and instead use [gRPC](https://grpc.io/), a new framework to communicate between distributed systems;
+- Will be eligible to earn $HNT (see table below)
 
-In other words, the client will allow the hotspot to participate as a
+In other words, the client will allow the Hotspot to participate as a
 [Full Hotspot](/mine-hnt/full-hotspots), without the extra overhead of maintaining a local copy
 of the blockchain.
 
@@ -91,25 +92,21 @@ Development of this code takes place in the above GitHub repo, as well at the
 The development of Light Hotspots will be broken up into the five following
 milestones.
 
-### Milestone 1
+### Milestone 1: Free Packet Forwarding
 
-#### Free Packet Forwarding
-
-- **Target Completion Date: March 18**
-- **Status: COMPLETE**
+- Target Completion Date: March 18
+- Status: COMPLETE
 
 At the completion of Milestone 1, any LoRaWAN gateways running
 [gateway-rs](https://github.com/helium/gateway-rs) can route packets to and from
 the Helium Network **but not earn HNT.** This means an DIY gateway can send and
-receive data on the Network. These LoRaWAN Gateways running Gateway-rs are known
+receive data on the Network. These LoRaWAN Gateways running `gateway-rs` are known
 as Data Only Hotspots.
 
-### Milestone 1.5
+### Milestone 1.5: Add Hotspot to Blockchain
 
-#### Add Hotspot to Blockchain
-
-- **Target Completion: early July**
-- **Status: COMPLETE**
+- Target Completion: early July
+- Status: COMPLETE
 
 At the completion of Milestone 1.5, Data Only Hotspots can be added to the
 blockchain, assert its location, and be seen on explorer.helium.com.
@@ -119,23 +116,34 @@ transaction fee, and a $5 Assert location transaction fee using the
 [Helium Wallet CLI](https://github.com/helium/helium-wallet-rs) and will not
 earn $HNT.
 
-### Milestone 2
+### Milestone 2: Earn HNT For Device Packet Transfer
 
-#### Earn HNT For Device Packet Transfer
+- Target Completion: Fall 2021
+- Status: Development In Progress
 
-- **Target Completion: Fall 2021**
-- **Status: Development In Progress**
+Data Only Hotspots will earn $HNT for device data transfer. A further breakdown of progress is outlined below:
 
-Data Only Hotspots will earn $HNT for device data transfer.
+#### Milestone Breakdown
+- server side updates for `state_channels` (complete)
+- `gateway-rs` will use a new rust-based `state_channel` client (in progress)
+- expected completion to be mid-October 2021
 
-### Milestone 3
+#### Path to Milestone 3 and Milestone 4
+Developing in parallel with Milestone 2, the following work is also under development. 
 
-#### Introduction of Light Hotspots
+- Change how Hotspots route data packets by replacing its `state_channel` client from erlang to rust, taking advantange of the improvements in gRPC and data streaming (in progress)
+- Update how Hotspots receive, emit, and acknowledge proof-of-coverage receipts from erlang to rust (in progress, targets milestone 4)
+- Implement the work to move Challenge creation to Validators from Hotspots, to be gated behind a chain variable (HIP in progress)
+- Activate the chain variable to move Challenge creation to Validators (to be announced)
+  - At this point, existing Hotspots no longer need to sync or absorb the blockchain, and will satisfy another property of Light Hotspot
+  - Hotspots existing on-chain will be able to participate in Proof-of-Coverage, no longer need to syncronize the blockchain, and will require less computational power (Milestone 4)
 
-- **Target Completion: Post Milestone 2**
-- **Status: NOT YET STARTED**
+### Milestone 3: Introduction of Light Hotspots
 
-At this point, Approved Hotspots from
+- Target Completion: Q1 2022
+- Status: Development in Progress/PoC work started
+
+Approved Hotspots from
 [HIP19-approved manufacturers](/mine-hnt/full-hotspots/#approved-makers) with
 lower compute requirements can be added to the network and participate in PoC.
 
@@ -150,16 +158,16 @@ At this stage, there will be three types of Hotspots:
 2. Light Hotspot (HIP-19 approved, earns HNT for PoC and Data Transfer)
 3. Data Only Hotspot (DIY LoRaWAN Gateway, earns HNT for Data Transfer)
 
-### Milestone 4
+### Milestone 4: "Heavy" Hotspots -> Light Hotspots
 
-#### All Approved Hotspots Operate as Light Hotspots
+- Target Completion: Q1 2022
+- Status: Development in Progress
 
-- **Target Completion: Post Milestone 3**
-- **Status: NOT YET STARTED**
-
-In the final milestone, all Approved Hotspots on the Network will be converted
+Approved Hotspots on the Network will be converted
 to run [gateway-rs](https://github.com/helium/gateway-rs) and will be dependent
 on Validators to generate challenges and process witness receipts.
 
-All Hotspots will not need to follow the Blockchain.
+Hotspots will not need to follow the Blockchain.
+
+Work on Milestone 4 has already started, please see **Path to Milestone 3 and 4** above.
 
