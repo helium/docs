@@ -194,7 +194,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Coverage Mapping',
-      items: ['use-the-network/coverage-mapping/mappers-quickstart', 'use-the-network/coverage-mapping/mappers-api', 'use-the-network/coverage-mapping/adeunis-mapper'],
+      items: ['use-the-network/coverage-mapping/mappers-quickstart', 'use-the-network/coverage-mapping/mappers-api', 'use-the-network/coverage-mapping/adeunis-mapper', 'use-the-network/coverage-mapping/mappers-roadmap'],
       collapsed: false,
     },
   ],
