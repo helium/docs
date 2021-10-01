@@ -50,7 +50,7 @@ module.exports = {
           'use-the-network/setup-a-packet-forwarder',
           'use-the-network/community-projects/community-projects',
           'use-the-network/coverage-mapping/coverage-mapping',
-          'use-the-network/policies'
+          'use-the-network/policies/policies'
           
       ],
       collapsed: true,
@@ -209,7 +209,7 @@ module.exports = {
      {
        type: 'category',
        label: 'Policies',
-       items: ['use-the-network/policies/privacy', 'use-the-network/policies/terms'],
+       items: ['use-the-network/policies/policies','use-the-network/policies/privacy', 'use-the-network/policies/terms'],
        collapsed: false,
      },
    ],
