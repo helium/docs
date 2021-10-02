@@ -193,30 +193,68 @@ locale configuration in Step 2.
 2. Install the package using `dpkg`. Example:
    `sudo dpkg -i helium-gateway-v1.0.0-alpha.16-raspi234.deb` (Replace
    helium-gateway-v1.0.0-alpha.16-raspi234.deb) with the version you downloaded.
+
+### Region configuration
+
+The default region of the _helium_gateway_ service is US915, so you can continue
+with the next section if you are using this one. Otherwise, you must set your
+region frequency in `/etc/helium_gateway/settings.toml`. Add the following line
+at the beginning of the file:
+
+```
+region = "<region>"
+```
+
+Possible values are:
+`US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923_1 | AS923_2 | AS923_3 | AS923_4 | KR920 | IN865`.
+
+For instance, if your region is EU868 the content in `settings.toml` must be.
+
+```
+region = "EU868"
+
+[log]
+method = "syslog"
+level = "info"
+timestamp = false
+
+[update]
+platform = "raspi234"
+```
+
+After updating the value, you need to restart the _helium_gateway_ service to
+apply the changes.
+
+```
+sudo systemctl restart helium_gateway
+```
+
 3. Verify the service is running: `sudo systemctl status helium_gateway`
-4. View the log in real time to verify it is working correctly:
+4. If the service is not running (showing active:running), start it: 'sudo
+   systemctl restart helium_gateway`
+5. View the log in real time to verify it is working correctly:
    `journalctl -f -u helium_gateway` . You should see something like:
    ```
-   Oct 02 15:07:19 raspi-8bf66f helium_gateway[917]: updated routing to height 1036701, module: dispatcher
-   Oct 02 15:07:19 raspi-8bf66f helium_gateway[917]: starting, oui: 13, uri: http://46.246.38.248:8080/, public_key: 115ZS5of9wsV3M5sH3mePp9NVnKayUXG7qT2W7Sn4KJLMzd3eMr, module: router
-   Oct 02 15:07:19 raspi-8bf66f helium_gateway[917]: starting, oui: 12, uri: http://54.219.236.122:8080/, public_key: 112ewJNEUfSg3Jvo276tMjzFC2JzmmZcJJ32CWz2fzYqbyCMMTe1, module: router
-   Oct 02 15:07:19 raspi-8bf66f helium_gateway[917]: starting, oui: 9, uri: http://13.37.13.24:8080/, public_key: 11afuQSrmk52mgxLu91AdtDXbJ9wmqWBUxC3hvjejoXkxEZfPvY, module: router
-   Oct 02 15:07:19 raspi-8bf66f helium_gateway[917]: starting, oui: 9, uri: http://44.238.156.97:8080/, public_key: 11w77YQLhgUt8HUJrMtntGGr97RyXmot1ofs5Ct2ELTmbFoYsQa, module: router
-   Oct 02 15:07:19 raspi-8bf66f helium_gateway[917]: starting, oui: 6, uri: http://185.34.141.6:8080/, public_key: 11awcuSbVURPkXX3FbKC7KF6bgEPRZqqPzv1FTEYABMLttUr13E, module: router
-   Oct 02 15:07:19 raspi-8bf66f helium_gateway[917]: starting, oui: 4, uri: http://54.193.165.228:8080/, public_key: 11263KvqW3GZPAvag5sQYtBJSjb25azSTSwoi5Tza9kboaLRxcsv, module: router
-   Oct 02 15:07:19 raspi-8bf66f helium_gateway[917]: starting, oui: 2, uri: http://54.176.88.149:8080/, public_key: 1124CJ9yJaHq4D6ugyPCDnSBzQik61C1BqD9VMh1vsUmjwt16HNB, module: router
-   Oct 02 15:07:19 raspi-8bf66f helium_gateway[917]: starting, oui: 1, uri: http://52.8.80.146:8080/, public_key: 112qB3YaH5bZkCnKA5uRH7tBtGNv2Y5B4smv1jsmvGUzgKT71QpE, module: router
-   Oct 02 15:07:27 raspi-8bf66f helium_gateway[917]: new packet forwarder client: MacAddress(DC:A6:32:8B:F6:6F:FF), 127.0.0.1:44003, module: gateway
+   Oct 02 15:07:19 raspi helium_gateway[917]: updated routing to height 1036701, module: dispatcher
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 13, uri: http://46.246.38.248:8080/, public_key: 115ZS5of9wsV3M5sH3mePp9NVnKayUXG7qT2W7Sn4KJLMzd3eMr, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 12, uri: http://54.219.236.122:8080/, public_key: 112ewJNEUfSg3Jvo276tMjzFC2JzmmZcJJ32CWz2fzYqbyCMMTe1, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 9, uri: http://13.37.13.24:8080/, public_key: 11afuQSrmk52mgxLu91AdtDXbJ9wmqWBUxC3hvjejoXkxEZfPvY, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 9, uri: http://44.238.156.97:8080/, public_key: 11w77YQLhgUt8HUJrMtntGGr97RyXmot1ofs5Ct2ELTmbFoYsQa, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 6, uri: http://185.34.141.6:8080/, public_key: 11awcuSbVURPkXX3FbKC7KF6bgEPRZqqPzv1FTEYABMLttUr13E, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 4, uri: http://54.193.165.228:8080/, public_key: 11263KvqW3GZPAvag5sQYtBJSjb25azSTSwoi5Tza9kboaLRxcsv, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 2, uri: http://54.176.88.149:8080/, public_key: 1124CJ9yJaHq4D6ugyPCDnSBzQik61C1BqD9VMh1vsUmjwt16HNB, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 1, uri: http://52.8.80.146:8080/, public_key: 112qB3YaH5bZkCnKA5uRH7tBtGNv2Y5B4smv1jsmvGUzgKT71QpE, module: router
+   Oct 02 15:07:27 raspi helium_gateway[917]: new packet forwarder client: MacAddress(DC:A6:32:8B:F6:6F:FF), 127.0.0.1:44003, module: gateway
    ```
-5. If the service is not running, start it with
-   `sudo systemctl start helium_gateway`
-6. To enable the helium gateway service to start at boot time, run
+6. If the service is not running, start it with
+   `sudo systemctl restart helium_gateway`
+7. To enable the helium gateway service to start at boot time, run
    `sudo systemctl enable helium_gateway` . If the service is already enabled at
    boot, the command will return no output.
 
-Congradulations, your LoRa Packet Forwarder and Gateway service is setup! At
-this point your LoRa radio will be able to pass radio traffic between the
-network and the helium gateway. Any devices you registered via the Helium
+Congradulations, your LoRa Packet Forwarder and Helium Gateway service is setup!
+At this point your LoRa radio will be able to pass radio traffic between the
+network and the Helium gateway. Any devices you registered via the Helium
 console should now be live. Your hotspot will not appear on the map. Before
 adding your hotspot to the blockchain, please check and backup your
 configuration.
