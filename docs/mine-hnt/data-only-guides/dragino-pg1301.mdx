@@ -1,0 +1,108 @@
+---
+id: dragino-pg1301
+title: Data Only Hotspot Setup Dragino PG1301 and Raspberry Pi
+description: Dragino PG1301 + Raspberry Pi
+sidebar_label: /mine-hnt/data-only-guides/dragino-pg1301
+---
+# Data Only Hotspot Setup with Dragino PG1301 and Raspberry Pi
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+A Data Only Hotspot is a type of Hotspot that participates on the
+Helium Network by transferring data from the end devices (LoRaWAN nodes). The
+Data Only Hotspots are eligible for Network Data Transfer Rewards but not Proof
+of Coverage Rewards.
+
+This guide covers all the steps needed to set up a Data Only Hotspot using a
+Raspberry Pi and Dragino PG1301 hat.
+
+:::warning
+Data Only Hotspots cannot earn $HNT, at least for now, and after milestone 2
+they will earn $HNT only for Device Packet Transfer. Remember to keep an eye on
+[Light Hotspots - BETA](/mine-hnt/light-hotspots)
+and the **#gateway-development** channel on the
+[Helium Discord Server](https://discord.gg/helium) to check how the development
+process evolves.
+:::
+
+## Getting started
+
+### Hardware
+
+* Raspberry Pi 4.  Other faimilies of Pi may work, but this has only been tested on the Pi 4 Model B.
+* [Dragino 10 channels - LoRaWAN GPS Concentrator for Raspberry Pi](https://www.dragino.com/products/lora/item/149-lora-gps-hat.html) 
+
+### Software
+
+We will be using the following:
+
+* Fresh Raspbian Buster image
+* lorapktfwd package from [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/)
+* Latest helium-gateway package release from [Helium](https://github.com/helium/gateway-rs/releases) ending in -`-raspi234.deb`
+
+## Configure the Raspberry Pi
+
+1. Use the Raspberry Pi Configuration application and  enable the SPI kernel module.  This is located from the GUI under Preferences, or you can run it from the terminal window with `sudo raspi-config`  
+2. Reboot and verify the changes
+
+If you haven't done so, attach the Dragino PG1301 to the Raspberry Pi with the power off, then power on.
+
+## Install the LoRa Packet Forwarder
+
+1. Download lorapktfwd.deb from the [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/)
+2. Install the package: `sudo pkg -i lorapktfwd.deb`
+
+## Configure the LoRa Packet Forwarder
+
+These steps assume the US915 region.   For other regions, replace with your region locale configuration in Step 2.
+
+1. Change directory to the /etc/lora-gateway directory: `cd /etc/lora-gateway`
+2. Copy the US915 Band 2 configuration from the cfg subdirectory as global_conf.json: `cp cfg/dragino/global_conf.us915_1.json global_conf.json`
+3. Generate a unique gateway ID from the Ethernet MAC address.  You can use the following bash code to generate your gateway ID and save it to a file called `gateway-eui`
+  ``
+$ echo `ip a | grep 'link/ether' | cut -d ' ' -f 6 | sed 's/://g'`ffff | tr a-z A-Z > gateway-eui
+$ cat gateway-eui
+DCA6328BF66FFFFF
+  ``
+4. Use a text editor and open the /etc/lora-gateway/local_conf.json 
+  ``
+{
+    "gateway_conf": {
+        "gateway_ID": "DCA6328BF66FFFFF",
+        "server_address": "127.0.0.1",
+        "serv_port_up": 1680,
+        "serv_port_down": 1680
+    }
+}
+ ``
+5. Restart/Start the LoRa Packet Forwarder service:  `sudo systemctl restart lorapktfwd.service`
+6. Verify the service is running: `sudo systemctl status lorapktfwd.service`
+7. View the log to verify it is working correctly: `journalctl -f -u lorapktfwd.service` . Use Ctrl-C to exit the running log.
+8. Enable the LoRa Packet Forwarder to start up at boot time: `sudo systemctl enable lorapktfwd.service`
+
+## Install Helium Gateway
+
+1. Download latest helium-gateway release package from https://github.com/helium/gateway-rs/releases ending in -raspi234.deb
+2. Install the package using `dpkg`.  Example: `sudo dpkg -i helium-gateway-v1.0.0-alpha.16-raspi234.deb`  (Replace helium-gateway-v1.0.0-alpha.16-raspi234.deb) with the version you downloaded.
+3. Verify the service is running: `sudo systemctl status helium_gateway`
+4. View the log to verify it is working correctly: `journalctl -f -u helium_gateway`
+
+Congradulations, your LoRa Packet Forwarder and Gateway service is setup!
+
+## Check and Backup your Configuration
+
+1. Run `helium_gateway key info` to view your gateway address and unique animal name assigned to you.  Example:
+  ``
+$ helium_gateway key info
+{
+"address": "13XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"name": "unique-animal-name"
+}
+  ``
+2. Backup your gateway key to another machine for recovery purposes. The file `/etc/helium_gateway/gateway_key.bin` contains the key.  
+
+:::warning
+If you lose this key, you will not be able to use this hotspot anymore in case there is a problem on your hostpot (SD card corrupted, etc).  You will need to generate a new key and lose your existing animal name/hostpot configuration
+:::
+
+
