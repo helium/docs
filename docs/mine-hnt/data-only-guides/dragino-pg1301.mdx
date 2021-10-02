@@ -78,41 +78,6 @@ power off, then power on.
    [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/)
 2. Install the package: `sudo pkg -i lorapktfwd.deb`
 
-### Region configuration
-
-The default region of the _helium_gateway_ service is US915, so you can continue
-with the next section if you are using this one. Otherwise, you must set your
-region frequency in `/etc/helium_gateway/settings.toml`. Add the following line
-at the beginning of the file:
-
-```
-region = "<region>"
-```
-
-Possible values are:
-`US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923_1 | AS923_2 | AS923_3 | AS923_4 | KR920 | IN865`.
-
-For instance, if your region is EU868 the content in `settings.toml` must be.
-
-```
-region = "EU868"
-
-[log]
-method = "syslog"
-level = "info"
-timestamp = false
-
-[update]
-platform = "raspi234"
-```
-
-After updating the value, you need to restart the _helium_gateway_ service to
-apply the changes.
-
-```
-sudo systemctl restart helium_gateway
-```
-
 ## Configure the LoRa Packet Forwarder
 
 These steps assume the US915 region. For other regions, replace with your region
