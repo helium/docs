@@ -1114,7 +1114,8 @@ module.exports = {
    {
        type: 'category',
        label: 'Data Only Hotspot Guides',
-       items: ['mine-hnt/data-only-guides/dragino', 'mine-hnt/data-only-guides/kerlink', 'mine-hnt/data-only-guides/rak-concentrators', 'mine-hnt/data-only-guides/balena-data-only-hotspot'],
+       items: ['mine-hnt/data-only-guides/dragino', 'mine-hnt/data-only-guides/dragino-pg1301', 'mine-hnt/data-only-guides/kerlink', 'mine-hnt/data-only-guides/rak-concentrators', 'mine-hnt/data-only-guides/balena-data-only-hotspot'],
+
        collapsed: false,
    },
   ],
