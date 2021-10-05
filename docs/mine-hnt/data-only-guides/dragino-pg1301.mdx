@@ -1,0 +1,293 @@
+---
+id: dragino-pg1301
+title: Data Only Hotspot Setup Dragino PG1301 and Raspberry Pi
+sidebar_label: Dragino PG1301 + Raspberry Pi
+slug: /mine-hnt/data-only-guides/dragino-pg1301
+---
+
+# Data Only Hotspot Setup with Dragino PG1301 and Raspberry Pi
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+A Data Only Hotspot is a type of Hotspot that participates on the Helium Network
+by transferring data from the end devices (LoRaWAN nodes). The Data Only
+Hotspots are eligible for Network Data Transfer Rewards but not Proof of
+Coverage Rewards.
+
+This guide covers all the steps needed to set up a Data Only Hotspot using a
+Raspberry Pi and Dragino PG1301 hat.
+
+:::warning
+Data Only Hotspots cannot earn $HNT, at least for now, and after
+milestone 2 they will earn $HNT only for Device Packet Transfer. Remember to
+keep an eye on [Light Hotspots - BETA](/mine-hnt/light-hotspots) and the
+**#gateway-development** channel on the
+[Helium Discord Server](https://discord.gg/helium) to check how the development
+process evolves.
+:::
+
+## Getting started
+
+This process assumes you have some basic Linux skills, can use a text editor and
+understand what a service is. You should be able to use programs like `scp` to
+move data between the Raspberry Pi and other computers on your network.
+
+What we will be doing is :
+
+- installing the LoRa Packet Forwarder service from Dragino to use the
+  Concentrator hat
+- installing the Helium Gateway service to move data between the packet
+  forwarder and the Helium network
+
+### Hardware
+
+- Raspberry Pi 4. Other faimilies of Pi may work, but this has only been tested
+  on the Pi 4 Model B.
+- [Dragino 10 channels - LoRaWAN GPS Concentrator for Raspberry Pi](https://www.dragino.com/products/lora/item/149-lora-gps-hat.html)
+- Raspberry Pi is accessing the IP network via the Ethernet port
+
+### Software
+
+We will be using the following:
+
+- Fresh Raspbian Buster image
+- lorapktfwd package from
+  [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/)
+- Latest helium-gateway package release from
+  [Helium](https://github.com/helium/gateway-rs/releases) ending
+  in -`-raspi234.deb`
+
+## Configure the Raspberry Pi
+
+1. Use the Raspberry Pi Configuration application and enable the SPI kernel
+   module. This is located from the GUI under Preferences, or you can run it
+   from the terminal window with `sudo raspi-config`
+2. Reboot and verify the changes
+
+I highly suggest enabling SSH to remotely connect to the Pi, and turning off the
+Wireless and Bluetooth services to free up cycles and avoid any device
+conflicts.
+
+To disable Wireless and Bluetooth, edit the file `/boot/config.txt` and add the
+following:
+
+```
+dtoverlay=disable-wifi
+dtoverlay=disable-bt
+```
+
+Be sure to reboot for the changes to take effect.
+
+If you haven't done so, attach the Dragino PG1301 to the Raspberry Pi with the
+power off, then power on.
+
+## Install the LoRa Packet Forwarder Service
+
+1. Download lorapktfwd.deb from the
+   [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/)
+2. Install the package: `sudo pkg -i lorapktfwd.deb`
+
+## Configure the LoRa Packet Forwarder
+
+These steps assume the US915 region. For other regions, replace with your region
+locale configuration in Step 2.
+
+1. Change directory to the /etc/lora-gateway directory: `cd /etc/lora-gateway`
+2. Copy the US915 Band 2 configuration from the cfg subdirectory as
+   global_conf.json: `cp cfg/dragino/global_conf.us915_1.json global_conf.json`
+3. Generate a unique gateway ID from the Ethernet MAC address:
+   ```
+   echo `ip a | grep 'link/ether' | cut -d ' ' -f 6 | sed 's/://g'`ffff | tr a-z A-Z > gateway-eui
+   ```
+   This command will generate your unique gateway ID and save it to a file
+   called `gateway-eui`. Example:
+   ```
+   $ echo `ip a | grep 'link/ether' | cut -d ' ' -f 6 | sed 's/://g'`ffff | tr a-z A-Z > gateway-eui
+   $ cat gateway-eui
+   DCA632XXXXXXFFFF
+   ```
+4. Use a text editor and open the /etc/lora-gateway/local_conf.json file. Here
+   you will set your gateway ID, and point the LoRa Packet Forwarder to talk to
+   the helium gateway service we will install in the next steps. Example:
+   ```
+   {
+     "gateway_conf": {
+          "gateway_ID": "DCA632XXXXXXFFFF",
+          "server_address": "127.0.0.1",
+          "serv_port_up": 1680,
+          "serv_port_down": 1680
+     }
+   }
+   ```
+   For reference, server address is the local machine (localhost) and port 1680
+   is the port the helium service is communicating on.
+5. Restart/Start the LoRa Packet Forwarder service:
+   `sudo systemctl restart lorapktfwd.service`
+6. Verify the service is running: `sudo systemctl status lorapktfwd.service`
+7. View the log in real time to verify it is working correctly:
+   `journalctl -f -u lorapktfwd.service` . Use Ctrl-C to exit the running log.
+   You should see something like:
+   ```
+   Oct 02 14:58:15 raspi systemd[1]: lorapktfwd.service: Succeeded.
+   Oct 02 14:58:15 raspi systemd[1]: Stopped packet forwarder.
+   Oct 02 14:58:15 raspi systemd[1]: Starting packet forwarder...
+   Oct 02 14:58:20 raspi systemd[1]: Started packet forwarder.
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: Starting Packet Forwarder PG1301 v1.1 at 20211002185820
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ ################## Report at: 2021-10-02 18:58:53 GMT ##################
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ ### [UPSTREAM] ###
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # RF packets received by concentrator: 1
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # CRC_OK: 0.00%, CRC_FAIL: 100.00%, NO_CRC: 0.00%
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # RF packets forwarded: 0 (0 bytes)
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # PUSH_DATA datagrams sent: 0 (0 bytes)
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # PUSH_DATA acknowledged: 0.00%
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ ### [DOWNSTREAM] ###
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # PULL_DATA sent: 3 (100.00% acknowledged)
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # PULL_RESP(onse) datagrams received: 0 (0 bytes)
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # RF packets sent to concentrator: 0 (0 bytes)
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # TX errors: 0
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # BEACON queued: 0
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # BEACON sent so far: 0
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # BEACON rejected: 0
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ ### [PPS] ###
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # SX1301 time (PPS): 2463443
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: RXTX~ {"stat":{"time":"2021-10-02 18:58:53 GMT","rxnb":1,"rxok":0,"rxfw":0,"ackr":0.0,"dwnb":0,"txnb":0}}
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ ################## Report at: 2021-10-02 18:59:23 GMT ##################
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ ### [UPSTREAM] ###
+   Oct 02 15:00:53 raspi lora_pkt_fwd[878]: REPORT~ # RF packets received by concentrator: 0
+   ```
+   It can take a minute or two for everything to start up.
+8. Enable the LoRa Packet Forwarder to start up at boot time:
+   `sudo systemctl enable lorapktfwd.service` . If the service is already
+   enabled at boot, the command will return no output.
+
+## Install the Helium Gateway Service
+
+1. Download latest helium-gateway release package from
+   https://github.com/helium/gateway-rs/releases ending in -raspi234.deb
+2. Install the package using `dpkg`. Example:
+   `sudo dpkg -i helium-gateway-v1.0.0-alpha.16-raspi234.deb` (Replace
+   helium-gateway-v1.0.0-alpha.16-raspi234.deb) with the version you downloaded.
+
+### Region configuration
+
+The default region of the _helium_gateway_ service is US915, so you can continue
+with the next section if you are using this one. Otherwise, you must set your
+region frequency in `/etc/helium_gateway/settings.toml`. Add the following line
+at the beginning of the file:
+
+```
+region = "<region>"
+```
+
+Possible values are:
+
+```
+US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923_1 | AS923_2 | AS923_3 | AS923_4 | KR920 | IN865
+```
+
+For instance, if your region is EU868 the content in `settings.toml` must be.
+
+```
+region = "EU868"
+
+[log]
+method = "syslog"
+level = "info"
+timestamp = false
+
+[update]
+platform = "raspi234"
+```
+
+After updating the value, you need to restart the _helium_gateway_ service to
+apply the changes.
+
+```
+sudo systemctl restart helium_gateway
+```
+
+3. Verify the service is running: `sudo systemctl status helium_gateway`
+4. If the service is not running (showing active:running), start it: 'sudo
+   systemctl restart helium_gateway`
+5. View the log in real time to verify it is working correctly:
+   `journalctl -f -u helium_gateway` . You should see something like:
+   ```
+   Oct 02 15:07:19 raspi helium_gateway[917]: updated routing to height 1036701, module: dispatcher
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 13, uri: http://46.246.38.248:8080/, public_key: 115ZS5of9wsV3M5sH3mePp9NVnKayUXG7qT2W7Sn4KJLMzd3eMr, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 12, uri: http://54.219.236.122:8080/, public_key: 112ewJNEUfSg3Jvo276tMjzFC2JzmmZcJJ32CWz2fzYqbyCMMTe1, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 9, uri: http://13.37.13.24:8080/, public_key: 11afuQSrmk52mgxLu91AdtDXbJ9wmqWBUxC3hvjejoXkxEZfPvY, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 9, uri: http://44.238.156.97:8080/, public_key: 11w77YQLhgUt8HUJrMtntGGr97RyXmot1ofs5Ct2ELTmbFoYsQa, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 6, uri: http://185.34.141.6:8080/, public_key: 11awcuSbVURPkXX3FbKC7KF6bgEPRZqqPzv1FTEYABMLttUr13E, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 4, uri: http://54.193.165.228:8080/, public_key: 11263KvqW3GZPAvag5sQYtBJSjb25azSTSwoi5Tza9kboaLRxcsv, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 2, uri: http://54.176.88.149:8080/, public_key: 1124CJ9yJaHq4D6ugyPCDnSBzQik61C1BqD9VMh1vsUmjwt16HNB, module: router
+   Oct 02 15:07:19 raspi helium_gateway[917]: starting, oui: 1, uri: http://52.8.80.146:8080/, public_key: 112qB3YaH5bZkCnKA5uRH7tBtGNv2Y5B4smv1jsmvGUzgKT71QpE, module: router
+   Oct 02 15:07:27 raspi helium_gateway[917]: new packet forwarder client: MacAddress(DC:A6:32:8B:F6:6F:FF), 127.0.0.1:44003, module: gateway
+   ```
+6. If the service is not running, start it with
+   `sudo systemctl restart helium_gateway`
+7. To enable the helium gateway service to start at boot time, run
+   `sudo systemctl enable helium_gateway` . If the service is already enabled at
+   boot, the command will return no output.
+
+Congradulations, your LoRa Packet Forwarder and Helium Gateway service is setup!
+At this point your LoRa radio will be able to pass radio traffic between the
+network and the Helium gateway. Any devices you registered via the Helium
+console should now be live. Your hotspot will not appear on the map. Before
+adding your hotspot to the blockchain, please check and backup your
+configuration.
+
+## Check and Backup your Configuration
+
+1. Run `helium_gateway key info` to view your gateway address and unique animal
+   name assigned to you. Example:
+   ```
+   $ helium_gateway key info
+   {
+   "address": "13XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+   "name": "unique-animal-name"
+   }
+   ```
+2. Backup your gateway key to another machine for recovery purposes. The file
+   `/etc/helium_gateway/gateway_key.bin` contains the key.
+
+:::warning
+If you lose this key, you will not be able to use this hotspot
+anymore in case there is a problem on your hostpot (SD card corrupted, etc). You
+will need to generate a new key and lose your existing animal name/hostpot
+configuration
+:::
+
+## Testing the packet transfer with an end device
+
+If you have an end device (LoRaWAN node), you can check if the hotspot can
+transfer packets through the network. In other words, you can check if the
+devices can send data to the Helium Console. The Helium Console is where you can
+provision and manage the end devices, so the nodes need to be registered to
+start using the network.
+
+### Some comments and recommendations about the Helium Console
+
+At least for now, it is recommended to use the staging console instead of the
+production one when we are transferring data through Data Only hotspots. You can
+differentiate them for the URL they use,
+[console.helium.com](https://console.helium.com/) for production, and
+[staging-console.helium.wtf](https://staging-console.helium.wtf) for staging.
+Don't be surprised if you find some differences between those console flavors,
+basically staging is where the new features are tested before their rollout to
+production.
+
+:::important
+If the device you will use for testing is registered on the
+production console, it's better to delete it from there to avoid any unexpected
+behavior.
+:::
+
+To register your end device on the console, you can follow the steps described
+on
+[Adding Devices](https://docs.helium.com/use-the-network/console/adding-devices/).
+
+## What's next?
+
+At this point, after you verified your Data Only Hotspot is working, it is ready
+to be added to the blockchain! You can find more information about that process
+[here](/mine-hnt/data-only-hotspots#pre-requisites).
