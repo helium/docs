@@ -125,7 +125,8 @@ Data Only Hotspots will earn $HNT for device data transfer. A further breakdown 
 
 #### Milestone Breakdown
 - server side updates for `state_channels` (complete)
-- `gateway-rs` will use a new rust-based `state_channel` client (in progress)
+- `gateway-rs` will use a new rust-based `state_channel` client (complete)
+- final bug fixing and testing (in progress)
 - expected completion to be mid-October 2021
 
 #### Path to Milestone 3 and Milestone 4
@@ -133,6 +134,7 @@ Developing in parallel with Milestone 2, the following work is also under develo
 
 - Change how Hotspots route data packets by replacing its `state_channel` client from erlang to rust, taking advantange of the improvements in gRPC and data streaming (in progress)
 - Update how Hotspots receive, emit, and acknowledge proof-of-coverage receipts from erlang to rust (in progress, targets milestone 4)
+- Update how full Hotspots communicate from libp2p to gRPC and follow a Validator for ledger information instead of syncing a local copy of the blockchain (in progress, targets milestone 4)
 - Implement the work to move Challenge creation to Validators from Hotspots, to be gated behind a chain variable (HIP in progress)
 - Activate the chain variable to move Challenge creation to Validators (to be announced)
   - At this point, existing Hotspots no longer need to sync or absorb the blockchain, and will satisfy another property of Light Hotspot
