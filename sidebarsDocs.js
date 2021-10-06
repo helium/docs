@@ -49,7 +49,9 @@ module.exports = {
           'use-the-network/run-a-network-server/run-a-network-server',
           'use-the-network/setup-a-packet-forwarder',
           'use-the-network/community-projects/community-projects',
-          'use-the-network/coverage-mapping/coverage-mapping'
+          'use-the-network/coverage-mapping/coverage-mapping',
+          'use-the-network/policies/policies'
+          
       ],
       collapsed: true,
     },
@@ -198,6 +200,19 @@ module.exports = {
       collapsed: false,
     },
   ],
+  policies: [
+    {
+       type: 'link',
+       label: '<- Back',
+       href: '/use-the-network/policies'
+     },
+     {
+       type: 'category',
+       label: 'Policies',
+       items: ['use-the-network/policies/privacy', 'use-the-network/policies/terms'],
+       collapsed: false,
+     },
+   ],
   readyToUse: [
    {
       type: 'link',
