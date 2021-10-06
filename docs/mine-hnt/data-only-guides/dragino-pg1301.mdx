@@ -163,6 +163,13 @@ pi@raspberrypi:~/Downloads $
 
 ## Configure the LoRa Packet Forwarder
 
+There are two files that the LoRa Packet Forwarder uses for it's configuration:
+- global_conf.json
+- local_conf.json
+
+Make sure you are editing/working with the correct file.
+
+
 These steps assume the US915 region. For other regions, replace with your region
 locale configuration in Step 2.
 
@@ -206,9 +213,9 @@ By default the LoRa Packet Forwarder from Dragino is configured to work with
 the Things Network.   Here we will configure it to talk to the Helium
 gateway you installed on the Raspberry Pi.
 
-1. Use a text editor and open the /etc/lora-gateway/local_conf.json file
+1. Use a text editor and open the `/etc/lora-gateway/local_conf.json` file
 2. Replace the current value for gateway_ID with (one of) the values generated
-   in the previous step and **append the value 'FFFF' to the end**.  The 
+   in the previous step and **append the value FFFF to the end**.  The 
    reason we append `FFFF` to the end is the gateway ID is required to be
    16 characters, and the unique MAC address generated is only 12.  Again,
    this guarantees your gateway ID will be unique in the network.
