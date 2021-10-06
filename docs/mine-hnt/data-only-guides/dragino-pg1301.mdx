@@ -73,7 +73,7 @@ power off, attach the antenna, then power on.
 1. Open the web browser and download lorapktfwd_v1.1.deb from the
    [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/)
 2. Open a terminal window and install the package using dpkg
-   ````
+   ```
    sudo dpkg -i lorapktfwd_v1.1.deb
    ```
 3. Verify lorapktfwd is running using systemctl
@@ -166,9 +166,15 @@ pi@raspberrypi:~/Downloads $
 These steps assume the US915 region. For other regions, replace with your region
 locale configuration in Step 2.
 
-1. Change directory to the /etc/lora-gateway directory: `cd /etc/lora-gateway`
-2. Copy the US915 Band 2 configuration from the cfg subdirectory as
-   global_conf.json: `cp cfg/dragino/global_conf.us915_1.json global_conf.json`
+1. Change directory to the /etc/lora-gateway directory
+   ```
+   cd /etc/lora-gateway
+   ```
+3. Copy the US915 Band 2 configuration from the cfg subdirectory as
+   global_conf.json
+   ```
+   cp cfg/dragino/global_conf.us915_1.json global_conf.json
+   ```
 3. Generate a unique gateway ID based on the MAC address of one of your network 
    interface(s). Use the following bash syntax to help create one.
    ```
@@ -227,8 +233,9 @@ characters match up.
 ```
    
 For reference, the server address being used is the local machine (127.0.0.1, 
-also called localhost) and port 1680 is the port the helium service is communicating on.
-**Don't** use the value assigned by your router or the public IP address.
+also called localhost) and port 1680 is the port the helium service is 
+communicating on.  **Don't** use the value assigned by your router or your 
+public IP address.
 
 When you are finished make sure to save and exit the file.
 
