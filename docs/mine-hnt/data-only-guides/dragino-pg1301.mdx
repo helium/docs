@@ -70,7 +70,7 @@ power off, attach the antenna, then power on.
 
 ## Install the LoRa Packet Forwarder Service
 
-1. Open the web browser and download lorapktfwd_v1.1.deb from the
+1. Open the web browser and download `lorapktfwd_v1.1.deb` from the
    [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/)
 2. Open a terminal window and install the package using dpkg
    ```
@@ -166,11 +166,11 @@ pi@raspberrypi:~/Downloads $
 These steps assume the US915 region. For other regions, replace with your region
 locale configuration in Step 2.
 
-1. Change directory to the /etc/lora-gateway directory
+1. Change directory to the `/etc/lora-gateway` directory
    ```
    cd /etc/lora-gateway
    ```
-3. Copy the US915 Band 2 configuration from the cfg subdirectory as
+3. Copy the US915 Band 2 configuration from the `cfg` subdirectory as
    global_conf.json
    ```
    cp cfg/dragino/global_conf.us915_1.json global_conf.json
@@ -206,7 +206,7 @@ By default the LoRa Packet Forwarder from Dragino is configured to work with
 the Things Network.   Here we will configure it to talk to the Helium
 gateway you installed on the Raspberry Pi.
 
-1. Use a text editor and open the /etc/lora-gateway/local_conf.json file
+1. Use a text editor and open the `/etc/lora-gateway/local_conf.json` file
 2. Replace the current value for gateway_ID with (one of) the values generated
    in the previous step and **append the value FFFF to the end**.  The 
    reason we append `FFFF` to the end is the gateway ID is required to be
