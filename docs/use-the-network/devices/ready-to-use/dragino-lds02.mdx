@@ -187,8 +187,7 @@ Create a Google Form with Short Answer questions for
 * `last-open-duration`
 * `alarm`
 
-Map it to the Google Sheets Integration and provide this decoder function:
-
+Map it to the Google Sheets Integration and provide this decoder as part of the Sheets setup:
 ```js
 function Decoder(bytes, port) {
     var value = (bytes[0] << 8 | bytes[1]) & 0x3FFF;
@@ -231,3 +230,4 @@ function Serialize(payload) {
     return str.join("&");
 }
 ```
+The Sheets integration will provide its own Decoder Function block.  Create a flow from the LDS02 device, to this Decoer, to the Sheets integration block.
