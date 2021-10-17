@@ -176,3 +176,58 @@ To open the Debug window just click on the bug icon on the
 right side of the device page. Once you have the Debug window open you can wait
 for the next packet to transmit or force a manual transmission by triggering the sensor with the magnet.
 You will see the LED flash green while it sends a packet to the network.
+
+#### Google Sheets log
+
+You can also use the Google Sheet integration to map the decoded data to a Form for recording in sheets.
+Create a Google Form with Short Answer questions for
+* `battery-volts`
+* `door-open`
+* `door-open-count`
+* `last-open-duration`
+* `alarm`
+
+Map it to the Google Sheets Integration and provide this decoder function:
+
+```js
+function Decoder(bytes, port) {
+    var value = (bytes[0] << 8 | bytes[1]) & 0x3FFF;
+    var bat = value / 1000; // Battery, units:V
+    var door_open_status = bytes[0] & 0x80 ? 1 : 0; // 1:open, 0:close
+    var alarm = bytes[9] & 0x01;
+    var open_times = bytes[3] << 16 | bytes[4] << 8 | bytes[5];
+    var open_duration = bytes[6] << 16 | bytes[7] << 8 | bytes[8];//units:min
+    if (bytes.length == 10 && 0x07 > bytes[0] < 0x0f) {
+        var decodedPayload = {
+            "battery-volts": bat,
+            "door-open": door_open_status,
+            "door-open-count": open_times,
+            "last-open-duration": open_duration,
+            "alarm": alarm
+        };
+        return Serialize(decodedPayload)
+    }
+}
+
+// Generated: do not touch unless your Google Form fields have changed
+var field_mapping = {
+    "battery-volts": "entry.702320693",
+    "door-open": "entry.1934071370",
+    "door-open-count": "entry.844671899",
+    "last-open-duration": "entry.1464236526",
+    "alarm": "entry.2127237487"
+};
+// End Generated
+
+function Serialize(payload) {
+    var str = [];
+    for (var key in payload) {
+        if (payload.hasOwnProperty(key)) {
+            var name = encodeURIComponent(field_mapping[key]);
+            var value = encodeURIComponent(payload[key]);
+            str.push(name + "=" + value);
+        }
+    }
+    return str.join("&");
+}
+```
