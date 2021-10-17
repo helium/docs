@@ -102,7 +102,7 @@ Function Decoder to unpack the device payload into a human readable form.
 
 #### Create Function Decoder
 
-Lets begin by creating a new custom Function decoder, by selecting `Functions`, then `(+)`.
+Create a new custom Function decoder, by selecting `Functions`, then `(+)`.
 Name the function (perhaps "LDS02"), type `Decoder` and `Custom Script`.  Paste the script below, provided by Dragino:
 ```js
 function Decoder(bytes, port) {
@@ -175,13 +175,4 @@ decoded device payload in the received uplink.
 To open the Debug window just click on the bug icon on the
 right side of the device page. Once you have the Debug window open you can wait
 for the next packet to transmit or force a manual transmission by triggering the sensor with the magnet.
-You'll see the LED flash green while it sends a packet to the network.
-
-You should see the uplink message with the decoded fields as shown
-below.
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/devices/ready-to-use/dragino-lht65-decoded-payload.png"
-  )}
-/>
+You will see the LED flash green while it sends a packet to the network.
