@@ -673,6 +673,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/dragino/lse01',
         'use-the-network/devices/ready-to-use/dragino/lwl01',
         'use-the-network/devices/ready-to-use/dragino/lds01',
+        'use-the-network/devices/ready-to-use/dragino/lds02',
         'use-the-network/devices/ready-to-use/dragino/lgt92',
         'use-the-network/devices/ready-to-use/dragino/lt22222-l',
         'use-the-network/devices/ready-to-use/dragino/lt33222-l',
