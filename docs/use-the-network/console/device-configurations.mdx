@@ -1,0 +1,166 @@
+---
+id: device-configurations 
+sidebar_label: Device Configurations
+slug: /use-the-network/console/adr
+---
+
+# Device Configurations
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+There's a number of device configurations available including: 
+
+- [ADR](#adr)
+- [CF List](#cf-list) 
+- [Alerts](#alerts) 
+- [Multiple Packets](#multiple-packets)
+
+ADR and CF List settings are either enabled/disabled and applied to device or label nodes directly using the Flows Inspector. 
+
+:::info
+For a video walkthrough of configuring ADR and CF List, check out our Tips and Tricks video [here](https://youtu.be/9nlkAEI1V-Q).
+:::
+
+Alerts and Multiple Packets features provide various options which users need to initially configure and then apply to device or label nodes using the Inspector. 
+
+:::important
+
+If there's a conflict between configuration settings set for devices and labels, the device setting takes priority. 
+
+:::
+
+## ADR
+
+Adaptive Data Rate or ADR is a mechanism for adapting the data rate of devices
+in a LoRaWAN network. This allows a device's airtime and power consumption to be
+optimized by the Network Server. Learn more about ADR from Semtech's developer
+portal
+[here](https://lora-developers.semtech.com/library/tech-papers-and-guides/understanding-adr/).
+
+:::warning
+
+- ADR will only work if your device requests ADR.
+- Using ADR is only suggested for devices that are static for long periods of
+  times. ADR is not suggested for devices that are constantly changing location
+  or have unstable RF conditions. 
+  
+:::
+
+### ADR Algorithm
+
+The network server behind Console implements a specific algorithm for
+determining the optimal data rate and transmit power to send down to the device.
+ADR not only increases the device's data rate, but it increases or decreases
+transmit power as needed. The network only calculates data-rate/power
+corrections after it collects 20 contiguous uplink packets with the ADR bit set
+to `1`. From this point on, the network may send downlink LinkADRReq MAC
+commands, either alone or with already-scheduled downlink packets. The network
+server clears its ADR history whenever a device sends an uplink packet with ADR
+set to `0`.
+
+### Configuring ADR
+
+To configure ADR, navigate to the Flows workspace. 
+
+Choose the device or group of devices (label) to configure ADR.
+
+On the Inspector click **ADR**.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows-inspector-adr.png"
+  )}
+/>
+
+For quick identification, an ADR symbol appears on the node.
+
+## CF List
+
+The Join-Accept CF List configures channels according to the LoRaWAN spec to use sub-band 2. Devices that have not correctly implemented the LoRaWAN spec may experience transfer issues when this setting is enabled.
+- Enabled, the server will send a CF List with every other join.
+- Disabled, the server will not send a CF List. The channel mask is still transmitted via ADR command.
+
+**Notes:** By default this setting is disabled and only applicable to US915 devices.  
+
+### Configuring CF List
+
+To configure CF List, navigate to the Flows workspace. 
+
+Choose a Device/Label node to configure CF List.
+
+On the Inspector click **CF List**.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows-inspector-cflist.png"
+  )}
+/>
+
+For quick identification, a symbol appears on the node.
+
+
+## Alerts
+
+Alerts (email or webhooks) can be configured for a number of conditions related to devices and integrations including when devices are deleted, integrations updated or deleted.
+
+User types (e.g., Administrator or Managers) can be specified to receive alerts.
+
+For a video walkthrough of how to set up Alerts in Console 2.0, check out our Tips & Tricks video [here](https://youtu.be/8zt6W_FCQcM)
+
+### Configuring Alerts
+
+To configure alerts from the Flows workspace, select a Device/Label node or Integration node depending on the type of alert to configure and select the Inspector tab. 
+
+Select an existing alert or create a new one.
+
+To create a new one, select Create New Alert choose a name, alert type (email, webhook), and the alert. 
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows-inspector-alerts.png"
+  )}
+/>
+
+**Note:** for webhook alerts obtain a webhook key for authorization, by choosing Organizations from the side menu and copying relevant webhook key.
+
+
+## Multiple Packets
+
+Data Credits are only charged for uplinks. The Multiple Packets feature provides the ability to pay for additional packets for redundancy and location triangulation purposes. 
+
+To learn more about enabling Multiple Packets, check out our Tips and Tricks video [here](https://youtu.be/rDJcGspnq1A).
+
+**Note:** Regardless of the Multiple Packet feature setting, under certain conditions the system purchases multiple packets to help ensure successful packet transmission (these cost additional Data Credits and happen automatically). These include: initial joining of the device (up to 5 packets), downlinks that contain data payloads (up to 3 packets). These additional packets help ensure connection reliability to downlink via the Hotspot with the strongest connection.
+### Configuring Multiple Packets
+
+Configuring multiple packets for a device a group of devices involved two main steps:
+
+1. Set up the multiple packet configuration.
+  - Select **Multiple Packets** on the side menu. 
+
+  <img
+  src={useBaseUrl(
+    "img/use-the-network/console/multiple-packets.png"
+  )}
+/>
+  
+  - Click the Add **+** icon. 
+
+  <img
+  src={useBaseUrl(
+    "img/use-the-network/console/multiple-packets1.png"
+  )}
+/>
+
+  - Enter a name and choose the desired number of packets.
+  - Click **Create Multiple Packet Config**
+
+2. Apply the Multiple Packet configuration to a device or group of devices.
+ - On the Flows Workspace, choose a Device/Label node and select the Inspector tab. 
+ - Select **Packets** and choose the configuration to apply.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/console/flows-inspector-packets.png"
+  )}
+/>
