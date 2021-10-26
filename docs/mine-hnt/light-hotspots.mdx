@@ -15,7 +15,7 @@ migration, we have introduced a new Hotspot variant onto the network, called
 a [Data Only Hotspot](/mine-hnt/data-only-hotspots). More details on progress
 and timeline are listed below.
 
-This project is in progress and subject to change. **Last updated Wednesday October 6, 2021**.
+This project is in progress and subject to change. **Last updated Wednesday October 21, 2021**.
 
 :::info
 
@@ -40,6 +40,8 @@ us to grow the Network exponentially while keeping blocktimes and epochs stable.
 As all approved Hotspots transition to a Light Hotspot architecture, we also
 introduce a new type of Hotspot known as Data Only Hotspots, **activated as of July 20, 2021**, to satisfy the
 increasing demand and continue to expand network coverage.
+
+As of October 11 2021, **Data-Only Hotspots can mine HNT** for forwarding data packets on the network.
 
 | Rewards Type                 | Data Only Hotspots | Full & Light Hotspots |
 | :--------------------------- | :----------------- |:------------- |
@@ -120,21 +122,16 @@ earn $HNT.
 ### Milestone 2: Earn HNT For Device Packet Transfer
 
 - Target Completion: Fall 2021
-- Status: Development In Progress
+- Status: Development Complete (Oct 11, 2021)
 
 Data Only Hotspots will earn $HNT for device data transfer. A further breakdown of progress is outlined below:
 
-#### Milestone Breakdown
-- server side updates for `state_channels` (complete)
-- `gateway-rs` will use a new rust-based `state_channel` client (complete)
-- final bug fixing and testing (in progress)
-- expected completion to be mid-October 2021
-
 #### Path to Milestone 3 and Milestone 4
-Developing in parallel with Milestone 2, the following work is also under development. 
+Work for both Milestone 3 and 4 are under way. The core team is currently focused on transitioning Full Hotspots to Light Hotspots due to the increasing size of the network and the amount of work needed to sustain this large peer-to-peer network.
 
-- Change how Hotspots route data packets by replacing its `state_channel` client from erlang to rust, taking advantange of the improvements in gRPC and data streaming (in progress)
+- Change how Hotspots route data packets by replacing its `state_channel` client from erlang to rust, taking advantange of the improvements in gRPC and data streaming (complete)
 - Update how Hotspots receive, emit, and acknowledge proof-of-coverage receipts from erlang to rust (in progress, targets milestone 4)
+- Test PoC in testnet (not started, targets milestone 4)
 - Update how full Hotspots communicate from libp2p to gRPC and follow a Validator for ledger information instead of syncing a local copy of the blockchain (in progress, targets milestone 4)
 - Implement the work to move Challenge creation to Validators from Hotspots, to be gated behind a chain variable (HIP in progress)
 - Activate the chain variable to move Challenge creation to Validators (to be announced)
@@ -150,6 +147,12 @@ Approved Hotspots from
 [HIP19-approved manufacturers](/mine-hnt/full-hotspots/#approved-makers) with
 lower compute requirements can be added to the network and participate in PoC.
 
+:::info
+
+HIP-19 Makers: Hardware Audit will commence as soon as early November. Milestone 3 completion is not required for Audit. Please contact MOC for more details.
+
+:::
+
 Onboarding for these Light Hotspots will be done via the standard Helium Wallet
 app onboarding. The fees will be equivalent to other Approved Hotspots ($40 and
 $10 for add assert, respectively).
@@ -163,7 +166,7 @@ At this stage, there will be three types of Hotspots:
 
 ### Milestone 4: "Heavy" Hotspots -> Light Hotspots
 
-- Target Completion: Q1 2022
+- Target Completion: Q4 2021
 - Status: Development in Progress
 
 Approved Hotspots on the Network will be converted
