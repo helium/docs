@@ -1,7 +1,9 @@
 ---
-id: dragino-lds02
+id: lds02
 hide_title: true
-sidebar_label: Dragino LDS02
+title: LDS02
+description: LoRoWAN Door Sensor
+sidebar_label: LDS02
 slug: /use-the-network/devices/ready-to-use/dragino/lds02
 ---
 
@@ -10,12 +12,10 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 ## Dragino LDS02
 
 <img
-  src={useBaseUrl(
-    "img/use-the-network/devices/ready-to-use/dragino-lds02-banner.jpg"
-  )}
+  src={useBaseUrl("img/use-the-network/devices/ready-to-use/dragino/lds01.jpg")}
 />
 
-Door Sensor
+LoRaWAN Door Sensor Mk.2
 
 ### Introduction
 
@@ -41,7 +41,7 @@ Open the Debug panel on the Device view to observe incoming messages for the nex
 
 ### Install Batteries
 
-Open the enclosure and add two AAA battery cells for power.
+Open the LDS02 enclosure and add two AAA battery cells for power.
 For the best wide-range temperature tolerance and longevity, consider Lithium primary cells, such as Energizer Ultimate Lithium L92SBP.
 
 On insertion, the LED should light quickly Red, Blue, Green, then off.  
@@ -51,13 +51,9 @@ If you see no messages, or no LED flashing, double-check the device IDs, then re
 ### myDevices Cayenne
 
 This device is supported directly by [myDevices Cayenne](https://cayenne.mydevices.com/cayenne) via the
-integration on Console. 
+included Integration in Helium's Console. 
 
-If you would like to easily view your device's data on a web or mobile dashboard
-for free, this device is supported out of the box by
-
-To add the LDS02 to  Cayenne, you do not need to set up a Decode script
-as described below. Cayenne takes the encoded payload directly and parses the
+To add the LDS02 to Cayenne, you do not need to set up a Decode script at all.  Cayenne takes the encoded Device payload directly and parses the
 events from it.
 
 Be careful to select **Helium** when adding the LDS02 to Cayenne.
@@ -70,7 +66,7 @@ As described [here](https://docs.mydevices.com/docs/lorawan/helium), select
 6. Enter the Device EUI and other information.
 
 On the Helium Console, select `Flow` and directly connect the LHT65 Device to the 
-Cayenne Integration.  Do not use a Decoder.
+Cayenne Integration with a connecting flow line.  Do not use a Decoder.
 
 Cayenne will show:
 * RSSI (dBm)
@@ -92,7 +88,7 @@ manual showing the size and location of each piece of data.
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/ready-to-use/dragino-lds02-byte-packing.png"
+    "img/use-the-network/devices/ready-to-use/dragino/lds02-byte-packing.png"
   )}
 />
 
@@ -165,7 +161,7 @@ function Decoder(bytes, port) {
 
 To associate the Device with the Decoder Function, go to the Flow panel.
 
-Drag the device instance and the Function into the field.
+Drag the Device instance and the Function into the field.
 Connect them with a line from the Device to the Function
 
 #### Viewing Decoded Device Data
@@ -230,4 +226,6 @@ function Serialize(payload) {
     return str.join("&");
 }
 ```
-The Sheets integration will provide its own Decoder Function block.  Create a flow from the LDS02 device, to this Decoer, to the Sheets integration block.
+
+The Sheets integration will provide its own Decoder Function block.
+Create a new flow from the LDS02 Device, to this Decoder, to the Sheets Integration block.
