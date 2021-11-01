@@ -49,13 +49,6 @@ Once you have these three values, follow our
 
 Add a Label for your device, so that one shared configuration can be used by any additional devices you install.
 
-Install the (included) Lithium AA Batteries and close the bottom panel with the included screws, compressing the weatherproofing gasket.
-To confirm the unit has been correctly added to the Console, select the Device, scroll down to the recent Packet list, and power on the unit by pressing the power button.
-You should see a few Red blinks from the power button, and immediately see initial data packets in the Console Device listing.
-
-If you do not see any Join or data packets, pause here and ensure the unit is correctly added in Console.  Double-check each of the three key values.
-Once you see packets arriving from your unit, you are ready to continue with registration.
-
 ### Victor VLINK Portal
 Victor has not published the a Payload decoder or data documentation for these traps, so you must use the hosted monitoring solution at Woodstream's victorhq.com.
 
@@ -115,7 +108,17 @@ This is likely to be a 15-character identifier that starts with `LM`, entered ma
 See VLINK onboarding instructions
 [here](https://helium-docs.s3-us-west-2.amazonaws.com/VLINK_Tunnel_Trap_Setup_Instructions.pdf).
 
-Once the device is added to a Site/Building/Floor/Room in the Portal, it is ready for use.
+
+#### Power up the device
+
+Install the (included) Lithium AA Batteries and close the bottom panel with the included screws, fully sealing the weatherproofing gasket.
+Before powering on the device, open the Helium Console, select the Device, and open the Debug panel or scroll down to the recent Packet list to observe activity.
+
+Power on the unit by pressing the power button.
+You should see a few LED blinks from the middle indicator near the power button, and also see initial data packets in the Console Device listing.
+
+If you do not see any Join or Uplink packets, pause here and ensure the unit is correctly added in Console.  Double-check each of the three key values.
+Once you see packets arriving from your unit, you are ready to continue with registration and naming, add it to a Site/Building/Floor/Room in the Portal, bait the trap and wait for victory over rodents.
 
 ### FAQ
 
@@ -133,9 +136,9 @@ Once the device is added to a Site/Building/Floor/Room in the Portal, it is read
 
 These messages are sent with Acknowledgement requested, so you will see both `Uplink` and `Acknowledge` packets.
 
-#### What sequence of messages should I expect (in VLINK dashboard)?
+#### What sequence of messages should I expect in the VLINK dashboard?
 
-In the Activity Log you will see "Trap Powered Up" and a series of "Trap Status" logs.
+In the `Activity Log` you will see "Trap Powered Up" and a series of "Trap Status" logs.
 
 #### What are the button presses?
 
