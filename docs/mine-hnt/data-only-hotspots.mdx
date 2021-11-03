@@ -9,13 +9,6 @@ slug: /mine-hnt/data-only-hotspots
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-:::warning
-Earning $HNT for data transfer is expected to be enabled at a later time as part of Milestone 2. Please look for updates in #gateway-development channel. This guide is released for preparation only.
-:::
-
-:::info
-Adding Data-Only Hotspots to the blockchain is now enabled. This is supported via CLI only.
-:::
 
 Data Only Hotspots are eligible for **Network Data Transfer Rewards** but not
 **Proof of Coverage Rewards**.
@@ -64,7 +57,7 @@ From a terminal on the device where the Light Hotspot client is installed,
 you need to generate the `add hotspot` transaction.
 
 ```
-./helium_gateway add --owner WALLET_ADDRESS --payer WALLET_ADDRESS
+./helium_gateway add --owner WALLET_ADDRESS --payer WALLET_ADDRESS --mode dataonly
 ```
 
 The output is a JSON object:
