@@ -29,14 +29,15 @@ POST https://mappers.helium.com/api/v1/ingest/uplink
 
 Submit geo tagged device uplink.
 
-Content-Type: application/json  
+`Content-Type: application/json`
+
 Requests are intended to be sent from an HTTP integration within Console.
 Metadata from the standard JSON message is used in addition to the required
 fields detailed below.
 
-All required fields must be in the top level of the decoded payload section as
-shown below:
-```
+All required fields are case sensitive and must be in the top level of the 
+decoded payload section as shown below:
+```json
 "decoded": { 
   "payload" : {
     "accuracy": 2,
@@ -44,7 +45,7 @@ shown below:
     "latitude": 38.811706,
     "longitude": -121.607035
   }
- }
+}
 ```
 
 All of the following fields are required `latitude`, `longitude`, `altitude`

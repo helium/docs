@@ -35,6 +35,7 @@ module.exports = {
       label: 'LoRaWAN on Helium',
       items: [
           'lorawan-on-helium/lorawan-on-helium',
+		  'lorawan-on-helium/lorawan-roaming/lorawan-roaming-on-helium',
           'lorawan-on-helium/frequency-plans/frequency-plans'
       ],
       collapsed: true,
@@ -49,7 +50,9 @@ module.exports = {
           'use-the-network/run-a-network-server/run-a-network-server',
           'use-the-network/setup-a-packet-forwarder',
           'use-the-network/community-projects/community-projects',
-          'use-the-network/coverage-mapping/coverage-mapping'
+          'use-the-network/coverage-mapping/coverage-mapping',
+          'use-the-network/policies/policies',
+          
       ],
       collapsed: true,
     },
@@ -68,7 +71,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Open Source',
-      items: ['open-source/open-source','open-source/installation'],
+      items: ['open-source/open-source'],
       collapsed: true,
     },
     {
@@ -89,7 +92,7 @@ module.exports = {
    {
       type: 'category',
       label: 'Blockchain',
-      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/validators', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/locations', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis', 'api/blockchain/rewards', 'api/blockchain/dc_burns', 'api/blockchain/state_channels', 'api/blockchain/assert_locations'],
+      items: ['api/blockchain/introduction', 'api/blockchain/stats', 'api/blockchain/blocks', 'api/blockchain/accounts', 'api/blockchain/validators', 'api/blockchain/hotspots', 'api/blockchain/cities', 'api/blockchain/locations', 'api/blockchain/transactions', 'api/blockchain/pending-transactions', 'api/blockchain/oracle-prices', 'api/blockchain/chain-variables', 'api/blockchain/ouis', 'api/blockchain/rewards', 'api/blockchain/dc-burns', 'api/blockchain/challenges', 'api/blockchain/elections', 'api/blockchain/state-channels', 'api/blockchain/assert-locations'],
       collapsed: true,
     },
     'api/console',
@@ -125,7 +128,20 @@ module.exports = {
     {
       type: 'category',
       label: 'Console',
-      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/device-configurations', 'use-the-network/console/flows/flows', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting'],
+      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/alerts', 'use-the-network/console/multi-packets', 'use-the-network/console/profiles', 'use-the-network/console/flows/flows', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/coverage', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting'],
+      collapsed: false,
+    }
+  ],
+  opensourcedocs: [
+   {
+      type: 'link',
+      label: '<- Back',
+      href: '/open-source'
+    },
+    {
+      type: 'category',
+      label: 'Docs',
+      items: ['open-source/docs/installation'],
       collapsed: false,
     }
   ],
@@ -151,7 +167,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Integrations',
-      items: ['use-the-network/console/integrations/json-schema', 'use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo', 'use-the-network/console/integrations/datacake', 'use-the-network/console/integrations/mydevices-cayenne', 'use-the-network/console/integrations/adafruitio', 'use-the-network/console/integrations/ubidots', 'use-the-network/console/integrations/tago', 'use-the-network/console/integrations/google-sheets', 'use-the-network/console/integrations/microshare'],
+      items: ['use-the-network/console/integrations/json-schema', 'use-the-network/console/integrations/http', 'use-the-network/console/integrations/mqtt', 'use-the-network/console/integrations/azure', 'use-the-network/console/integrations/aws-iot-core', 'use-the-network/console/integrations/cargo', 'use-the-network/console/integrations/datacake', 'use-the-network/console/integrations/mydevices-cayenne', 'use-the-network/console/integrations/adafruitio', 'use-the-network/console/integrations/ubidots', 'use-the-network/console/integrations/tago', 'use-the-network/console/integrations/google-sheets', 'use-the-network/console/integrations/microshare', 'use-the-network/console/integrations/akenza'],
       collapsed: false,
     },
   ],
@@ -190,10 +206,23 @@ module.exports = {
     {
       type: 'category',
       label: 'Coverage Mapping',
-      items: ['use-the-network/coverage-mapping/mappers-quickstart', 'use-the-network/coverage-mapping/mappers-api', 'use-the-network/coverage-mapping/adeunis-mapper'],
+      items: ['use-the-network/coverage-mapping/mappers-quickstart', 'use-the-network/coverage-mapping/mappers-api', 'use-the-network/coverage-mapping/adeunis-mapper', 'use-the-network/coverage-mapping/mappers-roadmap'],
       collapsed: false,
     },
   ],
+  policies: [
+    {
+       type: 'link',
+       label: '<- Back',
+       href: '/use-the-network/policies'
+     },
+     {
+       type: 'category',
+       label: 'Policies',
+       items: ['use-the-network/policies/privacy', 'use-the-network/policies/terms'],
+       collapsed: false,
+     },
+   ],
   readyToUse: [
    {
       type: 'link',
@@ -654,6 +683,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/dragino/lse01',
         'use-the-network/devices/ready-to-use/dragino/lwl01',
         'use-the-network/devices/ready-to-use/dragino/lds01',
+        'use-the-network/devices/ready-to-use/dragino/lds02',
         'use-the-network/devices/ready-to-use/dragino/lgt92',
         'use-the-network/devices/ready-to-use/dragino/lt22222-l',
         'use-the-network/devices/ready-to-use/dragino/lt33222-l',
@@ -1096,6 +1126,7 @@ module.exports = {
      items: [
        'mine-hnt/validators/mainnet/validators-mainnet-deployment-guide',
        'mine-hnt/validators/mainnet/validators-mainnet-release',
+	   'mine-hnt/validators/mainnet/validators-mainnet-wallet',
      ],
      collapsed: false,
    },
@@ -1109,7 +1140,8 @@ module.exports = {
    {
        type: 'category',
        label: 'Data Only Hotspot Guides',
-       items: ['mine-hnt/data-only-guides/dragino', 'mine-hnt/data-only-guides/kerlink', 'mine-hnt/data-only-guides/rak-concentrators'],
+       items: ['mine-hnt/data-only-guides/dragino', 'mine-hnt/data-only-guides/dragino-pg1301', 'mine-hnt/data-only-guides/kerlink', 'mine-hnt/data-only-guides/rak-concentrators', 'mine-hnt/data-only-guides/balena-data-only-hotspot'],
+
        collapsed: false,
    },
   ],
@@ -1196,5 +1228,21 @@ module.exports = {
       items: ['use-the-network/devices/development/heltec/wifi-lora-32-v2/arduino'],
       collapsed: false,
     },
-  ]
+  ],
+  origo: [
+    {
+       type: 'link',
+       label: '<- Back',
+       href: '/use-the-network/devices/ready-to-use'
+     },
+     {
+       type: 'category',
+       label: 'Origo',
+       items: [
+         'use-the-network/devices/ready-to-use/origo/lorawan-watch',
+         'use-the-network/devices/ready-to-use/origo/smart-badges'
+       ],
+       collapsed: false,
+     },
+   ]
 };

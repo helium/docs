@@ -24,7 +24,7 @@ Since Data Only Hotspots do not earn Proof-of-Coverage rewards, they may be
 permissionlessly added to the blockchain. Once added to the blockchain and
 with location asserted, they will earn $HNT when forwarding network data.
 
-| Rewards Type                 | Data Only Hotspots | Full Hotspots |
+| Rewards Type                 | Data Only Hotspots | Full & Light Hotspots |
 | :--------------------------- | :----------------- |:------------- |
 | Network Data Forwarding      | YES                | YES           |
 | Proof of Coverage            | NO                 | YES           |
@@ -43,6 +43,10 @@ The fee schedule is as follows:
 * **add data only hotspot**: 1000000 DC ($10)
 * **assert location**: 500000 DC ($5)
 
+:::info
+Data Credits in your Helium Console organization cannot be used to pay blockchain onboarding and assert location fees for Hotspots. To onboard a Hotspot, you'll need to burn HNT for Data Credits to the wallet that owns the Hotspot.
+:::
+
 ## Pre-requisites
 
 You should [setup a packet forwarder](/use-the-network/setup-a-packet-forwarder)
@@ -55,10 +59,6 @@ is currently the only wallet that supports Data Only Hotspots.
 **Another note**: you should __not__ install the CLI on your gateway
 
 ## Add Hotspot
-
-### Video Guide for Setup
-
-[![Link to YouTube tutorial explaining packet forwarder setup.](https://img.youtube.com/vi/OuujPVK8f3U/0.jpg)](https://www.youtube.com/watch?v=OuujPVK8f3U)
 
 From a terminal on the device where the Light Hotspot client is installed,
 you need to generate the `add hotspot` transaction.
@@ -142,6 +142,10 @@ earning for data transfered!
     specified as a Helium-Compatible Kerlink Miner.
 - [RAK Concentrator (RAK2245/RAK2247/RAK2287) + Raspberry Pi 2, 3, or 4](/mine-hnt/data-only-guides/rak-concentrators)
   - This setup will only mine HNT as a Data Only Hotspot.
+- [Balena Data Only Hotspot running Raspberry Pi 0, 2, 3 or 4 with RAK Concentrator (RAK2287)](/mine-hnt/data-only-guides/balena-data-only-hotspot)
+  - This setup based on Nebra will only mine HNT as a Data Only Hotspot, when possible.
+- [Dragino PG1301 + Raspberry Pi 4](/mine-hnt/data-only-guides/dragino-pg1301)
+  - This setup based on the Dragino PG1301 Concentrator will only mine HNT as a Data Only Hotspot.
 
 :::info
 

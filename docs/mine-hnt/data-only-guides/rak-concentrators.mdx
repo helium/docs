@@ -8,7 +8,7 @@ slug: /mine-hnt/data-only-guides/rak-concentrators
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-A Data Only Hotspots is a variation of Hotspots that can participate on the
+A Data Only Hotspot is a variation of Hotspots that can participate on the
 Helium Network by transferring data from the end devices (LoRaWAN nodes), they
 are eligible for Network Data Transfer Rewards but not Proof of Coverage
 Rewards.
@@ -28,6 +28,13 @@ and the **#gateway-development** channel on the
 [Helium Discord Server](https://discord.gg/helium) to check how the development
 process evolves.
 :::
+
+### Video Guide for Setup
+
+This Hands on with RAKstars session follows the step-by-step provided
+across this guide.
+
+[![Link to YouTube tutorial explaining packet forwarder setup.](https://img.youtube.com/vi/Eyt4bbW_9yw/0.jpg)](https://www.youtube.com/watch?v=Eyt4bbW_9yw&t=2024s)
 
 ## Requirements
 
@@ -51,6 +58,11 @@ available at the RAK store.
 
 [RAK2287 Pi HAT]: https://store.rakwireless.com/products/rak2287-pi-hat
 [RAK2247 Pi HAT]: https://store.rakwireless.com/products/rak2247-pi-hat
+
+:::important
+To use the concentrator module with a Raspberry Pi HAT, you must make sure to 
+order the variation with the SPI interface.
+:::
 
 Let's get started!
 
@@ -214,8 +226,8 @@ at the beginning of the file:
 ```
 region = "<region>"
 ```
-Possible values are: `US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923 |
-KR920 | IN865`.
+Possible values are: `US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923_1 |
+AS923_2 | AS923_3 | AS923_4 | KR920 | IN865`.
 
 For instance, if your region is EU868 the content in `settings.toml` must be.
 
@@ -355,8 +367,8 @@ If you are able to see this kind of logs your hotspot is working like a charm!
 The logs will record more information according to the router/console state.
 
 Now, you should start to see some events on the console. Sometimes, it could
-take some minutes before you start to see any activity; wait for a bit of a
-while and reset your device if it's needed.
+take some minutes before you start to see any activity; wait for a bit and reset
+your device if it's needed.
 
 <img
   className="docsheader"
@@ -367,7 +379,7 @@ while and reset your device if it's needed.
 
 As a final check, you can compare if the Hotspot Name matches the one you
 obtained before. It could be different if there are more hotspots providing 
-overage around you. In that case, you can explore the *Multiple Packets*
+coverage around you. In that case, you can explore the *Multiple Packets*
 configuration to purchase more packets when several hotspots hear the device.
 
 ## What's next?

@@ -10,19 +10,100 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 <img className="docsheader" src={useBaseUrl("img/use-the-network/coverage-mapping/header.png")} />
 
 # Coverage Mapping
-The Mappers coverage mapping project is a crowd-sourced effort to build a cohesive, worldwide coverage map of the Helium network.
+The Mappers project is a crowd-sourced effort to build a true-signal coverage map of the Helium network across the globe.
+View Mappers data at [mappers.helium.com](https://mappers.helium.com/). The Mappers tool lets you see the areas that have been explored by participants in the project, and the Helium hotspots that have provided coverage to those areas. By mapping real-world coverage, network users can understand where sensor deployments are proven to work.
 
-Mapping data is viewable at [mappers.helium.com](https://mappers.helium.com/). The Mappers tool allows you to see the areas that 
-have been explored by voluntary community mappers and the Helium hotspots that have provided coverage to those areas.
-
-Be sure to check out the ongoing conversation in the dedicated #mappers channel on the [Helium Discord 
-Server](https://discord.gg/helium).
+Be sure to check out the ongoing conversation in the dedicated `#mappers` channel on the [Helium Discord Server](https://discord.gg/helium).
 
 ## Mappers Newsletter
-
 Join the Mappers [newsletter](https://www.helium.com/mappers) to stay up to date on new and upcoming features.
 
-## Go Deeper with Coverage Mapping
-* Read the step-by-step [Mappers Quickstart](/use-the-network/coverage-mapping/mappers-quickstart)
-* Learn more about the [Mappers API](/use-the-network/coverage-mapping/mappers-api)
-* Deploy the [Adeunis Mapper](/use-the-network/coverage-mapping/adeunis-mapper)
+## Project Roadmap
+Take a look at the big picture in the [Mappers Roadmap](/use-the-network/coverage-mapping/mappers-roadmap). The roadmap is a great way to understand the full scope of the project and find an area to make your own contributions to the project.
+
+## Frequently Asked Questions
+
+### How does Mappers work?
+Participants use low cost LoRaWAN devices to survey the real-world network created by Helium. Many contributors bring their mapper with them when they walk, hike, bike, drive or even boat! They’re small and fit well in a pocket or on a car dash. Some have set up their mappers so they’re contributing to the coverage map every time they take a drive.
+
+In order to place a mark on the map, the mapper device sends out a signal with a GPS location encoded. If a Helium Hotspot ‘hears’ that signal, data is passed through the internet and recorded in the Mappers database. The Mappers database uses the GPS information from the Mapper to ‘light up’ the hex on the map.
+
+### Why should I contribute to Mappers?
+There are a variety of ways that Mapping is valuable to both hotspot owners and network users.
+For hotspot owners, the collected data helps to visualize the coverage provided by all Helium hotspots - identifying areas where coverage is lacking or even where hotspot placements could be made that would participate in Proof of Coverage with other hotspots. A marked hex on the map indicates that uplink signals from registered Helium LoRaWAN sensors have been proven to be “heard” by the Helium network somewhere within that hex shaped area.
+
+For network users, the map proves the real-world coverage that hotspots provide. This is like looking at the Verizon or T-Mobile map when evaluating phone plans, but for business users. This real world evidence at the scale and resolution offered by our map gives prospective network users the information they need to make decisions about their deployments.
+As an example, this map is what someone like Lime scooters would look to before they sign a contract. 
+
+In short, a robust map means high priced customers, which means adoption, which means the network grows and the token value increases.
+
+### Do I earn HNT for contributing?
+No, coverage mapping is entirely voluntary. In order to participate in mapping, you will need to spend Data Credits to pay for the data transfer that your mapper uses. To get you started, new Helium Console accounts are funded with 10,000 DC. Beyond that, HNT can be converted to DC to fund device data transfer or DC can be purchased directly through Console. 
+
+Mapping does not make a hotspot earn more HNT through Proof of Coverage.
+The real value is to prove the network, drive adoption, and increase the purchase of data credits by commercial users.
+
+If the hotspots that you are mapping are your own, those data credits are paid back to your hotspots in the form of HNT. Hotspots earn HNT for data packets they transfer, for mapping or otherwise.
+
+### How can I use Mappers for my own hotspot deployments?
+* Find new locations for hotspots.
+* Get real-world information about how far your hotspot reaches.
+* Learn RF data analytics in an interactive way.
+
+### How can I use Mappers for my own sensor deployments?
+Take a mapping device to the area where you want to deploy sensors and watch to see if it is picked up by a hotspot in the hex where you want to deploy a sensor. If it’s picked up by only one hotspot, decide if you want to deploy an additional hotspot in that area for sensor connection redundancy. Look at existing mapped areas for confirmation that your sensors can be deployed in that area and how many hotspot can pick them up. It only takes one hotspot to receive and transmit data through the internet, but the redundancy offered by the Helium Network helps to ensure that your data is received.
+
+## Get Started with Mapping
+There are a wide variety of ways to get involved depending on your level of comfort with arduino-type devices. A few common devices are listed below, but in no way is this list exhaustive.
+
+### Fully Preconfigured
+Fully managed mapping devices are ready to go as soon as they arrive.
+* IoWe Coverage Mapper
+    * [Product page](https://www.internetofwe.net/product-page/helium-coverage-mapper)
+
+### Plug & Play
+Console-ready device that you onboard to spend your own Data Credits.
+The [Mappers Quickstart](/use-the-network/coverage-mapping/mappers-quickstart) guide focuses on the the LGT-92, but the steps are effectively the same for any mapping device.
+* Adeunis Field Test Device
+    * [Product page](https://www.adeunis.com/en/produit/ftd-network-tester/)
+    * [Adeunis tutorial](/use-the-network/coverage-mapping/adeunis-mapper)
+* Dragino LGT-92
+    * [Product page](https://www.dragino.com/products/lora-lorawan-end-node/item/142-lgt-92.html)
+    * [Dragino LGT-92 tutorial](/use-the-network/coverage-mapping/mappers-quickstart)
+* Fiz-Tech Mapper
+    * [Product page](https://fiz-tech.net/search?type=tag&q=Mapper)
+* Glamos Walker
+    * [Product page](https://glamos.eu/product/walker/)
+    * [Glamos Walker tutorial](https://glamos.eu/manual/)
+* RAK Wireless RAK7200 
+    * [Product page](https://store.rakwireless.com/products/rak7200-lpwan-tracker?variant=29669491867693)
+
+### DIY
+Flash your own code and spend your own Data Credits. Setting up a mapper from your own dev board is a great way to learn about LoRaWAN devices on the Helium Network.
+* Ingenious Things Mapper (disk91)
+    * [Product page](https://shop.ingeniousthings.fr/products/helium-lorawan-field-tester-and-mapper-kit)
+    * [Disk91 Mapper tutorial](https://www.disk91.com/2021/technology/lora/low-cost-lorawan-field-tester/)
+* Helium Dev Kit / RAK WisBlock 
+    * [Product page via RAKWireless](https://store.rakwireless.com/products/helium-developer-kit), [Product page via ParleyLabs](https://shop.parleylabs.com/collections/iot-developers-products/products/helium-wisblock-connected-kit)
+    * [Helium Dev Kit tutorial](https://github.com/arkieguy/RAK4631-Helium-Mapper)
+* Heltec CubeCell
+    * [Product page](https://heltec.org/project/htcc-ab02s/)
+    * [Heltec Cubecell tutorial](https://github.com/jas-williams/CubeCell-Helium-Mapper)
+* Lilygo TTGO T-Beam
+    * [Product page](http://www.lilygo.cn/prod_view.aspx?TypeId=50060&Id=1317&FId=t3:50060:3)
+
+### Configuration Basics
+At its core, contributing to Mappers is just a matter of delivering a specific payload through the console. Learn more about the [Mappers API](/use-the-network/coverage-mapping/mappers-api)
+
+## Understanding the Mappers Visualization
+From within the [Mappers tool](http://mappers.helium.com), clicking on a green hexagon will allow you to get more infomation about the coverage available in that region.
+* H3 Index
+    * The funny looking number like `89283082853ffff` is the unique h3 index of the hexagon on the map. In other words, it's the hex’s name. H3 is a system of managing global datasets, and is pervasive throughout different Helium protocols.
+* RSSI
+    * “Received Signal Strength Indicator” is a measure of the power present in a received radio signal. This number is computed by the hotspot when it hears the signal from a mapper. The higher the signal (less negative), the ‘stronger’ it is considered.
+* SNR
+    * “Signal to Noise” measures the ratio of received power to background power in the received signal. Like the RSSI, it is also computed by the hotspot when it hears signal from the mapper. A higher ratio represents a clear signal whereas a negative number in this field represents a noisy signal.
+* Redundancy
+    * The total count of hotspots that heard a mapper from within this hex. This metric is helpful in understanding the resilience of the network in a given area.
+* Distance
+    * This is the approximate distance of the mapper from the hotspot that heard it.
