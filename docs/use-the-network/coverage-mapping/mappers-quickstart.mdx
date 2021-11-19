@@ -9,9 +9,8 @@ slug: /use-the-network/coverage-mapping/mappers-quickstart
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 This guide will show you step by step how to contribute data to the Mappers
-project with an off-the-shelf tracker. This guide will use the
-[Dragino LGT92](https://www.dragino.com/products/lora/item/142-lgt-92.html), but
-any LoRaWAN compatible tracker will work.
+project with an off-the-shelf tracker. This guide will use the [Dragino LGT92](https://www.dragino.com/products/lora/item/142-lgt-92.html), 
+but any LoRaWAN compatible tracker will work.
 
 ### Steps
 
@@ -58,10 +57,8 @@ Next, we'll be creating a Function decoder to decode the payload from the device
 and properly format it for the API endpoint. The decoder is specific to the
 encoding scheme used to encode the data before the device transmits it. For off-the-shelf 
 devices this is usually manufacturer specific. For development devices,
-[CayenneLPP](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload)
-if often used. For this guide we'll be using a decoder specifically made for
+[CayenneLPP](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload) is often used. For this guide we'll be using a decoder specifically made for
 this tracking device. We have a repository with decoders for various devices [here](https://github.com/helium/console-decoders).
-For this guide we will use one from [this](https://github.com/helium/console-decoders/tree/master/Dragino/LGT92) sub folder.
 
 To start, navigate to the Functions page using the left navigation and then
 click _Add Function_.
@@ -70,8 +67,7 @@ click _Add Function_.
    type of Function, _Decoder_ in this case, and finally select _Custom Script_
    from the drop down.
 2. Copy and paste the complete decoder function provided by the manufacturer or
-   found
-   [here](https://github.com/helium/console-decoders/blob/master/Dragino/LGT92/decoder-v1.6.4.js).
+   found [here](https://github.com/helium/console-decoders/blob/master/Dragino/LGT92/decoder-v1.6.4.js).
 
    ```javascript
     function Decoder(bytes, port) {
@@ -122,14 +118,14 @@ click _Add Function_.
           HDOP:hdop,
       }
     }
-  ```  
+    ```  
   
    Next we need to verify that all required fields are present in the function. 
    Find more details on the API specification [here](/use-the-network/coverage-mapping/mappers-api).
    The required fields are case-sensitive. If you got your decoder from the manufacturer and one or
    more required fields are missing - add them with hard-coded values like accuracy in the above example.
    
-3. Finally save your function.
+3. Finally, save your function.
 
 <img
   src={useBaseUrl(
@@ -139,8 +135,7 @@ click _Add Function_.
 
 ### 4. Create a Flow
 
-Next we will create a [_Flow_](/use-the-network/console/flows/orientation). Navigate to the Flows page and
-click the + sign next to Nodes.
+Next we will create a [_Flow_](/use-the-network/console/flows/orientation). Navigate to the Flows page and click the + sign next to Nodes.
 
 <img
   src={useBaseUrl(
@@ -169,10 +164,8 @@ shown below.
   )}
 />
 
-That's all! You can now expect to see your data show up on
-[mappers.helium.com](https://mappers.helium.com) in a few minutes. If you want to 
-see where your mapper is on the map, you could use [Cargo](https://cargo.helium.com).
-You will have to add one more [integration](/use-the-network/console/integrations/cargo/#add-a-cargo-integration) and link it to the decoder in your flow.
+That's all! You can now expect to see your data show up on [mappers.helium.com](https://mappers.helium.com) in a few minutes. If you want to 
+see where your mapper is on the map, you could use [Cargo](https://cargo.helium.com). You will have to add one more [integration](/use-the-network/console/integrations/cargo/#add-a-cargo-integration) and link it to the decoder in your flow.
 
 <img
   src={useBaseUrl(
