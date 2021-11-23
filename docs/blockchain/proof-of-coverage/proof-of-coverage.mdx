@@ -18,8 +18,8 @@ location.
 
 **See Proof of Coverage in Action**
 
-The [Helium Network Explorer](https://network.helium.com) is the best resources for viewing POC-related data.
-Before you dive into the POC internals, here are a few POC Challenges to help
+The [Helium Network Explorer](https://network.helium.com) is the best resources for viewing PoC-related data.
+Before you dive into the PoC internals, here are a few PoC Challenges to help
 you visualize how this works:
 
 - [Cheesy Brick Mustang from block 641265](https://explorer.helium.com/txns/qmJF48v8ZlEfsPg_7jc2CrsLlOvgC7w-pvB_BWQAoOk)
@@ -55,11 +55,11 @@ Let's take a look at how challenges actually happen.
 
 ### Hotspot Roles
 
-POC Challenges involve three distinct roles:
+PoC Challenges involve three distinct roles:
 
-1. **Challenger** - The Hotspot that constructs and issues the POC Challenge. Hotspots issue
+1. **Challenger** - The Hotspot that constructs and issues the PoC Challenge. Hotspots issue
 challenges approximately once per every 360 blocks. (See note below)
-2. **Transmitter** - Sometimes called "Challengee". This Hotspot is the target of the POC 
+2. **Transmitter** - Sometimes called "Challengee". This Hotspot is the target of the PoC 
 challenge and is responsible for transmitting (or "beaconing") challenge packets to potentially be witnessed by 
 geographically proximate Hotspots.
 3. ** Witness** - Hotspots that are geographically proximate to the Transmitter and report the existence of the 
@@ -95,10 +95,10 @@ capture RF packets.
 After a Transmitter receives the challenge, it will beacon the challenge packet. There is no
 intended recipient of this packet, and any Hotspot that is geographically proximate to the transmitter 
 is eligible to witness it and report back to the blockchain. After a Hotspots witnesses a beacon from a 
-transmitter, it will submit this as part of the POC Challenge receipt that gets assembled and submitted
-to the blockchain by the POC Challenger.
+transmitter, it will submit this as part of the PoC Challenge receipt that gets assembled and submitted
+to the blockchain by the PoC Challenger.
 
-### POC Reward Scaling
+### PoC Reward Scaling
 
 For every epoch, each [reward type](/blockchain/mining) is split amongst Hotspots who had a role in that reward pool. 
 For example, if your Hotspot was challenged during an epoch, it will be eligible to a portion of the 5.31% of rewards that 
@@ -130,8 +130,8 @@ Target density varies by hex resolution, as detailed in the HIP and defined in s
 
 ### Verifying the Proof
 
-Once the Challenger has the complete set of receipts from the POC Witnesses and Transmitter, or the elapsed time since 
-the challenge was issued has passed the upper time bound, the POC Challenge is considered complete. At this point, the 
+Once the Challenger has the complete set of receipts from the PoC Witnesses and Transmitter, or the elapsed time since 
+the challenge was issued has passed the upper time bound, the PoC Challenge is considered complete. At this point, the 
 Challenger then submits the proof receipt as a transaction to the blockchain to be verified by the current consensus group. 
 Because the steps taken by the Challenger to construct and complete the proof are deterministic and easily reproduced, 
 members of the consensus group can verify the legitimacy of the proof. Specifically the Challenger reveals the secret 
