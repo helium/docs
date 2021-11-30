@@ -63,30 +63,122 @@ If that ends up being no problem, then you're doing great! The extra sections in
 this guide will discuss things you should do when preparing a production system
 for the Miner container.
 
-## Omit REGION_OVERRIDE
+## The LoRa Packet Forwarder
 
-Setting `REGION_OVERRIDE` is only useful if you want a hotspot to forward
-packets without being asserted on-chain (ie: they will not earn HNT). In a
-production system, the override can be detrimental as it will lock the device
-into that specific region. Instead, if you omit the override, the Miner watches
-the blockchain to figure out which region it has been asserted in.
+Integrating the miner process with the LoRa packet forwarder requires some
+finess. The packet forwarder must be configured properly so that it operates
+using the unique LoRa parameters for the geographical region in which the
+hotspot is asserted. To do this, your integration must ask the miner for
+the appropriate LoRa parameters to use and then launch the packet forwarder
+with those parameters.
 
-In fact, in Helium's own firwmare image, we actually use this information to
-also determine which packet forwarder configuration to select, so our startup
-routine for packet forwarder will actually block as it requests region from
-miner
+We will describe two methods for setting up the packet forwarder: one for
+initial testing, and a second, proper method, which must be used in
+production.
+
+### Forcing the LoRa Region With an Override
+
+During initial testing you may wish to tell the miner to override the local
+region settings so that you can launch the packet forwarder immediately without
+consulting the blockchain for parameters. To do this you use the
+`REGION_OVERRIDE` environment variable.
+
+Setting `REGION_OVERRIDE` allows you to forward packets without being asserted
+on-chain (ie: they will not earn HNT). As stated before, using the override
+in a _production_ system is detrimental. It will lock the device into the
+region you specify, which may not be acceptable for the blockchain.
+
+### Fetching the LoRa Region and Parameters at Runtime
+
+In production, all proper deployments _must_ query the miner to:
+
+* Obtain the LoRa Region name (e.g. `AS923_1`),
+* Launch the packet forwarder with the proper LoRa parameters.
+
+This process must be followed not only at boot time, but also continuously
+throughout the hotspot's running lifetime because some or all of the
+parameters may change.
+
+* The hotspot's location, and thus the LoRa region in which it operates
+  may change because the hotspot owner has established or moved
+  the hotspot via an `assert_location` transaction.
+
+* The region parameters themselves may change due government regulations or
+  community decisions.
+
+:::info
+See additional notes about what to do if the asserted location is not supported
+by your hardware or certification process.
+:::
+
+The general procedure, in psuedo-code is:
+
+1. Poll the miner process to determine the local LoRa region. Wait until it
+   changes (or at boot, is established.)
+2. On region change/availability, ask the miner for the LoRa parameters for
+   the region.
+3. Use the parameters to find, or generate, a packet forwarder configuration
+   that matches the parameters.
+4. Launch (or restart) the packet forwarder with the correct configuration.
+5. Repeat at step 1.
+
+#### Polling the Miner for the LoRa Region
+
+There are two methods you can use to poll the miner for its configured region:
+the command-line interface and via JSON-RPC.
+
+*Command-line Polling*
 
 ```bash
 # Wait until miner knows the regulatory region.
-while ! /opt/miner/bin/miner info region > /dev/null 2>&1; do
-    sleep 1
+while ! REGION=$( /opt/miner/bin/miner info region); do
+    sleep 30
 done
 ```
 
-This allows you to ship a single firmware image that will work in any region.
-When the user has asserted the Miner and its location to the blockchain, you can
-get the appropriate region from Miner and use the appropriate configuration for
-a packet forwarder.
+*JSON-RPC Polling*
+
+```bash
+while ! REGION=$( \
+    curl -s http://localhost:4467/ \
+        -d '{"jsonrpc":"2.0","id":0,"method":"info_region"}' | \
+        jq -e -r .result); do
+    sleep 30
+done
+```
+
+#### Querying the Miner for LoRa parameters
+
+The LoRa parameters for a geographical region are highly-structured data. For
+this reason, you must use the miner JSON-RPC interface to query and receive
+them.
+
+*JSON-RPC Query*
+
+```bash
+curl -s http://localhost:4467/ \
+    -d '{"jsonrpc":"2.0","id":0,"method":"ledger_lora_region_parameters","params":{"region":"'"$REGION"'""}}'
+```
+
+The result from this query, should it succeed, will be a JSON object. The
+object contained within the `.result` attribute will be an array of Channel
+objects representing the LoRa uplink channels used in the region.
+
+*Channel Object*
+
+|Attribute|JSON type|Description|
+|-|-|-|
+|`channel_frequency_hz`|number|Channel center frequency, in hertz.|
+|`bandwidth_hz` | number | Channel bandwidth, in hertz.|
+|`max_eirp_dbm` | number | Maximum permissible Effective Isotropic Radiated Power (EIRP), in deciBels milliwatt (dBm).|
+|`spreading` | array | List of spreading factors used on the channel and their maximum packet sizes. (See SpreadingFactor object).|
+
+*SpreadingFactor object*
+
+|Attribute|JSON type|Description|
+|-|-|-|
+|`factor` | string | Enumeration (one of) `SF12`, `SF11`, `SF10`, `SF9`, `SF8`, `SF7`; representing a LoRa spreading factor.|
+|`max_packet_size` | number | Maximum permissible transmit packet size at this spreading factor, in bytes.|
 
 :::info
 If you need examples of our regional packet forwarder configurations, please see
