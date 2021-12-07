@@ -134,15 +134,6 @@ Work for both Milestone 3 and 4 are under way. The core team is currently focuse
   src={useBaseUrl("img/mine-hnt/dev-timeline-light-hotspots.png")}
 />
 
-- Change how Hotspots route data packets by replacing its `state_channel` client from erlang to rust, taking advantange of the improvements in gRPC and data streaming (complete)
-- Update how Hotspots receive, emit, and acknowledge proof-of-coverage receipts from erlang to rust (dev complete, testing on testnet, targets milestone 4)
-- Test PoC in testnet (started, targets milestone 4)
-- Update how full Hotspots communicate from libp2p to gRPC and follow a Validator for ledger information instead of syncing a local copy of the blockchain (dev complete, testing on testnet, targets milestone 4)
-- Implement the work to move Challenge creation to Validators from Hotspots, to be gated behind a chain variable (HIP in progress)
-- Activate the chain variable to move Challenge creation to Validators (to be announced)
-  - At this point, existing Hotspots no longer need to sync or absorb the blockchain, and will satisfy another property of Light Hotspot
-  - Hotspots existing on-chain will be able to participate in Proof-of-Coverage, no longer need to syncronize the blockchain, and will require less computational power (Milestone 4)
-
 ### Milestone 3: Introduction of Light Hotspots
 
 - Target Completion: Q2 2022
