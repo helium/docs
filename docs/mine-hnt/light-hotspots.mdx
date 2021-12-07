@@ -15,7 +15,7 @@ migration, we have introduced a new Hotspot variant onto the network, called
 a [Data Only Hotspot](/mine-hnt/data-only-hotspots). More details on progress
 and timeline are listed below.
 
-This project is in progress and subject to change. **Last updated Wednesday October 21, 2021**.
+This project is in progress and subject to change. **Last updated Wednesday December 6, 2021**.
 
 :::info
 
@@ -124,23 +124,19 @@ earn $HNT.
 - Target Completion: Fall 2021
 - Status: Development Complete (Oct 11, 2021)
 
-Data Only Hotspots will earn $HNT for device data transfer. A further breakdown of progress is outlined below:
+Data Only Hotspots will earn $HNT for device data transfer. 
 
 #### Path to Milestone 3 and Milestone 4
 Work for both Milestone 3 and 4 are under way. The core team is currently focused on transitioning Full Hotspots to Light Hotspots due to the increasing size of the network and the amount of work needed to sustain this large peer-to-peer network.
 
-- Change how Hotspots route data packets by replacing its `state_channel` client from erlang to rust, taking advantange of the improvements in gRPC and data streaming (complete)
-- Update how Hotspots receive, emit, and acknowledge proof-of-coverage receipts from erlang to rust (in progress, targets milestone 4)
-- Test PoC in testnet (not started, targets milestone 4)
-- Update how full Hotspots communicate from libp2p to gRPC and follow a Validator for ledger information instead of syncing a local copy of the blockchain (in progress, targets milestone 4)
-- Implement the work to move Challenge creation to Validators from Hotspots, to be gated behind a chain variable (HIP in progress)
-- Activate the chain variable to move Challenge creation to Validators (to be announced)
-  - At this point, existing Hotspots no longer need to sync or absorb the blockchain, and will satisfy another property of Light Hotspot
-  - Hotspots existing on-chain will be able to participate in Proof-of-Coverage, no longer need to syncronize the blockchain, and will require less computational power (Milestone 4)
+<img
+  className="docsheader"
+  src={useBaseUrl("img/mine-hnt/dev-timeline-light-hotspots.png")}
+/>
 
 ### Milestone 3: Introduction of Light Hotspots
 
-- Target Completion: Q1 2022
+- Target Completion: Q2 2022
 - Status: Development in Progress/PoC work started
 
 Approved Hotspots from
@@ -166,7 +162,7 @@ At this stage, there will be three types of Hotspots:
 
 ### Milestone 4: "Heavy" Hotspots -> Light Hotspots
 
-- Target Completion: Q4 2021
+- Target Completion: Q1 2021
 - Status: Development in Progress
 
 Approved Hotspots on the Network will be converted
