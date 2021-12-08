@@ -64,7 +64,10 @@ module.exports = {
     {
       type: 'category',
       label: 'Community and Governance',
-      items: ['community-governance/community-governance'],
+      items: [
+        'community-governance/community-governance', 
+        'community-governance/community-voting'
+      ],
       collapsed: true,
     },
     {
