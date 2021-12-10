@@ -8,16 +8,38 @@ slug: /mine-hnt/full-hotspots/become-a-maker/hotspot-integration-testing
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-This guide is intended for companies that have been approved via HIP19, or are considering submitting an application. 
+This guide is intended for companies that have been approved via HIP19 and successfully passed the hardware audit stage.
 
-## Hotspot App Compatibility
+(New) By March 1, 2022, all Makers and prospective makers are required to develop and make available to their customers, their own mobile app. This allows Makers to create new and differentiating features for their customers and Hotspots. Examples can include detailed diagnostics reports, notifications of status changes, peer address reporting, Proof-of-Coverage tips and improvements, and better troubleshooting and customer support access.
+
+To make the transition easier, a [Maker Starter App](https://github.com/helium/maker-starter-app) is available for anyone to fork and modify. 
+
+The Helium app will continue to support HNT / Wallet functions, such as sending payments, receiving payments, and burn HNT. 
+
+## Starter App features
+* Supports deeplinking and transaction signing through the Helium app
+  * Simply put: users of the Maker app will not need to sign in with their 12 words, as long as they are signed in with the Helium app
+* Hotspot onboarding with Bluetooth
+* Hotspot onboarding with QR Code
+* Setting Wi-Fi credentials for Hotspots onboarded with Bluetooth
+* Assert Location (Bluetooth and QR Code)
+* Generating any required transactions for the Helium app to sign (`add_gateway`, `assert_location`, `transfer_hotspot_v2`)
+* Submit signed transactions to the blockchain
+* A settings menu with PIN code, language selector, and the linked Helium address displayed
+* Light and Dark mode  
 
 For optimal user experience, we recommend Hotspots be equipped with compatible Bluetooth and Wi-Fi functionality. This allows a seamless onboarding experience. This integration guide will walk through both Bluetooth onboarding and QR code/Web onboarding (to support Hotspots without Bluetooth radios)
+
+## Using the Maker Starter App
+Instructions to run the Maker Starter app locally on your computer is provided on the README in the GitHub repo. The app is written in React Native and supports both iOS and Android devices. 
+
+Support for any other operating system will not be available.
+
+## [Deprecated] Hotspot App Compatibility
 
 To add your Hotspot to the Hotspot App, follow the [Maker Guide](https://github.com/helium/hotspot-app/tree/main/src/makers) in GitHub and [submit a pull request to the Hotspot Github Repo](https://github.com/helium/hotspot-app). 
 
 In this codebase, you’ll want to modify the onboarding flow to add a UI element that enables users to select your Hotspot type on this screen, add support emails to Diagnostic Reports (Bluetooth only), add additional onboarding instructions (web/QR) and include default antenna TX/RX gain:
-
 
 :::info
 
@@ -48,17 +70,17 @@ To select QR Onboarding, in the `hotspot.ts` file, specify `QR` in `onboardType`
 
 
 ## Web Onboarding
-Web Onboarding allows Makers to generate a partial `add_gateway` transaction outside of the Helium App. Makers generate a deep link back to the Helium App to finish the `add_gateway` transaction. [Read more about deep linking](https://docs.helium.com/wallets/app-wallet/deep-links-and-qr-codes/).
+Web Onboarding allows Makers to generate a partial `add_gateway` transaction outside of the Maker App. Makers generate a deep link back to the Helium App/Maker App to finish the `add_gateway` transaction. [Read more about deep linking](https://docs.helium.com/wallets/app-wallet/deep-links-and-qr-codes/).
 
-To select Web onboarding, in the `hotspot.ts` file, specify `web` in `onboardType`. [View the example in GitHub](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L41)
+To select Web onboarding, in the `hotspot.ts` file, specify `web` in `onboardType`. [View the example in the Maker Starter app](https://github.com/helium/maker-starter-app/blob/main/src/makers/example/hotspots.ts).[(Deprecated) View the example in the Helium App](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L41)
 
 ## Bluetooth Pairing
 
-The Helium Hotspot App will start scanning for broadcasting Hotspots. Makers will need to update the `localname` with the product name and include the last 6 digits of the MAC identifier. The character limit is 170 but we do not recommend anyone go beyond 25-30 characters in the product name.
+The Maker App will start scanning for broadcasting Hotspots. Makers will need to update the `localname` with the product name and include the last 6 digits of the MAC identifier. The character limit is 170 but we do not recommend anyone go beyond 25-30 characters in the product name.
 
 The `localname` is the name used on the **Found Hotspots** page.
 
-To select Bluetooth onboarding, in the `hotspot.ts` file, specify `BLE` in `onboardType`. [View the example in GitHub](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L8).
+To select Bluetooth onboarding, in the `hotspot.ts` file, specify `BLE` in `onboardType`. [View the example in the Maker Starter App](https://github.com/helium/maker-starter-app/blob/f15a887afead44f2c0bba6ac7460cffebe02dc03/src/makers/example/hotspots.ts#L6)[(Deprecated) View the example the Helium app](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L8).
 
 [Read more about BLE Services](/mine-hnt/full-hotspots/become-a-maker/hotspot-ble-services).
 
@@ -83,7 +105,7 @@ For testing, you'll set `payer` as `payer = 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHz
 
 When testing with this `payer` address, adding hotspots and asserting location transactions will be submitted and you’ll see them as pending transactions in the Hotspot App. However, once it reaches the blockchain, the transaction will be discarded as the payer address does not exist in the blockchain’s `chain_var` of valid addresses. This ensures no Data Credits are spent on testing, but allows trial and error as Makers finish app integration.
 
-Once submitted, you can view the pending transaction using this API:
+Once you have the transaction, you will pass it onto the Helium app to sign the transaction. Once submitted, you can view the pending transaction using this API:
 
 * [https://api.helium.io/v1/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr/pending_transactions](https://api.helium.io/v1/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr/pending_transactions)
 
@@ -135,19 +157,7 @@ Maker IDs are sequential and cannot be customized.
 
 ## Funding the Maker Account
 
-In order to fund the Maker account, you’ll need to [create a CLI wallet](https://github.com/helium/helium-wallet-rs). Once created, fund this wallet with HNT and use this HNT to produce Data Credits for your Hotspots. For each Hotspot onboarded, the [transaction fees](/blockchain/transaction-fees#transaction-fee-schedule) are as follows:
-
-* **Add Gateway**: `4000000 DCs`
-* **Assert Location**: `1000000 DCs`
-
-The `payee` in the burn transaction will be your Maker account. This is where the Data Credits will be deposited. 
-
-:::warning 
-
-Remember, Data Credits are NON-TRANSFERABLE. Triple check that the `payee` address is your correct `maker` address.
-
-:::
-
+[Read the guide](https://docs.helium.com/mine-hnt/full-hotspots/become-a-maker/burn-hnt-to-maker-wallet) for more information. 
 
 
 ## Adding Hotspots to the Onboarding Server
