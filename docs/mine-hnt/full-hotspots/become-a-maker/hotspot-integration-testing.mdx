@@ -12,6 +12,8 @@ This guide is intended for companies that have been approved via HIP19 and succe
 
 (New) By March 1, 2022, all Makers and prospective makers are required to develop and make available to their customers, their own mobile app. This allows Makers to create new and differentiating features for their customers and Hotspots. Examples can include detailed diagnostics reports, notifications of status changes, peer address reporting, Proof-of-Coverage tips and improvements, and better troubleshooting and customer support access.
 
+**Makers actively going through the HIP-19 process can continue to use the Helium app but are expected to develop their own Maker app by March 1, 2022.**
+
 To make the transition easier, a [Maker Starter App](https://github.com/helium/maker-starter-app) is available for anyone to fork and modify. 
 
 The Helium app will continue to support HNT / Wallet functions, such as sending payments, receiving payments, and burn HNT. 
@@ -35,7 +37,13 @@ Instructions to run the Maker Starter app locally on your computer is provided o
 
 Support for any other operating system will not be available.
 
-## [Deprecated] Hotspot App Compatibility
+## Hotspot App Integration
+
+:::info
+
+Makers in the HIP-19 process can continue to submit their Hotspots to the Hotspot App for integration. However, all active Makers by March 1, 2022 must have their own Maker app available on App Stores.
+
+:::
 
 To add your Hotspot to the Hotspot App, follow the [Maker Guide](https://github.com/helium/hotspot-app/tree/main/src/makers) in GitHub and [submit a pull request to the Hotspot Github Repo](https://github.com/helium/hotspot-app). 
 
@@ -53,7 +61,7 @@ Product names on this page should follow [Helium branding guidelines](https://ww
 
 QR Code Onboarding allows Makers to generate a partial `add_gateway` transaction outside of the Helium App. Users use the camera in the Helium App to add this type of Hotspot. 
 
-To select QR Onboarding, in the `hotspot.ts` file, specify `QR` in `onboardType`. [View the example in GitHub](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L41) or [read more about generating QR codes](https://docs.helium.com/wallets/app-wallet/deep-links-and-qr-codes/).
+To select QR Onboarding, in the `hotspot.ts` file, specify `QR` in `onboardType`. [View the example in the Maker Starter app](https://github.com/helium/maker-starter-app/blob/f15a887afead44f2c0bba6ac7460cffebe02dc03/src/makers/example/hotspots.ts#L43)|[View the example in the Hotspot app](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L41) or [read more about generating QR codes](https://docs.helium.com/wallets/app-wallet/deep-links-and-qr-codes/).
 
 ### Example QR Onboarding Flow
 <img
@@ -72,7 +80,7 @@ To select QR Onboarding, in the `hotspot.ts` file, specify `QR` in `onboardType`
 ## Web Onboarding
 Web Onboarding allows Makers to generate a partial `add_gateway` transaction outside of the Maker App. Makers generate a deep link back to the Helium App/Maker App to finish the `add_gateway` transaction. [Read more about deep linking](https://docs.helium.com/wallets/app-wallet/deep-links-and-qr-codes/).
 
-To select Web onboarding, in the `hotspot.ts` file, specify `web` in `onboardType`. [View the example in the Maker Starter app](https://github.com/helium/maker-starter-app/blob/main/src/makers/example/hotspots.ts).[(Deprecated) View the example in the Helium App](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L41)
+To select Web onboarding, in the `hotspot.ts` file, specify `web` in `onboardType`. [View the example in the Maker Starter app](https://github.com/helium/maker-starter-app/blob/main/src/makers/example/hotspots.ts)|[View the example in the Hotspot App](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L41)
 
 ## Bluetooth Pairing
 
@@ -80,7 +88,7 @@ The Maker App will start scanning for broadcasting Hotspots. Makers will need to
 
 The `localname` is the name used on the **Found Hotspots** page.
 
-To select Bluetooth onboarding, in the `hotspot.ts` file, specify `BLE` in `onboardType`. [View the example in the Maker Starter App](https://github.com/helium/maker-starter-app/blob/f15a887afead44f2c0bba6ac7460cffebe02dc03/src/makers/example/hotspots.ts#L6)[(Deprecated) View the example the Helium app](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L8).
+To select Bluetooth onboarding, in the `hotspot.ts` file, specify `BLE` in `onboardType`. [View the example in the Maker Starter App](https://github.com/helium/maker-starter-app/blob/f15a887afead44f2c0bba6ac7460cffebe02dc03/src/makers/example/hotspots.ts#L6)|[View the example the Hotspot app](https://github.com/helium/hotspot-app/blob/bbcf058844965e6501295643b95021b6ef26b280/src/makers/__example__/hotspots.ts#L8).
 
 [Read more about BLE Services](/mine-hnt/full-hotspots/become-a-maker/hotspot-ble-services).
 
