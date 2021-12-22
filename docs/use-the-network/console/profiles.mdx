@@ -20,6 +20,7 @@ Current settings that can be set via Profiles:
 
 - [ADR](#adr)
 - [CF List](#cf-list) 
+- [Receive Window Delay](#receive-window-delay)
 
 :::info
 For a video walkthrough of configuring ADR and CF List, check out our Tips and Tricks video [here](https://youtu.be/9nlkAEI1V-Q).
@@ -61,6 +62,18 @@ The Join-Accept CF List configures channels according to the LoRaWAN spec to use
 - Disabled, the server will not send a CF List. The channel mask is still transmitted via ADR command.
 
 **Notes:** By default this setting is disabled and only applicable to US915 devices.  
+
+## Receive Window Delay
+
+This setting allows users to specify the number of seconds the device's first receive window begins after the transmit ends. 
+
+The range window can be adjusted from 1 (default) to 5 seconds.
+ 
+A higher number increases the receive delay window and generally can increase downlink reliability as higher latencies between the LoRaWAN gateway and network server will be tolerated. 
+
+However, devices that suffer from drift may not work as well and a longer delay reduces the theoretical maximum rate of communication since a subsequent transmit may only be accomplished after both receive windows. 
+
+Note: According to the LoRaWAN spec, the second receive window always begins one second after the first.
 
 ## Creating Profiles
 Profiles need to be created before they can be applied to devices. 
