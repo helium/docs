@@ -10,10 +10,29 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 <img className="docsheader" src={useBaseUrl("img/use-the-network/coverage-mapping/header.png")} />
 
 # Coverage Mapping
-The Mappers project is a crowd-sourced effort to build a true-signal coverage map of the Helium network across the globe.
-View Mappers data at [mappers.helium.com](https://mappers.helium.com/). The Mappers tool lets you see the areas that have been explored by participants in the project, and the Helium hotspots that have provided coverage to those areas. By mapping real-world coverage, network users can understand where sensor deployments are proven to work.
+
+Coverage mapping is a crowd-sourced effort to build a true-signal coverage map of the Helium network across the globe. By mapping real-world coverage, network users can understand where sensor deployments are proven to work.
+
+> Coverage mapping should only be done from ground level, or slightly above it. We would like the map to indicate the expected coverage a standard end device would experience. If you want to fly a GPS tracker on a balloon or aircraft, please do not contribute this data to the coverage map.
 
 Be sure to check out the ongoing conversation in the dedicated `#mappers` channel on the [Helium Discord Server](https://discord.gg/helium).
+
+## Mapping Projects
+
+### Helium Mappers
+
+Helium Mappers lets you see the areas that have been explored by participants in the coverage mapping project. The map also shows the Helium hotspots that have provided coverage to these areas. Helium Mappers uses the H3 hexagon tiles to aggregate survey results and provided statistics.
+View Mappers data at [mappers.helium.com](https://mappers.helium.com/).
+
+### Helium Cargo
+
+Cargo is an evaluation tool for LoRaWAN GPS tracking devices. It shows the current location of these devices, along with the coverage of the network as an H3 hex grid.
+View GPS trackers on Cargo at [cargo.helium.com](https://cargo.helium.com/).
+
+### CoverageMap.net
+
+Coverage Map is a third party tool that draws heatmaps for LoRaWAN networks. This tool has the ability to show raw survey results for devices and hotspots. It aggregates coverage measurements into a heatmap, radar plots and alpha shapes.
+View Helium's heatmap at [CoverageMap.net](https://coveragemap.net/).
 
 ## Mappers Newsletter
 Join the Mappers [newsletter](https://www.helium.com/mappers) to stay up to date on new and upcoming features.
@@ -103,7 +122,14 @@ Flash your own code and spend your own Data Credits. Setting up a mapper from yo
     * [TTGO T-Beam (Max_Plastix)](https://github.com/Max-Plastix/tbeam-helium-mapper)
 
 ### Configuration Basics
-At its core, contributing to Mappers is just a matter of delivering a specific payload through the console. Learn more about the [Mappers API](/use-the-network/coverage-mapping/mappers-api)
+At its core, contributing to Helium Mappers is just a matter of delivering a specific payload through the console. Learn more about the [Mappers API](/use-the-network/coverage-mapping/mappers-api). 
+
+If your mapping device is delivering messages to Helium Mappers, you can also enable the integrations for [Cargo](https://docs.helium.com/use-the-network/console/integrations/cargo/) and [CoverageMap.net](https://docs.ttnmapper.org/integration/helium.html) to contribute to these two projects.
+
+A flow that sends data to all three projects would look similar to this:
+
+![Helium flow mappers](flow-mappers-cargo-coverage.png)
+
 
 ## Understanding the Mappers Visualization
 From within the [Mappers tool](http://mappers.helium.com), clicking on a green hexagon will allow you to get more information about the coverage available in that region.
