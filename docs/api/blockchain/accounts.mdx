@@ -120,9 +120,9 @@ Returns up to 100 of the accounts sorted by highest token balance.
 
 _Query Parameters_
 
-| param            | Type     | Note                                                 |
-| ---------------- | -------- | ---------------------------------------------------- |
-| limit (optional) | _string_ | Number of accounts to return. Default 100, max 100   |
+| param            | Type     | Note                                               |
+| ---------------- | -------- | -------------------------------------------------- |
+| limit (optional) | _string_ | Number of accounts to return. Default 100, max 100 |
 
 </TabItem>
 <TabItem value="response">
@@ -226,6 +226,10 @@ GET https://api.helium.io/v1/accounts/:address/hotspots
 Fetches hotspots owned by a given account address.The list of returned hotspots
 is paged. If a `cursor` field is present more results are available.
 
+The `filter_modes` parameter can be used to filter hotspot by how they were
+added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
+comma separated list (no whitespace) can be used to filter for multiple modes.
+
 Note: The cursor for accounts is valid for a limited time. If you receive a
 `400` http response code for a cursor based request, you will need to start
 fetching accounts from the beginning of the list.
@@ -244,9 +248,10 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param             | Type     | Note                                          |
-| ----------------- | -------- | --------------------------------------------- |
-| cursor (optional) | _string_ | Cursor for the next page of hotspots to fetch |
+| param                   | Type     | Note                                          |
+| ----------------------- | -------- | --------------------------------------------- |
+| cursor (optional)       | _string_ | Cursor for the next page of hotspots to fetch |
+| filter_modes (optional) | _string_ | Filter hotspot types                          |
 
 </TabItem>
 <TabItem value="response">
@@ -295,6 +300,7 @@ The hotspot list for an account
 </Tabs>
 
 ---
+
 ## Validators for Account
 
 ```
@@ -493,9 +499,9 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param             | Type     | Note                                          |
-| ----------------- | -------- | --------------------------------------------- |
-| cursor (optional) | _string_ | Cursor for the next page of OUIs to fetch     |
+| param             | Type     | Note                                      |
+| ----------------- | -------- | ----------------------------------------- |
+| cursor (optional) | _string_ | Cursor for the next page of OUIs to fetch |
 
 </TabItem>
 <TabItem value="response">
@@ -518,9 +524,7 @@ The oui list for account `13tyMLKRFYURNBQqLSqNJg9k41maP1A7Bh8QYxR13oWv7EnFooc`
       "oui": 1,
       "nonce": 0,
       "block": 762440,
-      "addresses": [
-        "112qB3YaH5bZkCnKA5uRH7tBtGNv2Y5B4smv1jsmvGUzgKT71QpE"
-      ]
+      "addresses": ["112qB3YaH5bZkCnKA5uRH7tBtGNv2Y5B4smv1jsmvGUzgKT71QpE"]
     }
   ]
 }
@@ -528,7 +532,6 @@ The oui list for account `13tyMLKRFYURNBQqLSqNJg9k41maP1A7Bh8QYxR13oWv7EnFooc`
 
 </TabItem>
 </Tabs>
-
 
 ---
 
@@ -555,6 +558,15 @@ _Path Parameters_
 | param              | Type     | Note                                      |
 | ------------------ | -------- | ----------------------------------------- |
 | address (required) | _string_ | Account B58 address to fetch activity for |
+
+_Query Parameters_
+
+| param                  | Type     | Note                                      |
+| ---------------------- | -------- | ----------------------------------------- |
+| filter_types(optional) | _string_ | Comma separated list of transaction types |
+| min_time (optional)    | _string_ | First time to include data for            |
+| max_time (optional)    | _string_ | Last time to include data for             |
+| limit (optional)       | _number_ | Maximum number of items to return         |
 
 </TabItem>
 <TabItem value="response">
@@ -696,15 +708,15 @@ transaction of that type.
 
 _Path Parameters_
 
-| param              | Type     | Note                                      |
-| ------------------ | -------- | ----------------------------------------- |
-| address (required) | _string_ | Account B58 address to fetch counts for   |
+| param              | Type     | Note                                    |
+| ------------------ | -------- | --------------------------------------- |
+| address (required) | _string_ | Account B58 address to fetch counts for |
 
 _Query Parameters_
 
-| param             | Type     | Note                                          |
-| ----------------- | -------- | --------------------------------------------- |
-| filter_types      | _string_ | Comma separated list of transasction types    |
+| param        | Type     | Note                                      |
+| ------------ | -------- | ----------------------------------------- |
+| filter_types | _string_ | Comma separated list of transaction types |
 
 </TabItem>
 <TabItem value="response">
@@ -716,16 +728,15 @@ Fetch counts with `filter_types=add_gateaway_v1,assert_location_v1` for account
 
 ```json
 {
-    "data": {
-        "add_gateway_v1": 5777,
-        "assert_location_v1": 5878
-    }
+  "data": {
+    "add_gateway_v1": 5777,
+    "assert_location_v1": 5878
+  }
 }
 ```
 
 </TabItem>
 </Tabs>
-
 
 ---
 
@@ -751,6 +762,14 @@ _Path Parameters_
 | param              | Type     | Note                                      |
 | ------------------ | -------- | ----------------------------------------- |
 | address (required) | _string_ | Account B58 address to fetch activity for |
+
+_Query Parameters_
+
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
 
 </TabItem>
 <TabItem value="response">
@@ -844,6 +863,14 @@ _Path Parameters_
 | param              | Type     | Note                                      |
 | ------------------ | -------- | ----------------------------------------- |
 | address (required) | _string_ | Account B58 address to fetch activity for |
+
+_Query Parameters_
+
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
 
 </TabItem>
 <TabItem value="response">
@@ -1180,11 +1207,11 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param               | Type     | Note                                   |
-| ------------------- | -------- | -------------------------------------- |
-| min_time (required) | _string_ | First time to include rewards for      |
-| max_time (required) | _string_ | Last time to include rewards for       |
-| bucket (optional)   | _string_ | Bucket specifier                       |
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| min_time (required) | _string_ | First time to include rewards for |
+| max_time (required) | _string_ | Last time to include rewards for  |
+| bucket (optional)   | _string_ | Bucket specifier                  |
 
 </TabItem>
 <TabItem value="response">
@@ -1226,9 +1253,9 @@ hours), and daily (hourly).
 
 _Path Parameters_
 
-| param              | Type     | Note                                      |
-| ------------------ | -------- | ----------------------------------------- |
-| address (required) | _string_ | Account B58 address to fetch stats for    |
+| param              | Type     | Note                                   |
+| ------------------ | -------- | -------------------------------------- |
+| address (required) | _string_ | Account B58 address to fetch stats for |
 
 </TabItem>
 <TabItem value="response">

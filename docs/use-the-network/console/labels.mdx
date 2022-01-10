@@ -8,139 +8,39 @@ slug: /use-the-network/console/labels
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-Labels are a powerful mechanism used in Helium Console to organize devices,
-assign integrations, and provide scalability and flexibility to managing your
-projects.
+Labels are used to group devices for better organization allowing flexibility as your projects scale and grow. Think of a label as simply a group of devices.
 
-## Organizing and Connecting with Labels
+## Organizing with Labels
 
-Devices can be both organized and connected to Integrations with the use of
-Labels. Labels are simply user defined identifiers, that can be attached to one
-or more devices, and one or more Integrations. Also multiple Labels can be added
-to a single device so users can choose to identify devices based on attributes
-such as geography \(e.g. `SF`\) and device type \(e.g. `temperature` or
-`humidity`\).
-
-Labels provide flexibility to define where to send data from devices. Users can
-apply a Label to an Integration and that Label can be used to connect a single
-or multiple devices to that Integration. For example, users could define an
-internal server as an Integration for initial testing and apply a descriptive
-Label \(e.g. `internal_test`\). After ensuring devices send data, that
-`internal_test` Label could easily be replaced by one that maps to a production
-endpoint \(AWS\).
+Labels are simply user-defined identifiers that can be attached to one or more devices. Also multiple labels can be added to a single device so users can choose to identify devices based on attributes such as geography \(e.g. `SF`\) and device type \(e.g. `temperature` or `humidity`\).
 
 ## Add Labels
 
-When creating devices and integrations on Console, you will have the option to
-attach a custom Label to it. Before adding Labels to devices and integrations,
-you must create a new Label. To add a new Label, navigate to the **Labels** page
-using the left side navigation, and then click **Create New Label** in the upper
-right. You will be presented with the screen below.
+During device creation you can add an existing label or create a new one.
+
+Alternatively you can create labels beforehand. 
+
+To add a new label, on the Devices page click the Add New Label icon.
+
+The following screen appears.
 
 <img src={useBaseUrl("img/use-the-network/console/console-add-label.png")} />
 
 ## Attaching Labels
 
-Labels can be attached to devices and integrations during or after creation. If
-you would like to attach a label to a device or integration during creation,
-make sure to create the label before hand, and it will be available to select.
-If you would like to attach a label after creating a new device or integration,
-go to the specific device or integration details page and find the label
-attachment dropdown to apply.
-
-## Swapping Labels
-
-Labels can be swapped for other labels on devices. For example, devices that were
-originally in the San Francisco office had an **SF** label, but they were then moved
-to the Chicago office and now require a **Chicago** label. This can easily be
-accomplished by selecting the label that you wish to swap using the checkboxes on the left:
-
-<img src={useBaseUrl("img/use-the-network/console/console-swap-label-step01.png")} />
-
-Select **Swap Selected Label** from the **Quick Action** dropdown:
-
-<img src={useBaseUrl("img/use-the-network/console/console-swap-label-step02.png")} />
-
-Select which label you wish to swap into place:
-
-<img src={useBaseUrl("img/use-the-network/console/console-swap-label-step03.png")} />
-
-Confirm your choice:
-
-<img src={useBaseUrl("img/use-the-network/console/console-swap-label-step04.png")} />
-
-You will get a confirmation here:
-
-<img src={useBaseUrl("img/use-the-network/console/console-swap-label-step06.png")} />
-
-And you can now see by the number of devices that the new label has been swapped in.
-
-<img src={useBaseUrl("img/use-the-network/console/console-swap-label-step05.png")} />
-
-## Labels Settings
-
-Users can managed per-label settings across devices and integrations using the **Label Settings** button
-in the top right corner when viewing an individual label. Only users with
-administrator-level privileges can change label settings.
-
-<img src={useBaseUrl("img/use-the-network/console/label-settings.png")} />
-
-### General
-
-Under **General** settings, configure a label's name and its color as it
-appears on the left side of the Dashboard.
-
-### Packet
-
-Configure the **Packet** settings to adjust how many copies of each packet you
-want to receive. By default, the Network will deliver the packet with the best
-signal strength, and for most applications this is probably adequate. However,
-for purposes of redundancy or location analysis, users might want to request
-more than one distinct packet from Hotspots when available.
-
-:::important
-
-Each additional packet requested will result in additional data credit fees paid
-to the Network by your Helium Console organization.
-
-:::
+Labels can be attached to devices during or after creation. If
+you would like to attach a label to a device during creation,
+make sure to create the label beforehand, and it will be available to select.
 
 <img
-  src={useBaseUrl("img/use-the-network/console/labels-packet-settings.png")}
+  src={useBaseUrl("img/use-the-network/console/console-add-device-label.png")}
 />
 
-### Notifications
+To attach a label after creating a new device,
+go to the specific device details page and click the Add Label button. You can choose an existing label from the dropdown list or create a label.
 
-Helium Console will deliver email-based notifications for various events that
-happen for devices in a given label. For each notification, either
-`Administrators`, `Managers`, or both can be notified via email. The current
-list of supported notifications are:
+To attach a label to a device from the Flows workspace check [here](/use-the-network/console/flows/actions#add-labels-to-devices). 
 
-- When a device is deleted from an organization
-- When an integration containing devices has been deleted
-- When an integration with devices has been updated
+## Label Configurations
 
-<img
-  src={useBaseUrl(
-    "img/use-the-network/console/labels-notification-settings.png"
-  )}
-/>
-
-### Adaptive Data Rate
-
-To allow ADR for one device or a group of devices, simply toggle the `Allow ADR`
-in your Label settings. You can either create a Label strictly for managing ADR,
-or adjust the setting on a Label you already have attached to your devices.
-
-:::info
-
-You can read complete documentation on Helium's ADR implementation
-[here](/use-the-network/console/adr).
-
-:::
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/console/console-adr-label-settings-adr.png"
-  )}
-/>
+Label and device configurations (Alerts, ADR, Packets, CF List) have been updated, go [here](/use-the-network/console/adr) for information about how to configure these settings. 

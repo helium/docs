@@ -18,19 +18,18 @@ This Console quickstart guide will cover how to:
 :::info 
 The cost per packet is $0.00001 USD \(24 byte packets\) which is
 equivalent to 1 Data Credit \(DC\). For more information please go
-[here](https://github.com/helium/devdocs/tree/861823eb00b0643fe6ca03067de7fe9409dce149/longfi/data-credits/README.md).
+[here](https://docs.helium.com/use-the-network/console/data-credits/).
 :::
 
 ## Create an account
 
 To register for an account, visit [Helium Console](https://console.helium.com)
-and click **Register**.
+and click **Sign Up**.
 
-During Registration, you'll be asked to provide an Organization name and a Team
-name.
+During registration, you'll be asked to provide an Organization name. For more information about Organizations go [here](/use-the-network/console/users#organizations). 
 
 Define an Organization name for the top level owner of the account \(i.e. company
-name\). Think of Teams as a way to organize groups of devices.
+name\).
 
 <img src={useBaseUrl("img/use-the-network/console/console-register.png")} />
 
@@ -82,16 +81,19 @@ will be a larger dot, and small data packets will be a smaller dot.
 
 ### Event Log
 
-Event Logs display real-time packets in table form. Here you can see which
-Hotspot received the packet, its RSSI, and the size of the packet in bytes.
+Event Logs display real-time packets in table form. There's different categories including Uplinks, Downlinks, Join Request/Accept, Acknowledge. Here you can see size of packet, Port, and Devaddr. In addition, which
+Hotspot(s) received the packet, its RSSI, SNR, Frequency, Spreading Factor and time of receipt. As well as Integration success or failure messages. 
+
+The Event Log also provides a filter to display dropped uplinks, and allows users to filter events w/commands.
+
+The information in the Event Log can also exported as a JSON file. 
 
 ## Connecting Integrations to Devices
 
-Devices are connected to integrations through the use of Labels. Labels are
-named identifiers that can be used to associate an integration with a device.
-To connect one or more devices to one or more integrations, simply attach the
-same label to both the device and integration. Labels need to be created before
-attaching them to devices and integrations. Read more on labels [here](/use-the-network/console/labels).
+Devices or groups of devices can be directly connected to integrations. 
+
+To connect one or more devices to one or more integrations, simply define an integration and attach a device to it on the Flows workspace. Integrations need to be created before
+they're available. You can use Labels to group devices together for easy identification and management read more on labels [here](/use-the-network/console/labels).
 
 ## Next Steps
 

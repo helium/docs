@@ -11,14 +11,19 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 You can now execute functions on Console! With the Decoder Function, users can
 transform and/or parse a raw payload before it is posted to an endpoint.
 
-When a Decoder Function is applied to a device or integration via a Label, the
+When a Decoder Function is applied to a device or integration the
 Decoder Function code is executed on the payload sent by the device. The Decoder
 Function can be written using custom JavaScript code provided by the user or
 selected from prebuilt decoders \(currently Browan Object Locator and Cayenne
-LPP\).
+LPP\). 
 
 Console decoders are compatible with The Things Network \(TTN\) decoders, which
 are already available for a wide variety of devices.
+
+In addition, to providing a custom decoder a growing list of community-created functions can be found [here](https://github.com/helium/console-decoders). 
+
+For more information on how to create and attach functions, check out our Tips and Tricks video [here](https://youtu.be/UNUOLbIKXww).
+
 
 ## A Primer on Encoding and Decoding
 
@@ -52,8 +57,8 @@ for a number of popular devices.
 :::
 
 To begin creating a new function within the Helium Console, select Functions
-from the left side navigation. Then create a new Function by clicking on the
-`Create New Function` button in the upper-right.
+from the left side navigation. Then create a new Function by clicking the
+Add New Function **+** icon. [IMAGE]
 
 Name your new Function, select "Decoder" as Function Type, and "Custom Script"
 as Format if you want to enter your own script, or select from the predefined
@@ -107,26 +112,12 @@ shown below.
 },
 ```
 
-### Attaching Labels to Functions
+### Attaching Functions
 
-Once we have entered our decoder script, the last step is to optionally attach
-it to or create a new label. If you're not familiar with labels yet, you can
-learn about them [here](/use-the-network/console/labels/). You will likely want to attach your function to a device
-or integration via Labels.
+You need to attach functions to:
 
-There are two common ways in which labels are attached to functions, and thereby
-used:
+- a device or a group of devices (via a label): This results in the function only being applied to the device payload in the Debug utility.
 
-1. Create a label just for your function and attach it to your function and a
-   device. **This will result in the function only being applied to the device
-   payload in the Debug utility**.
-2. Create a single label for both an integration and a function, and attach that
-   to the integration, the function, and finally the device. **This will result
-   in the function being applied to payloads before being sent to the
-   integration**.
+ - a device or group of devices (via a label) and an integration: This results in the function being applied to payloads before being sent to the integration.
 
-<img
-  src={useBaseUrl(
-    "img/use-the-network/console/console-functions-label-save.png"
-  )}
-/>
+Easily attach functions to devices, labels, and integations in the Flows Workspace. For more information about Flows click here [https://docs.helium.com/use-the-network/console/flows](/use-the-network/console/flows/)

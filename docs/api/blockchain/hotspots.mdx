@@ -20,6 +20,10 @@ GET https://api.helium.io/v1/hotspots
 List known hotspots as registered on the blockchain.The results are paged. If a
 `cursor` field is present in the response, more results are available.
 
+The `filter_modes` parameter can be used to filter hotspot by how they were
+added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
+comma separated list (no whitespace) can be used to filter for multiple modes.
+
 <Tabs
   block={true}
   defaultValue="request"
@@ -28,9 +32,10 @@ List known hotspots as registered on the blockchain.The results are paged. If a
 
 _Query Parameters_
 
-| param             | Type     | Note                         |
-| ----------------- | -------- | ---------------------------- |
-| cursor (optional) | _string_ | Cursor for the page to fetch |
+| param                   | Type     | Note                         |
+| ----------------------- | -------- | ---------------------------- |
+| cursor (optional)       | _string_ | Cursor for the page to fetch |
+| filter_modes (optional) | _string_ | Filter hotspot types         |
 
 </TabItem>
 <TabItem value="response">
@@ -801,9 +806,13 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param             | Type     | Note                                |
-| ----------------- | -------- | ----------------------------------- |
-| cursor (optional) | _string_ | Cursor for page of results to fetch |
+| param                   | Type     | Note                                      |
+| ----------------------- | -------- | ----------------------------------------- |
+| cursor (optional)       | _string_ | Cursor for page of results to fetch       |
+| filter_types (optional) | _string_ | Comma separated list of transaction types |
+| min_time (optional)     | _string_ | First time to include data for            |
+| max_time (optional)     | _string_ | Last time to include data for             |
+| limit (optional)        | _number_ | Maximum number of items to return         |
 
 </TabItem>
 <TabItem value="response">
@@ -877,9 +886,9 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param        | Type     | Note                                       |
-| ------------ | -------- | ------------------------------------------ |
-| filter_types | _string_ | Comma separated list of transasction types |
+| param        | Type     | Note                                      |
+| ------------ | -------- | ----------------------------------------- |
+| filter_types | _string_ | Comma separated list of transaction types |
 
 </TabItem>
 <TabItem value="response">
@@ -925,9 +934,12 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param             | Type     | Note                         |
-| ----------------- | -------- | ---------------------------- |
-| cursor (optional) | _string_ | Cursor for the page to fetch |
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| cursor (optional)   | _string_ | Cursor for the page to fetch      |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
 
 </TabItem>
 <TabItem value="response">
@@ -1540,8 +1552,8 @@ _No Parameters_
 GET https://api.helium.io/v1/hotspots/:address/challenges
 ```
 
-Lists the challenge (receipts) that the given hotspot a challenger, challengee
-or a witness in. This route is paged using a `cursor`.
+Lists the challenge (receipts) that the given hotspot was a challenger, challengee
+or witness in. This route is paged using a `cursor`.
 
 <Tabs
   block={true}
@@ -1557,9 +1569,12 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param             | Type     | Note                         |
-| ----------------- | -------- | ---------------------------- |
-| cursor (optional) | _string_ | Cursor for the page to fetch |
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| cursor (optional)   | _string_ | Cursor for the page to fetch      |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
 
 </TabItem>
 <TabItem value="response">
@@ -1968,7 +1983,7 @@ _Query Parameters_
 GET https://api.helium.io/v1/hotspots/:address/witnesses
 ```
 
-Retrieves the list of witnesses for a given hotspot over a number of blocks.
+Retrieves the list of witnesses for a given hotspot over about the last 5 days of blocks.
 
 <Tabs
   block={true}
@@ -1980,7 +1995,7 @@ _Path Parameters_
 
 | param              | Type     | Note                                 |
 | ------------------ | -------- | ------------------------------------ |
-| address (optional) | _string_ | B58 address for a hotspot to look up |
+| address (required) | _string_ | B58 address for a hotspot to look up |
 
 </TabItem>
 <TabItem value="response">
@@ -1989,82 +2004,194 @@ _Path Parameters_
 
 ```json
 {
-    "data": [
-        {
-            "lng": -84.38947964027781,
-            "lat": 33.77442909128778,
-            "timestamp_added": "2021-06-24T22:12:07.000000Z",
-            "status": {
-                "online": "online",
-                "listen_addrs": [
-                    "/p2p/11PhkxBRa6SXjKTj32RdDhbU9jwPNvmL1rgPScfT8VwHJWTkmG6/p2p-circuit/p2p/112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
-                ],
-                "height": 900645
-            },
-            "reward_scale": 1.0,
-            "owner": "14ZDTJZE41rQJPxrSHgp3UKuyZnB1KZuE3pZgMAhJraKfEF6X7D",
-            "nonce": 2,
-            "name": "merry-blood-otter",
-            "mode": "full",
-            "location_hex": "8844c1a8ebfffff",
-            "location": "8c44c1a8eadebff",
-            "last_poc_challenge": 900303,
-            "last_change_block": 900738,
-            "geocode": {
-                "short_street": "Spring St NW",
-                "short_state": "GA",
-                "short_country": "US",
-                "short_city": "Atlanta",
-                "long_street": "Spring Street Northwest",
-                "long_state": "Georgia",
-                "long_country": "United States",
-                "long_city": "Atlanta",
-                "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
-            },
-            "gain": 23,
-            "elevation": 50,
-            "block_added": 895576,
-            "block": 900768,
-            "address": "112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
-        },
-        {
-            "lng": -84.41078918647065,
-            "lat": 33.78627614557136,
-            "timestamp_added": "2021-06-22T15:33:09.000000Z",
-            "status": {
-                "online": "online",
-                "listen_addrs": [
-                    "/p2p/113hRKavKYh8oRg1qTPWyB9a24tVrSRLP67jUbRutm2AcHC4bAj/p2p-circuit/p2p/11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
-                ],
-                "height": 900645
-            },
-            "reward_scale": 1.0,
-            "owner": "13CsDkkHCroh7EFKjEkT74JmC7qkr4PuJn4jybqShBzYYrR4p7B",
-            "nonce": 1,
-            "name": "fun-hazel-gorilla",
-            "mode": "full",
-            "location_hex": "8844c1a88bfffff",
-            "location": "8c44c1a88a2c9ff",
-            "last_poc_challenge": 900738,
-            "last_change_block": 900763,
-            "geocode": {
-                "short_street": "14th St NW",
-                "short_state": "GA",
-                "short_country": "US",
-                "short_city": "Atlanta",
-                "long_street": "14th Street Northwest",
-                "long_state": "Georgia",
-                "long_country": "United States",
-                "long_city": "Atlanta",
-                "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
-            },
-            "gain": 12,
-            "elevation": 0,
-            "block_added": 892710,
-            "block": 900768,
-            "address": "11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
-        }
-    ]
+  "data": [
+    {
+      "lng": -84.38947964027781,
+      "lat": 33.77442909128778,
+      "timestamp_added": "2021-06-24T22:12:07.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/p2p/11PhkxBRa6SXjKTj32RdDhbU9jwPNvmL1rgPScfT8VwHJWTkmG6/p2p-circuit/p2p/112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
+        ],
+        "height": 900645
+      },
+      "reward_scale": 1.0,
+      "owner": "14ZDTJZE41rQJPxrSHgp3UKuyZnB1KZuE3pZgMAhJraKfEF6X7D",
+      "nonce": 2,
+      "name": "merry-blood-otter",
+      "mode": "full",
+      "location_hex": "8844c1a8ebfffff",
+      "location": "8c44c1a8eadebff",
+      "last_poc_challenge": 900303,
+      "last_change_block": 900738,
+      "geocode": {
+        "short_street": "Spring St NW",
+        "short_state": "GA",
+        "short_country": "US",
+        "short_city": "Atlanta",
+        "long_street": "Spring Street Northwest",
+        "long_state": "Georgia",
+        "long_country": "United States",
+        "long_city": "Atlanta",
+        "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
+      },
+      "gain": 23,
+      "elevation": 50,
+      "block_added": 895576,
+      "block": 900768,
+      "address": "112vrDrzMZjE8NkxgUuLWSrfXuQFA3fDhaNEca7FPmyEV4SwPJEk"
+    },
+    {
+      "lng": -84.41078918647065,
+      "lat": 33.78627614557136,
+      "timestamp_added": "2021-06-22T15:33:09.000000Z",
+      "status": {
+        "online": "online",
+        "listen_addrs": [
+          "/p2p/113hRKavKYh8oRg1qTPWyB9a24tVrSRLP67jUbRutm2AcHC4bAj/p2p-circuit/p2p/11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
+        ],
+        "height": 900645
+      },
+      "reward_scale": 1.0,
+      "owner": "13CsDkkHCroh7EFKjEkT74JmC7qkr4PuJn4jybqShBzYYrR4p7B",
+      "nonce": 1,
+      "name": "fun-hazel-gorilla",
+      "mode": "full",
+      "location_hex": "8844c1a88bfffff",
+      "location": "8c44c1a88a2c9ff",
+      "last_poc_challenge": 900738,
+      "last_change_block": 900763,
+      "geocode": {
+        "short_street": "14th St NW",
+        "short_state": "GA",
+        "short_country": "US",
+        "short_city": "Atlanta",
+        "long_street": "14th Street Northwest",
+        "long_state": "Georgia",
+        "long_country": "United States",
+        "long_city": "Atlanta",
+        "city_id": "YXRsYW50YWdlb3JnaWF1bml0ZWQgc3RhdGVz"
+      },
+      "gain": 12,
+      "elevation": 0,
+      "block_added": 892710,
+      "block": 900768,
+      "address": "11BXSMm2PnVEnRUvKhjfoF3bQS1r45x8SynmXkBpR2uW18LDfeG"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Witnessed for a Hotspot
+
+```
+GET https://api.helium.io/v1/hotspots/:address/witnessed
+```
+
+Retrieves the list of hotspots the given hotspot witnessed over the last 5 days.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                                 |
+| ------------------ | -------- | ------------------------------------ |
+| address (required) | _string_ | B58 address for a hotspot to look up |
+
+</TabItem>
+<TabItem value="response">
+
+Shows the hotspots that hotspot
+`11sYnfeGAbFzDhXJ9NujYY2v2CnrcXPrewiF4iRN8upMs3HYUN2` witnessed
+
+200: OK
+
+```json
+{
+  "data": [
+    {
+      "address": "112ZUpjfpGjCgoHjF5d2AUVznDYSFBzZcupdcZ5AivXkS2CNkKAG",
+      "block": 943086,
+      "block_added": 909051,
+      "elevation": 35,
+      "gain": 58,
+      "geocode": {
+        "city_id": "amFiYWwgbHVibmFubGViYW5vbg",
+        "long_city": null,
+        "long_country": "Lebanon",
+        "long_state": "Jabal Lubnan",
+        "long_street": "قماطية",
+        "short_city": null,
+        "short_country": "LB",
+        "short_state": "Jabal Lubnan",
+        "short_street": "قماطية"
+      },
+      "last_change_block": 943072,
+      "last_poc_challenge": 942763,
+      "lat": 33.79955623248546,
+      "lng": 35.58377688261546,
+      "location": "8c2da24de12c7ff",
+      "location_hex": "882da24de1fffff",
+      "mode": "full",
+      "name": "handsome-satin-bat",
+      "nonce": 1,
+      "owner": "13VKSpg4fW4EbroEAEe5H7JsWM5sUBAvcQHiJWgPx2ztci5HHFg",
+      "payer": "13ENbEQPAvytjLnqavnbSAzurhGoCSNkGECMx7eHHDAfEaDirdY",
+      "reward_scale": 1.0,
+      "status": {
+        "height": 942913,
+        "listen_addrs": ["/ip4/185.187.130.9/tcp/44158"],
+        "online": "online",
+        "timestamp": "2021-07-29T08:27:35.292000Z"
+      },
+      "timestamp_added": "2021-07-06T12:25:11.000000Z"
+    },
+    {
+      "address": "112KiUgwQjH3HWC8DRD1AwzBd6JYVQhcyTm2cuH9S52VAEufUTxx",
+      "block": 943086,
+      "block_added": 586187,
+      "elevation": 40,
+      "gain": 58,
+      "geocode": {
+        "city_id": "amFiYWwgbHVibmFubGViYW5vbg",
+        "long_city": null,
+        "long_country": "Lebanon",
+        "long_state": "Jabal Lubnan",
+        "long_street": "قماطية",
+        "short_city": null,
+        "short_country": "LB",
+        "short_state": "Jabal Lubnan",
+        "short_street": "قماطية"
+      },
+      "last_change_block": 943077,
+      "last_poc_challenge": 943053,
+      "lat": 33.80608713927618,
+      "lng": 35.573540070314635,
+      "location": "8c2da24d12c19ff",
+      "location_hex": "882da24d13fffff",
+      "mode": "full",
+      "name": "furry-mossy-spider",
+      "nonce": 5,
+      "owner": "14CTinSvsJJDfYmbVfNUscB8ZW1GWSDmCodK3SE2kCW9oAVpERU",
+      "payer": "14fzfjFcHpDR1rTH8BNPvSi5dKBbgxaDnmsVPbCjuq9ENjpZbxh",
+      "reward_scale": 0.8333282470703125,
+      "status": {
+        "height": 942453,
+        "listen_addrs": ["/ip4/185.187.130.21/tcp/44158"],
+        "online": "online",
+        "timestamp": "2021-07-29T01:09:21.481000Z"
+      },
+      "timestamp_added": "2020-11-12T17:15:45.000000Z"
+    }
+  ]
 }
 ```
 

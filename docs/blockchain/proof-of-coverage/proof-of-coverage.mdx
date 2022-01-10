@@ -58,18 +58,20 @@ Let's take a look at how challenges actually happen.
 POC Challenges involve three distinct roles:
 
 1. **Challenger** - The Hotspot that constructs and issues the POC Challenge. Hotspots issue
-challenges approximately once per every 480 blocks.**
+challenges approximately once per every 360 blocks. (See note below)
 2. **Transmitter** - Sometimes called "Challengee". This Hotspot is the target of the POC 
 challenge and is responsible for transmitting (or "beaconing") challenge packets to potentially be witnessed by 
 geographically proximate Hotspots.
 3. ** Witness** - Hotspots that are geographically proximate to the Transmitter and report the existence of the 
 challenge packet after it has been transmitted. 
 
+(Note: The goal is to reduce the PoC Interval to 200 blocks or lower)
+
 
 ### Challenge Proof Construction and Target Selection
 
 As noted above, Hotspots are currently allowed to submit a challenge proof roughly once per 
-480 blocks. They do this reliably [to earn the portion of HNT rewards allocated to challengers](/blockchain/mining). 
+360 blocks. They do this reliably [to earn the portion of HNT rewards allocated to challengers](/blockchain/mining). 
 The Challenger first generates an ephemeral public/private key pair to be used in the challenge. 
 A SHA256 digest of the public key and the SHA256 digest of the private key are both submitted, 
 along with the current block hash, as a PoC request. If the request is valid and accepted by the 
@@ -118,6 +120,7 @@ The HIPs themselves provide a rich explanation of these mechanisms, so you're en
 * For the Transmitters, the more witnesses, the more the Transmitter earns;
 * For the Witness, each additional witness past a total of four reduces what 
 is earned by each witness in that challenge.
+* A change made with the 2021.09.14.0 release randomly shuffles the valid received witness receipts, and selects (up to) 25 of those valid to write to the chain.
 
 **From HIP17** 
 * The Witness earns less if the number of Hotspots in the area of the Transmitter exceeds the "target density".

@@ -92,24 +92,17 @@ IoT to run in.
 The **Topic** field is the AWS IoT MQTT topic that this integration will publish
 uplink messages to, from devices.
 
-Finally, we give our new Integration a name:
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/console/integrations/integrations-aws-iot-core-name.png"
-  )}
-/>
-
-And click **Create Integration**. Your new Integration is now ready for use.
+Finally, we give our new Integration a name and click **Create Integration**. Your new Integration is now ready for use.
 
 ### Connecting Integrations to Devices
 
-Devices are connected to integrations through the use of Labels. Labels are
-named identifiers, that can be used to associate an integration with a device.
-To connect one or more devices to one or more integrations, simply attach the
-same label to both the device and integration. Labels need to be created before
-attaching them to devices and integrations. You can read more about how to do
-that [here](/use-the-network/console/labels).
+Devices or groups of devices (via labels) can be directly connected to integrations on the Flows Worskpace. Labels are identifiers used to group devices for easy management. To connect one or more devices to one or more integrations, simply connect the Device and Integration nodes on the Flows Workspace.
+
+:::info
+Quick video tutorial connecting devices to an integration [here](https://www.youtube.com/watch?v=lnERw1f7TGE).
+:::
+
+Node elements (devices, labels, integrations) need to be created before they're available on the Flows Workspace. More information about Flows [here](https://docs.helium.com/use-the-network/console/flows/).
 
 ## AWS IoT MQTT Topic composition:
 
@@ -190,7 +183,7 @@ base64 encoded string.
 
 ### Viewing Integration in AWS IoT Core
 
-Once a label has been set up to connect our devices to our new Integration,
+Once our devices have been connected on the Flows Worskpace to our new Integration,
 let's return to the [AWS Console](https://console.aws.amazon.com/), and go to
 **IoT Core** under the **Services** menu:
 

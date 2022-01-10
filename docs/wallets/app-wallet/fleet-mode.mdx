@@ -1,0 +1,34 @@
+---
+id: fleet-mode
+title: Fleet Mode
+sidebar_label: Fleet Mode
+slug: /wallets/app-wallet/fleet-mode
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+
+# Fleet Mode
+
+Fleet Mode is a new app feature introduced in version 3.4.3 to allows users who own many Hotspots to manage their Hotspots without sacrificing app performance.
+
+Once enabled, Fleet Mode does the following:
+
+* Defaults to "Followed Hotspots" in the main Hotspot filter list.
+* Hides owned Hotspots in the shortcut navigation menu. Only Followed Hotspots show up here.
+* "Owned Hotspots" in the main Hotspot filter list will not summarize 24h earnings.
+
+<img src={useBaseUrl("img/wallets/helium-app/fleet-mode-features.png")} />
+
+Individual Hotspot pages will continue to show earnings, checklist, and witnesses as they do in non-Fleet Mode.
+
+Underneath the hood, Fleet Mode makes less API calls, fetches less data, and performs less UI rendering, which allows the app to continue operating effectively without lag.
+
+## Enable and Disable Fleet Mode
+Fleet Mode is automatically enabled for users with 20+ Hotspots in an account. If Fleet Mode is enabled for you, you'll see this screen.
+
+It is optional for those with less than 20. You can enable Fleet Mode by going into Settings > App > Fleet Mode.
+
+<img src={useBaseUrl("img/wallets/helium-app/fleet-mode-settings.png")} />
+
+

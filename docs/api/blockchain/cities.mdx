@@ -67,6 +67,55 @@ Lists cities including the word houston in their city, state or country.
 
 ---
 
+## City for City ID
+
+```
+GET https://api.helium.io/v1/cities/:city_id
+```
+
+Fetch a city for a given city id.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                    |
+| ------------------ | -------- | ----------------------- |
+| city_id (requires) | _string_ | ID of the city to fetch |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+City for id `dG9yb250b29udGFyaW9jYW5hZGE`
+
+```json
+{
+  "data": {
+    "short_state": "ON",
+    "short_country": "CA",
+    "short_city": "Toronto",
+    "online_count": 1077,
+    "offline_count": 172,
+    "long_state": "Ontario",
+    "long_country": "Canada",
+    "long_city": "Toronto",
+    "hotspot_count": 1249,
+    "city_id": "dG9yb250b29udGFyaW9jYW5hZGE"
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
 ## List Hotspots for a City
 
 ```
@@ -77,18 +126,28 @@ Lists all known hotspots for a given `city_id`. The `city_id` captures the city,
 state and country and is included in the city list result.This route is paged
 with a cursor.
 
+The `filter_modes` parameter can be used to filter hotspot by how they were
+added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
+comma separated list (no whitespace) can be used to filter for multiple modes.
+
 <Tabs
   block={true}
   defaultValue="request"
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
 <TabItem value="request">
 
-_Query Parameters_
+_Path Parameters_
 
 | param              | Type     | Note                                                |
 | ------------------ | -------- | --------------------------------------------------- |
-| city_id (optional) | _string_ | The id for the city are returned by the cities list |
-| cursor (optional)  | _string_ | Cursor for the page of results to fetch             |
+| city_id (required) | _string_ | The id for the city are returned by the cities list |
+
+_Query Parameters_
+
+| param                   | Type     | Note                                    |
+| ----------------------- | -------- | --------------------------------------- |
+| cursor (optional)       | _string_ | Cursor for the page of results to fetch |
+| filter_modes (optional) | _string_ | Filter hotspot types                    |
 
 </TabItem>
 <TabItem value="response">

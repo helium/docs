@@ -1,0 +1,104 @@
+---
+id: deep-links-and-qr-codes
+title: Deep Links and QR Codes
+sidebar_label: Deep Links and QR Codes
+slug: /wallets/app-wallet/deep-links-and-qr-codes
+---
+
+# Deep Links and External QR Codes (e.g. System Camera)
+
+To generate a QR code to scan, find a service to generate a QR code using the url's below.
+This is an example site: `https://www.qr-code-generator.com`
+
+### View Hotspot
+
+`helium://hotspot/:address`
+
+### Add Gateway
+
+`helium://add_gateway/:base64url_encoded_txn`
+
+Users can read more on how to generate an `add_gateway` transaction from the [Makers Guide > Hotspot Integration](https://docs.helium.com/mine-hnt/full-hotspots/become-a-maker/hotspot-integration-testing/#generate-an-add-hotspot-transaction).
+
+### Assert Location
+
+// TODO: Not yet implemented
+
+# Internal QR Scanner
+
+To generate a QR code to scan, find a service to generate a QR code using the json data below.
+This is an example site: `https://www.qr-code-generator.com`
+
+### Burn HNT
+
+Generated from console
+
+```json
+{
+  "type": "dc_burn",
+  "address": ":address",
+  "amount": "1.00",
+  "memo": "n0XU06JdNNs="
+}
+```
+
+### Payment
+
+Single Payee without memo
+
+```json
+{
+  "type": "payment",
+  "address": ":address",
+  "amount": 1
+}
+```
+
+Single Payee with memo
+
+```json
+{
+  "type": "payment",
+  "address": ":address",
+  "amount": 1,
+  "memo": "n0XU06JdNNs="
+}
+```
+
+Multiple Payee without memo
+
+```json
+{
+  "type": "payment",
+  "payees": {
+    ":address1": 10.2,
+    ":address2": 1.2
+  }
+}
+```
+
+Multiple Payee with memo
+
+```json
+{
+  "type": "payment",
+  "payees": {
+    ":address1": {
+      "amount": 10.2,
+      "memo": "n0XU06JdNNs="
+    },
+    ":address2": {
+      "amount": 1.2,
+      "memo": "n0XU06JdNNs="
+    }
+  }
+}
+```
+
+### Wallet address QR code
+
+Create a qr code with a valid wallet address
+
+```
+12ORy9GjFASqWWxHmUq4tNXcjvr5Xfno8qimGMrNReMsSaM9T8f
+```

@@ -55,7 +55,7 @@ Bin**. Once created, copy the endpoint.
 
 Lastly, provide a name for the integration. Names do not have to be unique.
 
-Click **Create Integration**.
+Click **Add Integration**.
 
 Your new integration is now ready for use! Please read about the JSON schema to
 understand how to parse data received.
@@ -67,10 +67,7 @@ View the details of your integration by clicking on the Integration name.
 **Integration Details** shows the integration ID that is unique to each
 integration, the name, the type of integration, and whether it is active or not.
 
-**HTTP Details** shows the specific endpoint. Editing endpoints is not available
-in the SDK Beta and will be coming soon. If you no longer want to use an
-integration, simply create a new one and redirect existing devices using the old
-integration to use the new one.
+**HTTP Details** shows the specific endpoint which can be changed.
 
 **Devices Piped** lists all the devices that are currently sending their data to
 the selected integration.
@@ -187,9 +184,11 @@ the steps below to successfully send your downlink message to your device.
 
 ## Connecting Integrations to Devices
 
-Devices are connected to integrations through the use of Labels. Labels are
-named identifiers, that can be used to associate an integration with a device.
-To connect one or more devices to one or more integrations, simply attach the
-same label to both the device and integration. Labels need to be created before
-attaching them to devices and integrations. You can read more about how to do
-that [here](/use-the-network/console/labels).
+Devices or groups of devices (via labels) can be directly connected to integrations on the Flows Worskpace. Labels are identifiers used to group devices for easy management. To connect one or more devices to one or more integrations, simply connect the Device and Integration nodes on the Flows Workspace.
+
+:::info
+Quick video tutorial connecting devices to an integration [here](https://www.youtube.com/watch?v=lnERw1f7TGE).
+:::
+
+Node elements (devices, labels, integrations) need to be created before they're available on the Flows Workspace. More information about Flows [here](https://docs.helium.com/use-the-network/console/flows/).
+

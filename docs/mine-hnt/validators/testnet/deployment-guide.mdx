@@ -11,9 +11,8 @@ This guide will cover the end-to-end process of deploying a Helium Validator on 
 
 :::info
 
-- We're currently operating the Testnet, so you'll be deploying to the Testnet until Mainnet is live. This guide reflects deploying to the Testnet ONLY.
+- This guide reflects deploying to the Testnet ONLY.
 - Please review the [Expectations for Running a Validator on Testnet](/mine-hnt/validators) prior to beginning this process.
-- These instructions are for Testnet ONLY. An updated guide will be produced when Validators are ready for Mainnet.
 
 :::
 
@@ -225,7 +224,7 @@ Additional flags that may be helpful:
 
 - `validator` Include the name of the container as the last line in the command above. Including this at the end simply tells watchtower to only monitor the validator container and not any of the other containers running on your docker server. This is included here for convenience if there are other docker containers running on the host. If the validator is the only service running, this can be omitted.
 
-That's it! Watchtower will check to ensure the running validator has the latest image and will automatically stop, update, and run your container if required. Watchtower will also monitor and update the watchtower image itself.  
+That's it! Watchtower will check to ensure the running validator has the latest image and will automatically stop, update, and run your container if required. Watchtower will also monitor and update the watchtower image itself.
 
 Finally, you may be asking if there's a method to know if watchtower was successful in identifying an upgrade and installing it.  Read through the [Watchtower notifications options](https://containrrr.dev/watchtower/notifications/) page how you can extend this guide further and receive notifications through Slack, Teams, Discord, Pushover, email or other methods.
 
@@ -501,7 +500,7 @@ You're looking for `listen_addrs`. If you don't have at least one, your validato
 
 ### Check the Explorer
 
-Head over to the [Helium Testnet Explorer's Validators Page](https://explorer.helium.wtf/validators) and search for your validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked. You should see your 3-word validators name (short-umber-bull in the example above) listed. It may be easier to sort by #, decending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`. 
+Head over to the [Helium Testnet Explorer's Validators Page](https://explorer.helium.wtf/validators) and search for your validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked. You should see your 3-word validators name (short-umber-bull in the example above) listed. It may be easier to sort by #, decending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`.
 
 Thank you for being a part of the Helium Validators initiative.
 
@@ -540,7 +539,7 @@ Getting back on chain is easy now that you've got everything installed:
 
 - `docker stop validator && docker rm validator` - Stop the running container, delete the container.
 - `cd` into the `validator_data` directory you setup earlier in the Deploy step above.  Then run `sudo rm -rf blockchain* ledger.db state_channels.db log checkpoints`  This will delete everything in this folder except for the `miner` folder. Please be sure you're in the correct folder before running `rm` commands.
-- The `miner` folder contains a single `swarm_key` file.  If you want to keep the 3-word name of your miner, keep this file.  If you want a new one, you can delete this file as well. 
+- The `miner` folder contains a single `swarm_key` file.  If you want to keep the 3-word name of your miner, keep this file.  If you want a new one, you can delete this file as well.
 - There will be a new validator version when the chain is relaunched, so force pull the new docker image version prior to starting the validator.  `docker pull quay.io/team-helium/validator:latest-val-amd64`
 - Restart the validator with your `docker run` command that you used [during the install](#deploy-the-validator-using-docker---recommended).
 - Watchtower should still be running from our install and will continue to update the docker image automatically.
@@ -548,11 +547,10 @@ Getting back on chain is easy now that you've got everything installed:
 #### Reset the Validator - From Source
 
 - Stop the validator, delete the entire `miner` folder - saving the `swarm_key` file in `/miner/_build/validator/rel/miner/data/miner` if you like.  Pull from source with the updated version tag, start the validator.
-- Load the new genesis block `wget https://snapshots.helium.wtf/genesis.testnet` `miner genesis load </absolute/path/to/genesis/block>`. 
+- Load the new genesis block `wget https://snapshots.helium.wtf/genesis.testnet` `miner genesis load </absolute/path/to/genesis/block>`.
 
-#### Restake 
+#### Restake
 
 - Follow the same process from [Stake Tokens to Your Validator](#stake-tokens-to-your-validator) to stake the 10,000 TNT received from the faucet for your Testnet validator.  If you kept the `swarm_key` file above, your validator node address will be the same.  If you deleted that file, you'll have to ensure you have the new node address by running `miner peer addr` as outlined in that section.
 
 That's it!  You're back on the new chain and should see similar output as defined in [Verifying Validator Victory](#verifying-validator-victory).
-

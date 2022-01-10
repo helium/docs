@@ -1,0 +1,117 @@
+---
+id: installation
+hide_title: false
+sidebar_label: Installation Guide
+slug: /open-source/docs/installation
+---
+
+# Helium Documentation Installation Guide
+
+## Node.js
+
+Download latest software:
+External link: [Node.js](https://nodejs.org/en/download) version >= 10.15.1
+
+:::info
+Windows Node.js installation you do not need to install the Compiler and Chocolaty dependencies.
+:::
+
+Install Node.js
+
+## Yarn
+
+Download software:
+External link: [Yarn](https://yarnpkg.com/getting-started/install) version >= 1.5
+
+After you install Node.js, which will install Node.js and npm as a dependency you can do the following. 
+
+```
+$ npm install -g yarn
+
+> yarn@1.22.11 preinstall /path/to/npm/node_modules/yarn
+> :; (node ./preinstall.js > /dev/null 2>&1 || true)
+```
+To upgrade the Yarn version to be >= 1.5 you must set each project directory to version berry.
+
+```
+$ cd ~/path/to/project
+$ yarn set version berry
+
+Resolving berry to a url...
+Downloading https://github.com/yarnpkg/berry/raw/master/packages/berry-cli/bin/berry.js...
+Saving it into /path/to/fork/docs/.yarn/releases\yarn-berry.cjs...
+Updating /path/to/prjoect/docs/.yarnrc.yml...
+Done!
+```
+
+Then you can install Yarn which will download and compile all the project module dependencies. 
+
+```
+$ yarn install
+
+ YN0070: Migrating from Yarn 1; automatically enabling the compatibility node-modules linker 
+ ...
+ YN0007: │ yarn@npm:1.22.10 must be built because it never has been before or the last one failed
+ YN0007: │ core-js@npm:3.12.1 must be built because it never has been before or the last one failed
+ YN0007: │ core-js-pure@npm:3.12.1 must be built because it never has been before or the last one failed
+ YN0000: └ Completed in 42s 725ms
+ YN0000: Done with warnings in 1m 31s
+```
+
+Check the final version and confirm that it is >= 1.5
+
+```
+$ yarn --version
+3.0.1
+```
+
+### Local Development
+
+```
+$ yarn start
+
+Starting the development server...
+Docusaurus website is running at: http://localhost:3000/
+
+√ Client
+  Compiled successfully in 5.90s
+
+i ｢wds｣: Project is running at http://localhost:3000/
+i ｢wds｣: webpack output is served from /
+i ｢wds｣: Content not from webpack is served from /path/to/project/docs
+i ｢wds｣: 404s will fallback to /index.html
+
+* Client ... done (99%) plugins
+ WebpackDevMiddleware
+```
+
+This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
+
+### Link Checking before your PR
+
+Checking links can be accomplished by using the `yarn build` command
+
+```
+$ yarn build
+
+[en] Creating an optimized production build...
+
+√ Client
+
+√ Server
+  Compiled successfully in 1.25m
+
+√ Client
+
+* Server █████████████████████████ cache (99%) shutdown IdleFileCachePlugin
+ stored
+
+Success! Generated static files in build.
+
+Use `npm run serve` to test your build locally.
+```
+
+### Developing
+
+Each time you save files under your local repo the site will get rebuilt and the pages refreshed on the fly, there is no need to keep restarting Yarn.
+
