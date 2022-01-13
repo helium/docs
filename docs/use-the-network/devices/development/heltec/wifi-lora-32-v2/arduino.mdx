@@ -286,18 +286,12 @@ Your device may take several minutes to join and begin to send uplink packets
 because the library is designed to work in several LoRaWAN regions and networks.
 Because of this, the firmware will attempt different sub-bands until it is
 successful. If you would like to change the default channel mask in the library
-to speed up this process you can make the following change below in the file
-specified.
+to speed up this process you can make the following change below the sketch.
 
-**Change lines 343-348 to:**
+**Change line 59 to:**
 
 ```text
-channelsMaskTemp[0] = 0xFF00;
-channelsMaskTemp[1] = 0x0000;
-channelsMaskTemp[2] = 0x0000;
-channelsMaskTemp[3] = 0x0000;
-channelsMaskTemp[4] = 0x0002;
-channelsMaskTemp[5] = 0x0000;
+uint16_t userChannelsMask[6]={ 0xFF00,0x0000,0x0000,0x0000,0x0002,0x0000 };
 ```
 
 Now let's head back to [Helium Console](https://console.helium.com) and look at
