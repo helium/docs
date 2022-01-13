@@ -1114,6 +1114,20 @@ Returns reward entries by block and gateway for a given account in a timeframe.
 Timestamps are given in ISO 8601 format. The block that contains the `max_time`
 timestamp is **excluded** from the result.
 
+The result will be a list of rewards between `min_time` and `max_time` both
+given in UTC. Both default to "now" which means that at least one of the two
+parameters is required.
+
+The result includes a `type` field which is the type of activity that generated the
+reward.
+
+This route is paged using a `cursor`.
+
+:::info
+For older reward results, if the `type` is `null` the amount is a total for that
+account or hotspot in the given block.
+:::
+
 <Tabs
   block={true}
   defaultValue="request"
@@ -1128,39 +1142,89 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param             | Type     | Note                                              |
-| ----------------- | -------- | ------------------------------------------------- |
-| cursor (optional) | _string_ | Cursor for the next page of transactions to fetch |
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| cursor (optional)   | _string_ | Cursor for page of rewards to fetch    |
+| max_time (optional) | _string_ | Last timestamp to include rewards for  |
+| min_time (required) | _string_ | First timestamp to include rewards for |
 
 </TabItem>
 <TabItem value="response">
 
 200: OK
 
-A single pending transaction for a given account
+Rewards for an account with `min_time=2020-08-27&max_time=2020-08-28`
 
 ```json
 {
   "data": [
     {
-      "created_at": "2020-04-30T18:13:17.411141Z",
-      "failed_reason": "",
-      "hash": "IUXgVfnYPlv_Br3Rhng6bKTaLb_AzX9DC3E9NGJhAKs",
-      "status": "pending",
-      "txn": {
-        "fee": 0,
-        "nonce": 6,
-        "payer": "13C8mAv3M3SUQ1ZgREHsGxabcsHtDCkmkJLp9sGimqfWT4GRf9W",
-        "payments": [
-          {
-            "amount": 2,
-            "payee": "13C8mAv3M3SUQ1ZgREHsGxabcsHtDCkmkJLp9sGimqfWT4GRf9W"
-          }
-        ],
-        "signature": "TcB6zhMf6_ImaMyuTbWRd33W-hlzCwxxZtyIeJRQwUTvHN00V1U4Jn7ooyNHjFAoBgvxBDN2VmQ5Fez0OQoICA"
-      },
-      "type": "payment_v2",
-      "updated_at": "2020-04-30T18:47:19.960477Z"
+      "type": null,
+      "timestamp": "2020-08-27T23:55:45.000000Z",
+      "hash": "HF7qP3usRFFhjcSajGRElHGdQOzUS47UJfSeYRGA-1o",
+      "gateway": "113kQU96zqePySTahB7PEde9ZpoWK76DYK1f57wyhjhXCBoAu88",
+      "block": 470714,
+      "amount": 8650492,
+      "account": "12xUoMKwf12ABjNx4VCvYcNkX79gW1kzz2JnBLxkFbjswRczRvM"
+    }
+  ],
+  "cursor": "eyJlbmRfYmxvY2siOjQ2OTUzMCwiYmxvY2siOjQ3MDcwMCwiYW5jaG9yX2Jsb2NrIjo0NzA3MDB9"
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+## Rewards in a Rewards Block for an Account
+
+```
+GET https://api.helium.io/v1/hotspots/:address/rewards/:block
+```
+
+Returns rewards for a given account for a given block.
+
+The result includes a `type` field which is the type of activity that generated
+the reward.
+
+This route is paged using a `cursor`.
+
+:::info
+For older reward results, if the `type` is `null` the amount is a total for that
+account in the given block.
+:::
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                       |
+| ------------------ | -------- | -------------------------- |
+| address (required) | _string_ | B58 address of the hotspot |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Rewards for an account in block `470788`
+
+```json
+{
+  "data": [
+    {
+      "type": null,
+      "timestamp": "2020-08-28T01:29:46.000000Z",
+      "hash": "DTU1GGfR0eU15hv6KiV_bg6FOJXfUWz4TjIq1H7TGy4",
+      "gateway": "113kQU96zqePySTahB7PEde9ZpoWK76DYK1f57wyhjhXCBoAu88",
+      "block": 470788,
+      "amount": 7885016,
+      "account": "12xUoMKwf12ABjNx4VCvYcNkX79gW1kzz2JnBLxkFbjswRczRvM"
     }
   ]
 }

@@ -1857,6 +1857,20 @@ Returns rewards for a given hotspot per reward block the hotspot is in, for a
 given timeframe. Timestamps are given in ISO 8601 format. The block that
 contains the `max_time` timestamp is **excluded** from the result.
 
+The result will be a list of rewards between `min_time` and `max_time` both
+given in UTC. Both default to "now" which means that at least one of the two
+parameters is required.
+
+The result includes a `type` field which is the type of activity that generated
+the reward.
+
+This route is paged using a `cursor`.
+
+:::info
+For older reward results, if the `type` is `null` the amount is a total for that
+hotspot in the given block.
+:::
+
 <Tabs
   block={true}
   defaultValue="request"
@@ -1874,7 +1888,7 @@ _Query Parameters_
 | param               | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
 | cursor (optional)   | _string_ | Cursor for page of rewards to fetch    |
-| max_time (required) | _string_ | Last timestamp to include rewards for  |
+| max_time (optional) | _string_ | Last timestamp to include rewards for  |
 | min_time (required) | _string_ | First timestamp to include rewards for |
 
 </TabItem>
@@ -1918,6 +1932,64 @@ Rewards for a hotspot with time range: `max_time=2020-08-29&min_time=2020-08-27`
       "gateway": "113kQU96zqePySTahB7PEde9ZpoWK76DYK1f57wyhjhXCBoAu88",
       "hash": "0M0fudEmzW9dmAsO3dcWT286tTL6wTX9sllXtsyz-0Q",
       "timestamp": "2020-08-27T18:15:17.000000Z"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+## Rewards in a Rewards Block for a Hotspot
+
+```
+GET https://api.helium.io/v1/hotspots/:address/rewards/:block
+```
+
+Returns rewards for a given hotspot for a given block.
+
+The result includes a `type` field which is the type of activity that generated
+the reward.
+
+This route is paged using a `cursor`.
+
+:::info
+For older reward results, if the `type` is `null` the amount is a total for that
+hotspot in the given block.
+:::
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                       |
+| ------------------ | -------- | -------------------------- |
+| address (required) | _string_ | B58 address of the hotspot |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Rewards for a hotspot in block `470788`
+
+```json
+{
+  "data": [
+    {
+      "type": null,
+      "timestamp": "2020-08-28T01:29:46.000000Z",
+      "hash": "DTU1GGfR0eU15hv6KiV_bg6FOJXfUWz4TjIq1H7TGy4",
+      "gateway": "113kQU96zqePySTahB7PEde9ZpoWK76DYK1f57wyhjhXCBoAu88",
+      "block": 470788,
+      "amount": 7885016,
+      "account": "12xUoMKwf12ABjNx4VCvYcNkX79gW1kzz2JnBLxkFbjswRczRvM"
     }
   ]
 }
