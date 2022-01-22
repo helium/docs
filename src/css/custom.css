@@ -27,6 +27,11 @@
 
 }
 
+
+.container {
+  max-width: 1100px;
+}
+
 .admonition pre, .admonition code {
   background-color: rgba(0,0,0,0.15);
 }
@@ -48,7 +53,7 @@
 
 
 .menu {
-  padding-top: 30px !important;
+  padding-top: 80px !important;
   font-weight: 400;
 }
 
@@ -197,8 +202,8 @@ a.button:hover {
 hr {
   border: none;
   border-top: 1px solid #CACACA;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 80px;
+  margin-bottom: 20px;
 }
 
 .menu__link--sublist:after {
@@ -215,8 +220,8 @@ img.manufacturericon {
   margin-bottom: 10px;
 }
 img.homeicon {
-  width: 76px;
-  margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 img.docicon {
   padding-right: 6px;
@@ -230,13 +235,16 @@ h1 {
 }
 
 h1.bigger {
-  font-size: 4rem;
+  font-size: 3.25rem;
   letter-spacing: -0.5px;
   margin-top: 20px;
-  line-height: 3.5rem;
+  line-height: 3rem;
+  font-weight: 600;
 }
 h2 {
   font-size: 2rem;
+  font-weight: 600;
+
 }
 
 h3 {
@@ -247,11 +255,12 @@ h3 {
 
 h2.subtitle {
   font-weight: 300;
-  font-size: 20px;
+  font-size: 23px;
   letter-spacing: -1%;
-  line-height: 26px;
-  color: #A334FB;
+  line-height: 24px;
+  color: #464C67;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 
@@ -268,6 +277,71 @@ h5 {
   font-weight: 500;
 }
 
+p {
+  color: #626886;
+  font-size: 1.125rem;
+line-height: 1.65rem;
+font-weight: 400;
+
+}
+
+a.quicklink {
+  display: block;
+  background: #F7F9FC;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border-radius: 10px;
+  transition: all .2s ease;
+
+}
+
+a.quicklink:hover {
+  background: #ebeff6;
+  transition: all .2s ease;
+}
+
+img.quicklinkarrow {
+  opacity: 0.5;
+  transition: all .2s ease;
+
+}
+
+a.quicklink:hover img.quicklinkarrow {
+  opacity: 1;
+  transition: all .2s ease;
+
+
+}
+
+a.quicklinkblue {
+  color: #474DFF;
+}
+
+a.quicklinkblue:hover {
+  color: #2d32b6;
+}
+
+a.quicklinkgreen {
+  color: #0EB98F;
+}
+
+a.quicklinkgreen:hover {
+  color: #0a8566;
+}
+
+a.quicklinkred {
+  color: #E35851;
+}
+
+a.quicklinkred:hover {
+  color: #9c3a35;
+}
+
+
+
 .admonition h5 {
   font-size: var(--ifm-h5-font-size);
   color: white;
@@ -275,6 +349,39 @@ h5 {
 
 .admonition code {
   color: white;
+}
+
+.admonition p {
+  color: white;
+}
+
+.announcementnav {
+  background: #474DFF;
+  border-radius: 9999px;
+  padding: 4px 16px;
+  color: white;
+  display: flex;
+  transition: all .2s ease;
+  align-items: center;
+}
+
+.announcementnav:hover {
+  color: white;
+}
+
+.announcementnav:before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  padding-right: 6px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16'  fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16 1.00002C15.9999 0.829624 15.9563 0.662082 15.8733 0.513287C15.7902 0.364492 15.6706 0.23938 15.5256 0.149821C15.3806 0.0602626 15.2152 0.00922872 15.045 0.00156219C14.8748 -0.00610433 14.7054 0.0298506 14.553 0.106016L6.763 4.00002H3C2.20435 4.00002 1.44129 4.31609 0.87868 4.8787C0.316071 5.4413 0 6.20437 0 7.00002C0 7.79567 0.316071 8.55873 0.87868 9.12134C1.44129 9.68394 2.20435 10 3 10H3.28L5.051 15.316C5.11735 15.5152 5.24472 15.6885 5.41505 15.8113C5.58538 15.934 5.79004 16.0001 6 16H7C7.26522 16 7.51957 15.8947 7.70711 15.7071C7.89464 15.5196 8 15.2652 8 15V10.618L14.553 13.894C14.7054 13.9702 14.8748 14.0061 15.045 13.9985C15.2152 13.9908 15.3806 13.9398 15.5256 13.8502C15.6706 13.7607 15.7902 13.6355 15.8733 13.4867C15.9563 13.3379 15.9999 13.1704 16 13V1.00002Z'/%3E%3C/svg%3E")
+    no-repeat;
+}
+
+
+.announcementnav span {
+  font-weight: 300;
 }
 
 .admonition a:hover {
@@ -288,6 +395,22 @@ a.block {
   width: fit-content;
   cursor: pointer;
 }
+
+.blockblue a {
+  color: #474DFF;
+}
+
+
+.blockgreen a {
+  color: #10CA9D;
+}
+
+
+.blockred a {
+  color: #E35851;
+}
+
+
 
 .docusaurus-highlight-code-line {
   background-color: rgb(72, 77, 91);
@@ -324,6 +447,12 @@ html[data-theme='dark'] {
   color: #A334FB;
 }
 
+.navbar__link:hover.announcementnav {
+  color: white;
+  background: #2b2faa;
+  transition: all .2s ease;
+}
+
 
 .header-github-link:hover {
   opacity: 0.6;
@@ -350,6 +479,7 @@ html[data-theme='light'] .header-github-link:before {
 img.docsheadersmall {
 display: none;
 }
+
 
 
 

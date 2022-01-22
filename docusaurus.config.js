@@ -8,6 +8,7 @@ module.exports = {
   organizationName: 'helium', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
   themeConfig: {
+    hideableSidebar: true,
     googleAnalytics: {
       trackingID: 'UA-52432858-10',
     },
@@ -45,6 +46,15 @@ module.exports = {
         srcDark: 'img/logowhite.svg',
       },
       items: [
+
+        {
+          to: '/use-the-network/console',
+          label: 'Try the New Console Today',
+          position: 'right',
+          activeBaseRegex: `docs`,
+          className: 'announcementnav',
+        },
+
 
         {
           to: '/',
