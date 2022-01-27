@@ -90,7 +90,31 @@ To install, open your Arduino IDE:
 
 
 
-### Arduino Library
+### Arduino Library #1 MKRWAN
+
+To communicate with Helium's LoRaWAN network, we'll need to install an Arduino
+library.
+
+To install, open your Arduino IDE:
+
+1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage
+   Libraries**\).
+2. In the search box, type **MKRWAN** into the search, select the **MKRWAN** library latest
+   version see image below, and click Install.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/mkrwan.png"
+  )}
+/>
+
+If you prefer to install the zipped latest file from the github click [MKRWAN](https://github.com/arduino-libraries/MKRWAN) download the zipped file then find the library menu item to install zipped libraries
+
+
+
+
+
+### Arduino Library #2 portenta-pro-community-solutions
 
 To communicate with Helium's LoRaWAN network, we'll need to install an Arduino
 library.
@@ -108,6 +132,7 @@ To install, open your Arduino IDE:
   )}
 />
 
+If you prefer to install the zipped latest file from the github click [portenta-pro-community-solutions](https://github.com/hpssjellis/portenta-pro-community-solutions) download the zipped file then find the library menu item to install zipped libraries
 
 
 ### Programming Example Sketch
@@ -126,7 +151,7 @@ Note: On these boards the deviceEUI is fixed per board, so you will have to run 
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/arduino/portenta/helium-keys.png"
+    "img/use-the-network/devices/development/arduino/portenta/helium-console-keys.png"
   )}
 />
 
@@ -153,6 +178,16 @@ correct Serial port in the Arduino IDE. Navigate to \(**Tools &gt; Port:
 Arduino Portenta**\). You will also see either **COM\# or /dev/ttyACM\#**
 depending on whether you are on Windows, Mac, or Linux. If you do not see a
 port, you will need to check if the Arduino drivers have been installed.
+
+### MKRWAN reprogram LoRa board using the MKRWAN example sketch
+MKRWANFWUpdate_standalone make sure you run the serial monitor to fully update the LoRa module with the correct program.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/upload-success.png"
+  )}
+/>
+
 
 ### Upload Sketch
 
