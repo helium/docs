@@ -68,9 +68,10 @@ To ensure that consensus groups members are continually churned, and that no ind
 A DKG penalty can occur if an election fails, and the Validator was part of the reason for the election to fail. This can occur throughout the dkg process or signature phase.
 
 - At the end of the election, all Validators vote and sign the election result. If the election fails, Validators that a majority agree did not sign the election results are penalized.
+- Failed elections are significant to the network as they prevent new groups from being elected and rewards to be issued to all network participants including Hotspots.
 - This penalty can be assessed for Validators in the current consensus group _or_ Validators attempting to be elected into the consensus group.
 - This penalty can be applied once per consensus group per Validator.
-- The amount applied is a chain variable, currently set at `1.0`. The variable is viewable by running `miner ledger variables dkg_penalty`.
+- The amount applied is a chain variable was originally set at `1.0` and was changed to `5.0` as of block 1,107,995. The variable is viewable by running `miner ledger variables dkg_penalty`.
 
 :::info
 
