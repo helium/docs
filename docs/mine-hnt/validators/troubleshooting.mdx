@@ -30,26 +30,28 @@ Syncing to the blockchain could be impacted for the following reasons:
 * you just launched an AMI instance (if using AWS)
 
 ## Grab the latest blessed snapshot from Helium
-* On a running Validator run `miner snapshot list` or you can use the API to get the latest blessed snapshot going to this web address `https://api.helium.io/v1/snapshots`.
-* Find the highest "Height" block and download the snapshot from Helium via `curl -O https://snapshots.helium.wtf/mainnet/snap-<height>`. If this snapshot is not available, try the next highest as the consensus group may have not agreed upon the snapshot.
+
+NOTE: If you build the Validator from source, the paths below may be different for you. For the following Docker example, `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system and `validator_data` is in your $HOME directory.  
+
+* Use the API to determine the latest [automatically blessed snapshot](https://api.helium.io/v1/snapshots) from `https://api.helium.io/v1/snapshots` or the latest [manually blessed snapshot](https://snapshots.helium.wtf/mainnet/latest-snap.json) from `https://snapshots.helium.wtf/mainnet/latest-snap.json`
+* Choose the one with the highest block height and download the snapshot from Helium via:  
+`curl -O https://snapshots.helium.wtf/mainnet/snap-<height>`. If this snapshot is not available, try the next highest as the consensus group may have not agreed upon the snapshot.
 * Move that file into your `validator_data` directory.
 * Temporarily pause transaction sync via ```miner repair sync_pause```.
 * Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
-* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
-* Wait a few minutes before confirming the status using the following commands.
-* Confirm that they sync state is `active` via `miner repair sync_state`. If this is not active you can resume transaction syncing via ```miner repair sync_resume```.
-* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step.
-* Wait at least 5 minutes and re-confirm that your chain is adding more blocks.
-
-NOTE: If you build the Validator from source the paths may be different. For this Docker example `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system
+* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may return error:  
+```RPC to 'val_miner@127.0.0.1' failed: timeout```. The snapshot load actually continues to run in the background.
+* You can confirm the snapshot load has completed by running ```miner info height``` every few minutes until it successfully shows a block height >= the snapshot you loaded. You can then move on to the next step.
+* Confirm sync state is `active` via `miner repair sync_state`.
+* If not active, you can resume transaction syncing via ```miner repair sync_resume```.
+* Run `miner info p2p_status` and confirm that your validator height is >= `<height>` from the one you loaded.
+* Run ```tail -f $HOME/validator_data/log/console.log | grep -E 'add_block|absorb_and_commit'``` and monitor it for several minutes to confirm blocks are being absorbed and run ```miner info height``` to confirm your block height is increasing.
 
 ## Grab a snapshot from another Validator
 
-:::info
+**Make sure you trust the Validator that you take your snapshot from, shenanigans could ensue! This an advanced procedure use with caution!**
 
-Besure to trust the Validator that you take your snapshot from, shenanigans could ensue! This an advanced procedure use with caution!
-
-:::
+NOTE: If you build the Validator from source, the paths below may be different for you. For the following Docker example, `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system and `validator_data` is in your $HOME directory.
 
 * On the source Validator run `miner info p2p_status`.
 * Temporarily pause transaction sync via ```miner repair sync_pause```.
@@ -59,12 +61,13 @@ Besure to trust the Validator that you take your snapshot from, shenanigans coul
 * Move the `/var/data/snap-<height>` file into your root of the `validator_data` directory on the destination Validator.
 * Temporarily pause transaction sync via ```miner repair sync_pause```.
 * Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
-* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
-* Resume transaction syncing via ```miner repair sync_resume```.
-* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step.
-* Wait at least 5 minutes and re-confirm that your chain is adding more blocks.
-
-NOTE: If you build the Validator from source the paths may be different. For this Docker example `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system
+* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may return error:  
+```RPC to 'val_miner@127.0.0.1' failed: timeout```. The snapshot load actually continues to run in the background.
+* You can confirm the snapshot load has completed by running ```miner info height``` every few minutes until it successfully shows a block height >= the snapshot you loaded. You can then move on to the next step.
+* Confirm sync state is `active` via `miner repair sync_state`.
+* If not active, you can resume transaction syncing via ```miner repair sync_resume```.
+* Run `miner info p2p_status` and confirm that your validator height is >= `<height>` from the one you loaded.
+* Run ```tail -f $HOME/validator_data/log/console.log | grep -E 'add_block|absorb_and_commit'``` and monitor it for several minutes to confirm blocks are being absorbed and run ```miner info height``` to confirm your block height is increasing.
 
 ## Validator stuck at a block
 If your validator appears to be stuck at a particular block and no longer syncing, you may need to take manual action for your validator to make progress.
