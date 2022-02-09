@@ -781,35 +781,90 @@ Fetch all hotspots in h3 index: `882aa38c2bfffff`
 
 ## Hotspot Activity
 
-<Tabs
-  block={true}
-  defaultValue="roles"
-  values={[
-    { label: "Roles (activity_v2)", value: "roles" },
-    { label: "Legacy (activity_v1)", value: "activity" },
-  ]}
->
-<TabItem value="roles">
-
-```
-GET https://api.helium.io/v1/hotspots/:address/roles
-```
-
-</TabItem>
-
-<TabItem value="activity">
-
 ```
 GET https://api.helium.io/v1/hotspots/:address/activity
 ```
 
 :::caution
-This activity route will be deprecated on May 1, 2022 and will be replaced by Roles
+The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`](#hotspot-roles), described below
 :::
+
+Lists all blockchain transactions that the given Hotspot was involved in. This
+route is paged using a `cursor`.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                       |
+| ------------------ | -------- | -------------------------- |
+| address (optional) | _string_ | B58 address of the hotspot |
+
+_Query Parameters_
+
+| param                   | Type     | Note                                      |
+| ----------------------- | -------- | ----------------------------------------- |
+| cursor (optional)       | _string_ | Cursor for page of results to fetch       |
+| filter_types (optional) | _string_ | Comma separated list of transaction types |
+| min_time (optional)     | _string_ | First time to include data for            |
+| max_time (optional)     | _string_ | Last time to include data for             |
+| limit (optional)        | _number_ | Maximum number of items to return         |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+This lists the activity for a Hotspot which only had two
+transactions at the time of the request.
+
+```json
+{
+  "data": [
+    {
+      "fee": 70000,
+      "gateway": "11cxkqa2PjpJ9YgY9qK3Njn4uSFu6dyK9xV8XE4ahFSqN1YN2db",
+      "hash": "DXciS1wFRf4CAfK_FPl-nE3l_YhisFibOmY2vXE0e3s",
+      "height": 395577,
+      "lat": 37.784056617819544,
+      "lng": -122.39186733984285,
+      "location": "8c283082a1a19ff",
+      "nonce": 1,
+      "owner": "14e35CChhsnuHJxjjzYAxsHKBKDgjUop4GuD8esB7gE2VDoyPXT",
+      "payer": "14fzfjFcHpDR1rTH8BNPvSi5dKBbgxaDnmsVPbCjuq9ENjpZbxh",
+      "staking_fee": 1000000,
+      "time": 1593622131,
+      "type": "assert_location_v1"
+    },
+    {
+      "fee": 65000,
+      "gateway": "11cxkqa2PjpJ9YgY9qK3Njn4uSFu6dyK9xV8XE4ahFSqN1YN2db",
+      "hash": "VSO7aKH9uiCuWUNzb5rPddlq-m-kvaMeVeufUQisjbo",
+      "height": 395575,
+      "owner": "14e35CChhsnuHJxjjzYAxsHKBKDgjUop4GuD8esB7gE2VDoyPXT",
+      "payer": "14fzfjFcHpDR1rTH8BNPvSi5dKBbgxaDnmsVPbCjuq9ENjpZbxh",
+      "staking_fee": 4000000,
+      "time": 1593622029,
+      "type": "add_gateway_v1"
+    }
+  ]
+}
+```
 
 </TabItem>
 </Tabs>
 
+---
+
+## Hotspot Roles
+
+```
+GET https://api.helium.io/v1/hotspots/:address/roles
+```
 
 Lists all blockchain transactions that the given Hotspot was involved in. This
 route is paged using a `cursor`.
@@ -870,13 +925,13 @@ transactions at the time of the request.
 
 ---
 
-## Hotspots Activity Counts
+## Hotspots Roles Counts
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/roles/count
 ```
 
-Count transactions that indicate activity for a Hotspot.
+Count transactions that indicate a Hotspot as a participant.
 
 The results are a map keyed by the given `filter_types` and the count of
 transaction of that type.

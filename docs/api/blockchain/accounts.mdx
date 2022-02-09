@@ -537,36 +537,167 @@ The oui list for account `13tyMLKRFYURNBQqLSqNJg9k41maP1A7Bh8QYxR13oWv7EnFooc`
 
 ## Activity for Account
 
-<Tabs
-  block={true}
-  defaultValue="roles"
-  values={[
-    { label: "Roles (activity_v2)", value: "roles" },
-    { label: "Legacy (activity_v1)", value: "activity" },
-  ]}
->
-<TabItem value="roles">
-
-```
-GET https://api.helium.io/v1/accounts/:address/roles
-```
-
-</TabItem>
-
-<TabItem value="activity">
+:::caution
+The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`](#roles-for-account), described below
+:::
 
 ```
 GET https://api.helium.io/v1/accounts/:address/activity
 ```
 
-:::caution
-This activity route will be deprecated on May 1, 2022 and will be replaced by Roles
-:::
+Fetches transactions that indicate activity for an account. This includes any
+transaction that involves the account, usually as a payer, payee or owner.
+
+The results are paged. If a `cursor` field is present in the response, more
+results are available.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                                      |
+| ------------------ | -------- | ----------------------------------------- |
+| address (required) | _string_ | Account B58 address to fetch activity for |
+
+_Query Parameters_
+
+| param                  | Type     | Note                                      |
+| ---------------------- | -------- | ----------------------------------------- |
+| filter_types(optional) | _string_ | Comma separated list of transaction types |
+| min_time (optional)    | _string_ | First time to include data for            |
+| max_time (optional)    | _string_ | Last time to include data for             |
+| limit (optional)       | _number_ | Maximum number of items to return         |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": [
+    {
+      "type": "rewards_v1",
+      "time": 1608741833,
+      "start_epoch": 644049,
+      "rewards": [
+        {
+          "type": "poc_challengers",
+          "gateway": "1182nyT3oXZPMztMSww4mzaaQXGXd5T7JwDfEth6obSCwwxxfsB",
+          "amount": 8423208,
+          "account": "13GCcF7oGb6waFBzYDMmydmXx4vNDUZGX4LE3QUh8eSBG53s5bx"
+        }
+      ],
+      "height": 644084,
+      "hash": "6A_8hid6ZIiyg32dzQwFajM-iDyAvYJdVccSpxyymi8",
+      "end_epoch": 644083
+    },
+    {
+      "type": "rewards_v1",
+      "time": 1608735310,
+      "start_epoch": 643939,
+      "rewards": [
+        {
+          "type": "poc_witnesses",
+          "gateway": "1182nyT3oXZPMztMSww4mzaaQXGXd5T7JwDfEth6obSCwwxxfsB",
+          "amount": 256295305,
+          "account": "13GCcF7oGb6waFBzYDMmydmXx4vNDUZGX4LE3QUh8eSBG53s5bx"
+        }
+      ],
+      "height": 643984,
+      "hash": "FQnpxKBulLblJqSMsbgGbmv8ZHmu_2z4XJIeYKJGuIo",
+      "end_epoch": 643983
+    },
+    {
+      "type": "rewards_v1",
+      "time": 1608726763,
+      "start_epoch": 643837,
+      "rewards": [
+        {
+          "type": "poc_challengees",
+          "gateway": "1182nyT3oXZPMztMSww4mzaaQXGXd5T7JwDfEth6obSCwwxxfsB",
+          "amount": 16652034,
+          "account": "13GCcF7oGb6waFBzYDMmydmXx4vNDUZGX4LE3QUh8eSBG53s5bx"
+        }
+      ],
+      "height": 643871,
+      "hash": "yaEqGXHWOtElgG2RpaTuop2cwFaRypPIaOtsd11hPeQ",
+      "end_epoch": 643870
+    },
+    {
+      "type": "rewards_v1",
+      "time": 1608715628,
+      "start_epoch": 643648,
+      "rewards": [
+        {
+          "type": "poc_challengers",
+          "gateway": "1182nyT3oXZPMztMSww4mzaaQXGXd5T7JwDfEth6obSCwwxxfsB",
+          "amount": 8050332,
+          "account": "13GCcF7oGb6waFBzYDMmydmXx4vNDUZGX4LE3QUh8eSBG53s5bx"
+        },
+        {
+          "type": "poc_challengees",
+          "gateway": "1182nyT3oXZPMztMSww4mzaaQXGXd5T7JwDfEth6obSCwwxxfsB",
+          "amount": 45796610,
+          "account": "13GCcF7oGb6waFBzYDMmydmXx4vNDUZGX4LE3QUh8eSBG53s5bx"
+        }
+      ],
+      "height": 643687,
+      "hash": "-I__6qbqiopjMd94Zi94ixO-vyqFMeZdn0t2TRiTEjc",
+      "end_epoch": 643686
+    },
+    {
+      "type": "rewards_v1",
+      "time": 1608713272,
+      "start_epoch": 643540,
+      "rewards": [
+        {
+          "type": "poc_challengees",
+          "gateway": "1182nyT3oXZPMztMSww4mzaaQXGXd5T7JwDfEth6obSCwwxxfsB",
+          "amount": 15927309,
+          "account": "13GCcF7oGb6waFBzYDMmydmXx4vNDUZGX4LE3QUh8eSBG53s5bx"
+        }
+      ],
+      "height": 643647,
+      "hash": "mRYgIcJW-HcraoJQ3M5xlywDrNqNlHeeX2klKsGRGok",
+      "end_epoch": 643646
+    },
+    {
+      "type": "rewards_v1",
+      "time": 1608691560,
+      "start_epoch": 643255,
+      "rewards": [
+        {
+          "type": "poc_challengers",
+          "gateway": "1182nyT3oXZPMztMSww4mzaaQXGXd5T7JwDfEth6obSCwwxxfsB",
+          "amount": 8639175,
+          "account": "13GCcF7oGb6waFBzYDMmydmXx4vNDUZGX4LE3QUh8eSBG53s5bx"
+        }
+      ],
+      "height": 643353,
+      "hash": "jd5mq1OMG1q7g_JNJr5gFHD17uMSawvFNt8ARty2OGQ",
+      "end_epoch": 643352
+    }
+  ]
+}
+```
 
 </TabItem>
 </Tabs>
 
-Fetches transactions that indicate activity for an account. This includes any
+---
+
+## Roles for Account
+
+```
+GET https://api.helium.io/v1/accounts/:address/roles
+```
+
+Fetches transactions that indicate an account as a participant. This includes any
 transaction that involves the account, usually as a payer, payee or owner.
 
 The results are paged. If a `cursor` field is present in the response, more
@@ -638,7 +769,7 @@ _Query Parameters_
 
 ---
 
-## Activity Counts for Account
+## Roles Counts for Account
 
 ```
 GET https://api.helium.io/v1/accounts/:address/roles/count
