@@ -60,8 +60,9 @@ Remember after initial joining:
 
 - It takes up to (20-30 mins) for a sensor to be added for the first time due to XOR filter adding sensor credentials to blockchain: for more info check [here](https://docs.helium.com/use-the-network/console/adding-devices/#when-adding-devices-for-the-first-time).
 
-<img
-  src={useBaseUrl(
-    "img/use-the-network/console/console-troubleshooting-label-greyed.png"
-  )}
-/>
+### Why aren't downlinks working?
+
+LoRaWAN class A devices require an uplink before they can downlink. According to the LoRaWAN spec a receive window exists for the device to "hear" the downlink. 
+If this window (default 1 second) is missed then the downlink will be unsuccessful. With the Receive Window Delay feature users can 
+increase the window length and address latency issues that can prevent downlinks. More information about how to use profiles to configure the 
+receive window delay for devices and groups [here](https://docs.helium.com/use-the-network/console/profiles/#receive-window-delay).
