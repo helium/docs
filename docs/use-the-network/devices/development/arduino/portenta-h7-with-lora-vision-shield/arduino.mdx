@@ -1,8 +1,8 @@
---
+---
 id: arduino
 hide_title: true
 sidebar_label: Arduino
-slug: /use-the-network/devices/development/arduino/portenta-h7-with-lora-vision-shield
+slug: /use-the-network/devices/development/arduino/portenta-h7-with-lora-vision-shield/arduino
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
@@ -44,7 +44,7 @@ For this example, you will need the following:
   
 ### Software
 
-- [Arduino software \(IDE\)](https://www.arduino.cc/en/Main/Software) Old stable version ~Arduino IDE 1.8.19 or new version ~2.0  
+- [Arduino software \(IDE\)](https://www.arduino.cc/en/Main/Software) Old stable version ~Arduino IDE 1.8.19 or new version ~2.0.0RC3  
 - [Helium Console](https://console.helium.com/)
 
 ## Hardware Setup
@@ -54,7 +54,7 @@ This step will cover adding an antenna to the LoRa Vision Shield.
 ### Adding the Antenna
 
 The uFL connector is just a push fit on the LoRa board, not the main Portenta board (That uFL connector is for WiFi and BLE). 
-Try not to have to remove and replace the antenna very often. the uFL connectors are rated for 30 connection cycles, but be careful when connecting/disconnecting to not rip the pads off the PCB
+Try not to have to remove and replace the antenna very often. the uFL connectors are rated for 30 connection cycles, so be careful when connecting/disconnecting to not rip the pads off the PCB
 
 
 ## Software Setup
@@ -135,6 +135,47 @@ To install, open your Arduino IDE:
 If you prefer to install the zipped latest file from the github click [portenta-pro-community-solutions](https://github.com/hpssjellis/portenta-pro-community-solutions) download the zipped file then find the library menu item to install zipped libraries
 
 
+### MKRWAN reprogram LoRa board using the MKRWAN example sketch
+MKRWANFWUpdate_standalone make sure you run the serial monitor to fully update the LoRa module with the correct program.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/mkrwanFWUpdate_standalone-image.png"
+  )}
+/>
+
+
+### Upload Sketch
+
+We're finally ready to upload our sketch to the board. In the Arduino IDE, click
+the right arrow button, or navigate to \(**Sketch &gt; Upload\),** to build and
+upload your new firmware to the board. You should see something similar to the
+image below at the bottom of your Arduino IDE, when the upload is successful.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/upload-success.png"
+  )}
+/>
+
+### Viewing Serial Output
+
+When your firmware update completes, the board will reset, and begin by joining
+the network. Let's use the Serial Monitor in the Arduino IDE to view the output
+from the board. We first need to select the serial port again, but this time it
+will be a **different port** than the one we selected to communicate with the
+bootloader. Once again, navigate to \(**Tools &gt; Port: Arduino Portenta**\), but make sure the serial device, either COM\# or ttyACM\#, is different!
+Next navigate to \(**Tools &gt; Serial Monitor**\), you should begin to see
+output similar to below.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/serial-monitor-output.png"
+  )}
+/>
+
+
+
 ### Programming Example Sketch
 
 Now that we have the required Arduino board support and library installed, lets
@@ -179,44 +220,12 @@ Arduino Portenta**\). You will also see either **COM\# or /dev/ttyACM\#**
 depending on whether you are on Windows, Mac, or Linux. If you do not see a
 port, you will need to check if the Arduino drivers have been installed.
 
-### MKRWAN reprogram LoRa board using the MKRWAN example sketch
-MKRWANFWUpdate_standalone make sure you run the serial monitor to fully update the LoRa module with the correct program.
-
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/arduino/portenta/mkrwanFWUpdate_standalone-image.png"
+    "img/use-the-network/devices/development/arduino/portenta/fixed-dev-eui.png"
   )}
 />
 
-
-### Upload Sketch
-
-We're finally ready to upload our sketch to the board. In the Arduino IDE, click
-the right arrow button, or navigate to \(**Sketch &gt; Upload\),** to build and
-upload your new firmware to the board. You should see something similar to the
-image below at the bottom of your Arduino IDE, when the upload is successful.
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/devices/development/arduino/portenta/upload-success.png"
-  )}
-/>
-
-### Viewing Serial Output
-
-When your firmware update completes, the board will reset, and begin by joining
-the network. Let's use the Serial Monitor in the Arduino IDE to view the output
-from the board. We first need to select the serial port again, but this time it
-will be a **different port** than the one we selected to communicate with the
-bootloader. Once again, navigate to \(**Tools &gt; Port: Arduino Portenta**\), but make sure the serial device, either COM\# or ttyACM\#, is different!
-Next navigate to \(**Tools &gt; Serial Monitor**\), you should begin to see
-output similar to below.
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/devices/development/arduino/portenta/serial-monitor-output.png"
-  )}
-/>
 
 Now let's head back to [Helium Console](https://console.helium.com) and look at
 our device page, you should see something similar to the screenshot below.
@@ -230,7 +239,4 @@ our device page, you should see something similar to the screenshot below.
 Congratulations! You have just transmitted data on the Helium network! The next
 step is to learn how to use your device data to build applications, visit our
 Integrations docs [here](/use-the-network/console/integrations).
-
-
-
 
