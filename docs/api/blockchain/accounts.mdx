@@ -548,6 +548,9 @@ GET https://api.helium.io/v1/accounts/:address/activity
 Fetches transactions that indicate activity for an account. This includes any
 transaction that involves the account, usually as a payer, payee or owner.
 
+You may optionally add a transaction type filter. For example: 
+`activity?filter_types=rewards_v2` will provide reward transactions only.
+
 The results are paged. If a `cursor` field is present in the response, more
 results are available.
 
