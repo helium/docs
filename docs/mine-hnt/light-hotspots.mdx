@@ -14,14 +14,13 @@ converting existing Approved Hotspots to Light Hotspots. As part of this
 migration, we have introduced a new Hotspot variant onto the network, called
 a [Data Only Hotspot](/mine-hnt/data-only-hotspots). 
 
-A conversion of a Full Hotspot running Light Hotspot firmware is now being tested on [Testnet](testnet-explorer.helium.com).
+A conversion of a Full Hotspot running Light Hotspot software is now being tested on [Testnet](testnet-explorer.helium.com).
 
 This project is in progress and subject to change. **Last updated Monday February 14, 2022**.
 
 :::info
 
-For real-time development and community support of Data Only Hotspots and Light
-Hotspots, please join the #gateway-development channel on
+For real-time development and community support, please join the #gateway-development channel on
 [Helium Discord](https://discord.gg/helium)
 
 :::
@@ -34,15 +33,13 @@ entirely on the physical Hotspot itself. As the blockchain network grows, each
 Hotspot running a full node undergoes increasing load and are starting to fall
 out of sync due to the higher compute requirements.
 
-To mitigate this, the **Hotspot's consensus work has been moved off of physical
-Hotspots and onto Validators as of July 8, 2021**. This simplifies the architecture and enables
+To mitigate this, the Hotspot's consensus work has been moved off of physical
+Hotspots and onto Validators. This simplifies the architecture and enables
 us to grow the Network exponentially while keeping blocktimes and epochs stable.
 
 As all approved Hotspots transition to a Light Hotspot architecture, we also
-introduce a new type of Hotspot known as Data Only Hotspots, **activated as of July 20, 2021**, to satisfy the
+introduce a new type of Hotspot known as Data Only Hotspots, to satisfy the
 increasing demand and continue to expand network coverage.
-
-As of October 11 2021, **Data-Only Hotspots can mine HNT** for forwarding data packets on the network.
 
 | Rewards Type                 | Data Only Hotspots | Full & Light Hotspots |
 | :--------------------------- | :----------------- |:------------- |
@@ -51,8 +48,7 @@ As of October 11 2021, **Data-Only Hotspots can mine HNT** for forwarding data p
 
 ## Light Hotspot Properties
 
-When the Light Hotspot Client is fully developed and in production (which
-will happen with the completion of Milestone 4 detailed below) they will
+When the Light Hotspot software is fully developed and in production, they will
 satisfy the following properties:
 
 - A Hotspot on the Helium network that, via [Validators](/mine-hnt/validators),
@@ -65,7 +61,7 @@ satisfy the following properties:
 - Will no longer depend on libp2p or "gossip", and instead use [gRPC](https://grpc.io/), a new framework to communicate between distributed systems;
 - Will be eligible to earn $HNT (see table below)
 
-In other words, the client will allow the Hotspot to participate as a
+In other words, the Light Hotspot software will allow the Hotspot to participate as a
 [Full Hotspot](/mine-hnt/full-hotspots), without the extra overhead of maintaining a local copy
 of the blockchain.
 
@@ -73,7 +69,7 @@ of the blockchain.
 
 This image shows the progression to Light Hotspots, with the role of Miner being
 deprecated as we move the blockchain off the Hotspots and into the Validator
-infrastructure. At the conclusion of Milestone 4, the entire Helium blockchain,
+infrastructure. At the conclusion of Light Hotspot development, the entire Helium blockchain,
 and the coordination of Proof of Coverage, will be handled by Validators.
 
 <img
