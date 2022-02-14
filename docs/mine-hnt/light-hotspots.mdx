@@ -12,15 +12,15 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 This document describes the architecture and technical roadmap planned for
 converting existing Approved Hotspots to Light Hotspots. As part of this
 migration, we have introduced a new Hotspot variant onto the network, called
-a [Data Only Hotspot](/mine-hnt/data-only-hotspots). More details on progress
-and timeline are listed below.
+a [Data Only Hotspot](/mine-hnt/data-only-hotspots). 
 
-This project is in progress and subject to change. **Last updated Monday January 31, 2022**.
+A conversion of a Full Hotspot running Light Hotspot software is now being tested on [Testnet](https://testnet-explorer.helium.com).
+
+This project is in progress and subject to change. **Last updated Monday February 14, 2022**.
 
 :::info
 
-For real-time development and community support of Data Only Hotspots and Light
-Hotspots, please join the #gateway-development channel on
+For real-time development and community support, please join the #gateway-development channel on
 [Helium Discord](https://discord.gg/helium)
 
 :::
@@ -33,15 +33,13 @@ entirely on the physical Hotspot itself. As the blockchain network grows, each
 Hotspot running a full node undergoes increasing load and are starting to fall
 out of sync due to the higher compute requirements.
 
-To mitigate this, the **Hotspot's consensus work has been moved off of physical
-Hotspots and onto Validators as of July 8, 2021**. This simplifies the architecture and enables
+To mitigate this, the Hotspot's consensus work has been moved off of physical
+Hotspots and onto Validators. This simplifies the architecture and enables
 us to grow the Network exponentially while keeping blocktimes and epochs stable.
 
 As all approved Hotspots transition to a Light Hotspot architecture, we also
-introduce a new type of Hotspot known as Data Only Hotspots, **activated as of July 20, 2021**, to satisfy the
+introduce a new type of Hotspot known as Data Only Hotspots, to satisfy the
 increasing demand and continue to expand network coverage.
-
-As of October 11 2021, **Data-Only Hotspots can mine HNT** for forwarding data packets on the network.
 
 | Rewards Type                 | Data Only Hotspots | Full & Light Hotspots |
 | :--------------------------- | :----------------- |:------------- |
@@ -50,8 +48,7 @@ As of October 11 2021, **Data-Only Hotspots can mine HNT** for forwarding data p
 
 ## Light Hotspot Properties
 
-When the Light Hotspot Client is fully developed and in production (which
-will happen with the completion of Milestone 4 detailed below) they will
+When the Light Hotspot software is fully developed and in production, they will
 satisfy the following properties:
 
 - A Hotspot on the Helium network that, via [Validators](/mine-hnt/validators),
@@ -64,7 +61,7 @@ satisfy the following properties:
 - Will no longer depend on libp2p or "gossip", and instead use [gRPC](https://grpc.io/), a new framework to communicate between distributed systems;
 - Will be eligible to earn $HNT (see table below)
 
-In other words, the client will allow the Hotspot to participate as a
+In other words, the Light Hotspot software will allow the Hotspot to participate as a
 [Full Hotspot](/mine-hnt/full-hotspots), without the extra overhead of maintaining a local copy
 of the blockchain.
 
@@ -72,7 +69,7 @@ of the blockchain.
 
 This image shows the progression to Light Hotspots, with the role of Miner being
 deprecated as we move the blockchain off the Hotspots and into the Validator
-infrastructure. At the conclusion of Milestone 4, the entire Helium blockchain,
+infrastructure. At the conclusion of Light Hotspot development, the entire Helium blockchain,
 and the coordination of Proof of Coverage, will be handled by Validators.
 
 <img
@@ -90,100 +87,34 @@ Development of this code takes place in the above GitHub repo, as well at the
 `#gateway-developement` channel on the
 [Helium Discord Server](https://discord.gg/helium).
 
-## Development Milestones
+# Development Timelines
 
-The development of Light Hotspots will be broken up into the five following
-milestones.
+- **March 18 2021**: Data Only Hotspots routes free packets
+- **July 8 2021**: Hotspot Consensus work moves to Validators
+- **July 20 2021**: Data Only Hotspots activated on Helium Network (appears on chain)
+- **October 11 2021**: Data Only Hotspots mine HNT
+- **December 2021**: Validators creating challenges for software-based miners on Testnet
+- **January 2022**: Hardware Audit starts for Light Hotspot manufacturers
+- **February 2022**: Introduce hardware-based Hotspots on Testnet (Full Hotspots running Light Hotspot firmware). Validators create challenges using H3dex targeting.
+- **Tentative: End of Q1 2022**: All HIP-19 Approved Makers participating in Testnet
 
-### Milestone 1: Free Packet Forwarding
+Assuming HIP 54 and HIP 55 pass without additional changes
 
-- Target Completion Date: March 18
-- Status: COMPLETE
+- **Tentative: Q1/Q2 2022**: Code related to Light Hotspot merged to production, in an inactive state
+- **Several weeks later**: Activate set of chain variables to enable Light Hotspots on Mainnet
+- **Several weeks later**: Deactivate Miner on Light Hotspots on Mainnet such that they run gateway-rs only
 
-At the completion of Milestone 1, any LoRaWAN gateways running
-[gateway-rs](https://github.com/helium/gateway-rs) can route packets to and from
-the Helium Network **but not earn HNT.** This means an DIY gateway can send and
-receive data on the Network. These LoRaWAN Gateways running `gateway-rs` are known
-as Data Only Hotspots.
+## Current progress on Testnet
+Hardware-based Hotspots are now participating in a new Proof-of-Coverage with Validators on Testnet. In this test, all Hotspots use Testnet Validators for blockchain information and do not need to sync the blockchain directly. They also receive PoC Challenges from Validators.
 
-### Milestone 1.5: Add Hotspot to Blockchain
+You can see their progress on [Testnet](https://testnet-explorer.helium.com).
 
-- Target Completion: early July
-- Status: COMPLETE
+These Hotspots are also running a dockerized version of [gateway-rs (rust-based gateway firmware)](https://github.com/helium/gateway-rs) and an updated packet forwarder that relies on Validators.
 
-At the completion of Milestone 1.5, Data Only Hotspots can be added to the
-blockchain, assert its location, and be seen on explorer.helium.com.
+*Note that these Hotspots are earning testnet tokens (TNT) and not HNT.*
 
-Data Only Hotspots are added to the blockchain by paying a $10 Add Gateway
-transaction fee, and a $5 Assert location transaction fee using the
-[Helium Wallet CLI](https://github.com/helium/helium-wallet-rs) and will not
-earn $HNT.
+## Current progress on Mainnet
+A portion of the complete Light Hotspot software is also on mainnet, transferring non-PoC packets on a test Hotspot using the new packet forwarder that relies on Validators. 
 
-### Milestone 2: Earn HNT For Device Packet Transfer
-
-- Target Completion: Fall 2021
-- Status: COMPLETE
-
-Data Only Hotspots will earn $HNT for device data transfer. 
-
-### Path to Milestone 3 and Milestone 4
-Work for both Milestone 3 and 4 are under way. The core team is currently focused on transitioning Full Hotspots to Light Hotspots due to the increasing size of the network and the amount of work needed to sustain this large peer-to-peer network.
-
-<img
-  className="docsheader"
-  src={useBaseUrl("img/mine-hnt/dev-timeline-light-hotspots.png")}
-/>
-
-### Milestone 3: Light Hotspots as a new Hardware variant 
-
-- New Hardware Available to Customers: Starting in 2022, depending on Manufacturer
-- Status: HIP-19 Makers undergoing Hardware Audit
-
-Approved Hotspots from
-[HIP19-approved manufacturers](/mine-hnt/full-hotspots/#approved-makers) with
-lower compute requirements can be added to the network and participate in PoC.
-
-#### Rough Timeline for Light Hotspot Makers:
-1. Submit HIP-19 Application to DeWi
-2. Pass KYC
-3. Enter queue for Hardware Audit
-4. Pass Hardware Audit/obtain any related certifications
-5. Load latest `gateway-rs` build on manufacturing line
-6. Manufacture Light Hotspots
-
-:::info
-
-HIP-19 Makers: Hardware Audit will commence as soon as early December. Milestone 3 completion is not required for Audit. Please contact MOC for more details.
-
-:::
-
-
-Onboarding for these Light Hotspots will be done via the standard Helium Wallet
-app onboarding. The fees will be equivalent to other Approved Hotspots ($40 and
-$10 for add assert, respectively).
-
-At this stage, there will be three types of Hotspots:
-
-1. Approved Hotspot (HIP-19 approved, earns HNT for PoC and Data Transfer,
-   follows Blockchain)
-2. Light Hotspot (HIP-19 approved, earns HNT for PoC and Data Transfer)
-3. Data Only Hotspot (DIY LoRaWAN Gateway, earns HNT for Data Transfer)
-
-### Milestone 4: Software Update to Existing Hotspots to transform them into Light Hotspots
-
-- Target Completion: Q1 2022
-- Status: Development in progress
-
-Approved Hotspots on the Network will be converted
-to run [gateway-rs](https://github.com/helium/gateway-rs) and will be dependent
-on Validators to generate challenges and process witness receipts.
-
-#### What's on Testnet?
-Software-based miners are receiving block information and challenges from validators. These software-based miners are participating in Proof-of-Coverage. See them in action on testnet-explorer.helium.com
-
-Next: 
-- Run Light Hotspot software on Hotspot Hardware (Helium Hotspots and other Maker Hotspots) on testnet
-
-
-#### What's on mainnet?
-2 testing Hotspots will receive an update on Mainnet that routes non-PoC packets using the Light Hotspot code. 
+### What's Next
+Invite all Makers to participate in our Testnet test by supplying a tag on [Quay, our image distribution tool, for Makers using Docker](https://quay.io/repository/team-helium/testnet?tag=latest&tab=tags).
