@@ -65,3 +65,27 @@ Remember after initial joining:
     "img/use-the-network/console/console-troubleshooting-label-greyed.png"
   )}
 />
+
+###  Why are my downlinks not working?
+
+A LoRaWAN Class A device only listens for downlinks immediately after sending
+an uplink. The LoRaWAN specification defines this as the "receive windows"
+(ie:`RX1`) which starts `RX_DELAY1` seconds after the uplink is complete.
+
+<img
+    src={useBaseUrl(
+        "img/use-the-network/console/console-troubleshooting-rxdelay.png"
+    )}
+/>
+
+If the device receives no downlinks during the first window, it will listen
+again one second later during the second receive window (ie: `RX2`).
+
+Sometimes an enqueued downlink may be received by a LoRaWAN gateway too late
+for both windows. This can be due to geographic distance between the gateway
+and the server or due to high latency backhauls used by the gateway (such as
+cellular).
+
+In these cases, it is recommended to explore increasing the `RX_DELAY1` value.
+More information about how to use LoRaWAN Profiles on Console to configure the
+`RX_DELAY1` value is available [here](https://docs.helium.com/use-the-network/console/profiles/#receive-window-delay).
