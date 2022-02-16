@@ -12,7 +12,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 ## Dragino LDS02
 
 <img
-  src={useBaseUrl("img/use-the-network/devices/ready-to-use/dragino/lds01.jpg")}
+  src={useBaseUrl("img/use-the-network/devices/ready-to-use/dragino/LDS02_00.jpg")}
 />
 
 LoRaWAN Door Sensor Mk.2
@@ -66,7 +66,7 @@ As described [here](https://docs.mydevices.com/docs/lorawan/helium), select
 6. Enter the Device EUI and other information.
 
 On the Helium Console, select `Flow` and directly connect the LHT65 Device to the 
-Cayenne Integration with a connecting flow line.  Do not use a Decoder.
+Cayenne Integration with a connecting flow line.  *Do not use a Decoder.*
 
 Cayenne will show:
 * RSSI (dBm)
@@ -75,7 +75,7 @@ Cayenne will show:
 * Battery (%)
 * Door state (0/1)
 * Door ("Dorr" sic) Open Times
-* Last Door Open Duration
+* Last Door Open Duration (in minutes!)
 * Alarm state (0/1)
 
 ### Decode Device Payload
@@ -229,3 +229,10 @@ function Serialize(payload) {
 
 The Sheets integration will provide its own Decoder Function block.
 Create a new flow from the LDS02 Device, to this Decoder, to the Sheets Integration block.
+
+## Notes
+Note that the Door Open Duration is a count of full minutes (rounded down) that the door was last open.  It does not show the Door Closed time, but repeats the Door Open time for the subsequent Open message.
+
+If door open/close events happen faster than LoRa can send messages (about 3 seconds each), then the door open/close Count will still be correct, and you will see nonsequential values in the Count for missed door events.  The last sent message appears to correctly reflect the state of the door, regardless of previously missed messages.
+
+A heartbeat message is automatically sent every 24 hours (+ 5 seconds) when idle, restating the door condition.

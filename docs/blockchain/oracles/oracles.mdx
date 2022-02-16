@@ -54,32 +54,40 @@ establish a new HNT/$USD price. To do this:
 
 ### Who are the HNT Price Oracles?
 
-The HNT Oracle price feeds are supplied by a group of nine (9) Oracles, composed
+The HNT Oracle price feeds are supplied by a group of eleven (11) Oracles, composed
 of companies, organizations, and individuals. They are:
 
 - Helium, Inc
 - Decentralized Wireless Alliance ([DEWI](https://www.dewi.org/))
-- Seven (7) Anonymous Individual Community Members
+- Nine (9) Anonymous Individual Community Members
 
 We’ve chosen to keep the names of the individual feed contributors anonymous as
 it’s essential to prevent any external attempts at extortion or blackmail. The
 names of large companies and organizations that supply feeds, however, are
 public and it’s easier for them to combat potential attacks and bad actors.
 
-The current set of public keys for the nine HNT Price Oracles are (in no
+The current set of public keys for the eleven HNT Price Oracles are (in no
 particular order):
 
 ```text
-13Btezbvbwr9LhKmDQLgBnJUgjhZighEjNPLeu79dqBbmXRwoWm
 13CFFcmPtMvNQCpWQRXCTqXPnXtcsibDWVwiQRKpUCt4nqtF7RE
 1431WVQvoV7RAJpoLCaBrTKner1Soed4bk69DddcrHUTCWHV6pj
 136n9BEbreGUNgXJWtyzkBQcXiNzdMQ5GBoP8L2J6ZReFUAwUjy
 14sqAYg1qxzjKTtyHLYZdH6yDtA3KgyoARhWN1cvLZ94dZw5vEc
 145J6Aye86pKTJrUHREiXu7qqppZBcWY1bvWo8id7ZjxyuainYj
-14t33QjopqCUVr8FXG4sr58FTu5HnPwGBLPrVK1BFXLR3UsnQSn
 14EzXp4i1xYA7SNyim6R4J5aXN1yHYKNiPrrJ2WEvoDnxmLgaCg
 147yRbowD1krUCC1DhhSMhpFEqnkwb26mHBow5nk9q43AakSHNA
+13ZGgWX4Ajz9g9t3tM9ohDyso12o2E2CpYbMF2RBaT93rj7souE
+1489qpKWAoLrURcaQEM1wJEViD4mk9WcqZMGhiTFfNGmaz8NFdX
+14hntpRicek9pxzHBDPVWPwYHHmExrksaxzAsTjjstgLfnfG5Ve
+14aQaRARuwLTLHLygiDNNapKZ7bcLSyXhHq9DeZ5kB2dnCxiiKv
 ```
+
+You can [list activity for a specific Oracle](https://docs.helium.com/api/blockchain/oracle-prices/#list-activity-for-a-specific-oracle) at:
+```
+https://api.helium.io/v1/oracle/:address/activity
+```
+
 
 ## Submitting an HNT Oracle Price
 
@@ -96,7 +104,7 @@ machine if you're not using it already.
 #### Submitting HNT Prices
 
 We've added a new transaction to the blockchain for Oracle price submissions -
-`price_oracle_submission` added a corresponding CLI command - `oracle report`.
+`price_oracle_submission`, and a corresponding CLI command - `oracle report`.
 
 When you download the CLI and run `helium-wallet oracle report --help`, you'll
 see something like this:

@@ -83,7 +83,7 @@ The output will look similar to this:
 
 ## Each Validator Requires 10000 HNT
 
-Running a Validator on Mainnet requires a stake of `10000 HNT` per Validator. After you've created your wallet, transfer a little more than `10000 HNT` into it for each Validator you intend to run.
+Running a Validator on Mainnet requires a stake of `10000 HNT` per Validator. After you've created your wallet, transfer a little more than `10000 HNT` into it for each Validator you intend to run to cover the transaction fee.
 
 :::info
 
@@ -321,7 +321,11 @@ Specifics instructions to increase the `ulimit` vary by OS (readily found with a
 
 Now that your Validator node is running, the final step in the process is to formally stake HNT to your Validator. As part of the staking process the Validator address needs to both be in the staking transaction and sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
 
-First, double check your wallet balance to make sure you have the `10000` HNT required to stake, along with a few extra to cover the transaction fees.
+:::info
+
+First, double check your wallet balance to make sure you have the `10000` HNT required to stake, **along with a few extra to cover the transaction fees**.
+
+:::
 
 ```
 helium-wallet balance
@@ -345,10 +349,10 @@ The resulting output will look like this (except with your specific validator ad
 /p2p/1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR
 ```
 
-We can now use this address with the Helium Wallet CLI `validators stake` command to formally stake the `10000 HNT` required. Here's the full command using the Validator address from above as an example. (**Make sure you replace it with yours.**)
+We can now use this address with the Helium Wallet CLI `validators stake` command to formally stake the `10000 HNT` required **along with extra to cover the fee**. Here's the full command using the Validator address from above as an example. (**Make sure you replace it with yours.**)
 
 ```
-helium-wallet validators stake one 1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR 10000 --commit
+helium-wallet validators stake one 1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR 10001 --commit
 ```
 
 After running this, you'll need to input your wallet passphrase to sign the transaction.

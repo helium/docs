@@ -58,7 +58,7 @@ Let's take a look at how challenges actually happen.
 POC Challenges involve three distinct roles:
 
 1. **Challenger** - The Hotspot that constructs and issues the POC Challenge. Hotspots issue
-challenges approximately once per every 240 blocks. (See note below)
+challenges approximately once per every 360 blocks. (See note below)
 2. **Transmitter** - Sometimes called "Challengee". This Hotspot is the target of the POC 
 challenge and is responsible for transmitting (or "beaconing") challenge packets to potentially be witnessed by 
 geographically proximate Hotspots.
@@ -71,7 +71,7 @@ challenge packet after it has been transmitted.
 ### Challenge Proof Construction and Target Selection
 
 As noted above, Hotspots are currently allowed to submit a challenge proof roughly once per 
-300 blocks. They do this reliably [to earn the portion of HNT rewards allocated to challengers](/blockchain/mining). 
+360 blocks. They do this reliably [to earn the portion of HNT rewards allocated to challengers](/blockchain/mining). 
 The Challenger first generates an ephemeral public/private key pair to be used in the challenge. 
 A SHA256 digest of the public key and the SHA256 digest of the private key are both submitted, 
 along with the current block hash, as a PoC request. If the request is valid and accepted by the 
