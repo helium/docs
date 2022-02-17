@@ -1,0 +1,41 @@
+---
+id: maker-apps
+title: Maker Apps
+sidebar_label: Maker Apps
+slug: /mine-hnt/maker-apps
+---
+
+# Maker Apps
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+This document describes what Maker apps are and how users interact with them on the Helium Network.
+
+Beginning March 2022, all [HIP-19](https://github.com/dewi-alliance/hotspot-manufacturers#readme) Hotspot Manufacturers (aka Makers) are required to support their customers with a bespoke Mobile App to onboard their Hotspots, maintain their Hotspots with diagnostic tools, and various basic troubleshooting tools. 
+
+Maker Apps can also include extra enhancements such as Proof-of-Coverage analysis, earnings tools, and more. 
+
+For more information, read our blog post announcing this change.
+
+
+## SDKs and Starter Apps
+
+To assist Makers in developing their apps, an SDK and supporting libraries are available. An example starter app is also open-sourced for forking and further customization.
+
+### React Native SDK
+
+The Helium React Native SDK is a collection of modules that can be used by a React Native application to interact with Hotspots and the Helium Blockchain. It has first class support for Typescript.
+
+[Read the full documentation](https://helium.github.io/react-native-helium/index.html)
+
+### Maker Starter App
+
+The [Maker Starter App](https://github.com/helium/maker-starter-app) includes support for deeplinking to the Helium Wallet App to sign transactions, removing any requirements for users to enter their 12 word seed phrase into the Maker App. **This is a security precaution and prevents potential lost of funds and Hotspots, as the seed phrase acts as a user's private key on the blockchain.** If you find a Maker app that asks for your seed phrase, do not trust it.
+
+#### Features
+The following features are supported in the Maker Starter App:
+- Add a Hotspot
+- Set a Location (including gain and elevation)
+- Transfer a Hotspot
+- Settings with PIN Code and language selection
+- Deeplinking to [Helium Wallet](/wallets/app-wallet) to sign transactions
