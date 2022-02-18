@@ -39,7 +39,7 @@ Syncing to the blockchain could be impacted for the following reasons:
 
 ## Validator low disk space
 * If your validator is running low on disk space and you cannot increase it, it is safe to delete everything under the `$HOME/validator_data` **EXCEPT** for `$HOME/validator_data/miner` where your `swarm_key` is located. This is also a good time to backup your `swarm_key` if you haven't already.
-* Simply stop your docker validator container, remove all the files/directories noted above, start the docker validator containter and follow the steps to [Grab the latest blessed snapshot from Helium](grab-the-latest-blessed-snapshot-from-helium).
+* Simply stop your docker validator container, remove all the files/directories noted above, start the docker validator containter and follow the steps to [Grab the latest blessed snapshot from Helium](#grab-the-latest-blessed-snapshot-from-helium).
 * Note: Deleting above data will also require you to load a snapshot and resync to the tip of the chain. If your validator height is already at or above the latest available snapshot height, as shown by `miner info height`, it is to your benefit to first create a snapshot by running `miner snapshot take filenamehere` so that you can load the snapshot after freeing up disk space. Snapshot files are currently ~400MB in size.
 * If your current block height is behind the latest snapshot, you can simply follow the steps in the next section after freeing up space.
 
