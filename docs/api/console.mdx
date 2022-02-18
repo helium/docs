@@ -686,3 +686,695 @@ Device removed from label successfully
 
 </TabItem>
 </Tabs>
+
+---
+## Console Staging API
+
+The Console API is a set of HTTP Request that allows you to programatically
+interact with Console. It's the lowest level building block and is ideal for
+integrating with back-end services, for example.
+
+### Base URL
+
+```
+https://staging-console.helium.wtf/
+```
+
+### Authentication
+
+All Console API requests require an API Key which provides access to devices
+owned by the **organization** which owns the device. Devices are never
+associated to a single user, but instead to an organization.
+
+To create an account key, go to your
+[profile](https://staging-console.helium.wtf/profile) on Helium Staging Console. From the top
+right corner, click: `Account -> Profile`.
+
+From there, you may generate a key for your organization. _The key will only
+display once._
+
+**You must confirm the API key** creation by clicking a link that is emailed to
+the account that created the API key.
+
+From then on, you will want to include the API key in all of your API requests.
+You do this by placing your API key in an HTTP header field called "key.
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+---
+
+### Create an Integration
+Create prebuilt integration for integration providers planning to offer connectivity as a service. 
+
+```
+POST https://staging-console.helium.wtf/api/v1/integrations/prebuilt
+```
+
+Creates a device with corresponding name, Application EUI, Application Key, and
+Device EUI.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+| content-type (required) | _string_ | application/json              |
+
+_Body Parameters_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| token (required)    | _string_ | Your token, authorization key, uplink secret depending on pre-built integration.|
+| name (required) | _string_ | A unique name for the Integration           |
+| type (required) | _string_ | “Akenza” “ubidots” “tago” “datacake”             |
+
+</TabItem>
+<TabItem value="response">
+
+201: Created
+
+```
+{
+    "devices": [],
+    "id": "8bcf235a-0ee7-4e74-9856-e07c13a863b6",
+    "labels": [],
+    "name": "name"
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Delete an Integration
+
+```
+DELETE https://staging-console.helium.wtf/api/v1/integrations/:integration_id
+```
+
+Delete an Integration along with any links to labels.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+_Path Parameters_
+
+| Parameter Name | Type     | Description                      |
+| -------------- | -------- | -------------------------------- |
+| Integration_id (required)  | _string_ | UUID for removed integration |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```
+Integration {
+    id: "868ea783-f252-4fc4-b724-a155680c0bc9",
+    name: "Terry Fox",
+    }
+```
+
+404: Not Found
+```
+{ "errors": { "error": ["Integration not found"] } }
+```
+
+
+</TabItem>
+</Tabs>
+
+---
+### List Integrations
+
+```
+GET https://staging-console.helium.wtf/api/v1/integrations/
+```
+
+Returns a list of integrations associated with the organization.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```
+    Integration {
+        id: "20515fce-2f7c-4025-8841-4be47cb9ec3c",
+        name: "Terry Fox"
+        labels: [],
+        devices: [],
+    },
+    Integration {
+        id: "d20d5d32-f699-40a7-a5a7-b9a49dfe2b4a",
+        name: "Tommy Douglas",
+        labels: [],
+        devices: [],
+    },
+```
+
+404: Not Found
+```
+{ "errors": { "error": ["Integration not found"] } }
+```
+
+
+</TabItem>
+</Tabs>
+
+---
+
+### Search for an Integration by UUID
+
+```
+GET https://staging-console.helium.wtf/api/v1/integrations/:integration_id
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+_Path Parameters_
+
+| Parameter Name | Type     | Description                      |
+| -------------- | -------- | -------------------------------- |
+| Integration_id (required)  | _string_ | UUID of integration |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```
+Integration {
+    id: "868ea783-f252-4fc4-b724-a155680c0bc9",
+    name: "Terry Fox",
+     labels: [],
+     devices: [],
+},
+```
+
+404: Not Found
+```
+{ "errors": { "error": ["Integration not found"] } }
+```
+
+
+</TabItem>
+</Tabs>
+
+---
+
+### Search for an Integration by Name
+
+```
+GET https://staging-console.helium.wtf/api/v1/integrations?name=
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| Parameter Name | Type     | Description                      |
+| -------------- | -------- | -------------------------------- |
+| name (required)  | _string_ | name of integration |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```
+Integration {
+    id: "868ea783-f252-4fc4-b724-a155680c0bc9",
+    name: "Terry Fox",
+     labels: [],
+     devices: [],
+},
+```
+
+404: Not Found
+```
+{ "errors": { "error": ["Integration not found"] } }
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### View all flows for integration
+
+```
+GET https://staging-console.helium.wtf/api/v1/flows?integration_id=xxx
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+_Query Parameters_
+
+| Parameter Name | Type     | Description                      |
+| -------------- | -------- | -------------------------------- |
+| Integration_id (required)  | _string_ | UUID of integration |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```
+[
+{
+        "device_id": null,
+        "function_id": "7591901a-1299-4893-b0b5-65786c481bcc",
+        "id": "1f99c35c-20c5-42f6-b3e4-984bba68ade1",
+        "integration_id": "c23f1419-47af-4673-931a-7acdae1ddee5",
+        "label_id": "d7c095cb-4923-42c1-967a-5574eedc2dc4",
+        "organization_id": "e9ea354a-cf4d-492a-b332-3d2ee4fe177e"
+    },
+{
+        "device_id": null,
+        "function_id": "7591901a-1299-4893-b0b5-65786c481bcc",
+        "id": "1f99c35c-20c5-42f6-b3e4-984bba68ade1",
+        "integration_id": "c23f1419-47af-4673-931a-7acdae1ddee5",
+        "label_id": "d7c095cb-4923-42c1-967a-5574eedc2dc4",
+        "organization_id": "e9ea354a-cf4d-492a-b332-3d2ee4fe177e"
+    }
+
+]
+```
+</TabItem>
+</Tabs>
+
+---
+
+### Create flow for integration
+Creating a prebuilt integration for CaaS providers. 
+
+```
+POST https://staging-console.helium.wtf/api/v1/flows
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+| content-type (required) | _string_ | application/json              |
+
+_Body Parameters_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| integration_id (required)    | _string_ | UUID of integration|
+| label_id / device_id (required) | _string_ | UUID           |
+| Function_id (optional) | _string_ | UUID             |
+
+</TabItem>
+<TabItem value="response">
+
+201: Created
+
+```
+{
+    "devices": [],
+    "id": "8bcf235a-0ee7-4e74-9856-e07c13a863b6",
+    "labels": [],
+    "name": "name"
+}
+
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Delete flow
+
+```
+DELETE https://staging-console.helium.wtf/api/v1/flows/:flow_id
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+_Path Parameters_
+
+| Parameter Name | Type     | Description                      |
+| -------------- | -------- | -------------------------------- |
+| flow_id (required)  | _string_ | UUID of flow |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```
+Flow deleted successfully
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Create Device (update existing)
+
+```
+POST https://staging-console.helium.wtf/api/v1/devices
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+| content-type (required) | _string_ | application/json              |
+
+_Body Parameters_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| name (required)    | _string_ | A human-friendly name for the device |
+| app_eui (required) | _string_ | LoRaWAN Application EUI              |
+| app_key (required) | _string_ | LoRaWAN Application Key              |
+| dev_eui (required) | _string_ | LoRaWAN Device EUI                   |
+| Config_profile_id (required) | _string_ | Config profile uuid to attach                   |
+| Label_ids | Array of strings | Array of label uuids to attach to device               |
+
+
+</TabItem>
+<TabItem value="response">
+
+201: created
+
+</TabItem>
+</Tabs>
+
+---
+### Update Device Config Profile (New)
+```
+PUT https://staging-console.helium.wtf/api/v1/devices/:device_id
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+_Path Parameters_
+
+| Parameter Name       | Type     | Description    |
+| -------------------- | -------- | -------------- |
+| device_id (required) | _string_ | UUID of device |
+
+_Body Parameters_
+
+| Parameter Name   | Type     | Description   |
+| ---------------- | -------- | ------------- |
+| Config_profile_id (required) | _string / null_ | Config profile uuid to attach or set to null to remove |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+</TabItem>
+</Tabs>
+
+---
+### Create Label (Update existing)
+
+```
+POST https://staging-console.helium.wtf/api/v1/labels
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+| content-type (required) | _string_ | application/json              |
+
+_Body Parameters_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| name (required)    | _string_ | A human-friendly name for the device |
+| Config_profile_id (required) | _string_ | Config profile uuid to attach                   |
+
+</TabItem>
+<TabItem value="response">
+
+201: created
+
+</TabItem>
+</Tabs>
+
+---
+
+### Update Label Config Profile (New)
+```
+PUT https://staging-console.helium.wtf/api/v1/labels/:label_id
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+_Path Parameters_
+
+| Parameter Name       | Type     | Description    |
+| -------------------- | -------- | -------------- |
+| label_id (required) | _string_ | UUID of label |
+
+_Body Parameters_
+
+| Parameter Name   | Type     | Description   |
+| ---------------- | -------- | ------------- |
+| Config_profile_id (required) | _string_ | Config profile uuid to attach or set to null to remove |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+</TabItem>
+</Tabs>
+
+---
+
+### Update Device Active Status (New)
+```
+PUT https://staging-console.helium.wtf/api/v1/devices/:device_id
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+_Path Parameters_
+
+| Parameter Name       | Type     | Description    |
+| -------------------- | -------- | -------------- |
+| device_id (required) | _string_ | UUID of device |
+
+_Body Parameters_
+
+| Parameter Name   | Type     | Description   |
+| ---------------- | -------- | ------------- |
+| active (required) | _string_ | boolean |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+</TabItem>
+</Tabs>
+
+---
+
+### Update Devices Active Status (New)
+```
+PUT https://staging-console.helium.wtf/api/v1/devices/active?
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+_Query Parameters_
+
+| Parameter Name       | Type     | Description    |
+| -------------------- | -------- | -------------- |
+| dev_eui (required) | _string_ | Device dev_eui |
+| app_eui (optional) | _string_ | Device app_eui |
+| app key (optional) | _string_ | Device app_key |
+
+_Body Parameters_
+
+| Parameter Name   | Type     | Description   |
+| ---------------- | -------- | ------------- |
+| active (required) | _string_ | boolean |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+</TabItem>
+</Tabs>
+
+---
+
+### Update Devices attached to label Active Status (New)
+
+```
+PUT https://staging-console.helium.wtf/api/v1/labels/:label_id/active
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
+
+_Path Parameters_
+
+| Parameter Name       | Type     | Description    |
+| -------------------- | -------- | -------------- |
+| label_id (required) (required) | _string_ | Label uuid |
+
+_Body Parameters_
+
+| Parameter Name   | Type     | Description   |
+| ---------------- | -------- | ------------- |
+| active (required) | _string_ | boolean |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+</TabItem>
+</Tabs>
