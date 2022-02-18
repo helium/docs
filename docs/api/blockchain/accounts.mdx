@@ -537,12 +537,19 @@ The oui list for account `13tyMLKRFYURNBQqLSqNJg9k41maP1A7Bh8QYxR13oWv7EnFooc`
 
 ## Activity for Account
 
+:::caution
+The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`, described below](#roles-for-account)
+:::
+
 ```
 GET https://api.helium.io/v1/accounts/:address/activity
 ```
 
 Fetches transactions that indicate activity for an account. This includes any
 transaction that involves the account, usually as a payer, payee or owner.
+
+You may optionally add a transaction type filter. For example: 
+`activity?filter_types=rewards_v2` will provide reward transactions only.
 
 The results are paged. If a `cursor` field is present in the response, more
 results are available.
@@ -687,10 +694,88 @@ _Query Parameters_
 
 ---
 
-## Activity Counts for Account
+## Roles for Account
 
 ```
-GET https://api.helium.io/v1/accounts/:address/activity/count
+GET https://api.helium.io/v1/accounts/:address/roles
+```
+
+Fetches transactions that indicate an account as a participant. This includes any
+transaction that involves the account, usually as a payer, payee or owner.
+
+The results are paged. If a `cursor` field is present in the response, more
+results are available.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                                      |
+| ------------------ | -------- | ----------------------------------------- |
+| address (required) | _string_ | Account B58 address to fetch activity for |
+
+_Query Parameters_
+
+| param                  | Type     | Note                                      |
+| ---------------------- | -------- | ----------------------------------------- |
+| filter_types(optional) | _string_ | Comma separated list of transaction types |
+| min_time (optional)    | _string_ | First time to include data for            |
+| max_time (optional)    | _string_ | Last time to include data for             |
+| limit (optional)       | _number_ | Maximum number of items to return         |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": [
+    {
+      "type": "rewards_v2",
+      "time": 1643683979,
+      "role": "payee",
+      "height": 1207030,
+      "hash": "6A_8hid6ZIiyg32dzQwFajM-iDyAvYJdVccSpxyymi8"
+    },
+    {
+      "type": "rewards_v2",
+      "time": 1643624875,
+      "role": "payee",
+      "height": 1206107,
+      "hash": "FQnpxKBulLblJqSMsbgGbmv8ZHmu_2z4XJIeYKJGuIo"
+    },
+    {
+      "type": "assert_location_v2",
+      "time": 1643622489,
+      "role": "owner",
+      "height": 1206070,
+      "hash": "yaEqGXHWOtElgG2RpaTuop2cwFaRypPIaOtsd11hPeQ"
+    },
+    {
+      "type": "add_gateway_v1",
+      "time": 1643622489,
+      "role": "owner",
+      "height": 1206070,
+      "hash": "-I__6qbqiopjMd94Zi94ixO-vyqFMeZdn0t2TRiTEjc"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+## Roles Counts for Account
+
+```
+GET https://api.helium.io/v1/accounts/:address/roles/count
 ```
 
 Count transactions that indicate activity for an account. This includes any
