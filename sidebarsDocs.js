@@ -25,7 +25,8 @@ module.exports = {
           'mine-hnt/full-hotspots/full-hotspots',
 		  'mine-hnt/light-hotspots',
           'mine-hnt/data-only-hotspots',
-          'mine-hnt/validators/validators'
+          'mine-hnt/validators/validators',
+          'mine-hnt/maker-apps'
       ],
       collapsed: true,
     },
