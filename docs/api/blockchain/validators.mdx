@@ -5987,105 +5987,105 @@ _Path Parameters_
 
 ```json
 {
-  "data": {
-    "version_heartbeat": 10010004,
-    "status": {
-      "timestamp": "2021-09-02T15:00:45.005000Z",
-      "online": "online",
-      "listen_addrs": [
-        "/ip4/690.0.0.180/tcp/2154",
-        "/ip4/340.210.76.150/tcp/2154"
-      ],
-      "height": 993737
-    },
-    "stake_status": "staked",
-    "stake": 1000000000000,
-    "penalty": 8.113204956054688,
-    "penalties": [
-      {
-        "type": "performance",
-        "height": 992513,
-        "amount": 0.099853515625
-      },
-      {
-        "type": "performance",
-        "height": 992677,
-        "amount": 0.099853515625
-      },
-      {
-        "type": "performance",
-        "height": 992610,
-        "amount": 0.659027099609375
-      },
-      {
-        "type": "performance",
-        "height": 992643,
-        "amount": 0.659027099609375
-      },
-      {
-        "type": "performance",
-        "height": 992710,
-        "amount": 0.758880615234375
-      },
-      {
-        "type": "performance",
-        "height": 992545,
-        "amount": 1.1883544921875
-      },
-      {
-        "type": "performance",
-        "height": 992577,
-        "amount": 1.2882080078125
-      },
-      {
-        "type": "tenure",
-        "height": 992480,
-        "amount": 0.5
-      },
-      {
-        "type": "tenure",
-        "height": 992513,
-        "amount": 0.5
-      },
-      {
-        "type": "tenure",
-        "height": 992545,
-        "amount": 0.5
-      },
-      {
-        "type": "tenure",
-        "height": 992577,
-        "amount": 0.5
-      },
-      {
-        "type": "tenure",
-        "height": 992610,
-        "amount": 0.5
-      },
-      {
-        "type": "tenure",
-        "height": 992643,
-        "amount": 0.5
-      },
-      {
-        "type": "tenure",
-        "height": 992677,
-        "amount": 0.5
-      },
-      {
-        "type": "tenure",
-        "height": 992710,
-        "amount": 0.5
-      }
-    ],
-    "owner": "14apkx9H3pkkfZWXXVCsjdPbKKdXxS5LrA4PF9v2iZUFMunbRog",
-    "name": "fat-thanksgiving-turkey",
-    "last_heartbeat": 994072,
-    "consensus_groups": 8,
-    "block_added": 983774,
-    "block": 994078,
-    "address": "112VtykzPvavfjrT9QwEyvhFMxzxCBUaYmKByYjpLFvxM5qHzw5"
-  }
+	"data": {
+		"version_heartbeat": 10010004,
+		"status": {
+			"timestamp": "2021-09-02T15:00:45.005000Z",
+			"online": "online",
+			"listen_addrs": [
+				"/ip4/690.0.0.180/tcp/2154",
+				"/ip4/340.210.76.150/tcp/2154"
+			],
+			"height": 993737
+		},
+		"stake_status": "staked",
+		"stake": 1000000000000,
+		"penalty": 8.113204956054688,
+		"penalties": [
+			{
+				"type": "performance",
+				"height": 992513,
+				"amount": 0.099853515625
+			},
+			{
+				"type": "performance",
+				"height": 992677,
+				"amount": 0.099853515625
+			},
+			{
+				"type": "performance",
+				"height": 992610,
+				"amount": 0.659027099609375
+			},
+			{
+				"type": "performance",
+				"height": 992643,
+				"amount": 0.659027099609375
+			},
+			{
+				"type": "performance",
+				"height": 992710,
+				"amount": 0.758880615234375
+			},
+			{
+				"type": "performance",
+				"height": 992545,
+				"amount": 1.1883544921875
+			},
+			{
+				"type": "performance",
+				"height": 992577,
+				"amount": 1.2882080078125
+			},
+			{
+				"type": "tenure",
+				"height": 992480,
+				"amount": 0.5
+			},
+			{
+				"type": "tenure",
+				"height": 992513,
+				"amount": 0.5
+			},
+			{
+				"type": "tenure",
+				"height": 992545,
+				"amount": 0.5
+			},
+			{
+				"type": "tenure",
+				"height": 992577,
+				"amount": 0.5
+			},
+			{
+				"type": "tenure",
+				"height": 992610,
+				"amount": 0.5
+			},
+			{
+				"type": "tenure",
+				"height": 992643,
+				"amount": 0.5
+			},
+			{
+				"type": "tenure",
+				"height": 992677,
+				"amount": 0.5
+			},
+			{
+				"type": "tenure",
+				"height": 992710,
+				"amount": 0.5
+			}
+		],
+		"owner": "14apkx9H3pkkfZWXXVCsjdPbKKdXxS5LrA4PF9v2iZUFMunbRog",
+		"name": "fat-thanksgiving-turkey",
+		"last_heartbeat": 994072,
+		"consensus_groups": 8,
+		"block_added": 983774,
+		"block": 994078,
+		"address": "112VtykzPvavfjrT9QwEyvhFMxzxCBUaYmKByYjpLFvxM5qHzw5"
+	}
 }
 ```
 
@@ -6357,11 +6357,7 @@ Search results for `search=skinny-iron`
 GET https://api.helium.io/v1/validators/:address/activity
 ```
 
-:::caution
-The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`, described below](#validator-roles)
-:::
-
-Lists all blockchain transactions that the given validator was involved in. This
+Lists all blockchain transactions that the given validator was involved in.This
 route is paged using a `cursor`.
 
 <Tabs
@@ -6391,7 +6387,8 @@ _Query Parameters_
 
 200: OK
 
-This lists the activity for a validator that recently came online.
+This lists the activity for validator
+`1Z7GHfLgGUfnKCnEfZEUUqaPSo4674XyX6SA3ZY93rkSTzm9ALK`.
 
 ```json
 {
@@ -6460,81 +6457,10 @@ This lists the activity for a validator that recently came online.
 
 ---
 
-## Validator Roles
+## Validator Activity Counts
 
 ```
-GET https://api.helium.io/v1/validators/:address/roles
-```
-
-Lists all blockchain transactions that the given validator was involved in. This
-route is paged using a `cursor`.
-
-<Tabs
-  block={true}
-  defaultValue="request"
-  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
-<TabItem value="request">
-
-_Path Parameters_
-
-| param              | Type     | Note                         |
-| ------------------ | -------- | ---------------------------- |
-| address (optional) | _string_ | B58 address of the validator |
-
-_Query Parameters_
-
-| param                   | Type     | Note                                      |
-| ----------------------- | -------- | ----------------------------------------- |
-| cursor (optional)       | _string_ | Cursor for page of results to fetch       |
-| filter_types (optional) | _string_ | Comma separated list of transaction types |
-| min_time (optional)     | _string_ | First time to include data for            |
-| max_time (optional)     | _string_ | Last time to include data for             |
-| limit (optional)        | _number_ | Maximum number of items to return         |
-
-</TabItem>
-<TabItem value="response">
-
-200: OK
-
-This lists the activity for a validator that recently came online.
-
-```json
-{
-  "data": [
-    {
-      "type": "validator_heartbeat_v1",
-      "time": 1644017331,
-      "role": "validator",
-      "height": 1212246,
-      "hash": "Xz7zM9mN4ZA_4uSj-SVjeiXHlTdJO8vB0yBSVDkgNBA"
-    },
-    {
-      "type": "validator_heartbeat_v1",
-      "time": 1644010677,
-      "role": "validator",
-      "height": 1212144,
-      "hash": "UwTuX7FxEzhuH_zu3rRBA_yXf7UFUTJwivQLm-rR_ps"
-    },
-    {
-      "type": "stake_validator_v1",
-      "time": 1644010555,
-      "role": "validator",
-      "height": 1212142,
-      "hash": "8wOjSODY4M_U8M_Eb2SBm1lqJyncf3RItXZtG4oZQJ8"
-    }
-  ]
-}
-```
-
-</TabItem>
-</Tabs>
-
----
-
-## Validator Roles Counts
-
-```
-GET https://api.helium.io/v1/validators/:address/roles/count
+GET https://api.helium.io/v1/validators/:address/activity/count
 ```
 
 Count transactions that indicate activity for a validator.
@@ -6569,39 +6495,39 @@ Fetch counts for validator `1Z7GHfLgGUfnKCnEfZEUUqaPSo4674XyX6SA3ZY93rkSTzm9ALK`
 
 ```json
 {
-  "data": {
-    "vars_v1": 0,
-    "validator_heartbeat_v1": 812,
-    "unstake_validator_v1": 0,
-    "transfer_validator_stake_v1": 0,
-    "transfer_hotspot_v1": 0,
-    "token_burn_v1": 0,
-    "token_burn_exchange_rate_v1": 0,
-    "state_channel_open_v1": 0,
-    "state_channel_close_v1": 0,
-    "stake_validator_v1": 1,
-    "security_exchange_v1": 0,
-    "security_coinbase_v1": 0,
-    "routing_v1": 0,
-    "rewards_v2": 51,
-    "rewards_v1": 0,
-    "redeem_htlc_v1": 0,
-    "price_oracle_v1": 0,
-    "poc_request_v1": 0,
-    "poc_receipts_v1": 0,
-    "payment_v2": 0,
-    "payment_v1": 0,
-    "oui_v1": 0,
-    "gen_gateway_v1": 0,
-    "dc_coinbase_v1": 0,
-    "create_htlc_v1": 0,
-    "consensus_group_v1": 0,
-    "consensus_group_failure_v1": 0,
-    "coinbase_v1": 0,
-    "assert_location_v2": 0,
-    "assert_location_v1": 0,
-    "add_gateway_v1": 0
-  }
+	"data": {
+		"vars_v1": 0,
+		"validator_heartbeat_v1": 812,
+		"unstake_validator_v1": 0,
+		"transfer_validator_stake_v1": 0,
+		"transfer_hotspot_v1": 0,
+		"token_burn_v1": 0,
+		"token_burn_exchange_rate_v1": 0,
+		"state_channel_open_v1": 0,
+		"state_channel_close_v1": 0,
+		"stake_validator_v1": 1,
+		"security_exchange_v1": 0,
+		"security_coinbase_v1": 0,
+		"routing_v1": 0,
+		"rewards_v2": 51,
+		"rewards_v1": 0,
+		"redeem_htlc_v1": 0,
+		"price_oracle_v1": 0,
+		"poc_request_v1": 0,
+		"poc_receipts_v1": 0,
+		"payment_v2": 0,
+		"payment_v1": 0,
+		"oui_v1": 0,
+		"gen_gateway_v1": 0,
+		"dc_coinbase_v1": 0,
+		"create_htlc_v1": 0,
+		"consensus_group_v1": 0,
+		"consensus_group_failure_v1": 0,
+		"coinbase_v1": 0,
+		"assert_location_v2": 0,
+		"assert_location_v1": 0,
+		"add_gateway_v1": 0
+	}
 }
 ```
 

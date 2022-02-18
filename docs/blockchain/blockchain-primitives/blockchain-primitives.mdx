@@ -34,18 +34,18 @@ metadata.
 
 ### Epochs
 
-An `epoch` is the target time period for which a given group of Validators is
+An `epoch` is the target time period for which a given group of Miners is
 elected to serve as the consensus group. The target time for an epoch is
 currently `30 blocks`, as defined in the `election_interval` chain variable.
 Approximately every 30 blocks mined marks the passing of an epoch, after which a
-new group of Validators is elected to form the next consensus group. Mining rewards
+new group of Miners is elected to form the next consensus group. Mining rewards
 are distributed per epoch (as opposed to per block in most blockchain-based
 systems). At the conclusion of each epoch, the consensus group will distribute
 all the $HNT produced in that block via the `rewards` transaction.
 
 ### Transactions
 
-The Helium blockchain currently has 36 native transaction types. Some appear in
+The Helium blockchain currently has 20 native transaction types. Some appear in
 nearly every block mined while others were created to be used only once and will
 never be heard from again.
 
@@ -106,9 +106,6 @@ transactions:
 - `state channel open` - Opens a new state channel on a Helium Router
 - `state channel close` - Closes a specific state channel on a Helium Router
 - `token burn exchange rate` - Change the exchange rate for burning $HNT to DCs.
-- `stake validator` - Stake a new Validator on the Helium Network.
-- `transfer validator` - Transfer a staked Validator to a new owner or a new Validator.
-- `unstake validator` - Unstake a previously staked Validator.
 
 **Extended Reading on Transactions**
 
