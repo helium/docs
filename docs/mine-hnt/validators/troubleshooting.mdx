@@ -5,20 +5,23 @@ sidebar_label: Troubleshooting
 slug: /mine-hnt/validators/troubleshooting
 ---
 
+**NOTE**: If you build the Validator from source, the paths below may be different for you. For the following Docker example, `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system and `validator_data` is in your $HOME directory. It is also assumed that you've added `alias miner='docker exec validator miner'` to `~/.bashrc`.
+
 # Troubleshooting
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 There is a ```#validator``` [Discord](https://discord.gg/helium)  channel available to reach other validator participants. Also use this channel to share feedback and report issues.
 
+## Confirm you are running the latest Validator version
+Upgrade instructions can be found [here](https://docs.helium.com/mine-hnt/validators/mainnet/deployment-guide/#:~:text=a%20timely%20manner.-,Upgrade%20your%20Docker%20container,-To%20do%20manual) as well as the link to the latest miner tag.
+
 ## View logs
-Tailing the `console.log` is always helpful to get an idea of what's going on. Assuming your data is mounted at `~/validator_data`, run:
+* Tailing the `console.log` is always helpful to get an idea of what's going on. Assuming your data is mounted at `$HOME/validator_data`
+  * Run: ```tail -f $HOME/validator_data/log/console.log```
 
-```tail -f ~/validator_data/log/console.log```
-
-This can be run directly on the Docker container as well:
-
-```docker exec validator tail -f /var/data/log/console.log```
+* This can be run directly on the Docker container as well:
+  * ```docker exec validator tail -f /var/data/log/console.log```
 
 ## Compromised server
 If you find that the server has been compromised just wipe it (save the blocks to avoid having to resync the entire blockchain), close the hole, stand up a new validator and then transfer the stake to it.
@@ -29,42 +32,52 @@ Syncing to the blockchain could be impacted for the following reasons:
 * your validator is disconnecting
 * you just launched an AMI instance (if using AWS)
 
-## Grab the latest blessed snapshot from Helium
-* On a running Validator run `miner snapshot list` or you can use the API to get the latest blessed snapshot going to this web address `https://api.helium.io/v1/snapshots`.
-* Find the highest "Height" block and download the snapshot from Helium via `curl -O https://snapshots.helium.wtf/mainnet/snap-<height>`. If this snapshot is not available, try the next highest as the consensus group may have not agreed upon the snapshot.
-* Move that file into your `validator_data` directory.
-* Temporarily pause transaction sync via ```miner repair sync_pause```.
-* Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
-* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
-* Wait a few minutes before confirming the status using the following commands.
-* Confirm that they sync state is `active` via `miner repair sync_state`. If this is not active you can resume transaction syncing via ```miner repair sync_resume```.
-* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step.
-* Wait at least 5 minutes and re-confirm that your chain is adding more blocks.
+## Check block absorb times
+* Run ```tail -f $HOME/validator_data/log/console.log | grep -E 'add_block|absorb_and_commit'``` and monitor it for several minutes to confirm blocks are being absorbed 
+  * The fastest validators have a `validation took` time between 1,000 and 3,000ms, on average. Absorb times higher than this are not out of the norm, but consistently higher absorb times can indicate an issue with your Internet connectivity, disk or CPU speed. Absorb times approaching 60 seconds may prevent your validator from catching up to the tip of the chain, as new blocks are created approximately every 60s. 
+  * Note: If you just loaded a snapshot or upgraded the miner version, absorb times may be higher than usual, so wait several hours before determining your average absorb time.
 
-NOTE: If you build the Validator from source the paths may be different. For this Docker example `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system
+## Validator low disk space
+* If your validator is running low on disk space and you cannot increase it, it is safe to delete everything under the `$HOME/validator_data` **EXCEPT** for `$HOME/validator_data/miner` where your `swarm_key` is located. This is also a good time to backup your `swarm_key` if you haven't already.
+* Simply stop your docker validator container, remove all the files/directories noted above, start the docker validator containter and follow the steps to [Grab the latest blessed snapshot from Helium](#grab-the-latest-blessed-snapshot-from-helium).
+* Note: Deleting above data will also require you to load a snapshot and resync to the tip of the chain. If your validator height is already at or above the latest available snapshot height, as shown by `miner info height`, it is to your benefit to first create a snapshot by running `miner snapshot take filenamehere` so that you can load the snapshot after freeing up disk space. Snapshot files are currently ~400MB in size.
+* If your current block height is behind the latest snapshot, you can simply follow the steps in the next section after freeing up space.
+
+## Grab the latest blessed snapshot from Helium
+
+Helium hosts snapshots for download for the convenience of syncing validators. You may download snapshot by following these steps:
+
+* First determine the height of the snapshot you would like to download:
+  * The list of latest snapshots which have been agreed upon by the Consensus Group is available from the API at [https://api.helium.io/v1/snapshots](https://api.helium.io/v1/snapshots)
+  * Additionally, the latest manually blessed snapshot used by hotspots to sync from is available at [https://snapshots.helium.wtf/mainnet/latest-snap.json](https://snapshots.helium.wtf/mainnet/latest-snap.json). Note: this link may include snapshots generated by Helium or the Helium ETL that were not agreed upon by the Consensus Group and may not have been tested to work on validators.
+* Choose the block height you want to start from and download the snapshot from Helium:  
+  * `curl -O https://snapshots.helium.wtf/mainnet/snap-<height>`
+* Move that file into your `validator_data` directory.
+* Load snapshot from the file you curl'd: ```miner snapshot load /var/data/snap-<height>```. 
+  * This command may return error: ```RPC to 'val_miner@127.0.0.1' failed: timeout``` but the snapshot load actually continues to run in the background.
+  * You can confirm that the snapshot load has completed by running ```miner info height``` every few minutes until it successfully shows a block height >= the snapshot height you loaded. You can then move on to the next step.
+* Confirm sync state is `active` via `miner repair sync_state`.
+  * If not active, you can resume transaction syncing via ```miner repair sync_resume```.
+* Run ```miner info height``` every few minutes to confirm your block height is increasing.
+* [Check your block absorb times](#check-block-absorb-times)
 
 ## Grab a snapshot from another Validator
 
-:::info
-
-Besure to trust the Validator that you take your snapshot from, shenanigans could ensue! This an advanced procedure use with caution!
-
-:::
+**Make sure you trust the Validator that you take your snapshot from, shenanigans could ensue! This an advanced procedure use with caution!**
 
 * On the source Validator run `miner info p2p_status`.
 * Temporarily pause transaction sync via ```miner repair sync_pause```.
 * Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
 * On the source Validator take a snapshot via `miner snapshot take /var/data/snap-<height>` using the height you determined from the first step.
 * On the source Validator resume transaction syncing via ```miner repair sync_resume```.
-* Move the `/var/data/snap-<height>` file into your root of the `validator_data` directory on the destination Validator.
-* Temporarily pause transaction sync via ```miner repair sync_pause```.
-* Cancel any in-progress transaction sync via ```miner repair sync_cancel```.
-* Load snapshot from downloaded file ```miner snapshot load /var/data/snap-<height>```. This command may look like it fails with a timeout error.  The load actually continues in the background and you will need to wait and review the blockchain height in a few minutes.
-* Resume transaction syncing via ```miner repair sync_resume```.
-* Review `miner info p2p_status` and confirm that your validator height is >= `<height>` from what you found in the first step.
-* Wait at least 5 minutes and re-confirm that your chain is adding more blocks.
-
-NOTE: If you build the Validator from source the paths may be different. For this Docker example `/var/data` is inside the docker container which is mapped to your `validator_data` directory on the host system
+* Move the `/var/data/snap-<height>` file into the `validator_data` directory on the destination Validator.
+* Load snapshot from the file you copied to the destination validator: ```miner snapshot load /var/data/snap-<height>```. 
+  * This command may return error: ```RPC to 'val_miner@127.0.0.1' failed: timeout``` but the snapshot load actually continues to run in the background.
+  * You can confirm that the snapshot load has completed by running ```miner info height``` every few minutes until it successfully shows a block height >= the snapshot height you loaded. You can then move on to the next step.
+* Confirm sync state is `active` via `miner repair sync_state`.
+  * If not active, you can resume transaction syncing via ```miner repair sync_resume```.
+* Run ```miner info height``` every few minutes to confirm your block height is increasing.
+* [Check your block absorb times](#check-block-absorb-times)
 
 ## Validator stuck at a block
 If your validator appears to be stuck at a particular block and no longer syncing, you may need to take manual action for your validator to make progress.
@@ -90,7 +103,7 @@ For the time/blocks when your validator accrued penalties, check your metrics da
 
 If you don't have a metrics dashboard and think a non-luck element may have caused your penalty, please set up metrics monitoring.
 
-One option is [Tedder's miner_exporter](https://github.com/tedder/miner_exporter), which can be used in conjunction with Grafana (and Prometheus's built-in node_exporter) for detailed validator monitoring.
+Two options are [Tedder's miner_exporter](https://github.com/tedder/miner_exporter) and the [PaulVMo miner_exporter fork](https://github.com/PaulVMo/miner_exporter), which can be used in conjunction with Grafana (and Prometheus's built-in node_exporter) for detailed validator monitoring.
 
 Baselining your instance via command line tools is also documented here [Baselining Your Validator](https://docs.helium.com/mine-hnt/validators/requirements).
 
