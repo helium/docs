@@ -785,11 +785,7 @@ Fetch all hotspots in h3 index: `882aa38c2bfffff`
 GET https://api.helium.io/v1/hotspots/:address/activity
 ```
 
-:::caution
-The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`, described below](#hotspot-roles)
-:::
-
-Lists all blockchain transactions that the given Hotspot was involved in. This
+Lists all blockchain transactions that the given hotspot was involved in.This
 route is paged using a `cursor`.
 
 <Tabs
@@ -819,8 +815,9 @@ _Query Parameters_
 
 200: OK
 
-This lists the activity for a Hotspot which only had two
-transactions at the time of the request.
+This lists the activity for hotspot
+`11cxkqa2PjpJ9YgY9qK3Njn4uSFu6dyK9xV8XE4ahFSqN1YN2db` which only had one
+transaction at the time of the request.
 
 ```json
 {
@@ -860,78 +857,13 @@ transactions at the time of the request.
 
 ---
 
-## Hotspot Roles
+## Hotspots Activity Counts
 
 ```
-GET https://api.helium.io/v1/hotspots/:address/roles
+GET https://api.helium.io/v1/hotspots/:address/activity/count
 ```
 
-Lists all blockchain transactions that the given Hotspot was involved in. This
-route is paged using a `cursor`.
-
-<Tabs
-  block={true}
-  defaultValue="request"
-  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
-<TabItem value="request">
-
-_Path Parameters_
-
-| param              | Type     | Note                       |
-| ------------------ | -------- | -------------------------- |
-| address (optional) | _string_ | B58 address of the hotspot |
-
-_Query Parameters_
-
-| param                   | Type     | Note                                      |
-| ----------------------- | -------- | ----------------------------------------- |
-| cursor (optional)       | _string_ | Cursor for page of results to fetch       |
-| filter_types (optional) | _string_ | Comma separated list of transaction types |
-| min_time (optional)     | _string_ | First time to include data for            |
-| max_time (optional)     | _string_ | Last time to include data for             |
-| limit (optional)        | _number_ | Maximum number of items to return         |
-
-</TabItem>
-<TabItem value="response">
-
-200: OK
-
-This lists the activity for a Hotspot which only had two
-transactions at the time of the request.
-
-```json
-{
-  "data": [
-    {
-      "type": "assert_location_v2",
-      "time": 1644023217,
-      "role": "gateway",
-      "height": 1212339,
-      "hash": "DXciS1wFRf4CAfK_FPl-nE3l_YhisFibOmY2vXE0e3s"
-    },
-    {
-      "type": "add_gateway_v1",
-      "time": 1644023156,
-      "role": "gateway",
-      "height": 1212338,
-      "hash": "VSO7aKH9uiCuWUNzb5rPddlq-m-kvaMeVeufUQisjbo"
-    }
-  ]
-}
-```
-
-</TabItem>
-</Tabs>
-
----
-
-## Hotspots Roles Counts
-
-```
-GET https://api.helium.io/v1/hotspots/:address/roles/count
-```
-
-Count transactions that indicate a Hotspot as a participant.
+Count transactions that indicate activity for a hotspot.
 
 The results are a map keyed by the given `filter_types` and the count of
 transaction of that type.

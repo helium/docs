@@ -29,14 +29,7 @@ module.exports = {
       // using user system preferences, instead of the hardcoded defaultMode
       respectPrefersColorScheme: false,
     },
-    announcementBar: {
-      id: 'join_discord',
-      content:
-        '<a href="/use-the-network/console">Console updates has arrived! Read more and get started here!</a>',
-      backgroundColor: '#474DFF',
-      textColor: '#FFFFFF',
-      isCloseable: true,
-    },
+   
     navbar: {
       title: '',
       style: 'primary',
