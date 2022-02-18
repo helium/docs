@@ -9,7 +9,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 The following are meant to be used as guidelines for the hardware requirements when building a validator, more so than absolute requirements, to help minimize your [performance penalties](https://docs.helium.com/mine-hnt/validators/penalties/). Minimizing your penalties increases your chances of being elected to the Consensus Group and earning more rewards. 
 
-As the role of  validator continually grows, it may require more resources over time. Once you have built your validator, you can refer to some of the steps shown at [Troubleshooting](https://docs.helium.com/mine-hnt/validators/troubleshooting/) to check its performance.
+As the role of validator continually grows, it may require more resources over time. Once you have built your validator, please refer to the [Performance Baselining](#performance-baselining) section below.
 
 Most Validator operators who experience the least penalties have configurations similar to or greater than these guidelines:
 - Physical or Virtual:
@@ -17,13 +17,14 @@ Most Validator operators who experience the least penalties have configurations 
 - Internet Connectivity:
   - Commercial grade Internet connectivity with redundancy such as BGP. Not home fiber or cable modem Internet.
   - Static WAN IP address
-  - Firewall running on validator host OS rather than validator behind a separate firewall
+  - Firewall running on the validator host OS or commercial grade firewall capable of handling thousands of concurrent connections 
+  - These guidelines are intended to mitigate penalties caused by dropped network connections during while in the consense group
 - Operating system: 
   - When running from docker: Any linux based system capable of running docker
   - When running from source: Ubuntu 20.04 LTS
   - Note: Testing has shown there is ~20% overhead when running from docker when compared to running from source. If you are running a single validator on bare metal hardware, this overhead is negligable but can be more pronounced when running on a Virtual Private Server (VPS) or running multiple validators on a single bare metal server.
 - CPU: 
-  - Intel, AMD or ARM based processor 3.0 GHz or above with 4 cores or equivalent, such as AMD Ryzen Zen3 CPU (5950X being the top choice) and Intel i9-1200k.
+  - Intel, AMD or ARM based processor 3.0 GHz or above with 4 cores or equivalent, such as AMD Ryzen Zen3 CPU (5950X being the top choice) and Intel i9-12900K.
   - Note: Single threaded performance is more important than multi-threaded performance
   - [GeekBench 5](https://www.geekbench.com/) scores of greater than 1,000 Single-Core and greater than 5,000 Multi-core have performed well. Many of the high performance validators score higher than 2,000 for Single-core and 15,000 for Multi-core
   - For Intel and AMD systems, [AVX2 or AVX support](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions) is required. Verify your CPU supports these extensions by checking `grep avx /proc/cpuinfo` and verifying that AVX support is included in the output.
@@ -32,10 +33,12 @@ Most Validator operators who experience the least penalties have configurations 
   - Examples of PCI Express NVMe 4.0 that validators use are Sabrent Rocket Plus 2TB, Seagate FireCuda 530 2TB and Western Digital WD Black. NOTE: 2TB NVME dual sided drives have higher IOPS than single sided NVME drives.
 - If using AWS, a t2.xlarge or c5a.xlarge EC2 instance or equivalent is recommended. If using another cloud provider, like GCP, Azure, or Digital Ocean, an instance with similar capabilities should be the target.
 - Static IP address with ports `2154`(TCP) and `8080`(TCP) opened in your firewall with a route available to your validator host.
+  - Note: Port 8080 is required for communications with light hotspots a.k.a. light gateways
 - Running on stable network connection free of things like proxies, NAT, etc. The load is largely symmetrical when producing blocks, so good upstream connectivity recommended.
 - It is [discouraged to run Validators at home](/mine-hnt/validators/faqs-resources-providers/#technical). The one exception to this is if you live at an actual data center. If that's the case, you're allowed to run Validators at home.
 
-- Overall Baselining (do this after the validator is caught up to the tip of the chain, and running normally for a few hours)
+## Performance Baselining
+  - Follow these steps after the validator is caught up to the tip of the chain and running normally for a few hours.
   - Review the underlying hardware your provider is using. You can review your instance cpu speeds by using `cat /proc/cpuinfo | egrep  -i "name|stepping|Mhz" | sort | uniq -c`.  Some providers use the Turbo speeds as marketing and others the regular speed of the processor.
   - Install sar package using `sudo apt install sysstat`
     - Confirm that sar is enabled in `/etc/default/sysstat` review that the `ENABLED` line is set to `true`.
@@ -47,3 +50,4 @@ Most Validator operators who experience the least penalties have configurations 
   - Review your Absorb and Commit Block times and they should be < 2500ms on average, not including the rewards blocks that will be much higher. To check ongoing times you can use `tail -f log/console.log | grep -E 'add_block|absorb_and_commit'`
   - Once your validator is caught up you can use `grep -E 'add_block|absorb_and_commit' log/console.log | awk '{print $6 $8 }' | sed ':a;N;$!ba;s/\ngossipped/ /g'` as a historical listing of your console.log
   - If you believe you are having trouble getting the advertised disk performance you can install and run the `fio` package to give you a full baseline of disk performance. Make sure to not be in a Consensus Group while benchmarking using `fio`.  You can do this by running `miner info in_consensus`.
+  - You can also refer to some steps shown at [Troubleshooting](https://docs.helium.com/mine-hnt/validators/troubleshooting/) to check performance.
