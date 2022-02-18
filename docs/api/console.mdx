@@ -756,7 +756,7 @@ _Body Parameters_
 | ------------------ | -------- | ------------------------------------ |
 | token (required)    | _string_ | Your token, authorization key, uplink secret depending on pre-built integration.|
 | name (required) | _string_ | A unique name for the Integration           |
-| type (required) | _string_ | “Akenza” “ubidots” “tago” “datacake”             |
+| type (required) | _string_ | “akenza” “ubidots” “tago” “datacake”             |
 
 </TabItem>
 <TabItem value="response">
@@ -801,7 +801,7 @@ _Path Parameters_
 
 | Parameter Name | Type     | Description                      |
 | -------------- | -------- | -------------------------------- |
-| Integration_id (required)  | _string_ | UUID for removed integration |
+| integration_id (required)  | _string_ | UUID for removed integration |
 
 </TabItem>
 <TabItem value="response">
@@ -865,12 +865,6 @@ _Headers_
     },
 ```
 
-404: Not Found
-```
-{ "errors": { "error": ["Integration not found"] } }
-```
-
-
 </TabItem>
 </Tabs>
 
@@ -898,7 +892,7 @@ _Path Parameters_
 
 | Parameter Name | Type     | Description                      |
 | -------------- | -------- | -------------------------------- |
-| Integration_id (required)  | _string_ | UUID of integration |
+| integration_id (required)  | _string_ | UUID of integration |
 
 </TabItem>
 <TabItem value="response">
@@ -928,7 +922,7 @@ Integration {
 ### Search for an Integration by Name
 
 ```
-GET https://staging-console.helium.wtf/api/v1/integrations?name=
+GET https://staging-console.helium.wtf/api/v1/integrations?name=your_integration_name
 ```
 
 <Tabs
@@ -936,6 +930,12 @@ GET https://staging-console.helium.wtf/api/v1/integrations?name=
   defaultValue="request"
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
 <TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | your API key |
 
 _Query Parameters_
 
@@ -970,7 +970,7 @@ Integration {
 ### View all flows for integration
 
 ```
-GET https://staging-console.helium.wtf/api/v1/flows?integration_id=xxx
+GET https://staging-console.helium.wtf/api/v1/flows?integration_id=your_integration_id
 ```
 
 <Tabs
@@ -989,7 +989,7 @@ _Query Parameters_
 
 | Parameter Name | Type     | Description                      |
 | -------------- | -------- | -------------------------------- |
-| Integration_id (required)  | _string_ | UUID of integration |
+| integration_id (required)  | _string_ | UUID of integration |
 
 </TabItem>
 <TabItem value="response">
@@ -1048,12 +1048,14 @@ _Body Parameters_
 | ------------------ | -------- | ------------------------------------ |
 | integration_id (required)    | _string_ | UUID of integration|
 | label_id / device_id (required) | _string_ | UUID           |
-| Function_id (optional) | _string_ | UUID             |
+| function_id (optional) | _string_ | UUID             |
 
 </TabItem>
 <TabItem value="response">
 
-201: Created
+200: OK
+
+Flow with integration created successfully
 
 ```
 {
@@ -1135,8 +1137,8 @@ _Body Parameters_
 | app_eui (required) | _string_ | LoRaWAN Application EUI              |
 | app_key (required) | _string_ | LoRaWAN Application Key              |
 | dev_eui (required) | _string_ | LoRaWAN Device EUI                   |
-| config_profile_id (required) | _string_ | Config profile uuid to attach                   |
-| label_ids | Array of strings | Array of label uuids to attach to device               |
+| config_profile_id (optional) | _string_ | Config profile uuid to attach                   |
+| label_ids (optional) | Array of strings | Array of label uuids to attach to device               |
 
 
 </TabItem>
@@ -1210,7 +1212,7 @@ _Body Parameters_
 | Parameter Name     | Type     | Description                          |
 | ------------------ | -------- | ------------------------------------ |
 | name (required)    | _string_ | A human-friendly name for the device |
-| config_profile_id (required) | _string_ | Config profile uuid to attach                   |
+| config_profile_id (optional) | _string_ | Config profile uuid to attach                   |
 
 </TabItem>
 <TabItem value="response">
@@ -1302,7 +1304,7 @@ _Body Parameters_
 
 ### Update Devices Active Status (New)
 ```
-PUT https://staging-console.helium.wtf/api/v1/devices/active?
+PUT https://staging-console.helium.wtf/api/v1/devices/active?dev_eui=your_dev_eui
 ```
 
 <Tabs
