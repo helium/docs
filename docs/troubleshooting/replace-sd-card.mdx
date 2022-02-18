@@ -5,7 +5,7 @@ sidebar_label: Replacing SD Card
 slug: /troubleshooting/replace-sd-card
 ---
 
-# Replacing SD Card
+# Replacing SD Card (Original Helium Hotspots)
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
@@ -29,14 +29,22 @@ replace it with a brand new one:
 3. Format the new card or re-format the existing card into ExFat format.
 4. Download and install a program to Flash the card such as Etcher, if needed:
    https://www.balena.io/etcher
-5. Download the image file to Flash. Replace the `date` part of the following URL with the latest GA tagged release in the Community Discord's #announcements channel. 
-    i.e. new firmware date of `2022.01.12.1` and `https://helium-nextgate.s3-us-west-2.amazonaws.com/artifacts/<date>-sdcard.img.gz` 
-    becomes `https://helium-nextgate.s3-us-west-2.amazonaws.com/artifacts/2022.01.12.1-sdcard.img.gz`and enter that url in your browser
+5. Download the firmware image file to Flash. 
+    Note: Since 24 Jan 2022 the Firmware and Miner Images are now separated, and can have different date releases
+    Replace the `date` part of the following URL with the latest GA tagged >>FIRMWARE<< release in the Community Discord's #announcements channel. 
+    i.e. new firmware date of `2022.01.24.0` and `https://helium-nextgate.s3-us-west-2.amazonaws.com/artifacts/<date>-sdcard.img.gz` 
+    becomes `https://helium-nextgate.s3-us-west-2.amazonaws.com/artifacts/2022.01.24.0-sdcard.img.gz`and enter that url in your browser
 6. Unzip the .gz file.
 7. Use Etcher to Flash the newly formatted microSD card with the file.
 8. Place the newly flashed card back into the card reader slot.
 9. Plug the Hotspot back and and confirm that it boots up.
 10. Screw the Hotspot back together.
+
+:::info
+
+This set of instructions are for Original Helium Hotspots. [The instructions for RAK/MNTD Hotspots can be found here](https://support.getmntd.com/hc/en-us/articles/4418137820951-I-need-to-replace-the-microSD-card-on-my-hotspot).
+
+:::
 
 #### If you have purchased a pre-flashed card, the only steps you need are:
 
@@ -52,8 +60,12 @@ replace it with a brand new one:
 
 If successful, everything should boot up normally.
 
-A card like
+
+## SD Card Sources
+
+A 64GB SD card (or, even better, 128GB) like
 [this](https://www.amazon.com/gp/product/B07FCMBLV6/ref=ppx_yo_dt_b_asin_title_o06_s00?ie=UTF8&psc=1)
-would work, but anything comparable would also suffice.  
-You can also buy pre-flashed ones from
-[Parley Labs](https://shop.parleylabs.com/collections/mine-hnt/products/sandisk-64gb-extreme-microsdxc-with-helium-firmware).
+would work, but any endurance type SD card comparable should suffice. Be careful to buy from a trusted vendor, as fake SD cards are often sold on the secondary market.
+
+You can also buy pre-flashed SD cards from
+[Parley Labs 64GB](https://shop.parleylabs.com/collections/mine-hnt/products/sandisk-64gb-extreme-microsdxc-with-helium-firmware) or [PPL 128GB](https://peoplesantenna.com/sdcard).
