@@ -13,7 +13,8 @@ module.exports = {
       trackingID: 'UA-52432858-10',
     },
     algolia: {
-      apiKey: 'd5ff5c42607f0141934032162dab2cc2',
+      appId: 'XC618T80WL',
+      apiKey: '660623b83977f4c2f2acae3c1d7c9dbf',
       indexName: 'helium',
       contextualSearch: false,
     },
