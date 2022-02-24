@@ -278,6 +278,19 @@ sudo dpkg -i esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
 sudo apt-get install -f
 ```
 
+We also need to use a newer version of Rust. The one that comes by default with Ubuntu will not work.
+
+```
+#Remove rustc so we can install a newer version
+sudo apt -y remove rustc
+
+#Install newer version of rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-host x86_64-unknown-linux-gnu --default-toolchain stable --profile complete -y
+
+#This allows you to proceed without loging out and loging in on the server
+source $HOME/.cargo/env
+```
+
 Then navigate to your `miner` directory:
 
 ```
@@ -316,6 +329,24 @@ You can check your soft limit (often `1024` by default) with:
 ```ulimit -Sn```
 
 Specifics instructions to increase the `ulimit` vary by OS (readily found with a Google search) and are beyond the scope of this guide.
+
+#### Enable Firewall on the server
+
+It's good practice to restrict access to the server and you should allow access only to ports that are needed. If you also use node_exporter or a different type of exporter for monitoring you should add those ports as well.
+
+```
+#Enable Firewall
+sudo ufw enable
+
+#Allow connections to SSH Port. It's good practice to use a different port other than 22 for ssh connections
+sudo ufw limit 22/tcp
+
+#Allow connections to the Validator default port
+sudo ufw allow 2154/tcp
+
+#Allow connections for Light Hotspots
+sudo ufw allow 8080/tcp
+```
 
 ## Stake HNT to Your Validator
 
