@@ -330,9 +330,6 @@ Device {
 POST https://console.helium.com/api/v1/devices
 ```
 
-Creates a device with corresponding name, Application EUI, Application Key, and
-Device EUI.
-
 <Tabs
   block={true}
   defaultValue="request"
@@ -354,15 +351,14 @@ _Body Parameters_
 | app_eui (required) | _string_ | LoRaWAN Application EUI              |
 | app_key (required) | _string_ | LoRaWAN Application Key              |
 | dev_eui (required) | _string_ | LoRaWAN Device EUI                   |
+| config_profile_id (optional) | _string_ | Config profile uuid to attach                   |
+| label_ids (optional) | Array of strings | Array of label uuids to attach to device               |
+
 
 </TabItem>
 <TabItem value="response">
 
-200: OK
-
-```
-
-```
+201: created
 
 </TabItem>
 </Tabs>
@@ -444,8 +440,6 @@ Returns a list of label descriptors associated with the organization.
 POST https://console.helium.com/api/v1/labels
 ```
 
-Create a new label with the given name.
-
 <Tabs
   block={true}
   defaultValue="request"
@@ -461,24 +455,20 @@ _Headers_
 
 _Body Parameters_
 
-| Parameter Name  | Type     | Description                 |
-| --------------- | -------- | --------------------------- |
-| name (required) | _string_ | A unique name for the label |
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| name (required)    | _string_ | A human-friendly name for the device |
+| config_profile_id (optional) | _string_ | Config profile uuid to attach                   |
 
 </TabItem>
 <TabItem value="response">
 
-200: OK
-
-```json
-Label {
-    id: "868ea783-f252-4fc4-b724-a155680c0bc9",
-    name: "Blue Label",
-}
-```
+201: created
 
 </TabItem>
 </Tabs>
+
+---
 
 ### Delete Label
 
@@ -688,50 +678,12 @@ Device removed from label successfully
 </Tabs>
 
 ---
-## Console Staging API
-
-The Console API is a set of HTTP Request that allows you to programatically
-interact with Console. It's the lowest level building block and is ideal for
-integrating with back-end services, for example.
-
-### Base URL
-
-```
-https://staging-console.helium.wtf/
-```
-
-### Authentication
-
-All Console API requests require an API Key which provides access to devices
-owned by the **organization** which owns the device. Devices are never
-associated to a single user, but instead to an organization.
-
-To create an account key, go to your
-[profile](https://staging-console.helium.wtf/profile) on Helium Staging Console. From the top
-right corner, click: `Account -> Profile`.
-
-From there, you may generate a key for your organization. _The key will only
-display once._
-
-**You must confirm the API key** creation by clicking a link that is emailed to
-the account that created the API key.
-
-From then on, you will want to include the API key in all of your API requests.
-You do this by placing your API key in an HTTP header field called "key.
-
-_Headers_
-
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
-
----
 
 ### Create an Integration
 Create prebuilt integration for integration providers planning to offer connectivity as a service. 
 
 ```
-POST https://staging-console.helium.wtf/api/v1/integrations/prebuilt
+POST https://console.helium.com/api/v1/integrations/prebuilt
 ```
 
 Creates a device with corresponding name, Application EUI, Application Key, and
@@ -780,7 +732,7 @@ _Body Parameters_
 ### Delete an Integration
 
 ```
-DELETE https://staging-console.helium.wtf/api/v1/integrations/:integration_id
+DELETE https://console.helium.com/api/v1/integrations/:integration_id
 ```
 
 Delete an Integration along with any links to labels.
@@ -828,7 +780,7 @@ Integration {
 ### List Integrations
 
 ```
-GET https://staging-console.helium.wtf/api/v1/integrations/
+GET https://console.helium.com/api/v1/integrations/
 ```
 
 Returns a list of integrations associated with the organization.
@@ -873,7 +825,7 @@ _Headers_
 ### Search for an Integration by UUID
 
 ```
-GET https://staging-console.helium.wtf/api/v1/integrations/:integration_id
+GET https://console.helium.com/api/v1/integrations/:integration_id
 ```
 
 <Tabs
@@ -922,7 +874,7 @@ Integration {
 ### Search for an Integration by Name
 
 ```
-GET https://staging-console.helium.wtf/api/v1/integrations?name=your_integration_name
+GET https://console.helium.com/api/v1/integrations?name=your_integration_name
 ```
 
 <Tabs
@@ -970,7 +922,7 @@ Integration {
 ### View all flows for integration
 
 ```
-GET https://staging-console.helium.wtf/api/v1/flows?integration_id=your_integration_id
+GET https://console.helium.com/api/v1/flows?integration_id=your_integration_id
 ```
 
 <Tabs
@@ -1026,7 +978,7 @@ _Query Parameters_
 Creating a prebuilt integration for CaaS providers. 
 
 ```
-POST https://staging-console.helium.wtf/api/v1/flows
+POST https://console.helium.com/api/v1/flows
 ```
 
 <Tabs
@@ -1075,7 +1027,7 @@ Flow with integration created successfully
 ### Delete flow
 
 ```
-DELETE https://staging-console.helium.wtf/api/v1/flows/:flow_id
+DELETE https://console.helium.com/api/v1/flows/:flow_id
 ```
 
 <Tabs
@@ -1109,50 +1061,9 @@ Flow deleted successfully
 </Tabs>
 
 ---
-
-### Create Device (update existing)
-
+### Update Device Config Profile
 ```
-POST https://staging-console.helium.wtf/api/v1/devices
-```
-
-<Tabs
-  block={true}
-  defaultValue="request"
-  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
-<TabItem value="request">
-
-_Headers_
-
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
-| content-type (required) | _string_ | application/json              |
-
-_Body Parameters_
-
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| name (required)    | _string_ | A human-friendly name for the device |
-| app_eui (required) | _string_ | LoRaWAN Application EUI              |
-| app_key (required) | _string_ | LoRaWAN Application Key              |
-| dev_eui (required) | _string_ | LoRaWAN Device EUI                   |
-| config_profile_id (optional) | _string_ | Config profile uuid to attach                   |
-| label_ids (optional) | Array of strings | Array of label uuids to attach to device               |
-
-
-</TabItem>
-<TabItem value="response">
-
-201: created
-
-</TabItem>
-</Tabs>
-
----
-### Update Device Config Profile (New)
-```
-PUT https://staging-console.helium.wtf/api/v1/devices/:device_id
+PUT https://console.helium.com/api/v1/devices/:device_id
 ```
 
 <Tabs
@@ -1188,45 +1099,10 @@ _Body Parameters_
 </Tabs>
 
 ---
-### Create Label (Update existing)
 
+### Update Label Config Profile
 ```
-POST https://staging-console.helium.wtf/api/v1/labels
-```
-
-<Tabs
-  block={true}
-  defaultValue="request"
-  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
-<TabItem value="request">
-
-_Headers_
-
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
-| content-type (required) | _string_ | application/json              |
-
-_Body Parameters_
-
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| name (required)    | _string_ | A human-friendly name for the device |
-| config_profile_id (optional) | _string_ | Config profile uuid to attach                   |
-
-</TabItem>
-<TabItem value="response">
-
-201: created
-
-</TabItem>
-</Tabs>
-
----
-
-### Update Label Config Profile (New)
-```
-PUT https://staging-console.helium.wtf/api/v1/labels/:label_id
+PUT https://console.helium.com/api/v1/labels/:label_id
 ```
 
 <Tabs
@@ -1263,9 +1139,9 @@ _Body Parameters_
 
 ---
 
-### Update Device Active Status (New)
+### Update Device Active Status
 ```
-PUT https://staging-console.helium.wtf/api/v1/devices/:device_id
+PUT https://console.helium.com/api/v1/devices/:device_id
 ```
 
 <Tabs
@@ -1302,9 +1178,9 @@ _Body Parameters_
 
 ---
 
-### Update Devices Active Status (New)
+### Update Devices Active Status
 ```
-PUT https://staging-console.helium.wtf/api/v1/devices/active?dev_eui=your_dev_eui
+PUT https://console.helium.com/api/v1/devices/active?dev_eui=your_dev_eui
 ```
 
 <Tabs
@@ -1343,10 +1219,10 @@ _Body Parameters_
 
 ---
 
-### Update Devices attached to label Active Status (New)
+### Update Devices attached to label Active Status
 
 ```
-PUT https://staging-console.helium.wtf/api/v1/labels/:label_id/active
+PUT https://console.helium.com/api/v1/labels/:label_id/active
 ```
 
 <Tabs
