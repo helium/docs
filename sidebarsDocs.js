@@ -57,7 +57,7 @@ module.exports = {
       collapsed: true,
     },    {
       type: 'category',
-      label: 'Large Device Fleet Users',
+      label: 'For Device Fleet Owners',
       items: [
           'large-device-fleet/introduction',
           'large-device-fleet/economics',
