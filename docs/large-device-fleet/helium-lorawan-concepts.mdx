@@ -1,0 +1,9 @@
+# Helium and LoRaWAN network server concepts
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+* **Devices** - Any IoT device supporting the LoRaWAN radio standard will be able to operate on the Helium network. Asset trackers, environmental sensors, smart metres, smart lighting, and many more.
+* **Hotspots** - These are indoor or outdoor radio devices that listen to transmissions from your device or send data to your devices. They also have a copy of the blockchain and run blockchain transactions. Blockchain functionality will be moved completely to the validators in the near future to minimise hardware requirements for the hotspots.
+* **Validators** - Running the blockchain to offload computation and storage from the hotspots.
+* **Helium Router** - Router is equivalent to a LoRaWAN Network Server (LNS). LNS manages low level network communications with devices through hotspots. By running your own LNS, you have complete control over additional LoRaWAN network commands that allow you to customise how your devices communicate to the network. Only for those who really know their way around LoRaWAN!
+* **Application Server** - This is a generic term for “where the LNS sends your device’s data.” This could be anything from your API gateway, custom application, or a full-blown asset tracking solution.
