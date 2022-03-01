@@ -3,62 +3,90 @@ id: economics
 sidebar_label: Economics
 ---
 
-
 # Economics
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 ## Basic pricing
-100,000 data credits (DC) for $1
+
+100,000 data credits for $1
+
+1 packet payload = 1 data credit (DC)
 
 **Payload size**:
-*  1-24 bytes = 1 DC
-* 25-48 bytes = 2 DC 
-* 49-72 bytes = 3 DC
-* and so on ...
 
+- 1-24 bytes = 1 DC
+- 25-48 bytes = 2 DC
+- 49-72 bytes = 3 DC
+- and so on ...
 
-### Total device packet usage will consist of: data and network packets. 
+### Total device packet usage = data packets + network management packets
 
-**Data packets** carry payload from your device to your systems.
+**Data** packets carry payload between your device and your system (application
+server).
 
-**Network management** packets are sent by the LoRaWAN Network Server in the course of managing your device’s
-connection to the network. This may add anywhere from  
-2-10% extra packets on top of your existing data packets.
+**Network management** packets are sent by the Router/LoRaWAN Network Server in
+the course of managing your device’s connection to the network. This may add
+anywhere from 2-10% extra packets on top of your existing data packets.
 
-The following expenses are only needed if you are planning to have a large number of devices, have specific
-needs to control your network and you have specific security requirements.
-* **Router** - This is your own LoRaWAN server on the Helium network. Your devices’ packets will be delivered directly to your LoRaWAN server (router) from the hotspots that picked up your devices’ transmissions.
-* **OUI** - This is required to route your devices’ packets to your own LoRaWAN server/Router. $100
-* **DevAddr slab** - You need to get your own range of addresses on the LoRaWAN network to help hotspot figure out where to deliver your packets. DevAddr is used by the Helium network to figure out who owns the device. The cost is $100 per DevAddr. The minimum purchase is a block of 8 DevAddr, therefore $800. You can buy blocks in multiples of 2 (8, 16, 32, …).
-* **Adding devices to the network** - Every time you add devices to the Helium network, you have to pay for the transaction cost of that action. To minimise these costs, you can add devices in large batches as it is the cost of the transaction that you are paying for, not the number of devices processed. 40,000 per transaction
-* **Billing reconciliation with hotspots** - Sending money on the blockchain is not free. Because of that, we cannot pay each hotspot for the packet they deliver instantly. To lower the cost of paying hotspots for the data they provide is called “maintaining state channels.” This is equivalent to keeping a running total of who owes whom and reconciling it infrequently. By doing the money transfer only infrequently, transaction fees are lowered. 35,000 DC to open/close a state channel.
-You need to have at least one channel open to receive packets. Due to this, you will have two channels running, with staggered start times, so that one of them is always up and funded with data credits.
+The following expenses are only needed if you are planning to have a large
+number of devices, have specific needs to control your network and/or you have
+specific security requirements.
+
+- **Router** - This is your own LoRaWAN Network Server (LNS) on the Helium
+  network. Your devices’ packets will be delivered directly to your Router/LNS
+  from the hotspots that picked up your device’s transmissions.
+- **OUI** - This is required in order to route your devices’ packets to your own
+  Router/LNS. This is purchased directly from Helium. $100
+- **DevAddr slab** - You need to get your own DevAddr range of addresses when
+  you purchase an OUI. DevAddr is used by the Helium network to figure out who
+  owns the device and where the packet should be delivered. The cost is $100 per
+  DevAddr. The minimum purchase is a block of 8 DevAddr, therefore $800. You can
+  buy blocks in multiples of 2 (8, 16, 32, …).
+- **Adding devices to the network** - Every time you add devices to the Helium
+  network, you have to pay for the cost of that transaction. To minimise these
+  costs, you can add devices in large batches as it is the cost of the
+  transaction that you are paying for, not the number of devices processed.
+  $0.40 per transaction
+- **Billing reconciliation with hotspots** - Sending money between the accounts
+  on the blockchain has a cost. Because of that, we cannot pay hotspots
+  instantly for each packet they deliver. To lower the cost of paying hotspots
+  for the packets they deliver, we have to do what is called “maintaining state
+  channels.” This is equivalent to keeping a running total of who owes whom, and
+  reconciling it every few hours or days. By paying hotspots infrequently,
+  overall transaction fees are kept low. It costs $0.35 to open/close a state
+  channel. There needs to be least one channel open to receive packets. Due to
+  this, it is best to have two state channels open at a time, with staggered
+  start times. This way, at any time there is at least one satte channel open
+  ready to receive packets and account for them.
 
 ### Example calculation for operating a large number of devices
 
 Assumptions used for the calculation:
-* Devices: 100,000
-* Transmits per day: 2x
-* State Channels open for: 7 days
-* Devices added: once per week
+
+- Devices: 100,000
+- Transmits per day: 2
+- State Channels open for: 7 days
+- Devices added: once per week
 
 Costs:
-* Upfront = OUI + 8 DevAddr = 1,000,000 + 8 * 1,000,000 = 9,000,000
-* Adding devices = 52 x 40,000 = 2,080,000 DC
-* Transmissions = 100,000 * 2 * 52 * 1.10 = 11,440,000 DC
-(Adding conservative 10% to the number of packets due to underlying network commands that are required as part of the LoRaWAN network management)
-* State channel management = 52 * 2 * 35,000 = 3,640,000 DC
-* Cost of running and managing a Router = varies ($1,000+ per month)
 
-| Upfront or Yearly Costs  | Description                    | Data Credits | Dollars |
-|:-----------------------:|:-------------------------------|:-------------|:--------|
-|Upfront                  |OUI + 8 DevAddr                 | 1,000,000 + 8 * 1,000,000 = 9,000,000| $900|
-|Upfront                  |New devices                     |52 x 40,000 = 2,080,000| $200|
-|Yearly                   |Transmissions                   |100,000 * 2 * 52 * 1.10 = 11,440,000| $114.40|
-|Yearly                   |Billing reconciliation   |52 * 2 * 35,000 = 3,640,000|$36.40|
-|Yearly                   |Running and managing a Router (Optional)  | 0            | $12,000+ (varies)|
-|-----------------|-----------------|-----------------|----------------|
-|Total Upfront            |OUI + DevAddr + Device registration| 11,000,000|$1,100|
-|Total Yearly (without Router)|Packets plus billing reconciliation| 11,440,000|$114.40|
-|Total Yearly to run own Router| Own Router               | 0| $12,000+ (varies)|
+- Upfront = OUI + 8 DevAddr = 10,000,000 + 8 x 10,000,000 = 90,000,000
+- Adding devices = 52 x 40,000 = 2,080,000 DC
+- Transmissions = 100,000 x 2 x 52 x 1.10 = 11,440,000 DC (Adding conservative
+  10% to the number of packets due to underlying network commands that are
+  required as part of the LoRaWAN network management)
+- State channel management = 52 x 2 x 35,000 = 3,640,000 DC
+- Cost of running and managing a Router = varies ($1,000+ per month)
+
+|         Once-off/Ongoing Costs         | Description                              | Data Credits                             | Dollars           |
+| :------------------------------------: | :--------------------------------------- | :--------------------------------------- | :---------------- |
+|                Once-off                | OUI + 8 DevAddr                          | 10,000,000 + 8 x 10,000,000 = 90,000,000 | $900              |
+|                Once-off                | New devices                              | 52 x 40,000 = 2,080,000                  | $20.80            |
+|                Ongoing                 | Transmissions                            | 100,000 x 2 x 52 x 1.10 = 11,440,000     | $114.40           |
+|                Ongoing                 | Billing reconciliation                   | 52 x 2 x 35,000 = 3,640,000              | $36.40            |
+|                Ongoing                 | Running and managing a Router (Optional) | 0                                        | $12,000+ (varies) |
+|           -----------------            | -----------------                        | -----------------                        | ----------------  |
+|             Total Once-off             | OUI + DevAddr + Device registration      | 92,080,000                               | $920.80           |
+| Total Yearly Ongoing (without Router)  | Packets plus billing reconciliation      | 11,440,000                               | $114.40           |
+| Total Yearly Ongoing to run own Router | Own Router                               | 0                                        | $12,000+ (varies) |

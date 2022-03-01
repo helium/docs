@@ -57,14 +57,14 @@ module.exports = {
       collapsed: true,
     },    {
       type: 'category',
-      label: 'For Device Fleet Owners',
+      label: 'Large Device Deployments',
       items: [
           'large-device-fleet/introduction',
           'large-device-fleet/economics',
+          'large-device-fleet/helium-lorawan-concepts',
           'large-device-fleet/get-started',
           'large-device-fleet/differences-trial-production',
           'large-device-fleet/operating-router-lns',
-          'large-device-fleet/helium-lorawan-concepts',
           'large-device-fleet/hotspot-placement-management',
           'large-device-fleet/device-management',
           
