@@ -47,6 +47,28 @@ _Headers_
 
 ---
 
+### Data Credit Balance
+
+```
+GET https://console.helium.com/api/v1/organization
+```
+
+##### Response
+
+200: OK
+
+```json
+[
+    {
+       "dc_balance": 731686
+        "id": "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
+        "name": "Acme",
+    },
+]
+```
+
+---
+
 ### Devices List
 
 ```
@@ -60,22 +82,49 @@ GET https://console.helium.com/api/v1/devices
 ```json
 [
     Device {
-        app_eui: "70B3D57ED0008E64",
-        app_key: "30EACA8A2CAF0C5315D0E4A1B7F7B55B",
-        dev_eui: "008000000401261D",
-        id: "747246dd-d9b6-4e68-96c1-2c489ab33280",
-        name: "Basement Temp",
-        organization_id: "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
-        oui: 1,
+        "active": false,
+        "adr_allowed": null,
+        "app_eui": "70B3D57ED0008E64",
+        "app_key": "30EACA8A2CAF0C5315D0E4A1B7F7B55B",
+        "dev_eui": "008000000401261D",
+        "cf_list_enabled": null,
+        "config_profile_id": null,
+        "dc_usage": 606837,
+        "id": "747246dd-d9b6-4e68-96c1-2c489ab33280",
+        "in_xor_filter": true,
+        "labels": [],
+        "last_connected": "2022-03-03T22:37:33",
+        "name": "Basement Temp",
+        "organization_id": "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
+        "oui": 1,
+        "rx_delay": 1,
+        "total_packets": 303442
     },
     Device {
-        app_eui: "CE1BAF8A8824FD1D",
-        app_key: "2A37E7FACF2F0B7833413E9F8988C4EF",
-        dev_eui: "9C069EEE66D3ABCD",
-        id: "916fc471-87f1-43a8-939e-c36589f33232",
-        name: "Water Level North",
-        organization_id: "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
-        oui: 1,
+        "active": true,
+        "adr_allowed": null,
+        "app_eui": "CE1BAF8A8824FD1D",
+        "app_key": "2A37E7FACF2F0B7833413E9F8988C4EF",
+        "dev_eui": "008000000401261D",
+        "cf_list_enabled": null,
+        "config_profile_id": null,
+        "dc_usage": 606925,
+        "id": "916fc471-87f1-43a8-939e-c36589f33232",
+        "in_xor_filter": true,
+         "labels": [
+            {
+                "adr_allowed": null,
+                "cf_list_enabled": null,
+                "config_profile_id": null,
+                "id": "20865d14-bd90-4cbb-80e5-401c2c71fdab",
+                "name": "Device group",
+                "rx_delay": null
+        "last_connected": "2022-03-03T22:37:33",
+        "name": "Water Level North",
+        "organization_id": "07273bc4-4bc9-44ec-b4d5-ad320f162e15",
+        "oui": 1,
+        "rx_delay": 1,
+        "total_packets": 303486
     },
 ]
 ```
