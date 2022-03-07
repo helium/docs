@@ -13,12 +13,12 @@ software-based protocol sniffer.
 
 1. Ensure [Router](https://github.com/helium/router.git) is running and
    [Console](https://github.com/helium/console.git) is connected to it.
-1. The wallet to be used requires enough HNT to burn for joining the virtual
+2. The wallet to be used requires enough HNT to burn for joining the virtual
    device to the network.
    + It's the same fee as for a physical device.
    + See
    [Setup Data Only Hotspot](https://docs.helium.com/mine-hnt/data-only-hotspots/#transactions--cost)
-1. Clone each of these repos:
+3. Clone each of these repos:
     + [virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
     + [lorawan-sniffer](https://github.com/helium/lorawan-sniffer)
     + [gateway-rs](https://github.com/helium/gateway-rs)
@@ -35,13 +35,13 @@ Rust-based tools locally for connecting to a remote Router & Console.
 The approximate sequence:
 
 1. Create a virtual device
-1. Use the wallet to pay for joining a device to the network
-1. Device gets added via Console, which then will be "pending" for about 15 minutes
-1. Start local data-only hotspot
-1. Configure sniffer to use that hotspot
-1. Connect the virtual device to sniffer
-1. Wait for "pending" to resolve on Console
-1. Finally, the virtual device joins the network
+2. Use the wallet to pay for joining a device to the network
+3. Device gets added via Console, which then will be "pending" for about 15 minutes
+4. Start local data-only hotspot
+5. Configure sniffer to use that hotspot
+6. Connect the virtual device to sniffer
+7. Wait for "pending" to resolve on Console
+8. Finally, the virtual device joins the network
 
 Order of operations below is significant.
 
@@ -181,8 +181,8 @@ Both the sniffer and virtual device may be configured during this wait.
 Get the following values from Console for your device:
 
 1. Device EUI
-1. App EUI
-1. App Key
+2. App EUI
+3. App Key
 
 (You may also want the "Device ID" for tracing via SSH session on the router
 instance itself.)
