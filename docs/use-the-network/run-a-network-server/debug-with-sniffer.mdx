@@ -258,9 +258,14 @@ Run in its own Terminal window:
 
 ```bash
 cd ~/helium/lorawan-sniffer/
-./target/release/lorawan-sniffer --host 127.0.0.1:1680
+./target/release/lorawan-sniffer sniff --host 127.0.0.1:1680 \
+    --log-trace session.csv
 ```
 
+(The session log may be replayed later with:
+`./target/release/lorawan-sniffer replay session.csv`)
+
+**Note:**
 If the gateway restarts, the sniffer may need to be restarted also.
 
 ## Start Device
