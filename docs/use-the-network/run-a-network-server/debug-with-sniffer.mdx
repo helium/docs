@@ -54,29 +54,33 @@ below assume everything is located beneath the `~/helium/` path.
 
 Ensure everything compiles successfully.
 
-    cd ~/helium/
+Run:
 
-    git clone https://github.com/helium/helium-wallet-rs.git
-    cd helium-wallet-rs/
-    cargo build --release
+```bash
+cd ~/helium/
 
-    cd ..
+git clone https://github.com/helium/helium-wallet-rs.git
+cd helium-wallet-rs/
+cargo build --release
 
-    git clone https://github.com/helium/gateway-rs.git
-    cd gateway-rs/
-    cargo build --release
+cd ..
 
-    cd ..
+git clone https://github.com/helium/gateway-rs.git
+cd gateway-rs/
+cargo build --release
 
-    git clone https://github.com/helium/virtual-lorawan-device.git
-    cd virtual-lorawan-device/
-    cargo build --release
+cd ..
 
-    cd ..
+git clone https://github.com/helium/virtual-lorawan-device.git
+cd virtual-lorawan-device/
+cargo build --release
 
-    git clone https://github.com/helium/lorawan-sniffer.git
-    cd lorawan-sniffer/
-    cargo build --release
+cd ..
+
+git clone https://github.com/helium/lorawan-sniffer.git
+cd lorawan-sniffer/
+cargo build --release
+```
 
 Those may be built in any order but are in sequence as used below.
 
@@ -90,8 +94,10 @@ to this one using the `--seed` option.
 
 Run:
 
-    cd ~/helium/helium-wallet-rs/
-    ./target/release/helium-wallet create basic
+```bash
+cd ~/helium/helium-wallet-rs/
+./target/release/helium-wallet create basic
+```
 
 Follow its [README](https://github.com/helium/helium-wallet-rs) or other
 [instructions](https://docs.helium.com/mine-hnt/data-only-hotspots/) for
@@ -99,7 +105,9 @@ creating and **funding this wallet**.
 
 View details of the *funded* CLI wallet:
 
-    ./target/release/helium-wallet info
+```bash
+./target/release/helium-wallet info
+```
 
 See `Balance` field, and confirm having enough HNT to burn 1000000 (six
 zeros) data credits.  One whole HNT is more than sufficient with prevailing
@@ -117,10 +125,12 @@ Arguments to both the owner and payer options will be your wallet address
 
 Run:
 
-    cd ~/helium/gateway-rs/
-    ./target/release/helium_gateway add --mode dataonly \
-        --owner WalletADDRESS... \
-        --payer WalletADDRESS...
+```bash
+cd ~/helium/gateway-rs/
+./target/release/helium_gateway add --mode dataonly \
+    --owner WalletADDRESS... \
+    --payer WalletADDRESS...
+```
 
 Output from that command will include a transaction ID associated with the
 `txn` field.  Copy this value (without quotes) which is referred to as
@@ -128,8 +138,10 @@ Output from that command will include a transaction ID associated with the
 
 Accommodate cache, which isn't strictly necessary for purposes here:
 
-    mkdir cache
-    echo 'store = "'$(pwd)'/cache"' > config/settings.toml
+```bash
+mkdir cache
+echo 'store = "'$(pwd)'/cache"' > config/settings.toml
+```
 
 The gateway service will be started below, after adding the device.
 
@@ -142,13 +154,17 @@ must use the CLI wallet.
 
 Always perform a dry-run (*without* the commit flag) first:
 
-    cd ~/helium/helium-wallet-rs/
-    ./target/release/helium-wallet hotspots add TxnID...
+```bash
+cd ~/helium/helium-wallet-rs/
+./target/release/helium-wallet hotspots add TxnID...
+```
 
 Confirm that the staking fee in DC is `1000000` (six zeros), and then repeat
 same command plus `--commit` flag:
 
-    !! --commit
+```bash
+!! --commit
+```
 
 ## Console
 
@@ -231,15 +247,19 @@ separate Terminal tabs/windows.
 
 Run in its own Terminal window:
 
-    cd ~/helium/gateway-rs/
-    ./target/release/helium_gateway -c config server
+```bash
+cd ~/helium/gateway-rs/
+./target/release/helium_gateway -c config server
+```
 
 ## Start Sniffer
 
 Run in its own Terminal window:
 
-    cd ~/helium/lorawan-sniffer/
-    ./target/release/lorawan-sniffer --host 127.0.0.1:1680
+```bash
+cd ~/helium/lorawan-sniffer/
+./target/release/lorawan-sniffer --host 127.0.0.1:1680
+```
 
 If the gateway restarts, the sniffer may need to be restarted also.
 
@@ -247,8 +267,10 @@ If the gateway restarts, the sniffer may need to be restarted also.
 
 Run in its own Terminal window:
 
-    cd ~/helium/virtual-lorawan-device/
-    ./target/release/virtual-lorawan-device
+```bash
+cd ~/helium/virtual-lorawan-device/
+./target/release/virtual-lorawan-device
+```
 
 Each start of this program begins with a fresh LoRaWAN Join, so expect to
 see a matching Join-Accept response from the router.
@@ -265,16 +287,24 @@ From Console, get the "Device ID" value, which is a UUID string.
 
 Run in its own Terminal window:
 
-    ssh router-dev
+```bash
+ssh router-dev
+````
 
 Start tracing for your device:
 
-    router device trace --id=4e698917-b44c-abcd-b258-afaf579a2099
+```bash
+router device trace --id=4e698917-b44c-abcd-b258-afaf579a2099
+```
 
 When finished, conclude tracing for your device:
 
-    router device trace --id=4e698917-b44c-abcd-b258-afaf579a2099 --stop
+```bash
+router device trace --id=4e698917-b44c-abcd-b258-afaf579a2099 --stop
+```
 
 Or extract from logs in the usual way:
 
-    grep 4e698917-b44c-abcd-b258-afaf579a2099 /var/data/log/router.log
+```bash
+grep 4e698917-b44c-abcd-b258-afaf579a2099 /var/data/log/router.log
+```
