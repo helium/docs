@@ -16,7 +16,7 @@ a [Data Only Hotspot](/mine-hnt/data-only-hotspots).
 
 A conversion of a Full Hotspot running Light Hotspot software is now being tested on [Testnet](https://testnet-explorer.helium.com).
 
-This project is in progress and subject to change. **Last updated Monday February 14, 2022**.
+This project is in progress and subject to change. **Last updated Monday March 7, 2022**.
 
 :::info
 
@@ -96,16 +96,14 @@ Development of this code takes place in the above GitHub repo, as well at the
 - **December 2021**: Validators creating challenges for software-based miners on Testnet
 - **January 2022**: Hardware Audit starts for Light Hotspot manufacturers
 - **February 2022**: Introduce hardware-based Hotspots on Testnet (Full Hotspots running Light Hotspot firmware). Validators create challenges using H3dex targeting.
-- **Tentative: End of Q1 2022**: All HIP-19 Approved Makers participating in Testnet
-
-Assuming HIP 54 and HIP 55 pass without additional changes
-
-- **Tentative: Q1/Q2 2022**: Code related to Light Hotspot merged to production, in an inactive state
+- **February 22 2022**: [HIP 54](https://heliumvote.com/14me3X7jpEmn3eeFfnAkMvUoFU3cN6GAS3CDomqCikr7VQfHWrU) and [HIP 55](https://heliumvote.com/14Rjhhz1DXLVmSRdzappqWgD6rfgu6XYxmdaSCvWLyLH8ZWbciK) passes
+- **February 2022 - Ongoing**: HIP-19 Approved Makers participating in Testnet
+- **Tentative: Q2 2022**: Code related to Light Hotspot merged to production, in an inactive state
 - **Several weeks later**: Activate set of chain variables to enable Light Hotspots on Mainnet
 - **Several weeks later**: Deactivate Miner on Light Hotspots on Mainnet such that they run gateway-rs only
 
 ## Current progress on Testnet
-Hardware-based Hotspots are now participating in a new Proof-of-Coverage with Validators on Testnet. In this test, all Hotspots use Testnet Validators for blockchain information and do not need to sync the blockchain directly. They also receive PoC Challenges from Validators.
+Hardware-based Hotspots (Helium Hotspots and HIP19 Makers) are now participating in a new Proof-of-Coverage with Validators on Testnet. In this test, all Hotspots use Testnet Validators for blockchain information and do not need to sync the blockchain directly. They also receive PoC Challenges from the Validator pool.
 
 You can see their progress on [Testnet](https://testnet-explorer.helium.com).
 
@@ -117,4 +115,4 @@ These Hotspots are also running a dockerized version of [gateway-rs (rust-based 
 A portion of the complete Light Hotspot software is also on mainnet, transferring non-PoC packets on a test Hotspot using the new packet forwarder that relies on Validators. 
 
 ### What's Next
-Invite all Makers to participate in our Testnet test by supplying a tag on [Quay, our image distribution tool, for Makers using Docker](https://quay.io/repository/team-helium/testnet?tag=latest&tab=tags).
+Merge code related to Light Hotspots to production, in an inactive state.
