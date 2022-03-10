@@ -17,11 +17,9 @@ For more information getting started with the Azure IoT Hub integration, check o
 :::
 
 ## On Azure IoT Hub
-Prior to setting up an integration in Console, the following Azure IoT Hub information is required:
+Prior to setting up an integration in Console, the following Azure IoT Hub information is required: `Primary Connection String`.
 
-- Hub Name
-- Policy Name
-- Primary Key
+The string can be found by clicking Device Explorer on the Azure IoT Hub and then clicking on your device name. 
 
 Log into your Azure IoT Hub account and on the left hand menu go to "Shared access policies".
 
@@ -33,8 +31,6 @@ Console requires the following permissions.
 :::important 
 You must create your own policy and ensure it includes the permissions listed above. Although the `iothubowner` policy includes those by default it's not designed to be used for external integrations.
 :::
-
-Whatever policy you choose, click it and a pane will appear. Copy the `Primary Key` information.
 
 ## On Console
 To add the integration in Console, go to **Integrations** on the left-hand menu.
@@ -54,9 +50,9 @@ Choose the **Azure IoT** integration icon.
   )}
 />
 
-Enter the Azure IoT Hub information into the corresponding fields on Console:
+Enter the Azure IoT Hub `Primary Connection String` information into the Console. Once the string has been added the following details will be automatically filled based on the information contained in the string:
 
-- `Hub Name` (note just the hub name, not the entire hostname)
+- `Hub Name`
 - `Policy Name`
 - `Primary Key`
 
