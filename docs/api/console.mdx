@@ -728,7 +728,7 @@ Device removed from label successfully
 
 ---
 
-### Create an Integration
+### Create a Prebuilt Integration
 Create prebuilt integration for integration providers planning to offer connectivity as a service. 
 
 ```
@@ -771,6 +771,219 @@ _Body Parameters_
     "labels": [],
     "name": "name"
 }
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Create a Custom HTTP Integration
+
+```
+POST https://console.helium.com/api/v1/integrations
+```
+
+Creates a custom HTTP integration. Use the Console UI for JSON message templates.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | Your API key |
+| content-type (required) | _string_ | application/json              |
+
+_Body Parameters_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| name (required) | _string_ | A unique human-friendly name           |
+| type (required) | _string_ | “http”             |
+| endpoint (required) | _string_ | endpoint             |
+| method (required)    | _string_ | HTTP method |
+| headers (optional) | _string_ | Map of header keys and values { “content-type”: “application/json” } |
+
+
+</TabItem>
+<TabItem value="response">
+
+201: Created
+
+```
+{
+    "devices": [],
+    "id": "8bcf235a-0ee7-4e74-9856-e07c13a863b6",
+    "labels": [],
+    "name": "name",
+    "type": "http"
+    "credentials": { … }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Create a Custom MQTT Integration
+
+```
+POST https://console.helium.com/api/v1/integrations
+```
+
+Creates a custom MQTT integration. 
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | Your API key |
+| content-type (required) | _string_ | application/json              |
+
+_Body Parameters_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| name (required) | _string_ | A unique human-friendly name          |
+| type (required) | _string_ | “mqtt”             |
+| endpoint (required) | _string_ | endpoint             |
+| uplink_topic (required) | _string_ | Uplink topic |
+| downlink_topic (required) | _string_ | Downlink topic |
+
+
+</TabItem>
+<TabItem value="response">
+
+201: Created
+
+```
+{
+    "devices": [],
+    "id": "8bcf235a-0ee7-4e74-9856-e07c13a863b6",
+    "labels": [],
+    "name": "name",
+    "type": "mqtt"
+    "credentials": { … }
+}
+
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Create a Custom Azure IoT Hub Integration
+
+```
+POST https://console.helium.com/api/v1/integrations
+```
+
+Creates a custom Azure IoT Hub integration. 
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | Your API key |
+| content-type (required) | _string_ | application/json          |
+
+_Body Parameters_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| name (required) | _string_ | A unique human-friendly name          |
+| type (required) | _string_ | “azure_hub”             |
+| azure_hub_policy_name (required) | _string_ | Azure IoT Hub policy name            |
+| azure_hub_name (required) (required)    | _string_ | Azure IoT Hub name |
+| azure_hub_primary_key (required) | _string_ | Azure IoT Hub primary key |
+
+</TabItem>
+<TabItem value="response">
+
+201: Created
+
+```
+{
+    "devices": [],
+    "id": "8bcf235a-0ee7-4e74-9856-e07c13a863b6",
+    "labels": [],
+    "name": "name",
+    "type": "azure"
+    "credentials": { … }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Create a Custom AWS IoT Core Integration
+
+```
+POST https://console.helium.com/api/v1/integrations
+```
+
+Creates a custom AWS IoT Core integration. 
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| key (required)    | _string_ | Your API key |
+| content-type (required) | _string_ | application/json          |
+
+_Body Parameters_
+
+| Parameter Name     | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| name (required) | _string_ | A unique human-friendly name          |
+| type (required) | _string_ | “azure_hub”             |
+| topic (required) | _string_ | AWS topic             |
+|aws_access_key (required) | _string_ | AWS access key            |
+| aws_secret_key (required) | _string_ | AWS secret key |
+| aws_region (required) | _string_ | AWS region |
+
+</TabItem>
+<TabItem value="response">
+
+201: Created
+
+```
+{
+    "devices": [],
+    "id": "8bcf235a-0ee7-4e74-9856-e07c13a863b6",
+    "labels": [],
+    "name": "name"
+    "type": "aws"
+    "credentials": { … }
+}
+
 ```
 
 </TabItem>
@@ -968,7 +1181,7 @@ Integration {
 
 ---
 
-### View all flows for integration
+### View all Flows for an Integration
 
 ```
 GET https://console.helium.com/api/v1/flows?integration_id=your_integration_id
@@ -1023,8 +1236,8 @@ _Query Parameters_
 
 ---
 
-### Create flow for integration
-Creating a prebuilt integration for CaaS providers. 
+### Create a Flow for an Integration
+Create a prebuilt integration for partners providing a connectivity as a service solution. 
 
 ```
 POST https://console.helium.com/api/v1/flows
