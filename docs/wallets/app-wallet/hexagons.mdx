@@ -30,7 +30,7 @@ Hexagons, while also a six-sided shape, is the underlying representation of the 
 
 ## Hexagons in Helium
 
-Since the genesis block, Hotspot locations have been represented (and continue to) in resolution 12, a semi-precise point location covering 0.3 m². This is why some Hotspot appear to be "a few houses down from where I asserted". But, as the network expanded, concerns over security and privacy regarding Hotspot locations grew alongside with it. 
+Since the genesis block, Hotspot locations have been represented (and continue to) in resolution 12, a semi-precise point location covering 300 m² (3200 ft²), comparable to the footprint of a large house. This is why some Hotspot appear to be "a few houses down from where I asserted". But, as the network expanded, concerns over security and privacy regarding Hotspot locations grew alongside with it. 
 
 
 <img src={useBaseUrl("img/wallets/helium-app/hexagons.png")} width="400"/>
@@ -45,7 +45,7 @@ The hex your Hotspot belongs to is derived from its resolution 12 location, and 
 
 ## Resolution 8 Hexagons
 
-The Helium app displays resolution 8 hexagons, which has an area of 0.7373276 km², and edge length of 0.461354684 km. About 130 resolution 8 hexagons covers the city of San Francisco. 
+The Helium app displays resolution 8 hexagons, which have an area of 0.7373276 km², and edge length of 0.461354684 km. About 130 resolution 8 hexagons covers the city of San Francisco. 
 
 :::note
 
@@ -118,7 +118,7 @@ Previously known as Reward Scale, the Transmit Scale has been renamed to properl
 **Transmit scale is a multiplier that is applied to rewards of *any Hotspot that witnesses you*. The scale also affects how many rewards you receive as a Challengee.**
 
 
-The number is a representation of how dense a hexagon is (how many Hotspots occupy that hex) at various resolutions (from resolution 12 down to resolution 4). This means that if any Hotspots asserts themselves between 0.3 m² to 1,770.3235517 km² away from your Hotspot, its scale can change. If you're interested in how this is calculated, check out the <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">engineering blog</a>.
+The number is a representation of how dense a hexagon is (how many Hotspots occupy that hex) at various resolutions (from resolution 12 down to resolution 4). This means that if any Hotspots assert themselves within the 1770 km² area surrounding your Hotspot, your Hotspot's transmit scale can change. If you're interested in how this is calculated, check out the <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">engineering blog</a>.
 
 To counteract the effects of a lower transmit scale, it is recommended that Hotspots improve their antenna setup (outdoors, higher gain, higher elevation) so it can witness beacons of Hotspots further away, with potentially higher transmit scales. This ensures a low-scaled Hotspot can continue to earn at an optimal level.
 
