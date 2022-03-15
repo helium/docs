@@ -291,16 +291,22 @@ Before we get started, make sure you're fully up to date:
 sudo apt-get update -y
 ```
 
-Next, let's install all the things. Start by cloning the `validator` branch of `miner`:
+Next, let's install all the things. Start by cloning the miner repo. 
 
 ```
-git clone -b pevm/validators https://github.com/helium/miner.git
+git clone https://github.com/helium/miner.git
 ```
 
-Then proceed to get you some Erlang (here we're specifying `22.3.1`):
+And checkout the latest testnet val tag. Consult GitHub for the current version and replace it into this command:
 
 ```
-wget https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
+git checkout tags/val0.1.134
+```
+
+Then proceed to get you some Erlang (OTP 23 or 24 will work; we are specifying 24.2.1 in this example):
+
+```
+wget https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_24.1.1-1~ubuntu~bionic_amd64.deb
 ```
 
 Next, get the `libwxgtk` package:
