@@ -807,7 +807,8 @@ _Body Parameters_
 | type (required) | _string_ | “http”             |
 | endpoint (required) | _string_ | endpoint             |
 | method (required)    | _string_ | HTTP method |
-| headers (optional) | _string_ | Map of header keys and values { “content-type”: “application/json” } |
+| headers (optional) | _map_ | Map of header keys and values { “content-type”: “application/json” } |
+| url_params (optional) | _map_ | Map for payload interpolation { "id": "{{device.id}}"} |
 
 
 </TabItem>
@@ -911,10 +912,10 @@ _Body Parameters_
 | Parameter Name     | Type     | Description                          |
 | ------------------ | -------- | ------------------------------------ |
 | name (required) | _string_ | A unique human-friendly name          |
-| type (required) | _string_ | “azure_hub”             |
-| azure_hub_policy_name (required) | _string_ | Azure IoT Hub policy name            |
-| azure_hub_name (required) (required)    | _string_ | Azure IoT Hub name |
-| azure_hub_primary_key (required) | _string_ | Azure IoT Hub primary key |
+| type (required) | _string_ | “azure”             |
+| azure_policy_name (required) | _string_ | Azure IoT Hub policy name            |
+| azure_hub_name (required) | _string_ | Azure IoT Hub name |
+| azure_primary_key (required) | _string_ | Azure IoT Hub primary key |
 
 </TabItem>
 <TabItem value="response">
@@ -963,7 +964,7 @@ _Body Parameters_
 | Parameter Name     | Type     | Description                          |
 | ------------------ | -------- | ------------------------------------ |
 | name (required) | _string_ | A unique human-friendly name          |
-| type (required) | _string_ | “azure_hub”             |
+| type (required) | _string_ | “aws”             |
 | topic (required) | _string_ | AWS topic             |
 |aws_access_key (required) | _string_ | AWS access key            |
 | aws_secret_key (required) | _string_ | AWS secret key |
