@@ -171,7 +171,7 @@ docker run -d --init \
 --publish 8080:8080/tcp \
 --name validator \
 --mount type=bind,source=$HOME/validator_data,target=/var/data \
-quay.io/team-helium/validator:latest-val-amd64
+quay.io/team-helium/validator-testnet:latest-amd64
 ```
 
 - `-d` option runs in detached mode, which makes the command return or not; you may want to omit if you have a daemon manager running the docker for you.
@@ -181,7 +181,7 @@ quay.io/team-helium/validator:latest-val-amd64
 - `--publish 8080:8080/tcp` maps the port 8080 on the docker container to 8080 on the host machine. This allows inbound connections on port 8080 to the host machine to be routed to the validator container. In addition to this mapping, it is up to you to ensure that this port is available from the public internet to the host machine. This will require modifying firewall and/or security group settings in your cloud provider of choice.
 - `--name validator` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
 - `--mount` the parameters above will mount the container's `/var/data/` directory to the systems directory `$HOME/validator_data`. You will want this folder to be persistent across runs of the docker container as it will contain both the blockchain data and the miner key of your validator.
-- `quay.io/team-helium/validator:latest-val-amd64` Lastly, this points to the docker **_image_** for the Validator that is tagged as the "latest" for the amd64 architecture. For arm architectures, replace with `latest-val-arm64`.
+- `quay.io/team-helium/validator-testnet:latest-amd64` Lastly, this points to the docker **_image_** for the Validator that is tagged as the "latest" for the AMD64/x86-64 architecture. For ARM architectures, replace with `latest-arm64`.
 
 Additional flags that may be helpful:
 
@@ -199,7 +199,7 @@ To ensure that each Validator gets updated quickly without your manual involveme
 
 :::info
 
-Watchtower simply reviews the `docker run` commands that were used to launch the running containers and checks for newer images for these containers.  Therefore it is imperative that your validator `docker run` command reference the `latest-val-amd64` or `latest-val-arm64` image tag or **it will never update**.
+Watchtower simply reviews the `docker run` commands that were used to launch the running containers and checks for newer images for these containers.  Therefore it is imperative that your validator `docker run` command reference the `latest-amd64` or `latest-arm64` image tag or **it will never update**.
 
 :::
 
@@ -236,14 +236,14 @@ If you choose to not run Watchtower for automatic updates of the Docker image du
 
 #### Upgrade your Docker container manually - Not needed if running watchtower
 
-As mentioned, we anticipate numerous, frequent updates during Testnet and recommend using the [latest miner tag found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
+As mentioned, we anticipate numerous, frequent updates during Testnet and recommend using the [latest miner tag found here](https://quay.io/repository/team-helium/validator-testnet?tag=latest&tab=tags).
 
 To upgrade your docker container to the latest version:
 
 ```
 docker stop validator && docker rm validator
 
-docker pull quay.io/team-helium/validator:latest-val-amd64
+docker pull quay.io/team-helium/validator-testnet:latest-amd64
 
 docker image prune -f
 ```
@@ -546,7 +546,7 @@ Getting back on chain is easy now that you've got everything installed:
 - `docker stop validator && docker rm validator` - Stop the running container, delete the container.
 - `cd` into the `validator_data` directory you setup earlier in the Deploy step above.  Then run `sudo rm -rf blockchain* ledger.db state_channels.db log checkpoints`  This will delete everything in this folder except for the `miner` folder. Please be sure you're in the correct folder before running `rm` commands.
 - The `miner` folder contains a single `swarm_key` file.  If you want to keep the 3-word name of your miner, keep this file.  If you want a new one, you can delete this file as well.
-- There will be a new validator version when the chain is relaunched, so force pull the new docker image version prior to starting the validator.  `docker pull quay.io/team-helium/validator:latest-val-amd64`
+- There will be a new validator version when the chain is relaunched, so force pull the new docker image version prior to starting the validator.  `docker pull quay.io/team-helium/validator-testnet:latest-amd64`
 - Restart the validator with your `docker run` command that you used [during the install](#deploy-the-validator-using-docker---recommended).
 - Watchtower should still be running from our install and will continue to update the docker image automatically.
 
