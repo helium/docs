@@ -23,13 +23,10 @@ your certificates are placed, they'll be used later in nginx.
 
 Grab the server docker-compose file
 ```
-cp templates/docker-compose-server.yaml docker-compose.yaml
+cp templates/docker-compose-quay.yaml docker-compose.yaml
 ```
 
 This docker-compose offers an nginx container to proxy traffic through.
-
-Edit your `docker-compose.yaml` and update `socket_check_origin` to match your
-host name.
 
 If letsencrypt put your certificate in a place other than `/etc/letsencrypt/`,
 be sure to update the `volumes` for the nginx container in

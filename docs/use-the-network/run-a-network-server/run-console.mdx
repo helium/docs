@@ -46,6 +46,7 @@ learn how to setup a Miner,
 In a fresh CentOS/Rocky/Alma Linux configuration, you can run the following
 installation step to prep the system for the rest of the tutorial.
 
+First run:
 ```
 yum -y update
 yum -y install epel-release
@@ -55,7 +56,6 @@ yum -y install net-tools \
 	git \
 	python3-devel \
 	openssl-devel
-
 
 yum -y remove docker \
 	docker-client \
@@ -67,6 +67,10 @@ yum -y remove docker \
 	docker-engine
 yum clean all
 dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+```
+
+And then:
+```
 dnf update
 dnf -y install docker-ce docker-ce-cli containerd.io
 
@@ -139,15 +143,28 @@ Copy the local docker-compose file
 cp templates/docker-compose-local.yaml docker-compose.yaml
 ```
 
-`docker-compose up` builds Console and launches it with two other containers:
-Router and Postgres.
+This template builds console locally and does not use nginx for SSL. You may
+want to read about nginx setup [here](/use-the-network/run-a-network-server/deploy-console).
 
-The first build can take especially long, so while we're waiting, let's
-configure our firewall. Each cloud provider does this slightly differently, but
-you'll want to continue enabling SSH on port 22 so that you can accept your own
-login and management, open up port 2154 for libp2p which allows you to sync the
-blockchain, and finally, port 8080 is for gRPC connections from hotspots so
-that you may actually purchase packets:
+If you launch docker-compose from here, you will build from the `dev` branch.
+You can use git to build and checkout alternate branches or tags.
+
+Alternately, to avoid building at all, you can use a quay image by changing the
+image configuration in the console section to the following:
+```
+  console:
+    image: quay.io/team-helium/console:latest
+```
+
+Once you've selected which branch of quay tag to use, `docker-compose up` deploys
+Conosle, Router and Postgres.
+
+The first deployment can take a little longer, especially if you're building.
+While we're waiting, let's configure our firewall. Each cloud provider does
+this slightly differently, but you'll want to continue enabling SSH on port
+22 so that you can accept your own login and management, open up port 2154 for
+libp2p which allows you to sync the blockchain, and finally, port 8080 is for
+gRPC connections from hotspots so that you may actually purchase packets:
 
 <img
     src={useBaseUrl(
