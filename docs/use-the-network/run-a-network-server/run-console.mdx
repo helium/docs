@@ -24,17 +24,57 @@ permissionless.
 Before we begin, you should have the following:
 
 - [purchased an OUI](/use-the-network/buy-an-oui) and noted its number
-- installed Docker and docker-compose
+- installed Docker and docker-compose (see quick-start for this in the next
+section, "Setting Up Dependencies")
 - you have some spare HNT to burn ($10-100 worth), for funding your OUI address
-- an Auth0 account for user account management
-- at least an AWS t2.xlarge (or equivalent), especially if running both Console and its backend (Router) on one server
+- a [Magic Link](https://magic.link/) account for user account management. Note
+that without additional configuration, only login via link will work. Login via
+Google directly will _not_ work.
+- at least 4 vCPUs, 8GB of RAM, and 120 GB of SSD. The [CPX41 product from Hetzner](https://www.hetzner.com/)
+or the [numerous VPS options from Vultr](https://www.vultr.com/pricing/) end up
+being cost-effective solutions. AWS provides equivalents such as t2.xlarge.
 
 Optionally, you should also:
 
 - have a fully sync'ed Miner or ETL instance to extract a snapshot from. To
-  learn how to setup a Miner,
-  [please read here](/mine-hnt/build-a-packet-forwarder#run-the-miner).
+learn how to setup a Miner,
+[please read here](/mine-hnt/build-a-packet-forwarder#run-the-miner).
 - be able to configure ports on a firewall
+
+### Setting up dependencies
+
+In a fresh CentOS/Rocky/Alma Linux configuration, you can run the following
+installation step to prep the system for the rest of the tutorial.
+
+```
+yum -y update
+yum -y install epel-release
+yum -y install net-tools \
+	htop \
+	vim \
+	git \
+	python3-devel \
+	openssl-devel
+
+
+yum -y remove docker \
+	docker-client \
+	docker-client-latest \
+	docker-common \
+	docker-latest \
+	docker-latest-logrotate \
+	docker-logrotate \
+	docker-engine
+yum clean all
+dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+dnf update
+dnf -y install docker-ce docker-ce-cli containerd.io
+
+systemctl enable docker
+systemctl start docker
+curl -L "https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+chmod a+wrx /usr/local/bin/docker-compose
+```
 
 ## Console Setup
 
@@ -53,48 +93,32 @@ cp templates/.env .env
 Then edit `.env`. Here's an example of what it should look like:
 
 ```
-SECRET_KEY_BASE=Rrb2Tz4/HOGtez3X81/5uGsdfxiwwbIesjiQBNkIcwafpXTHJoAPEHQk0Yhw4Nuc
-CLOAK_SECRET_KEY=eAqx+rwji6pioOyanpzfxQH8cCS/M3vQjdQ5LeDcSqQ=
-GUARDIAN_SECRET_KEY=Rrb2Tz4/FOGtez3X81/5uGsdfxiwwbIesjiQBNkIcwafpXTHJoAPEHQk0Yhw4Nuc
-ROUTER_SECRETS=1524243720:Rrb2Tz4/HOGtez4X81/5uGsffxiwwbIesjiQBNkIcwafpXTHJoAPEHQk0Yhw4Nuc
-OUI=4
-SELF_HOSTED=true
+SECRET_KEY_BASE="BgrSaMYa3lW/6l/3mN2/Op5u4bHw2FP4oPahBbFGgDhmtZ3cF9YwKx8/XH7SmOvNiglRXaH7c3inElVyc0XuWQ=="
+CLOAK_SECRET_KEY="SbxBSg47PNTHYe+1kY+KrlLXtL+gG/pFLcYseeBKh10="
+GUARDIAN_SECRET_KEY="DtUzbwYhg48179r/kDtmH8lZtCmXN01ip1kOCnwQ6JI/4GqFv2ZNl3st7kXXB83brn6C/dkVU+BylrhWgyNG/w=="
+ROUTER_SECRETS="1647452465:++XKKmAwaoqz3OvAeH5PdR//Yk/znwYC8Xr+a98BRnf2l565PC3MXvti7j7u3fq4NxT7iQyX7lLL2y+0Udea0A=="
 ENV_DOMAIN=localhost:4000
-AUTH_0_CLIENT_ID=NyfDZUfyT2thF7G56oazCsdGxO8GRZD6
-AUTH_0_DOMAIN=router-dev.us.auth0.com
-AUTH0_BASE_URL=https://router-dev.us.auth0.com
+SOCKET_CHECK_ORIGIN=http://localhost
 DATABASE_DB=console
 DATABASE_HOST=postgres
 DATABASE_USER=postgres
 DATABASE_PASSWORD=postgres
+DATABASE_POOL_SIZE=20
+BLOCKCHAIN_API_RETRY=1
+OUI=22
+SELF_HOSTED=true
 ```
 
-The auth0 fields are taken from
-[your auth0 dashboard](https://manage.auth0.com/dashboard) where you create an
-app for Console:
+In addition, you'll want to configure the Magic Link fields:
 
-<img
-  src={useBaseUrl(
-    "img/use-the-network/run-a-network-server/run-console/run-console-auth0-create-app.png"
-  )}
-/>
+```
+USE_MAGIC_AUTH=true
+MAGIC_PUBLIC_KEY=pk_live_XXXXXXXXXXXXXXXX
+MAGIC_SECRET_KEY=sk_live_XXXXXXXXXXXXXXXX
+```
 
-You'll want to extract the appropriate credentials:
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/run-a-network-server/run-console/run-console-auth0-creds.png"
-  )}
-/>
-
-While we are on the Auth0 dashboard, let's add some URIs that we will need for
-later:
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/run-a-network-server/run-console/run-console-auth0-uris.png"
-  )}
-/>
+You may get these from your [Magic Link dashboard](https://dashboard.magic.link/app/all_apps)
+upon selecting your app.
 
 ### Customize Router environment
 
@@ -104,39 +128,9 @@ We will do something similar for `.env-router`:
 cp templates/.env-router .env-router
 ```
 
-Then edit `.env-router`. Here's an example of what it should look like:
-
-```
-# Default Helium's seed nodes
-ROUTER_SEED_NODES=/ip4/35.166.211.46/tcp/2154,/ip4/44.236.95.167/tcp/2154
-
-# OUI used by router (https://docs.helium.com/blockchain/packet-purchasing)
-ROUTER_OUI=4
-
-# Default devaddr if we fail to allocate one
-ROUTER_DEFAULT_DEVADDR=AAQASA==
-
-# State Channel Open amount
-ROUTER_SC_OPEN_DC_AMOUNT=2000
-
-# State Channel block expiration
-ROUTER_SC_EXPIRATION_INTERVAL=45
-
-# Console's connection info (see https://github.com/helium/console)
-ROUTER_CONSOLE_ENDPOINT=http://console:4000
-ROUTER_CONSOLE_WS_ENDPOINT=ws://console:4000/socket/router/websocket
-ROUTER_CONSOLE_SECRET=1524243720:Rrb2Tz4/HOGtez4X81/5uGsffxiwwbIesjiQBNkIcwafpXTHJoAPEHQk0Yhw4Nuc
-
-# Max time to wait for uplinks in ms
-ROUTER_FRAME_TIMEOUT=300
-
-# Turn on/off xor filter worker (anything else than true is off)
-ROUTER_XOR_FILTER_WORKER=true
-```
-
-The key point is that `ROUTER_CONSOLE_SECRET` from this file matches
-`ROUTER_SECRETS` from `.env`. You can ignore these other fields for now, but we
-can revisit them later.
+Then edit `.env-router`. There are many options here to familiarize yourself
+with, but the only necessary field to update is `ROUTER_CONSOLE_SECRET`. It
+must match `ROUTER_SECRETS` from `.env`.
 
 ### Run it!
 
@@ -146,16 +140,36 @@ cp templates/docker-compose-local.yaml docker-compose.yaml
 ```
 
 `docker-compose up` builds Console and launches it with two other containers:
-Router and Postgres. You might see `helium_router` crash a few times as it waits
+Router and Postgres.
+
+The first build can take especially long, so while we're waiting, let's
+configure our firewall. Each cloud provider does this slightly differently, but
+you'll want to continue enabling SSH on port 22 so that you can accept your own
+login and management, open up port 2154 for libp2p which allows you to sync the
+blockchain, and finally, port 8080 is for gRPC connections from hotspots so
+that you may actually purchase packets:
+
+<img
+    src={useBaseUrl(
+        "img/use-the-network/run-a-network-server/run-console/firewall-config.png"
+    )}
+/>
+
+You might see `helium_router` crash a few times as it waits
 for `helium_console` to start up and allow the socket connection between the
 two.
 
-If you go to `localhost:4000`, you should have an auth0 login available to you.
-Just as a heads up, all of your important data is in the `data` in this
-`console` directory.
+You can forward the UX to your local machine with the following command:
 
-This is a good time to open up port `2154` for incoming TCP connections. Things
-may still work without that but performance will be degraded.
+```bash
+ssh -L 4000:$CONSOLE_IP:4000 -N -f root@$CONSOLE_IP
+````
+
+This allows you to have local access to the web interface without opening up
+your firewall publicly.
+
+Now, if you go to `localhost:4000`, you should have the Magic Link login
+available to you.
 
 ### Load a snapshot
 
@@ -248,9 +262,15 @@ The cost for rurning a router is complex. See community member disk91.com's
 [guide](https://www.disk91.com/2021/technology/lora/what-is-the-real-cost-of-helium-communication/)
 and calculate how much you need for your planned usage.
 
-One million DC ($10) can be a good number to start with. The easiest way to calculate how many HNT to burn to get the number of DC you need is to go to https://console.helium.com/datacredits and click on `Purchase Data Credits`. Enter the amount of DC you need and click on `Burn HNT to DC`. Helium Console shows how to burn the selected amount to the Helium Console itself. We won't do that. Just note the amount (for example `0.49043649`).
+One million DC ($10) can be a good number to start with. The easiest way to
+calculate how many HNT to burn to get the number of DC you need is to go to
+https://console.helium.com/datacredits and click on `Purchase Data Credits`.
+Enter the amount of DC you need and click on `Burn HNT to DC`. Helium Console
+shows how to burn the selected amount to the Helium Console itself. We won't do
+that. Just note the amount (for example `0.49043649`).
 
-Now return to your command line wallet and burn the HNT amount **with the libp2p address of your router as payee**. Example:
+Now return to your command line wallet and burn the HNT amount **with the
+libp2p address of your router as payee**. For example:
 
 ```bash
 helium-wallet burn --amount 0.49043649 --payee 11xHXS5AgLyjYRCJ4ctcWcsMRULS8jro9Pb1GPaTG1neGk1dNcf --commit
@@ -279,7 +299,13 @@ Congratulations!
 
 ### Backing up your `swarm_key`
 
-Extract the router's swarm key and store it somewhere safe. The swarm key can be extracted by running `base64 ~/console/data/router/blockchain/swarm_key` and saved in your favorite password manager. An alternative is to copy the file somewhere safe.
+Extract the router's swarm key and store it somewhere safe. The swarm key can
+be extracted by running `base64 ~/console/data/router/blockchain/swarm_key` and
+saved in your favorite password manager. An alternative is to copy the file
+somewhere safe.
 
 #### A Note on the Purpose of a `swarm_key`
-The `swarm_key` equates to your validator's unique identity on the Helium blockchain. Backing up the `swarm_key` enables you to maintain your router's identity in the event that your node becomes compromised in some way, or needs to be rebuilt on another server for any reason.
+The `swarm_key` equates to your validator's unique identity on the Helium
+blockchain. Backing up the `swarm_key` enables you to maintain your router's
+identity in the event that your node becomes compromised in some way, or needs
+to be rebuilt on another server for any reason.
