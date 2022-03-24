@@ -57,6 +57,52 @@ on the **Dashboard** page.
 
 <img src={useBaseUrl("img/use-the-network/console/organizations.png")} />
 
+### Organization Migration
+
+The Organization Migration feature allows users to transfer Organization configurations to another Console hosted instance. 
+
+For example, if a user wants to migrate their Organization from a Console instance hosted by one provider to another or to their own hosted version of Console. 
+
+:::important 
+Data Credit balances are not transferable and will not be migrated.
+:::
+
+Migrating Organizations requires exporting the desired Organization by saving the JSON configuration file to disk, and then importing that file on the new Console instance.
+
+### Exporting Organizations
+Exporting Organizations allow users to transfer the following information to another Console instance.
+
+:::info 
+Users will need to be re-added, and Data Credit balances are not transferable.
+:::
+
+- Devices
+- Labels
+- Functions 
+- Integrations
+- Flows
+- Alerts
+- Configuration settings
+
+To export an Organization, navigate to the Organizations section and make sure the Organization to export is current. 
+
+- Click the Export icon of the Organization to export and save the JSON configuration to the desired location. 
+
+<img src={useBaseUrl("img/use-the-network/console/organizations-export.png")} />
+
+### Importing Organizations
+
+Importing an Organization can be performed upon first login for the new Console instance or later from the Organizations section. 
+
+:::important
+Prior to import, set the Organization on the previous Console instance to inactive and make sure no duplicate devices exist on the new Console instance. This will allow devices to join on the new Console instance.
+:::
+
+To import an Organization, navigate to the Organizations section and click + Add Organization.
+
+- Drag and drop the file or navigate to the JSON file saved location. 
+
+After the import is successful, highly recommend deleting the exported Organization to avoid future issues. 
 
 
 
