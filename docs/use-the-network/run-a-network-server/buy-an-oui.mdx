@@ -31,6 +31,15 @@ DevAddr are sold in sequential blocks between 8 and 65,536 and any power of two.
 You must purchase a slab when purchasing an OUI, therefore, the minimum cost for
 an OUI is $800 for eight DevAddr's and $100 for the OUI itself.
 
+:::info
+It is possible to have _many_ devices share the same DevAddr, so even with just
+an eight address slab, potentially hundreds of devices may be hosted.
+
+This is done by using the Data frames Message Integrity Check (MIC) to
+figure out which DevAddr session of many actually sent that packet. Router
+implements this special logic.
+:::
+
 [The OUI purchase transaction itself](https://github.com/helium/proto/blob/master/src/blockchain_txn_oui_v1.proto)
 incurs a fee based as does any other blockchain transaction; generally this will
 be $0.35-1.00 worth of DCs based on how the fields get filled and change the
