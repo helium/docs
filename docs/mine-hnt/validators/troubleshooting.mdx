@@ -61,7 +61,7 @@ Helium hosts snapshots for download for the convenience of syncing validators. Y
 * Choose the block height you want to start from and download the compressed version of this snapshot from Helium:  
   * `curl -O https://snapshots.helium.wtf/mainnet/snap-<height>.gz`
 * Move that file into your `validator_data` directory.
-* Load snapshot from the file you curl'd: ```miner snapshot load /var/data/snap-<height>.gz```.
+* Load snapshot from the file you curl'd: ```miner snapshot load /var/data/snap-<height>.gz```. This command expects an absolute path to the snapshot file.
   * This command may return error: ```RPC to 'val_miner@127.0.0.1' failed: timeout``` but the snapshot load actually continues to run in the background.
   * You can confirm that the snapshot load has completed by running ```miner info height``` every few minutes until it successfully shows a block height >= the snapshot height you loaded. You can then move on to the next step.
   * If you receive this error during when running the load command `{{{badmatch, {error,enoent}}`, it is likely due to the validator not finding the snapshot file in the directory you specified after the load command. The `/var/data/` directory is the default location within the docker container that you mapped to a directory on your host machine via `--mount type=bind,source=$HOME/validator_data,target=/var/data` or via `volumes: - $HOME/validator_data:/var/data` in your docker-compose.yaml file, if you followed the default installation instructions. Even if you did not use the default `$HOME/validator` path, you should still specify `/var/data/snap-<height>` after the load command and ensure that you placed the snapshot file in the `$HOME/validator` directory on the host machine, or in whichever source directory on the host that you map to `/var/data` when you start the docker container.
@@ -80,7 +80,7 @@ Helium hosts snapshots for download for the convenience of syncing validators. Y
 * On the source Validator take a snapshot via `miner snapshot take /var/data/snap-<height>` using the height you determined from the first step.
 * On the source Validator resume transaction syncing via ```miner repair sync_resume```.
 * Move the `/var/data/snap-<height>` file into the `validator_data` directory on the destination Validator.
-* Load snapshot from the file you copied to the destination validator: ```miner snapshot load /var/data/snap-<height>```. 
+* Load snapshot from the file you copied to the destination validator: ```miner snapshot load /var/data/snap-<height>```. This command expects an absolute path to the snapshot file.
   * This command may return error: ```RPC to 'val_miner@127.0.0.1' failed: timeout``` but the snapshot load actually continues to run in the background.
   * You can confirm that the snapshot load has completed by running ```miner info height``` every few minutes until it successfully shows a block height >= the snapshot height you loaded. You can then move on to the next step.
 * Confirm sync state is `active` via `miner repair sync_state`.
