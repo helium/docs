@@ -1,0 +1,754 @@
+---
+id: router-benchmarking
+sidebar_label: Router Benchmarking
+slug: /use-the-network/run-a-network-server/router-benchmarking
+---
+
+# Router Benchmarking
+
+This measures load by steadily increasing load on a
+[Helium Router](https://github.com/helium/router)
+to find its threshold of capacity for a given server instance.
+
+The procedure used is *load & capacity measurement* but some people refer to
+it as *stress testing*.
+
+This document also gives insight to interactions of routers, gateways,
+organizations, devices and wallets in production.
+
+For these instructions, each dependency is installed beneath `~/helium/`,
+and **Bash** shell syntax on Linux is used below.
+
+## Dependencies
+
+These should be **isolated** instances dedicated to load & capacity testing,
+as other users of the system *will* be negatively impacted:
+
+- [router](https://github.com/helium/router)
+- [console](https://github.com/helium/console)
+
+Install wallet on same host as your router if sharing its private key:
+
+- [helium-wallet](https://github.com/helium/helium-wallet-rs)
+  + Use a wallet with minimal funding **as assurance to avoid overspending**
+
+These may be run locally on your laptop/workstation within their respective
+build subdirectories:
+
+- [gateway-rs](https://github.com/helium/gateway-rs)
+- [helium-console-cli](https://github.com/helium/helium-console-cli)
+- [virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
+
+Additional utilities, possibly already installed on your system:
+
+- [jq](https://github.com/stedolan/jq)
+
+Our working directory is `~/helium/load+capacity/`.
+
+```bash
+WORKDIR=~/helium/load+capacity
+```
+
+Convenience aliases:
+
+```bash
+alias helium-console-cli="~/helium/helium-console-cli/target/release/helium-console-cli"
+alias helium_gateway="~/helium/gateway-rs/target/release/helium_gateway"
+alias helium-wallet=~/helium/helium-wallet-rs/target/release/helium-wallet
+alias virtual-lorawan-device="~/helium/virtual-lorawan-device/target/release/virtual-lorawan-device"
+```
+
+Define base URLs as shell variables:
+
+```bash
+# development versus production, respectively:
+API_URL=https://api.helium.wtf
+API_URL=https://api.helium.io
+
+# Console corresponding to router-dev:
+CONSOLE_URL="https://helium-console-dev.herokuapp.com"
+
+# router-dev:
+ROUTER_URL="http://54.176.88.149:8080"
+# Optionally defined via script below:
+ROUTER_OUI=2
+```
+
+Convenience variables:  
+(After a few preliminary runs, significantly increase the following values)
+
+```bash
+# number of organizations:
+N_ORGS=2
+
+# number of gateways:
+N_GATEWAYS=2
+
+# number of devices per org:
+N_DEVICES=4
+
+# For priming each loop so subsequent runs can add
+# more orgs/devices/gws without clobbering:
+
+FIRST_ORG=1
+FIRST_GW=1
+FIRST_DEV=1
+```
+
+(If going above double digits for gateways or triple digits for devices, the
+scripts will need to be revised; see `seq --format` below.)
+
+Additional variables will be created along the way.
+
+## Logs & Graphs
+
+Load Tests are meaningless without the ability to measure, and in order to
+improve requires meaningful measurements.
+
+Graphs described below help on both points.
+
+Subtle nuances to comprehend first:
+
+- *Normal* has multiple meanings:
+  1. colloquially speaking, it's that which is *healthy*
+  2. in statistics it's the set of values centered within a particular
+     *distribution* such as a bell curve
+- *Nominal* also has multiple meanings:
+  + Within acceptable limits, synonymous with *healthy operation*
+  + Say *nominal* instead of *normal* in context of Load & Capacity for
+    clarity because inbound traffic fluctuates, constantly altering the
+    baseline
+
+The router repo includes
+[Grafana dashboard](https://github.com/helium/router/blob/master/grafana-dashboard.json)
+configuration used in production.
+
+For router under significant load, the most critical graphs to watch:
+
+- Ensure **Last Block** nominally remains within single digit minutes
+  + Spikes of 10-20 minutes are generally recoverable
+  + Sustaining 15 minutes behind should be cause for alarm to take action
+- Active **State Channels** on a server routing traffic
+  nominally has **at least 1** and **often 5-20**
+  + A "state channel" facilitates off-block transactions which get persisted
+    to the Blockchain as a single transaction
+  + The term "state channel" is the generic term for a Layer-2 Ledger (like the
+    "Lightning Network") and critical to router's use of the Helium Blockchain
+  + An "actor" is a co-routine in Erlang (or "Green Threads", or similar in
+    purpose to "async/await" but different mechanisms)
+- **Offer -> Packet -> Downlink** travel times:
+  + Ideally would be within **milliseconds** (ms)
+  + Acceptable when below **2 seconds**
+  + Alarm and take action when above 5 seconds
+- **Offer Duration** should be within **milliseconds** (ms)
+  + This translates directly to latency of server response, *not* counting
+    Internet traffic latency
+
+For designing your own graphs, it helps bucketing by percentiles.  Common
+buckets are: 1%, 5%, 15%, 50%, 85%, 90%, 95%, 97%, 98%, 99% 100%, which
+gives the average/mean, an approximation of standard deviation (15%, 85%)
+and most importantly the *outliers*.  Outliers are skewed here towards the
+troublesome high end for fine-grained tracking.  The 99th and 100th may be
+safely ignored when those values are indistinguishable from latency across
+the Internet, and such outliers are generally due to periodic
+garbage-collection of Erlang's underlying BEAM virtual machine.
+
+Ensure those graphs exist **before** load & capacity tests begin.
+
+## Manual Setup
+
+[Generate a Console API
+Key](https://docs.helium.com/use-the-network/console/my-account/#console-api-keys),
+which requires logging onto Console user interface (UI).  Everything else
+will be done by command-line interface (CLI).
+
+Store the newly generated Console API Key to this TOML file, and specify
+base URL of the console.  The default of `https://console.helium.com` is
+probably **not** what you want for purposes here.
+
+If using multiple organizations, create individual configuration files
+within each org's subdirectory; e.g., `org-01`, `org-02`, respectively.
+
+```bash
+for i in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
+  mkdir $WORKDIR/org-$i
+done
+```
+
+Persist each org's API key and Console base URL in its respective TOML file:
+
+```bash
+cd $WORKDIR/org-01/
+
+out=.helium-console-config.toml
+# Be sure to use *your* assigned key:
+echo 'key = "AlphaNumericString..."' > $out
+echo 'base_url = "'${CONSOLE_URL}'"' >> $out
+echo 'request_timeout = 120'         >> $out
+```
+
+**Repeat** for each of the multiple organizations to be used.
+
+Confirm getting valid JSON as a result:
+
+```bash
+for i in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
+  cd $WORKDIR/org-$i/
+  helium-console-cli device list
+done
+```
+
+With valid JSON as the result, preliminary installation is complete.
+
+Everything else may be scripted; however, creating your first device via
+Console UI may be easier than remembering how to create a unique EUI or app
+key.
+
+## Create & Fund Wallet
+
+Use or create a new wallet with minimal funding
+**as assurance to avoid overspending**.
+
+```bash
+mkdir $WORKDIR/wallet
+cd $WORKDIR/wallet/
+
+helium-wallet create basic
+
+WALLET=$(helium-wallet info | grep Address | awk '{print $4}')
+echo $WALLET
+```
+
+Ensure enough Data Credits (DC) to cover
+[cost of adding data-only hotspots and asserting
+location](https://docs.helium.com/mine-hnt/data-only-hotspots)
+of each.
+
+> e.g.,
+> For 20 instances of gateway-rs: 20 x (1000000 + 500000) at HNT prices
+in 2022Q2, this will require 15 HNT.  Plus **add for uplinks** from devices if
+> on a non developer instance of router.
+
+Provide the equivalent of the following command to whomever has the main
+wallet from which the limited wallet gets funded:
+
+> Please add funds for Load & Capacity testing:  
+> helium-wallet burn --amount 25 --payee $WALLET --commit
+
+#### Optional: Sharing Keys With Router
+
+*Only applies when router's wallet uses ed25519 keys:*
+
+Since the Load & Capacity activities will likely be using a development
+instance of a router, you may use same private key for the wallet:
+`/var/data/blockchain/swarm_key`
+
+Router can generate a file containing both public and private keys.
+
+Evaluate the following **on router host** via `router remote_console`
+command:
+
+```Erlang
+SwarmKey = filename:join([
+    application:get_env(blockchain, base_dir, "data"),
+    "blockchain",
+    "swarm_key"
+  ]),
+  {ok, RouterKeys} = libp2p_crypto:load_keys(SwarmKey),
+#{public := RouterPubKey, secret := RouterPrivKey} = RouterKeys.
+
+%% View octets of private key as Erlang Binary:
+io:format("~P", [libp2p_crypto:keys_to_bin(RouterKeys), 999]).
+
+%% Using any other file path creates INSIDE docker container:
+libp2p_crypto:save_keys(RouterKeys, "/var/data/wallet.key").
+```
+
+> If output from above indicates that it's an ECC Compact key, that key file
+is incompatible with `helium-wallet` due to using a different elliptic curve.
+
+The private key to be used by `helium-wallet` command will be in
+`/var/data/wallet.key` file.
+
+```bash
+WALLET=$(helium-wallet -f /var/data/wallet.key info | \
+         grep Address | \
+         awk '{print $4}')
+echo $WALLET
+```
+
+That shared wallet should be ready for use below.
+
+## Router Address
+
+Determine address of the router that you are using by running this one
+command **on router host**:
+
+```bash
+ssh router-dev
+cd router/
+router peer listen
+```
+
+Visually extract the entry beginning with `/p2p/` and copy the sequence up
+to but excluding the subsequent slash (`/`).  (Unfortunately, due to
+`router` being an aliased Docker command, `grep` and `sed` cannot be of
+service here.  (Otherwise, manually do the equivalent of:  
+`grep /p2p/ | sed 's%^./p2p/\([^/]*\)/.*$%\1%'`.)
+
+That long alphanumeric value gets used in multiple places below as the
+`$P2P` variable.
+
+Define this on your laptop/workstation:
+
+```bash
+P2P=longAlphanumeric...
+echo $P2P
+```
+
+## Router Location
+
+On your laptop/workstation, append router's P2P address (long alphanumeric
+string) to the API endpoint:
+
+```bash
+cd $WORKDIR
+
+UA="XYZ Location Confirmation"
+
+curl --user-agent "$UA" \
+  "$API_URL/v1/hotspots/$P2P" > router.json
+
+jq . router.json
+```
+
+Extract latitude and longitude:
+
+```bash
+LAT=$(jq .data.lat router.json)
+LON=$(jq .data.lng router.json)
+echo $LAT $LON
+```
+
+This pair of latitude and longitude will be used below.
+
+## Hexagons
+
+Find a hexagon for each gateway instance such that each hex is an
+equal distance from the router to be used.
+
+> The importance of asserting a location for each hotspot:
+
+> Without any location asserted for a particular gateway, the distance
+calculated to router defaults to 1000 as defined within `distance_between()`
+in
+[router_device_devaddr.erl](https://github.com/helium/router/blob/master/src/device/router_device_devaddr.erl)
+which may be preferable to triangulating based upon physical location.
+
+> However, relying upon this default will bypass much program logic which
+involves a blockchain ledger lookup, thereby yielding *artificially* higher
+throughput.
+
+A dedicated and isolated router and console pair may disregard concerns
+about Proof-of-Coverage (PoC) or an oversaturated Hex.
+
+Therefore:
+
+Keep it simple, and use Lat/Lon matching the router.
+
+([Router](https://github.com/helium/router) uses
+[h3](https://github.com/helium/erlang-h3) hexagonal hierarchical geospatial
+indexing system for computing distance, so dig there for any unique criteria
+or constraints.)
+
+## Create Devices in Console
+
+Values for example devices below are valid and may be copied.
+
+For multiple devices within the same organization, only the Dev EUI and name
+parameters need to differ.  App EUI and App Key must be unique across
+different organizations.
+
+Ensure using organization ID and app-key as presented within the Console UI.
+
+```bash
+cd $WORKDIR/org-01/
+
+for i in $(seq --format="%03g" $FIRST_DEV $N_DEVICES); do
+    helium-console-cli device create \
+      6081F9AF355EDE29 \
+      87653070BE490D1780C830DA0CD28AFC \
+      6000000000000$i \
+      benchmark-$i
+done
+```
+
+**Repeat** for each of your organizations.
+
+Confirm:
+
+```bash
+for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
+  cd $WORKDIR/org-$o/
+  helium-console-cli device list > devices.json
+done
+```
+
+Returns JSON, which when formatted via `jq .` resembles the following.
+
+```JSON
+{
+  "devices": [
+    {
+      "app_eui": "6081F9AF355EDE29",
+      "app_key": "87653070BE490D1780C830DA0CD28AFC",
+      "dev_eui": "6000000000000001",
+      "id": "7cbc7f9d-0205-4f85-ab0a-34de8c4d8f52",
+      "name": "benchmark-001",
+      "organization_id": "57d5b743-fc08-4119-b4ff-0c60ddf976ff",
+      "oui": 2
+    },
+    {
+      "app_eui": "6081F9AF355EDE29",
+      "app_key": "87653070BE490D1780C830DA0CD28AFC",
+      "dev_eui": "6000000000000002",
+      "id": "81d39917-b772-4937-b78b-618f4461340f",
+      "name": "benchmark-002",
+      "organization_id": "57d5b743-fc08-4119-b4ff-0c60ddf976ff",
+      "oui": 2
+    },
+    {
+      "app_eui": "6081F9AF355EDE29",
+      "app_key": "87653070BE490D1780C830DA0CD28AFC",
+      "dev_eui": "6000000000000003",
+      "id": "cb82bc53-49ec-4401-bed0-2c4010f26c1d",
+      "name": "benchmark-003",
+      "organization_id": "57d5b743-fc08-4119-b4ff-0c60ddf976ff",
+      "oui": 2
+    },
+    {
+      "app_eui": "6081F9AF355EDE29",
+      "app_key": "87653070BE490D1780C830DA0CD28AFC",
+      "dev_eui": "6000000000000004",
+      "id": "e7cca34d-5234-457f-ae92-8037c2649569",
+      "name": "benchmark-004",
+      "organization_id": "57d5b743-fc08-4119-b4ff-0c60ddf976ff",
+      "oui": 2
+    }
+  ]
+}
+```
+
+The value of `"oui"` in output above should correspond to your value for
+`$ROUTER_OUI`.
+
+```bash
+ROUTER_OUI=$(jq '.devices[0].oui' org-01/devices.json)
+echo $ROUTER_OUI
+```
+
+## Virtual Devices
+
+Generate a custom `settings.toml` file for **each**
+[virtual LoRaWAN device](https://github.com/helium/virtual-lorawan-device)
+based upon data within the earlier `devices.json` file from each
+organization.
+
+Each device needs its own subdirectory for a set of configuration files.
+
+Connections of devices will distribute across multiple gateways, simulating
+real world scenarios with geographically dispersed deployments.
+
+```bash
+for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
+  cd $WORKDIR/org-$o/
+
+  for d in $(seq --format="%03g" $FIRST_DEV $N_DEVICES); do
+    mkdir device-$d
+
+    ln -s ~/helium/virtual-lorawan-device/settings/default.toml device-$d/
+
+    out="device-$d/settings.toml"
+    echo "[device.$d.credentials]"            > $out
+    i=$((d - 1))
+    echo 'dev_eui = '$(jq .devices[$i].dev_eui < devices.json) >> $out
+    echo 'app_eui = '$(jq .devices[$i].app_eui < devices.json) >> $out
+    echo 'app_key = '$(jq .devices[$i].app_key < devices.json) >> $out
+    echo 'default_secs_between_transmits = 0' >> $out
+    echo ''                                   >> $out
+    echo '[packet_forwarder.default]'         >> $out
+    port=$((1680 + $d % $N_GATEWAYS))
+    echo 'host = "localhost:'${port}'"'       >> $out
+  done
+done
+```
+
+Each device may require waiting upwards of 20 minutes for the router's XOR
+filter to run.  The device will be marked in Console with "Pending" status
+until then.
+
+## Gateways
+
+This uses the `$P2P` value defined above in "Router Address" section.
+
+Each gateway must open a listening socket on a unique port, so this simply
+increments from the default base port.
+
+Install default and *preliminary* configuration files:
+
+```bash
+cd $WORKDIR
+
+for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
+  mkdir gw-$i
+  ln -s ~/helium/gateway-rs/config/default.toml gw-$i/
+
+  out=gw-$i/settings.toml
+  keyfile="$(pwd)/gw-$i/gateway_key.bin"
+  echo 'keypair = "'${keyfile}'"'       > $out
+  port=$((1680 + $i))
+  echo 'listen = "127.0.0.1:'${port}'"' >> $out
+  echo ''                               >> $out
+  echo '[update]'                       >> $out
+  echo 'enabled = false'                >> $out
+done
+```
+
+Those configuration files will be appended in a few steps below.  Each
+gateway must initially communicate with default routers when being added to
+the blockchain and when asserting location, because development routers are
+seeded from [mainnet](https://docs.helium.com/mine-hnt/validators/#mainnet).
+
+> **If using an entirely private deployment**, apply your variation of an
+> amended configuration *now* from end of this section.
+
+Generate transactions using `WALLET` variable defined earlier.
+
+These transactions will be signed and committed later:
+
+```bash
+for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
+  helium_gateway -c gw-$i server &
+  pid=$!
+  sleep 1
+
+  helium_gateway -c gw-$i \
+    add --mode dataonly \
+      --owner $WALLET \
+      --payer $WALLET > gw-$i/add-dataonly.json
+
+  kill $pid
+done
+```
+
+Extract each `txn` value from the previous output:
+
+```bash
+jq .txn gw-*/add-dataonly.json > txn-ids.log
+```
+
+Prepare command to assert locations based upon previous transactions:  
+(if wallet is on router host, run it there)
+
+```bash
+for txn in $(cat txn-ids.log); do
+   helium-wallet \
+     -f $WORKDIR/wallet/wallet.key \
+     hotspots add $txn
+done
+```
+
+Ensure there were no errors in the preceding output, and repeat same command
+adding `--commit` flag to make it reality.
+
+**This burns HNT from your wallet:**
+
+```bash
+for txn in $(cat txn-ids.log); do
+   # Burn HNT from your wallet:
+   helium-wallet \
+     -f $WORKDIR/wallet/wallet.key \
+     hotspots add $txn \
+     --commit
+done
+```
+
+Assert location, which as of gateway-rs v1.0 requires running as server in
+the background momentarily:
+
+```bash
+for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
+  helium_gateway -c gw-$i server &
+  pid=$!
+  sleep 1
+  key=$(helium_gateway -c gw-$i info | jq .key)
+  kill $pid
+
+  helium-wallet \
+     -f $WORKDIR/wallet/wallet.key \
+     hotspots assert --gateway $key \
+     --mode dataonly \
+     --lat $LAT --lon $LON --elevation 6 \
+     --commit
+done
+```
+
+Confirm asserted location via
+[blockchain API](https://docs.helium.com/api/blockchain/introduction/):
+
+```bash
+curl --user-agent "$UA" \
+  "$API_URL/v1/hotspots/location/distance?lat=$LAT&lon=$LON&distance=1000"
+```
+
+Ensure that your gateways appear within those results.
+
+Other gateways appearing within the results is benign because a virtual
+LoRaWAN device will only reach those for which it was explicitly configured
+since its radio is simulated.
+
+Finally, finish the local configuration suitable for producing load on your
+intended router instance:
+
+```bash
+cd $WORKDIR
+
+for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
+  out=gw-$i/settings.toml
+  echo ''                        >> $out
+  echo '[router.release]'        >> $out
+  echo 'pubkey = "'${P2P}'"'     >> $out
+  echo 'uri = "'${ROUTER_URL}'"' >> $out
+  echo 'oui = '${ROUTER_OUI}     >> $out
+done
+```
+
+(If using "beta" or other version of
+[gateway-rs](https://github.com/helium/gateway-rs) instead of "release",
+change `[router.release]` to match.)
+
+With that, your gateways are finally ready for Load & Capacity runs.
+
+## Start Gateways
+
+Launch each gateway "server" as a separate process, and let the OS handle
+concurrency:
+
+```bash
+cd $WORKDIR
+
+for i in $(seq --format="%03g" $N_GATEWAYS); do
+  helium_gateway -c gw-$i server > gw-$i/gw.log 2>&1 &
+done
+```
+
+## Spawn Virtual Devices
+
+The Console may indicate "Pending" from having added new devices above and
+may take upwards of 20 minutes.
+
+Wait until that message clears before proceeding.
+
+There is an API call for that status:
+
+```bash
+for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
+  cd $WORKDIR/org-$o/
+
+  # TODO when PR#21 gets merged, replace curl with this:
+  # helium-console-cli devices all > status.json
+
+  apikey=$(grep key .helium-console-config.toml | awk '{print $3}')
+  curl -H "key: $apikey" \
+    https://console.helium.com/api/v1/devices > status.json
+done
+```
+
+If any report as `false`, **wait one minute** at minimum before checking
+again:
+
+```bash
+cd $WORKDIR
+jq '.[].in_xor_filter' org-*/status.json \
+  | grep false && sleep 60
+```
+
+TODO: add feature to `virtual-lorawan-device` to facilitate "slow start" for
+progressively increasing load.
+
+
+Launch each as a separate process, and again let the OS handle concurrency:
+
+```bash
+cd $WORKDIR
+
+for o in $(seq --format="%02g" $N_ORGS); do
+  for i in $(seq --format="%03g" $N_DEVICES); do
+    ( cd org-$o/device-$i/ && virtual-lorawan-device > log 2>&1 ) &
+
+    # Facilitate slow-start of load to avoid hammer effect:
+    sleep 5
+  done
+done
+```
+
+While waiting for the outer loop to finish, watch your graphs; e.g, Grafana.
+
+## Stop
+
+Generally allow this fleet of virtual devices to run for 15-20 minutes,
+which gives ample traffic that the Erlang BEAM virtual machine's
+garbage-collector will have run, etc.
+
+When you have enough data:
+
+```bash
+killall virtual-lorawan-device
+killall helium_gateway
+```
+
+Confirm no longer running:
+
+```bash
+ps aux virtual-lorawan-device
+ps aux gateway-rs
+```
+
+## Iterate
+
+To ensure sufficient load, you may need to **run again with increased values**
+for:
+
+- number of organizations (`N_ORGS`)
+- number of devices (`N_DEVICES`)
+- number of gateways (`N_GATEWAYS`)
+
+When doing so, also increase corresponding values for `FIRST_*`.
+
+## Comprehending The Results
+
+There should be a slow ramp-up of traffic such that we can "find the knee"
+of the graph *before* hitting the plateau (ceiling).  That plateau should be
+understood as an approximation due to the nature of simulated/artificial
+traffic.
+
+A good rule-of-thumb:
+
+**Plan for 70% CPU utilization** for nominal load, which provides a cushion
+for traffic spikes without being excessively oversized.
+
+## Repeatable Results
+
+When confirming any such measurements:
+
+**Run** the same scenario a **minimum of three consecutive** times.
+
+That *excludes* a preliminary run to invalidate the OS file-system cache.
+
+The rule of three requires consistency.  If results vary by more than
+rounding error, keep running until getting 3 with similar results.
+
+If the only consistency is that results vary widely, look to other artifacts
+on the host OS that might be causing interference.  Consider migrating to a
+different server instance, if running on a virtualized/hypervisor
+environment such as AWS, GCP, Linode, etc.

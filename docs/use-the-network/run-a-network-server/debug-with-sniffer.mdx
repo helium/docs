@@ -67,6 +67,7 @@ cd ..
 
 git clone https://github.com/helium/gateway-rs.git
 cd gateway-rs/
+cargo install cargo-make
 cargo build --release
 
 cd ..
@@ -116,17 +117,24 @@ exchange rates in early 2022.
 Copy the value from the `Address` field:
 `WalletADDRESS...` will be used as the example in excerpts below.
 
-## Join Device To Network
+## Join Hotspot To Network
 
 Use the `WalletADDRESS...` from the earlier wallet "info" command.
 
 Arguments to both the owner and payer options will be your wallet address
 (as with a self-signed certificate).
 
-Run:
+As of v1.0, gateway-rs requires running in server-mode in the background:
 
 ```bash
 cd ~/helium/gateway-rs/
+./target/release/helium_gateway server &
+gw_pid=$!
+```
+
+Generate transaction:
+
+```bash
 ./target/release/helium_gateway add --mode dataonly \
     --owner WalletADDRESS... \
     --payer WalletADDRESS...
@@ -136,11 +144,12 @@ Output from that command will include a transaction ID associated with the
 `txn` field.  Copy this value (without quotes) which is referred to as
 `TxnID...` below for use with the CLI wallet.
 
-Accommodate cache, which isn't strictly necessary for purposes here:
+Stop the gateway service for now:
 
 ```bash
-mkdir cache
-echo 'store = "'$(pwd)'/cache"' > config/settings.toml
+kill $gw_pid
+# or
+killall helium_gateway
 ```
 
 The gateway service will be started below, after adding the device.
