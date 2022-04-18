@@ -6,13 +6,13 @@ slug: /use-the-network/run-a-network-server/router-benchmarking
 
 # Router Benchmarking
 
-This measures load by steadily increasing load on a
+This measures load by steadily increasing LoRaWAN traffic on a
 [Helium Router](https://github.com/helium/router)
 to find its threshold of capacity for a given server instance.
 
-Measuring load a particular server instance may then be compared with
-equivalent measurements on another server instance with different hardware
-specs.  The procedure used is *load & capacity measurement* but some people
+Measuring capacity of a particular server instance may then be
+compared with another server instance with different hardware specs.
+The procedure used is *load & capacity measurement* but some people
 also refer to this as *stress testing*.
 
 This document also gives insight to interactions of routers, gateways,
@@ -104,8 +104,9 @@ Additional variables will be created along the way.
 
 ## Logs & Graphs
 
-Benchmarking load is meaningless without the ability to measure, and in
-order to optimize server capacity requires meaningful measurements.
+Benchmarking load is meaningless without the ability to measure, and
+in order to optimize server capacity requires comparing meaningful,
+consistent measurements.
 
 Graphs described below help on both points.
 
@@ -121,9 +122,9 @@ Subtle nuances to comprehend first:
     clarity because inbound traffic fluctuates, constantly altering the
     baseline
 
-The router repo includes
-[Grafana dashboard](https://github.com/helium/router/blob/master/grafana-dashboard.json)
-configuration used in production.
+The router repo includes the
+[Grafana dashboard configuration](https://github.com/helium/router/blob/master/grafana-dashboard.json)
+used in production.
 
 For router under significant load, the most critical graphs to watch:
 
@@ -137,18 +138,18 @@ For router under significant load, the most critical graphs to watch:
   + The term "state channel" is the generic term for a Layer-2 Ledger (like the
     "Lightning Network") and critical to router's use of the Helium Blockchain
   + An "actor" is a co-routine in Erlang (or "Green Threads", or similar in
-    purpose to "async/await" but different mechanisms)
+    purpose to "async/await" with differing mechanisms)
 - **Offer -> Packet -> Downlink** travel times:
   + Ideally would be within **milliseconds** (ms)
   + Acceptable when below **2 seconds**
   + Alarm and take action when above 5 seconds
 - **Offer Duration** should be within **milliseconds** (ms)
-  + This translates directly to latency of server response, *not* counting
-    Internet traffic latency
+  + This translates directly to latency of server response
+  + Excludes any Internet traffic latency
 
 For designing your own graphs, it helps bucketing by percentiles.  Common
 buckets are: 1%, 5%, 15%, 50%, 85%, 90%, 95%, 97%, 98%, 99% 100%, which
-gives the average/mean, an approximation of standard deviation (15%, 85%)
+give the average/mean, an approximation of standard deviation (15%, 85%)
 and most importantly the *outliers*.  Outliers are skewed here towards the
 troublesome high end for fine-grained tracking.  The 99th and 100th may be
 safely ignored when those values are indistinguishable from latency across
@@ -164,9 +165,11 @@ Key](https://docs.helium.com/use-the-network/console/my-account/#console-api-key
 which requires logging onto Console user interface (UI).  Everything else
 will be done by command-line interface (CLI).
 
-Store the newly generated Console API Key to this TOML file, and specify
-base URL of the console.  The default of `https://console.helium.com` is
-probably **not** what you want for purposes here.
+Store your new Console API Key generated from the UI to the TOML file
+below, and specify base URL of the console.  The default of
+`https://console.helium.com` is probably **not** what you want for
+purposes here.  This URL must match the Console corresponding to your
+Router instance.
 
 If using multiple organizations, create individual configuration files
 within each org's subdirectory; e.g., `org-01`, `org-02`, respectively.
@@ -177,7 +180,9 @@ for i in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
 done
 ```
 
-Persist each org's API key and Console base URL in its respective TOML file:
+Persist each org's API key and Console base URL in its respective TOML
+file:  
+(Note the dot preceding the file name)
 
 ```bash
 cd $WORKDIR/org-01/
@@ -337,7 +342,7 @@ This pair of latitude and longitude will be used below.
 ## Hexagons
 
 Find a hexagon for each gateway instance such that each hex is an
-equal distance from the router to be used.
+**equal distance** from the router to be used.
 
 > The importance of asserting a location for each hotspot:
 >
@@ -356,7 +361,7 @@ about Proof-of-Coverage (PoC) or an oversaturated Hex.
 
 Therefore:
 
-Keep it simple, and use Lat/Lon matching the router.
+Keep it simple, and use Lat/Lon matching your router.
 
 ([Router](https://github.com/helium/router) uses
 [h3](https://github.com/helium/erlang-h3) hexagonal hierarchical geospatial
@@ -453,7 +458,7 @@ echo $ROUTER_OUI
 
 Generate a custom `settings.toml` file for **each**
 [virtual LoRaWAN device](https://github.com/helium/virtual-lorawan-device)
-based upon data within the earlier `devices.json` file from each
+based upon data within the `devices.json` file generated above from each
 organization.
 
 Each device needs its own subdirectory for a set of configuration files.
@@ -475,6 +480,7 @@ for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
     out="device-$d/settings/settings.toml"
     echo 'default_server = "dev"'             > $out
     echo 'metrics_port = '$metrics_port       >> $out
+    # Must be unique across all devices:
     metrics_port=$((metrics_port + 1))
     echo ''                                   >> $out
     echo "[device.$d.credentials]"            >> $out
@@ -485,22 +491,23 @@ for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
     echo 'default_secs_between_transmits = 0' >> $out
     echo ''                                   >> $out
     echo '[packet_forwarder.default]'         >> $out
+    # Round-robin distribution:
     port=$((1680 + $d % $N_GATEWAYS))
     echo 'host = "localhost:'${port}'"'       >> $out
   done
 done
 ```
 
-Each device may require waiting upwards of 20 minutes for the router's XOR
-filter to run.  The device will be marked in Console with "Pending" status
-until then.
+Devices may require waiting upwards of 20 minutes (concurrently) for
+the router's XOR filter to run.  The device will be marked in Console
+with "Pending" status until then, and we check for this further below.
 
 ## Gateways
 
 This uses the `$P2P` value defined above in "Router Address" section.
 
-Each gateway must open a listening socket on a unique port, so this simply
-increments from the default base port.
+Each gateway must open a listening socket on a unique port number, so
+this simply increments from the default base port.
 
 Install default and *preliminary* configuration files:
 
@@ -611,9 +618,7 @@ Repeat with `--commit` flag, which **burns HNT from your wallet:**
 
 ```bash
 for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
-  # key=$(jq .key $gw-01/gw-info.json)
-  key=$(grep 'INFO starting server, key:' gw-$i/server.log | \
-        sed 's/^.*: \(.*\),.*$/\1/')
+  key=$(jq .key $gw-01/gw-info.json)
 
   helium-wallet \
      -f $WORKDIR/wallet/wallet.key \
@@ -634,7 +639,7 @@ curl --user-agent "$UA" \
 ```
 
 Ensure that your gateways appear within those results.  If not found, wait
-and check again later.
+several minutes and check again later.
 
 Other gateways appearing within the results is benign because a virtual
 LoRaWAN device will only reach those for which it was explicitly configured
@@ -685,7 +690,7 @@ done
 ```
 
 If any report as `false`, **wait one minute** at minimum before checking
-again:
+again to avoid being throttled or blocked:
 
 ```bash
 cd $WORKDIR
@@ -744,6 +749,8 @@ killall virtual-lorawan-device
 killall helium_gateway
 ```
 
+(Those must be names of each actual command-- not Bash aliases.)
+
 Confirm no longer running:
 
 ```bash
@@ -765,10 +772,9 @@ former value of `N_*` to avoid clobbering or creating duplicate devices.
 
 ## Comprehending The Results
 
-There should be a slow ramp-up of traffic such that we can "find the knee"
-of the graph *before* hitting the plateau (ceiling).  That plateau should be
-understood as an approximation due to the nature of simulated/artificial
-traffic.
+There should be a slow ramp-up of traffic such that we "find the knee"
+of the graph *before* hitting the plateau (ceiling).  Understand that
+plateau being an approximation due to the nature of generated traffic.
 
 A good rule-of-thumb:
 
@@ -779,14 +785,16 @@ for traffic spikes without being excessively oversized.
 
 When confirming any such measurements:
 
-**Run** the same scenario a **minimum of three consecutive** times.
+**Run** the same scenario a **minimum of three consecutive** times
+with consistent results.
 
 That *excludes* a preliminary run to invalidate the OS file-system cache.
 
-The rule of three requires consistency.  If results vary by more than
+This rule of three requires consistency.  If results vary by more than
 rounding error, keep running until getting 3 with similar results.
 
-If the only consistency is that results vary widely, look to other artifacts
-on the host OS that might be causing interference.  Consider migrating to a
-different server instance, if running on a virtualized/hypervisor
-environment such as AWS, GCP, Linode, etc.
+If the only consistency is that results vary widely, look to other
+artifacts on the host OS that might be causing interference.  Consider
+migrating to different host server hardware (via hard stop/start) if
+running on a virtualized/hypervisor environment such as AWS, GCP,
+Linode, etc.
