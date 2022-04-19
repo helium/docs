@@ -45,6 +45,8 @@ Additional utilities, possibly already installed on your system:
 
 - [jq](https://github.com/stedolan/jq)
 
+## Aliases & Vars
+
 Our working directory is `~/helium/benchmark/`.
 
 ```bash
@@ -524,7 +526,7 @@ for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
   port=$((1680 + $i))
   echo 'listen = "127.0.0.1:'${port}'"' >> $out
   port=$((4467 + $i))
-  echo 'api = $port'                    >> $out
+  echo "api = $port"                    >> $out
   echo 'region = "US915"'               >> $out
   echo ''                               >> $out
   echo '[update]'                       >> $out
@@ -551,7 +553,9 @@ These transactions will be signed and committed later:
 for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
   helium_gateway -c gw-$i server > gw-$i/server.log &
   pid=$!
-  sleep 60
+
+  # Wait!
+  watch -n 9 --chgexit grep height gw-$i/server.log
 
   helium_gateway -c gw-$i info > gw-$i/gw-info.json
 
@@ -710,6 +714,53 @@ for i in $(seq --format="%02g" $N_GATEWAYS); do
   helium_gateway -c gw-$i server >> gw-$i/run.log 2>&1 &
 done
 ```
+
+Allow several minutes for each gateway concurrently connecting to validators
+and the router specified in settings.toml file.
+
+**Wait** until seeing an entry similar to the following for each:
+
+```
+ INFO updated routing to height 123456789, module: dispatcher
+```
+
+To determine whether to continue or wait, run:
+
+```
+[ "$(grep -l height gw-*/run.log | wc -l)" = "$N_GATEWAYS" ] \
+  && echo Continue || echo Wait
+```
+
+Due to backoff and retry, each delay takes an increasing amount of time with
+random variation:
+
+```
+ INFO selecting new gateway in 36s, module: dispatcher
+ ...
+ INFO selecting new gateway in 69s, module: dispatcher
+ ...
+ INFO selecting new gateway in 152s, module: dispatcher
+ ...
+
+ INFO selecting new gateway in 1826s, module: dispatcher
+```
+
+Warnings about deadlines logged between retries can be safely ignored:
+
+```
+ WARN gateway stream setup error: ...
+   "error trying to connect: deadline has elapsed" ...
+```
+
+> Note:
+>
+> A gateway may disconnect from its upstream validators or router and
+automatically reconnect.  When that occurs, the warnings and retries
+described above may appear at that time.
+>
+> One or two retries should be just a blip on the graphs, but extended
+retries might be cause for invalidating the affected run for purposes of
+benchmarking.
 
 ## Spawn Virtual Devices
 
