@@ -177,8 +177,8 @@ If using multiple organizations, create individual configuration files
 within each org's subdirectory; e.g., `org-01`, `org-02`, respectively.
 
 ```bash
-for i in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
-  mkdir $WORKDIR/org-$i
+for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
+  mkdir $WORKDIR/org-$o
 done
 ```
 
@@ -201,8 +201,8 @@ echo 'request_timeout = 120'         >> $out
 Confirm getting valid JSON as a result:
 
 ```bash
-for i in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
-  cd $WORKDIR/org-$i/
+for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
+  cd $WORKDIR/org-$o/
   helium-console-cli device list
 done
 ```
@@ -296,14 +296,10 @@ command **on router host**:
 ```bash
 ssh router-dev
 cd router/
-router peer listen
+router peer addr
 ```
 
-Visually extract the entry beginning with `/p2p/` and copy the sequence up
-to but excluding the subsequent slash (`/`).  (Unfortunately, due to
-`router` being an aliased Docker command, `grep` and `sed` cannot be of
-service here.  Otherwise, manually do the equivalent of:  
-`grep /p2p/ | sed 's%^./p2p/\([^/]*\)/.*$%\1%'`.)
+Extract the sequence following `/p2p/` from the output.
 
 That long alphanumeric value gets used in multiple places below as the
 `$P2P` variable.
@@ -383,12 +379,12 @@ Ensure using organization ID and app-key as presented within the Console UI.
 ```bash
 cd $WORKDIR/org-01/
 
-for i in $(seq --format="%03g" $FIRST_DEV $N_DEVICES); do
+for d in $(seq --format="%03g" $FIRST_DEV $N_DEVICES); do
     helium-console-cli device create \
       6081F9AF355EDE29 \
       87653070BE490D1780C830DA0CD28AFC \
-      6000000000000$i \
-      benchmark-$i
+      6000000000000$d \
+      benchmark-$d
 done
 ```
 
@@ -494,7 +490,7 @@ for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
     echo ''                                   >> $out
     echo '[packet_forwarder.default]'         >> $out
     # Round-robin distribution:
-    port=$((1680 + $d % $N_GATEWAYS))
+    port=$((1680 + i % N_GATEWAYS))
     echo 'host = "localhost:'${port}'"'       >> $out
   done
 done
@@ -516,21 +512,23 @@ Install default and *preliminary* configuration files:
 ```bash
 cd $WORKDIR
 
-for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
-  mkdir gw-$i
-  ln -s ~/helium/gateway-rs/config/default.toml gw-$i/
+i=0
+for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
+  mkdir gw-$gw
+  ln -s ~/helium/gateway-rs/config/default.toml gw-$gw/
 
-  out=gw-$i/settings.toml
-  keyfile="$(pwd)/gw-$i/gateway_key.bin"
+  out=gw-$gw/settings.toml
+  keyfile="$(pwd)/gw-$gw/gateway_key.bin"
   echo 'keypair = "'${keyfile}'"'       > $out
-  port=$((1680 + $i))
+  port=$((1680 + i))
   echo 'listen = "127.0.0.1:'${port}'"' >> $out
-  port=$((4467 + $i))
+  port=$((4467 + i))
   echo "api = $port"                    >> $out
   echo 'region = "US915"'               >> $out
   echo ''                               >> $out
   echo '[update]'                       >> $out
   echo 'enabled = false'                >> $out
+  i=$((i + 1))
 done
 ```
 
@@ -550,19 +548,19 @@ key material and connect to upstream services.
 These transactions will be signed and committed later:
 
 ```bash
-for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
-  helium_gateway -c gw-$i server > gw-$i/server.log &
+for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
+  helium_gateway -c gw-$gw server > gw-$gw/server.log &
   pid=$!
 
   # Wait!
-  watch -n 9 --chgexit grep height gw-$i/server.log
+  watch -n 9 --chgexit grep height gw-$gw/server.log
 
-  helium_gateway -c gw-$i info > gw-$i/gw-info.json
+  helium_gateway -c gw-$gw info > gw-$gw/gw-info.json
 
-  helium_gateway -c gw-$i \
+  helium_gateway -c gw-$gw \
     add --mode dataonly \
       --owner $WALLET \
-      --payer $WALLET > gw-$i/add-dataonly.json
+      --payer $WALLET > gw-$gw/add-dataonly.json
 
   kill $pid
 done
@@ -607,8 +605,8 @@ Assert location, which uses `$GW_KEY` populated during our previous run of
 `helium_gateway` in server-mode:
 
 ```bash
-for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
-  key=$(jq .key $gw-01/gw-info.json)
+for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
+  key=$(jq .key gw-$gw/gw-info.json)
 
   helium-wallet \
      -f $WORKDIR/wallet/wallet.key \
@@ -621,8 +619,8 @@ done
 Repeat with `--commit` flag, which **burns HNT from your wallet:**
 
 ```bash
-for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
-  key=$(jq .key $gw-01/gw-info.json)
+for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
+  key=$(jq .key gw-$gw/gw-info.json)
 
   helium-wallet \
      -f $WORKDIR/wallet/wallet.key \
@@ -655,8 +653,8 @@ intended router instance:
 ```bash
 cd $WORKDIR
 
-for i in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
-  out=gw-$i/settings.toml
+for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
+  out=gw-$gw/settings.toml
   echo ''                        >> $out
   echo '[router.release]'        >> $out
   echo 'pubkey = "'${P2P}'"'     >> $out
@@ -684,12 +682,13 @@ There is an API call for that status:
 for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
   cd $WORKDIR/org-$o/
 
-  # TODO when PR#21 gets merged, replace curl with this:
-  # helium-console-cli devices all > status.json
+  # TODO requires helium-console-cli PR#21
+  helium-console-cli devices all > status.json
 
-  apikey=$(grep key .helium-console-config.toml | awk '{print $3}')
-  curl -H "key: $apikey" \
-    https://console.helium.com/api/v1/devices > status.json
+  # ALTERNATIVE:
+  # apikey=$(grep key .helium-console-config.toml | sed 's/^.*"\(.*\)"$/\1/')
+  # curl -H "key: $apikey" \
+  #   https://console.helium.com/api/v1/devices > status.json
 done
 ```
 
@@ -710,8 +709,8 @@ concurrency:
 ```bash
 cd $WORKDIR
 
-for i in $(seq --format="%02g" $N_GATEWAYS); do
-  helium_gateway -c gw-$i server >> gw-$i/run.log 2>&1 &
+for gw in $(seq --format="%02g" $N_GATEWAYS); do
+  helium_gateway -c gw-$gw server >> gw-$gw/run.log 2>&1 &
 done
 ```
 
@@ -775,8 +774,8 @@ handle concurrency:
 cd $WORKDIR
 
 for o in $(seq --format="%02g" $N_ORGS); do
-  for i in $(seq --format="%03g" $N_DEVICES); do
-    ( cd org-$o/device-$i/ && \
+  for d in $(seq --format="%03g" $N_DEVICES); do
+    ( cd org-$o/device-$d/ && \
       virtual-lorawan-device >> run.log 2>&1 ) &
 
     # Facilitate slow-start of load to avoid hammer effect:
