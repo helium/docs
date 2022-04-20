@@ -21,6 +21,8 @@ organizations, devices and wallets in production.
 For these instructions, each dependency is installed beneath `~/helium/`,
 and **Bash** shell syntax on Linux is used below.
 
+**Order of operations is significant.**
+
 ## Dependencies
 
 These should be **isolated** instances dedicated to load & capacity testing,
@@ -100,7 +102,8 @@ FIRST_DEV=1
 ```
 
 (If going above double digits for gateways or triple digits for devices, the
-scripts will need to be revised; see `seq --format` below.)
+scripts will need to be revised; see Bash `printf` and `seq --format`
+expressions below.)
 
 Additional variables will be created along the way.
 
@@ -366,7 +369,7 @@ Keep it simple, and use Lat/Lon matching your router.
 indexing system for computing distance, so dig there for any unique criteria
 or constraints.)
 
-## Create Devices in Console
+## Create Devices via Console API
 
 Values for example devices below are valid and may be copied.
 
@@ -387,6 +390,11 @@ for d in $(seq --format="%03g" $FIRST_DEV $N_DEVICES); do
       benchmark-$d
 done
 ```
+
+(On subsequent runs when `$FIRST_DEV` is larger than 1, make use of:  
+`jq .devices[0].app_eui org-01/devices.json` and  
+`jq .devices[0].app_key org-01/devices.json`  
+for first and second parameters following "device create", respectively.)
 
 **Repeat** for each of your organizations.
 
@@ -454,6 +462,12 @@ echo $ROUTER_OUI
 
 ## Virtual Devices
 
+This requires devices already having been created via Console API.
+
+The API provides the *single source of truth* about devices.  (Device ID in
+Console might be mismatched with respect to file names generated below due
+to sequence of output from API, which is unimportant for benchmarking.)
+
 Generate a custom `settings.toml` file for **each**
 [virtual LoRaWAN device](https://github.com/helium/virtual-lorawan-device)
 based upon data within the `devices.json` file generated above from each
@@ -466,22 +480,24 @@ real world scenarios with geographically dispersed deployments.
 
 ```bash
 metrics_port=9898
-for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
+for o in $(seq --format="%02g" $N_ORGS); do
   cd $WORKDIR/org-$o/
 
-  for d in $(seq --format="%03g" $FIRST_DEV $N_DEVICES); do
-    mkdir -p device-$d/settings
+  # Use printf, not seq --format to avoid octal when assigning $i
+  for d in $(seq $N_DEVICES); do
+    device=$(printf "%03g" $d)
+    mkdir -p device-$device/settings
 
     ln -s ~/helium/virtual-lorawan-device/settings/default.toml \
-      device-$d/settings/
+      device-$device/settings/
 
-    out="device-$d/settings/settings.toml"
+    out="device-$device/settings/settings.toml"
     echo 'default_server = "dev"'             > $out
-    echo 'metrics_port = '$metrics_port       >> $out
     # Must be unique across all devices:
+    echo 'metrics_port = '$metrics_port       >> $out
     metrics_port=$((metrics_port + 1))
     echo ''                                   >> $out
-    echo "[device.$d.credentials]"            >> $out
+    echo "[device.$device.credentials]"       >> $out
     i=$((d - 1))
     echo 'dev_eui = '$(jq .devices[$i].dev_eui < devices.json) >> $out
     echo 'app_eui = '$(jq .devices[$i].app_eui < devices.json) >> $out
@@ -496,9 +512,16 @@ for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
 done
 ```
 
+Sanity check:
+
+```bash
+grep -q 'dev_eui = null' org*/device*/settings/settings.toml && \
+  echo Something went wrong.
+```
+
 Devices may require waiting upwards of 20 minutes (concurrently) for
 the router's XOR filter to run.  The device will be marked in Console
-with "Pending" status until then, and we check for this further below.
+with "Pending" status until then, and there is an API call for this below.
 
 ## Gateways
 
@@ -512,7 +535,7 @@ Install default and *preliminary* configuration files:
 ```bash
 cd $WORKDIR
 
-i=0
+i=$((FIRST_GW - 1))
 for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
   mkdir gw-$gw
   ln -s ~/helium/gateway-rs/config/default.toml gw-$gw/
@@ -520,8 +543,10 @@ for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
   out=gw-$gw/settings.toml
   keyfile="$(pwd)/gw-$gw/gateway_key.bin"
   echo 'keypair = "'${keyfile}'"'       > $out
+  # Must be unique per gw and consistent with device configs:
   port=$((1680 + i))
   echo 'listen = "127.0.0.1:'${port}'"' >> $out
+  # Only needs to be unique:
   port=$((4467 + i))
   echo "api = $port"                    >> $out
   echo 'region = "US915"'               >> $out
@@ -779,7 +804,7 @@ for o in $(seq --format="%02g" $N_ORGS); do
       virtual-lorawan-device >> run.log 2>&1 ) &
 
     # Facilitate slow-start of load to avoid hammer effect:
-    sleep 5
+    sleep 1
   done
 done
 ```
