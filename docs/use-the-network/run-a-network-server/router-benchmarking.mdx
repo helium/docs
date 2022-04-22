@@ -25,11 +25,17 @@ and **Bash** shell syntax on Linux is used below.
 
 ## Dependencies
 
-These should be **isolated** instances dedicated to load & capacity testing,
-as other users of the system *will* be negatively impacted:
+These **must be isolated** instances dedicated to load & capacity testing,
+as other users of the system *will* be negatively impacted as well as yield
+meaningless benchmarks:
 
 - [router](https://github.com/helium/router)
+  + Must be an isolated instance because **abuse-prevention measures** get
+    triggered
+  + Requires being reset
 - [console](https://github.com/helium/console)
+  + Omit `IMPOSE_HARD_CAP` environment variable
+  + Ensure `MAX_DEVICES_IN_ORG` exceeds number of virtual devices
 
 Install wallet on same host as your router if sharing its private key:
 
@@ -246,6 +252,12 @@ wallet from which the limited wallet gets funded:
 
 > Please add funds for Load & Capacity testing:  
 > helium-wallet burn --amount 25 --payee $WALLET --commit
+
+Again, burning HNT is **only for asserting hotspots** and their locations.
+
+When benchmarking within an isolated environment such as `router-dev`, reset
+DC balance on the router host which is described in
+[Fund Organizations](#fund-organizations) below.
 
 #### Optional: Sharing Keys With Router
 
@@ -465,49 +477,60 @@ echo $ROUTER_OUI
 This requires devices already having been created via Console API.
 
 The API provides the *single source of truth* about devices.  (Device ID in
-Console might be mismatched with respect to file names generated below due
+Console might be mismatched with respect to identifiers generated below due
 to sequence of output from API, which is unimportant for benchmarking.)
 
-Generate a custom `settings.toml` file for **each**
+Despite lack of plural in the name,
 [virtual LoRaWAN device](https://github.com/helium/virtual-lorawan-device)
-based upon data within the `devices.json` file generated above from each
-organization.
+accommodates multiple devices, as indicated by its README.
 
-Each device needs its own subdirectory for a set of configuration files.
+Generate a single `settings.toml` file all devices per organization.  (This
+segments by org for managing benchmarking runs.)
 
-Connections of devices will distribute across multiple gateways, simulating
-real world scenarios with geographically dispersed deployments.
+Connections of devices from same org will distribute across multiple
+gateways, simulating real world scenarios with geographically dispersed
+deployments.
 
 ```bash
-metrics_port=9898
-for o in $(seq --format="%02g" $N_ORGS); do
-  cd $WORKDIR/org-$o/
+cd $WORKDIR
+# Use printf, not `seq --format` to avoid octal when assigning $i below
+for o in $(seq $N_ORGS); do
+  org=$(printf "%02g" $o)
+  [ -d org-$org/settings ] || mkdir -p org-$org/settings
+  [ -e org-$org/settings/default.toml ] || \
+    ln -s ~/helium/virtual-lorawan-device/settings/default.toml \
+      org-$org/settings/
 
-  # Use printf, not seq --format to avoid octal when assigning $i
+  out="org-$org/settings/settings.toml"
+  echo 'default_server = "dev"'                > $out
+  # Must be unique across all instances of virtual-lorawan-device:
+  echo 'metrics_port = '$metrics_port          >> $out
+  metrics_port=$((9898 + o))
+  echo ''                                      >> $out
+
+  for gw in $(seq $N_GATEWAYS); do
+    gateway=$(printf "%02g" $gw)
+    echo "[packet_forwarder.gw${gateway}]"     >> $out
+    port=$((1680 + gw))
+    echo 'host = "localhost:'${port}'"'        >> $out
+    echo 'mac = "08070605040302'${gateway}'"'  >> $out
+  done
+
+  json="org-$org/devices.json"
   for d in $(seq $N_DEVICES); do
     device=$(printf "%03g" $d)
-    mkdir -p device-$device/settings
-
-    ln -s ~/helium/virtual-lorawan-device/settings/default.toml \
-      device-$device/settings/
-
-    out="device-$device/settings/settings.toml"
-    echo 'default_server = "dev"'             > $out
-    # Must be unique across all devices:
-    echo 'metrics_port = '$metrics_port       >> $out
-    metrics_port=$((metrics_port + 1))
-    echo ''                                   >> $out
-    echo "[device.$device.credentials]"       >> $out
-    i=$((d - 1))
-    echo 'dev_eui = '$(jq .devices[$i].dev_eui < devices.json) >> $out
-    echo 'app_eui = '$(jq .devices[$i].app_eui < devices.json) >> $out
-    echo 'app_key = '$(jq .devices[$i].app_key < devices.json) >> $out
-    echo 'default_secs_between_transmits = 0' >> $out
-    echo ''                                   >> $out
-    echo '[packet_forwarder.default]'         >> $out
+    echo ''                                    >> $out
+    echo "[device.${device}]"                  >> $out
     # Round-robin distribution:
-    port=$((1680 + i % N_GATEWAYS))
-    echo 'host = "localhost:'${port}'"'       >> $out
+    i=$(( (d % N_GATEWAYS) + 1 ))
+    gateway=$(printf "%02g" $i)
+    echo 'packet_forwarder = "gw'${gateway}'"' >> $out
+    echo "[device.${device}.credentials]"      >> $out
+    j=$((d - 1))
+    echo 'dev_eui = '$(jq .devices[$j].dev_eui < $json) >> $out
+    echo 'app_eui = '$(jq .devices[$j].app_eui < $json) >> $out
+    echo 'app_key = '$(jq .devices[$j].app_key < $json) >> $out
+    echo 'default_secs_between_transmits = 0'   >> $out
   done
 done
 ```
@@ -515,7 +538,7 @@ done
 Sanity check:
 
 ```bash
-grep -q 'dev_eui = null' org*/device*/settings/settings.toml && \
+grep -q 'dev_eui = null' org*/settings/settings.toml && \
   echo Something went wrong.
 ```
 
@@ -694,6 +717,44 @@ change `[router.release]` to match.)
 
 With that, your gateways are finally ready for Load & Capacity runs.
 
+## Fund Organizations
+
+Benchmarking on an **isolated server instance of router** (e.g.,
+`router-dev`) affords the option of resetting DC balance of an organization.
+Otherwise, benchmarking will make a measurable impact to your wallet; see
+[Data Credits](https://docs.helium.com/use-the-network/console/data-credits/)
+within Console documentation.
+
+First, find your `organization_id` which may be obtained via Console UI.
+From the Organizations page, there is an export widget associated with each
+organization listed.
+
+Alternative, extract from `devices.json` for each organization.  These files
+were generated above.
+
+Run:
+
+```bash
+jq .devices[0].organization_id org-*/devices.json
+```
+
+Use each of those organization IDs and provide the target DC balance, which
+gets specify as 100k in this example:
+
+```bash
+ssh router-dev
+cd router/
+router organization update bb5a2fec-1234-5678-89e4-a0e3c4807628 -b 100000
+```
+
+Confirm output of the above command, and then repeat with `--commit` flag:
+
+```bash
+!! --commit
+```
+
+Again, the above command only works on **non-production** environments.
+
 ## Wait for XOR Filter
 
 The Console may indicate "Pending" from having added new devices above and
@@ -788,28 +849,24 @@ benchmarking.
 
 ## Spawn Virtual Devices
 
-TODO: add feature to `virtual-lorawan-device` to facilitate "slow start" for
-progressively increasing load.
-
-
-Launch each virtual device as a separate process, and again let the OS
-handle concurrency:
+Launch fleet of virtual devices as a single OS process:
 
 ```bash
 cd $WORKDIR
 
 for o in $(seq --format="%02g" $N_ORGS); do
-  for d in $(seq --format="%03g" $N_DEVICES); do
-    ( cd org-$o/device-$d/ && \
-      virtual-lorawan-device >> run.log 2>&1 ) &
+  ( cd org-$o/ && virtual-lorawan-device >> run.log 2>&1 ) &
 
-    # Facilitate slow-start of load to avoid hammer effect:
-    sleep 1
-  done
+  # Slight mitigation against hammer effect:
+  sleep 5
 done
 ```
 
 While waiting for the outer loop to finish, watch your graphs; e.g, Grafana.
+
+Note: `virtual-lorawan-device` causes the device to Join (or re-join) upon
+each start of the utility.  (For continuing a previous session,
+pull-requests there are welcomed!)
 
 ## Stop
 
@@ -845,6 +902,14 @@ for:
 When doing so, also increase corresponding values for `FIRST_*` to be the
 former value of `N_*` to avoid clobbering or creating duplicate devices.
 
+For significantly large numbers of devices, consider increasing Linux kernel
+values such as `/proc/sys/net/core/somaxconn` for IP socket listen backlog.
+
+Eventually eliminate per-device logging.
+
+Check for new releases of [virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
+that may facilitate driving higher traffic.  Future work will occur there.
+
 ## Comprehending The Results
 
 There should be a slow ramp-up of traffic such that we "find the knee"
@@ -873,3 +938,32 @@ artifacts on the host OS that might be causing interference.  Consider
 migrating to different host server hardware (via hard stop/start) if
 running on a virtualized/hypervisor environment such as AWS, GCP,
 Linode, etc.
+## Troubleshooting
+### Traffic Dropped By Router
+
+The nature of driving load to find capacity of a server may trigger
+abuse-prevention measures of [router](https://github.com/helium/router)
+such as its reputation system.
+
+Check:
+
+```bash
+ssh router-dev
+cd router
+router hotspot_reputation ls
+```
+
+If you see the name corresponding to your instance(s) of gateway-rs, with a
+score approaching `10`, that device has either been banned or is about to
+be.
+
+Copy the alphanumeric string associated with your gateway's name under the
+`b58` column, and use it as the identifier below.
+
+Reset reputation:
+
+```bash
+ssh router-dev
+cd router
+router hotspot_reputation reset longAlphaNumeric...
+```
