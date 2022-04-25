@@ -32,9 +32,10 @@ meaningless benchmarks:
 - [router](https://github.com/helium/router)
   + Must be an isolated instance because **abuse-prevention measures** get
     triggered
-  + Requires being reset
+  + Set environment variables: `ROUTER_HOTSPOT_REPUTATION_ENABLED=false`
+    and/or `ROUTER_HOTSPOT_REPUTATION_THRESHOLD` to a large integer
 - [console](https://github.com/helium/console)
-  + Omit `IMPOSE_HARD_CAP` environment variable
+  + Set environment variable: `IMPOSE_HARD_CAP=false`
   + Ensure `MAX_DEVICES_IN_ORG` exceeds number of virtual devices
 
 Install wallet on same host as your router if sharing its private key:
@@ -855,7 +856,8 @@ Launch fleet of virtual devices as a single OS process:
 cd $WORKDIR
 
 for o in $(seq --format="%02g" $N_ORGS); do
-  ( cd org-$o/ && virtual-lorawan-device >> run.log 2>&1 ) &
+  virtual-lorawan-device \
+    --settings org-$o/settings/ >> org-$o/run.log 2>&1 &
 
   # Slight mitigation against hammer effect:
   sleep 5
@@ -938,32 +940,3 @@ artifacts on the host OS that might be causing interference.  Consider
 migrating to different host server hardware (via hard stop/start) if
 running on a virtualized/hypervisor environment such as AWS, GCP,
 Linode, etc.
-## Troubleshooting
-### Traffic Dropped By Router
-
-The nature of driving load to find capacity of a server may trigger
-abuse-prevention measures of [router](https://github.com/helium/router)
-such as its reputation system.
-
-Check:
-
-```bash
-ssh router-dev
-cd router
-router hotspot_reputation ls
-```
-
-If you see the name corresponding to your instance(s) of gateway-rs, with a
-score approaching `10`, that device has either been banned or is about to
-be.
-
-Copy the alphanumeric string associated with your gateway's name under the
-`b58` column, and use it as the identifier below.
-
-Reset reputation:
-
-```bash
-ssh router-dev
-cd router
-router hotspot_reputation reset longAlphaNumeric...
-```
