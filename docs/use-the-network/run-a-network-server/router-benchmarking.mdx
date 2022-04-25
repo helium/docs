@@ -730,8 +730,8 @@ First, find your `organization_id` which may be obtained via Console UI.
 From the Organizations page, there is an export widget associated with each
 organization listed.
 
-Alternative, extract from `devices.json` for each organization.  These files
-were generated above.
+Alternatively, extract from `devices.json` for each organization.  Those
+files were generated above.
 
 Run:
 
@@ -740,7 +740,7 @@ jq .devices[0].organization_id org-*/devices.json
 ```
 
 Use each of those organization IDs and provide the target DC balance, which
-gets specify as 100k in this example:
+gets specified as 100k in this example:
 
 ```bash
 ssh router-dev
@@ -807,7 +807,7 @@ and the router specified in settings.toml file.
 **Wait** until seeing an entry similar to the following for each:
 
 ```
- INFO updated routing to height 123456789, module: dispatcher
+INFO updated routing to height 123456789, module: dispatcher
 ```
 
 To determine whether to continue or wait, run:
@@ -866,9 +866,10 @@ done
 
 While waiting for the outer loop to finish, watch your graphs; e.g, Grafana.
 
-Note: `virtual-lorawan-device` causes the device to Join (or re-join) upon
-each start of the utility.  (For continuing a previous session,
-pull-requests there are welcomed!)
+Note:
+[virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
+causes the device to Join (or re-join) upon each start of the utility.
+(For continuing a previous session, pull-requests there are welcomed!)
 
 ## Stop
 
@@ -888,8 +889,8 @@ killall helium_gateway
 Confirm no longer running:
 
 ```bash
-ps aux virtual-lorawan-device
-ps aux gateway-rs
+ps aux | grep virtual-lorawan-device
+ps aux | grep helium_gateway
 ```
 
 ## Iterate
