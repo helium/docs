@@ -405,6 +405,55 @@ After running this, you'll need to input your wallet passphrase to sign the tran
 
 And with that, you're done. Congratulations! You're running a Helium Network Validator.
 
+## Overriding Default Configuration
+
+Depending on your deployment, you may wish to override default configuration of
+the validator. There are multiple ways to edit the configuration including
+setting environment variables and overlaying the config files.
+
+### Environment Variables
+
+At runtime, the miner startup process will read the following environment
+variables and, if present, override the default values. This is the most
+straightforward way to configure your validator. Environment variables may be
+set in the shell session used to launch the miner, within a systemd service
+file, part of a docker run command, or included in a docker-compose file.
+
+- LISTEN_ADDRESS (default: `/ip4/0.0.0.0/tcp/2154/`) - the address that the
+  miner will listen to on the P2P network; currently only a single IP4 address
+  is supported and it must be in
+  [multiaddr](https://github.com/multiformats/multiaddr) format. This address
+  must be publicly accessible.
+- BASE_DIR (default: `data`) - Directory location of data files. May be absolute
+  or relative path. Relative paths are relative to miner install location.
+- LOG_ROOT (default: `log`) - Directory location of log files. May be absolute
+  or relative path. Relative paths are relative to miner install location.
+- UPDATE_DIR (default: `/opt/miner/update`) - Location tha the miner looks in
+  for a genesis block on startup. If a new genesis block found, the existing
+  data dir will be removed and the new genesis block loaded.
+- HOTFIX_DIR (default: `/opt/miner/hotfix`) - Location that the miner looks in
+  for code hotfixes.
+- GRPC_PORT (default: `8080`) - Port used by light gateways to interact with the
+  validator. This port must be public accessible.
+- JSONRPC_IP (default: `127,0,0,1`) - IP address that the JSON RPC endpoint
+  listens on.
+- JSONRPC_PORT (default: `4467`) - Port number that the JSON RPC endpoint
+  listens on.
+- VALIDATION_WIDTH - Maxium number of concurrent transaction validations that
+  the miner will do when absorbing blocks. Default is N/2 + 1 where N is the
+  number of Erlang schedulers which is by default the number of CPUs/vCPUs.
+- SIDECAR_PARALLELISM_LIMIT (default: `3`) - Maximum number of concurrent
+  transaction validations the miner will attempt while in consensus group.
+
+### Erlang sys.config overlay
+
+For more advanced configuration of the miner process, the Erlang application
+configuration files can be also be edited. For this approach, it is recommend to
+add or update configuration parameters to
+`releases/<version number>/sys.config.src`. This file overlays (overrides)
+configuration on the base config file which is `config/sys.config` which
+includes all parameters used by the miner.
+
 ## Verifying Validator Victory
 
 Now that you're up and running with a Validator, there are a few things you can examine to make sure things are hunky dory.
