@@ -327,36 +327,14 @@ P2P=longAlphanumeric...
 echo $P2P
 ```
 
-## Router Location
-
-On your laptop/workstation, append router's P2P address (long alphanumeric
-string) to the API endpoint:
-
-```bash
-cd $WORKDIR
-
-UA="XYZ Location Confirmation"
-
-curl --user-agent "$UA" \
-  "$API_URL/v1/hotspots/$P2P" > router.json
-
-jq . router.json
-```
-
-Extract latitude and longitude:
-
-```bash
-LAT=$(jq .data.lat router.json)
-LON=$(jq .data.lng router.json)
-echo $LAT $LON
-```
-
-This pair of latitude and longitude will be used below.
-
 ## Hexagons
 
-Find a hexagon for each gateway instance such that each hex is an
-**equal distance** from the router to be used.
+Choose a hexagon for each gateway instance.
+
+Because this is a test router yet each gateway's location must be asserted
+onto mainnet blockchain, pick a bogus location such as middle of a lake or
+river.  (While there might be legitimate *devices* in a particular body of
+water, there is unlikely to be a hotspot there as well.)
 
 > The importance of asserting a location for each hotspot:
 >
@@ -373,14 +351,24 @@ throughput.
 A dedicated and isolated router and console pair may disregard concerns
 about Proof-of-Coverage (PoC) or an oversaturated Hex.
 
-Therefore:
-
-Keep it simple, and use Lat/Lon matching your router.
-
 ([Router](https://github.com/helium/router) uses
 [h3](https://github.com/helium/erlang-h3) hexagonal hierarchical geospatial
 indexing system for computing distance, so dig there for any unique criteria
-or constraints.)
+or constraints.  For previewing the hex for each pair of coordinates,
+use the live JavaScript feature of the underlying
+[API's documentation](https://h3geo.org/docs/api/indexing#geotoh3)
+with resolution of 8, and append the resulting value to:
+`https://explorer.helium.com/hotspots/hex/`.)
+
+Select latitude and longitude:
+
+```bash
+LAT="43.5482302"
+LON="-116.6575001"
+echo $LAT $LON
+```
+
+This pair of latitude and longitude values will be used below.
 
 ## Create Devices via Console API
 
@@ -492,6 +480,10 @@ Connections of devices from same org will distribute across multiple
 gateways, simulating real world scenarios with geographically dispersed
 deployments.
 
+Sending more frequently than 2 seconds per device would be unrealistic.
+The value for `default_secs_between_transmits` may be tuned below, and
+`rx_delay` which defaults to 1s, may be increased via Console up to 15s.
+
 ```bash
 cd $WORKDIR
 # Use printf, not `seq --format` to avoid octal when assigning $i below
@@ -531,7 +523,7 @@ for o in $(seq $N_ORGS); do
     echo 'dev_eui = '$(jq .devices[$j].dev_eui < $json) >> $out
     echo 'app_eui = '$(jq .devices[$j].app_eui < $json) >> $out
     echo 'app_key = '$(jq .devices[$j].app_key < $json) >> $out
-    echo 'default_secs_between_transmits = 0'   >> $out
+    echo 'default_secs_between_transmits = 5'  >> $out
   done
 done
 ```
@@ -559,7 +551,7 @@ Install default and *preliminary* configuration files:
 ```bash
 cd $WORKDIR
 
-i=$((FIRST_GW - 1))
+i=${FIRST_GW:-1}
 for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
   mkdir gw-$gw
   ln -s ~/helium/gateway-rs/config/default.toml gw-$gw/
@@ -577,17 +569,19 @@ for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
   echo ''                               >> $out
   echo '[update]'                       >> $out
   echo 'enabled = false'                >> $out
+  echo ''                               >> $out
+  echo '[router.release]'               >> $out
+  echo 'pubkey = "'${P2P}'"'            >> $out
+  echo 'uri = "'${ROUTER_URL}'"'        >> $out
+  echo 'oui = '${ROUTER_OUI}            >> $out
   i=$((i + 1))
 done
 ```
 
-Those configuration files will be appended in a few steps below.  Each
-gateway must initially communicate with default routers when being added to
-the blockchain and when asserting location, because development routers are
-seeded from [mainnet](https://docs.helium.com/mine-hnt/validators/#mainnet).
-
-> **If using an entirely private deployment**, apply your variation of an
-> amended configuration *now* from end of this section.
+> Note:
+If using "beta" or other version of
+[gateway-rs](https://github.com/helium/gateway-rs) instead of "release",
+change `[router.release]` to match.)
 
 Generate transactions using `WALLET` variable defined earlier.
 
@@ -650,18 +644,18 @@ for txn in $(cat txn-ids.log); do
 done
 ```
 
-Assert location, which uses `$GW_KEY` populated during our previous run of
-`helium_gateway` in server-mode:
+Assert location using `$LAT` and `$LON` defined earlier for
+each gateway.
 
 ```bash
 for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
-  key=$(jq .key gw-$gw/gw-info.json)
+  key=$(jq .key gw-$gw/gw-info.json | sed 's/"//g')
 
   helium-wallet \
      -f $WORKDIR/wallet/wallet.key \
      hotspots assert --gateway $key \
      --mode dataonly \
-     --lat=$LAT --lon=$LON --elevation 6
+     --lat=$LAT$gw --lon=$LON$gw --elevation 6
 done
 ```
 
@@ -669,13 +663,13 @@ Repeat with `--commit` flag, which **burns HNT from your wallet:**
 
 ```bash
 for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
-  key=$(jq .key gw-$gw/gw-info.json)
+  key=$(jq .key gw-$gw/gw-info.json | sed 's/"//g')
 
   helium-wallet \
      -f $WORKDIR/wallet/wallet.key \
      hotspots assert --gateway $key \
      --mode dataonly \
-     --lat=$LAT --lon=$LON --elevation 6 \
+     --lat=$LAT$gw --lon=$LON$gw --elevation 6 \
      --commit
 done
 ```
@@ -695,26 +689,6 @@ several minutes and check again later.
 Other gateways appearing within the results is benign because a virtual
 LoRaWAN device will only reach those for which it was explicitly configured
 since its radio is simulated.
-
-Finally, finish the local configuration suitable for producing load on your
-intended router instance:
-
-```bash
-cd $WORKDIR
-
-for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
-  out=gw-$gw/settings.toml
-  echo ''                        >> $out
-  echo '[router.release]'        >> $out
-  echo 'pubkey = "'${P2P}'"'     >> $out
-  echo 'uri = "'${ROUTER_URL}'"' >> $out
-  echo 'oui = '${ROUTER_OUI}     >> $out
-done
-```
-
-(If using "beta" or other version of
-[gateway-rs](https://github.com/helium/gateway-rs) instead of "release",
-change `[router.release]` to match.)
 
 With that, your gateways are finally ready for Load & Capacity runs.
 
