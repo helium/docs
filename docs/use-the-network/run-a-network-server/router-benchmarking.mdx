@@ -13,7 +13,7 @@ to find its threshold of capacity for a given server instance.
 Measuring capacity of a particular server instance may then be
 compared with another server instance with different hardware specs.
 The procedure used is *load & capacity measurement* but some people
-also refer to this as *stress testing*.
+also refer to this as *stress testing* or *performance testing*.
 
 This document also gives insight to interactions of routers, gateways,
 organizations, devices and wallets in production.
@@ -34,6 +34,8 @@ meaningless benchmarks:
     triggered
   + Set environment variables: `ROUTER_HOTSPOT_REPUTATION_ENABLED=false`
     and/or `ROUTER_HOTSPOT_REPUTATION_THRESHOLD` to a large integer
+  + By using an ed25519 key for router's wallet, it can be also used for
+    hotspot add and location assertion
 - [console](https://github.com/helium/console)
   + Set environment variable: `IMPOSE_HARD_CAP=false`
   + Ensure `MAX_DEVICES_IN_ORG` exceeds number of virtual devices
@@ -477,8 +479,8 @@ Despite lack of plural in the name,
 [virtual LoRaWAN device](https://github.com/helium/virtual-lorawan-device)
 accommodates multiple devices, as indicated by its README.
 
-Generate a single `settings.toml` file all devices per organization.  (This
-segments by org for managing benchmarking runs.)
+Generate a single `settings.toml` file for all devices per organization.
+(This segments by org for managing benchmarking runs.)
 
 Connections of devices from same org will distribute across multiple
 gateways, simulating real world scenarios with geographically dispersed
@@ -550,7 +552,7 @@ This uses the `$P2P` value defined above in "Router Address" section.
 Each gateway must open a listening socket on a unique port number, so
 this simply increments from the default base port.
 
-Install default and *preliminary* configuration files:
+Install configuration files:
 
 ```bash
 cd $WORKDIR
