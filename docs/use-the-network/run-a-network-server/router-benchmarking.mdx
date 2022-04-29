@@ -177,6 +177,9 @@ Key](https://docs.helium.com/use-the-network/console/my-account/#console-api-key
 which requires logging onto Console user interface (UI).  Everything else
 will be done by command-line interface (CLI).
 
+Each organization will have its own API Key, which may be obtained via the
+Console UI under Account Settings.
+
 Store your new Console API Key generated from the UI to the TOML file
 below, and specify base URL of the console.  The default of
 `https://console.helium.com` is probably **not** what you want for
@@ -332,9 +335,10 @@ echo $P2P
 Choose a hexagon for each gateway instance.
 
 Because this is a test router yet each gateway's location must be asserted
-onto mainnet blockchain, pick a bogus location such as middle of a lake or
-river.  (While there might be legitimate *devices* in a particular body of
-water, there is unlikely to be a hotspot there as well.)
+onto [mainnet](https://docs.helium.com/mine-hnt/validators/#mainnet)
+blockchain, pick a bogus location such as middle of a lake or river.  (While
+there could be legitimate *devices* in a particular body of water, there is
+unlikely to be a hotspot there as well.)
 
 > The importance of asserting a location for each hotspot:
 >
@@ -497,8 +501,8 @@ for o in $(seq $N_ORGS); do
   out="org-$org/settings/settings.toml"
   echo 'default_server = "dev"'                > $out
   # Must be unique across all instances of virtual-lorawan-device:
-  echo 'metrics_port = '$metrics_port          >> $out
   metrics_port=$((9898 + o))
+  echo 'metrics_port = '$metrics_port          >> $out
   echo ''                                      >> $out
 
   for gw in $(seq $N_GATEWAYS); do
@@ -539,7 +543,7 @@ Devices may require waiting upwards of 20 minutes (concurrently) for
 the router's XOR filter to run.  The device will be marked in Console
 with "Pending" status until then, and there is an API call for this below.
 
-## Gateways
+## Configure Gateways
 
 This uses the `$P2P` value defined above in "Router Address" section.
 
@@ -583,7 +587,10 @@ If using "beta" or other version of
 [gateway-rs](https://github.com/helium/gateway-rs) instead of "release",
 change `[router.release]` to match.)
 
-Generate transactions using `WALLET` variable defined earlier.
+## Add Gateways To Blockchain
+
+Generate transactions using `WALLET` variable defined earlier.  Each
+transaction gets committed *later*.
 
 When in server-mode for the first time, gateway-rs needs time to generate
 key material and connect to upstream services.
@@ -617,7 +624,7 @@ jq .txn gw-*/add-dataonly.json | \
    sed 's/"//g' > txn-ids.log
 ```
 
-Prepare command to assert locations based upon previous transactions:  
+Prepare command to add each new gateway based upon previous transactions:  
 (if wallet is on router host, run it there)
 
 ```bash
@@ -643,6 +650,8 @@ for txn in $(cat txn-ids.log); do
      --commit
 done
 ```
+
+## Assert Location For Each Gateway
 
 Assert location using `$LAT` and `$LON` defined earlier for
 each gateway.
@@ -674,6 +683,8 @@ for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
 done
 ```
 
+## Confirm Locations
+
 Allow time-- approximately 5-20 minutes-- for those transactions to be
 recorded onto the blockchain, and then confirm asserted locations via
 [blockchain API](https://docs.helium.com/api/blockchain/introduction/):
@@ -683,6 +694,9 @@ curl --user-agent "$UA" \
   "$API_URL/v1/hotspots/location/distance?lat=$LAT&lon=$LON&distance=1000"
 ```
 
+The `distance` parameter above is in meters, so adjust its value if
+necessary.
+
 Ensure that your gateways appear within those results.  If not found, wait
 several minutes and check again later.
 
@@ -690,7 +704,7 @@ Other gateways appearing within the results is benign because a virtual
 LoRaWAN device will only reach those for which it was explicitly configured
 since its radio is simulated.
 
-With that, your gateways are finally ready for Load & Capacity runs.
+With that, your gateways are ready for Load & Capacity runs.
 
 ## Fund Organizations
 
@@ -845,6 +859,46 @@ Note:
 causes the device to Join (or re-join) upon each start of the utility.
 (For continuing a previous session, pull-requests there are welcomed!)
 
+## Watch A Single Device
+
+This is an optional debugging step.
+
+While the fleet of `virtual-lorawan-device` instances runs, watch a
+single device.
+
+First, run the loop from [Wait for XOR Filter](#wait-for-xor-filter) above
+again to re-populate `status.json` for each organization.
+
+Find devices that indicate a potential problem.
+
+Device IDs that never connected:
+
+```bash
+jq '.[]|select(.last_connected|.==null)|.id' org-*/status.json
+```
+
+Devices that connected longest ago:
+
+```bash
+jq '.|sort_by(.last_connected)|.[0]'  org-*/status.json
+```
+
+Device IDs with fewest packets:
+
+```bash
+jq '.|sort_by(.total_packets)|.[0].id' org-*/status.json
+```
+
+Use those Device IDs for tracing via router CLI:
+
+```bash
+ssh router
+cd router/
+router device trace --id=8db30307-1234-5678-9abc-511376ac301b
+```
+
+Each trace expires after 240 minutes.
+
 ## Stop
 
 Generally allow this fleet of virtual devices to run for 15-20 minutes,
@@ -878,11 +932,6 @@ for:
 
 When doing so, also increase corresponding values for `FIRST_*` to be the
 former value of `N_*` to avoid clobbering or creating duplicate devices.
-
-For significantly large numbers of devices, consider increasing Linux kernel
-values such as `/proc/sys/net/core/somaxconn` for IP socket listen backlog.
-
-Eventually eliminate per-device logging.
 
 Check for new releases of [virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
 that may facilitate driving higher traffic.  Future work will occur there.
