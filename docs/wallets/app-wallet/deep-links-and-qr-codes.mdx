@@ -37,7 +37,11 @@ This is an example site: `https://www.qr-code-generator.com`
 
 ### Burn HNT
 
-**Memos are base64 encoded strings with a max size of 8 bytes.**
+:::info
+**Memos are base64 encoded strings with a max size of 8 bytes.**<br />
+If you want to support both the Hotspot App and Wallet App use UTF8 memos by adding:<br />
+`"utf8Memo": true`
+:::
 
 Generated from console
 
@@ -46,13 +50,29 @@ Generated from console
   "type": "dc_burn",
   "address": ":address",
   "amount": "1.00",
-  "memo": "n0XU06JdNNs="
+  "memo": "dGVzdA==="
+}
+```
+
+UTF8 memo
+
+```json
+{
+  "type": "dc_burn",
+  "utf8Memo": true,
+  "address": ":address",
+  "amount": "1.00",
+  "memo": "test"
 }
 ```
 
 ### Payment
 
-**Memos are base64 encoded strings with a max size of 8 bytes.**
+:::info
+**Memos are base64 encoded strings with a max size of 8 bytes.**<br />
+If you want to support both the Hotspot App and Wallet App use UTF8 memos by adding:<br />
+`"utf8Memo": true`
+:::
 
 Single Payee without memo
 
@@ -71,7 +91,19 @@ Single Payee with memo
   "type": "payment",
   "address": ":address",
   "amount": 1,
-  "memo": "n0XU06JdNNs="
+  "memo": "dGVzdA=="
+}
+```
+
+Single Payee with UTF8 memo
+
+```json
+{
+  "type": "payment",
+  "utf8Memo": true,
+  "address": ":address",
+  "amount": 1,
+  "memo": "test"
 }
 ```
 
@@ -95,11 +127,30 @@ Multiple Payee with memo
   "payees": {
     ":address1": {
       "amount": 10.2,
-      "memo": "n0XU06JdNNs="
+      "memo": "dGVzdA=="
     },
     ":address2": {
       "amount": 1.2,
-      "memo": "n0XU06JdNNs="
+      "memo": "dGVzdA=="
+    }
+  }
+}
+```
+
+Multiple Payee with UTF8 memo
+
+```json
+{
+  "type": "payment",
+  "utf8Memo": true,
+  "payees": {
+    ":address1": {
+      "amount": 10.2,
+      "memo": "test"
+    },
+    ":address2": {
+      "amount": 1.2,
+      "memo": "test"
     }
   }
 }
