@@ -119,7 +119,7 @@ Use `miner` to generate the `add hotspot` transaction,
 miner txn add_gateway owner=WALLET_ADDRESS --payer WALLET_ADDRESS
 ```
 
-For testing, you'll set `payer` as `payer = 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr`. In production, the Payer will be your unique Maker Account Address and will be provided at the appropriate stage with the Manufacturing Oversight Committee. The current list can be found [here](https://onboarding.dewi.org/api/v2/makers). 
+For testing, you'll set `payer` as `payer = 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr`. In production, the Payer will be your unique Maker Account Address and will be provided at the appropriate stage with the Manufacturing Compliance Committee. The current list can be found [here](https://onboarding.dewi.org/api/v2/makers). 
 
 When testing with this `payer` address, adding hotspots and asserting location transactions will be submitted and you’ll see them as pending transactions in the Hotspot App. However, once it reaches the blockchain, the transaction will be discarded as the payer address does not exist in the blockchain’s `chain_var` of valid addresses. This ensures no Data Credits are spent on testing, but allows trial and error as Makers finish app integration.
 
