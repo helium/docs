@@ -34,6 +34,8 @@ meaningless benchmarks:
     triggered
   + Set environment variables: `ROUTER_HOTSPOT_REPUTATION_ENABLED=false`
     and/or `ROUTER_HOTSPOT_REPUTATION_THRESHOLD` to a large integer
+  + Set environment variable: `ROUTER_SC_OPEN_DC_AMOUNT=1000000`
+    or higher integer value for budget per State Channel
   + By using an ed25519 key for router's wallet, it can be also used for
     hotspot add and location assertion
 - [console](https://github.com/helium/console)
@@ -50,6 +52,7 @@ build subdirectories:
 
 - [gateway-rs](https://github.com/helium/gateway-rs)
 - [helium-console-cli](https://github.com/helium/helium-console-cli)
+- [gwmp-mux](https://github.com/helium/gwmp-mux) LoRaWAN protocol multiplexer
 - [virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
 
 Additional utilities, possibly already installed on your system:
@@ -69,7 +72,8 @@ Convenience aliases:
 ```bash
 alias helium-console-cli="~/helium/helium-console-cli/target/release/helium-console-cli"
 alias helium_gateway="~/helium/gateway-rs/target/release/helium_gateway"
-alias helium-wallet=~/helium/helium-wallet-rs/target/release/helium-wallet
+alias helium-wallet="~/helium/helium-wallet-rs/target/release/helium-wallet"
+alias gwmp-mux="~/helium/gwmp-mux/target/release/gwmp-mux"
 alias virtual-lorawan-device="~/helium/virtual-lorawan-device/target/release/virtual-lorawan-device"
 ```
 
@@ -487,7 +491,7 @@ gateways, simulating real world scenarios with geographically dispersed
 deployments.
 
 Sending more frequently than 2 seconds per device would be unrealistic.
-The value for `default_secs_between_transmits` may be tuned below, and
+The value for `secs_between_transmits` may be tuned below, and
 `rx_delay` which defaults to 1s, may be increased via Console up to 15s.
 
 ```bash
@@ -507,32 +511,45 @@ for o in $(seq $N_ORGS); do
   echo 'metrics_port = '$metrics_port          >> $out
   echo ''                                      >> $out
 
-  for gw in $(seq $N_GATEWAYS); do
-    gateway=$(printf "%02g" $gw)
-    echo "[packet_forwarder.gw${gateway}]"     >> $out
-    port=$((1680 + gw))
-    echo 'host = "localhost:'${port}'"'        >> $out
-    echo 'mac = "08070605040302'${gateway}'"'  >> $out
-  done
+  # Multiplexer sprays across all gateways:
+  echo "[packet_forwarder.mux]"                >> $out
+  echo 'host = "localhost:1680"'               >> $out
+  echo 'mac = "0807060504030200"'              >> $out
+  echo ''                                      >> $out
+
+  # Optional, if you want to bypass multiplexer:
+  # uncomment this block and use packet_forwarder=gw below.
+  #for gw in $(seq $N_GATEWAYS); do
+  #  gateway=$(printf "%02g" $gw)
+  #  echo "[packet_forwarder.gw${gateway}]"     >> $out
+  #  port=$((1680 + gw))
+  #  echo 'host = "localhost:${port}'"'         >> $out
+  #  echo 'mac = "08070605040302'${gateway}'"'  >> $out
+  #done
 
   json="org-$org/devices.json"
   for d in $(seq $N_DEVICES); do
     device=$(printf "%03g" $d)
     echo ''                                    >> $out
     echo "[device.${device}]"                  >> $out
-    # Round-robin distribution:
-    i=$(( (d % N_GATEWAYS) + 1 ))
-    gateway=$(printf "%02g" $i)
-    echo 'packet_forwarder = "gw'${gateway}'"' >> $out
+    echo secs_between_transmits = 15'          >> $out
+    echo 'packet_forwarder = "mux"'            >> $out
+    # Optional round-robin allocation:
+    #i=$(( (d % N_GATEWAYS) + FIRST_GW ))
+    #gateway=$(printf "%02g" $i)
+    #echo '#packet_forwarder = "gw'${gateway}'"' >> $out
     echo "[device.${device}.credentials]"      >> $out
     j=$((d - 1))
     echo 'dev_eui = '$(jq .devices[$j].dev_eui < $json) >> $out
     echo 'app_eui = '$(jq .devices[$j].app_eui < $json) >> $out
     echo 'app_key = '$(jq .devices[$j].app_key < $json) >> $out
-    echo 'default_secs_between_transmits = 5'  >> $out
   done
 done
 ```
+
+Some `'packet_forwarder` lines are intentionally commented-out above,
+because there may be occasions for using the multiplexer versus connecting
+to a specific gateway directly.
 
 Sanity check:
 
@@ -544,6 +561,19 @@ grep -q 'dev_eui = null' org*/settings/settings.toml && \
 Devices may require waiting upwards of 20 minutes (concurrently) for
 the router's XOR filter to run.  The device will be marked in Console
 with "Pending" status until then, and there is an API call for this below.
+
+Later when running the actual test, check logs of `virtual-lorawan-device`
+for entries containing the following excerpt:
+
+```log
+WARN ... UDP packet received after tx time ...
+```
+
+Significantly more than 1:100 ratio indicates the value for
+`default_secs_between_transmits` should be increased.  That ratio
+accommodates interference patterns from the scheduler in Linux and the Tokio
+async/await framework used within the Rust app, or it can be from the
+hypervisor when on a virtualized server instance.
 
 ## Configure Gateways
 
@@ -595,26 +625,32 @@ Generate transactions using `WALLET` variable defined earlier.  Each
 transaction gets committed *later*.
 
 When in server-mode for the first time, gateway-rs needs time to generate
-key material and connect to upstream services.
-
-These transactions will be signed and committed later:
+key material and connect to upstream services, so start all concurrently:
 
 ```bash
 for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
   helium_gateway -c gw-$gw server > gw-$gw/server.log &
-  pid=$!
+done
+```
 
-  # Wait!
-  watch -n 9 --chgexit grep height gw-$gw/server.log
+Wait until all log files contain at least one entry for `height`, which
+implies that each has connected to its upstream validator:
 
+```bash
+# Wait:
+grep -c height gw-$gw/server.log
+```
+
+Generate transactions, which will be signed and committed later:
+
+```bash
+for gw in $(seq --format="%02g" $FIRST_GW $N_GATEWAYS); do
   helium_gateway -c gw-$gw info > gw-$gw/gw-info.json
 
   helium_gateway -c gw-$gw \
     add --mode dataonly \
       --owner $WALLET \
       --payer $WALLET > gw-$gw/add-dataonly.json
-
-  kill $pid
 done
 ```
 
@@ -758,14 +794,7 @@ There is an API call for that status:
 ```bash
 for o in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
   cd $WORKDIR/org-$o/
-
-  # TODO requires helium-console-cli PR#21
   helium-console-cli devices all > status.json
-
-  # ALTERNATIVE:
-  # apikey=$(grep key .helium-console-config.toml | sed 's/^.*"\(.*\)"$/\1/')
-  # curl -H "key: $apikey" \
-  #   https://console.helium.com/api/v1/devices > status.json
 done
 ```
 
@@ -838,6 +867,29 @@ described above may appear at that time.
 retries might be cause for invalidating the affected run for purposes of
 benchmarking.
 
+## Start Multiplexers
+
+This sends every Join request and packet to all gateways.
+
+Device configurations performed earlier per organization already account for
+using the multiplexer.
+
+Run in its own Terminal window:  
+(running in background to be accommodated in a future release)
+
+```bash
+port=1681
+GW_LIST=''
+for gw in $(seq 2 $N_GATEWAYS); do
+  port=$((port + 1))
+  GW_LIST="${GW_LIST} 127.0.0.1:$port"
+done
+
+gwmp-mux --host 1680 --client $GW_LIST > mux.log 2>&1
+```
+
+All gateways will receive all Join and Uplink requests.
+
 ## Spawn Virtual Devices
 
 Launch fleet of virtual devices as a single OS process:
@@ -860,6 +912,40 @@ Note:
 [virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
 causes the device to Join (or re-join) upon each start of the utility.
 (For continuing a previous session, pull-requests there are welcomed!)
+
+## Watch Devices
+
+The `metrics_port` associated with each running instance of
+`virtual-lorawan-device` may be queried via HTTP GET.  For bulk requests:
+
+```bash
+metrics() {
+  time=$(date +%Y-%m-%dt%H:%M:%S)
+  for o in $(seq --format="%02g" $N_ORGS); do
+    port=$(grep metrics_port org-$o/settings/settings.toml | awk '{print $3}')
+    curl http://localhost:$port/ > org-$o-stats-$time.txt
+  done
+}
+```
+
+Run:
+
+```bash
+metrics
+```
+
+Useful statistics to observe while everything is running may be determined
+by counting the following log entries for determining success ratios sampled
+over duration of each benchmarking run.
+
+Logs of virtual-lorawan-device:
+
+- "No Join Accept Received"
+- "sending packet"
+- "RxWindow expired, expected ACK to confirmed uplink not received"
+
+Logs from gateway-rs for each packet indicate that the packet has been
+queued but not necessarily delivered to router.
 
 ## Watch A Single Device
 
