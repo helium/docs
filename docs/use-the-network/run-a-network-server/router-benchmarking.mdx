@@ -382,32 +382,33 @@ This pair of latitude and longitude values will be used below.
 
 ## Create Devices via Console API
 
-Values for example devices below are valid and may be copied.
+Each device across all organizations must have *unique* Dev EUI, App EUI and
+App Key.
 
-For multiple devices within the same organization, only the Dev EUI and name
-parameters need to differ.  App EUI and App Key must be unique across
-different organizations.
+For reference, see
+[LoRaWAN](https://lora-alliance.org/lorawan-for-developers/)
+*Link Layer Specification* sections as of v1.0.4:
 
-Ensure using organization ID and app-key as presented within the Console UI.
+- 6.2.1 End-device identifier (DevEUI)
+- 6.2.3 Application key (AppKey)
+  + and its footnote which implies the uniqueness constraint
+
+By using **an isolated instance** of router, we may generate identifiers:
 
 ```bash
-cd $WORKDIR/org-01/
+cd $WORKDIR
 
-for d in $(seq --format="%03g" $FIRST_DEV $N_DEVICES); do
-    helium-console-cli device create \
-      6081F9AF355EDE29 \
-      87653070BE490D1780C830DA0CD28AFC \
-      6000000000000$d \
-      benchmark-$d
+for org in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
+  for dev in $(seq --format="%03g" $FIRST_DEV $N_DEVICES); do
+    (cd org-$org && \
+     helium-console-cli device create \
+       6a000000000$org$dev \
+       600000000000000000000000000$org$dev \
+       6d000000000$org$dev \
+       benchmark-$dev || echo "org=$org device=$dev" >> errors.log)
+  done
 done
 ```
-
-(On subsequent runs when `$FIRST_DEV` is larger than 1, make use of:  
-`jq .devices[0].app_eui org-01/devices.json` and  
-`jq .devices[0].app_key org-01/devices.json`  
-for first and second parameters following "device create", respectively.)
-
-**Repeat** for each of your organizations.
 
 Confirm:
 
@@ -463,6 +464,12 @@ Returns JSON, which when formatted via `jq .` resembles the following.
 }
 ```
 
+Confirm consistent number of devices generated across organizations:
+
+```bash
+wc -l org-*/devices.json
+```
+
 The value of `"oui"` in output above should correspond to your value for
 `$ROUTER_OUI`.
 
@@ -508,6 +515,7 @@ for o in $(seq $N_ORGS); do
   echo 'default_server = "dev"'                > $out
   # Must be unique across all instances of virtual-lorawan-device:
   metrics_port=$((9898 + o))
+  echo 'metrics_server = "127.0.0.1"'          >> $out
   echo 'metrics_port = '$metrics_port          >> $out
   echo ''                                      >> $out
 
@@ -532,7 +540,7 @@ for o in $(seq $N_ORGS); do
     device=$(printf "%03g" $d)
     echo ''                                    >> $out
     echo "[device.${device}]"                  >> $out
-    echo secs_between_transmits = 15'          >> $out
+    echo 'secs_between_transmits = 15'         >> $out
     echo 'packet_forwarder = "mux"'            >> $out
     # Optional round-robin allocation:
     #i=$(( (d % N_GATEWAYS) + FIRST_GW ))
@@ -548,8 +556,8 @@ done
 ```
 
 Some `'packet_forwarder` lines are intentionally commented-out above,
-because there may be occasions for using the multiplexer versus connecting
-to a specific gateway directly.
+because there might be occasions for connecting to a specific gateway
+directly rather than using the multiplexer.
 
 Sanity check:
 
@@ -908,6 +916,8 @@ done
 
 While waiting for the outer loop to finish, watch your graphs; e.g, Grafana.
 
+Optionally set `RUST_LOG=debug` environment variable for verbose logs.
+
 Note:
 [virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
 causes the device to Join (or re-join) upon each start of the utility.
@@ -922,7 +932,8 @@ The `metrics_port` associated with each running instance of
 metrics() {
   time=$(date +%Y-%m-%dt%H:%M:%S)
   for o in $(seq --format="%02g" $N_ORGS); do
-    port=$(grep metrics_port org-$o/settings/settings.toml | awk '{print $3}')
+    port=$(grep metrics_port $WORKDIR/org-$o/settings/settings.toml | \
+           awk '{print $3}')
     curl http://localhost:$port/ > org-$o-stats-$time.txt
   done
 }
