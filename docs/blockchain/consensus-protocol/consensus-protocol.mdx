@@ -65,7 +65,7 @@ censorship-resistant transactions.
 
 ## The Consensus Group Election
 
-A new Consensus Group \(CG\) is elected once per epoch. Currently there are `40` members elected to each consensus group, as defined in the `num_consensus_members` chain variable. 
+A new Consensus Group \(CG\) is elected once per epoch. Currently there are `43` members elected to each consensus group, as defined in the `num_consensus_members` chain variable. 
 
 :::info 
 
@@ -80,10 +80,12 @@ At the end of each epoch, mining rewards are distributed by the consensus group 
 
 During the course of any epoch, Hotspots are rewarded for the following list of activities:
 
-* Submitting valid proof of coverage challenges \(as a “challenger”\)
 * Successful participation in proof of coverage as a target \(as a “challengee”\) 
 * Witnessing a proof of coverage challenge
 * Transferring device data over the network 
+
+During the course of any epoch, Validators are rewarded for the following list of activities per changes from [HIP 55](https://github.com/helium/HIP/blob/main/0055-validator-challenges.md):
+* Submitting valid proof of coverage challenges \(as a “challenger”\)
 * Serving as consensus group member
 
 The Consensus Group then splits `6%` of all HNT mined, as well as any transaction fees collected during the epoch.
