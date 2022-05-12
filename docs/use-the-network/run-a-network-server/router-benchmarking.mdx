@@ -6,7 +6,7 @@ slug: /use-the-network/run-a-network-server/router-benchmarking
 
 # Router Benchmarking
 
-This measures load by steadily increasing LoRaWAN traffic on a
+This measures load by increasing LoRaWAN traffic in steps on a
 [Helium Router](https://github.com/helium/router)
 to find its threshold of capacity for a given server instance.
 
@@ -22,6 +22,12 @@ For these instructions, each dependency is installed beneath `~/helium/`,
 and **Bash** shell syntax on Linux is used below.
 
 **Order of operations is significant.**
+
+Challenges can arise due to the nature of simulation, much like watching the
+shadows of Plato's *Allegory of the Cave* rather than seeing the true cause.
+Therefore, any defects observed or suspected should be
+[flagged](https://github.com/helium/router/issues)
+by the community-- please!  Then we all benefit from the corrections.
 
 ## Dependencies
 
@@ -531,7 +537,7 @@ for o in $(seq $N_ORGS); do
   #  gateway=$(printf "%02g" $gw)
   #  echo "[packet_forwarder.gw${gateway}]"     >> $out
   #  port=$((1680 + gw))
-  #  echo 'host = "localhost:${port}'"'         >> $out
+  #  echo 'host = "localhost:'${port}'"'        >> $out
   #  echo 'mac = "08070605040302'${gateway}'"'  >> $out
   #done
 
@@ -540,7 +546,11 @@ for o in $(seq $N_ORGS); do
     device=$(printf "%03g" $d)
     echo ''                                    >> $out
     echo "[device.${device}]"                  >> $out
-    echo 'secs_between_transmits = 15'         >> $out
+    seconds=$((20 + d % 20))
+    echo 'secs_between_transmits = '$seconds   >> $out
+    frames=$((100 + d % 30))
+    echo 'rejoin_frames = '$frames             >> $out
+
     echo 'packet_forwarder = "mux"'            >> $out
     # Optional round-robin allocation:
     #i=$(( (d % N_GATEWAYS) + FIRST_GW ))
