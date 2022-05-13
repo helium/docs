@@ -943,6 +943,12 @@ module.exports = {
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-light',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-co2',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-pressure',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2100-data-logger',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2101-tem-humid',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2102-light',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2103-co2-tem-humid',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2104-soil-mois-tem',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2105-soil-mois-tem-ec',
       ],
 
       collapsed: false,
@@ -961,7 +967,8 @@ module.exports = {
         'use-the-network/devices/development/seeed-studio/loramodule-e5',
         'use-the-network/devices/development/seeed-studio/loramodule-e5-devkit',
         'use-the-network/devices/development/seeed-studio/loramodule-e5-mini',
-        'use-the-network/devices/development/seeed-studio/loramodule-e5-grove'
+        'use-the-network/devices/development/seeed-studio/loramodule-e5-grove',
+        'use-the-network/devices/development/seeed-studio/seeed-studio-lorawan-dev-kit'
       ],
 
       collapsed: false,
