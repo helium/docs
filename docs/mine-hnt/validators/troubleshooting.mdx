@@ -38,6 +38,29 @@ Syncing to the blockchain could be impacted for the following reasons:
 * your validator is disconnecting
 * you just launched an AMI instance (if using AWS)
 
+## Confirm Light Hotspot ports are open remotely
+To check if your ports are open on the validator you will need a machine on a completely seperate network from the host that you have chosen to test.  
+
+If you have a Windows machine you can use Powershell to test the port by using `Test-NetConnection <ip> -Port 8080`.
+
+```
+   ComputerName     : <ip>
+   RemoteAddress    : <ip>
+   RemotePort       : 8080
+   InterfaceAlias   : vEthernet (New Virtual Switch)
+   SourceAddress    : <local ip>
+   TcpTestSucceeded : True
+```
+
+If you have a Linux Computer you can use the CLI and `nc` to test the port by using `nc -zv -w 2 <ip> 8080`
+
+```
+   Connection to 23.100.120.236 8080 port [tcp/http-alt] succeeded!
+```
+:::tip
+This also works for your Validator 2154 port, just swap it in for the 8080 above!
+:::
+
 ## Check block absorb times
 * Run ```tail -n 500 -f $HOME/validator_data/log/console.log | grep -E 'add_block|validation took'``` and monitor it for several minutes to confirm blocks are being absorbed.
   * The fastest validators have an average `validation took` time below 1,000ms. Absorb times higher than 3,000-5,000ms are not out of the norm, but consistently higher absorb times can indicate an issue with your Internet connectivity, disk or CPU speed. Absorb times approaching 60 seconds may prevent your validator from catching up to the tip of the chain, as new blocks are created approximately every 60s. 
