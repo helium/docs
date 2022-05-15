@@ -83,7 +83,7 @@ The output will look similar to this:
 
 ## Each Validator Requires 10000 HNT
 
-Running a Validator on Mainnet requires a stake of `10000 HNT` per Validator. After you've created your wallet, transfer a little more than `10000 HNT` into it for each Validator you intend to run.
+Running a Validator on Mainnet requires you to stake `10000 HNT` per Validator, so you need to already own 10,000 HNT before you can stake a Validator. After you've created your wallet, transfer `10001 HNT` into it for each Validator you intend to run (the extra 1 HNT covers the staking transaction fee).
 
 :::info
 
@@ -108,10 +108,13 @@ If nothing is returned from this command, your host system does not have AVX sup
 
 :::
 
-You have two options for deploying the Validator. You just need to do ONE of the following:
+You have three options for deploying the Validator. The deb package, a community member maintained package by PaulVMo, is the least complex to deploy and has very high performance. The Source build has the highest level of complexity to deploy, requires a higher level of Linux technical expertise, and also has very high performance. The docker version is less complex to deploy than Source, if you already have experience with Docker, but does not perform as well as the other two options. You only need to do ONE of the following:
 
-- [Deploy the Validator Using Docker](#deploy-the-miner-using-docker)
-- [Build the Validator form Source](#deploy-miner-from-source)
+- [Deploy the Validator from deb package](https://github.com/PaulVMo/helium-validator-deb)
+- [Deploy the Validator Using Docker](#deploy-the-validator-using-docker)
+- [Build the Validator from Source](#deploy-validator-from-source)
+
+NOTE: After deploying the deb package, come back to this page to perform the remaining steps starting at [Enable Firewall on the server](#enable-firewall-on-the-server)
 
 ### Deploy the Validator Using Docker
 
@@ -168,11 +171,12 @@ quay.io/team-helium/validator:latest-validator-amd64
 - `--mount` the parameters above will mount the container's `/var/data/` directory to the systems directory `$HOME/validator_data`. You will want this folder to be persistent across runs of the docker container as it will contain both the blockchain data and the miner key of your Validator.
 - `quay.io/team-helium/validator:latest-validator-amd64` Lastly, this points to the docker **_image_** for the Validator that is tagged as the "latest" for the amd64 architecture. For arm architectures, replace with `latest-validator-arm64`.
 
-Additional flags that may be helpful:
-
-- `-e "NAT_INTERNAL_IP=192.168.0.139"` If your host machine is behind a firewall that is performing network address translation (NAT), adding this flag will assist the Validator to quickly determine the IP address of the host machine. Replace the IP with yours from `ip addr`. This goes hand-in-hand with the following flag:
-- `-e "NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )"` This also assists the Validator in quickly identifying the external IP of the NAT. The `curl` commmand simply queries an external provider and returns the public IP address of the interface. You can remove this and replace with your external IP if it is known and will not change (static IP).
-- Similar commands are available with `NAT_INTERNAL_PORT` and `NAT_EXTERNAL_PORT` if any port translations are occuring. If not, these may be omitted.
+Additional flags if your host machine is behind a firewall that is performing Network Address Translation (NAT):
+Adding all four of these flags will assist the Validator to quickly determine the external IP address of the host machine. You must add all four flags for any of them to take effect:
+- `-e "NAT_INTERNAL_IP=192.168.0.139"` Replace the IP with your local IP shown when running `ip addr`.
+- `-e "NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )"` This  assists the Validator in quickly identifying the external IP of the NAT. The `curl` command simply queries an external provider and returns the public IP address of the interface. You can replace the `$( curl -s ipv4.icanhazip.com )` with your external IP, if you know what your external IP is and know that it will not change (static IP).
+- `-e "NAT_INTERNAL_PORT=2154"` Replace the port number with the port you've assigned to the validator, if not using the default 2154. 
+- `-e "NAT_EXTERNAL_PORT=2154"` Replace the port number with the port you've opened on the firewall, if not using the default 2154.
 
 Once you run the command above, docker will retrieve the latest Validator image, and start the docker process. Barring any errors, your Validator is running.
 
@@ -222,7 +226,7 @@ Now that you have your Validator running, you need to [actually Stake tokens to 
 
 :::
 
-### Deploy Miner from Source
+### Deploy Validator from Source
 
 Ok, brave soul. Here's what you'll need to build and deploy the miner from source:
 
@@ -278,6 +282,19 @@ sudo dpkg -i esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
 sudo apt-get install -f
 ```
 
+We also need to use a newer version of Rust. The one that comes by default with Ubuntu will not work.
+
+```
+#Remove rustc so we can install a newer version
+sudo apt -y remove rustc
+
+#Install newer version of rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-host x86_64-unknown-linux-gnu --default-toolchain stable --profile complete -y
+
+#This allows you to proceed without logging out and logging in on the server
+source $HOME/.cargo/env
+```
+
 Then navigate to your `miner` directory:
 
 ```
@@ -307,6 +324,23 @@ miner genesis load </absolute/path/to/genesis/block>
 
 Note that in the above `miner` command, the `miner` binary here is nested within `_build/validator/rel/miner/bin/miner`.
 
+#### Enable Firewall on the server
+
+It's good practice to restrict access to the server and you should allow access only to ports that are needed. If you also use node_exporter or a different type of exporter for monitoring, you should add those ports as well.
+
+```
+#Enable Firewall
+sudo ufw enable
+
+#Allow connections to SSH Port. It's good practice to use a different port other than 22 for ssh connections
+sudo ufw limit 22/tcp
+
+#Allow connections to the Validator default port
+sudo ufw allow 2154/tcp
+
+#Allow connections for Light Hotspots
+sudo ufw allow 8080/tcp
+```
 #### A Note on Errors
 
 Source builders have sometimes reported error messages (after the miner has been running well for a while) referencing `Too many open files`. This can occur when a `ulimit` limitation is exceeded for the number of open files.
@@ -315,13 +349,17 @@ You can check your soft limit (often `1024` by default) with:
 
 ```ulimit -Sn```
 
-Specifics instructions to increase the `ulimit` vary by OS (readily found with a Google search) and are beyond the scope of this guide.
+Specifics instructions to increase the `ulimit` vary by OS (readily found with a Google search) and are beyond the scope of this guide. The generally accepted number among the Validator community is to set this to 128000 and ensure it is persistent across reboots.
 
 ## Stake HNT to Your Validator
 
 Now that your Validator node is running, the final step in the process is to formally stake HNT to your Validator. As part of the staking process the Validator address needs to both be in the staking transaction and sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
 
-First, double check your wallet balance to make sure you have the `10000` HNT required to stake, along with a few extra to cover the transaction fees.
+:::info
+
+First, double check your wallet balance to make sure you have the `10000` HNT required to stake, **along with a few extra to cover the transaction fees**.
+
+:::
 
 ```
 helium-wallet balance
@@ -345,7 +383,7 @@ The resulting output will look like this (except with your specific validator ad
 /p2p/1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR
 ```
 
-We can now use this address with the Helium Wallet CLI `validators stake` command to formally stake the `10000 HNT` required. Here's the full command using the Validator address from above as an example. (**Make sure you replace it with yours.**)
+We can now use this address with the Helium Wallet CLI `validators stake` command to formally stake the `10000 HNT` required **along with extra to cover the fee**. Here's the full command using the Validator address from above as an example. (**Make sure you replace it with yours.**)
 
 ```
 helium-wallet validators stake one 1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR 10000 --commit
@@ -355,11 +393,63 @@ After running this, you'll need to input your wallet passphrase to sign the tran
 
 And with that, you're done. Congratulations! You're running a Helium Validator on Mainnet!
 
+## Overriding Default Configuration
+
+Depending on your deployment, you may wish to override default configuration of
+the validator. There are multiple ways to edit the configuration including
+setting environment variables and overlaying the config files.
+
+### Environment Variables
+
+At runtime, the miner startup process will read the following environment
+variables and, if present, override the default values. This is the most
+straightforward way to configure your validator. Environment variables may be
+set in the shell session used to launch the miner, within a systemd service
+file, part of a docker run command, or included in a docker-compose file.
+
+- LISTEN_ADDRESS (default: `/ip4/0.0.0.0/tcp/2154/`) - the address that the
+  miner will listen to on the P2P network; currently only a single IP4 address
+  is supported and it must be in
+  [multiaddr](https://github.com/multiformats/multiaddr) format. This address
+  must be publicly accessible.
+- BASE_DIR (default: `data`) - Directory location of data files. May be absolute
+  or relative path. Relative paths are relative to miner install location.
+- LOG_ROOT (default: `log`) - Directory location of log files. May be absolute
+  or relative path. Relative paths are relative to miner install location.
+- UPDATE_DIR (default: `/opt/miner/update`) - Location that the miner looks in
+  for a genesis block on startup. If a new genesis block found, the existing
+  data dir will be removed and the new genesis block loaded.
+- HOTFIX_DIR (default: `/opt/miner/hotfix`) - Location that the miner looks in
+  for code hotfixes.
+- GRPC_PORT (default: `8080`) - Port used by light gateways to interact with the
+  validator. This port must be publicly accessible.
+- JSONRPC_IP (default: `127,0,0,1`) - IP address that the JSON RPC endpoint
+  listens on. JSRONRPC is used for monitoring and interacting with the 
+  validator.
+- JSONRPC_PORT (default: `4467`) - Port number that the JSON RPC endpoint
+  listens on.
+- VALIDATION_WIDTH - Maxium number of concurrent transaction validations that
+  the miner will do when absorbing blocks. Default is N/2 + 1 where N is the
+  number of Erlang schedulers which is by default the number of CPUs/vCPUs.
+- SIDECAR_PARALLELISM_LIMIT (default: `3`) - Maximum number of concurrent
+  transaction validations the miner will attempt while in consensus group.
+
+### Erlang sys.config overlay
+
+For more advanced configuration of the miner process, the Erlang application
+configuration files can be also be edited. For this approach, it is recommend to
+add or update configuration parameters to
+`releases/<version number>/sys.config.src`. This file overlays (overrides)
+configuration on the base config file which is `config/sys.config` which
+includes all parameters used by the miner.
+
 ## Verifying Validator Victory
 
 Now that you're up and running with a Validator, there are a few things you can examine to make sure things are hunky dory.
 
 ### Time Expectations
+
+Before your Validator will show Online status in Explorer, it must first sync up to the tip of the chain AND send a Heartbeat. The first Heartbeat will not be sent until after it syncs to the tip of the chain. You can check to see when your first heartbeat is sent within Explorer, on the Activity tab for your Validator.
 
 The blockchain takes time. The distributed nature of verifying transactions into the blockchain takes time.  The validator information gossiped on the blockchain takes time.  APIs that run to update the [explorer](https://explorer.helium.com) are scheduled and have intervals.  Basically, you won't be able to run the validator and instantly see that everything is "good".
 
@@ -470,6 +560,9 @@ The `swarm_key` equates to your validator's unique identity on the Helium blockc
 
 ### Check the Explorer
 
-Head over to the [Validator Mainnet Explorer](https://explorer-beta.helium.com/validators) and search for your Validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked before it appears on explorer. You should see your 3-word validator name (`short-umber-bull` in the example above) listed. It may be easier to sort by `#`, descending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`.
+Head over to the [Validator Mainnet Explorer](https://explorer.helium.com/validators) and search for your Validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked before it appears on explorer. You should see your 3-word validator name (`short-umber-bull` in the example above) listed. It may be easier to sort by `#`, descending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`.
+
+### Troubleshooting Guide
+If your validator does not show online in Explorer after 24 hours, view the [Validator Troubleshooting Guide](https://docs.helium.com/mine-hnt/validators/troubleshooting) here.
 
 Thank you for being a part of the Helium Validators initiative.

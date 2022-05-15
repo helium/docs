@@ -11,7 +11,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 # Coverage Mapping
 
-Coverage mapping is a crowd-sourced effort to build a true-signal coverage map of the Helium network across the globe. By mapping real-world coverage, network users can understand where sensor deployments are likely to have success connecting to Helium.
+The [Mappers Coverage map](https://mappers.helium.com) is a crowd-sourced effort to build a true-signal coverage map of the Helium network across the globe. By mapping real-world coverage, network users can understand where sensor deployments are likely to have success connecting to Helium.
 
 > Coverage mapping should only be done from ground level, or slightly above it. We would like the map to indicate the expected coverage a standard sensor device would experience. If you want to fly a GPS tracker on a balloon or aircraft, please do not contribute this data to the coverage map.
 
@@ -80,6 +80,8 @@ There are a wide variety of ways to get involved depending on your level of comf
 Fully managed mapping devices are ready to use as soon as they arrive.  These are pre-configured and enrolled by the seller, and not your own Helium Console.  The Data Credits are provided by the seller, and the devices have pre-selected back-end Integrations that are not user-configurable.  Generally, these devices are the most easy and accessible, requiring just power to start mapping.
 * IoWe Coverage Mapper
     * [Product page](https://www.internetofwe.net/product-page/helium-coverage-mapper)
+* Wio Terminal LoRaWAN Field Tester
+    * [Product page](https://www.seeedstudio.com/WioField-Tester-Kit-p-5282.html)
 
 ### Plug & Play
 Console-ready device that you onboard to spend your own Data Credits.
@@ -95,9 +97,6 @@ The [Mappers Quickstart](/use-the-network/coverage-mapping/mappers-quickstart) g
 * Glamos Walker
     * [Product page](https://glamos.eu/product/walker/)
     * [Glamos Walker tutorial](https://glamos.eu/manual/)
-* RAK Wireless Helium Mapper Kit
-    * [Product page](https://store.rakwireless.com/products/helium-mapper-kit?variant=41259355701446)
-    * [RAK Helium Mapper Kit tutorial](https://news.rakwireless.com/make-a-helium-mapper-with-the-wisblock/)
 * RAK Wireless RAK7200 
     * [Product page](https://store.rakwireless.com/products/rak7200-lpwan-tracker?variant=29669491867693)
 
@@ -109,6 +108,7 @@ Flash your own code, add the device to your Helium Console, and spend your own D
     * [Product page](https://heltec.org/project/htcc-ab02s/), [Product page via Parley Labs](https://shop.parleylabs.com/collections/iot-developers-products/products/cubecell-gps-6502-by-heltec-htcc-ab02s), [IoWE DIY Kit](https://www.internetofwe.net/product-page/diy-coverage-mapper-kit-us915)
     * [Heltec Cubecell (jas_williams)](https://github.com/jas-williams/CubeCell-Helium-Mapper)
     * [Heltec Cubecell (kicko)](https://github.com/hkicko/CubeCell-GPS-Helium-Mapper)
+    * [Heltec Cubecell (Max_Plastix)](https://github.com/Max-Plastix/CubeCell-GPS-Helium-Mapper) Alternate UI and behavior
 * LILYGO TTGO T-Beam
     * ESP32 with LoRa, WiFi, Neo-6M GPS, BlueTooth, SMA Antenna, 18650 Battery holder and 0.96" OLED screen.
     * There are multiple versions of the TTGO T-Beam available.  Version `v1.1` is recommended, and often sold with the Meshtastic software pre-loaded.
@@ -118,6 +118,9 @@ Flash your own code, add the device to your Helium Console, and spend your own D
     * [TTGO T-Beam (hekopath)](https://github.com/hekopath/ttgo-rev1-helium)
     * [TTGO T-Beam (tmiklas)](https://github.com/tmiklas/tbeam-helium-mapper)
     * [TTGO T-Beam (Max_Plastix)](https://github.com/Max-Plastix/tbeam-helium-mapper)
+ * RAK Wireless Helium Mapper Kit
+    * [Product page](https://store.rakwireless.com/products/helium-mapper-kit?variant=41259355701446)
+    * [RAK Helium Mapper Kit tutorial](https://news.rakwireless.com/make-a-helium-mapper-with-the-wisblock/)
  * Helium Dev Kit / RAK WisBlock 
     * [Product page via RAKWireless](https://store.rakwireless.com/products/helium-developer-kit), [Product page via ParleyLabs](https://shop.parleylabs.com/collections/iot-developers-products/products/helium-wisblock-connected-kit)
     * [Helium Dev Kit tutorial (arkieguy)](https://github.com/arkieguy/RAK4631-Helium-Mapper)
@@ -125,6 +128,30 @@ Flash your own code, add the device to your Helium Console, and spend your own D
  * Ingenious Things Mapper (disk91)
     * [Product page](https://shop.ingeniousthings.fr/products/helium-lorawan-field-tester-and-mapper-kit)
     * [Disk91 Mapper tutorial](https://www.disk91.com/2021/technology/lora/low-cost-lorawan-field-tester/)
+
+### Device comparisons
+Which hardware platform to select for DIY?  Two common and inexpensive platforms are the CubeCell GPS-6502 and LilyGo TTGO T-Beam v1.1.  Here are some approximate comparisons:
+
+| | CubeCell GPS-6502 | TTGO T-Beam |
+| --- | --- | --- |
+| Cost (USD) |  $33 (Parley Labs) | $35 Amazon or $25 AliExpress |
+| Size | Smaller | 2x Longer |
+| Battery | Add ~1000mA LiPo plug-in | 18650 LiIon cell holder |
+| Power Switch | None | Power Button / PMU |
+| Battery Charger | Hardware USB charger | PMU programmable charger |
+| GPS | Air530Z | uBlox Neo-6M |
+| Operating Current | TBD | 110mA |
+| Connector | microUSB side | microUSB bottom |
+| Buttons | 2: Menu, Reset | 3: Power/Menu, Select, Reset |
+| GPS Antenna | on-board ceramic + IPEX external connector | Included active antenna on IPEX |
+| LoRa Antenna | Wire-coil IPEX antenna | SMA with included stubby or 10cm antenna |
+| Display | 0.96" OLED, installed | 0.96" OLED, DIY Solder 4-pin |
+| LEDs | Green GPS Fix, RGB LED, Red Charging | Red GPS Fix, Blue & Red programmable |
+| Processor | ASR6502 / Cypress PSoC 4000 | ESP32 |
+| LoRa Radio | SX1262 | SX1278/76 |
+| PMIC | -none- | AXP192 |
+| Open Source | parts | yes |
+| WiFi & Bluetooth | no | yes |
 
 ### Configuration Basics
 At its core, contributing to Helium Mappers is just a matter of delivering a specific payload through the console. Learn more about the [Mappers API](/use-the-network/coverage-mapping/mappers-api).

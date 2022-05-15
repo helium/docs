@@ -1,8 +1,7 @@
 ---
 id: deploy-console
-hide_title: true
 sidebar_label: Deploy Console
-slug: /use-the-network/deploy-console
+slug: /use-the-network/run-a-network-server/deploy-console
 ---
 
 # Deploying Console
@@ -14,7 +13,7 @@ Getting [Console](https://github.com/helium/console) deployed is very similar to
 
 Auth0 requires being run over https. You can get a certificate on your server
 through [Let's Encrypt](https://letsencrypt.org/getting-started/) by following
-(this certbot guide)[https://certbot.eff.org/instructions].
+[this certbot guide](https://certbot.eff.org/instructions).
 
 "My HTTP website is running 'Web Hosting Product' on 'Ubuntu 18.04 LTS
 (bionic)'" Was used when writing this guide. Follow the steps, and note where
@@ -24,13 +23,10 @@ your certificates are placed, they'll be used later in nginx.
 
 Grab the server docker-compose file
 ```
-cp templates/docker-compose-server.yaml docker-compose.yaml
+cp templates/docker-compose-quay.yaml docker-compose.yaml
 ```
 
 This docker-compose offers an nginx container to proxy traffic through.
-
-Edit your `docker-compose.yaml` and update `socket_check_origin` to match your
-host name.
 
 If letsencrypt put your certificate in a place other than `/etc/letsencrypt/`,
 be sure to update the `volumes` for the nginx container in

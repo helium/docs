@@ -25,7 +25,9 @@ module.exports = {
           'mine-hnt/full-hotspots/full-hotspots',
 		  'mine-hnt/light-hotspots',
           'mine-hnt/data-only-hotspots',
-          'mine-hnt/validators/validators'
+          'mine-hnt/validators/validators',
+          'mine-hnt/maker-apps',
+          'mine-hnt/understanding-hotspot-status'
       ],
       collapsed: true,
     },
@@ -46,6 +48,7 @@ module.exports = {
           'use-the-network/use-the-network',
           'use-the-network/devices/devices',
           'use-the-network/console/console',
+          'use-the-network/roaming/roaming',
           'use-the-network/run-a-network-server/run-a-network-server',
           'use-the-network/setup-a-packet-forwarder',
           'use-the-network/community-projects/community-projects',
@@ -121,7 +124,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Console',
-      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/alerts', 'use-the-network/console/multi-packets', 'use-the-network/console/profiles', 'use-the-network/console/flows/flows', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/coverage', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting'],
+      items: ['use-the-network/console/quickstart', 'use-the-network/console/users', 'use-the-network/console/data-credits', 'use-the-network/console/adding-devices', 'use-the-network/console/migrating-devices/migrating-devices', 'use-the-network/console/labels', 'use-the-network/console/debug', 'use-the-network/console/alerts', 'use-the-network/console/multi-packets', 'use-the-network/console/profiles', 'use-the-network/console/flows/flows', 'use-the-network/console/functions', 'use-the-network/console/integrations/integrations', 'use-the-network/console/coverage', 'use-the-network/console/console-cli', 'use-the-network/console/console-api','use-the-network/console/my-account', 'use-the-network/console/troubleshooting', 'use-the-network/console/hosting-providers'],
       collapsed: false,
     }
   ],
@@ -186,7 +189,7 @@ module.exports = {
       {
           type: 'category',
           label: 'Run a Network Server',
-          items: ['use-the-network/run-a-network-server/buy-an-oui/buy-an-oui', 'use-the-network/run-a-network-server/run-console/run-console'],
+          items: ['use-the-network/run-a-network-server/buy-an-oui', 'use-the-network/run-a-network-server/run-console', 'use-the-network/run-a-network-server/deploy-console','use-the-network/run-a-network-server/debug-with-sniffer'],
           collapsed: false,
       },
   ],
@@ -940,6 +943,12 @@ module.exports = {
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-light',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-co2',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-pressure',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2100-data-logger',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2101-tem-humid',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2102-light',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2103-co2-tem-humid',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2104-soil-mois-tem',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2105-soil-mois-tem-ec',
       ],
 
       collapsed: false,
@@ -958,7 +967,8 @@ module.exports = {
         'use-the-network/devices/development/seeed-studio/loramodule-e5',
         'use-the-network/devices/development/seeed-studio/loramodule-e5-devkit',
         'use-the-network/devices/development/seeed-studio/loramodule-e5-mini',
-        'use-the-network/devices/development/seeed-studio/loramodule-e5-grove'
+        'use-the-network/devices/development/seeed-studio/loramodule-e5-grove',
+        'use-the-network/devices/development/seeed-studio/seeed-studio-lorawan-dev-kit'
       ],
 
       collapsed: false,

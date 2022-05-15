@@ -116,7 +116,7 @@ to the Dragino.
    `scp helium-gateway-<version>-dragino.ipk <dragino ip>:/tmp/`.
 3. Install the Helium Gateway package
    `opkg install /tmp/helium-gateway-<version>-dragino.ipk`.
-4. Backup your key file `/etc/helium_gateway/keypair.bin` and keep in a safe
+4. Backup your key file `/etc/helium_gateway/gateway_key.bin` and keep in a safe
    place. This will be needed to recover this gateway especially if it is
    onboarded to the blockchain.
 
@@ -167,12 +167,10 @@ Server settings are configured for the TTN EU server which will also provide
 acknowledgment. However, the absence of acknowledgment could indicate the the
 LoRaWAN settings are not correct per the above.
 
-## COMING SOON: Onboard as Data-Only Hotspot
+## Onboard as Data-Only Hotspot
 
-As part of Milestone 1.5 of the Light Gateway project roadmap, you will be able to
-onboard data only hotspots such as the Dragino to appear on the coverage map, and then,
-in Milestone 2, earn HNT for data transfers (but not for Proof of Coverage). See
-[Light Hotspots - BETA](/mine-hnt/light-hotspots) for
+As part of the Light Hotspot project, a new class of Hotspots called "Data-Only Hotspots" can be added to the blockchain, meaning Dragino LPS80/DLOS8 Hotspots can be added to the Network. These Hotspots can mine HNT for transferring data but never for Proof-of-Coverage. See
+[Light Hotspots](/mine-hnt/light-hotspots) for
 more information. This process will require using the Helium
 [command-line interface (CLI) Wallet](https://github.com/helium/helium-wallet-rs)
 to submit the onboarding and assert location transactions.

@@ -65,49 +65,6 @@ In the App, for any Hotspot, tap on Hotspots Witnessed and you'll find the avera
 ### Witness List Resets 
 Any time a Hotspot updates its location, antenna, or elevation, the list automatically resets. This does not affect earnings.
 
-## Relayed Hotspots and the importance of opening ports
-
-Relayed Hotspots do not just affect the Hotspot owner, but can affect its neighbors and the network.
-
-### Relayed Hotspot as a Challenger
-When a Hotspot that is relayed issues a challenge, the receipt (or acknowledgement of the challenge) by the challengee and witnessing Hotspots may not arrive in time to be accepted. Why? Because the receipt has to traverse various other Hotspot connections in order to arrive at the relayed challenger.
-
-Any witnesses that heard the beacon will have issues submitting their receipts to the challenger in a timely manner.
-
-The Challenger does not earn HNT, Challengee (Beaconer) does not earn HNT, witnesses do not earn HNT.
-
-<img src={useBaseUrl("img/wallets/helium-app/challenger-relayed.png")} />
-Thanks to @oktyvm for these awesome graphics!
-
-
-
-### Relayed Hotspot as a Challengee (Beaconer)
-A Challenger that sends a request to the Challengee expects an acknowledgement or a receipt by the Challangee within a certain period of time. If the Challengee is relayed, the initial request can take too long to arrive at the relayed Hotspot, and the request becomes stale and invalid. 
-
-The Challenger does not earn HNT, Challengee (Beaconer) does not earn HNT.
-
-<img src={useBaseUrl("img/wallets/helium-app/beaconer-relayed.png")} />
-Thanks to @oktyvm for these awesome graphics!
-
-
-
-### Relayed Hotspot as a Witness
-Hotspots that witness Beacons have to submit their receipt to the Challenger in a timely manner in order to earn HNT. If the witnessing Hotspot is relayed, then they are unlikely to submit their receipt in time.
-
-<img src={useBaseUrl("img/wallets/helium-app/witness-relayed.png")} />
-Thanks to @oktyvm for these awesome graphics!
-
-
-
-
-
-:::info
-
-To figure out if your Hotspot is relayed, check explorer, the app, or the API itself. Go to api.helium.io/v1/hotspots/:hotspot_address, and look at "listen_addrs". If there is a /p2p/ connection there, the Hotspot is relayed. 
-
-:::
-
-Visit the <a href="https://docs.helium.com/troubleshooting/network-troubleshooting">Network Troubleshooting guide </a>for more information.
 
 # FAQ
 **My Hotspot went from x witnesses to y! What's wrong? I didn't do anything!**
@@ -118,5 +75,5 @@ This is normal! The witnesses in the list is a historical summary of who your Ho
 
 Witnesses reset when a Hotspot updates its location, antenna dBi, or elevation. There is nothing to be concerned about and this will not affect your earnings. Keep in mind that as the network grows, the rewards going to each Hotspot goes lower day over day. 
 
-However, if your Witnessed List is consistently zero without updating your location, antenna gain, or elevation, check your internet connection, that the Hotspot is online, and that there are no obsctructions in the way of the antenna. 
+However, if your Witnessed List is consistently zero without updating your location, antenna gain, or elevation, check your internet connection, that the Hotspot is online, and that there are no obstructions in the way of the antenna. 
 
