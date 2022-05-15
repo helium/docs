@@ -272,7 +272,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Arduino',
+      label: 'Adafruit',
       items: [
         'use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95'
       ],
@@ -290,7 +290,8 @@ module.exports = {
       label: 'Arduino',
       items: [
         'use-the-network/devices/development/arduino/mkr-wan-1310',
-        'use-the-network/devices/development/arduino/lora-vision-shield'
+        'use-the-network/devices/development/arduino/lora-vision-shield/lora-vision-shield',
+        'use-the-network/devices/development/arduino/portenta-h7-with-lora-vision-shield/portenta-h7-with-lora-vision-shield'
       ],
       collapsed: false,
     },
