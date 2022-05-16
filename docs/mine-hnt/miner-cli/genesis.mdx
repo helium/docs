@@ -12,13 +12,26 @@ import TabItem from "@theme/TabItem";
 
 # Genesis Commands
 
-## Listen
+```bash
+Usage: miner genesis commands
 
-```
-miner peer listen
+  genesis create <old_genesis_file> <pubkey> <proof> <addrs>         - Create genesis block keeping old ledger transactions.
+  genesis forge <pubkey> <key_proof> <addrs>                         - Create genesis block from scratch just with the addresses.
+  genesis load <genesis_file>                                        - Load genesis block from file.
+  genesis export <path>                                              - Write genesis block to a file.
+  genesis key                                                        - create a keypair for use as a master key
+  genesis proof <privkey>                                            - create a key proof for adding a master key to the genesis block
+  genesis export_ledger <masterkey> <txn_list_output_path>           - export data from ledger as a list of txns including accounts, gateways, validators and chainvars
+  genesis recreate_ledger <path_to_txn_list> <addrs> <n> <curve>     - run an initial dkg using a txn list exported via 'export_ledger'
 ```
 
-Display the addresses this node is listening on in priority order.
+## Create
+
+```bash
+miner genesis create <old_genesis_file> <pubkey> <proof> <addrs>
+```
+
+Create genesis block keeping old ledger transactions.
 
 <Tabs
   block={true}
@@ -26,11 +39,166 @@ Display the addresses this node is listening on in priority order.
   values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
 <TabItem value="command">
 
-_switches_
+_Switches_
 
 | switch              | parameter | Note                                   |
 | ------------------- | --------- | -------------------------------------- |
-| --format=           | _csv_     | outputs to csv format                  |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| old_genesis_file    | _filename_ | Filename path                        |
+| pubkey              | _b58_    | B58 public aaddress                    |
+| proof               | _unkn_   | Need details                           |
+| addrs               | _unkn_   | Need details                           |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+## Forge
+
+```bash
+miner genesis forge <pubkey> <key_proof> <addrs>
+```
+
+ Create genesis block from scratch just with the addresses.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| pubkey              | _b58_    | B58 public aaddress                    |
+| key_proof           | _unkn_   | Need details                           |
+| addrs               | _unkn_   | Need details                           |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+## Load
+
+```bash
+miner genesis load <genesis_file>
+```
+
+Load genesis block from file.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| genesis_file    | _filename_ | Filename path                            |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+## Export
+
+```bash
+miner genesis export <path>
+```
+
+Write genesis block to a file.
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| path                | _filename_ | Filename path                            |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner genesis export /var/data/genesis
+ok, genesis file written to "/var/data/genesis"
+```
+
+</TabItem>
+</Tabs>
+
+## Key
+
+```bash
+miner genesis key
+```
+
+Create a keypair for use as a master key
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
 
 
 _Parameters_
@@ -42,31 +210,21 @@ _Parameters_
 </TabItem>
 <TabItem value="output">
 
-```
-+--------------------------+
-|listen_addrs (prioritized)|
-+--------------------------+
-|/ip4/30.18.38.196/tcp/2154|
-| /ip4/172.18.0.3/tcp/2154 |
-+--------------------------+
-```
-or
-```
-listen_addrs (prioritized)
-/ip4/30.18.38.196/tcp/2154
-/ip4/172.18.0.3/tcp/2154
+```bash
+$ miner genesis key
+2wAqmjWejxX4ViZv4hZ7XGaX8QSTtFfZwE3Gsgcg3wfhJm8oRcg3bAfadgTduUH3HQLAWRyg77GDSRgU9aC4CFkPswiphuNSh3EfLsQ3efNtWWTfpWRe4SAcNTRsAkbDh2xUxs
 ```
 
 </TabItem>
 </Tabs>
 
-## Session
+## Proof
 
-```
-miner peer session
+```bash
+miner genesis proof <privkey>
 ```
 
-Display the nodes this node is connected to.
+Create a key proof for adding a master key to the genesis block
 
 <Tabs
   block={true}
@@ -74,72 +232,36 @@ Display the nodes this node is connected to.
   values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
 <TabItem value="command">
 
-_switches_
+_Switches_
 
 | switch              | parameter | Note                                   |
 | ------------------- | --------- | -------------------------------------- |
-| --format=           | _csv_     | outputs to csv format                  |
+| none                | _n/a_    | none                                   |
 
 
 _Parameters_
 
 | param               | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| none                | _n/a_    | none                                   |
+| privkey               | _unkn_    | Need info                                  |
 
 </TabItem>
 <TabItem value="output">
 
-```
-+----------------+---------------------+---------------------------------------+-------------------+
-|     local      |       remote        |                  p2p                  |       name        |
-+----------------+---------------------+---------------------------------------+-------------------+
-|/ip4/172.18.0.3/|/ip4/27.50.141.53/tcp|/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4|magnificent-flaxen-|
-|/ip4/172.18.0.3/|/ip4/73.57.11.1/tcp/4|/p2p/1122w6JQCCCPyEXiVh3EsghXAeMkZdcuVT|interesting-velvet-|
-|/ip4/172.18.0.3/|/ip4/173.13.153.185/t|/p2p/1125DtQXhkFGjTK9VP9KtsJiiAMEjM9S2m|  precise-tin-owl  |
-|/ip4/172.18.0.3/|/ip4/217.103.237.36/t|/p2p/1125XATXBAFmzKskxrtUw12avATVsCj1Dz|modern-lava-albatro|
-|/ip4/172.18.0.3/|/ip4/31.20.113.227/tc|/p2p/1127Yukwk8ci37ES5UbZ7DZTax4vLLa2as|fierce-bamboo-scorp|
-|/ip4/172.18.0.3/|/ip4/108.22.224.100/t|/p2p/1127aNUioFZK2RCHMSG8UYeeBBJFCWugbf|bouncy-myrtle-shell|
-|/ip4/172.18.0.3/|/ip4/35.161.222.43/tc|/p2p/1127gHz2sKqNJXQN8an6mNu1U3RusHyXkq| broad-iris-sheep  |
-|/ip4/172.18.0.3/|/ip4/85.230.84.6/tcp/|/p2p/1128EPZpkiXpdcvQVe84T3a6ijpic3kyZW|tangy-tangelo-narwh|
-|/ip4/172.18.0.3/|/ip4/86.85.32.70/tcp/|/p2p/1129Ur8K7mo8v1ytRbzSEvsswRuoF6g8qk|atomic-punch-orangu|
-|/ip4/172.18.0.3/|/ip4/82.127.221.97/tc|/p2p/112AFN6SezTLetmoJBj5Zid84XupKFyjme|damaged-cedar-wease|
-|/ip4/172.18.0.3/|/ip4/104.35.173.151/t|/p2p/112AySdMmbgqorb2md6XqsHZ1W8sschZi7|skinny-viridian-but|
-|/ip4/172.18.0.3/|/ip4/105.12.4.43/tcp/|/p2p/112BHFSMar4Ccba4BuHUeupwht2t1XAdE3| teeny-green-whale |
-|/ip4/172.18.0.3/|/ip4/12.172.82.74/tcp|/p2p/112C5p3cjnKDGXPJ4kLMRKYjt4KjGRGojd|zany-bubblegum-jagu|
-|/ip4/172.18.0.3/|/ip4/73.66.192.223/tc|/p2p/112F5Vk6XAS11vXpPbGqhit8rxy97NwpHn|macho-mercurial-chi|
-+----------------+---------------------+---------------------------------------+-------------------+
-```
-or
-```
-local,remote,p2p,name
-/ip4/172.18.0.3/tcp/2154,/ip4/27.50.141.53/tcp/44158,/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE,magnificent-flaxen-mandrill
-/ip4/172.18.0.3/tcp/2154,/ip4/73.57.11.1/tcp/44158,/p2p/1122w6JQCCCPyEXiVh3EsghXAeMkZdcuVTVoPuyCcfw78tK8GL5k,interesting-velvet-swan
-/ip4/172.18.0.3/tcp/2154,/ip4/173.13.153.185/tcp/44158,/p2p/1125DtQXhkFGjTK9VP9KtsJiiAMEjM9S2mgStQrc6hH3GGqB5mzF,precise-tin-owl
-/ip4/172.18.0.3/tcp/2154,/ip4/217.103.237.36/tcp/44158,/p2p/1125XATXBAFmzKskxrtUw12avATVsCj1DzDtYKGt8jAh6vygspw3,modern-lava-albatross
-/ip4/172.18.0.3/tcp/2154,/ip4/31.20.113.227/tcp/44158,/p2p/1127Yukwk8ci37ES5UbZ7DZTax4vLLa2asuzs59X8WszshK4ZnT,fierce-bamboo-scorpion
-/ip4/172.18.0.3/tcp/2154,/ip4/108.22.224.100/tcp/44158,/p2p/1127aNUioFZK2RCHMSG8UYeeBBJFCWugbfikBJg7ixhBJuEWakgJ,bouncy-myrtle-shell
-/ip4/172.18.0.3/tcp/2154,/ip4/35.161.222.43/tcp/443,/p2p/1127gHz2sKqNJXQN8an6mNu1U3RusHyXkqp9HcwpDVLNL2hqf961,broad-iris-sheep
-/ip4/172.18.0.3/tcp/2154,/ip4/85.230.84.6/tcp/44158,/p2p/1128EPZpkiXpdcvQVe84T3a6ijpic3kyZW2VhSMXFpBa12KAhBUs,tangy-tangelo-narwhal
-/ip4/172.18.0.3/tcp/2154,/ip4/86.85.32.70/tcp/44158,/p2p/1129Ur8K7mo8v1ytRbzSEvsswRuoF6g8qkwYnhhpab4jdNGt8aQ2,atomic-punch-orangutan
-/ip4/172.18.0.3/tcp/2154,/ip4/82.127.221.97/tcp/44158,/p2p/112AFN6SezTLetmoJBj5Zid84XupKFyjmezeB48aJDBRAHsyi7mQ,damaged-cedar-weasel
-/ip4/172.18.0.3/tcp/2154,/ip4/104.35.173.151/tcp/61908,/p2p/112AySdMmbgqorb2md6XqsHZ1W8sschZi7HAbQWpjsvvozoTvD4o,skinny-viridian-butterfly
-/ip4/172.18.0.3/tcp/2154,/ip4/12.172.82.74/tcp/60949,/p2p/112C5p3cjnKDGXPJ4kLMRKYjt4KjGRGojd3D26L4XMyaaiFL2Si9,zany-bubblegum-jaguar
-/ip4/172.18.0.3/tcp/2154,/ip4/73.66.192.223/tcp/44158,/p2p/112F5Vk6XAS11vXpPbGqhit8rxy97NwpHngKW7kMufsdmsyWgSVd,macho-mercurial-chimpanzee
-/ip4/172.18.0.3/tcp/2154,/ip4/71.181.67.133/tcp/44158,/p2p/112GyaGz1Zdk49zKvvsxPgKFEVkup37UZfYswKXLLn6FjkJfMEFi,beautiful-shadow-mantis
+```bash
+<need output>
 ```
 
 </TabItem>
 </Tabs>
 
+## Export Ledger
 
-## Ping
-
+```bash
+miner genesis export_ledger <masterkey> <txn_list_output_path>
 ```
-miner peer ping :p2p
-```
 
-Ping the peer over an established or new session.
+Export data from ledger as a list of txns including accounts, gateways, validators and chainvars
 
 <Tabs
   block={true}
@@ -147,47 +269,67 @@ Ping the peer over an established or new session.
   values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
 <TabItem value="command">
 
-_switches_
+_Switches_
 
 | switch              | parameter | Note                                   |
 | ------------------- | --------- | -------------------------------------- |
-| none                | _n/a_     | none                                   |
+| none                | _n/a_    | none                                   |
 
 
 _Parameters_
 
-| param               | Type     | Note                                           |
-| ------------------- | -------- | ---------------------------------------------- |
-| :p2p                | _str_    | using the ip address or p2p chain address      |
-
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| txn_list_output_path| _filename_ | Filename path                        |
+| masterkey           | _unkn_   | Need details                           |
 </TabItem>
 <TabItem value="output">
 
-```
-$ miner peer ping /ip4/71.181.67.133/tcp/44158
-Pinged "/ip4/71.181.67.133/tcp/44158" successfully with roundtrip time: 632 ms
-```
-or
-```
-miner peer ping /p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE
-Pinged "/p2p/1122JkNQU4FcV6e1vCHUdP3usnE5fXdAA4FQuNpHQwdo1ecp2kHE" successfully with roundtrip time: 247 ms
-
+```bash
+<need output>
 ```
 
 </TabItem>
 </Tabs>
 
+## Recreate Ledger
 
-
+```bash
+miner genesis recreate_ledger <path_to_txn_list> <addrs> <n> <curve>
 ```
 
-Usage: miner hbbft commands
+Run an initial dkg using a txn list exported via 'export_ledger'
 
-  hbbft status           - Display hbbft status.
-  hbbft queue            - Display hbbft message queue.
-  hbbft skip             - Skip current hbbft round.
-  hbbft group            - Display current hbbfr group.
-  hbbft perf             - Show performance of current group members.
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
 
 
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| path_to_txn_list    | _filename_ | Filename path                        |
+| n                   | _unkn_   | Need details                           |
+| addrs               | _unkn_   | Need details                           |
+| curv                | _unkn_   | Need details                           |
+
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
 ```
+
+</TabItem>
+</Tabs>
+
