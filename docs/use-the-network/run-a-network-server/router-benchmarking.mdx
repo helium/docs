@@ -413,9 +413,9 @@ for org in $(seq --format="%02g" $FIRST_ORG $N_ORGS); do
   for dev in $(seq --format="%03g" $FIRST_DEV $N_DEVICES); do
     (cd org-$org && \
      helium-console-cli device create \
-       6a000000000$org$dev \
+       a0000000000$org$dev \
        600000000000000000000000000$org$dev \
-       6d000000000$org$dev \
+       d0000000000$org$dev \
        benchmark-$dev || echo "org=$org device=$dev" >> errors.log)
   done
 done
@@ -436,36 +436,36 @@ Returns JSON, which when formatted via `jq .` resembles the following.
 {
   "devices": [
     {
-      "app_eui": "6081F9AF355EDE29",
-      "app_key": "87653070BE490D1780C830DA0CD28AFC",
-      "dev_eui": "6000000000000001",
+      "app_eui": "a000000000001001",
+      "app_key": "60000000000000000000000000001001",
+      "dev_eui": "d000000000001001",
       "id": "7cbc7f9d-0205-4f85-ab0a-34de8c4d8f52",
       "name": "benchmark-001",
       "organization_id": "57d5b743-fc08-4119-b4ff-0c60ddf976ff",
       "oui": 2
     },
     {
-      "app_eui": "6081F9AF355EDE29",
-      "app_key": "87653070BE490D1780C830DA0CD28AFC",
-      "dev_eui": "6000000000000002",
+      "app_eui": "a000000000001002",
+      "app_key": "60000000000000000000000000001002",
+      "dev_eui": "d000000000001002",
       "id": "81d39917-b772-4937-b78b-618f4461340f",
       "name": "benchmark-002",
       "organization_id": "57d5b743-fc08-4119-b4ff-0c60ddf976ff",
       "oui": 2
     },
     {
-      "app_eui": "6081F9AF355EDE29",
-      "app_key": "87653070BE490D1780C830DA0CD28AFC",
-      "dev_eui": "6000000000000003",
+      "app_eui": "a000000000001003",
+      "app_key": "60000000000000000000000000001003",
+      "dev_eui": "d000000000001003",
       "id": "cb82bc53-49ec-4401-bed0-2c4010f26c1d",
       "name": "benchmark-003",
       "organization_id": "57d5b743-fc08-4119-b4ff-0c60ddf976ff",
       "oui": 2
     },
     {
-      "app_eui": "6081F9AF355EDE29",
-      "app_key": "87653070BE490D1780C830DA0CD28AFC",
-      "dev_eui": "6000000000000004",
+      "app_eui": "a000000000001004",
+      "app_key": "60000000000000000000000000001004",
+      "dev_eui": "d000000000001004",
       "id": "e7cca34d-5234-457f-ae92-8037c2649569",
       "name": "benchmark-004",
       "organization_id": "57d5b743-fc08-4119-b4ff-0c60ddf976ff",
@@ -574,7 +574,7 @@ As seconds between transmits increases, number of frames until re-joins
 decreases for leveling overall traffic (reducing spikes and eliminating
 artificial surges).
 
-Some `'packet_forwarder` lines are intentionally commented-out above,
+Some `packet_forwarder` lines are intentionally commented-out above,
 because there might be occasions for connecting to a specific gateway
 directly rather than using the multiplexer.
 
@@ -932,6 +932,7 @@ Launch fleet of virtual devices as a single OS process:
 ```bash
 cd $WORKDIR
 
+#export RUST_LOG=warn
 for o in $(seq --format="%02g" $N_ORGS); do
   virtual-lorawan-device \
     --settings org-$o/settings/ >> org-$o/run.log 2>&1 &
