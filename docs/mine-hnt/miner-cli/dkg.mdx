@@ -1,0 +1,192 @@
+---
+id: minercli-dkg
+sidebar_label: dkg
+hide_title: true
+slug: /mine-hnt/miner-cli/dkg
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# dkg Commands
+```bash
+Usage: miner dkg commands
+
+  dkg status           - Display dkg status.
+  dkg queue            - Display dkg queue.
+  dkg running          - Display the running dkg group on a non-dkg mode.
+  dkg next             - Display the next block at which an election will take place.
+```
+## Status
+
+```bash
+miner dkg status
+```
+
+Display dkg(Election) status.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner dkg status
+not_running
+```
+
+</TabItem>
+</Tabs>
+
+## Queue
+
+```bash
+miner dkg queue [--format=csv]
+```
+
+Display dkg queue.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner dkg queue
++-----------+----+-----+---------+-------+---------+-----------+---------+--------+
+|destination|name|count|connected|blocked|in_flight|connections|last_take|last_ack|
++-----------+----+-----+---------+-------+---------+-----------+---------+--------+
+|  inbound  |    |  0  |  true   | false |    0    |     0     |  none   |   0    |
++-----------+----+-----+---------+-------+---------+-----------+---------+--------+
+```
+or
+```
+$ miner dkg queue --format=csv
+destination,name,count,connected,blocked,in_flight,connections,last_take,last_ack
+inbound,,0,true,false,0,0,none,0
+```
+
+</TabItem>
+</Tabs>
+
+
+## Running
+
+```bash
+miner dkg running
+```
+
+Display the running dkg group on a non-dkg mode.
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                           |
+| ------------------- | -------- | ---------------------------------------------- |
+| none                | _n/a_    | none                                           |
+
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner dkg running
+not running
+```
+
+</TabItem>
+</Tabs>
+
+## Next
+
+```bash
+miner dkg next
+```
+
+Display the next block at which an election will take place.
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                           |
+| ------------------- | -------- | ---------------------------------------------- |
+| none                | _n/a_    | none                                           |
+
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner dkg next
+next election: 25775 in 20 blocks.
+```
+or
+```
+$ miner dkg next
+running, next restart: 25780 in 5 blocks.
+```
+
+</TabItem>
+</Tabs>

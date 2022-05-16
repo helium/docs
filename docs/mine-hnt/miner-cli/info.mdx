@@ -1,0 +1,354 @@
+---
+id: minercli-info
+sidebar_label: info
+hide_title: true
+slug: /mine-hnt/miner-cli/info
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# info Commands
+```
+Usage: miner info commands
+
+  info height            - Get height of the blockchain for this miner.
+  info in_consensus      - Show if this miner is in the consensus_group.
+  info name              - Shows the name of this miner.
+  info block_age         - Get age of the latest block in the chain, in seconds.
+  info p2p_status        - Shows key peer connectivity status of this miner.
+  info onboarding        - Get manufacturing and staking details for this miner.
+  info summary           - Get a collection of key data points for this miner.
+  info region            - Get the operatating region for this miner.
+```
+## Height
+
+```bash
+miner info height
+```
+
+Get height of the blockchain for this miner.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner info height
+852             26457
+```
+
+</TabItem>
+</Tabs>
+
+## In Consensus
+
+```bash
+miner info in_consensus
+```
+
+Show if this miner is in the consensus_group.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner info in_consensus
+false
+```
+
+</TabItem>
+</Tabs>
+
+## Name
+
+```bash
+miner info name
+```
+
+Shows the name of this miner.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner info name
+blunt-satin-snipe
+```
+
+</TabItem>
+</Tabs>
+
+
+## Block Age
+
+```bash
+miner info block_age
+```
+
+Get age of the latest block in the chain, in seconds.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner info block_age
+61
+```
+
+</TabItem>
+</Tabs>
+
+
+## P2P Status
+
+```bash
+miner info p2p_status
+```
+
+Shows key peer connectivity status of this miner.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner info p2p_status
++---------+------+
+|  name   |result|
++---------+------+
+|connected| yes  |
+|dialable | yes  |
+|nat_type | none |
+| height  |26458 |
++---------+------+
+```
+
+</TabItem>
+</Tabs>
+
+
+## Summary
+
+```bash
+miner info summary
+```
+
+Get a collection of key data points for this miner.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner info summary
+
+********************
+Miner General Info
+********************
+
++----------------+-------------------------------------------------------------+
+|      name      |                           result                            |
++----------------+-------------------------------------------------------------+
+|   miner name   |                     blunt-satin-snipe                       |
+| mac addresses  |                     eth0 : 0C82AV140003                     |
+|                |                      lo : 000000000000                      |
+|   block age    |                             42                              |
+|     epoch      |                             853                             |
+|     height     |                            26458                            |
+|  sync height   |                            26458                            |
+|     uptime     |           0 Days, 5 Hours, 10 Minutes, 21 Seconds           |
+| peer book size |                            11305                            |
+|firmware version|cat: can't open '/etc/lsb_release': No such file or directory|
+|gateway details |                 gateway not found in ledger                 |
++----------------+-------------------------------------------------------------+
+
+
+********************
+Miner P2P Info
+********************
+
++---------+------+
+|  name   |result|
++---------+------+
+|connected| yes  |
+|dialable | yes  |
+|nat_type | none |
+| height  |26459 |
++---------+------+
+
+
+********************
+Miner log errors
+********************
+
+***** Transaction related errors *****
+
+:
+***** POC related errors         *****
+
+:
+***** General errors             *****
+
+:
+
+```
+
+</TabItem>
+</Tabs>
+
+
+## Region
+
+```bash
+miner info region
+```
+
+Get the operatating region for this miner.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner info region
+RPC to 'val_miner@127.0.0.1' failed: {'EXIT',
+                                      {noproc,
+                                       {gen_server,call,
+                                        [miner_lora,region,5000]}}}
+
+```
+
+</TabItem>
+</Tabs>

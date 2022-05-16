@@ -1,0 +1,162 @@
+---
+id: minercli-txn
+sidebar_label: txn
+hide_title: true
+slug: /mine-hnt/miner-cli/txn
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# txn Commands
+```
+Usage: blockchain txn commands
+
+  txn queue             - Show enqueued transactions in the txn_queue.
+  txn add_gateway       - Create an add gateway transaction.
+  txn assert_location   - Create an assert location transaction.
+```
+## Queue
+
+```bash
+miner txn queue
+```
+
+Show enqueued transactions in the txn_queue.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner txn queue
+<Need output>
+```
+
+</TabItem>
+</Tabs>
+
+## Add Gateway
+
+```bash
+miner txn add_gateway owner=<owner> [--payer <payer>] [--fee <fee>] [--staking_fee <staking_fee>]
+```
+
+  Creates a signed add gateway transaction required to add a new Gateway to the Helium network.
+  Requires an owner address. Optionally takes a payer address if the payer of the cost and fee is
+  not the same as the owner. Also optionally takes the transaction and staking fees (in DC) if the
+  caller knows these ahead of time.
+
+  Returns a Base64 encoded transaction to be used as an input to either the
+  Helium mobile application or the wallet CLI for signing by the owner, and payer if provided, and
+  final submission to the blockchain.
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --payer             | _b58 addr_ | The b58 address of the payer of the fees. Defaults to the provided owner address |
+| --fee               | _int_     | The transaction fee in DC. Defaults to a chain computed fee                 |
+| --staking_fee       | _int_     |  The transaction fee in DC. Defaults to a chain computed staking fee                |
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| owner             | _b58 addr_ | The b58 address of the owner of the gateway to be added. |
+
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+or
+```
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+
+## Asert Location
+
+```bash
+miner txn assert_location owner=<owner> location=<location> [--payer <payer>] [--nonce <nonce]
+```
+
+  Creates a signed location assertion required to declare the location of a Gateway on the Helium network.
+  Requires an owner address and location (in lat,lon or h3 form).
+  Optionally takes a payer address if the payer of the cost and fee is not the same as the owner.
+  Optionally takes a nonce.
+
+  Returns a Base64 encoded transaction to be used as an input to either the
+  Helium mobile application or the wallet CLI for signing by the owner, and payer if provided, and
+  final submission to the blockchain.
+
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| payer             | _p2p_     | The b58 address of the payer of the fees. Defaults to the provided owner address |
+| nonce             | _int_     | The assert_location nonce use for the transaction. (default 1)              |
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| owner               | _b58 addr_ | The b58 address of the owner of the gateway to be added. | 
+| location            | _h3_ or _lat,long_    | Either a h3 index or a comma separated geo location of the form (lat),(lon) |     
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+or
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+

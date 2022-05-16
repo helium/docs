@@ -1,0 +1,251 @@
+---
+id: minercli-hbbft
+sidebar_label: HBBFT
+hide_title: true
+slug: /mine-hnt/miner-cli/hbbft
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# hbbft Commands
+```
+Usage: miner hbbft commands
+
+  hbbft status           - Display hbbft status.
+  hbbft queue            - Display hbbft message queue.
+  hbbft skip             - Skip current hbbft round.
+  hbbft group            - Display current hbbfr group.
+  hbbft perf             - Show performance of current group members.
+```
+## Status
+
+```bash
+miner hbbft status 
+```
+
+Display hbbft status.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner hbbft status
+ok
+```
+
+</TabItem>
+</Tabs>
+
+## Queue
+
+```bash
+miner hbbft queue [--format=csv]
+```
+
+Display hbbft message queue.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+~$ miner hbbft queue
++-----------+----+-----+---------+-------+---------+-----------+---------+--------+
+|destination|name|count|connected|blocked|in_flight|connections|last_take|last_ack|
++-----------+----+-----+---------+-------+---------+-----------+---------+--------+
+|  inbound  |    |  0  |  true   | false |    0    |     0     |  none   |   0    |
++-----------+----+-----+---------+-------+---------+-----------+---------+--------+
+```
+or
+```
+$ miner hbbft queue --format=csv
+destination,name,count,connected,blocked,in_flight,connections,last_take,last_ack
+inbound,,0,true,false,0,0,none,0
+```
+
+</TabItem>
+</Tabs>
+
+## Skip
+
+```bash
+miner hbbft skip 
+```
+
+Skip current hbbft round.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner hbbft skip
+ok
+```
+
+</TabItem>
+</Tabs>
+
+## Group
+
+```bash
+miner hbbft group [--format=csv]
+```
+
+Display current hbbfr group.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner hbbft group
++-----+--------------------------+--------------------------------------------------------+
+|index|           name           |                        address                         |
++-----+--------------------------+--------------------------------------------------------+
+|  1  |unique-ultraviolet-unicorn|/p2p/1aAS5HPMg9mW7hMdfaSwjf9rvqefz4NLUmAZhKMUFiQ9xbkB3Vj|
+|  2  |delightful-mahogany-kitten|/p2p/1ZPNnNd9k5qiQXXigKifQpCPiy5HTbszQDSyLM56ywk7ihNRvt6|
+|  3  |  helpful-chocolate-pike  |/p2p/1Z4EyDo4sbKN2tHAwccMiwYiN33PfMCqTVrUvE8a83QF26KCekA|
+|  4  | uneven-macaroon-caribou  |/p2p/1YRCfDYUi1xEMDLebiK8TQvv2mk2Jj9aJR7Chdnxc7xuB2RTfWq|
++-----+--------------------------+--------------------------------------------------------+
+```
+or
+```
+$ miner hbbft group  --format=csv
+index,name,address
+1,unique-ultraviolet-unicorn,/p2p/1aAS5HPMg9mW7hMdfaSwjf9rvqefz4NLUmAZhKMUFiQ9xbkB3Vj
+2,delightful-mahogany-kitten,/p2p/1ZPNnNd9k5qiQXXigKifQpCPiy5HTbszQDSyLM56ywk7ihNRvt6
+3,helpful-chocolate-pike,/p2p/1Z4EyDo4sbKN2tHAwccMiwYiN33PfMCqTVrUvE8a83QF26KCekA
+4,uneven-macaroon-caribou,/p2p/1YRCfDYUi1xEMDLebiK8TQvv2mk2Jj9aJR7Chdnxc7xuB2RTfWq
+```
+
+</TabItem>
+</Tabs>
+
+## Perf
+
+```bash
+miner hbbft perf [--format=csv]
+```
+Show performance of current group members.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner hbbft perf
++--------------------------+---------------+----------+--------+---------+------+-------+
+|           name           |bba_completions|seen_votes|last_bba|last_seen|tenure|penalty|
++--------------------------+---------------+----------+--------+---------+------+-------+
+|unique-ultraviolet-unicorn|     15/16     |  58/58   |   0    |    0    | 0.00 | 0.09  |
+|delightful-mahogany-kitten|     14/16     |  58/58   |   0    |    0    | 0.00 | 0.09  |
+|  helpful-chocolate-pike  |     15/16     |  58/58   |   0    |    0    | 0.00 | 0.02  |
+| uneven-macaroon-caribou  |     13/16     |  58/58   |   0    |    0    | 0.00 | 0.10  |
++--------------------------+---------------+----------+--------+---------+------+-------+
+```
+or
+```
+$ miner hbbft perf  --format=csv
+name,bba_completions,seen_votes,last_bba,last_seen,tenure,penalty
+unique-ultraviolet-unicorn,15/16,58/58,0,0,0.00,0.09
+delightful-mahogany-kitten,14/16,58/58,0,0,0.00,0.09
+helpful-chocolate-pike,15/16,58/58,0,0,0.00,0.02
+uneven-macaroon-caribou,13/16,58/58,0,0,0.00,0.10
+```
+
+</TabItem>
+</Tabs>

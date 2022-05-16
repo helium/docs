@@ -1,0 +1,335 @@
+---
+id: minercli-genesis
+sidebar_label: genesis
+hide_title: true
+slug: /mine-hnt/miner-cli/genesis
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# Genesis Commands
+
+```bash
+Usage: miner genesis commands
+
+  genesis create <old_genesis_file> <pubkey> <proof> <addrs>         - Create genesis block keeping old ledger transactions.
+  genesis forge <pubkey> <key_proof> <addrs>                         - Create genesis block from scratch just with the addresses.
+  genesis load <genesis_file>                                        - Load genesis block from file.
+  genesis export <path>                                              - Write genesis block to a file.
+  genesis key                                                        - create a keypair for use as a master key
+  genesis proof <privkey>                                            - create a key proof for adding a master key to the genesis block
+  genesis export_ledger <masterkey> <txn_list_output_path>           - export data from ledger as a list of txns including accounts, gateways, validators and chainvars
+  genesis recreate_ledger <path_to_txn_list> <addrs> <n> <curve>     - run an initial dkg using a txn list exported via 'export_ledger'
+```
+
+## Create
+
+```bash
+miner genesis create <old_genesis_file> <pubkey> <proof> <addrs>
+```
+
+Create genesis block keeping old ledger transactions.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| old_genesis_file    | _filename_ | Filename path                        |
+| pubkey              | _b58_    | B58 public aaddress                    |
+| proof               | _unkn_   | Need details                           |
+| addrs               | _unkn_   | Need details                           |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+## Forge
+
+```bash
+miner genesis forge <pubkey> <key_proof> <addrs>
+```
+
+ Create genesis block from scratch just with the addresses.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| pubkey              | _b58_    | B58 public aaddress                    |
+| key_proof           | _unkn_   | Need details                           |
+| addrs               | _unkn_   | Need details                           |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+## Load
+
+```bash
+miner genesis load <genesis_file>
+```
+
+Load genesis block from file.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| genesis_file    | _filename_ | Filename path                            |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+## Export
+
+```bash
+miner genesis export <path>
+```
+
+Write genesis block to a file.
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| path                | _filename_ | Filename path                            |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner genesis export /var/data/genesis
+ok, genesis file written to "/var/data/genesis"
+```
+
+</TabItem>
+</Tabs>
+
+## Key
+
+```bash
+miner genesis key
+```
+
+Create a keypair for use as a master key
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner genesis key
+2wAqmjWejxX4ViZv4hZ7XGaX8QSTtFfZwE3Gsgcg3wfhJm8oRcg3bAfadgTduUH3HQLAWRyg77GDSRgU9aC4CFkPswiphuNSh3EfLsQ3efNtWWTfpWRe4SAcNTRsAkbDh2xUxs
+```
+
+</TabItem>
+</Tabs>
+
+## Proof
+
+```bash
+miner genesis proof <privkey>
+```
+
+Create a key proof for adding a master key to the genesis block
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| privkey               | _unkn_    | Need info                                  |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+## Export Ledger
+
+```bash
+miner genesis export_ledger <masterkey> <txn_list_output_path>
+```
+
+Export data from ledger as a list of txns including accounts, gateways, validators and chainvars
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| txn_list_output_path| _filename_ | Filename path                        |
+| masterkey           | _unkn_   | Need details                           |
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+
+## Recreate Ledger
+
+```bash
+miner genesis recreate_ledger <path_to_txn_list> <addrs> <n> <curve>
+```
+
+Run an initial dkg using a txn list exported via 'export_ledger'
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| path_to_txn_list    | _filename_ | Filename path                        |
+| n                   | _unkn_   | Need details                           |
+| addrs               | _unkn_   | Need details                           |
+| curv                | _unkn_   | Need details                           |
+
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+
+</TabItem>
+</Tabs>
+

@@ -1,0 +1,374 @@
+---
+id: minercli-snapshot
+sidebar_label: snapshot
+hide_title: true
+slug: /mine-hnt/miner-cli/snapshot
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# Snapshot Commands
+```bash
+Usage: miner snapshot commands
+
+  snapshot take   - Take a snapshot at the current ledger height.
+  snapshot load   - Load a snapshot from a file.
+  snapshot grab   - Attempt to grab a snapshot from a connected peer.
+  snapshot diff   - Load two snapshots from files and find changes.
+  snapshot info   - Show information about a snapshot in a file.
+  snapshot list   - Show information about the last 5 snapshots.
+
+```
+
+## Take
+
+```bash
+miner snapshot take <filename>
+```
+
+Take a ledger snapshot at the current height and write it to filename
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| filename            | _path_   | Full Path to the name of the file starting with /var/data/ |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner snapshot take /var/data/snapshot
+{ok,"/var/data/snapshot.gz"}
+```
+
+</TabItem>
+</Tabs>
+
+## Load
+
+```bash
+miner snapshot load <filename>
+```
+
+:::info
+If this is a timeout error the snapshot continues to load in the background and will typically complete properly. Check the height after 3-4 minutes.
+:::
+
+Display the nodes this node is connected to.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| filename            | _path_   | Full Path to the name of the file starting with /var/data/ |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner snapshot load /var/data/snapshot.gz
+ok
+```
+
+</TabItem>
+</Tabs>
+
+## Grab
+
+```bash
+miner snapshot grab <height> <hash> <filename>
+```
+
+Ping the peer over an established or new session.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_     | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                           |
+| ------------------- | -------- | ---------------------------------------------- |
+| filename            | _path_   | Full Path to the name of the file starting with /var/data/ |
+| height              | _int_    | Height of the bock chain snapshot |
+| hash                | _hex_    | Hash (need type) of the snapshot hash |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+(need Output)
+```
+
+</TabItem>
+</Tabs>
+
+## Diff
+
+```bash
+miner snapshot diff <filename> <filename>
+```
+
+  Compare two snapshot files for equality, returns the list of differences or \[\] if identical
+
+:::info
+You will need to decompress the file before comparison at this time.
+:::
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| filename            | _path_   | Full Path to the name of the file starting with /var/data/ |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner snapshot diff /var/data/snapshot /var/data/snapshot-2
+[current_height,hnt_burned,pocs,proposed_pocs,validators,election_height,
+ {blocks,[26024,26025,26026,26027,26028,26029,26030,26031,26032,26033,26034,
+          26035,26036,26037,26038,26039,26040,26041,26042,26043,26044,26045,
+          26046,26047,26048,26049,26050,26051,26052,26053,26054],
+         [26105]},
+ consensus_members,
+ {accounts,{"1YGwPHcxWzWD9cqJY2BGGNZeKMAdFPJbUFswd7Fu55qAVApg53z",
+            {entry_v1,0,100234193499557650},
+            {entry_v1,0,100234210860748307}}},
+ {accounts,{"1YJeCENZyuBJd4Qfo1djpnRAn1WrwHsy5qPYzKrbPZj3mXuPcap",
+            {entry_v1,0,100847760485771638},
+            {entry_v1,0,100847882781148977}}},
+ {accounts,{"1YTqnT9cXbiKx2fnQXxXaPdGYYqQvbJT8PQfFMSA665yTLG9NUq",
+            {entry_v1,0,100234193499557650},
+            {entry_v1,0,100234210860748307}}},
+ {accounts,{"1YTqnvuSGMHKF8FYiHUVePRYA2WpihZjhvRfW3ycTVsMEpYUv9p",
+            {entry_v1,0,100234036907414379},
+            {entry_v1,0,100234054233882654}}},
+ {accounts,{"1YkRPqc8w8qChzQeZJ8MPVpYPmdNFfRLLMbJmpYFvoDMw9zdvkt",
+            {entry_v1,0,100234193499557650},
+            {entry_v1,0,100234210860748307}}},
+ {accounts,{"1YnZTd7rLTeEDcFm9XDTRUb24V68YoCLHfpVETGTuGHybAghn44",
+            {entry_v1,0,100234193499557650},
+            {entry_v1,0,100234210860748307}}},
+ {accounts,{"1ZGfDQBjRHAXN7KdFKWQshHjDXeA5ycmXQGZ9Q7W938hmCfVxKH",
+            {entry_v1,0,100234193499557650},
+            {entry_v1,0,100234210860748307}}},
+ {accounts,{"1ZNmNgbYk52DESkC7mSkKBqivpAPSPjMxpso5eSjUXLZHrDdnHR",
+            {entry_v1,0,100234193499557650},
+            {entry_v1,0,100234210860748307}}},
+ {accounts,{"1ZQmrVp93L8gnrFxk7nz7yzXAp261HHocSfdrNPd4Ynig6LJgJF",
+            {entry_v1,0,100234193499557650},
+            {entry_v1,0,100234210860748307}}},
+ {accounts,{"1ZcTXSwKtWUqxTfya39BcNxbVcZEN8ZRASFiWGLynyJr1iGNRKm",
+            {entry_v1,0,100234193499557650},
+            {entry_v1,0,100234210860748307}}},
+ {accounts,{"1a58oCFw79zAZCdkVBvnFSjqx7QM5FzSW5ppMVCf1HJeu8g1ywS",
+            {entry_v1,0,70488978339407},
+            {entry_v1,0,70489854959685}}},
+ {accounts,{"1aBBCEeNwJg7sQcRLqbKvG2PfVEHG8SRmjNtFtrpaLp2Q92VMbT",
+            {entry_v1,0,2257171937815},
+            {entry_v1,0,2261676462958}}},
+ {accounts,{"1aGE7gmeAPDX6cMKneX7gNmbVjnKiVStUDsVwNoH2Qz8zPcbsLz",
+            {entry_v1,1,73905835656430},
+            {entry_v1,1,73908054601508}}},
+ {accounts,{"1aGYkF1pfxrkccJzXW5Dg9CsbsNcjwHBHDvuE5ojgXw318Z54Pg",
+            {entry_v1,0,31439428746},
+            {entry_v1,0,31446373222}}},
+ {accounts,{"1aU8VLdkSWMNADUUxE85P4QMWmP71MUsRk5dtnZY8pbayuruFjj",
+            {entry_v1,0,1006814010118},
+            {entry_v1,0,1006817135132}}},
+ {accounts,{"1aXhH8rtLfVJyXC5neovyfqi6q2kS97y3ifnGdsf2omoZt9SwFi",
+            {entry_v1,1,32439463959822},
+            {entry_v1,1,32444801977598}}},
+ {accounts,{"1aYksnFURMsFe8xDJSAqY1smDP3bLv6aPeDyiFxXtwH5a39gZKF",
+            {entry_v1,0,10642836196373},
+            {entry_v1,0,10643616936308}}},
+ {accounts,{"1aaRtrsSyhDyWwBxJsuLXRvBKbB1AFRmuAsnLfKhoxx14qjAvkF",
+            {entry_v1,0,6922686073706},
+            {entry_v1,0,6924250144937}}},
+ {accounts,{"1ajz4gYFvwkLDNNP43TZy4nWctw4z9aeD2b9HtDQaXZQQXj2xMC",
+            {entry_v1,0,25030644809406},
+            {entry_v1,0,25032206289276}}},
+ {accounts,{"1arxYiath7MbjbP85KA2wUZKEii3XjawhnqnkkJHugtusnFWmMk",
+            {entry_v1,0,70618295406523},
+            {entry_v1,0,70618316239952}}},
+ {accounts,{"1asCzZWx3kzEHNUa9c4k7hAr4zKwuHHNH3DUXj9XoWv8isEQNyz",
+            {entry_v1,0,4677327904285},
+            {entry_v1,0,4680315280335}}},
+ {accounts,{"1ay5TAKuQDjLS6VTpoWU51p3ik3Sif1b3DWRstErqkXFJ4zuG7r",
+            {entry_v1,0,12810706664558},
+            {entry_v1,0,12814413513374}}},
+ {accounts,{"1b9i8SCtd3kgJLhZJfKgSbS7dnWASUoaAhRFSbRRhLyGDJJGchR",
+            {entry_v1,0,7520302625},
+            {entry_v1,0,7524122087}}},
+ {accounts,{"1bVMZ2z66BSthJWzdM8qbvNf4XegNMhqwtKK81oh85ioWgBViRJ",
+            {entry_v1,0,6668163170510},
+            {entry_v1,0,6676609155154}}},
+ {accounts,{"1bWbNFZFApj5drpX7uC442eRWeZQPcFPH8WHXKcqjuRBTtSXLpJ",
+            {entry_v1,0,39499194368037},
+            {entry_v1,0,39533916749350}}},
+ {accounts,{"1bY7qV8Q8Ak8ByK4n1JSkrpB6TDF2YEc2kaUm7g8syGNN4cYFdZ",
+            {entry_v1,0,2238886863286},
+            {entry_v1,0,2240857593036}}},
+ infos,election_epoch]
+```
+</TabItem>
+</Tabs>
+
+
+## Info
+
+```bash
+miner snapshot info <filename>
+```
+
+Show information about snapshot in file \<filename\>
+
+:::info
+You will need to decompress the file before comparison at this time.
+:::
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| filename            | _path_   | Full Path to the name of the file starting with /var/data/ |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner snapshot info /var/data/snapshot
+Height 26054
+NumBlocks 81
+StartBlockHt 26024
+EndBlockHt 26104
+Hash <<245,190,45,242,3,11,3,142,72,216,189,135,229,45,205,1,129,246,239,100,
+       60,88,153,247,23,47,130,200,30,4,15,110>> (<<"f5be2df2030b038e48d8bd87e52dcd0181f6ef643c5899f7172f82c81e040f6e">>)
+```
+</TabItem>
+</Tabs>
+
+
+## List
+
+```bash
+miner snapshot list
+```
+
+Show information about snapshot in file \<filename\>
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner snapshot list
+Height 24481
+Hash <<149,104,89,237,132,248,75,227,176,122,64,183,1,28,227,185,159,14,221,89,
+       223,89,138,175,163,171,92,80,78,121,22,153>> (<<"956859ed84f84be3b07a40b7011ce3b99f0edd59df598aafa3ab5c504e791699">>)
+Have true
+
+Height 23761
+Hash <<234,154,228,119,102,151,82,176,243,233,200,147,74,88,120,87,243,22,16,
+       203,137,175,152,239,58,201,32,234,235,104,127,164>> (<<"ea9ae477669752b0f3e9c8934a587857f31610cb89af98ef3ac920eaeb687fa4">>)
+Have false
+
+Height 23041
+Hash <<208,14,110,148,111,8,174,170,239,40,245,9,196,248,12,94,136,151,130,65,
+       91,236,38,150,48,193,24,236,14,58,231,240>> (<<"d00e6e946f08aeaaef28f509c4f80c5e889782415bec269630c118ec0e3ae7f0">>)
+Have false
+
+Height 22321
+Hash <<249,64,4,32,241,59,169,87,0,5,78,60,145,234,54,255,76,5,24,251,238,100,
+       59,160,117,226,106,61,69,4,61,159>> (<<"f9400420f13ba95700054e3c91ea36ff4c0518fbee643ba075e26a3d45043d9f">>)
+Have false
+
+Height 21601
+Hash <<240,130,22,8,86,176,16,141,231,182,196,128,93,185,117,187,167,66,26,42,
+       13,117,164,83,253,198,153,227,235,221,126,44>> (<<"f082160856b0108de7b6c4805db975bba7421a2a0d75a453fdc699e3ebdd7e2c">>)
+Have false
+```
+</TabItem>
+</Tabs>
+
+

@@ -1,0 +1,272 @@
+---
+id: minercli-ledger
+sidebar_label: ledger
+hide_title: true
+slug: /mine-hnt/miner-cli/ledger
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# Ledger Commands
+
+```bash
+Usage: blockchain ledger commands
+
+  ledger balance             - Get the balance for one or all addresses.
+  ledger export              - Export transactions from the ledger to <file>.
+  ledger gateways            - Display the list of active gateways.
+  ledger variables           - Interact with chain variables.
+```
+## Balance
+
+```bash
+miner ledger balance [:p2p] [--format=csv]
+```
+
+Get the balance for one or all addresses.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| :p2p                | _b58_    | using b58 chain address      |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner ledger balance
++--------------------------------------------------------------+-----+------------------+
+|                             p2p                              |nonce|     balance      |
++--------------------------------------------------------------+-----+------------------+
+|   /p2p/1aFCZ8hYoAytat5PYYexfuxnr6WiurXwLV9yXmbn6tT62VhVWUT   |  0  |    625631584     |
+|   /p2p/1bRcXV2V5x9d57erHfbXWtCqFmbhqxkDcFejqkP1NSiigCyHkTU   |  0  |   18142249793    |
+|   /p2p/1bdiWNPN5YNxj5JLqMCqFiNsoGqN9BYLLdjphpwXuLq3cUYw9am   |  0  |  1000500000000   |
+|   /p2p/1bqByKbvSGqvi9cNHj2pVsBKU4ozJfJaormeiuJwPYXZqQUCyh7   |  0  |  1000500000000   |
+|   /p2p/1bDjdY56WMjTqXdnD1k7B6eNP5TrF1wwiMeFEbTFaRSDmsAPpXz   |  0  |   328269027804   |
+|   /p2p/1aumVyJynXvtxybqS9MKFz7qH54T7gTnTeE5HriTTNMsb59J3gQ   |  0  |  1106533055563   |
+|   /p2p/1amn1msEjyziTBjhokNMnhXLfnqct17ghhwPwdFNLikexcii6cw   |  0  |  1000500000000   |
+|   /p2p/1a8LGrkuNkx9SJC748oPkGYVGqi3YcvoXVoBk97iGabc4iMQCyc   |  0  |  1436423575540   |
+|   /p2p/1bY7qV8Q8Ak8ByK4n1JSkrpB6TDF2YEc2kaUm7g8syGNN4cYFdZ   |  0  |  2272567221888   |
+|   /p2p/1a9iSPFqo8CBwiwr1oouvtSgDVLsj39eSyM1aVaTxdy3D6Ss2MQ   |  0  |    6160184240    |
+|   /p2p/1b34s11Y3K9JYcqCPuCSPSyy7bdgoy4XAvcEfwAVu5yL5xNMK6i   |  0  |  1000500000000   |
+|   /p2p/1YfHpZccPk7GLke91GBhEWVnqL57NyFrvrAJeNAyTWEtZTYHmpT   |  0  |  9004500000000   |
+...
+|   /p2p/1aTDc8WeAH6mhT9eRLtG8XD4tY3xdzFLCbUyd8j63WCcwKYnPJT   |  0  |  2001498839571   |
+|   /p2p/1bdRSs33V4rwVYFTw8MHiLU8ts8ukUs55SjkGrM3u4EeH4HPypK   |  0  |  1000500000000   |
+|   /p2p/1aqkHcJSPryoDvZcvAkubHyukCC1qvMmiJQJbDRMjXu1j56zUnf   |  0  |  1000500000000   |
+|   /p2p/1a7qZssBa3uPcDfJkjBoJQdFA3PiWr4cXBr8zq64KcrPno6b9SF   |  0  |  1000500000000   |
++--------------------------------------------------------------+-----+------------------+
+```
+or
+```bash
+$ miner ledger balance --format=csv
+p2p,nonce,balance
+/p2p/1aFCZ8hYoAytat5PYYexfuxnr6WiurXwLV9yXmbn6tT62VhVWUT,0,625631584
+/p2p/1bRcXV2V5x9d57erHfbXWtCqFmbhqxkDcFejqkP1NSiigCyHkTU,0,18142249793
+/p2p/1bdiWNPN5YNxj5JLqMCqFiNsoGqN9BYLLdjphpwXuLq3cUYw9am,0,1000500000000
+/p2p/1bqByKbvSGqvi9cNHj2pVsBKU4ozJfJaormeiuJwPYXZqQUCyh7,0,1000500000000
+/p2p/1bDjdY56WMjTqXdnD1k7B6eNP5TrF1wwiMeFEbTFaRSDmsAPpXz,0,328269027804
+/p2p/1aumVyJynXvtxybqS9MKFz7qH54T7gTnTeE5HriTTNMsb59J3gQ,0,1106533055563
+/p2p/1amn1msEjyziTBjhokNMnhXLfnqct17ghhwPwdFNLikexcii6cw,0,1000500000000
+/p2p/1a8LGrkuNkx9SJC748oPkGYVGqi3YcvoXVoBk97iGabc4iMQCyc,0,1436423575540
+/p2p/1bY7qV8Q8Ak8ByK4n1JSkrpB6TDF2YEc2kaUm7g8syGNN4cYFdZ,0,2272567221888
+/p2p/1a9iSPFqo8CBwiwr1oouvtSgDVLsj39eSyM1aVaTxdy3D6Ss2MQ,0,6160184240
+/p2p/1b34s11Y3K9JYcqCPuCSPSyy7bdgoy4XAvcEfwAVu5yL5xNMK6i,0,1000500000000
+/p2p/1YfHpZccPk7GLke91GBhEWVnqL57NyFrvrAJeNAyTWEtZTYHmpT,0,9004500000000
+/p2p/1bXURbu7rgWHJHg96UT7shxVK3f9w5mmd2PkoT4x4rzn2qkQh9q,0,4884051635578
+/p2p/1b2LMHZmhyqz18rGizsGbjyfZ8REjwsHvG3QhkHZdRjTbDmEgpf,0,5170371746132
+...
+```
+
+</TabItem>
+</Tabs>
+
+## Export
+
+```bash
+miner ledger export <filename>
+```
+
+  Export transactions from the ledger to a given \<filename\>.
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                    |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| filename            | _path_    | Path to file starting with /var/data/    |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner ledger export /var/data/ledger-txn
+ok, transactions written to "/var/data/ledger-txn"
+```
+
+</TabItem>
+</Tabs>
+
+
+## Gateways
+
+```bash
+miner ledger gateways [:p2p] [--format=csv]
+```
+
+Get the balance for one or all addresses.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| --format=           | _csv_     | outputs to csv format                  |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                    |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner ledger gateways
++-----------------------------+--------------+-----------------------------+---------+---------+---+
+|       gateway_address       |     name     |        owner_address        |location |last_poc_|non|
++-----------------------------+--------------+-----------------------------+---------+---------+---+
+|/p2p/1buxHEMfTPd4ChBHBD84kPuo|wobbly-charcoa|/p2p/1aNpDhN4kkrTy9VtXakps17A|undefined|undefined| 0 |
+|/p2p/1bubwQ4qtnvmdMeccj46CvVX|petite-grape-g|/p2p/1aNpDhN4kkrTy9VtXakps17A|undefined|undefined| 0 |
+|/p2p/1bHTWyvNY2wx6nRWLSg9iwcE|calm-eggshell-|/p2p/1aNpDhN4kkrTy9VtXakps17A|undefined|undefined| 0 |
+|/p2p/1apMx9ug4jKzWXnQGe9ZSZj2|long-orchid-co|/p2p/1aHRhatk7sAgU4pynmnEY65H|undefined|undefined| 0 |
+|/p2p/1aoXK38WyjYmM1aXmtdnKxXE|feisty-sandsto|/p2p/1arxYiath7MbjbP85KA2wUZK|631237005|undefined| 1 |
+|/p2p/1agg4aHePeb5vtLe3auNNYKG|tall-fossilize|/p2p/1aNpDhN4kkrTy9VtXakps17A|631578473|undefined| 6 |
+|/p2p/1aLqsye3bprpgJQHPu2aoxdL|bent-tartan-fr|/p2p/1bkhh2sgWwDhEL4M2M3KdJzA|630932970|undefined| 1 |
+|/p2p/1aKFVLE2Nd1Je6UAKiPcdgWK|bumpy-maroon-p|/p2p/1bV7tQMpkgqMT5HfjuQdom7i|undefined|undefined| 0 |
+...
+|/p2p/1YAwGCcjQFinLcKSbqPfUnLB|original-amber|/p2p/1aGJ9prZKkiK8EgWix9NvDh9|631377671|  23495  | 1 |
+|/p2p/1YARpcoACi7qkYBbHS8ETVfn|cheery-midnigh|/p2p/1bXURbu7rgWHJHg96UT7shxV|631614887|undefined| 2 |
+|/p2p/1YACaRK3EeAmRLW9Jrg7CeS7|energetic-ash-|/p2p/1aBBCEeNwJg7sQcRLqbKvG2P|631050965|    0    | 1 |
+|/p2p/1Y9RVgU5qHu9z3pFCWoXCyWo|rough-pearl-se|/p2p/1b5PFo9eshuJYXSaeXVXUfRN|631578474|undefined| 1 |
+|/p2p/1Y85bcBs2JfDJ4Hra3uY5swH|curved-concret|/p2p/1aENoyj8uTxB1KzH6K8RXpwQ|631184139|  12567  | 3 |
+|/p2p/1Y82mty5HGdTjhRTmEQvSzGG|festive-opal-m|/p2p/1b1ArDCHbe5yVTFjjZoqEMLC|630950173|undefined| 1 |
+|/p2p/1Y7B3jwyVeAXTrWfgLpnuh4c|sleepy-navy-wo|/p2p/1bcig6USbCGqC858UfNxKjbS|630737260|undefined| 1 |
++-----------------------------+--------------+-----------------------------+---------+---------+---+
+```
+or
+```bash
+$ miner ledger gateways --format=csv
+gateway_address,name,owner_address,location,last_poc_challenge,nonce
+/p2p/1buxHEMfTPd4ChBHBD84kPuoCYoRU3iMit24iFSQM4iVC7eoSm9,wobbly-charcoal-cyborg,/p2p/1aNpDhN4kkrTy9VtXakps17AG45pQsBrcnoYFBip9zJEjdLvfwT,undefined,undefined,0
+/p2p/1bubwQ4qtnvmdMeccj46CvVXS3YYQJRvifwbY9FmxUkHq2pBSPQ,petite-grape-gecko,/p2p/1aNpDhN4kkrTy9VtXakps17AG45pQsBrcnoYFBip9zJEjdLvfwT,undefined,undefined,0
+/p2p/1bHTWyvNY2wx6nRWLSg9iwcENyL3rJeWcnUjiAUNKXQk2yUMqTT,calm-eggshell-rat,/p2p/1aNpDhN4kkrTy9VtXakps17AG45pQsBrcnoYFBip9zJEjdLvfwT,undefined,undefined,0
+/p2p/1apMx9ug4jKzWXnQGe9ZSZj2NezzRj5sfeot3jXrk365auvY3RD,long-orchid-copperhead,/p2p/1aHRhatk7sAgU4pynmnEY65H2oSnESCMtsRo9nttwX8hykf8y9X,undefined,undefined,0
+/p2p/1aoXK38WyjYmM1aXmtdnKxXESCEfXcE9KXH9dmuPsPKdi2xQ1Vs,feisty-sandstone-tadpole,/p2p/1arxYiath7MbjbP85KA2wUZKEii3XjawhnqnkkJHugtusnFWmMk,631237005709304831,undefined,1
+/p2p/1agg4aHePeb5vtLe3auNNYKGuBUC94BbBWKPEYESi23T3GSvmUc,tall-fossilized-terrier,/p2p/1aNpDhN4kkrTy9VtXakps17AG45pQsBrcnoYFBip9zJEjdLvfwT,631578473799881215,undefined,6
+/p2p/1aLqsye3bprpgJQHPu2aoxdLWVKVbustkjNouisotnfAsVYkSCe,bent-tartan-frog,/p2p/1bkhh2sgWwDhEL4M2M3KdJzAyu69yNgzVK6tosF3LuyzNNKbxSZ,630932970655452159,undefined,1
+...
+```
+
+</TabItem>
+</Tabs>
+
+## Variables
+
+```bash
+miner ledger variables [name] [-a, --all]
+```
+
+  Interact with chain variables.
+
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| -a, --all           | _n/a_    | display all variables                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| name            | _str_    | Name of Variable on Chain    |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner ledger variables -a 
+allow_payment_v2_memos: true
+allow_zero_amount: false
+alpha_decay: 0.0035
+assert_loc_txn_version: 2
+batch_size: 400
+beta_decay: 0.002
+block_size_limit: 1048576
+block_time: 60000
+block_version: v1
+chain_vars_version: 2
+consensus_percent: 0.4
+data_aggregation_version: 3
+dataonly_gateway_capabilities_mask: 1
+dc_payload_size: 24
+dc_percent: 0.04
+density_tgt_res: 4
+dkg_curve: 'SS512'
+dkg_penalty: 5.0
+election_bba_penalty: 0.1
+election_cluster_res: 4
+election_interval: 30
+election_removal_pct: 40
+election_replacement_factor: 4
+...
+```
+
+</TabItem>
+</Tabs>
+

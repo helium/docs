@@ -1,0 +1,261 @@
+---
+id: minercli-repair
+sidebar_label: repair
+hide_title: true
+slug: /mine-hnt/miner-cli/repair
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# Repair Commands
+```
+Usage: blockchain repair commands
+
+  repair sync_pause     - Temporarily pause transaction sync
+  repair sync_cancel    - Cancel any in-progress transaction sync.
+  repair sync_resume    - Resume any paused transaction sync.
+  repair sync_state     - Show current sync state.
+  repair analyze        - Display errors in the current blockchain state.
+  repair repair         - Attempt to repair errors in blockchain state.
+```
+## sync_pause
+
+```bash
+miner repair sync_pause 
+```
+
+Temporarily pause transaction sync
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner repair sync_pause
+ok
+```
+
+</TabItem>
+</Tabs>
+
+## sync_cancel
+
+```bash
+miner repair sync_cancel 
+```
+
+Cancel any in-progress transaction sync.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner repair sync_cancel
+ok
+```
+
+</TabItem>
+</Tabs>
+
+## sync_resume
+
+```bash
+miner repair sync_resume 
+```
+
+Resume any paused transaction sync.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner repair sync_resume
+ok
+```
+
+</TabItem>
+</Tabs>
+
+## sync_state
+
+```bash
+miner repair sync_state
+```
+
+Show current sync state.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner repair sync_state
+sync active
+```
+
+</TabItem>
+</Tabs>
+
+
+## analyze
+
+```bash
+miner repair anaylze
+```
+
+Display errors in the current blockchain state.
+
+:::info
+You need to sync_pause before running this command.
+:::
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner repair analyze
+error: {block_absorb_failed,25014,invalid_poc}
+```
+
+</TabItem>
+</Tabs>
+
+
+## repair
+
+```bash
+miner repair repair
+```
+
+Attempt to repair errors in blockchain state.
+
+:::info
+You need to sync_pause before running this command.
+:::
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner repair repair
+error: {error,{block_absorb_failed,25014,invalid_poc}}
+```
+
+</TabItem>
+</Tabs>
+

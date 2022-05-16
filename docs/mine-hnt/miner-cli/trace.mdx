@@ -1,0 +1,93 @@
+---
+id: minercli-trace
+sidebar_label: trace
+hide_title: true
+slug: /mine-hnt/miner-cli/trace
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+---
+
+# Trace Commands
+```bash
+
+Usage: blockchain trace commands
+
+  trace start   - Start a trace for a given filter and level.
+  trace clear   - Clears all installed traces.
+```
+## Start
+
+```bash
+miner trace start [ -l|--level [none|debug|info|notice|warning|error|critical|alert|emergency] -o|--output <filename>]
+```
+
+  Start a console trace. Use key=value arguments to set
+  the trace filters.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| -l, --level         | _none|debug|info|notice|warning|error|critical|alert|emergency_     | outputs based on log level                  |
+| -o, --output        | _path_     | Path to filename                      |
+
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+<need output>
+```
+</TabItem>
+</Tabs>
+
+## Cancel
+
+```bash
+miner trace cancel
+```
+Clears all installed traces.
+
+<Tabs
+  block={true}
+  defaultValue="command"
+  values={[{"label":"command","value":"command"},{"label":"output","value":"output"}]}>
+<TabItem value="command">
+
+_Switches_
+
+| switch              | parameter | Note                                   |
+| ------------------- | --------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+_Parameters_
+
+| param               | Type     | Note                                   |
+| ------------------- | -------- | -------------------------------------- |
+| none                | _n/a_    | none                                   |
+
+</TabItem>
+<TabItem value="output">
+
+```bash
+$ miner trace clear
+ok
+```
+
+</TabItem>
+</Tabs>
