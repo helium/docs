@@ -23,7 +23,7 @@ Usage: blockchain ledger commands
 ## Balance
 
 ```bash
-miner ledger balance [:p2p] [--format=csv]
+miner ledger balance [<p2p>] [--format=csv]
 ```
 
 Get the balance for one or all addresses.
@@ -43,9 +43,9 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| :p2p                | _b58_    | using b58 chain address      |
+| p2p                | _b58_    | using b58 chain address      |
 
 </TabItem>
 <TabItem value="output">
@@ -104,7 +104,7 @@ p2p,nonce,balance
 miner ledger export <filename>
 ```
 
-  Export transactions from the ledger to a given \<filename\>.
+  Export transactions from the ledger to a given <filename\>.
 
 
 <Tabs
@@ -122,9 +122,9 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| filename            | _path_    | Path to file starting with /var/data/    |
+| filename            | _path_    | path to file starting with /var/data/    |
 
 </TabItem>
 <TabItem value="output">
@@ -141,7 +141,7 @@ ok, transactions written to "/var/data/ledger-txn"
 ## Gateways
 
 ```bash
-miner ledger gateways [:p2p] [--format=csv]
+miner ledger gateways [<p2p>] [--format=csv]
 ```
 
 Get the balance for one or all addresses.
@@ -161,9 +161,9 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| none                | _n/a_    | none                                    |
+| p2p                | _b58_    | using b58 chain address                |
 
 </TabItem>
 <TabItem value="output">
@@ -211,7 +211,7 @@ gateway_address,name,owner_address,location,last_poc_challenge,nonce
 ## Variables
 
 ```bash
-miner ledger variables [name] [-a, --all]
+miner ledger variables [<name>] [-a, --all]
 ```
 
   Interact with chain variables.
@@ -232,7 +232,7 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
 | name            | _str_    | Name of Variable on Chain    |
 

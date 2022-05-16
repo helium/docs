@@ -50,7 +50,7 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
 | none                | _n/a_    | none                                   |
 
@@ -58,6 +58,7 @@ _Parameters_
 <TabItem value="output">
 
 ```bash
+$ miner peer listen
 +--------------------------+
 |listen_addrs (prioritized)|
 +--------------------------+
@@ -67,6 +68,7 @@ _Parameters_
 ```
 or
 ```bash
+$ miner peer listen --format=csv
 listen_addrs (prioritized)
 /ip4/30.18.38.196/tcp/2154
 /ip4/172.18.0.3/tcp/2154
@@ -98,7 +100,7 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
 | none                | _n/a_    | none                                   |
 
@@ -106,6 +108,7 @@ _Parameters_
 <TabItem value="output">
 
 ```bash
+$ miner peer session
 +----------------+---------------------+---------------------------------------+-------------------+
 |     local      |       remote        |                  p2p                  |       name        |
 +----------------+---------------------+---------------------------------------+-------------------+
@@ -126,6 +129,7 @@ _Parameters_
 ```
 or
 ```bash
+$ miner peer session --format=csv
 local,remote,p2p,name
 /ip4/172.20.0.3/tcp/2154,/ip4/66.23.230.204/tcp/2154,/p2p/112iFyZyTJtPeGDN45hfkxSuR2faPNwxnr9Yc3fQJtSY6XR5yJAL,dandy-sky-raven
 /ip4/172.20.0.3/tcp/2154,/ip4/43.129.239.2/tcp/44158,/p2p/11AmbKcagPL2YnhffDENjckFDjj7vm2ZUEM815TUwRvXGa2qaog,low-clear-robin
@@ -149,7 +153,7 @@ local,remote,p2p,name
 ## Ping
 
 ```bash
-miner peer ping :p2p
+miner peer ping <p2p>
 ```
 
 Ping the peer over an established or new session.
@@ -169,9 +173,9 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                           |
+| parameter              | Type     | Note                                           |
 | ------------------- | -------- | ---------------------------------------------- |
-| :p2p                | _str_    | using the ip address or p2p chain address      |
+| p2p                | _str_    | using the ip address or p2p chain address      |
 
 </TabItem>
 <TabItem value="output">
@@ -192,7 +196,7 @@ Pinged "/p2p/1ZAxCrEsigGVbLUM37Jki6p88kyZ5NVqjVC6oHSbqu49t7bQDym" successfully w
 ## Connect
 
 ```bash
-miner peer connect :p2p
+miner peer connect <p2p>
 ```
 
 Ping the peer over an established or new session.
@@ -212,9 +216,9 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                           |
+| parameter              | Type     | Note                                           |
 | ------------------- | -------- | ---------------------------------------------- |
-| :p2p                | _str_    | using the ip address or p2p chain address      |
+| p2p                | _str_    | using the ip address or p2p chain address      |
 
 </TabItem>
 <TabItem value="output">
@@ -235,7 +239,7 @@ Connected to "/p2p/1ZAxCrEsigGVbLUM37Jki6p88kyZ5NVqjVC6oHSbqu49t7bQDym" successf
 ## Disconnect
 
 ```bash
-miner peer disconnect :p2p
+miner peer disconnect <p2p>
 ```
 
 Ping the peer over an established or new session.
@@ -255,9 +259,9 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                           |
+| parameter              | Type     | Note                                           |
 | ------------------- | -------- | ---------------------------------------------- |
-| :p2p                | _str_    | using the ip address or p2p chain address      |
+| p2p                | _str_    | using the ip address or p2p chain address      |
 
 </TabItem>
 <TabItem value="output">
@@ -274,7 +278,7 @@ ok
 </TabItem>
 </Tabs>
 
-## addr
+## Address
 
 ```bash
 miner peer addr
@@ -297,7 +301,7 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
 | none                | _n/a_    | none                                   |
 
@@ -306,7 +310,7 @@ _Parameters_
 
 ```bash
 $ miner peer addr
-/p2p/1ZgrkMC2YEC8SQ7Z13H27y99ZAY1bbNKeUVxwUVZGw7BovfzTbC
+/p2p/1ZgrkMC2YEC8SQ7Z13H27y99ZAY1bbNKeUVxwUVZGw7B
 ```
 
 </TabItem>
@@ -315,7 +319,7 @@ $ miner peer addr
 ## Book
 
 ```bash
-miner peer book  [--format=csv]
+miner peer book [<p2p>] [-s, --self | -a, --all | -c, --count] [--format=csv]
 ```
 
 Displays peerbook entries for a given _p2p_ address, with options
@@ -339,9 +343,9 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| :p2p                | _str_    | none                                   |
+| p2p                | _str_    | none                                   |
 
 </TabItem>
 <TabItem value="output">
@@ -351,7 +355,7 @@ $ miner peer book -s
 +----------------------------------------------+---------------+----------+---------+---+----------+
 |                   address                    |     name      |listen_add|connectio|nat|last_updat|
 +----------------------------------------------+---------------+----------+---------+---+----------+
-|/p2p/1ZgrkMC2YEC8SQ7Z13H27y99ZAY1bbNKeUVxwUVZG|blunt-satin-tra|    1     |    9    |non|  59.33s  |
+|/p2p/1ZgrkMC2YEC8SQ7Z13H27y99ZAY1bbNKeUVxwUVZG|blunt-satin-sni|    1     |    9    |non|  59.33s  |
 +----------------------------------------------+---------------+----------+---------+---+----------+
 
 +---------------------------+
@@ -410,7 +414,7 @@ $ miner peer book -c
 11348
 ```
 :::warning
-you can use the `-a` switch but it will download the entire peer :p2p listing for all Hotspots and Validators, so just don't do it. Use the API for these requests.
+you can use the `-a` switch but it will download the entire peer p2p listing for all Hotspots and Validators, so just don't do it. Use the API for these requests.
 :::
 
 </TabItem>
@@ -436,12 +440,11 @@ _Switches_
 
 | switch              | parameter | Note                                   |
 | ------------------- | --------- | -------------------------------------- |
-| --format=           | _csv_     | outputs to csv format                  |
-
+| none                | _n/a_    | none                                   |
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
 | none                | _n/a_    | none                                   |
 
@@ -472,10 +475,10 @@ $ miner peer gossip_peers
 ## Refresh
 
 ```bash
-miner peer refresh :p2p
+miner peer refresh <p2p>
 ```
 
-Request an updated peerbook entry for :p2p addr from our gossip peers.
+Request an updated peerbook entry for p2p addr from our gossip peers.
 
 <Tabs
   block={true}
@@ -490,12 +493,11 @@ _Switches_
 | none                | _n/a_     | none                                   |
 
 
-
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| :p2p             | _str_    | none                                   |
+| p2p             | _str_    | none                                   |
 
 </TabItem>
 <TabItem value="output">
@@ -533,7 +535,7 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
 | none                | _n/a_    | none                                   |
 
@@ -552,7 +554,7 @@ ok
 ## Sync
 
 ```bash
-miner peer sync :p2p
+miner peer sync <p2p>
 ```
 
 Connect to given peer and attempt to sync blocks.
@@ -573,9 +575,9 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| :p2p             | _str_    | none                                   |
+| p2p             | _str_    | none                                   |
 
 </TabItem>
 <TabItem value="output">
@@ -589,10 +591,10 @@ ok
 </TabItem>
 </Tabs>
 
-## Fastforward
+## Fast Forward
 
 ```bash
-miner peer fastforward :p2p
+miner peer fastforward <p2p>
 ```
 
 Connect to given peer and attempt to deliver blocks rapidly.
@@ -613,9 +615,9 @@ _Switches_
 
 _Parameters_
 
-| param               | Type     | Note                                   |
+| parameter              | Type     | Note                                   |
 | ------------------- | -------- | -------------------------------------- |
-| :p2p             | _str_    | none                                   |
+| p2p             | _str_    | none                                   |
 
 </TabItem>
 <TabItem value="output">
