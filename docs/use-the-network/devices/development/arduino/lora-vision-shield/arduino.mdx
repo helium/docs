@@ -30,6 +30,8 @@ In this guide, you will learn:
   Network
 - Verify real-time packets sent to the Helium Console via Hotspot that's in
   range
+- Setup a full [Adafruit.io](https://io.adafruit.com/) http connection with a base64 decoder. (Note: CayenneLPP with Adafruit.io is easier to setup but less flexible)
+
 
 For this example, you will need the following:
 
@@ -227,7 +229,7 @@ port, you will need to check if the Arduino drivers have been installed.
 
 
 Now let's head back to [Helium Console](https://console.helium.com) and look at
-our device page, you should see something similar to the screenshot below.
+our device page, Scroll down to the chart and click the black debug icon to see incoming data, you should see something similar to the screenshot below.
 
 <img
   src={useBaseUrl(
@@ -238,3 +240,56 @@ our device page, you should see something similar to the screenshot below.
 Congratulations! You have just transmitted data on the Helium network! The next
 step is to learn how to use your device data to build applications, visit our
 Integrations docs [here](/use-the-network/console/integrations).
+
+
+### Connect to [Adafruit.io](https://io.adafruit.com/)
+
+There are a multitude of IOT sites to choose from, each with it's own methods to setup. 
+You will be much more confident about those other sites once you have setup a complete HTTPS connection with a decoder. 
+(I will show you the very inefficient base64 decoder simply because LoRaWan naturally base 64 encodes your information)
+Note: Using [Adafruit.io](https://io.adafruit.com/) MQTT with CayenneLPP is the fastest and easiest connection, use the prebuilt Adafruit-MQTT from the Helium Inetegrations page and CayenneLPP code for the Arduino, connect the CayenneLPP function and you are active, very powerful but with little naming flexibility.
+
+
+### Setup Adafruit.io Feed and Webhook
+
+Get a free [Adafruit.io login](https://accounts.adafruit.com/users/sign_up) which allows 5 free feeds (A feed is the data sent from a device to Adafruit). Click IO then feeds then add a new feed I call it "led1" but you can call it whatever you like. 
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/adafruit-feed.png"
+  )}
+/>
+
+Next create a base (not a fancy) webhook (menu on the right of your feeds, might have to scroll down) and copy the entire webhook URL. 
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/adafruit-webhook.png"
+  )}
+/>
+
+Webhooks are nice since you can define a duration and they can be used on the web without giving out your main Adafuit KEY, like you would have to if using MQTT.
+
+
+### Setup Helium Console for Adafruit http
+
+Back at the Helium Console Integrations, make a new integration, give it some sensible name like "adafruit-http-integration" and choose the manual http integration.
+
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/helium-adafruit-integration.png"
+  )}
+/>
+
+
+You will be entering: 1. a name for the integration, 2. The adafruit Webhook copied earlier 3. Some JSON code to get data from the decoder
+
+```
+
+```
+
+
+
+
+
