@@ -271,25 +271,106 @@ Next create a base (not a fancy) webhook (menu on the right of your feeds, might
 Webhooks are nice since you can define a duration and they can be used on the web without giving out your main Adafuit KEY, like you would have to if using MQTT.
 
 
-### Setup Helium Console for Adafruit http
+### Setup Helium Console Integration for Adafruit http
 
 Back at the Helium Console Integrations, make a new integration, give it some sensible name like "adafruit-http-integration" and choose the manual http integration.
 
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/arduino/portenta/helium-adafruit-integration.png"
+    "img/use-the-network/devices/development/arduino/portenta/helium-adafruit-integration-choice.png"
   )}
 />
 
 
-You will be entering: 1. a name for the integration, 2. The adafruit Webhook copied earlier 3. Some JSON code to get data from the decoder
+You will be entering: 1. a name for the integration, 2. The adafruit Webhook copied earlier 3. Some JSON code to get data from the decoder. This is at the bottom of the page and strangely replaces the code above it. 
+
+```
+ { "value": {{decoded.payload.value}} }
+ 
+```
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/helium-adafruit-integration-json.png"
+  )}
+/>
+
+
+### Setup Helium Console Function Decoder
+
+At the Helium Console Functions area. Make a new function give it a sensible name like "Adafruit-http-decoder-function". Then copy this code to replace the barebones decoder 
 
 ```
 
+ function Decoder(bytes, port, uplink_info) {
+  var decoded={};
+  try{
+  var result = String.fromCharCode.apply(null, bytes);
+  decoded.value = result;
+  return decoded;
+  } catch (err) {
+  return 'Decoder: ' + err.name + " : " + err.message;;
+  }
+ }
+ 
 ```
 
 
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/helium-adafruit-integration-json.png"
+  )}
+/>
 
 
+
+### Setup Helium FLOWS to connect the nodes
+
+At the Helium Console go to the flows menu. On some browsers the flows controller is hard to see. Click the "+" and choose and drag onto the screen the Device, Function and Integration you just made. Close the Flows control by re-clicking the hard to see "+"
+
+Connect the 3 icons: from Device to function decoder to adafruit-integration
+
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/helium-adafruit-flows.png"
+  )}
+/>
+
+
+
+*** View your blue-dot working device
+
+
+Now let's head back to [Helium Console](https://console.helium.com) and look at
+our device page, Scroll down to the chart and click the black debug icon to see incoming data, you should see something similar to the screenshot below. This time the red-dot should be a blue dot showing a successful Helium Adafruit integration.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/helium-debug-blue.png"
+  )}
+/>
+
+
+*** View your Adafruit.io Data
+
+Now go back to Adafruit.io and view your feeds to see if the data is coming in like you are expecting.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/adafruit-feed-success.png"
+  )}
+/>
+
+
+*** Make an Adafruit.io dashboard
+
+Not as important but fun to go to Adafruit dashboard and click the setup icon top right and create buckets to view your data in streams and graphs etc. Dashboards and feed can be made public if you want to share them with others who have the shareable link.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/portenta/adafruit-dashboard.png"
+  )}
+/>
 
