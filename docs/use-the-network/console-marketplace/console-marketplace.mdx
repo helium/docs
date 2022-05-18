@@ -8,7 +8,7 @@ slug: /use-the-network/console-marketplace
 
 The Console Marketplace provides a way for Helium community members to contribute and share Console components. Initially, this includes Integrations, but over time the marketplace will expand to Decoders, and others.
 
-Console Hosting Providers can choose which components are available to end-users. Some (for example, Helium Foundation) may choose to expose all available Console components, while others may only want to provide their users access to fewer for simplicity.
+Console Hosting Providers can choose which components are available to end-users. Some (for example, Helium Foundation) may choose to enable all available Console components, while others may only want to provide their users access to fewer for simplicity.
 
 ## How it works overview
 
@@ -31,11 +31,11 @@ Follow the instructions to submit a Marketplace Integration pull request to the 
 
 - Create form component for new integration page in ```/assets/js/components/channels/community``` folder and follow naming conventions.
 
-- Import form to ```/assets/js/components/channels/ChannelNew.jsx``` and add imported form to ```renderForm()```. 
+- Import form to ```/assets/js/components/channels/ChannelNew.jsx``` and add imported form component to ```renderForm()```. 
 
 - Create form component for update integration page ```/assets/js/components/channels/community``` folder and follow naming conventions.
 
-- Import form to ```/assets/js/components/channels/ChannelConnectionDetails.jsx``` and add imported form to ```export default () =>```. 
+- Import form to ```/assets/js/components/channels/ChannelConnectionDetails.jsx``` and add imported form to the switch case in ```export default () =>```. 
 
 - Add credential transform methods to populate actual connection details in file ```/lib/console/community/community_channels.ex``` in ```append_connection_details()``` and ```inject_credentials()```.
 
@@ -47,7 +47,7 @@ More info about Integrations [here](/use-the-network/console/integrations).
 
 :::warning
 
-An Integration must be enabled for devices to transfer data throught it. For example, if an existing Integration is disabled, any devices will no longer be able to transfer data via that Integration.
+An Integration must be enabled for devices to transfer data through it. For example, if an existing Integration is disabled, any devices will no longer be able to transfer data via that Integration.
 
 :::
 
@@ -55,10 +55,10 @@ Console Hosting Providers can choose which Integrations are enabled for users by
 
 More information about becoming a Console Hosting Provider [here](/use-the-network/run-a-network-server). 
 
-Set ```ALLOWED_INTEGRATIONS.env``` variable to toggle desired integrations.
+Set ```ALLOWED_INTEGRATIONS``` .env variable to toggle desired integrations.
 
 - To enable all reviewed integrations (default): ```ALLOWED_INTEGRATIONS=all```.
 
 - To enable selected integrations: ```ALLOWED_INTEGRATIONS=<integrations>```. For example, to enable the following integrations: HTTP, MQTT, CARGO: ```ALLOWED_INTEGRATIONS=http,mqtt,cargo```
 
-Integration keys can be found in ```/templates/allowed-integrations.json```.
+Integration keys can be found in ```/lib/console/channels/channel.ex```.
