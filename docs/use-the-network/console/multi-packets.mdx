@@ -1,10 +1,47 @@
 ---
 id: multi-packets
-sidebar_label: Multiple Packets
+sidebar_label: Packet Configurations
 slug: /use-the-network/console/multi-packets
 ---
 
-# Multiple Packets
+# Packets Configurations
+
+The Multiple Packets menu has been replaced with Packet Configurations.
+
+Packet Configurations allow users to specify settings that impact packet delivery and includes settings for both Multiple Packets and Preferred Hotspots.
+
+:::note
+
+For a Packet Configurations setting, users can either Preferred Hotspot or Multiple Packet setting, but not both.
+
+:::
+
+## Preferred Hotspots
+
+With this feature users can designate Hotspots as “Preferred”. If the feature is enabled, packets will ONLY be accepted by Hotspots chosen as Preferred. In the Coverage section, Hotspots must be followed first before they can be designated as Preferred.
+
+After configured, Packet Configurations can be applied on the Flows workspace at a device/label level on the Packets tab. 
+
+As this feature is designed for troubleshooting Hotspots or initial Hotspot positioning, the default setting is off. 
+
+:::warning
+
+This feature is designed for initial Hotspot positioning or troubleshooting. If this feature is enabled and a preferred Hotspot cannot send packets, then no packet transfer will occur even if other non-Preferred Hotspots are in range.
+
+:::
+
+
+### How to designate a Preferred Hotspot
+
+The following steps are required to designed Preferred Hotspots:
+
+Step 1: On Coverage choose the desired Hotspot. Hotspots must be first followed before they can be chosen as Preferred.
+
+Step 2: On Packet Configuration, choose the Preferred Hotspot settings.
+
+Step 3: On the Flows Workspace, apply the Packet setting to a device or group of devices.
+
+### Multiple Packets 
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
@@ -12,7 +49,7 @@ Data Credits are only spent for uplinks including initial join packets. The Mult
 
 To learn more about enabling Multiple Packets, check out our Tips and Tricks video [here](https://youtu.be/rDJcGspnq1A).
 
-## Configuring Multiple Packets
+### Configuring Multiple Packets
 
 Configuring multiple packets for a device a group of devices involved two main steps:
 

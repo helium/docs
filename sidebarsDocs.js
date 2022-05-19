@@ -48,6 +48,7 @@ module.exports = {
           'use-the-network/use-the-network',
           'use-the-network/devices/devices',
           'use-the-network/console/console',
+          'use-the-network/console-marketplace/console-marketplace',
           'use-the-network/roaming/roaming',
           'use-the-network/run-a-network-server/run-a-network-server',
           'use-the-network/setup-a-packet-forwarder',
