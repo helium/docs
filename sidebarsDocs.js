@@ -190,7 +190,7 @@ module.exports = {
       {
           type: 'category',
           label: 'Run a Network Server',
-          items: ['use-the-network/run-a-network-server/buy-an-oui', 'use-the-network/run-a-network-server/run-console', 'use-the-network/run-a-network-server/deploy-console','use-the-network/run-a-network-server/debug-with-sniffer'],
+          items: ['use-the-network/run-a-network-server/buy-an-oui', 'use-the-network/run-a-network-server/run-console', 'use-the-network/run-a-network-server/deploy-console','use-the-network/run-a-network-server/debug-with-sniffer', 'use-the-network/run-a-network-server/router-benchmarking'],
           collapsed: false,
       },
   ],
