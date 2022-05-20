@@ -9,7 +9,9 @@ slug: /troubleshooting/network-troubleshooting
 
 With the introduction of Light Hotspots, the network requirements and recommendations have changed. Light Hotspots do not require peer-to-peer to connect to each other - they connect directly to Validators to receive Challenges and report their witness receipts.
 
-The Light Hotspot => Validator connection is a standard gRPC connection.  The default port Validators listen on is 8080, so Hotspots should be able to connect Outbound to that port. (Note Validator operators can choose whichever port they want)  
+The Light Hotspot → Validator connection is a standard gRPC connection.  The default port Validators listen on is 8080 so Hotspots should be able to connect Outbound to that port. 
+
+Note: Validator operators can choose whichever port they want
 
 For "OG" Original Helium Hotspots, firmware updates are pushed over port 443, so that port should also be open Outbound.  You should check with your manufacturer to see which port they use to push firmware updates to ensure they can be received.
 
