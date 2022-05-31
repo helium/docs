@@ -42,7 +42,7 @@ Power users can jump ahead to the title Arduino Library #1 MKRWAN
 - [LoRa Vision Shield](https://store-usa.arduino.cc/products/arduino-portenta-vision-shield-lora%C2%AE)
 - Micro USB Type C Cable -
   [Example](https://www.amazon.com/AmazonBasics-Male-Micro-Cable-Black/dp/B0719H12WD/ref=sr_1_2_sspa?)
-- U.FL connector for your region. this example will use the US915MHz Antenna 
+- U.FL connector for your region. This example will use the US915MHz Antenna 
   [Example: U.FL IPEX to SMA Connector Antenna 915MHz for Lora Board](https://www.amazon.com/DIYmall-Connector-Antenna-915MHz-Lora32u4/dp/B084KVYBH5)
   
 ### Software
@@ -57,7 +57,7 @@ This step will cover adding an antenna to the LoRa Vision Shield.
 ### Adding the Antenna
 
 The uFL connector is just a push fit on the LoRa board, not the main Portenta board (That uFL connector is for WiFi and BLE). 
-Try not to have to remove and replace the antenna very often. the uFL connectors are rated for 30 connection cycles, so be careful when connecting/disconnecting to not rip the pads off the PCB
+Try not to have to remove and replace the antenna very often. The uFL connectors are rated for 30 connection cycles, so be careful when connecting/disconnecting to not rip the pads off the PCB.
 
 
 ## Software Setup
@@ -73,7 +73,7 @@ Download and install the latest version of
 
 ### Arduino Board Support
 
-The Portenta H7 requires one Arduino board support package. Follow the
+The PortentaH7 requires one Arduino board support package. Follow the
 instructions below to install it.
 
 #### Arduino Mbed OS Portenta Boards 
@@ -102,8 +102,7 @@ To install, open your Arduino IDE:
 
 1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage
    Libraries**\).
-2. In the search box, type **MKRWAN** into the search, select the **MKRWAN** library latest
-   version see image below, and click Install.
+2. In the search box, type **MKRWAN** into the search, select the **MKRWAN** library latest version, see image below, and click install.
 
 <img
   src={useBaseUrl(
@@ -111,13 +110,13 @@ To install, open your Arduino IDE:
   )}
 />
 
-If you prefer to install the zipped latest file from the github click [MKRWAN](https://github.com/arduino-libraries/MKRWAN) download the zipped file then find the library menu item to install zipped libraries
+If you prefer to install the zipped latest file from the github click [MKRWAN](https://github.com/arduino-libraries/MKRWAN) download the zipped file then find the library menu item to install zipped libraries.
 
 
 
 
 
-### Arduino Library #2 portenta-pro-community-solutions
+### Arduino Library #2 "Portenta Pro Community Solutions"
 
 To communicate with Helium's LoRaWAN network, we'll need to install an Arduino
 library.
@@ -135,7 +134,7 @@ To install, open your Arduino IDE:
   )}
 />
 
-If you prefer to install the zipped latest file from the github click [portenta-pro-community-solutions](https://github.com/hpssjellis/portenta-pro-community-solutions) download the zipped file then find the library menu item to install zipped libraries
+If you prefer to install the zipped latest file from the github click [portenta-pro-community-solutions](https://github.com/hpssjellis/portenta-pro-community-solutions) download the zipped file then find the library menu item to install zipped libraries.
 
 
 ### MKRWAN reprogram LoRa board using the MKRWAN example sketch
@@ -424,7 +423,7 @@ void loop() {
 ### Selecting Board
 
 Next, we need to select the correct board to build for in the Arduino IDE.
-Navigate to \(**Select Tools &gt; Board: &gt; Arduino Mbed OS Portenta Boards &gt; Arduino Portenta H7 \(M7 Core\) \).**
+Navigate to \(**Select Tools &gt; Board: &gt; Arduino Mbed OS Portenta Boards &gt; Arduino PortentaH7 \(M7 Core\) \).**
 
 
 ### Enter Bootloader Mode
@@ -432,9 +431,8 @@ Navigate to \(**Select Tools &gt; Board: &gt; Arduino Mbed OS Portenta Boards &g
 Next, we need to place the board into bootloader mode, which allows us to update
 it with new firmware. To do this, first plug the device into your computer, make
 sure the board is getting power \(you should see a green LED on\). Next,
-quickly double click the reset push button on the top side of the board, you
-should see the green LED slowly blink about one blink per second. If you see this then you have successfully
-entered bootloader mode.
+quickly double-click the reset push button on the top side of the board, you
+should see the green LED slowly pulse about one green pulse per second, showing that you have successfully entered bootloader mode.
 
 ### Selecting Port
 
@@ -467,15 +465,15 @@ Integrations docs [here](/use-the-network/console/integrations).
 
 ### Connect to [Adafruit.io](https://io.adafruit.com/)
 
-There are a multitude of IOT sites to choose from, each with it's own methods to setup. 
-You will be much more confident about those other sites once you have setup a complete HTTPS connection with a decoder. 
-(I will show you the very inefficient base64 decoder simply because LoRaWan naturally base 64 encodes your information)
+There are a multitude of IOT sites to choose from, each with their own methods to setup. 
+You will be much more confident about those other sites once you have finished setting up a complete HTTPS connection with a decoder. 
+(I will show you the very inefficient base64 decoder simply because LoRaWan naturally base64 encodes your information)
 Note: See the end of this tutorial for an easier but less flexible CayenneLPP Adafruit MQTT example
 
 
 ### Setup Adafruit.io Feed and Webhook
 
-Get a free [Adafruit.io login](https://accounts.adafruit.com/users/sign_up) which allows 5 free feeds (A feed is the data sent from a device to Adafruit). Click IO then feeds then add a new feed I call it "led1" but you can call it whatever you like. 
+Get a free [Adafruit.io login](https://accounts.adafruit.com/users/sign_up) which allows 5 free feeds (A feed keeps the data sent from a device to Adafruit). Click IO, then feeds, then add a new feed. I call it "led1" but you can call it whatever you like. 
 
 <img
   src={useBaseUrl(
@@ -491,7 +489,7 @@ Next create a base (not a fancy) webhook (menu on the right of your feeds, might
   )}
 />
 
-Webhooks are nice since you can define a duration and they can be used on the web without giving out your main Adafuit KEY, like you would have to if using MQTT.
+Webhooks are useful since you can define a duration, and they can be used on the web without giving out your main Adafuit KEY, like you would have to if you were using MQTT.
 
 
 ### Setup Helium Console Integration for Adafruit http
@@ -506,7 +504,7 @@ Back at the Helium Console Integrations, make a new integration, give it some se
 />
 
 
-You will be entering: 1. a name for the integration, 2. The adafruit Webhook copied earlier 3. Some JSON code to get data from the decoder. This is at the bottom of the page and strangely replaces the code above it. 
+You will be entering: 1. A name for the integration, 2. The adafruit Webhook copied earlier 3. Some JSON code to get data from the decoder. This is at the bottom of the page and strangely replaces the code above it. 
 
 ```
  { "value": {{decoded.payload.value}} }
@@ -550,9 +548,9 @@ At the Helium Console Functions area. Make a new function give it a sensible nam
 
 ### Setup Helium FLOWS to connect the nodes
 
-At the Helium Console go to the flows menu. On some browsers the flows controller is hard to see. Click the "+" and choose and drag onto the screen the Device, Function and Integration you just made. Close the Flows control by re-clicking the hard to see "+"
+At the Helium Console go to the FLOWS menu. On some browsers the FLOWS controller is hard to see. Click the "+" and choose and drag onto the screen the Device, Function and Integration you just made. Close the Flows control by re-clicking the hard to see "+"
 
-Connect the 3 icons: from Device to function decoder to adafruit-integration
+Connect the 3 icons  Portenta Device -to- function decoder -to- adafruit-integration
 
 
 <img
@@ -601,12 +599,12 @@ Not as important but fun to go to Adafruit dashboard and click the setup icon to
 
 *** CayenneLPP Adafruit MQTT example
 
-This example is easer than the above but less flexible. The decoder and the feed names are chosen for you and can't be changed, but easy to setup is often nice.
+This example is easier than the above but less flexible. The decoder and the feed names are chosen for you and can't be changed. Easy setup can be very useful when you know the negatives.
 
 1. When making a new Integration choose the MQTT Adafruit icon
 2. Enter your username and "my Key" your main adafruit key
 3. Name the integration and make a new function which will be the default CayenneLPP
-4. Using FLOWS Connect your portenta device to the CayenneLPP function and then to the Adafruit MQTT Integration
+4. Using FLOWS Connect your Portenta device to the CayenneLPP function and then to the Adafruit MQTT Integration
 5. Compile the code at dot334 example [dot334-us915-helium-mqtt-adafruit-connect.ino](https://github.com/hpssjellis/portenta-pro-community-solutions/blob/main/examples/dot3-portenta-vision-shields/dot33-lorawan-specific/dot334-us915-helium-mqtt-adafruit-connect/dot334-us915-helium-mqtt-adafruit-connect.ino) which takes an input on the Arduino Portenta A0 pin, converts it to CayenneLPP format, and sends it to Helium.
 6. Copy the Portenta Device_EUI to Helium and copy the App_EUI and APP_Key to the portenta code then compile again.
 7. Check the HElium device chart and debug Icon to see when uplink data is flowing, see if the graph dots are blue for successful integration with Adafruit. The results should be the same as above.
