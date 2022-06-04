@@ -291,7 +291,7 @@ module.exports = {
       label: 'Arduino',
       items: [
         'use-the-network/devices/development/arduino/mkr-wan-1310',
-        'use-the-network/devices/development/arduino/lora-vision-shield'
+        'use-the-network/devices/development/arduino/lora-vision-shield/lora-vision-shield'
       ],
       collapsed: false,
     },
@@ -1203,7 +1203,7 @@ module.exports = {
      {
        type: 'category',
        label: 'Firmware',
-       items: ['use-the-network/devices/development/arduino/lora-vision-shield/lora-vision-shield/arduino'],
+       items: ['use-the-network/devices/development/arduino/lora-vision-shield/arduino'],
        collapsed: false,
      },
    ],
