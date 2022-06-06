@@ -124,7 +124,7 @@ If you prefer to install the zipped latest file from the github click [MKRWAN](h
 
 
 ### Arduino Library #2 "Portenta Pro Community Solutions" 
-Optional as the sketch is provided below
+This is optional as the sketch is provided below
 
 To communicate with Helium's LoRaWAN network, we'll need to install an Arduino
 library.
@@ -185,6 +185,45 @@ output similar to below.
 />
 
 
+
+
+### Selecting Board
+If you had trouble with the above steps here is an Arduino refresher
+
+Next, we need to select the correct board to build for in the Arduino IDE.
+Navigate to \(**Select Tools &gt; Board: &gt; Arduino Mbed OS Portenta Boards &gt; Arduino PortentaH7 \(M7 Core\) \).**
+
+
+### Enter Bootloader Mode
+
+Next, we need to place the board into bootloader mode, which allows us to update
+it with new firmware. To do this, first plug the device into your computer, make
+sure the board is getting power \(you should see a green LED on\). Next,
+quickly double-click the reset push button on the top side of the board, you
+should see the green LED slowly pulse about one green pulse per second, showing that you have successfully entered bootloader mode.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/lora-vision-shield/portenta-bootloader.jpg"
+  )}
+/>
+
+### Selecting Port
+
+We're almost ready to upload our sketch, the very last step is to select the
+correct Serial port in the Arduino IDE. Navigate to \(**Tools &gt; Port:
+Arduino Portenta**\). You will also see either **COM\# or /dev/ttyACM\#**
+depending on whether you are on Windows, Mac, or Linux. If you do not see a
+port, you will need to check if the Arduino drivers have been installed.
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/lora-vision-shield/fixed-dev-eui.png"
+  )}
+/>
+
+
+
 ### Programming Example Sketch
 
 Now that we have the required Arduino board support and library installed, lets
@@ -195,15 +234,6 @@ Next, replace the template sketch with the sketch found
 [here](https://github.com/hpssjellis/portenta-pro-community-solutions/blob/main/examples/dot3-portenta-vision-shields/dot33-lorawan-specific/dot334-proof-us915-helium-connect.ino),
 copy and paste the entirety of it or if you have the Portenta-pro-community-solutions library just find example [dot334-proof-us915-helium-connect](https://github.com/hpssjellis/portenta-pro-community-solutions/blob/main/examples/dot3-portenta-vision-shields/dot33-lorawan-specific/dot334-proof-us915-helium-connect.ino),
 
-Next we'll need to fill in the SECRET_APP_EUI\(lsb\), and SECRET_APP_KEY\(msb\), written exactly as you see them from the [Helium Console](https://console.helium.com/)
-Note: On these boards the deviceEUI is fixed per board, so you will have to run the code once, view in the serial monitor what your boards deviceEUI is and enter that in the Helium Console. (the Helium console will randomly give you a deviceEUI (the top one in the list) but you must reset it)
-
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/devices/development/arduino/lora-vision-shield/helium-console-keys.png"
-  )}
-/>
 
 
 
@@ -428,39 +458,21 @@ void loop() {
 
 ```
 
-### Selecting Board
-
-Next, we need to select the correct board to build for in the Arduino IDE.
-Navigate to \(**Select Tools &gt; Board: &gt; Arduino Mbed OS Portenta Boards &gt; Arduino PortentaH7 \(M7 Core\) \).**
 
 
-### Enter Bootloader Mode
+### Helium Console
 
-Next, we need to place the board into bootloader mode, which allows us to update
-it with new firmware. To do this, first plug the device into your computer, make
-sure the board is getting power \(you should see a green LED on\). Next,
-quickly double-click the reset push button on the top side of the board, you
-should see the green LED slowly pulse about one green pulse per second, showing that you have successfully entered bootloader mode.
+After making a [Helium Console](https://console.helium.com) login, you we'll need select a new device "+" and  fill in the SECRET_APP_EUI\(lsb\), and SECRET_APP_KEY\(msb\), written exactly as you see them 
+Note: On these boards the deviceEUI is fixed per board, so you will have to run the code once, view in the serial monitor what your boards deviceEUI is and enter that in the Helium Console. (the Helium console will randomly give you a deviceEUI (the top one in the list) but you must reset it)
+
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/arduino/lora-vision-shield/portenta-bootloader.jpg"
+    "img/use-the-network/devices/development/arduino/lora-vision-shield/helium-console-keys.png"
   )}
 />
 
-### Selecting Port
 
-We're almost ready to upload our sketch, the very last step is to select the
-correct Serial port in the Arduino IDE. Navigate to \(**Tools &gt; Port:
-Arduino Portenta**\). You will also see either **COM\# or /dev/ttyACM\#**
-depending on whether you are on Windows, Mac, or Linux. If you do not see a
-port, you will need to check if the Arduino drivers have been installed.
-
-<img
-  src={useBaseUrl(
-    "img/use-the-network/devices/development/arduino/lora-vision-shield/fixed-dev-eui.png"
-  )}
-/>
 
 
 Now let's head back to [Helium Console](https://console.helium.com) and look at
