@@ -216,12 +216,6 @@ Arduino Portenta**\). You will also see either **COM\# or /dev/ttyACM\#**
 depending on whether you are on Windows, Mac, or Linux. If you do not see a
 port, you will need to check if the Arduino drivers have been installed.
 
-<img
-  src={useBaseUrl(
-    "img/use-the-network/devices/development/arduino/lora-vision-shield/fixed-dev-eui.png"
-  )}
-/>
-
 
 
 ### Programming Example Sketch
@@ -459,11 +453,31 @@ void loop() {
 ```
 
 
+### Compile Sketch and copy the Device EUI
 
-### Helium Console
+Once the above sketch is compiled and you have checked the port and loaded the Serial monitor you should see the Device EUI. Copy this value!
 
-After making a [Helium Console](https://console.helium.com) login, you we'll need select a new device "+" and  fill in the SECRET_APP_EUI\(lsb\), and SECRET_APP_KEY\(msb\), written exactly as you see them 
-Note: On these boards the deviceEUI is fixed per board, so you will have to run the code once, view in the serial monitor what your boards deviceEUI is and enter that in the Helium Console. (the Helium console will randomly give you a deviceEUI (the top one in the list) but you must reset it)
+
+<img
+  src={useBaseUrl(
+    "img/use-the-network/devices/development/arduino/lora-vision-shield/fixed-dev-eui.png"
+  )}
+/>
+
+
+
+### Helium Console to Arduino Sketch
+
+After making a [Helium Console](https://console.helium.com) login, you we'll need select a new device "+" and on the Arduino sketch copy into the correct location   the SECRET_APP_EUI\(lsb\), and SECRET_APP_KEY\(msb\), written exactly as you see them on the Helium Console.
+
+```
+#define SECRET_APP_EUI "00000000000000000" 
+#define SECRET_APP_KEY "00000000000000000000000000000000"
+
+```
+
+If you are familar with making a ```#include "arduino_secrets.h"``` tab then put these values in the secrets tab which allows you to post your code without showing these values. It does not make your code more secure so you don't have to do it.
+Note: If you are confused about the device EUI these Arduino boards have the deviceEUI fixed per board, so you will have to run the code once, view in the serial monitor what your boards deviceEUI is and enter that in the Helium Console. (the Helium console however will randomly give you a deviceEUI (the top one in the list) but you must reset it with the one specific for your board) See image below
 
 
 <img
