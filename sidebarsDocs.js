@@ -1193,6 +1193,19 @@ module.exports = {
       items: ['use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruitio'],
       collapsed: false,
     },
+  ],  
+  loravisionshieldv2: [
+   {
+      type: 'link',
+      label: '<- Arduino LoRa Vision Shield',
+      href: '/use-the-network/devices/development/arduino/lora-vision-shield'
+    },
+    {
+      type: 'category',
+      label: 'Firmware',
+      items: ['use-the-network/devices/development/arduino/lora-vision-shield/arduino'],
+      collapsed: false,
+    },
   ],
   helteccubecelhtccab01: [
    {
