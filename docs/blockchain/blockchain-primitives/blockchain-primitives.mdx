@@ -38,10 +38,11 @@ An `epoch` is the target time period for which a given group of Validators is
 elected to serve as the consensus group. The target time for an epoch is
 currently `30 blocks`, as defined in the `election_interval` chain variable.
 Approximately every 30 blocks mined marks the passing of an epoch, after which a
-new group of Validators is elected to form the next consensus group. Mining rewards
-are distributed per epoch (as opposed to per block in most blockchain-based
-systems). At the conclusion of each epoch, the consensus group will distribute
-all the $HNT produced in that block via the `rewards` transaction.
+new group of Validators is elected to form the next consensus group. Mining
+rewards are distributed per epoch (as opposed to per block in most
+blockchain-based systems). At the conclusion of each epoch, the consensus group
+will distribute all the $HNT produced in that block via the `rewards`
+transaction.
 
 ### Transactions
 
@@ -58,42 +59,42 @@ cleared and the serialized protobuf is signed by the actor.
 [The protobuf definitions are available here](https://github.com/helium/proto).
 
 All transactions occur on-chain, and all transactions require Helium Data
-Credits (DCs) to be submitted and confirmed. The following is a list of the supported
-transactions:
+Credits (DCs) to be submitted and confirmed. The following is a list of the
+supported transactions:
 
 - `add gateway` - Add a new gateway to the Helium Network. For the purposes of
   transactions, a “gateway” is the term for a Helium-compliant Miner that is
   mining and providing coverage.
 - `assert location` - Assert a gateway’s location on the Helium Network. This
   happens after a gateway has been added via the add gateway transaction. Once
-  asserted, this location is then used as part of Proof of Coverage (PoC) challenges.
-  A Miner’s location can be asserted more than once but each subsequent
-  assertion will cost a fee.
+  asserted, this location is then used as part of Proof of Coverage (PoC)
+  challenges. A Miner’s location can be asserted more than once but each
+  subsequent assertion will cost a fee.
 - `chain vars` - Change a chain variable.
 - `coinbase` - Similar to the bitcoin blockchain’s coinbase transaction but used
   only during testnet phases of the Helium blockchain. The `rewards` transaction
   has taken its place.
-- `coinbase data credits` - Created the initial 10,000 DCs required to
-  bring the first group of Miners online.
+- `coinbase data credits` - Created the initial 10,000 DCs required to bring the
+  first group of Miners online.
 - `consensus group` - Marks the election of a new consensus group, responsible
   for mining during the next epoch.
 - `create hashed timelock` - Creates a transaction that can only be redeemed by
   providing the correct pre-image to the hashlock within the specified timelock.
-- `create proof of coverage request` - Submitted by a Validator wishing to initiate
-  a challenge.
+- `create proof of coverage request` - Submitted by a Validator wishing to
+  initiate a challenge.
 - `data credits` - Burn HNT for DCs at the current oracle price and deliver them
   to the target wallet address.
 - `genesis gateway` - Used to define the initial group of Miners that
   bootstrapped the blockchain.
 - `multi-payment` - Used to send $HNT from one wallet to multiple wallets.
-- `OUI` - Create an Organization Unique Identifier (OUI) for a new router on the Helium network. In the Helium
-  blockchain, Miners forward packets to Routers that own them based on their OUI
-  as stored in the blockchain.
+- `OUI` - Create an Organization Unique Identifier (OUI) for a new router on the
+  Helium network. In the Helium blockchain, Miners forward packets to Routers
+  that own them based on their OUI as stored in the blockchain.
 - `payment` - Used to send $HNT from one wallet to another.
 - `proof of coverage receipts` - The result of a PoC submitted to the network
   upon completion.
-- `redeem hashed timelock` - Redeem the transaction created using the `create
-  hashed timelock` transaction.
+- `redeem hashed timelock` - Redeem the transaction created using the
+  `create hashed timelock` transaction.
 - `reward` - A token payout for a specific event on the network such as
   submitting a valid proof of coverage request, participating in a consensus
   group, etc.
@@ -107,7 +108,8 @@ transactions:
 - `state channel close` - Closes a specific state channel on a Helium Router.
 - `token burn exchange rate` - Change the exchange rate for burning $HNT to DCs.
 - `stake validator` - Stake a new Validator on the Helium Network.
-- `transfer validator` - Transfer a staked Validator to a new owner or a new Validator.
+- `transfer validator` - Transfer a staked Validator to a new owner or a new
+  Validator.
 - `unstake validator` - Unstake a previously staked Validator.
 
 **Extended Reading on Transactions**
@@ -150,14 +152,16 @@ types.
 To learn more about existing wallet solutions, check out our
 [section on wallets](/wallets).
 
-### Validators 
+### Validators
 
-Introduced in [HIP25](https://github.com/helium/HIP/blob/master/0025-validators.md), and officially [deployed to Mainnet on July 7, 2021](https://dewialliance.medium.com/validators-are-live-on-the-helium-network-fcf549a5e182), Validators are cloud-based nodes responsible
-for processing blocks and managing the blockchain consensus group. In return for securing the blockchain, Validators earn the 6% of HNT allocated 
-to the consensus group reward. To operate a Validator, one must stake 10,000 HNT.  
+Introduced in
+[HIP25](https://github.com/helium/HIP/blob/master/0025-validators.md), and
+officially
+[deployed to Mainnet on July 7, 2021](https://dewialliance.medium.com/validators-are-live-on-the-helium-network-fcf549a5e182),
+Validators are cloud-based nodes responsible for processing blocks and managing
+the blockchain consensus group. In return for securing the blockchain,
+Validators earn the 6% of HNT allocated to the consensus group reward. To
+operate a Validator, one must stake 10,000 HNT.
 
-* [Validators on the Helium Blockchain Explorer](https://explorer.helium.com/validators)
-* [Deploy a Validator](/mine-hnt/validators)
-
-
-
+- [Validators on the Helium Blockchain Explorer](https://explorer.helium.com/validators)
+- [Deploy a Validator](/mine-hnt/validators)
