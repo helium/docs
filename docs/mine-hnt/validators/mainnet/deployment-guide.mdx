@@ -7,12 +7,15 @@ slug: /mine-hnt/validators/mainnet/deployment-guide
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-This guide will cover the end-to-end process of deploying a Helium Validator on Mainnet. It assumes you're starting from scratch. At the end, you'll have a Helium Validator deployed on the Network.
-
+This guide will cover the end-to-end process of deploying a Helium Validator on
+Mainnet. It assumes you're starting from scratch. At the end, you'll have a
+Helium Validator deployed on the Network.
 
 :::info
 
-If at any point during this process you need assistance or have general questions, please join the `#validator` channel on [Helium Discord](https://discord.gg/helium).
+If at any point during this process you need assistance or have general
+questions, please join the `#validator` channel on
+[Helium Discord](https://discord.gg/helium).
 
 :::
 
@@ -20,18 +23,27 @@ If at any point during this process you need assistance or have general question
 
 To successfully deploy a Helium Validator, you'll need to do the following:
 
-- Install the [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs). You are welcome to build from source, but easiest to download the latest binary release.
-- Deploy a virtual server on a cloud service like AWS, GCP, Azure, or Digital Ocean. Or deploy a physical server on which to run the Validator. [The recommended hardware and networking requirements can be found here](/mine-hnt/validators/requirements/).
+- Install the [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs).
+  You are welcome to build from source, but easiest to download the latest
+  binary release.
+- Deploy a virtual server on a cloud service like AWS, GCP, Azure, or Digital
+  Ocean. Or deploy a physical server on which to run the Validator.
+  [The recommended hardware and networking requirements can be found here](/mine-hnt/validators/requirements/).
 
 ## Create Wallet
 
-Once you have your [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs) installed locally, it's time to create your Helium Wallet. Run the following command to create it. (This command format assumes you're using the executable. If you've built the wallet from source it'll look slightly different.)
+Once you have your
+[Helium CLI Wallet](https://github.com/helium/helium-wallet-rs) installed
+locally, it's time to create your Helium Wallet. Run the following command to
+create it. (This command format assumes you're using the executable. If you've
+built the wallet from source it'll look slightly different.)
 
 At any time use -h or --help to get more help for a command.
 
 :::warning
 
-It is a best practice to create your Helium CLI wallet on a separate machine from the one where you will run your Validator.
+It is a best practice to create your Helium CLI wallet on a separate machine
+from the one where you will run your Validator.
 
 :::
 
@@ -39,9 +51,12 @@ It is a best practice to create your Helium CLI wallet on a separate machine fro
 helium-wallet create basic
 ```
 
-You'll be prompted to supply a new passphrase to complete it. This is used to encrypt/decrypt the `wallet.key` file, and is needed to sign transactions. **Don't lose it.**
+You'll be prompted to supply a new passphrase to complete it. This is used to
+encrypt/decrypt the `wallet.key` file, and is needed to sign transactions.
+**Don't lose it.**
 
-This command will produce a `wallet.key` file on your machine, along with output similar to the following:
+This command will produce a `wallet.key` file on your machine, along with output
+similar to the following:
 
 ```
 +-----------------------------------------------------+---------+--------+------------+
@@ -83,14 +98,18 @@ The output will look similar to this:
 
 ## Each Validator Requires 10000 HNT
 
-Running a Validator on Mainnet requires you to stake `10000 HNT` per Validator, so you need to already own 10,000 HNT before you can stake a Validator. After you've created your wallet, transfer `10001 HNT` into it for each Validator you intend to run (the extra 1 HNT covers the staking transaction fee).
+Running a Validator on Mainnet requires you to stake `10000 HNT` per Validator,
+so you need to already own 10,000 HNT before you can stake a Validator. After
+you've created your wallet, transfer `10001 HNT` into it for each Validator you
+intend to run (the extra 1 HNT covers the staking transaction fee).
 
 :::info
 
-As is the case with every transaction on the Helium blockchain, `staking` requires a small fee paid in Data Credits. [Read more about transaction fees here](/blockchain/transaction-fees).
+As is the case with every transaction on the Helium blockchain, `staking`
+requires a small fee paid in Data Credits.
+[Read more about transaction fees here](/blockchain/transaction-fees).
 
 :::
-
 
 ## Run a Validator
 
@@ -98,23 +117,35 @@ With your wallet funded, it's time to deploy and run the actual Validator.
 
 :::warning
 
-If you haven't already, please review the [Validator Technical Requirements](/mine-hnt/validators/requirements). Specifically, on non-ARM systems `AVX` support is required. Verify that it exists on your host system by running the following:
+If you haven't already, please review the
+[Validator Technical Requirements](/mine-hnt/validators/requirements).
+Specifically, on non-ARM systems `AVX` support is required. Verify that it
+exists on your host system by running the following:
 
 ```
 grep avx /proc/cpuinfo
 ```
 
-If nothing is returned from this command, your host system does not have AVX support and your Validator may not be stable.
+If nothing is returned from this command, your host system does not have AVX
+support and your Validator may not be stable.
 
 :::
 
-You have three options for deploying the Validator. The deb package, a community member maintained package by PaulVMo, is the least complex to deploy and has very high performance. The Source build has the highest level of complexity to deploy, requires a higher level of Linux technical expertise, and also has very high performance. The docker version is less complex to deploy than Source, if you already have experience with Docker, but does not perform as well as the other two options. You only need to do ONE of the following:
+You have three options for deploying the Validator. The deb package, a community
+member maintained package by PaulVMo, is the least complex to deploy and has
+very high performance. The Source build has the highest level of complexity to
+deploy, requires a higher level of Linux technical expertise, and also has very
+high performance. The docker version is less complex to deploy than Source, if
+you already have experience with Docker, but does not perform as well as the
+other two options. You only need to do ONE of the following:
 
 - [Deploy the Validator from deb package](https://github.com/PaulVMo/helium-validator-deb)
 - [Deploy the Validator Using Docker](#deploy-the-validator-using-docker)
 - [Build the Validator from Source](#deploy-validator-from-source)
 
-NOTE: After deploying the deb package, come back to this page to perform the remaining steps starting at [Enable Firewall on the server](#enable-firewall-on-the-server)
+NOTE: After deploying the deb package, come back to this page to perform the
+remaining steps starting at
+[Enable Firewall on the server](#enable-firewall-on-the-server)
 
 ### Deploy the Validator Using Docker
 
@@ -124,27 +155,35 @@ Start by updating your packager manager registry:
 sudo apt-get update
 ```
 
-And install Docker itself. (If needed, full directions on installing Docker on Ubuntu [can be found here](https://docs.docker.com/engine/install/ubuntu/).)
+And install Docker itself. (If needed, full directions on installing Docker on
+Ubuntu [can be found here](https://docs.docker.com/engine/install/ubuntu/).)
 
 ```
 sudo apt-get install docker.io
 ```
 
-To avoid needing to use Docker with `sudo` privileges, add your user to the docker group, replacing $USER with your username here:
+To avoid needing to use Docker with `sudo` privileges, add your user to the
+docker group, replacing $USER with your username here:
 
 ```
 sudo usermod -aG docker $USER
 ```
 
-Log in and out of your account to apply these changes. You are now ready to use Docker.
+Log in and out of your account to apply these changes. You are now ready to use
+Docker.
 
 Now that docker is installed and ready, let's run the Validator.
 
 #### Run the Docker Container
 
-Before running the container for the first time, it is mandatory to pick a "system mount point". This allows you to easily maintain your Validator's blockchain identity - specifically `swarm keys` - and blockchain state through image updates. Without doing this, you will lose these items when upgrading docker images.
+Before running the container for the first time, it is mandatory to pick a
+"system mount point". This allows you to easily maintain your Validator's
+blockchain identity - specifically `swarm keys` - and blockchain state through
+image updates. Without doing this, you will lose these items when upgrading
+docker images.
 
-The `validator` directory should be created on a persistent EBS volume (if you're using AWS) or something similar that lives across server lifetimes.
+The `validator` directory should be created on a persistent EBS volume (if
+you're using AWS) or something similar that lives across server lifetimes.
 
 ```
 mkdir $HOME/validator_data
@@ -162,35 +201,80 @@ docker run -d --init \
 quay.io/team-helium/validator:latest-validator-amd64
 ```
 
-- `-d` option runs in detached mode, which makes the command return or not; you may want to omit if you have a daemon manager running the docker for you.
-- `--init` to indicate that an init process should be used as the PID 1 in the container.  This ensures the usual responsibilities of an init system, such as reaping zombie processes, are performed inside the created container.  When `docker exec` commands are run, it's possible for these to create zombie processes on the host.  This eliminates that issue. You can read more about this [here](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/) and [here](https://docs.docker.com/engine/reference/commandline/run/).
-- `--restart always` asks Docker to keep the image running, starting the image on boot and restarting the image if it crashes. Depending on how you installed Docker in your system, it'll start on boot.
-- `--publish 2154:2154/tcp` maps the port 2154 on the docker container to 2154 on the host machine. This allows inbound connections on port 2154 to the host machine to be routed to the validator container. In addition to this mapping, it is up to you to ensure that this port is available from the public internet to the host machine. This will require modifying firewall and/or security group settings in your cloud provider of choice.
-- `--publish 8080:8080/tcp` maps the port 8080 on the docker container to 8080 on the host machine. This allows inbound connections on port 8080 to the host machine to be routed to the validator container. In addition to this mapping, it is up to you to ensure that this port is available from the public internet to the host machine. This will require modifying firewall and/or security group settings in your cloud provider of choice.
-- `--name validator` names the container, which makes interacting with the docker easier, but feel free to name the container whatever you want.
-- `--mount` the parameters above will mount the container's `/var/data/` directory to the systems directory `$HOME/validator_data`. You will want this folder to be persistent across runs of the docker container as it will contain both the blockchain data and the miner key of your Validator.
-- `quay.io/team-helium/validator:latest-validator-amd64` Lastly, this points to the docker **_image_** for the Validator that is tagged as the "latest" for the amd64 architecture. For arm architectures, replace with `latest-validator-arm64`.
+- `-d` option runs in detached mode, which makes the command return or not; you
+  may want to omit if you have a daemon manager running the docker for you.
+- `--init` to indicate that an init process should be used as the PID 1 in the
+  container. This ensures the usual responsibilities of an init system, such as
+  reaping zombie processes, are performed inside the created container. When
+  `docker exec` commands are run, it's possible for these to create zombie
+  processes on the host. This eliminates that issue. You can read more about
+  this
+  [here](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/)
+  and [here](https://docs.docker.com/engine/reference/commandline/run/).
+- `--restart always` asks Docker to keep the image running, starting the image
+  on boot and restarting the image if it crashes. Depending on how you installed
+  Docker in your system, it'll start on boot.
+- `--publish 2154:2154/tcp` maps the port 2154 on the docker container to 2154
+  on the host machine. This allows inbound connections on port 2154 to the host
+  machine to be routed to the validator container. In addition to this mapping,
+  it is up to you to ensure that this port is available from the public internet
+  to the host machine. This will require modifying firewall and/or security
+  group settings in your cloud provider of choice.
+- `--publish 8080:8080/tcp` maps the port 8080 on the docker container to 8080
+  on the host machine. This allows inbound connections on port 8080 to the host
+  machine to be routed to the validator container. In addition to this mapping,
+  it is up to you to ensure that this port is available from the public internet
+  to the host machine. This will require modifying firewall and/or security
+  group settings in your cloud provider of choice.
+- `--name validator` names the container, which makes interacting with the
+  docker easier, but feel free to name the container whatever you want.
+- `--mount` the parameters above will mount the container's `/var/data/`
+  directory to the systems directory `$HOME/validator_data`. You will want this
+  folder to be persistent across runs of the docker container as it will contain
+  both the blockchain data and the miner key of your Validator.
+- `quay.io/team-helium/validator:latest-validator-amd64` Lastly, this points to
+  the docker **_image_** for the Validator that is tagged as the "latest" for
+  the amd64 architecture. For arm architectures, replace with
+  `latest-validator-arm64`.
 
-Additional flags if your host machine is behind a firewall that is performing Network Address Translation (NAT):
-Adding all four of these flags will assist the Validator to quickly determine the external IP address of the host machine. You must add all four flags for any of them to take effect:
-- `-e "NAT_INTERNAL_IP=192.168.0.139"` Replace the IP with your local IP shown when running `ip addr`.
-- `-e "NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )"` This  assists the Validator in quickly identifying the external IP of the NAT. The `curl` command simply queries an external provider and returns the public IP address of the interface. You can replace the `$( curl -s ipv4.icanhazip.com )` with your external IP, if you know what your external IP is and know that it will not change (static IP).
-- `-e "NAT_INTERNAL_PORT=2154"` Replace the port number with the port you've assigned to the validator, if not using the default 2154. 
-- `-e "NAT_EXTERNAL_PORT=2154"` Replace the port number with the port you've opened on the firewall, if not using the default 2154.
+Additional flags if your host machine is behind a firewall that is performing
+Network Address Translation (NAT): Adding all four of these flags will assist
+the Validator to quickly determine the external IP address of the host machine.
+You must add all four flags for any of them to take effect:
 
-Once you run the command above, docker will retrieve the latest Validator image, and start the docker process. Barring any errors, your Validator is running.
+- `-e "NAT_INTERNAL_IP=192.168.0.139"` Replace the IP with your local IP shown
+  when running `ip addr`.
+- `-e "NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )"` This assists the
+  Validator in quickly identifying the external IP of the NAT. The `curl`
+  command simply queries an external provider and returns the public IP address
+  of the interface. You can replace the `$( curl -s ipv4.icanhazip.com )` with
+  your external IP, if you know what your external IP is and know that it will
+  not change (static IP).
+- `-e "NAT_INTERNAL_PORT=2154"` Replace the port number with the port you've
+  assigned to the validator, if not using the default 2154.
+- `-e "NAT_EXTERNAL_PORT=2154"` Replace the port number with the port you've
+  opened on the firewall, if not using the default 2154.
+
+Once you run the command above, docker will retrieve the latest Validator image,
+and start the docker process. Barring any errors, your Validator is running.
 
 :::info
 
-Please watch and respond to upgrade requests on the `#validators-announcements` channel on the [Helium Discord](https://discord.gg/helium) server in a timely manner.
+Please watch and respond to upgrade requests on the `#validators-announcements`
+channel on the [Helium Discord](https://discord.gg/helium) server in a timely
+manner.
 
 :::
 
 #### Upgrade your Docker container
 
-To do manual upgrades, the latest miner tag [can be found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
+To do manual upgrades, the latest miner tag
+[can be found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
 
-To upgrade your docker container to the latest version, do the following. These commands will stop the running container then delete it; pull an updated Validator docker image from the repository; and finally delete any out of date Validator docker images.
+To upgrade your docker container to the latest version, do the following. These
+commands will stop the running container then delete it; pull an updated
+Validator docker image from the repository; and finally delete any out of date
+Validator docker images.
 
 ```
 docker stop validator && docker rm validator
@@ -200,17 +284,20 @@ docker pull quay.io/team-helium/validator:latest-validator-amd64
 docker image prune -f
 ```
 
-Finally, re-launch docker with the same command as above under the [Run the Docker Container](#deploy-the-validator-using-docker) section.
+Finally, re-launch docker with the same command as above under the
+[Run the Docker Container](#deploy-the-validator-using-docker) section.
 
 #### Interact with the Validator within the Container
 
-You may want to interrogate the Validator or interact with it. Docker's `exec` command enables this. For example:
+You may want to interrogate the Validator or interact with it. Docker's `exec`
+command enables this. For example:
 
 ```
 docker exec validator miner info height
 ```
 
-As shown above, you can prepend `docker exec validator` to any of the commands documented or create an alias such as
+As shown above, you can prepend `docker exec validator` to any of the commands
+documented or create an alias such as
 
 ```
 alias miner="docker exec validator miner"
@@ -218,20 +305,24 @@ alias miner="docker exec validator miner"
 
 And start the container again as described above, but with the new release tag.
 
-And thanks to the `--mount option`, the blockchain data and the validator keys are preserved through updates.
+And thanks to the `--mount option`, the blockchain data and the validator keys
+are preserved through updates.
 
 :::info
 
-Now that you have your Validator running, you need to [actually Stake tokens to make it official.](#stake-tokens-to-your-validator)
+Now that you have your Validator running, you need to
+[actually Stake tokens to make it official.](#stake-tokens-to-your-validator)
 
 :::
 
 ### Deploy Validator from Source
 
-Ok, brave soul. Here's what you'll need to build and deploy the miner from source:
+Ok, brave soul. Here's what you'll need to build and deploy the miner from
+source:
 
 - miner
-- Erlang package (the latest 22 or 23 versions are supported, the 24 release candidate will NOT work)
+- Erlang package (the latest 22 or 23 versions are supported, the 24 release
+  candidate will NOT work)
 - `libwxgtk` package
 - git
 
@@ -282,7 +373,8 @@ sudo dpkg -i esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
 sudo apt-get install -f
 ```
 
-We also need to use a newer version of Rust. The one that comes by default with Ubuntu will not work.
+We also need to use a newer version of Rust. The one that comes by default with
+Ubuntu will not work.
 
 ```
 #Remove rustc so we can install a newer version
@@ -315,18 +407,23 @@ _build/validator/rel/miner/bin/miner start
 
 #### Load the Genesis Block
 
-One last step. When building from source, you'll need to manually load the Helium blockchain genesis block once your miner is deployed and running. To do this, run the following:
+One last step. When building from source, you'll need to manually load the
+Helium blockchain genesis block once your miner is deployed and running. To do
+this, run the following:
 
 ```
 wget https://snapshots.helium.wtf/genesis.mainnet
 miner genesis load </absolute/path/to/genesis/block>
 ```
 
-Note that in the above `miner` command, the `miner` binary here is nested within `_build/validator/rel/miner/bin/miner`.
+Note that in the above `miner` command, the `miner` binary here is nested within
+`_build/validator/rel/miner/bin/miner`.
 
 #### Enable Firewall on the server
 
-It's good practice to restrict access to the server and you should allow access only to ports that are needed. If you also use node_exporter or a different type of exporter for monitoring, you should add those ports as well.
+It's good practice to restrict access to the server and you should allow access
+only to ports that are needed. If you also use node_exporter or a different type
+of exporter for monitoring, you should add those ports as well.
 
 ```
 #Enable Firewall
@@ -341,23 +438,34 @@ sudo ufw allow 2154/tcp
 #Allow connections for Light Hotspots
 sudo ufw allow 8080/tcp
 ```
+
 #### A Note on Errors
 
-Source builders have sometimes reported error messages (after the miner has been running well for a while) referencing `Too many open files`. This can occur when a `ulimit` limitation is exceeded for the number of open files.
+Source builders have sometimes reported error messages (after the miner has been
+running well for a while) referencing `Too many open files`. This can occur when
+a `ulimit` limitation is exceeded for the number of open files.
 
 You can check your soft limit (often `1024` by default) with:
 
-```ulimit -Sn```
+`ulimit -Sn`
 
-Specifics instructions to increase the `ulimit` vary by OS (readily found with a Google search) and are beyond the scope of this guide. The generally accepted number among the Validator community is to set this to 128000 and ensure it is persistent across reboots.
+Specifics instructions to increase the `ulimit` vary by OS (readily found with a
+Google search) and are beyond the scope of this guide. The generally accepted
+number among the Validator community is to set this to 128000 and ensure it is
+persistent across reboots.
 
 ## Stake HNT to Your Validator
 
-Now that your Validator node is running, the final step in the process is to formally stake HNT to your Validator. As part of the staking process the Validator address needs to both be in the staking transaction and sign the transaction. After a wallet stakes a validator node, the wallet becomes that node’s owner, has control over that validator node, and receives rewards.
+Now that your Validator node is running, the final step in the process is to
+formally stake HNT to your Validator. As part of the staking process the
+Validator address needs to both be in the staking transaction and sign the
+transaction. After a wallet stakes a validator node, the wallet becomes that
+node’s owner, has control over that validator node, and receives rewards.
 
 :::info
 
-First, double check your wallet balance to make sure you have the `10000` HNT required to stake, **along with a few extra to cover the transaction fees**.
+First, double check your wallet balance to make sure you have the `10000` HNT
+required to stake, **along with a few extra to cover the transaction fees**.
 
 :::
 
@@ -371,27 +479,34 @@ helium-wallet balance
 +-----------------------------------------------------+----------------+--------------+-----------------+
 ```
 
-To stake HNT, we need to get the validator node address. Obtain it using the following:
+To stake HNT, we need to get the validator node address. Obtain it using the
+following:
 
 ```
 miner peer addr
 ```
 
-The resulting output will look like this (except with your specific validator address). The string after `/p2p/` is your Validator address. For example:
+The resulting output will look like this (except with your specific validator
+address). The string after `/p2p/` is your Validator address. For example:
 
 ```
 /p2p/1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR
 ```
 
-We can now use this address with the Helium Wallet CLI `validators stake` command to formally stake the `10000 HNT` required **along with extra to cover the fee**. Here's the full command using the Validator address from above as an example. (**Make sure you replace it with yours.**)
+We can now use this address with the Helium Wallet CLI `validators stake`
+command to formally stake the `10000 HNT` required **along with extra to cover
+the fee**. Here's the full command using the Validator address from above as an
+example. (**Make sure you replace it with yours.**)
 
 ```
 helium-wallet validators stake one 1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR 10000 --commit
 ```
 
-After running this, you'll need to input your wallet passphrase to sign the transaction.
+After running this, you'll need to input your wallet passphrase to sign the
+transaction.
 
-And with that, you're done. Congratulations! You're running a Helium Validator on Mainnet!
+And with that, you're done. Congratulations! You're running a Helium Validator
+on Mainnet!
 
 ## Overriding Default Configuration
 
@@ -424,7 +539,7 @@ file, part of a docker run command, or included in a docker-compose file.
 - GRPC_PORT (default: `8080`) - Port used by light gateways to interact with the
   validator. This port must be publicly accessible.
 - JSONRPC_IP (default: `127,0,0,1`) - IP address that the JSON RPC endpoint
-  listens on. JSRONRPC is used for monitoring and interacting with the 
+  listens on. JSRONRPC is used for monitoring and interacting with the
   validator.
 - JSONRPC_PORT (default: `4467`) - Port number that the JSON RPC endpoint
   listens on.
@@ -445,19 +560,30 @@ includes all parameters used by the miner.
 
 ## Verifying Validator Victory
 
-Now that you're up and running with a Validator, there are a few things you can examine to make sure things are hunky dory.
+Now that you're up and running with a Validator, there are a few things you can
+examine to make sure things are hunky dory.
 
 ### Time Expectations
 
-Before your Validator will show Online status in Explorer, it must first sync up to the tip of the chain AND send a Heartbeat. The first Heartbeat will not be sent until after it syncs to the tip of the chain. You can check to see when your first heartbeat is sent within Explorer, on the Activity tab for your Validator.
+Before your Validator will show Online status in Explorer, it must first sync up
+to the tip of the chain AND send a Heartbeat. The first Heartbeat will not be
+sent until after it syncs to the tip of the chain. You can check to see when
+your first heartbeat is sent within Explorer, on the Activity tab for your
+Validator.
 
-The blockchain takes time. The distributed nature of verifying transactions into the blockchain takes time.  The validator information gossiped on the blockchain takes time.  APIs that run to update the [explorer](https://explorer.helium.com) are scheduled and have intervals.  Basically, you won't be able to run the validator and instantly see that everything is "good".
+The blockchain takes time. The distributed nature of verifying transactions into
+the blockchain takes time. The validator information gossiped on the blockchain
+takes time. APIs that run to update the [explorer](https://explorer.helium.com)
+are scheduled and have intervals. Basically, you won't be able to run the
+validator and instantly see that everything is "good".
 
-After the validator has been up and running for 15 minutes, proceed with some of the steps below.
+After the validator has been up and running for 15 minutes, proceed with some of
+the steps below.
 
 ### Check the API
 
-The [Validator API](/api/blockchain/validators) provides several useful calls to help monitor your Validator and the state of the Mainnet.
+The [Validator API](/api/blockchain/validators) provides several useful calls to
+help monitor your Validator and the state of the Mainnet.
 
 ```
 https://api.helium.io/v1/validators/
@@ -471,7 +597,8 @@ https://api.helium.io/v1/validators/<validator_address>
 
 will be very useful.
 
-You should see JSON output that looks similar to this. You are looking for `"online": "online"` and `"stake_status": "staked"`
+You should see JSON output that looks similar to this. You are looking for
+`"online": "online"` and `"stake_status": "staked"`
 
 ```
 {
@@ -511,9 +638,11 @@ miner info p2p_status
 +---------+------+
 ```
 
-- `connected` means you have at least one connection to a peer (outgoing connections OK)
+- `connected` means you have at least one connection to a peer (outgoing
+  connections OK)
 - `dialable` means peers can reach you (incoming connections OK)
-- `nat_type` of `none` is best for validators. Anything else means the validator code thinks it is behind some kind of NAT
+- `nat_type` of `none` is best for validators. Anything else means the validator
+  code thinks it is behind some kind of NAT
 - `height` is the currently synced block
 
 ```
@@ -542,27 +671,50 @@ miner peer book -s
 +-----------------+--------------------+---------------------------------------+-------------------+
 ```
 
-You're looking for `listen_addrs`. If you don't have at least one, your Validator hasn't settled on how to tell other peers to reach it. Often this can take 15-30 mins, sometimes longer.
+You're looking for `listen_addrs`. If you don't have at least one, your
+Validator hasn't settled on how to tell other peers to reach it. Often this can
+take 15-30 mins, sometimes longer.
 
 ### Copying your `swarm_key`
+
 Your validator's `swarm_key` is located in the `validator_data/miner` directory
 
-In order to copy the `swarm_key` locally to your personal computer, you'll need to use scp (outside of/instead of an ssh session).  Replace the user name and IP address (`root@192.0.2.1`) in the example below with the actual user name and IP address of your docker container instance.
+In order to copy the `swarm_key` locally to your personal computer, you'll need
+to use scp (outside of/instead of an ssh session). Replace the user name and IP
+address (`root@192.0.2.1`) in the example below with the actual user name and IP
+address of your docker container instance.
 
 ```
 scp root@192.0.2.1:validator_data/miner/swarm_key .
 ```
 
-The `.` at the end of the example above is a placeholder for your current directory on your local machine.  This is where your swarm_key will be copied to on your local machine.  Use the command `pwd` to determine the location where the file was copied to.
+The `.` at the end of the example above is a placeholder for your current
+directory on your local machine. This is where your swarm_key will be copied to
+on your local machine. Use the command `pwd` to determine the location where the
+file was copied to.
 
 #### A Note on the Purpose of a `swarm_key`
-The `swarm_key` equates to your validator's unique identity on the Helium blockchain. Backing up the `swarm_key` enables you to maintain your validator's identity in the event that your node becomes compromised in some way, or needs to be rebuilt on another server for any reason.
+
+The `swarm_key` equates to your validator's unique identity on the Helium
+blockchain. Backing up the `swarm_key` enables you to maintain your validator's
+identity in the event that your node becomes compromised in some way, or needs
+to be rebuilt on another server for any reason.
 
 ### Check the Explorer
 
-Head over to the [Validator Mainnet Explorer](https://explorer.helium.com/validators) and search for your Validator. This may take 10 to 15 minutes from the time that your Validator is both online and staked before it appears on explorer. You should see your 3-word validator name (`short-umber-bull` in the example above) listed. It may be easier to sort by `#`, descending, as your new Validator will be near the top of the list. Remember you can view the name of your validator through `miner info summary` or just `miner info name`.
+Head over to the
+[Validator Mainnet Explorer](https://explorer.helium.com/validators) and search
+for your Validator. This may take 10 to 15 minutes from the time that your
+Validator is both online and staked before it appears on explorer. You should
+see your 3-word validator name (`short-umber-bull` in the example above) listed.
+It may be easier to sort by `#`, descending, as your new Validator will be near
+the top of the list. Remember you can view the name of your validator through
+`miner info summary` or just `miner info name`.
 
 ### Troubleshooting Guide
-If your validator does not show online in Explorer after 24 hours, view the [Validator Troubleshooting Guide](https://docs.helium.com/mine-hnt/validators/troubleshooting) here.
+
+If your validator does not show online in Explorer after 24 hours, view the
+[Validator Troubleshooting Guide](https://docs.helium.com/mine-hnt/validators/troubleshooting)
+here.
 
 Thank you for being a part of the Helium Validators initiative.
