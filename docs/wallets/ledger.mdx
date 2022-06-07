@@ -3,6 +3,7 @@ id: ledger
 sidebar_label: Ledger
 slug: /wallets/ledger
 ---
+
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 # Ledger Hardware Wallet
@@ -17,22 +18,19 @@ a Nano S or Nano X, the Helium ledger app allows you to:
 This guide will walk through using Helium on a Ledger Nano S but is similar to
 setup on the Nano X.
 
-:::info
-Ledger CLI using experimental mode is supported at this time. Work to enable HNT in Ledger Live in addition to a CLI is ongoing.
-:::
+:::info Ledger CLI using experimental mode is supported at this time. Work to
+enable HNT in Ledger Live in addition to a CLI is ongoing. :::
 
 ## Installing the Helium ledger application
 
 - Go to Ledger Live &gt; Settings &gt; Experimental Features &gt; Enable
-Developer mode.
+  Developer mode.
 
 <img src={useBaseUrl("img/wallets/ledger/ledger-dev-mode.png")} />
 
 - Once enabled, go to Manager and search "Helium".
 
-:::info
-If you can't find "Helium", you may need to update your Ledger Live.
-:::
+:::info If you can't find "Helium", you may need to update your Ledger Live. :::
 
 - Click Install.
 
@@ -46,10 +44,8 @@ commands..." prompt should be on the screen.
 
 ## Execute Commands
 
-:::info
-Make sure Ledger Live is closed before proceeding! The companion app
-cannot run when Ledger Live is blocking the USB device.
-:::
+:::info Make sure Ledger Live is closed before proceeding! The companion app
+cannot run when Ledger Live is blocking the USB device. :::
 
 To interact with the app on Ledger, you will need to use the CLI. Head to
 [Releases in the Github repo](https://github.com/helium/helium-ledger-cli/releases)
@@ -58,10 +54,10 @@ and download the most recent release for your operating system.
 We'll use macOS for the remainder of this example.
 
 - Download the release for macOS
-`helium-ledger-cli-x.x.x-x86_64-apple-darwin.zip` and unzip the file
+  `helium-ledger-cli-x.x.x-x86_64-apple-darwin.zip` and unzip the file
 - Navigate to where you downloaded the release on your computer in terminal
 - Make sure your ledger is connected to your computer, then type
-`./helium-ledger-cli`
+  `./helium-ledger-cli`
 
 ```bash
 ~/helium-ledger-cli-v2.0.0-x86-64-macos$ ./helium-ledger-cli
@@ -104,15 +100,11 @@ Ledger running Helium App v2.1.0
 +-----------------------------------------------------+-------------+--------------+-----------------+
 ```
 
-:::warning
-Do not simply rely on what you see on the CLI, but verify it matches
-what is displayed on the Ledger.
-:::
+:::warning Do not simply rely on what you see on the CLI, but verify it matches
+what is displayed on the Ledger. :::
 
-:::info
-You may add the `--qr` option to the command to display your address in
-the form of a QR code.
-:::
+:::info You may add the `--qr` option to the command to display your address in
+the form of a QR code. :::
 
 To receive HNT, simply provide your address in the base58 format output from the
 CLI or by using the QR code.
@@ -160,16 +152,14 @@ Ledger running Helium App v2.1.0
 +-------+-----------------------------------------------------+-------------+--------------+-----------------+
 ```
 
-:::info
-Up to 255 wallets may be used on the Ledger, but the `--scan` command
+:::info Up to 255 wallets may be used on the Ledger, but the `--scan` command
 fetches each address one-by-one; it will take quite a long time to get all 255
 addresses.
 
 While this convenience feature exists, **double check the address using the
 screen of the Ledger** (ie: call the specific `--account N balance` without the
 `--scan` option) before sending any assets. A nefarious CLI application could
-provide fake addresses.
-:::
+provide fake addresses. :::
 
 ## Supported Transactions
 
@@ -220,7 +210,7 @@ understand the security model.
 ## Sending HNT
 
 1. On the CLI, type `./helium-ledger-cli pay <address> <amount>` to pay in HNT.
-Press `return`.
+   Press `return`.
 2. On the Ledger, follow the prompts and confirm the transaction.
 3. The CLI should show a confirmation of the transaction.
 
@@ -238,8 +228,7 @@ Creating the following transaction:
 WARNING: do not use this output as the source of truth. Instead, rely on the Ledger Display
 ```
 
-:::warning
-Use the screen of the Ledger to confirm everything you do. The CLI
+:::warning Use the screen of the Ledger to confirm everything you do. The CLI
 app could be nefarious (maybe you downloaded the wrong one, maybe somebody
 change the program on your computer, etc). The Ledger on the other hand will
 only load applications signed by Ledger, so your security relies on you
@@ -247,8 +236,7 @@ verifying the transaction details on the screen.
 
 To be clear, do not compare the output to the output from the CLI shown above
 (the nefarious app might be showing you the fake address), but instead from your
-original source.
-:::
+original source. :::
 
 Verify the parameters of the transcation on the screen. Addresses are long and
 need to be scrolled (hold the right or left button only). Once you are satisfied
@@ -301,15 +289,15 @@ plug it in again.
 
 ## Security Model
 
-The attack surface for using the Helium wallet app on a Ledger comprises
-the Helium app itself, the system firmware running on the Ledger Hardware Wallet,
-the computer that the Ledger Hardware Wallet is connected to, and possession/control
-of the device. For our purposes, the app only needs to ensure its own correctness
-and protect the user from the computer that the Ledger Hardware Wallet is connected
-to. Other attack surfaces are beyond our control; we assume that the user physically
-controls the device, is not running malicious/buggy software on the device, and
-follows proper security protocols. The goal of the Helium app is to achieve security
-given these assumptions.
+The attack surface for using the Helium wallet app on a Ledger comprises the
+Helium app itself, the system firmware running on the Ledger Hardware Wallet,
+the computer that the Ledger Hardware Wallet is connected to, and
+possession/control of the device. For our purposes, the app only needs to ensure
+its own correctness and protect the user from the computer that the Ledger
+Hardware Wallet is connected to. Other attack surfaces are beyond our control;
+we assume that the user physically controls the device, is not running
+malicious/buggy software on the device, and follows proper security protocols.
+The goal of the Helium app is to achieve security given these assumptions.
 
 The main attack vector that we are concerned with, then, is a computer running
 malicious software. This software may imitate programs like `helium-ledger-cli`
@@ -318,19 +306,18 @@ maliciously. Specifically, the computer can do the following:
 
 1. Lie to the user about which actions it is performing.
 
-Example: the user runs `./helium-ledger-cli balance` to display their public
-key to so that they may receive payment; yet a hard-coded address is
-displayed
+Example: the user runs `./helium-ledger-cli balance` to display their public key
+to so that they may receive payment; yet a hard-coded address is displayed
 
 2. Lie to the user about who the recipient is.
 
-Example: the user runs `./helium-ledger-cli pay IntendedAddress amount`, yet
-the program again uses a hard-coded address
+Example: the user runs `./helium-ledger-cli pay IntendedAddress amount`, yet the
+program again uses a hard-coded address
 
 To combat these attacks, the app makes use of the embedded display on the Nano
 S. Data sent to/from the Ledger Hardware Wallet is displayed on the screen so
-the user can verify that the computer is not lying about what it sent or received.
-In the interest of user-friendliness, we would like to display as little information
-as possible, but each omission brings with it the risk of introducing a
-vulnerability. Therefore, the app displays all data by default, and omits data
-only after subjecting the omission to extreme scrutiny.
+the user can verify that the computer is not lying about what it sent or
+received. In the interest of user-friendliness, we would like to display as
+little information as possible, but each omission brings with it the risk of
+introducing a vulnerability. Therefore, the app displays all data by default,
+and omits data only after subjecting the omission to extreme scrutiny.
