@@ -65,6 +65,7 @@ This also works for your Validator 2154 port, just swap it in for the 8080 above
 * Run ```tail -n 500 -f $HOME/validator_data/log/console.log | grep -E 'add_block|validation took'``` and monitor it for several minutes to confirm blocks are being absorbed.
   * The fastest validators have an average `validation took` time below 1,000ms. Absorb times higher than 3,000-5,000ms are not out of the norm, but consistently higher absorb times can indicate an issue with your Internet connectivity, disk or CPU speed. Absorb times approaching 60 seconds may prevent your validator from catching up to the tip of the chain, as new blocks are created approximately every 60s. 
   * Note: If you just loaded a snapshot or upgraded the miner version, absorb times may be higher than usual, so wait several hours before determining your average absorb time.
+* Consider migrating to the debian validator package from the [Mainnet Deployment Guide](https://docs.helium.com/mine-hnt/validators/mainnet/deployment-guide/#:~:text=Deploy%20the%20Validator%20from%20deb%20package) to further reduce validation times.  
 
 ## Validator low disk space
 * If your validator is operatinging properly but is running low on disk space and you cannot/do not want to increase the disk space, it is safe to delete everything under the `$HOME/validator_data` **EXCEPT** for `$HOME/validator_data/miner` where your `swarm_key` is located.
@@ -127,7 +128,7 @@ The most common cause of Perf/DKG penalties is bad luck (due to bad peers or oth
 A few other penalty root causes exist, each requiring detailed monitoring capabilities to troubleshoot.
 
 For the time/blocks when your validator accrued penalties, check your metrics dashboard (e.g., Grafana).
-* CPU steal: was this spiking when you were in the CG? Is this at an elevated level generally (<1% is normal)? If regularly high, change hosting providers.
+* CPU steal: was this spiking when you were in the CG? Is this at an elevated level generally? Most consider <1% to be normal. If it is regularly higher, open a ticket with your hosting provider, or change hosting providers, or install on a bare metal server.
 * Internet connectivity issues: did rate of network ingress / egress plateau or fall off while in consensus group? Check if your network usage is throttled.
 * Slow disk write speeds: do your disk write speeds exceed 4ms/op (not a fixed line, just a level where "you could get dinged")? See if you can improve disk quality.
 * Other metrics: memory usage, disk volume, disk i/o, write latency
