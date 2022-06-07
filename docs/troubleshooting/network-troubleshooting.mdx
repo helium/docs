@@ -7,19 +7,35 @@ slug: /troubleshooting/network-troubleshooting
 
 # Network Troubleshooting
 
-With the introduction of Light Hotspots, the network requirements and recommendations have changed. Light Hotspots do not require peer-to-peer to connect to each other - they connect directly to Validators to receive Challenges and report their witness receipts.
+With the introduction of Light Hotspots, the network requirements and
+recommendations have changed. Light Hotspots do not require peer-to-peer to
+connect to each other - they connect directly to Validators to receive
+Challenges and report their witness receipts.
 
-The Light Hotspot → Validator connection is a standard gRPC connection.  The default port Validators listen on is 8080 so Hotspots should be able to connect Outbound to that port. 
+The Light Hotspot → Validator connection is a standard gRPC connection. The
+default port Validators listen on is 8080 so Hotspots should be able to connect
+Outbound to that port.
 
-Note: Validator operators can choose whichever port they want.  If a Hotspot can not connect to a Validator, the Hotspot will drop that Validator and automatically try to connect to a different one.
+Note: Validator operators can choose whichever port they want. If a Hotspot can
+not connect to a Validator, the Hotspot will drop that Validator and
+automatically try to connect to a different one.
 
-For Original Helium Hotspots, firmware updates are pushed over port 443, so that port should always be open Outbound.  You should check with your manufacturer to see which port they use to push firmware updates to ensure they can be received.
+For Original Helium Hotspots, firmware updates are pushed over port 443, so that
+port should always be open Outbound. You should check with your manufacturer to
+see which port they use to push firmware updates to ensure they can be received.
 
-During the remaining transition to Light Hotspots, the Hotspots will continue to sync the blockchain in case a rollback is needed.  A Hotspot is considered "Light" after it is synced past block 1,350,664. Proof-of-Coverage participation is not dependent on being fully synced.  As such, the previous recommendation of In/Out port 44158 is still valid for the time being.  Once the transition is complete, this will no longer be necessary or have an effect. 
+During the remaining transition to Light Hotspots, the Hotspots will continue to
+sync the blockchain in case a rollback is needed. A Hotspot is considered
+"Light" after it is synced past block 1,350,664. Proof-of-Coverage participation
+is not dependent on being fully synced. As such, the previous recommendation of
+In/Out port 44158 is still valid for the time being. Once the transition is
+complete, this will no longer be necessary or have an effect.
 
-Please also verify with your manufacturer if they require any specific ports for connecting to the Hotspots for support. For Original Helium Hotspot support, we recommend ports 22 and 2222-2233 open Outbound only. 
+Please also verify with your manufacturer if they require any specific ports for
+connecting to the Hotspots for support. For Original Helium Hotspot support, we
+recommend ports 22 and 2222-2233 open Outbound only.
 
-_________________
+---
 
 (Pre-Light Hotspot recommendations)
 
@@ -68,7 +84,7 @@ another Hotspot on the network and can adversely affect mining and earnings.
 Relayed Hotspots can be identified in Explorer.
 
 We recommend enabling TCP Ports 44158 in both directions in your router. Check
-your Router's manufacturing instructions on how to open ports 44158. 
+your Router's manufacturing instructions on how to open ports 44158.
 
 To get started with port forwarding, check out https://portforward.com
 
