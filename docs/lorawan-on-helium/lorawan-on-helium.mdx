@@ -7,7 +7,10 @@ slug: /lorawan-on-helium
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-<img className="docsheader" src={useBaseUrl("img/lorawan-on-helium/lorawanheader.png")} />
+<img
+  className="docsheader"
+  src={useBaseUrl("img/lorawan-on-helium/lorawanheader.png")}
+/>
 
 # LoRaWAN On Helium
 
@@ -17,8 +20,8 @@ However, Helium distinguishes itself in how it treats the LoRaWAN Network Server
 
 In typical LoRaWAN Networks, a central or regional LNS is managed by a single
 entity. Helium’s design for a decentralized network, however, means not only do
-we want gateways (referred to as Hotspots) to be independently owned
-and operated, but we want to enable the independent operation of the LNS.
+we want gateways (referred to as Hotspots) to be independently owned and
+operated, but we want to enable the independent operation of the LNS.
 
 Without this, access to the network would require permission from a single
 central entity, the LNS operator of the network.
@@ -29,8 +32,8 @@ other: public wireless infrastructure is now compatible with privately-run
 network servers.
 
 The rest of this article will discuss the networking primitives. If you want to
-go ahead and run a network server, please checkout our article about [running
-a network server](/use-the-network/run-a-network-server).
+go ahead and run a network server, please checkout our article about
+[running a network server](/use-the-network/run-a-network-server).
 
 ## The OUI
 
@@ -45,13 +48,17 @@ by the OUI operator:
   devices on the Helium Network
 
 A device defined by (AppEui, DevEui) can be allocated any of the DevAddrs owned
-by the OUI. It is even possible to multiplex many devices on the same DevAddr
-at the same time, using the Message Integrity Check (MIC) to disambiguate.
+by the OUI. It is even possible to multiplex many devices on the same DevAddr at
+the same time, using the Message Integrity Check (MIC) to disambiguate.
 
 :::info
 
-Based on latest benchmarking tests the upper limit for a Devaddr `1024` slab is approximately 5800 devices, but results still need to be replicated and bracketed. Community members are encouraged to run their own benchmarking tests.
-Instructions [here](https://docs.helium.com/use-the-network/run-a-network-server/router-benchmarking). Requires basic familiarity with Linux and Bash command-line.
+Based on latest benchmarking tests the upper limit for a Devaddr `1024` slab is
+approximately 5800 devices, but results still need to be replicated and
+bracketed. Community members are encouraged to run their own benchmarking tests.
+Instructions
+[here](https://docs.helium.com/use-the-network/run-a-network-server/router-benchmarking).
+Requires basic familiarity with Linux and Bash command-line.
 
 :::
 
@@ -99,14 +106,12 @@ Within DevAddr, there is the NwkAddr of a device:
 +------------------------+-----------------------+
 |   NwkID (bits 31–25)   |  NwkAddr (bits 24–0)  |
 +-----------+--------------------+---------------+
-|     Helium Network     |   allocated by slab   | 
+|     Helium Network     |   allocated by slab   |
 |(‘H’ / 0b1001000 / 0x48)|      to OUIs          |
 +-----------+--------------------+---------------+
 ```
 
-
 From the gateways perspective, it is able to use DevAddr to determine the OUI of
-Data frames. A quick query can say which OUI owns this DevAddr slab. This look-up and routing by DevAddr instead of by \(AppEUI, DevEUI\) via _xorhash_
+Data frames. A quick query can say which OUI owns this DevAddr slab. This
+look-up and routing by DevAddr instead of by \(AppEUI, DevEUI\) via _xorhash_
 filters is generally much quicker.
-
-
