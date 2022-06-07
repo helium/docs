@@ -10,18 +10,23 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 :::warning
 
-The ability to earn from [Proof of Coverage](https://docs.helium.com/blockchain/proof-of-coverage)
-with anything other than an [Full Hotspot](/mine-hnt/full-hotspots) is not
-supported.
+The ability to earn from
+[Proof of Coverage](https://docs.helium.com/blockchain/proof-of-coverage) with
+anything other than an [Full Hotspot](/mine-hnt/full-hotspots) is not supported.
 
-Building your own packet forwarder enables data transfer rewards _only_,
-**if and only if** you complete the setup process [here](/mine-hnt/data-only-hotspots).
+Building your own packet forwarder enables data transfer rewards _only_, **if
+and only if** you complete the setup process
+[here](/mine-hnt/data-only-hotspots).
 
 :::
 
 ## Packet Forwarder Architecture
 
-<img src={useBaseUrl("img/use-the-network/setup-a-packet-forwarder/packet-forwarder-arch.png")} />
+<img
+  src={useBaseUrl(
+    "img/use-the-network/setup-a-packet-forwarder/packet-forwarder-arch.png"
+  )}
+/>
 
 To be a Helium Miner, there are three principle components to know about
 
@@ -29,17 +34,17 @@ To be a Helium Miner, there are three principle components to know about
   front-end and sends and receives raw radio packets with the Helium Miner
 - **Light Hotspot Client**: the Helium Blockchain comes into the picture here;
   light hotspot client is responsible for routing packets to the appropriate
-  Router (see our Routing article) entering into microtransactions brokered
-  via gRPC
+  Router (see our Routing article) entering into microtransactions brokered via
+  gRPC
 - **Router**: a Helium compatible LoRaWAN Network Server, basically; this
   component is interested in receiving the packets relating to its devices and
   handles downlink responses when appropriate
 
-Any device that can run an 8 channel LoRa front-end (such as SX1301 or
-SX1302) can be used to participate in the Helium Network. The Light Hotspot
-Client is designed to send and receive packets using the Semtech Gateways
-Messaging Protocol (GWMP), making it compatible with almost every LoRaWAN
-Gateway on the Market.
+Any device that can run an 8 channel LoRa front-end (such as SX1301 or SX1302)
+can be used to participate in the Helium Network. The Light Hotspot Client is
+designed to send and receive packets using the Semtech Gateways Messaging
+Protocol (GWMP), making it compatible with almost every LoRaWAN Gateway on the
+Market.
 
 Many off-the-shelf LoRaWAN gateways work very well and using one of them gives
 you one less thing to worry about as the Packet Forwarder is setup and ready to
@@ -162,4 +167,5 @@ INFO: [main] concentrator started, packet can now be received
 INFO: concentrator EUI: 0x????????????????
 ```
 
-You are now ready to setup the [light hotspot client](/use-the-network/light-hotspots).
+You are now ready to setup the
+[light hotspot client](/use-the-network/light-hotspots).
