@@ -13,8 +13,8 @@ import TabItem from "@theme/TabItem";
 
 :::warning
 
-These docs reflect the Validator Mainnet API. If you would like to use the Testnet API,
-please use the following base url:
+These docs reflect the Validator Mainnet API. If you would like to use the
+Testnet API, please use the following base url:
 
 ```
 https://testnet-api.helium.wtf/v1/
@@ -28,8 +28,8 @@ https://testnet-api.helium.wtf/v1/
 GET https://api.helium.io/v1/validators
 ```
 
-List known validators as registered on the blockchain. The results are paged. If a
-`cursor` field is present in the response, more results are available.
+List known validators as registered on the blockchain. The results are paged. If
+a `cursor` field is present in the response, more results are available.
 
 <Tabs
   block={true}
@@ -6101,8 +6101,8 @@ GET https://api.helium.io/v1/validators/name/:name
 ```
 
 Fetch the validators which map to the given 3-word animal name. The name must be
-all lower-case with dashes between the words, e.g. tall-plum-griffin. Because
-of collisions in the Angry Purple Tiger algorithm, the given name might map to
+all lower-case with dashes between the words, e.g. tall-plum-griffin. Because of
+collisions in the Angry Purple Tiger algorithm, the given name might map to
 **more than one validator**.
 
 <Tabs
@@ -6357,9 +6357,8 @@ Search results for `search=skinny-iron`
 GET https://api.helium.io/v1/validators/:address/activity
 ```
 
-:::caution
-The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`, described below](#validator-roles)
-:::
+:::caution The `/activity` route will be deprecated on May 1, 2022 and will be
+replaced by [`/roles`, described below](#validator-roles) :::
 
 Lists all blockchain transactions that the given validator was involved in. This
 route is paged using a `cursor`.
@@ -6662,7 +6661,8 @@ Returns stats for validators
 GET https://api.helium.io/v1/validators/elected
 ```
 
-Returns the list of validators that are currently elected to the consensus group.
+Returns the list of validators that are currently elected to the consensus
+group.
 
 <Tabs
   block={true}
@@ -6730,7 +6730,8 @@ _No Parameters_
 GET https://api.helium.io/v1/validators/elected/:height
 ```
 
-Returns the list of validators that were in the consensus group at a given block height
+Returns the list of validators that were in the consensus group at a given block
+height
 
 <Tabs
   block={true}
@@ -7578,8 +7579,8 @@ GET https://api.helium.io/v1/validators/:address/rewards/sum
 ```
 
 Returns the total rewards earned for a given validator over a given time range.
-Timestamps are given in ISO 8601 format or in relative time. The block that includes the `max_time`
-timestamp is **excluded** from the result.
+Timestamps are given in ISO 8601 format or in relative time. The block that
+includes the `max_time` timestamp is **excluded** from the result.
 
 The optional `bucket` parameter buckets the results in the given bucket size
 (`hour`, `day`, `week`).

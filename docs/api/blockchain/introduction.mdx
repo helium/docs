@@ -23,7 +23,10 @@ offers up the API through two endpoints.
   mainnet.
 
 ### Specify a User-Agent
-To access the helium api via script you will need to specify a valid `User-Agent` HTTP header field identifying your agent, all requests made without a `User-Agent` header will result in an error `429 Slow down gun powder!`.
+
+To access the helium api via script you will need to specify a valid
+`User-Agent` HTTP header field identifying your agent, all requests made without
+a `User-Agent` header will result in an error `429 Slow down gun powder!`.
 
 ## Routes
 
@@ -36,8 +39,8 @@ In order to return data quickly and reduce the load on the API, a `cursor` may
 be returned from an API request. The documentation for each route will indicate
 whether the result is paged with a cursor.
 
-In order to request the next page of results, add a cursor URL parameter to the URL that
-was used to make the first request.
+In order to request the next page of results, add a cursor URL parameter to the
+URL that was used to make the first request.
 
 For example:
 
@@ -56,7 +59,5 @@ http get $(API_URL)/v1/blocks?cursor=eyJiZWZvcmUiOjQzOTIwMX0
 Which will return the next page of results and a next `cursor` for the following
 page.
 
-:::info
-In order to improve caching the API may return an empty data array and a
-cursor. Use the cursor to request more data. 
-:::
+:::info In order to improve caching the API may return an empty data array and a
+cursor. Use the cursor to request more data. :::

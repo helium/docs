@@ -482,8 +482,8 @@ The validator list for an account
 GET https://api.helium.io/v1/accounts/:address/ouis
 ```
 
-Fetches OUIs owned by a given account address.The list of returned OUIs
-is paged. If a `cursor` field is present more results are available.
+Fetches OUIs owned by a given account address.The list of returned OUIs is
+paged. If a `cursor` field is present more results are available.
 
 <Tabs
   block={true}
@@ -537,9 +537,8 @@ The oui list for account `13tyMLKRFYURNBQqLSqNJg9k41maP1A7Bh8QYxR13oWv7EnFooc`
 
 ## Activity for Account
 
-:::caution
-The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`, described below](#roles-for-account)
-:::
+:::caution The `/activity` route will be deprecated on May 1, 2022 and will be
+replaced by [`/roles`, described below](#roles-for-account) :::
 
 ```
 GET https://api.helium.io/v1/accounts/:address/activity
@@ -548,7 +547,7 @@ GET https://api.helium.io/v1/accounts/:address/activity
 Fetches transactions that indicate activity for an account. This includes any
 transaction that involves the account, usually as a payer, payee or owner.
 
-You may optionally add a transaction type filter. For example: 
+You may optionally add a transaction type filter. For example:
 `activity?filter_types=rewards_v2` will provide reward transactions only.
 
 The results are paged. If a `cursor` field is present in the response, more
@@ -700,8 +699,8 @@ _Query Parameters_
 GET https://api.helium.io/v1/accounts/:address/roles
 ```
 
-Fetches transactions that indicate an account as a participant. This includes any
-transaction that involves the account, usually as a payer, payee or owner.
+Fetches transactions that indicate an account as a participant. This includes
+any transaction that involves the account, usually as a payer, payee or owner.
 
 The results are paged. If a `cursor` field is present in the response, more
 results are available.
@@ -779,8 +778,7 @@ GET https://api.helium.io/v1/accounts/:address/roles/count
 ```
 
 Count transactions that indicate activity for an account. This includes any
-transaction that involves the account, usually as a payer, payee or
-owner.
+transaction that involves the account, usually as a payer, payee or owner.
 
 The results are a map keyed by the given `filter_types` and the count of
 transaction of that type.
@@ -1203,15 +1201,13 @@ The result will be a list of rewards between `min_time` and `max_time` both
 given in UTC. Both default to "now" which means that at least one of the two
 parameters is required.
 
-The result includes a `type` field which is the type of activity that generated the
-reward.
+The result includes a `type` field which is the type of activity that generated
+the reward.
 
 This route is paged using a `cursor`.
 
-:::info
-For older reward results, if the `type` is `null` the amount is a total for that
-account or hotspot in the given block.
-:::
+:::info For older reward results, if the `type` is `null` the amount is a total
+for that account or hotspot in the given block. :::
 
 <Tabs
   block={true}
@@ -1275,10 +1271,8 @@ the reward.
 
 This route is paged using a `cursor`.
 
-:::info
-For older reward results, if the `type` is `null` the amount is a total for that
-account in the given block.
-:::
+:::info For older reward results, if the `type` is `null` the amount is a total
+for that account in the given block. :::
 
 <Tabs
   block={true}
@@ -1339,8 +1333,8 @@ comparison possible. Valid bucket values include `hour`, `day` and `week`).
 For example to get the last 7 days of rewards bucketed by day use the following
 path/parameters: `?min_time=-7%20day&bucket=day`
 
-The block that contains the `max_time` timestamp is
-**excluded** from the result.
+The block that contains the `max_time` timestamp is **excluded** from the
+result.
 
 <Tabs
   block={true}

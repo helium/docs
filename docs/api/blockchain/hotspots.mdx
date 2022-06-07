@@ -209,8 +209,8 @@ GET https://api.helium.io/v1/hotspots/name/:name
 ```
 
 Fetch the hotspots which map to the given 3-word animal name. The name must be
-all lower-case with dashes between the words, e.g. tall-plum-griffin. Because
-of collisions in the Angry Purple Tiger algorithm, the given name might map to
+all lower-case with dashes between the words, e.g. tall-plum-griffin. Because of
+collisions in the Angry Purple Tiger algorithm, the given name might map to
 **more than one hotspot**.
 
 <Tabs
@@ -444,8 +444,8 @@ Search results for `search=clever-gray`
 GET https://api.helium.io/v1/hotspots/location/distance
 ```
 
-Fetch the hotspots which are within a given number of meters from the given `lat` and `lon` coordinates. This
-route is paged using a `cursor`.
+Fetch the hotspots which are within a given number of meters from the given
+`lat` and `lon` coordinates. This route is paged using a `cursor`.
 
 <Tabs
   block={true}
@@ -466,7 +466,8 @@ _Query Parameters_
 
 200: OK
 
-Search results for `?lat=38.12129445739087&lon=-122.52885074963571&distance=1000`
+Search results for
+`?lat=38.12129445739087&lon=-122.52885074963571&distance=1000`
 
 ```json
 {
@@ -570,7 +571,8 @@ _Query Parameters_
 
 200: OK
 
-Search results for `?swlat=38.0795392&swlon=-122.5671627&nelat=38.1588012&nelon=-122.5046937`
+Search results for
+`?swlat=38.0795392&swlon=-122.5671627&nelat=38.1588012&nelon=-122.5046937`
 
 ```json
 {
@@ -785,9 +787,8 @@ Fetch all hotspots in h3 index: `882aa38c2bfffff`
 GET https://api.helium.io/v1/hotspots/:address/activity
 ```
 
-:::caution
-The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`, described below](#hotspot-roles)
-:::
+:::caution The `/activity` route will be deprecated on May 1, 2022 and will be
+replaced by [`/roles`, described below](#hotspot-roles) :::
 
 Lists all blockchain transactions that the given Hotspot was involved in. This
 route is paged using a `cursor`.
@@ -819,8 +820,8 @@ _Query Parameters_
 
 200: OK
 
-This lists the activity for a Hotspot which only had two
-transactions at the time of the request.
+This lists the activity for a Hotspot which only had two transactions at the
+time of the request.
 
 ```json
 {
@@ -896,8 +897,8 @@ _Query Parameters_
 
 200: OK
 
-This lists the activity for a Hotspot which only had two
-transactions at the time of the request.
+This lists the activity for a Hotspot which only had two transactions at the
+time of the request.
 
 ```json
 {
@@ -1616,8 +1617,8 @@ _No Parameters_
 GET https://api.helium.io/v1/hotspots/:address/challenges
 ```
 
-Lists the challenge (receipts) that the given hotspot was a challenger, challengee
-or witness in. This route is paged using a `cursor`.
+Lists the challenge (receipts) that the given hotspot was a challenger,
+challengee or witness in. This route is paged using a `cursor`.
 
 <Tabs
   block={true}
@@ -1930,10 +1931,8 @@ the reward.
 
 This route is paged using a `cursor`.
 
-:::info
-For older reward results, if the `type` is `null` the amount is a total for that
-hotspot in the given block.
-:::
+:::info For older reward results, if the `type` is `null` the amount is a total
+for that hotspot in the given block. :::
 
 <Tabs
   block={true}
@@ -2019,10 +2018,8 @@ the reward.
 
 This route is paged using a `cursor`.
 
-:::info
-For older reward results, if the `type` is `null` the amount is a total for that
-hotspot in the given block.
-:::
+:::info For older reward results, if the `type` is `null` the amount is a total
+for that hotspot in the given block. :::
 
 <Tabs
   block={true}
@@ -2119,7 +2116,8 @@ _Query Parameters_
 GET https://api.helium.io/v1/hotspots/:address/witnesses
 ```
 
-Retrieves the list of witnesses for a given hotspot over about the last 5 days of blocks.
+Retrieves the list of witnesses for a given hotspot over about the last 5 days
+of blocks.
 
 <Tabs
   block={true}

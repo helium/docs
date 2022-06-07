@@ -41,9 +41,9 @@ You do this by placing your API key in an HTTP header field called "key.
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 ---
 
@@ -189,9 +189,9 @@ Returns a device descriptor if device is found.
 
 _Path Parameters_
 
-| Parameter Name | Type     | Description        |
-| -------------- | -------- | ------------------ |
-| device_id (required)  | _string_ | UUID of the device |
+| Parameter Name       | Type     | Description        |
+| -------------------- | -------- | ------------------ |
+| device_id (required) | _string_ | UUID of the device |
 
 </TabItem>
 <TabItem value="response">
@@ -201,12 +201,12 @@ Device {
     "adr_allowed":(true/false),
     "app_eui": (app_eui),
     "app_key": (app_key),
-    "cf_list_enabled":(true/false), 
+    "cf_list_enabled":(true/false),
     "dc_usage": (dc_amount_used),
     "dev_eui": (dev_eui),
     "id": (device_id),
     "in_xor_filter":(true/false)
-    "labels": (labels) 
+    "labels": (labels)
     "last_connected": (time_UTC)
     "name": (device_name)
     "organization_id": (org_id)
@@ -227,6 +227,7 @@ GET https://console.helium.com/api/v1/devices/:device_id/events
 ```
 
 Returns the previous 100 events for the device if found.
+
 <Tabs
   block={true}
   defaultValue="request"
@@ -235,9 +236,9 @@ Returns the previous 100 events for the device if found.
 
 _Path Parameters_
 
-| Parameter Name | Type     | Description        |
-| -------------- | -------- | ------------------ |
-| device_id (required)  | _string_ | UUID of the device |
+| Parameter Name       | Type     | Description        |
+| -------------------- | -------- | ------------------ |
+| device_id (required) | _string_ | UUID of the device |
 
 </TabItem>
 <TabItem value="response">
@@ -301,9 +302,9 @@ Returns the previous 10 Integration events for the device if found.
 
 _Path Parameters_
 
-| Parameter Name | Type     | Description        |
-| -------------- | -------- | ------------------ |
-| device_id (required)  | _string_ | UUID of the device |
+| Parameter Name       | Type     | Description        |
+| -------------------- | -------- | ------------------ |
+| device_id (required) | _string_ | UUID of the device |
 
 </TabItem>
 <TabItem value="response">
@@ -387,22 +388,21 @@ POST https://console.helium.com/api/v1/devices
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
-| content-type (required) | _string_ | application/json              |
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | your API key     |
+| content-type (required) | _string_ | application/json |
 
 _Body Parameters_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| name (required)    | _string_ | A human-friendly name for the device |
-| app_eui (required) | _string_ | LoRaWAN Application EUI              |
-| app_key (required) | _string_ | LoRaWAN Application Key              |
-| dev_eui (required) | _string_ | LoRaWAN Device EUI                   |
-| config_profile_id (optional) | _string_ | Config profile uuid to attach                   |
-| label_ids (optional) | Array of strings | Array of label uuids to attach to device               |
-
+| Parameter Name               | Type             | Description                              |
+| ---------------------------- | ---------------- | ---------------------------------------- |
+| name (required)              | _string_         | A human-friendly name for the device     |
+| app_eui (required)           | _string_         | LoRaWAN Application EUI                  |
+| app_key (required)           | _string_         | LoRaWAN Application Key                  |
+| dev_eui (required)           | _string_         | LoRaWAN Device EUI                       |
+| config_profile_id (optional) | _string_         | Config profile uuid to attach            |
+| label_ids (optional)         | Array of strings | Array of label uuids to attach to device |
 
 </TabItem>
 <TabItem value="response">
@@ -497,17 +497,17 @@ POST https://console.helium.com/api/v1/labels
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
-| content-type (required) | _string_ | application/json              |
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | your API key     |
+| content-type (required) | _string_ | application/json |
 
 _Body Parameters_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| name (required)    | _string_ | A human-friendly name for the device |
-| config_profile_id (optional) | _string_ | Config profile uuid to attach                   |
+| Parameter Name               | Type     | Description                          |
+| ---------------------------- | -------- | ------------------------------------ |
+| name (required)              | _string_ | A human-friendly name for the device |
+| config_profile_id (optional) | _string_ | Config profile uuid to attach        |
 
 </TabItem>
 <TabItem value="response">
@@ -662,10 +662,10 @@ Add Device to Label
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
-| content-type (required) | _string_ | application/json              |
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | your API key     |
+| content-type (required) | _string_ | application/json |
 
 _Path Parameters_
 
@@ -729,7 +729,9 @@ Device removed from label successfully
 ---
 
 ### Create a Prebuilt Integration
-Create prebuilt integration for integration providers planning to offer connectivity as a service. 
+
+Create prebuilt integration for integration providers planning to offer
+connectivity as a service.
 
 ```
 POST https://console.helium.com/api/v1/integrations/prebuilt
@@ -746,18 +748,18 @@ Device EUI.
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
-| content-type (required) | _string_ | application/json              |
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | your API key     |
+| content-type (required) | _string_ | application/json |
 
 _Body Parameters_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| token (required)    | _string_ | Your token, authorization key, uplink secret depending on pre-built integration.|
-| name (required) | _string_ | A unique name for the Integration           |
-| type (required) | _string_ | “akenza” “ubidots” “tago” “datacake”             |
+| Parameter Name   | Type     | Description                                                                      |
+| ---------------- | -------- | -------------------------------------------------------------------------------- |
+| token (required) | _string_ | Your token, authorization key, uplink secret depending on pre-built integration. |
+| name (required)  | _string_ | A unique name for the Integration                                                |
+| type (required)  | _string_ | “akenza” “ubidots” “tago” “datacake”                                             |
 
 </TabItem>
 <TabItem value="response">
@@ -784,7 +786,8 @@ _Body Parameters_
 POST https://console.helium.com/api/v1/integrations
 ```
 
-Creates a custom HTTP integration. Use the Console UI for JSON message templates.
+Creates a custom HTTP integration. Use the Console UI for JSON message
+templates.
 
 <Tabs
   block={true}
@@ -794,22 +797,21 @@ Creates a custom HTTP integration. Use the Console UI for JSON message templates
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | Your API key |
-| content-type (required) | _string_ | application/json              |
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | Your API key     |
+| content-type (required) | _string_ | application/json |
 
 _Body Parameters_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| name (required) | _string_ | A unique human-friendly name           |
-| type (required) | _string_ | “http”             |
-| endpoint (required) | _string_ | endpoint             |
-| method (required)    | _string_ | HTTP method |
-| headers (optional) | _map_ | Map of header keys and values { “content-type”: “application/json” } |
-| url_params (optional) | _map_ | Map for payload interpolation { "id": "{{device.id}}"} |
-
+| Parameter Name        | Type     | Description                                                          |
+| --------------------- | -------- | -------------------------------------------------------------------- |
+| name (required)       | _string_ | A unique human-friendly name                                         |
+| type (required)       | _string_ | “http”                                                               |
+| endpoint (required)   | _string_ | endpoint                                                             |
+| method (required)     | _string_ | HTTP method                                                          |
+| headers (optional)    | _map_    | Map of header keys and values { “content-type”: “application/json” } |
+| url_params (optional) | _map_    | Map for payload interpolation { "id": "{{device.id}}"}               |
 
 </TabItem>
 <TabItem value="response">
@@ -838,7 +840,7 @@ _Body Parameters_
 POST https://console.helium.com/api/v1/integrations
 ```
 
-Creates a custom MQTT integration. 
+Creates a custom MQTT integration.
 
 <Tabs
   block={true}
@@ -848,21 +850,20 @@ Creates a custom MQTT integration.
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | Your API key |
-| content-type (required) | _string_ | application/json              |
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | Your API key     |
+| content-type (required) | _string_ | application/json |
 
 _Body Parameters_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| name (required) | _string_ | A unique human-friendly name          |
-| type (required) | _string_ | “mqtt”             |
-| endpoint (required) | _string_ | endpoint             |
-| uplink_topic (required) | _string_ | Uplink topic |
-| downlink_topic (required) | _string_ | Downlink topic |
-
+| Parameter Name            | Type     | Description                  |
+| ------------------------- | -------- | ---------------------------- |
+| name (required)           | _string_ | A unique human-friendly name |
+| type (required)           | _string_ | “mqtt”                       |
+| endpoint (required)       | _string_ | endpoint                     |
+| uplink_topic (required)   | _string_ | Uplink topic                 |
+| downlink_topic (required) | _string_ | Downlink topic               |
 
 </TabItem>
 <TabItem value="response">
@@ -892,7 +893,7 @@ _Body Parameters_
 POST https://console.helium.com/api/v1/integrations
 ```
 
-Creates a custom Azure IoT Hub integration. 
+Creates a custom Azure IoT Hub integration.
 
 <Tabs
   block={true}
@@ -902,20 +903,20 @@ Creates a custom Azure IoT Hub integration.
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | Your API key |
-| content-type (required) | _string_ | application/json          |
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | Your API key     |
+| content-type (required) | _string_ | application/json |
 
 _Body Parameters_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| name (required) | _string_ | A unique human-friendly name          |
-| type (required) | _string_ | “azure”             |
-| azure_policy_name (required) | _string_ | Azure IoT Hub policy name            |
-| azure_hub_name (required) | _string_ | Azure IoT Hub name |
-| azure_primary_key (required) | _string_ | Azure IoT Hub primary key |
+| Parameter Name               | Type     | Description                  |
+| ---------------------------- | -------- | ---------------------------- |
+| name (required)              | _string_ | A unique human-friendly name |
+| type (required)              | _string_ | “azure”                      |
+| azure_policy_name (required) | _string_ | Azure IoT Hub policy name    |
+| azure_hub_name (required)    | _string_ | Azure IoT Hub name           |
+| azure_primary_key (required) | _string_ | Azure IoT Hub primary key    |
 
 </TabItem>
 <TabItem value="response">
@@ -944,7 +945,7 @@ _Body Parameters_
 POST https://console.helium.com/api/v1/integrations
 ```
 
-Creates a custom AWS IoT Core integration. 
+Creates a custom AWS IoT Core integration.
 
 <Tabs
   block={true}
@@ -954,21 +955,21 @@ Creates a custom AWS IoT Core integration.
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | Your API key |
-| content-type (required) | _string_ | application/json          |
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | Your API key     |
+| content-type (required) | _string_ | application/json |
 
 _Body Parameters_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| name (required) | _string_ | A unique human-friendly name          |
-| type (required) | _string_ | “aws”             |
-| topic (required) | _string_ | AWS topic             |
-|aws_access_key (required) | _string_ | AWS access key            |
-| aws_secret_key (required) | _string_ | AWS secret key |
-| aws_region (required) | _string_ | AWS region |
+| Parameter Name            | Type     | Description                  |
+| ------------------------- | -------- | ---------------------------- |
+| name (required)           | _string_ | A unique human-friendly name |
+| type (required)           | _string_ | “aws”                        |
+| topic (required)          | _string_ | AWS topic                    |
+| aws_access_key (required) | _string_ | AWS access key               |
+| aws_secret_key (required) | _string_ | AWS secret key               |
+| aws_region (required)     | _string_ | AWS region                   |
 
 </TabItem>
 <TabItem value="response">
@@ -1008,15 +1009,15 @@ Delete an Integration along with any links to labels.
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Path Parameters_
 
-| Parameter Name | Type     | Description                      |
-| -------------- | -------- | -------------------------------- |
-| integration_id (required)  | _string_ | UUID for removed integration |
+| Parameter Name            | Type     | Description                  |
+| ------------------------- | -------- | ---------------------------- |
+| integration_id (required) | _string_ | UUID for removed integration |
 
 </TabItem>
 <TabItem value="response">
@@ -1031,15 +1032,16 @@ Integration {
 ```
 
 404: Not Found
+
 ```
 { "errors": { "error": ["Integration not found"] } }
 ```
-
 
 </TabItem>
 </Tabs>
 
 ---
+
 ### List Integrations
 
 ```
@@ -1056,9 +1058,9 @@ Returns a list of integrations associated with the organization.
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 </TabItem>
 <TabItem value="response">
@@ -1099,15 +1101,15 @@ GET https://console.helium.com/api/v1/integrations/:integration_id
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Path Parameters_
 
-| Parameter Name | Type     | Description                      |
-| -------------- | -------- | -------------------------------- |
-| integration_id (required)  | _string_ | UUID of integration |
+| Parameter Name            | Type     | Description         |
+| ------------------------- | -------- | ------------------- |
+| integration_id (required) | _string_ | UUID of integration |
 
 </TabItem>
 <TabItem value="response">
@@ -1124,10 +1126,10 @@ Integration {
 ```
 
 404: Not Found
+
 ```
 { "errors": { "error": ["Integration not found"] } }
 ```
-
 
 </TabItem>
 </Tabs>
@@ -1148,15 +1150,15 @@ GET https://console.helium.com/api/v1/integrations?name=your_integration_name
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Query Parameters_
 
-| Parameter Name | Type     | Description                      |
-| -------------- | -------- | -------------------------------- |
-| name (required)  | _string_ | name of integration |
+| Parameter Name  | Type     | Description         |
+| --------------- | -------- | ------------------- |
+| name (required) | _string_ | name of integration |
 
 </TabItem>
 <TabItem value="response">
@@ -1173,6 +1175,7 @@ Integration {
 ```
 
 404: Not Found
+
 ```
 { "errors": { "error": ["Integration not found"] } }
 ```
@@ -1196,15 +1199,15 @@ GET https://console.helium.com/api/v1/flows?integration_id=your_integration_id
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Query Parameters_
 
-| Parameter Name | Type     | Description                      |
-| -------------- | -------- | -------------------------------- |
-| integration_id (required)  | _string_ | UUID of integration |
+| Parameter Name            | Type     | Description         |
+| ------------------------- | -------- | ------------------- |
+| integration_id (required) | _string_ | UUID of integration |
 
 </TabItem>
 <TabItem value="response">
@@ -1232,13 +1235,16 @@ _Query Parameters_
 
 ]
 ```
+
 </TabItem>
 </Tabs>
 
 ---
 
 ### Create a Flow for an Integration
-Create a prebuilt integration for partners providing a connectivity as a service solution. 
+
+Create a prebuilt integration for partners providing a connectivity as a service
+solution.
 
 ```
 POST https://console.helium.com/api/v1/flows
@@ -1252,18 +1258,18 @@ POST https://console.helium.com/api/v1/flows
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
-| content-type (required) | _string_ | application/json              |
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | your API key     |
+| content-type (required) | _string_ | application/json |
 
 _Body Parameters_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| integration_id (required)    | _string_ | UUID of integration|
-| label_id / device_id (required) | _string_ | UUID           |
-| function_id (optional) | _string_ | UUID             |
+| Parameter Name                  | Type     | Description         |
+| ------------------------------- | -------- | ------------------- |
+| integration_id (required)       | _string_ | UUID of integration |
+| label_id / device_id (required) | _string_ | UUID                |
+| function_id (optional)          | _string_ | UUID                |
 
 </TabItem>
 <TabItem value="response">
@@ -1301,15 +1307,15 @@ DELETE https://console.helium.com/api/v1/flows/:flow_id
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Path Parameters_
 
-| Parameter Name | Type     | Description                      |
-| -------------- | -------- | -------------------------------- |
-| flow_id (required)  | _string_ | UUID of flow |
+| Parameter Name     | Type     | Description  |
+| ------------------ | -------- | ------------ |
+| flow_id (required) | _string_ | UUID of flow |
 
 </TabItem>
 <TabItem value="response">
@@ -1324,7 +1330,9 @@ Flow deleted successfully
 </Tabs>
 
 ---
+
 ### Update Device Config Profile
+
 ```
 PUT https://console.helium.com/api/v1/devices/:device_id
 ```
@@ -1337,9 +1345,9 @@ PUT https://console.helium.com/api/v1/devices/:device_id
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Path Parameters_
 
@@ -1349,8 +1357,8 @@ _Path Parameters_
 
 _Body Parameters_
 
-| Parameter Name   | Type     | Description   |
-| ---------------- | -------- | ------------- |
+| Parameter Name               | Type            | Description                                            |
+| ---------------------------- | --------------- | ------------------------------------------------------ |
 | config_profile_id (required) | _string / null_ | Config profile uuid to attach or set to null to remove |
 
 </TabItem>
@@ -1364,6 +1372,7 @@ _Body Parameters_
 ---
 
 ### Update Label Config Profile
+
 ```
 PUT https://console.helium.com/api/v1/labels/:label_id
 ```
@@ -1376,20 +1385,20 @@ PUT https://console.helium.com/api/v1/labels/:label_id
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Path Parameters_
 
-| Parameter Name       | Type     | Description    |
-| -------------------- | -------- | -------------- |
+| Parameter Name      | Type     | Description   |
+| ------------------- | -------- | ------------- |
 | label_id (required) | _string_ | UUID of label |
 
 _Body Parameters_
 
-| Parameter Name   | Type     | Description   |
-| ---------------- | -------- | ------------- |
+| Parameter Name               | Type     | Description                                            |
+| ---------------------------- | -------- | ------------------------------------------------------ |
 | config_profile_id (required) | _string_ | Config profile uuid to attach or set to null to remove |
 
 </TabItem>
@@ -1403,6 +1412,7 @@ _Body Parameters_
 ---
 
 ### Update Device Active Status
+
 ```
 PUT https://console.helium.com/api/v1/devices/:device_id
 ```
@@ -1415,9 +1425,9 @@ PUT https://console.helium.com/api/v1/devices/:device_id
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Path Parameters_
 
@@ -1427,9 +1437,9 @@ _Path Parameters_
 
 _Body Parameters_
 
-| Parameter Name   | Type     | Description   |
-| ---------------- | -------- | ------------- |
-| active (required) | _string_ | boolean |
+| Parameter Name    | Type     | Description |
+| ----------------- | -------- | ----------- |
+| active (required) | _string_ | boolean     |
 
 </TabItem>
 <TabItem value="response">
@@ -1442,6 +1452,7 @@ _Body Parameters_
 ---
 
 ### Update Devices Active Status
+
 ```
 PUT https://console.helium.com/api/v1/devices/active?dev_eui=your_dev_eui
 ```
@@ -1454,23 +1465,23 @@ PUT https://console.helium.com/api/v1/devices/active?dev_eui=your_dev_eui
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Query Parameters_
 
-| Parameter Name       | Type     | Description    |
-| -------------------- | -------- | -------------- |
+| Parameter Name     | Type     | Description    |
+| ------------------ | -------- | -------------- |
 | dev_eui (required) | _string_ | Device dev_eui |
 | app_eui (optional) | _string_ | Device app_eui |
 | app key (optional) | _string_ | Device app_key |
 
 _Body Parameters_
 
-| Parameter Name   | Type     | Description   |
-| ---------------- | -------- | ------------- |
-| active (required) | _string_ | boolean |
+| Parameter Name    | Type     | Description |
+| ----------------- | -------- | ----------- |
+| active (required) | _string_ | boolean     |
 
 </TabItem>
 <TabItem value="response">
@@ -1496,21 +1507,21 @@ PUT https://console.helium.com/api/v1/labels/:label_id/active
 
 _Headers_
 
-| Parameter Name     | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| key (required)    | _string_ | your API key |
+| Parameter Name | Type     | Description  |
+| -------------- | -------- | ------------ |
+| key (required) | _string_ | your API key |
 
 _Path Parameters_
 
-| Parameter Name       | Type     | Description    |
-| -------------------- | -------- | -------------- |
-| label_id (required) (required) | _string_ | Label uuid |
+| Parameter Name                 | Type     | Description |
+| ------------------------------ | -------- | ----------- |
+| label_id (required) (required) | _string_ | Label uuid  |
 
 _Body Parameters_
 
-| Parameter Name   | Type     | Description   |
-| ---------------- | -------- | ------------- |
-| active (required) | _string_ | boolean |
+| Parameter Name    | Type     | Description |
+| ----------------- | -------- | ----------- |
+| active (required) | _string_ | boolean     |
 
 </TabItem>
 <TabItem value="response">
