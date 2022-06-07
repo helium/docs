@@ -10,9 +10,9 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 The Console Debug tool allows you to quickly and easily examine device messages.
 This enables you to verify and debug issues much more easily without requiring
-the data to be sent to an application endpoint first. For security and privacy reasons the
-Debug tool does not persist data. Instead, the 40 most recent events are
-accumulated from the time the Debug window is opened.
+the data to be sent to an application endpoint first. For security and privacy
+reasons the Debug tool does not persist data. Instead, the 40 most recent events
+are accumulated from the time the Debug window is opened.
 
 ### Using The Debug Tool
 
@@ -22,7 +22,7 @@ pop out.
 
 <img src={useBaseUrl("img/use-the-network/console/console-debug-button.png")} />
 
-At first you will see a spinning wheel and the message *waiting for data.* This
+At first you will see a spinning wheel and the message _waiting for data._ This
 is because the Debug tool only shows packets that come through while the window
 is open.
 
@@ -41,13 +41,11 @@ The Debug tool will display a message for every uplink or downlink. For detailed
 information on the contents of the messages please see the JSON schema
 documentation.
 
-:::info 
-Payloads shown in the debug messages are
+:::info Payloads shown in the debug messages are
 [base64 encoded](https://en.wikipedia.org/wiki/Base64), as are the JSON messages
 received by integrations. You will need to decode the payload strings in order
 to correctly interpret the payload data. One way to do this is to use a
-[Function Decoder](functions). 
-:::
+[Function Decoder](functions). :::
 
 #### Activation
 
