@@ -605,7 +605,7 @@ Connect the 3 icons  Portenta Device -to- function decoder -to- adafruit-integra
 
 
 
-*** View your blue-dot working device
+### View your blue-dot working device
 
 
 Now let's head back to [Helium Console](https://console.helium.com) and look at
@@ -618,7 +618,7 @@ our device page, Scroll down to the chart and click the black debug icon to see 
 />
 
 
-*** View your Adafruit.io Data
+### View your Adafruit.io Data
 
 Now go back to Adafruit.io and view your feeds to see if the data is coming in like you are expecting.
 
@@ -629,7 +629,7 @@ Now go back to Adafruit.io and view your feeds to see if the data is coming in l
 />
 
 
-*** Make an Adafruit.io dashboard
+### Make an Adafruit.io dashboard
 
 Not as important but fun to go to Adafruit dashboard and click the setup icon top right and create buckets to view your data in streams and graphs etc. Dashboards and feed can be made public if you want to share them with others who have the shareable link.
 
@@ -641,7 +641,7 @@ Not as important but fun to go to Adafruit dashboard and click the setup icon to
 
 
 
-*** CayenneLPP Adafruit MQTT example
+### Easier CayenneLPP Adafruit MQTT example
 
 This example is easier than the above but less flexible. The decoder and the feed names are chosen for you and can't be changed. Easy setup can be very useful when you know the negatives.
 
@@ -654,7 +654,7 @@ This example is easier than the above but less flexible. The decoder and the fee
 7. Check the HElium device chart and debug Icon to see when uplink data is flowing, see if the graph dots are blue for successful integration with Adafruit. The results should be the same as above.
 
 
-*** CayenneLPP Portenta Example Code
+### CayenneLPP Portenta Example Sketch
 Following is the full arduino sketch from the link [here](https://github.com/hpssjellis/portenta-pro-community-solutions/blob/main/examples/dot3-portenta-vision-shields/dot33-lorawan-specific/dot334-us915-helium-mqtt-adafruit-connect/dot334-us915-helium-mqtt-adafruit-connect.ino)
 
 ```
@@ -896,12 +896,12 @@ void loop() {
 ### Fails
 
 What to do when it fails! Lots of possible issues, but your best bet is the Helium console debug and connection graph. 
-1. If you are not getting a red dot your 3 secret numberes (deviceEUI, AppEUI, AppKey) are probably not correct or you forgot to run the MRKWAN ```MKRWANFWUpdate_standalone``` code
-2. If you get a red dot with the debug window only saying "Join Request" but never "uplink" you are probably having network issues, just like WiFi issues if you move around, get closer to a window, get higher, put the device on battery and leave it somewhere with a good view to the nearest Helium gateway, use the [Helium explorer](https://explorer.helium.com/) to see which derection the nearest gateway is. 
-3. If in the debug pane you see "uplink" but you only have a red dot then you have connected to Helium and that is good, you just have not connected with an integration. Check your decoder and integration settings
-4. If the dot is yellow you have connected with the function decoder but not yet fully with the integration, check you decoder and integration settings.
-5. If the dot is blue you have successfully integrated but the data may not be in the correct format, check your decoder/integration
-6. Hopefully the above helps. It is very difficult to determine if your nearest Gateway is having issues or if you have done something incorrect. Good luck. 
+1. If you are not getting a red dot your 3 secret numberes (deviceEUI, AppEUI, AppKey) are probably not correct or you forgot to run the MRKWAN ```MKRWANFWUpdate_standalone``` code [here](#compile-sketch-and-copy-the-device-eui)
+2. If you get a red dot with the debug window only saying "Join Request" but never "uplink" you are probably having network issues, just like WiFi issues if you move around, get closer to a window, get higher, put the device on battery and leave it somewhere with a good view to the nearest Helium gateway, use the [Helium explorer](https://explorer.helium.com/) to see which direction the nearest gateway is. 
+3. If in the debug pane you see "uplink" but you only have a red dot then you have connected to Helium and that is good, you just have not connected with an integration. Check your decoder and integration settings [Adafruit here](#setup-adafruitio-feed-and-webhook)
+4. If the dot is yellow you have connected with the function decoder but not yet fully with the integration, check you decoder and integration settings [decoder here](#setup-helium-console-function-decoder)
+5. If the dot is blue you have successfully integrated but the data may not be in the correct format, check your decoder/integration [Blue dot here](#view-your-blue-dot-working-device)
+6. Hopefully the above helps. It is very difficult to determine if your nearest Helium Gateway is having issues or if you have done something incorrect with your setup. Once you have a device that connects consistently, then other devices are much easier to setup. Good luck. 
 
 
 
