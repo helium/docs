@@ -17,14 +17,12 @@ Coverage Rewards.
 This guide covers all the steps needed to set up a Data Only Hotspot using a
 Raspberry Pi and Dragino PG1301 hat.
 
-:::warning
-Data Only Hotspots cannot earn $HNT, at least for now, and after
+:::warning Data Only Hotspots cannot earn $HNT, at least for now, and after
 milestone 2 they will earn $HNT only for Device Packet Transfer. Remember to
 keep an eye on [Light Hotspots - BETA](/mine-hnt/light-hotspots) and the
 **#gateway-development** channel on the
 [Helium Discord Server](https://discord.gg/helium) to check how the development
-process evolves.
-:::
+process evolves. :::
 
 ## Getting started
 
@@ -61,8 +59,8 @@ We will be using the following:
 ## Configure the Raspberry Pi
 
 1. Use the Raspberry Pi Configuration application and enable the SPI kernel
-   module in the Interface Options section. This is located in the GUI from
-   the Applications Menu under Preferences
+   module in the Interface Options section. This is located in the GUI from the
+   Applications Menu under Preferences
 2. Reboot to apply the changes
 
 If you haven't done so, attach the Dragino PG1301 to the Raspberry Pi with the
@@ -82,17 +80,18 @@ power off, attach the antenna, then power on.
    ```
 
 Example:
+
 ```
 pi@raspberrypi:~ $ cd Downloads
-pi@raspberrypi:~/Downloads $ sudo dpkg -i lorapktfwd_v1.1.deb 
+pi@raspberrypi:~/Downloads $ sudo dpkg -i lorapktfwd_v1.1.deb
 Selecting previously unselected package lorapktfwd.
 (Reading database ... 98868 files and directories currently installed.)
 Preparing to unpack lorapktfwd_v1.1.deb ...
 Unpacking lorapktfwd (1) ...
 Setting up lorapktfwd (1) ...
 Created symlink /etc/systemd/system/multi-user.target.wants/lorapktfwd.service → /lib/systemd/system/lorapktfwd.service.
-pi@raspberrypi:~/Downloads $ 
-pi@raspberrypi:~/Downloads $ sudo systemctl status lorapktfwd 
+pi@raspberrypi:~/Downloads $
+pi@raspberrypi:~/Downloads $ sudo systemctl status lorapktfwd
   lorapktfwd.service - packet forwarder
    Loaded: loaded (/lib/systemd/system/lorapktfwd.service; enabled; vendor preset: enabled)
    Active: active (running) since Wed 2021-10-06 10:58:26 EDT; 5min ago
@@ -111,7 +110,7 @@ Oct 06 11:03:29 raspberrypi lora_pkt_fwd[1443]: REPORT~ # BEACON sent so far: 0
 Oct 06 11:03:29 raspberrypi lora_pkt_fwd[1443]: REPORT~ # BEACON rejected: 0
 Oct 06 11:03:29 raspberrypi lora_pkt_fwd[1443]: REPORT~ ### [PPS] ###
 Oct 06 11:03:29 raspberrypi lora_pkt_fwd[1443]: REPORT~ # SX1301 time (PPS): 302479992
-pi@raspberrypi:~/Downloads $ 
+pi@raspberrypi:~/Downloads $
 ```
 
 ## Install the Helium Gateway Service
@@ -121,8 +120,8 @@ pi@raspberrypi:~/Downloads $
 2. Install the package
    ```
    sudo dpkg -i helium-gateway-v1.0.0-alpha.18-raspi234.deb
-   ``` 
-   Replace helium-gateway-v1.0.0-alpha.18-raspi234.deb with the version you 
+   ```
+   Replace helium-gateway-v1.0.0-alpha.18-raspi234.deb with the version you
    downloaded.
 3. Verify the gateway is running
    ```
@@ -130,6 +129,7 @@ pi@raspberrypi:~/Downloads $
    ```
 
 Example:
+
 ```
 pi@raspberrypi:~/Downloads $ sudo dpkg -i helium-gateway-v1.0.0-alpha.18-raspi234.deb
 Selecting previously unselected package helium_gateway.
@@ -158,7 +158,7 @@ Oct 06 11:51:03 raspberrypi helium_gateway[2121]: starting, oui: 4, uri: http://
 Oct 06 11:51:03 raspberrypi helium_gateway[2121]: starting, oui: 2, uri: http://54.176.88.149:8080/, public_key: 1124CJ9yJaHq4D6ugyPCDnSBzQik61C1BqD9VMh1vsUmjwt16HNB, module: router
 Oct 06 11:51:03 raspberrypi helium_gateway[2121]: starting, oui: 1, uri: http://52.8.80.146:8080/, public_key: 112qB3YaH5bZkCnKA5uRH7tBtGNv2Y5B4smv1jsmvGUzgKT71QpE, module: router
 Oct 06 11:51:04 raspberrypi helium_gateway[2121]: no update found, module: updater
-pi@raspberrypi:~/Downloads $ 
+pi@raspberrypi:~/Downloads $
 ```
 
 ## Configure the LoRa Packet Forwarder
@@ -170,56 +170,55 @@ locale configuration in Step 2.
    ```
    cd /etc/lora-gateway
    ```
-3. Copy the US915 Band 2 configuration from the `cfg` subdirectory as
+2. Copy the US915 Band 2 configuration from the `cfg` subdirectory as
    global_conf.json
    ```
    cp cfg/dragino/global_conf.us915_1.json global_conf.json
    ```
-3. Generate a unique gateway ID based on the MAC address of one of your network 
+3. Generate a unique gateway ID based on the MAC address of one of your network
    interface(s). Use the following bash syntax to help create one.
    ```
    echo `ip a | grep 'link/ether' | cut -d ' ' -f 6 | sed 's/://g'` | tr a-z A-Z
    ```
-   This command will generate you one or more unique values you can use for 
-   the gateway EUI. 
+   This command will generate you one or more unique values you can use for the
+   gateway EUI.
 
-In the below example, you see two values (DCA6328XXX6F and DCA6328XXX70) because 
-there is an active wired and wireless interface on the Raspberry Pi.  It doesn't
+In the below example, you see two values (DCA6328XXX6F and DCA6328XXX70) because
+there is an active wired and wireless interface on the Raspberry Pi. It doesn't
 matter which one you use, as all MAC addresses are globally unique.
-  
-The goal here is to guarantee a unique gateway ID in the network. 
+
+The goal here is to guarantee a unique gateway ID in the network.
 
 ```
 pi@raspberrypi:~/Downloads $ cd /etc/lora-gateway/
 pi@raspberrypi:/etc/lora-gateway $ cp cfg/dragino/global_conf.us915_1.json global_conf.json
 pi@raspberrypi:/etc/lora-gateway $ echo `ip a | grep 'link/ether' | cut -d ' ' -f 6 | sed 's/://g'` | tr a-z A-Z
 DCA6328XXX6F DCA6328XXX70
-pi@raspberrypi:/etc/lora-gateway $ 
+pi@raspberrypi:/etc/lora-gateway $
 ```
 
-In the next step we will be using the `DCA6328XXX70` value as an example.
-Do not use the example value from this documentation, it will not work.
+In the next step we will be using the `DCA6328XXX70` value as an example. Do not
+use the example value from this documentation, it will not work.
 
 ### Point the LoRa Packet Forwarder to the Helium Gateway
 
-By default the LoRa Packet Forwarder from Dragino is configured to work with
-the Things Network.   Here we will configure it to talk to the Helium
-gateway you installed on the Raspberry Pi.
+By default the LoRa Packet Forwarder from Dragino is configured to work with the
+Things Network. Here we will configure it to talk to the Helium gateway you
+installed on the Raspberry Pi.
 
 1. Use a text editor and open the `/etc/lora-gateway/local_conf.json` file
 2. Replace the current value for gateway_ID with (one of) the values generated
-   in the previous step and **append the value FFFF to the end**.  The 
-   reason we append `FFFF` to the end is the gateway ID is required to be
-   16 characters, and the unique MAC address generated is only 12.  Again,
-   this guarantees your gateway ID will be unique in the network.
-3. Add the `server_address` key with the value `127.0.0.1` 
+   in the previous step and **append the value FFFF to the end**. The reason we
+   append `FFFF` to the end is the gateway ID is required to be 16 characters,
+   and the unique MAC address generated is only 12. Again, this guarantees your
+   gateway ID will be unique in the network.
+3. Add the `server_address` key with the value `127.0.0.1`
 4. Add the `serv_port_up` key with the value `1680`
 5. Add the `serv_port_down` key with the value `1680`
 
-You should have something that resembles the following in your 
-/etc/lora-gateway/local_conf.json file. Be sure to double
-check the JSON syntax and have the key/values separated by commas and the {}
-characters match up.
+You should have something that resembles the following in your
+/etc/lora-gateway/local_conf.json file. Be sure to double check the JSON syntax
+and have the key/values separated by commas and the {} characters match up.
 
 ```
    {
@@ -231,14 +230,15 @@ characters match up.
      }
    }
 ```
-   
-For reference, the server address being used is the local machine (127.0.0.1, 
-also called localhost) and port 1680 is the port the helium service is communicating on.
-**Don't** use the value assigned by your router or the public IP address.
+
+For reference, the server address being used is the local machine (127.0.0.1,
+also called localhost) and port 1680 is the port the helium service is
+communicating on. **Don't** use the value assigned by your router or the public
+IP address.
 
 When you are finished make sure to save and exit the file.
 
-### Configure the Helium Gateway Region 
+### Configure the Helium Gateway Region
 
 The default region of the _helium_gateway_ service is US915, so you can continue
 with the next section if you are using this one. Otherwise, you must set your
@@ -276,13 +276,13 @@ starts at boot time and is working.
 
 ## Post-Reboot Checks
 
-* You can view the log file of the LoRa Packet Forwarder by opening a terminal
-  window and running 
+- You can view the log file of the LoRa Packet Forwarder by opening a terminal
+  window and running
   ```
   journalctl -u lorapktfwd
   ```
-* You can view the log file of the Helium Gateway by opening another terminal
-  window and running 
+- You can view the log file of the Helium Gateway by opening another terminal
+  window and running
   ```
   journalctl -u helium_gateway
   ```
@@ -311,15 +311,13 @@ configuration.
    "name": "unique-animal-name"
    }
    ```
-2. Backup your gateway key to another machine/media for recovery purposes. 
-   The file `/etc/helium_gateway/gateway_key.bin` contains the key.
+2. Backup your gateway key to another machine/media for recovery purposes. The
+   file `/etc/helium_gateway/gateway_key.bin` contains the key.
 
-:::warning
-If you lose this key, you will not be able to use this hotspot
+:::warning If you lose this key, you will not be able to use this hotspot
 anymore in case there is a problem on your hostpot (SD card corrupted, etc). You
 will need to generate a new key and lose your existing animal name/hostpot
-configuration
-:::
+configuration :::
 
 ## Testing the packet transfer with an end device
 
@@ -340,11 +338,9 @@ Don't be surprised if you find some differences between those console flavors,
 basically staging is where the new features are tested before their rollout to
 production.
 
-:::important
-If the device you will use for testing is registered on the
+:::important If the device you will use for testing is registered on the
 production console, it's better to delete it from there to avoid any unexpected
-behavior.
-:::
+behavior. :::
 
 To register your end device on the console, you can follow the steps described
 on

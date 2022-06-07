@@ -4,6 +4,7 @@ title: Data Only Hotspot Setup with RAK Concentrator + Raspberry Pi
 sidebar_label: RAK Concentrators (RAK2245/RAK2247/RAK2287) + Raspberry Pi
 slug: /mine-hnt/data-only-guides/rak-concentrators
 ---
+
 # Data Only Hotspot Setup with RAK Concentrator + Raspberry Pi
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
@@ -16,53 +17,51 @@ Rewards.
 This guide covers all the steps needed to set up a Data Only Hotspot using a
 WisLink RAK LPWAN concentrator module and a Raspberry Pi, you will find more
 details about which models/references are supported in the requirements section.
-This configuration can be achieved by installing the ***helium_gateway***
+This configuration can be achieved by installing the **_helium_gateway_**
 service available on the [gateway-rs](https://github.com/helium/gateway-rs)
 repository.
 
-:::warning
-Data Only Hotspots cannot earn $HNT, at least for now, and after milestone 2
-they will earn $HNT only for Device Packet Transfer. Remember to keep an eye on
-[Light Hotspots - BETA](/mine-hnt/light-hotspots)
-and the **#gateway-development** channel on the
+:::warning Data Only Hotspots cannot earn $HNT, at least for now, and after
+milestone 2 they will earn $HNT only for Device Packet Transfer. Remember to
+keep an eye on [Light Hotspots - BETA](/mine-hnt/light-hotspots) and the
+**#gateway-development** channel on the
 [Helium Discord Server](https://discord.gg/helium) to check how the development
-process evolves.
-:::
+process evolves. :::
 
 ### Video Guide for Setup
 
-This Hands on with RAKstars session follows the step-by-step provided
-across this guide.
+This Hands on with RAKstars session follows the step-by-step provided across
+this guide.
 
 [![Link to YouTube tutorial explaining packet forwarder setup.](https://img.youtube.com/vi/Eyt4bbW_9yw/0.jpg)](https://www.youtube.com/watch?v=Eyt4bbW_9yw&t=2024s)
 
 ## Requirements
 
 - Raspberry Pi, multiple families are supported, however not all the models have
-been tested yet, so it's highly recommended to follow this guide with a model of
-the families Pi 3 or Pi 4.
+  been tested yet, so it's highly recommended to follow this guide with a model
+  of the families Pi 3 or Pi 4.
 
 - The concentrator module and the proper Pi HAT to interface it with the
-Raspberry Pi. The following table contains the links to the detailed information
-available at the RAK store.
+  Raspberry Pi. The following table contains the links to the detailed
+  information available at the RAK store.
 
-| WisLink LPWAN Concentrator    |      Raspberry Pi HAT      |
-| ----------------------------- | :------------------------: |
-| [RAK2287]                     | [RAK2287 Pi HAT]           |
-| [RAK2247]                     | [RAK2247 Pi HAT]           |
-| [RAK2245]                     | The linked reference is a Raspberry Pi <br/> form factor module! |
+| WisLink LPWAN Concentrator |                         Raspberry Pi HAT                         |
+| -------------------------- | :--------------------------------------------------------------: |
+| [RAK2287]                  |                         [RAK2287 Pi HAT]                         |
+| [RAK2247]                  |                         [RAK2247 Pi HAT]                         |
+| [RAK2245]                  | The linked reference is a Raspberry Pi <br/> form factor module! |
 
-[RAK2287]: https://store.rakwireless.com/collections/wislink-lpwan/products/rak2287-lpwan-gateway-concentrator-module
-[RAK2247]: https://store.rakwireless.com/collections/wislink-lpwan/products/rak2247-lpwan-gateway-concentrator-module
-[RAK2245]: https://store.rakwireless.com/collections/wislink-lpwan/products/rak2245-pi-hat
+[rak2287]:
+  https://store.rakwireless.com/collections/wislink-lpwan/products/rak2287-lpwan-gateway-concentrator-module
+[rak2247]:
+  https://store.rakwireless.com/collections/wislink-lpwan/products/rak2247-lpwan-gateway-concentrator-module
+[rak2245]:
+  https://store.rakwireless.com/collections/wislink-lpwan/products/rak2245-pi-hat
+[rak2287 pi hat]: https://store.rakwireless.com/products/rak2287-pi-hat
+[rak2247 pi hat]: https://store.rakwireless.com/products/rak2247-pi-hat
 
-[RAK2287 Pi HAT]: https://store.rakwireless.com/products/rak2287-pi-hat
-[RAK2247 Pi HAT]: https://store.rakwireless.com/products/rak2247-pi-hat
-
-:::important
-To use the concentrator module with a Raspberry Pi HAT, you must make sure to 
-order the variation with the SPI interface.
-:::
+:::important To use the concentrator module with a Raspberry Pi HAT, you must
+make sure to order the variation with the SPI interface. :::
 
 Let's get started!
 
@@ -89,18 +88,22 @@ You can also follow the Quick Start Guide for your concentrator on the
 - [RAK2247]
 - [RAK2245]
 
-[RAK2287]: https://docs.rakwireless.com/Product-Categories/WisLink/RAK2287/Quickstart/
-[RAK2247]: https://docs.rakwireless.com/Product-Categories/WisLink/RAK2247/Quickstart/
-[RAK2245]: https://docs.rakwireless.com/Product-Categories/WisLink/RAK2245-Pi-HAT/Quickstart/
+[rak2287]:
+  https://docs.rakwireless.com/Product-Categories/WisLink/RAK2287/Quickstart/
+[rak2247]:
+  https://docs.rakwireless.com/Product-Categories/WisLink/RAK2247/Quickstart/
+[rak2245]:
+  https://docs.rakwireless.com/Product-Categories/WisLink/RAK2245-Pi-HAT/Quickstart/
 
 ### Select the region plan
 
 Enter the gateway configuration interface by using the following command.
+
 ```
 sudo gateway-config
 ```
 
-Select the *Setup RAK Gateway Channel Plan* option, then *Server is TTN*, and in
+Select the _Setup RAK Gateway Channel Plan_ option, then _Server is TTN_, and in
 the last step choose the proper plan according to your country. For instance,
 the image shows the option to select US915. To finish, press OK.
 
@@ -115,11 +118,13 @@ the image shows the option to select US915. To finish, press OK.
 
 When the LoRa packet forwarder is running as a service, some log messages are
 recorded in the syslog. To inspect the logs, run the following command:
+
 ```
 sudo tail -f /var/log/syslog | grep ttn-gateway
 ```
 
 The log output should show something similar to:
+
 ```
 rak-gateway ttn-gateway[1886]: JSON up: {"stat":{"time":"2021-07-21 16:25:00 GMT","rxnb":0,"rxok":0,"rxfw":0,"ackr":0.0,"dwnb":0,"txnb":0,"temp":0.0}}
 rak-gateway ttn-gateway[1886]: INFO: [down] PULL_ACK received in 142 ms
@@ -145,11 +150,9 @@ rak-gateway ttn-gateway[1886]: # BEACON sent so far: 0
 rak-gateway ttn-gateway[1886]: # BEACON rejected: 0
 ```
 
-:::note
-`ttn-gateway` is just the name for the LoRa packet forwarder service in the
-configuration for these RAK concentrators; this is like a "legacy name" that
-doesn’t change when using different network servers.
-:::
+:::note `ttn-gateway` is just the name for the LoRa packet forwarder service in
+the configuration for these RAK concentrators; this is like a "legacy name" that
+doesn’t change when using different network servers. :::
 
 ### Edit the packet forwarder settings
 
@@ -157,9 +160,9 @@ You will need to edit some basic options in the packet forwarder configuration
 to forward the packets to the address and port the helium_gateway service is
 listening to.
 
-Select the option *Edit packet-forwarder config* within the *gateway-config*
+Select the option _Edit packet-forwarder config_ within the _gateway-config_
 interface. This option will open the `global_conf.json` file using the nano
-editor. Then, set the *server_address* to 127.0.0.1 and the *server ports* to
+editor. Then, set the _server_address_ to 127.0.0.1 and the _server ports_ to
 1680, as follows:
 
 <img
@@ -170,14 +173,13 @@ editor. Then, set the *server_address* to 127.0.0.1 and the *server ports* to
 />
 
 Close the editor by pressing CTRL + X, press ENTER to save the file and restart
-the packet forwarder to apply the changes by selecting the option *Restart
-packet-forwarder* within the *gateway-config* interface.
+the packet forwarder to apply the changes by selecting the option _Restart
+packet-forwarder_ within the _gateway-config_ interface.
 
-:::important
-Every time a new region is selected using the *Setup RAK Gateway Channel Plan*
-option, these settings are replaced with the default configuration. So, make
-sure to keep this in mind if you modify the region later.
-:::important
+:::important Every time a new region is selected using the _Setup RAK Gateway
+Channel Plan_ option, these settings are replaced with the default
+configuration. So, make sure to keep this in mind if you modify the region
+later. :::important
 
 ## Helium Gateway service installation
 
@@ -193,6 +195,7 @@ download it in any directory, for example `/tmp`.
 
 Getting from the repo directly to the Raspberry Pi by running the following
 commands.
+
 ```
 cd /tmp
 wget https://github.com/helium/gateway-rs/releases/download/<version>/helium-gateway-<version>-raspi234.deb
@@ -210,7 +213,7 @@ scp helium-gateway-<version>-raspi234.deb pi@<gateway ip>:/tmp/
 ### Installing the package
 
 Run the following command in the same directory you downloaded the package to
-install the *helium_gateway* service in the operating system.
+install the _helium_gateway_ service in the operating system.
 
 ```
 sudo dpkg -i helium-gateway-<version>-raspi234.deb
@@ -218,7 +221,7 @@ sudo dpkg -i helium-gateway-<version>-raspi234.deb
 
 ### Region configuration
 
-The default region of the *helium_gateway* service is US915, so you can continue
+The default region of the _helium_gateway_ service is US915, so you can continue
 with the next section if you are using this one. Otherwise, you must set your
 region frequency in `/etc/helium_gateway/settings.toml`. Add the following line
 at the beginning of the file:
@@ -226,8 +229,9 @@ at the beginning of the file:
 ```
 region = "<region>"
 ```
-Possible values are: `US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923_1 |
-AS923_2 | AS923_3 | AS923_4 | KR920 | IN865`.
+
+Possible values are:
+`US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923_1 | AS923_2 | AS923_3 | AS923_4 | KR920 | IN865`.
 
 For instance, if your region is EU868 the content in `settings.toml` must be.
 
@@ -243,8 +247,9 @@ timestamp = false
 platform = "raspi234"
 ```
 
-After updating the value, you need to restart the *helium_gateway* service to
+After updating the value, you need to restart the _helium_gateway_ service to
 apply the changes.
+
 ```
 sudo systemctl restart helium_gateway
 ```
@@ -261,6 +266,7 @@ sudo tail -f /var/log/syslog | grep helium_gateway
 ```
 
 The first log messages should look like these ones.
+
 ```
 rak-gateway helium_gateway[23658]: starting, module: gateway
 rak-gateway helium_gateway[23658]: starting, module: router
@@ -303,7 +309,7 @@ This command should give you an output like the following one.
 #### Backup the gateway_key
 
 The `gateway_key.bin` file located at /etc/helium_gateway stores the information
-used to identify the hotspot on the Helium Network. It's highly advised to 
+used to identify the hotspot on the Helium Network. It's highly advised to
 backup this file, especially if you need to recover it later after the
 onboarding process.
 
@@ -322,7 +328,7 @@ If you are using Windows, you can try a tool like
 If you have an end device (LoRaWAN node), you can check if the hotspot can
 transfer packets through the network. In other words, you can check if the
 devices can send data to the Helium Console. The Helium Console is where you can
-provision and manage the end devices, so the nodes need to be registered to 
+provision and manage the end devices, so the nodes need to be registered to
 start using the network.
 
 #### Some comments and recommendations about the Helium Console
@@ -336,13 +342,13 @@ Don't be surprised if you find some differences between those console flavors,
 basically staging is where the new features are tested before their rollout to
 production.
 
-:::important
-If the device you will use for testing is registered on the production console,
-it's better to delete it from there to avoid any unexpected behavior.
-:::
+:::important If the device you will use for testing is registered on the
+production console, it's better to delete it from there to avoid any unexpected
+behavior. :::
 
-To register your end device on the console, you can follow the steps described 
-on [Adding Devices](https://docs.helium.com/use-the-network/console/adding-devices/).
+To register your end device on the console, you can follow the steps described
+on
+[Adding Devices](https://docs.helium.com/use-the-network/console/adding-devices/).
 
 #### Inspecting the packet transfer behavior
 
@@ -378,8 +384,8 @@ your device if it's needed.
 />
 
 As a final check, you can compare if the Hotspot Name matches the one you
-obtained before. It could be different if there are more hotspots providing 
-coverage around you. In that case, you can explore the *Multiple Packets*
+obtained before. It could be different if there are more hotspots providing
+coverage around you. In that case, you can explore the _Multiple Packets_
 configuration to purchase more packets when several hotspots hear the device.
 
 ## What's next?
