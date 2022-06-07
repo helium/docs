@@ -18,8 +18,12 @@ a Nano S or Nano X, the Helium ledger app allows you to:
 This guide will walk through using Helium on a Ledger Nano S but is similar to
 setup on the Nano X.
 
-:::info Ledger CLI using experimental mode is supported at this time. Work to
-enable HNT in Ledger Live in addition to a CLI is ongoing. :::
+:::info
+
+Ledger CLI using experimental mode is supported at this time. Work to enable HNT
+in Ledger Live in addition to a CLI is ongoing.
+
+:::
 
 ## Installing the Helium ledger application
 
@@ -30,7 +34,11 @@ enable HNT in Ledger Live in addition to a CLI is ongoing. :::
 
 - Once enabled, go to Manager and search "Helium".
 
-:::info If you can't find "Helium", you may need to update your Ledger Live. :::
+:::info
+
+If you can't find "Helium", you may need to update your Ledger Live.
+
+:::
 
 - Click Install.
 
@@ -44,8 +52,12 @@ commands..." prompt should be on the screen.
 
 ## Execute Commands
 
-:::info Make sure Ledger Live is closed before proceeding! The companion app
-cannot run when Ledger Live is blocking the USB device. :::
+:::info
+
+Make sure Ledger Live is closed before proceeding! The companion app cannot run
+when Ledger Live is blocking the USB device.
+
+:::
 
 To interact with the app on Ledger, you will need to use the CLI. Head to
 [Releases in the Github repo](https://github.com/helium/helium-ledger-cli/releases)
@@ -100,11 +112,19 @@ Ledger running Helium App v2.1.0
 +-----------------------------------------------------+-------------+--------------+-----------------+
 ```
 
-:::warning Do not simply rely on what you see on the CLI, but verify it matches
-what is displayed on the Ledger. :::
+:::warning
 
-:::info You may add the `--qr` option to the command to display your address in
-the form of a QR code. :::
+Do not simply rely on what you see on the CLI, but verify it matches what is
+displayed on the Ledger.
+
+:::
+
+:::info
+
+You may add the `--qr` option to the command to display your address in the form
+of a QR code.
+
+:::
 
 To receive HNT, simply provide your address in the base58 format output from the
 CLI or by using the QR code.
@@ -152,14 +172,18 @@ Ledger running Helium App v2.1.0
 +-------+-----------------------------------------------------+-------------+--------------+-----------------+
 ```
 
-:::info Up to 255 wallets may be used on the Ledger, but the `--scan` command
-fetches each address one-by-one; it will take quite a long time to get all 255
+:::info
+
+Up to 255 wallets may be used on the Ledger, but the `--scan` command fetches
+each address one-by-one; it will take quite a long time to get all 255
 addresses.
 
 While this convenience feature exists, **double check the address using the
 screen of the Ledger** (ie: call the specific `--account N balance` without the
 `--scan` option) before sending any assets. A nefarious CLI application could
-provide fake addresses. :::
+provide fake addresses.
+
+:::
 
 ## Supported Transactions
 
@@ -228,15 +252,19 @@ Creating the following transaction:
 WARNING: do not use this output as the source of truth. Instead, rely on the Ledger Display
 ```
 
-:::warning Use the screen of the Ledger to confirm everything you do. The CLI
-app could be nefarious (maybe you downloaded the wrong one, maybe somebody
-change the program on your computer, etc). The Ledger on the other hand will
-only load applications signed by Ledger, so your security relies on you
-verifying the transaction details on the screen.
+:::warning
+
+Use the screen of the Ledger to confirm everything you do. The CLI app could be
+nefarious (maybe you downloaded the wrong one, maybe somebody change the program
+on your computer, etc). The Ledger on the other hand will only load applications
+signed by Ledger, so your security relies on you verifying the transaction
+details on the screen.
 
 To be clear, do not compare the output to the output from the CLI shown above
 (the nefarious app might be showing you the fake address), but instead from your
-original source. :::
+original source.
+
+:::
 
 Verify the parameters of the transcation on the screen. Addresses are long and
 need to be scrolled (hold the right or left button only). Once you are satisfied

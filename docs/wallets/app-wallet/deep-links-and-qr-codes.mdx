@@ -7,11 +7,15 @@ slug: /wallets/app-wallet/deep-links-and-qr-codes
 
 # Deep Links and QR Codes
 
-:::info This page refers to QR codes and deep links that are signed and
-submitted to the blockchain via the Helium Hotspot and Wallet Apps. Makers
-should not use the following information and instead use the
+:::info
+
+This page refers to QR codes and deep links that are signed and submitted to the
+blockchain via the Helium Hotspot and Wallet Apps. Makers should not use the
+following information and instead use the
 [Helium React Native SDK](https://helium.github.io/react-native-helium/modules/WalletLink.html)
-to sign and submit transactions in their maker app. :::
+to sign and submit transactions in their maker app.
+
+:::
 
 To generate a QR code to scan, find a service to generate a QR code using the
 json data below. This is an example site: `https://www.qr-code-generator.com`
@@ -94,14 +98,18 @@ documentation for more information.
 This section refers to QR codes scanned internally by the Helium Hotspot and
 Wallet apps.
 
-:::info In the **Hotspot App** all memos must be **UTF8 strings** with a **max
-size of 8 bytes**.
+:::info
+
+In the **Hotspot App** all memos must be **UTF8 strings** with a **max size of 8
+bytes**.
 
 In the **Wallet App** all memos should be **base64 encoded strings** with a
 **max size of 8 bytes**.
 
 If you want to target **both the Wallet App and Hotspot App** with one QR you
-should add `"utf8Memo": true` to **use UTF8 memos for both**. :::
+should add `"utf8Memo": true` to **use UTF8 memos for both**.
+
+:::
 
 ### Burn HNT
 
