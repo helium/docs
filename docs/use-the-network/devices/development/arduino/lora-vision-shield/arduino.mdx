@@ -893,7 +893,15 @@ void loop() {
 - [Community Tutorial Video](https://www.youtube.com/watch?v=wt_WZ1sBDeM&list=PL57Dnr1H_eguoFKLWY0nLMz0QI3nyQVmQ&index=12) 
 
 
+### Fails
 
+What to do when it fails! Lots of possible issues, but your best bet is the Helium console debug and connection graph. 
+1. If you are not getting a red dot your 3 secret numberes (deviceEUI, AppEUI, AppKey) are probably not correct or you forgot to run the MRKWAN ```MKRWANFWUpdate_standalone``` code
+2. If you get a red dot with the debug window only saying "Join Request" but never "uplink" you are probably having network issues, just like WiFi issues if you move around, get closer to a window, get higher, put the device on battery and leave it somewhere with a good view to the nearest Helium gateway, use the [Helium explorer](https://explorer.helium.com/) to see which derection the nearest gateway is. 
+3. If in the debug pane you see "uplink" but you only have a red dot then you have connected to Helium and that is good, you just have not connected with an integration. Check your decoder and integration settings
+4. If the dot is yellow you have connected with the function decoder but not yet fully with the integration, check you decoder and integration settings.
+5. If the dot is blue you have successfully integrated but the data may not be in the correct format, check your decoder/integration
+6. Hopefully the above helps. It is very difficult to determine if your nearest Gateway is having issues or if you have done something incorrect. Good luck. 
 
 
 
