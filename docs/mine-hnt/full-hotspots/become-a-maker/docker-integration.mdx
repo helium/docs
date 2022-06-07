@@ -88,15 +88,14 @@ When the user has asserted the Miner and its location to the blockchain, you can
 get the appropriate region from Miner and use the appropriate configuration for
 a packet forwarder.
 
-:::info
-If you need examples of our regional packet forwarder configurations, please see
+:::info If you need examples of our regional packet forwarder configurations,
+please see
 [here](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder).
 :::
 
-:::warning
-If you are using our packet forwarder, be sure to customize the `rssi_offset`
-field for your particular concentrator design. Misconfiguring this value may
-result in decreased Proof-of-Coverage performance for your customers.
+:::warning If you are using our packet forwarder, be sure to customize the
+`rssi_offset` field for your particular concentrator design. Misconfiguring this
+value may result in decreased Proof-of-Coverage performance for your customers.
 :::
 
 ## Enable ECC608 and D-Bus
@@ -153,16 +152,18 @@ typically at: `/etc/dbus-1/system.d/com.helium.Miner.conf`
 
 ## Setting the ulimit
 
-Ensure the ulimit system is set to a *minimum* of `64000`; anything lower will be insufficient but more is welcome.
+Ensure the ulimit system is set to a _minimum_ of `64000`; anything lower will
+be insufficient but more is welcome.
 
 You'll want to include the Docker run argument `--ulimit nofile=64000:64000`.
 
-**In addition**, you'll need to verify that your Linux system allows for such file limits. For example,
+**In addition**, you'll need to verify that your Linux system allows for such
+file limits. For example,
 
 ```bash
 $ ulimit -Sn
 64000
 ```
 
-If the host system does not allow for 64,000 file handles, then the `docker run` argument will not be sufficient.
-
+If the host system does not allow for 64,000 file handles, then the `docker run`
+argument will not be sufficient.

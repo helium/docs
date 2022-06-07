@@ -13,22 +13,21 @@ Network. It is one of three pieces:
 
 <img src={useBaseUrl("img/mine-hnt/mine-hnt-arch.png")} />
 
-
 - Packet Forwarder: this is a utility that interacts with the radio front-end
-and sends and receives raw radio packets with the Helium Miner
+  and sends and receives raw radio packets with the Helium Miner
 - Miner: the Helium Blockchain comes into the picture here; the Miner is
-responsible for routing packets to the appropriate Router and entering into
-micro-transactions brokered via libp2p
+  responsible for routing packets to the appropriate Router and entering into
+  micro-transactions brokered via libp2p
 - Router: a Helium compatible LoRaWAN Network Server, basically; this component
-is interested in receiving the packets relating to its devices and handles
-downlink messages when appropriate
+  is interested in receiving the packets relating to its devices and handles
+  downlink messages when appropriate
 
 In addition to packet routing, the Miner also participates in POC and submits
 POC packets as witness events. When challenge, the Miner sends packets to the
 packet forwarder for transmission.
 
-The Miner connects to other Miners over libp2p where, amongst other things,
-it is gossiping and saving blocks, while maintaining a ledger of the blockchain.
+The Miner connects to other Miners over libp2p where, amongst other things, it
+is gossiping and saving blocks, while maintaining a ledger of the blockchain.
 Constantly syncing the blockchain and downloading blocks uses significant
 bandwidth and CPU.
 
@@ -37,8 +36,9 @@ running on Ubuntu 20.04 LTS, and finally some tips on how to interact with a
 running Miner.
 
 When preparing the Miner for a Hotspot product, you will want to go a little
-further and follow the steps outlined [here](/mine-hnt/full-hotspots/become-a-maker/docker-integration),
-where you will learn how to integrate it with security modules and BLE.
+further and follow the steps outlined
+[here](/mine-hnt/full-hotspots/become-a-maker/docker-integration), where you
+will learn how to integrate it with security modules and BLE.
 
 If you are interested in contributing to Miner development and code-review,
 please visit
@@ -92,10 +92,10 @@ Before launching the Miner, you will want to configure ports on your network to
 forward two ports:
 
 - **44158/TCP**: the Miner communicates to other Miners over this port. The
-networking logic knows how to get around a lack of forwarding here, but you
-will get better performance by forwarding the port
+  networking logic knows how to get around a lack of forwarding here, but you
+  will get better performance by forwarding the port
 - **1680/UDP**: the radio connects to the Miner over this port. You will not be
-able to forward packets or participate in Proof of Coverage without this
+  able to forward packets or participate in Proof of Coverage without this
 
 "Forwarding" on the second port is less relevant if you are running a radio
 packet forwarder on the same system at the miner \(both on a Raspberry Pi, for
