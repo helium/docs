@@ -23,22 +23,24 @@ permissionless.
 
 Before we begin, you should have the following:
 
-- [purchased an OUI](/use-the-network/run-a-network-server/buy-an-oui) and noted its number
+- [purchased an OUI](/use-the-network/run-a-network-server/buy-an-oui) and noted
+  its number
 - installed Docker and docker-compose (see quick-start for this in the next
-section, "Setting Up Dependencies")
+  section, "Setting Up Dependencies")
 - you have some spare HNT to burn ($10-100 worth), for funding your OUI address
 - a [Magic Link](https://magic.link/) account for user account management. Note
-that without additional configuration, only login via link will work. Login via
-Google directly will _not_ work.
-- at least 4 vCPUs, 8GB of RAM, and 120 GB of SSD. The [CPX41 product from Hetzner](https://www.hetzner.com/)
-or the [numerous VPS options from Vultr](https://www.vultr.com/pricing/) end up
-being cost-effective solutions. AWS provides equivalents such as t2.xlarge.
+  that without additional configuration, only login via link will work. Login
+  via Google directly will _not_ work.
+- at least 4 vCPUs, 8GB of RAM, and 120 GB of SSD. The
+  [CPX41 product from Hetzner](https://www.hetzner.com/) or the
+  [numerous VPS options from Vultr](https://www.vultr.com/pricing/) end up being
+  cost-effective solutions. AWS provides equivalents such as t2.xlarge.
 
 Optionally, you should also:
 
 - have a fully sync'ed Miner or ETL instance to extract a snapshot from. To
-learn how to setup a Miner,
-[please read here](/use-the-network/setup-a-packet-forwarder).
+  learn how to setup a Miner,
+  [please read here](/use-the-network/setup-a-packet-forwarder).
 - be able to configure ports on a firewall
 
 ### Setting up dependencies
@@ -47,6 +49,7 @@ In a fresh CentOS/Rocky/Alma Linux configuration, you can run the following
 installation step to prep the system for the rest of the tutorial.
 
 First run:
+
 ```
 yum -y update
 yum -y install epel-release
@@ -70,6 +73,7 @@ dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce
 ```
 
 And then:
+
 ```
 dnf update
 dnf -y install docker-ce docker-ce-cli containerd.io
@@ -121,8 +125,9 @@ MAGIC_PUBLIC_KEY=pk_live_XXXXXXXXXXXXXXXX
 MAGIC_SECRET_KEY=sk_live_XXXXXXXXXXXXXXXX
 ```
 
-You may get these from your [Magic Link dashboard](https://dashboard.magic.link/app/all_apps)
-upon selecting your app.
+You may get these from your
+[Magic Link dashboard](https://dashboard.magic.link/app/all_apps) upon selecting
+your app.
 
 ### Customize Router environment
 
@@ -133,54 +138,56 @@ cp templates/.env-router .env-router
 ```
 
 Then edit `.env-router`. There are many options here to familiarize yourself
-with, but the only necessary field to update is `ROUTER_CONSOLE_SECRET`. It
-must match `ROUTER_SECRETS` from `.env`.
+with, but the only necessary field to update is `ROUTER_CONSOLE_SECRET`. It must
+match `ROUTER_SECRETS` from `.env`.
 
 ### Run it!
 
 Copy the local docker-compose file
+
 ```bash
 cp templates/docker-compose-local.yaml docker-compose.yaml
 ```
 
 This template builds console locally and does not use nginx for SSL. You may
-want to read about nginx setup [here](/use-the-network/run-a-network-server/deploy-console).
+want to read about nginx setup
+[here](/use-the-network/run-a-network-server/deploy-console).
 
 If you launch docker-compose from here, you will build from the `master` branch.
 You can use git to build and checkout alternate branches or tags.
 
 Alternately, to avoid building at all, you can use a quay image by changing the
 image configuration in the console section to the following:
+
 ```
   console:
     image: quay.io/team-helium/console:latest
 ```
 
-Once you've selected which branch of quay tag to use, `docker-compose up` deploys
-Conosle, Router and Postgres.
+Once you've selected which branch of quay tag to use, `docker-compose up`
+deploys Conosle, Router and Postgres.
 
 The first deployment can take a little longer, especially if you're building.
-While we're waiting, let's configure our firewall. Each cloud provider does
-this slightly differently, but you'll want to continue enabling SSH on port
-22 so that you can accept your own login and management, open up port 2154 for
-libp2p which allows you to sync the blockchain, and finally, port 8080 is for
-gRPC connections from hotspots so that you may actually purchase packets:
+While we're waiting, let's configure our firewall. Each cloud provider does this
+slightly differently, but you'll want to continue enabling SSH on port 22 so
+that you can accept your own login and management, open up port 2154 for libp2p
+which allows you to sync the blockchain, and finally, port 8080 is for gRPC
+connections from hotspots so that you may actually purchase packets:
 
 <img
-    src={useBaseUrl(
-        "img/use-the-network/run-a-network-server/run-console/firewall-config.png"
-    )}
+  src={useBaseUrl(
+    "img/use-the-network/run-a-network-server/run-console/firewall-config.png"
+  )}
 />
 
-You might see `helium_router` crash a few times as it waits
-for `helium_console` to start up and allow the socket connection between the
-two.
+You might see `helium_router` crash a few times as it waits for `helium_console`
+to start up and allow the socket connection between the two.
 
 You can forward the UX to your local machine with the following command:
 
 ```bash
 ssh -L 4000:$CONSOLE_IP:4000 -N -f root@$CONSOLE_IP
-````
+```
 
 This allows you to have local access to the web interface without opening up
 your firewall publicly.
@@ -208,14 +215,14 @@ commands to work.
 
 ### Create Data Credits
 
-At this point, we have the software running and we have an OUI, but the
-router does not have any DC to buy messages from the network. We need to burn
-some HNT to DC for the router.
+At this point, we have the software running and we have an OUI, but the router
+does not have any DC to buy messages from the network. We need to burn some HNT
+to DC for the router.
 
 The cost for rurning a router is complex. See community member disk91.com's
 [guide](https://www.disk91.com/2021/technology/lora/what-is-the-real-cost-of-helium-communication/)
-and calculate how much you need for your planned usage. One million DC ($10)
-can be a good number to start with.
+and calculate how much you need for your planned usage. One million DC ($10) can
+be a good number to start with.
 
 The easiest way to calculate how many HNT to burn to get the number of DC you
 need is to go to https://console.helium.com/datacredits and click on
@@ -233,9 +240,9 @@ $ docker exec helium_router router peer addr
 
 The string after the second slash,
 `11xHXS5AgLyjYRCJ4ctcWcsMRULS8jro9Pb1GPaTG1neGk1dNcf`, is the libp2p address and
-this is where we need to burn the DC.
-Now return to your command line wallet and burn the HNT amount **with the
-libp2p address of your OUI/router as payee**. Example:
+this is where we need to burn the DC. Now return to your command line wallet and
+burn the HNT amount **with the libp2p address of your OUI/router as payee**.
+Example:
 
 ```bash
 helium-wallet burn --amount 0.49043649 --payee 11xHXS5AgLyjYRCJ4ctcWcsMRULS8jro9Pb1GPaTG1neGk1dNcf --commit
@@ -272,8 +279,8 @@ appropriately. eg:
 Many fees benefit from
 [implicit burn](/blockchain/transaction-fees#transaction-fees-and-implicit-burn),
 including when paying for OUIs and DevAddr's (done previously when you
-[purchased an OUI](/use-the-network/buy-an-oui), but your router needs a DC balance
-to run.
+[purchased an OUI](/use-the-network/buy-an-oui), but your router needs a DC
+balance to run.
 
 The cost for rurning a router is complex. See community member disk91.com's
 [guide](https://www.disk91.com/2021/technology/lora/what-is-the-real-cost-of-helium-communication/)
@@ -286,8 +293,8 @@ Enter the amount of DC you need and click on `Burn HNT to DC`. Helium Console
 shows how to burn the selected amount to the Helium Console itself. We won't do
 that. Just note the amount (for example `0.49043649`).
 
-Now return to your command line wallet and burn the HNT amount **with the
-libp2p address of your router as payee**. For example:
+Now return to your command line wallet and burn the HNT amount **with the libp2p
+address of your router as payee**. For example:
 
 ```bash
 helium-wallet burn --amount 0.49043649 --payee 11xHXS5AgLyjYRCJ4ctcWcsMRULS8jro9Pb1GPaTG1neGk1dNcf --commit
@@ -316,12 +323,13 @@ Congratulations!
 
 ### Backing up your `swarm_key`
 
-Extract the router's swarm key and store it somewhere safe. The swarm key can
-be extracted by running `base64 ~/console/data/router/blockchain/swarm_key` and
+Extract the router's swarm key and store it somewhere safe. The swarm key can be
+extracted by running `base64 ~/console/data/router/blockchain/swarm_key` and
 saved in your favorite password manager. An alternative is to copy the file
 somewhere safe.
 
 #### A Note on the Purpose of a `swarm_key`
+
 The `swarm_key` equates to your validator's unique identity on the Helium
 blockchain. Backing up the `swarm_key` enables you to maintain your router's
 identity in the event that your node becomes compromised in some way, or needs

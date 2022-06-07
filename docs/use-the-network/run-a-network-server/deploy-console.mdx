@@ -7,7 +7,8 @@ slug: /use-the-network/run-a-network-server/deploy-console
 # Deploying Console
 
 Getting [Console](https://github.com/helium/console) deployed is very similar to
-[running Console](/use-the-network/run-console). Go ahead and follow that guide up to **Run it!**.
+[running Console](/use-the-network/run-console). Go ahead and follow that guide
+up to **Run it!**.
 
 ## Encryption
 
@@ -22,6 +23,7 @@ your certificates are placed, they'll be used later in nginx.
 ## Docker
 
 Grab the server docker-compose file
+
 ```
 cp templates/docker-compose-quay.yaml docker-compose.yaml
 ```
@@ -35,6 +37,7 @@ be sure to update the `volumes` for the nginx container in
 ## Nginx
 
 Copy the nxinx config
+
 ```
 cp templates/nginx-default.conf nginx.conf
 ```
@@ -44,9 +47,9 @@ Edit `nginx.conf` and fill in your certificates name.
 ## Run It!
 
 `docker-compose up` builds Console and launches it with three other containers:
-Router, Postgres, and Nginx. You might see `helium_router` crash a few times as it waits
-for `helium_console` to start up and allow the socket connection between the
-two.
+Router, Postgres, and Nginx. You might see `helium_router` crash a few times as
+it waits for `helium_console` to start up and allow the socket connection
+between the two.
 
 If you go to your host name, you should have an auth0 login available to you.
 Just as a heads up, all of your important data is in the `data` in this
