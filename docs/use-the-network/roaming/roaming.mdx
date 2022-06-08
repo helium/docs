@@ -1,96 +1,135 @@
 ---
-id: roaming 
+id: roaming
 sidebar_label: Helium Roaming Services
 slug: /use-the-network/roaming
 ---
 
 # Helium Roaming Services
 
-Helium Roaming Services enables public and private LoRaWAN network providers around the world to leverage Helium’s ubiquitous coverage. 
+Helium Roaming Services enables public and private LoRaWAN network providers around the world to
+leverage Helium’s ubiquitous coverage.
 
-With over 630K Hotspots in 166 countries and growing, the network sees a massive amount of non-Helium packets. When network providers enter a roaming partnership with Helium, this traffic can be forwarded via the Helium Network to partners, increasing their level of service and coverage. 
+With over 630K Hotspots in 166 countries and growing, the network sees a massive amount of
+non-Helium packets. When network providers enter a roaming partnership with Helium, this traffic can
+be forwarded via the Helium Network to partners, increasing their level of service and coverage.
 
-Any compatible device can send data to their home network through Helium-compatible Hotspots without the need for device configurations or firmware updates.
+Any compatible device can send data to their home network through Helium-compatible Hotspots without
+the need for device configurations or firmware updates.
 
 ## Getting Started
-- **Create an Account**- Contact a Helium Network Advisor to create the initial Helium Roaming Services account (sales@nova-labs.com). Initial setup requires an Organization name, and an email address for the administrator. As part of the initial account creation process, Net ID ownership must be verified for the roaming partner.
+
+- **Create an Account**- Contact a Helium Network Advisor to create the initial Helium Roaming
+  Services account (sales@nova-labs.com). Initial setup requires an Organization name, and an email
+  address for the administrator. As part of the initial account creation process, Net ID ownership
+  must be verified for the roaming partner.
 - **Add Users**- An administrator can add other user accounts with various roles as needed.
-- **Purchase Data Credits**- Data Credits (DCs) are needed to pay for packets sent on the Helium network and can be purchased with a credit card or burning HNT.
-- **Configure Network Integration**- Specify the home network server address and port, input roaming device join credentials, and define how many packets to purchase for devices.
-- **Set up Alerts**- Set up email alerts to send to different user roles based on a number of conditions including Data Credit balance, user management, or payment methods. 
+- **Purchase Data Credits**- Data Credits (DCs) are needed to pay for packets sent on the Helium
+  network and can be purchased with a credit card or burning HNT.
+- **Configure Network Integration**- Specify the home network server address and port, input roaming
+  device join credentials, and define how many packets to purchase for devices.
+- **Set up Alerts**- Set up email alerts to send to different user roles based on a number of
+  conditions including Data Credit balance, user management, or payment methods.
 
-## Users & Organizations 
+## Users & Organizations
 
-Administrators can add invite users to Organizations via email. Users can be given different access levels using roles (administrators, managers, and read-only users). 
+Administrators can add invite users to Organizations via email. Users can be given different access
+levels using roles (administrators, managers, and read-only users).
 
 ### Adding Users
 
 User roles include:
-- `Administrators` can perform all actions 
-- `Managers` have the same permissions as administrators, but cannot add organizations, manage users, or Data Credits
+
+- `Administrators` can perform all actions
+- `Managers` have the same permissions as administrators, but cannot add organizations, manage
+  users, or Data Credits
 - `Read-only` users cannot take any actions
 
-**To add a new user** 
-- On Console navigate to the **Users** page, and click **+ Add User**. A pop-up appears. 
-- Type the email of the new user, and select their desired access level. 
+**To add a new user**
+
+- On Console navigate to the **Users** page, and click **+ Add User**. A pop-up appears.
+- Type the email of the new user, and select their desired access level.
 - Hit **Submit**. An emial invitation is sent that allows a user to join the organization.
 
-### Managing Organizations 
-Organizations allow users to manage multiple roaming servers using the same account. An Organization is a virtual container with its own users, Data Credit balance, and configurations. 
+### Managing Organizations
+
+Organizations allow users to manage multiple roaming servers using the same account. An Organization
+is a virtual container with its own users, Data Credit balance, and configurations.
 
 **Note:** Data Credits can be transferred among Organizations, see Purchasing Data Credits.
 
-**To add a new Organization** 
-- On Console navigate to the **Organizations** page, and click **+ Add Organizations**. A pop-up appears. 
+**To add a new Organization**
+
+- On Console navigate to the **Organizations** page, and click **+ Add Organizations**. A pop-up
+  appears.
 - Type the unique name of the Organization.
-- Hit **Submit**, the Organization appears. 
+- Hit **Submit**, the Organization appears.
 
 ## Data Credits
 
-Data Credits (DCs) are needed to pay for packets sent on the Helium network. Every 24 bytes sent in a packet costs 1 DC which equals $.00001.
+Data Credits (DCs) are needed to pay for packets sent on the Helium network. Every 24 bytes sent in
+a packet costs 1 DC which equals $.00001.
 
 ### Purchasing Data Credits
 
-Obtaining Data Credits is the same as on the Helium Console focused on device management and onboarding. Users can use a credit card (recommended method) and sent up a recurring payment or burn HNT. For a video tutorial of how to purchase Data Credits on Console, check out our Tips & Tricks video [here](https://youtu.be/jyMGLymuOCE).
+Obtaining Data Credits is the same as on the Helium Console focused on device management and
+onboarding. Users can use a credit card (recommended method) and sent up a recurring payment or burn
+HNT. For a video tutorial of how to purchase Data Credits on Console, check out our Tips & Tricks
+video [here](https://youtu.be/jyMGLymuOCE).
 
-In addition to purchasing Data Credits, users can transfer Data Credits among Organizations under the same account. 
+In addition to purchasing Data Credits, users can transfer Data Credits among Organizations under
+the same account.
 
-To transfer Data Credits (same account only with multiple Organizations): click **Data Credits**, and hit **Transfer DC to Org**. On the pop up, enter the quantity of Data Credits to transfer and receiving Organization. Click **Make Transfer**.
+To transfer Data Credits (same account only with multiple Organizations): click **Data Credits**,
+and hit **Transfer DC to Org**. On the pop up, enter the quantity of Data Credits to transfer and
+receiving Organization. Click **Make Transfer**.
 
-Further reading: how Data Credits fit into Helium Tokenomics [here](https://docs.helium.com/blockchain/helium-token/#data-credits-and-burn-and-mint-economics).
+Further reading: how Data Credits fit into Helium Tokenomics
+[here](https://docs.helium.com/blockchain/helium-token/#data-credits-and-burn-and-mint-economics).
 
 ## Configurations
 
 There are a number of configurations required to successfully roam on Helium including:
+
 - Configuring the Home Network Server address and port number
 - Adding roaming device join credentials
 - Specifying how many packets to purchase for devices
 
 ### Configuring Integrations
 
-To configure the Helium Roaming Service with a LoRaWAN Network Server a user needs to provide the address of the Home Network Server and the port number.
+To configure the Helium Roaming Service with a LoRaWAN Network Server a user needs to provide the
+address of the Home Network Server and the port number.
 
-On Console, click Configuration and enter the Address (for example yournetworkserver.com) and port number (for example `1700`) of the Home Network Server
+On Console, click Configuration and enter the Address (for example yournetworkserver.com) and port
+number (for example `1700`) of the Home Network Server
 
 ### Adding Device Credentials
 
-Any device that roams on the Helium Network needs to be added to the Configuration page. 
+Any device that roams on the Helium Network needs to be added to the Configuration page.
 
 Join credentials can be added using multiple methods. Click **Configuration**, and to:
 
-- **Add an individual device**: choose **+Add Join Credential** and enter the device DevEUI and APP EUI
-- **Import devices with a CSV file**: choose **use CSV File**. To structure the CSV file add app_eui, dev_eui in the header row, followed by rows of the corresponding values.
-- **Use a wildcard**: Rather than adding each device, DevEUI’s mapped to a single AppEUI can be added using an asterisk wildcard `*`. Choose **+Add Join Credential** and enter `*` for the DevEUI field along with the specific AppEUI. Each new AppEUI requires a new entry.
+- **Add an individual device**: choose **+Add Join Credential** and enter the device DevEUI and APP
+  EUI
+- **Import devices with a CSV file**: choose **use CSV File**. To structure the CSV file add
+  app_eui, dev_eui in the header row, followed by rows of the corresponding values.
+- **Use a wildcard**: Rather than adding each device, DevEUI’s mapped to a single AppEUI can be
+  added using an asterisk wildcard `*`. Choose **+Add Join Credential** and enter `*` for the DevEUI
+  field along with the specific AppEUI. Each new AppEUI requires a new entry.
 
 ### Purchasing Multiple Packets
 
-The Multiple Packets feature provides the ability to pay for additional packets (if available) for redundancy and location triangulation purposes. 
+The Multiple Packets feature provides the ability to pay for additional packets (if available) for
+redundancy and location triangulation purposes.
 
-To enable multiple packet purchase, click **Configuration**, and enter the number of desired packets. Note: additional packets can only be purchased if multiple Hotspots "hear" and send the same packet. By default only `1` packet is purchased.
+To enable multiple packet purchase, click **Configuration**, and enter the number of desired
+packets. Note: additional packets can only be purchased if multiple Hotspots "hear" and send the
+same packet. By default only `1` packet is purchased.
 
 ## Alerts
 
-Email alerts can be set up for a number of conditions related to Data Credit balance, user management, or payment methods. User types (e.g., Administrator or Managers) can be specified to receive alerts.
+Email alerts can be set up for a number of conditions related to Data Credit balance, user
+management, or payment methods. User types (e.g., Administrator or Managers) can be specified to
+receive alerts.
 
 ### Setting Up Alerts
 
