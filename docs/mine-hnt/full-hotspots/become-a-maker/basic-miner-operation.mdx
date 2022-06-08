@@ -20,12 +20,14 @@ three pieces:
 - Router: a Helium compatible LoRaWAN Network Server, basically; this component is interested in
   receiving the packets relating to its devices and handles downlink messages when appropriate
 
-In addition to packet routing, the Miner also participates in POC and submits POC packets as witness
+In addition to packet routing, the Miner also participates in PoC and submits PoC packets as witness
 events. When challenge, the Miner sends packets to the packet forwarder for transmission.
+
 
 The Miner connects to other Miners over libp2p where, amongst other things, it is gossiping and
 saving blocks, while maintaining a ledger of the blockchain. Constantly syncing the blockchain and
 downloading blocks uses significant bandwidth and CPU.
+
 
 In this guide, we will explain how to get a Docker image of the Helium Miner running on Ubuntu 20.04
 LTS, and finally some tips on how to interact with a running Miner.
@@ -192,9 +194,9 @@ such as: `alias miner="docker exec miner miner"`
 
 ### Updating the Docker Image
 
-From time to time, the Helium Miner is updated. Keep tabs on
+
 [the releases here](https://github.com/helium/miner/releases). Depending on whether you are running
-a miner for fun, to route packets, or to participate in POC, keeping it updated may be more or less
+a miner for fun, to route packets, or to participate in PoC, keeping it updated may be more or less
 urgent. Each release tagged on the Github will be on the quay repository. Simply remove the current
 image:
 
