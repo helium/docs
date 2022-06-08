@@ -5,52 +5,102 @@ sidebar_label: Technical Requirements
 slug: /mine-hnt/validators/requirements
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The following are meant to be used as guidelines for the hardware requirements when building a validator, more so than absolute requirements, to help minimize your [performance penalties](https://docs.helium.com/mine-hnt/validators/penalties/). Minimizing your penalties increases your chances of being elected to the Consensus Group and earning more rewards. 
+The following are meant to be used as guidelines for the hardware requirements when building a
+validator, more so than absolute requirements, to help minimize your
+[performance penalties](https://docs.helium.com/mine-hnt/validators/penalties/). Minimizing your
+penalties increases your chances of being elected to the Consensus Group and earning more rewards.
 
-As the role of validator continually grows, it may require more resources over time. Once you have built your validator, please refer to the [Performance Baselining](#performance-baselining) section below.
+As the role of validator continually grows, it may require more resources over time. Once you have
+built your validator, please refer to the [Performance Baselining](#performance-baselining) section
+below.
 
-Most Validator operators who experience the least penalties have configurations similar to or greater than these guidelines:
+Most Validator operators who experience the least penalties have configurations similar to or
+greater than these guidelines:
 
 - Physical or Virtual:
-  - Many validators with the least amount of penalties run bare metal validators rather than a Virtual Private Server (VPS)
+  - Many validators with the least amount of penalties run bare metal validators rather than a
+    Virtual Private Server (VPS)
 - Internet Connectivity:
-  - Commercial grade Internet connectivity with quality upstream providers and redundancy such as BGP. Not home fiber or cable modem connections.
-  - Commercial grade router/firewall capable of handling thousands of concurrent connections, not consumer grade routers that may cause you to incur penalties due to dropped network connections while in the consense group.
-  - Stable data center/cloud grade network connection free of proxies, NAT, etc. The load is largely symmetrical when producing blocks, so quality upstream connectivity is required.
-  - Static WAN IP address with ports `2154tcp` and `8080 tcp` opened on firewall with a route available to your validator host.
+  - Commercial grade Internet connectivity with quality upstream providers and redundancy such as
+    BGP. Not home fiber or cable modem connections.
+  - Commercial grade router/firewall capable of handling thousands of concurrent connections, not
+    consumer grade routers that may cause you to incur penalties due to dropped network connections
+    while in the consense group.
+  - Stable data center/cloud grade network connection free of proxies, NAT, etc. The load is largely
+    symmetrical when producing blocks, so quality upstream connectivity is required.
+  - Static WAN IP address with ports `2154tcp` and `8080 tcp` opened on firewall with a route
+    available to your validator host.
   - Note: Port 8080 is required for communications with light hotspots a.k.a. light gateways
-- Operating system: 
+- Operating system:
   - When running from docker: Any linux based system capable of running docker
   - When running from source: Ubuntu 20.04 LTS
-  - Note: Testing has shown there is ~20% overhead when running from docker when compared to running from source. If you are running a single validator on bare metal hardware, this overhead is negligable but can be more pronounced when running on a Virtual Private Server (VPS) or running multiple validators on a single bare metal server.
+  - Note: Testing has shown there is ~20% overhead when running from docker when compared to running
+    from source. If you are running a single validator on bare metal hardware, this overhead is
+    negligable but can be more pronounced when running on a Virtual Private Server (VPS) or running
+    multiple validators on a single bare metal server.
 - CPU:
-  - Intel, AMD or ARM based processor 3.0 GHz or above with 4 cores or equivalent, such as AMD Ryzen Zen3 CPU (5950X being the top choice) and Intel i9-12900K.
+  - Intel, AMD or ARM based processor 3.0 GHz or above with 4 cores or equivalent, such as AMD Ryzen
+    Zen3 CPU (5950X being the top choice) and Intel i9-12900K.
   - Note: Single threaded performance is more important than multi-threaded performance
   - Note: The vCPU term within a VPS is not a "core" but often just a hyperthread
-  - [GeekBench 5](https://www.geekbench.com/) scores of greater than 1,000 Single-Core and greater than 5,000 Multi-core have performed well. Many of the high performance validators score higher than 2,000 for Single-core and 15,000 for Multi-core
-  - For Intel and AMD systems, [AVX2 or AVX support](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions) is required. Verify your CPU supports these extensions by checking `grep avx /proc/cpuinfo` and verifying that AVX support is included in the output.
+  - [GeekBench 5](https://www.geekbench.com/) scores of greater than 1,000 Single-Core and greater
+    than 5,000 Multi-core have performed well. Many of the high performance validators score higher
+    than 2,000 for Single-core and 15,000 for Multi-core
+  - For Intel and AMD systems,
+    [AVX2 or AVX support](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions) is required.
+    Verify your CPU supports these extensions by checking `grep avx /proc/cpuinfo` and verifying
+    that AVX support is included in the output.
 - Memory: 16 GB or above (many validators run more)
-- Storage: 20GB or more standard disk for OS and 256GB or more, high performance NVME for validator_data.  64GB of standard speed disk is sufficient for testnet. It is recommended that you keep your validator_data directory on a separate high performace disk from the OS.
-  - Examples of PCI Express NVMe 4.0 that validators use are Sabrent Rocket Plus 2TB, Seagate FireCuda 530 2TB and Western Digital WD Black. NOTE: 2TB NVME dual sided drives have higher IOPS than single sided NVME drives.
+- Storage: 20GB or more standard disk for OS and 256GB or more, high performance NVME for
+  validator_data. 64GB of standard speed disk is sufficient for testnet. It is recommended that you
+  keep your validator_data directory on a separate high performace disk from the OS.
+  - Examples of PCI Express NVMe 4.0 that validators use are Sabrent Rocket Plus 2TB, Seagate
+    FireCuda 530 2TB and Western Digital WD Black. NOTE: 2TB NVME dual sided drives have higher IOPS
+    than single sided NVME drives.
 - Public Cloud/VPS:
-  - If using AWS, a t2.xlarge or c5a.xlarge EC2 instance or equivalent is recommended. 
-  - If using another cloud provider, like GCP, Azure, or Digital Ocean, an instance with similar capabilities should be the target.
+  - If using AWS, a t2.xlarge or c5a.xlarge EC2 instance or equivalent is recommended.
+  - If using another cloud provider, like GCP, Azure, or Digital Ocean, an instance with similar
+    capabilities should be the target.
 
-See details for why Validators [SHOULD NOT BE RUN ON A HOME NETWORK](https://docs.helium.com/mine-hnt/validators/faqs-resources-providers/#technical). The one exception to this is if you live at an actual data center. If that's the case, you're allowed to run Validators at home.
+See details for why Validators
+[SHOULD NOT BE RUN ON A HOME NETWORK](https://docs.helium.com/mine-hnt/validators/faqs-resources-providers/#technical).
+The one exception to this is if you live at an actual data center. If that's the case, you're
+allowed to run Validators at home.
 
 ## Performance Baselining
-  - Follow these steps after the validator is caught up to the tip of the chain and running normally for a few hours.
-  - Review the underlying hardware your provider is using. You can review your instance cpu speeds by using `cat /proc/cpuinfo | egrep  -i "name|stepping|Mhz" | sort | uniq -c`.  Some providers use the Turbo speeds as marketing and others the regular speed of the processor.
-  - Install sar package using `sudo apt install sysstat`
-    - Confirm that sar is enabled in `/etc/default/sysstat` review that the `ENABLED` line is set to `true`.
-    - Review the cron job and is set to the correct schedule that you would like to collect stats on. You can `sudo vi etc/cron.d/sysstat` file to adjust the default of collecting every 10 minutes `*/10 ...`.
-  - You can review your CPU steal using `sar` and looking at the `%steal` column. Averages of over 1% you should think about moving providers. You can also see this metric in `top` look for the `st` cpu metric on the second line.
-  - You can review your IOPS using `sar -b` 
-  - You can review your Disk Bandwidth using `sar -d -p | egrep "sd[a-z]|DEV"` NOTE: this example command line is assumes `/dev/sd<some letter>` device names. Your instance may have disks with different device names, so change this command as needed.
-  - You can review your Disk Latency with `sar -d -p | egrep "sd[a-z]|DEV"` review the `await` which should be < 10ms
-  - Review your Absorb and Commit Block times and they should be < 2500ms on average, not including the rewards blocks that will be much higher. To check ongoing times you can use `tail -f log/console.log | grep -E 'add_block|absorb_and_commit'`
-  - Once your validator is caught up you can use `grep -E 'add_block|absorb_and_commit' log/console.log | awk '{print $6 $8 }' | sed ':a;N;$!ba;s/\ngossipped/ /g'` as a historical listing of your console.log
-  - If you believe you are having trouble getting the advertised disk performance you can install and run the `fio` package to give you a full baseline of disk performance. Make sure to not be in a Consensus Group while benchmarking using `fio`.  You can do this by running `miner info in_consensus`.
-  - You can also refer to some steps shown at [Troubleshooting](https://docs.helium.com/mine-hnt/validators/troubleshooting/) to check performance.
+
+- Follow these steps after the validator is caught up to the tip of the chain and running normally
+  for a few hours.
+- Review the underlying hardware your provider is using. You can review your instance cpu speeds by
+  using `cat /proc/cpuinfo | egrep -i "name|stepping|Mhz" | sort | uniq -c`. Some providers use the
+  Turbo speeds as marketing and others the regular speed of the processor.
+- Install sar package using `sudo apt install sysstat`
+  - Confirm that sar is enabled in `/etc/default/sysstat` review that the `ENABLED` line is set to
+    `true`.
+  - Review the cron job and is set to the correct schedule that you would like to collect stats on.
+    You can `sudo vi etc/cron.d/sysstat` file to adjust the default of collecting every 10 minutes
+    `*/10 ...`.
+- You can review your CPU steal using `sar` and looking at the `%steal` column. Averages of over 1%
+  you should think about moving providers. You can also see this metric in `top` look for the `st`
+  cpu metric on the second line.
+- You can review your IOPS using `sar -b`
+- You can review your Disk Bandwidth using `sar -d -p | egrep "sd[a-z]|DEV"` NOTE: this example
+  command line is assumes `/dev/sd<some letter>` device names. Your instance may have disks with
+  different device names, so change this command as needed.
+- You can review your Disk Latency with `sar -d -p | egrep "sd[a-z]|DEV"` review the `await` which
+  should be < 10ms
+- Review your Absorb and Commit Block times and they should be < 2500ms on average, not including
+  the rewards blocks that will be much higher. To check ongoing times you can use
+  `tail -f log/console.log | grep -E 'add_block|absorb_and_commit'`
+- Once your validator is caught up you can use
+  `grep -E 'add_block|absorb_and_commit' log/console.log | awk '{print $6 $8 }' | sed ':a;N;$!ba;s/\ngossipped/ /g'`
+  as a historical listing of your console.log
+- If you believe you are having trouble getting the advertised disk performance you can install and
+  run the `fio` package to give you a full baseline of disk performance. Make sure to not be in a
+  Consensus Group while benchmarking using `fio`. You can do this by running
+  `miner info in_consensus`.
+- You can also refer to some steps shown at
+  [Troubleshooting](https://docs.helium.com/mine-hnt/validators/troubleshooting/) to check
+  performance.

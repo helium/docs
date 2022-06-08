@@ -6,29 +6,27 @@ slug: /use-the-network/run-a-network-server/debug-with-sniffer
 
 # Debug With Sniffer
 
-Confirm router runtime behavior using a virtual LoRaWAN device with a
-software-based protocol sniffer.
+Confirm router runtime behavior using a virtual LoRaWAN device with a software-based protocol
+sniffer.
 
 ## Dependencies
 
 1. Ensure [Router](https://github.com/helium/router.git) is running and
    [Console](https://github.com/helium/console.git) is connected to it.
-2. The wallet to be used requires enough HNT to burn for joining the virtual
-   device to the network.
-   + It's the same fee as for a physical device.
-   + See
-   [Setup Data Only Hotspot](https://docs.helium.com/mine-hnt/data-only-hotspots/#transactions--cost)
+2. The wallet to be used requires enough HNT to burn for joining the virtual device to the network.
+   - It's the same fee as for a physical device.
+   - See
+     [Setup Data Only Hotspot](https://docs.helium.com/mine-hnt/data-only-hotspots/#transactions--cost)
 3. Clone each of these repos:
-    + [virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
-    + [lorawan-sniffer](https://github.com/helium/lorawan-sniffer)
-    + [gateway-rs](https://github.com/helium/gateway-rs)
-    + [helium-wallet-rs](https://github.com/helium/helium-wallet-rs)
+   - [virtual-lorawan-device](https://github.com/helium/virtual-lorawan-device)
+   - [lorawan-sniffer](https://github.com/helium/lorawan-sniffer)
+   - [gateway-rs](https://github.com/helium/gateway-rs)
+   - [helium-wallet-rs](https://github.com/helium/helium-wallet-rs)
 
-Those packages require [Rust](https://rust-lang.org/) when building from
-source.
+Those packages require [Rust](https://rust-lang.org/) when building from source.
 
-Everything may run locally on a laptop/workstation, or use just the
-Rust-based tools locally for connecting to a remote Router & Console.
+Everything may run locally on a laptop/workstation, or use just the Rust-based tools locally for
+connecting to a remote Router & Console.
 
 ## Overview
 
@@ -49,8 +47,8 @@ Order of operations below is significant.
 
 ## Compile
 
-Because there are multiple repos each in their own subdirectory, examples
-below assume everything is located beneath the `~/helium/` path.
+Because there are multiple repos each in their own subdirectory, examples below assume everything is
+located beneath the `~/helium/` path.
 
 Ensure everything compiles successfully.
 
@@ -89,9 +87,9 @@ Those may be built in any order but are in sequence as used below.
 
 Later steps require the command-line interface (CLI) version of a wallet.
 
-For using a wallet already attached to an existing hotspot, that wallet can
-be [connected](https://github.com/helium/helium-wallet-rs#create-a-wallet)
-to this one using the `--seed` option.
+For using a wallet already attached to an existing hotspot, that wallet can be
+[connected](https://github.com/helium/helium-wallet-rs#create-a-wallet) to this one using the
+`--seed` option.
 
 Run:
 
@@ -101,28 +99,27 @@ cd ~/helium/helium-wallet-rs/
 ```
 
 Follow its [README](https://github.com/helium/helium-wallet-rs) or other
-[instructions](https://docs.helium.com/mine-hnt/data-only-hotspots/) for
-creating and **funding this wallet**.
+[instructions](https://docs.helium.com/mine-hnt/data-only-hotspots/) for creating and **funding this
+wallet**.
 
-View details of the *funded* CLI wallet:
+View details of the _funded_ CLI wallet:
 
 ```bash
 ./target/release/helium-wallet info
 ```
 
-See `Balance` field, and confirm having enough HNT to burn 1000000 (six
-zeros) data credits.  One whole HNT is more than sufficient with prevailing
-exchange rates in early 2022.
+See `Balance` field, and confirm having enough HNT to burn 1000000 (six zeros) data credits. One
+whole HNT is more than sufficient with prevailing exchange rates in early 2022.
 
-Copy the value from the `Address` field:
-`WalletADDRESS...` will be used as the example in excerpts below.
+Copy the value from the `Address` field: `WalletADDRESS...` will be used as the example in excerpts
+below.
 
 ## Join Hotspot To Network
 
 Use the `WalletADDRESS...` from the earlier wallet "info" command.
 
-Arguments to both the owner and payer options will be your wallet address
-(as with a self-signed certificate).
+Arguments to both the owner and payer options will be your wallet address (as with a self-signed
+certificate).
 
 As of v1.0, gateway-rs requires running in server-mode in the background:
 
@@ -140,9 +137,8 @@ Generate transaction:
     --payer WalletADDRESS...
 ```
 
-Output from that command will include a transaction ID associated with the
-`txn` field.  Copy this value (without quotes) which is referred to as
-`TxnID...` below for use with the CLI wallet.
+Output from that command will include a transaction ID associated with the `txn` field. Copy this
+value (without quotes) which is referred to as `TxnID...` below for use with the CLI wallet.
 
 Stop the gateway service for now:
 
@@ -158,18 +154,18 @@ The gateway service will be started below, after adding the device.
 
 Use the `TxnID...` from the previous step.
 
-Add the hotspot to the network, which requires burning data credits (DC) and
-must use the CLI wallet.
+Add the hotspot to the network, which requires burning data credits (DC) and must use the CLI
+wallet.
 
-Always perform a dry-run (*without* the commit flag) first:
+Always perform a dry-run (_without_ the commit flag) first:
 
 ```bash
 cd ~/helium/helium-wallet-rs/
 ./target/release/helium-wallet hotspots add TxnID...
 ```
 
-Confirm that the staking fee in DC is `1000000` (six zeros), and then repeat
-same command plus `--commit` flag:
+Confirm that the staking fee in DC is `1000000` (six zeros), and then repeat same command plus
+`--commit` flag:
 
 ```bash
 !! --commit
@@ -182,8 +178,8 @@ Log on to Console, and
 
 When successful, Console should indicate "Pending" for this device.
 
-This *pending* status persists until the next XOR operation by the Router,
-**which may take 15 minutes** or so.
+This _pending_ status persists until the next XOR operation by the Router, **which may take 15
+minutes** or so.
 
 Both the sniffer and virtual device may be configured during this wait.
 
@@ -193,17 +189,15 @@ Get the following values from Console for your device:
 2. App EUI
 3. App Key
 
-(You may also want the "Device ID" for tracing via SSH session on the router
-instance itself.)
+(You may also want the "Device ID" for tracing via SSH session on the router instance itself.)
 
-Each value gets associated with the appropriate key in different
-configuration files for sniffer and virtual device.
+Each value gets associated with the appropriate key in different configuration files for sniffer and
+virtual device.
 
 ## Configure Virtual LoRaWAN Device
 
-Using those same values from Console, each value should be associated with
-the appropriate key within a **TOML** file:  
-`~/helium/virtual-lorawan-device/settings/settings.toml`
+Using those same values from Console, each value should be associated with the appropriate key
+within a **TOML** file: `~/helium/virtual-lorawan-device/settings/settings.toml`
 
 Example:
 
@@ -217,27 +211,25 @@ app_key = "AppKeyLongHexValue..."
 host = "localhost:1600"
 ```
 
-While editing that TOML file, also indicate that it should talk to your
-instance of `gateway-rs` as the packet-forwarder (typically on IP Port
-`1600`).
+While editing that TOML file, also indicate that it should talk to your instance of `gateway-rs` as
+the packet-forwarder (typically on IP Port `1600`).
 
 Keep the `defaults.toml` file unmodified for ease of `git pull` in future.
 
 ## Configure LoRaWAN Sniffer
 
-Each value above from Console should be associated with the appropriate key
-within a **JSON** file:  
+Each value above from Console should be associated with the appropriate key within a **JSON** file:
 `~/helium/lorawan-sniffer/lorawan-devices.json`
 
 Example:
 
 ```json
 [
-    {
-        "dev_eui": "DevEUIHexValue...",
-        "app_eui": "AppEUIHexValue...",
-        "app_key": "AppKeyLongHexValue..."
-    }
+  {
+    "dev_eui": "DevEUIHexValue...",
+    "app_eui": "AppEUIHexValue...",
+    "app_key": "AppKeyLongHexValue..."
+  }
 ]
 ```
 
@@ -249,8 +241,7 @@ Wait until that message clears before proceeding.
 
 # Live Debugging
 
-There will be *a lot* of output from each command, so consider using
-separate Terminal tabs/windows.
+There will be _a lot_ of output from each command, so consider using separate Terminal tabs/windows.
 
 ## Start Hotspot
 
@@ -271,11 +262,9 @@ cd ~/helium/lorawan-sniffer/
     --log-trace session.csv
 ```
 
-(The session log may be replayed later with:
-`./target/release/lorawan-sniffer replay session.csv`)
+(The session log may be replayed later with: `./target/release/lorawan-sniffer replay session.csv`)
 
-**Note:**
-If the gateway restarts, the sniffer may need to be restarted also.
+**Note:** If the gateway restarts, the sniffer may need to be restarted also.
 
 ## Start Device
 
@@ -286,12 +275,12 @@ cd ~/helium/virtual-lorawan-device/
 ./target/release/virtual-lorawan-device
 ```
 
-Each start of this program begins with a fresh LoRaWAN Join, so expect to
-see a matching Join-Accept response from the router.
+Each start of this program begins with a fresh LoRaWAN Join, so expect to see a matching Join-Accept
+response from the router.
 
 Consider making changes to settings within
-[configuration profiles](https://docs.helium.com/use-the-network/console/profiles/)
-in Console for this device, such as `rx_delay`.
+[configuration profiles](https://docs.helium.com/use-the-network/console/profiles/) in Console for
+this device, such as `rx_delay`.
 
 ## Router Trace
 
@@ -303,7 +292,7 @@ Run in its own Terminal window:
 
 ```bash
 ssh router-dev
-````
+```
 
 Start tracing for your device:
 
