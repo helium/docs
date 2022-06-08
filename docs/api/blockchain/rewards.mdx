@@ -4,8 +4,8 @@ sidebar_label: Rewards
 slug: /api/blockchain/rewards
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Rewards
 
@@ -17,20 +17,18 @@ import TabItem from "@theme/TabItem";
 GET https://api.helium.io/v1/rewards/sum
 ```
 
-Returns the total rewards for the whole network in a given timeframe. Timestamps
-can be given in ISO 8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative
-time (e.g. `-1 week`, which when url esacped becomes `-1%20week`). When ommitted
-the current time is assumed.
+Returns the total rewards for the whole network in a given timeframe. Timestamps can be given in ISO
+8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative time (e.g. `-1 week`, which when url
+esacped becomes `-1%20week`). When ommitted the current time is assumed.
 
-The results can also be bucketed in time by specifying a `bucket` query
-parameter which buckets information per bucket in the given timeframe. Data is
-bucketed by time. Valid bucket values include `hour`, `day` and `week`).
+The results can also be bucketed in time by specifying a `bucket` query parameter which buckets
+information per bucket in the given timeframe. Data is bucketed by time. Valid bucket values include
+`hour`, `day` and `week`).
 
-For example to get the last 7 days of rewards bucketed by day use the following
-path/parameters: `?min_time=-7%20day&bucket=day`
+For example to get the last 7 days of rewards bucketed by day use the following path/parameters:
+`?min_time=-7%20day&bucket=day`
 
-The block that contains the `max_time` timestamp is
-**excluded** from the result.
+The block that contains the `max_time` timestamp is **excluded** from the result.
 
 <Tabs
   block={true}
@@ -40,11 +38,11 @@ The block that contains the `max_time` timestamp is
 
 _Query Parameters_
 
-| param               | Type     | Note                                   |
-| ------------------- | -------- | -------------------------------------- |
-| min_time (required) | _string_ | First time to include rewards for      |
-| max_time (required) | _string_ | Last time to include rewards for       |
-| bucket (optional)   | _string_ | Bucket specifier                       |
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| min_time (required) | _string_ | First time to include rewards for |
+| max_time (required) | _string_ | Last time to include rewards for  |
+| bucket (optional)   | _string_ | Bucket specifier                  |
 
 </TabItem>
 <TabItem value="response">
