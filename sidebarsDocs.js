@@ -28,6 +28,7 @@ module.exports = {
         "mine-hnt/validators/validators",
         "mine-hnt/maker-apps",
         "mine-hnt/understanding-hotspot-status",
+        "wallets/app-wallet/app-wallet",
       ],
       collapsed: true,
     },
@@ -63,7 +64,7 @@ module.exports = {
       label: "HNT Wallets",
       items: [
         "wallets/wallets",
-        "wallets/app-wallet/app-wallet",
+        "wallets/helium-wallet-app",
         "wallets/cli-wallet",
         "wallets/ledger",
       ],
