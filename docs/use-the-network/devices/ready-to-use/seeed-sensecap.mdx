@@ -5,33 +5,24 @@ sidebar_label: SEEED SenseCAP
 slug: /use-the-network/devices/ready-to-use/SEEED-SenseCAP
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Seeed SenseCAP
 
-<div style={{ textAlign: "center" }}>
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap.png"
-    )}
-  />
+<div style={{ textAlign: 'center' }}>
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap.png')} />
 </div>
 
 ### Introduction
 
-The SEEED SenseCAPs are are a series of industrial IoT products primarily
-centered around Smart Agriculture. They are based on the LoRaWAN protocol and
-deployable worldwide with multiple ISM bands. SenseCAPs are encapsulated in IP66
-enclosures, making them applicable in outdoor remote sensing scenarios such as
-Smart Farming, Smart City, and other IoT applications that need low-power,
+The SEEED SenseCAPs are are a series of industrial IoT products primarily centered around Smart
+Agriculture. They are based on the LoRaWAN protocol and deployable worldwide with multiple ISM
+bands. SenseCAPs are encapsulated in IP66 enclosures, making them applicable in outdoor remote
+sensing scenarios such as Smart Farming, Smart City, and other IoT applications that need low-power,
 long-distance, and long-term data collection.
 
-<div style={{ textAlign: "center" }}>
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-certs.png"
-    )}
-  />
+<div style={{ textAlign: 'center' }}>
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-certs.png')} />
 </div>
 
 ### Sensors
@@ -52,48 +43,32 @@ long-distance, and long-term data collection.
 | Soil VWC&EC&Temp Sensor        |                      |                                             |
 | Rainfall Recorder Sensor       |                      |                                             |
 
-<div style={{ textAlign: "center" }}>
+<div style={{ textAlign: 'center' }}>
   The Sensor Probes can easily be interchanged between Sensor Node Controllers.
 </div>
 
 ### Internals
 
-<div style={{ textAlign: "center" }}>
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-layout.png"
-    )}
-  />
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-internals.png"
-    )}
-  />
+<div style={{ textAlign: 'center' }}>
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-layout.png')} />
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-internals.png')} />
 </div>
 
-<div style={{ textAlign: "center" }}>Easily removed from enclosures.</div>
+<div style={{ textAlign: 'center' }}>Easily removed from enclosures.</div>
 
-<div style={{ textAlign: "center" }}>
+<div style={{ textAlign: 'center' }}>
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-mount.png')} />
+</div>
+
+<div style={{ textAlign: 'center' }}>Ready for field-deployment right out of the box.</div>
+
+<div style={{ textAlign: 'center' }}>
   <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-mount.png"
-    )}
+    src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-cable-connector.png')}
   />
 </div>
 
-<div style={{ textAlign: "center" }}>
-  Ready for field-deployment right out of the box.
-</div>
-
-<div style={{ textAlign: "center" }}>
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-cable-connector.png"
-    )}
-  />
-</div>
-
-<div style={{ textAlign: "center" }}>
+<div style={{ textAlign: 'center' }}>
   The main SenseCAP module contains the LoRaWAN radio, antenna, and batteries.
 </div>
 
@@ -102,47 +77,38 @@ long-distance, and long-term data collection.
 Copy down the "<font style={{color: "red" }}>EUI</font>" and the "<font
 style={{color: "green" }}>KEY</font>" from the label on your SenseCAP device:
 
-<div style={{ textAlign: "center" }}>
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-label.png"
-    )}
-  />
+<div style={{ textAlign: 'center' }}>
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-label.png')} />
 </div>
 
-Understand that there is a bit of a naming issue here. The key names are mapped
-as such:
+Understand that there is a bit of a naming issue here. The key names are mapped as such:
 
-<div style={{ color: "red" }}>EUI = DEVEUI = Device EUI</div>
+<div style={{ color: 'red' }}>EUI = DEVEUI = Device EUI</div>
 
-<p style={{ color: "green" }}>KEY = DEVICECODE = Device Code</p>
+<p style={{ color: 'green' }}>KEY = DEVICECODE = Device Code</p>
 
-<div>
-  Is this super convoluted and frustrating? Yes. We did not make it this way.
-</div>
-<p>
-  Now, we need to get those two keys and insert them into the following URL:
-</p>
+<div>Is this super convoluted and frustrating? Yes. We did not make it this way.</div>
+<p>Now, we need to get those two keys and insert them into the following URL:</p>
 
 <div>
   <code>
     https://sensecap.seeed.cc/makerapi/device/view_device_info?nodeEui=
-    <font style={{ color: "red" }}>DEVEUI</font>&deviceCode=
-    <font style={{ color: "green" }}>DEVICECODE</font>
+    <font style={{ color: 'red' }}>DEVEUI</font>&deviceCode=
+    <font style={{ color: 'green' }}>DEVICECODE</font>
   </code>
 </div>
 
 In the above example, the URL would look like such:
 
-<div style={{ color: "red" }}>DEVEUI (Device EUI): 2cf7f12121XXXXXX</div>
+<div style={{ color: 'red' }}>DEVEUI (Device EUI): 2cf7f12121XXXXXX</div>
 
-<p style={{ color: "green" }}>DEVICECODE (Device Code): 1826ed12XXXXXXXX</p>
+<p style={{ color: 'green' }}>DEVICECODE (Device Code): 1826ed12XXXXXXXX</p>
 
 <p>
   <code>
     https://sensecap.seeed.cc/makerapi/device/view_device_info?nodeEui=
-    <font style={{ color: "red" }}>2cf7f12121XXXXXX</font>&deviceCode=
-    <font style={{ color: "green" }}>1826ed12XXXXXXXX</font>
+    <font style={{ color: 'red' }}>2cf7f12121XXXXXX</font>&deviceCode=
+    <font style={{ color: 'green' }}>1826ed12XXXXXXXX</font>
   </code>
 </p>
 
@@ -171,77 +137,54 @@ We simply paste the URL we constructed above into a browser address bar, and it 
 
 </div>
 
-The last three keys in this object (dev_eui, app_eui, and app_key) will be used
-to create this device in the
-[Helium Console](https://console.helium.com/devices).
+The last three keys in this object (dev_eui, app_eui, and app_key) will be used to create this
+device in the [Helium Console](https://console.helium.com/devices).
 
-<div style={{ textAlign: "center" }}>
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-new-device.png"
-    )}
-  />
+<div style={{ textAlign: 'center' }}>
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-new-device.png')} />
 </div>
 
 You have now linked your new SenseCAP device to the Helium Console!
 
-We now simply have to turn it on. Carefully unscrew the cap on the SenseCAP
-node, switch it to the "ON" position, and replace the cap.
+We now simply have to turn it on. Carefully unscrew the cap on the SenseCAP node, switch it to the
+"ON" position, and replace the cap.
 
-<div style={{ textAlign: "center" }}>
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-switch.png"
-    )}
-  />
+<div style={{ textAlign: 'center' }}>
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-switch.png')} />
 </div>
 
-At this point, you may open up the new device within the Helium Console, click
-the "Debug" icon on the right, and should see packets arriving in short order!
+At this point, you may open up the new device within the Helium Console, click the "Debug" icon on
+the right, and should see packets arriving in short order!
 
-<div style={{ textAlign: "center" }}>
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-debug.png"
-    )}
-  />
+<div style={{ textAlign: 'center' }}>
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-debug.png')} />
 </div>
 
 ### Programming the SenseCAP
 
-In some situations, you may want to change the keys provisioned on the device.
-To reprogram the SenseCap, you will need a TTL/Serial cable. I added some 90
-degree headers on the base unit to make it easier to connect a molex connector,
-but you may can make do with sliding some pins in there and holding them at an
-angle to maintain contact. Only connect the Ground and the TX/RX lines; leave
-the 3v3 pin disconnected. At this point, we can either connect to the device
-directly using a serial terminal, or use the SenseCAP GUI utility \(for Windows
-and Mac only ATM\) found
+In some situations, you may want to change the keys provisioned on the device. To reprogram the
+SenseCap, you will need a TTL/Serial cable. I added some 90 degree headers on the base unit to make
+it easier to connect a molex connector, but you may can make do with sliding some pins in there and
+holding them at an angle to maintain contact. Only connect the Ground and the TX/RX lines; leave the
+3v3 pin disconnected. At this point, we can either connect to the device directly using a serial
+terminal, or use the SenseCAP GUI utility \(for Windows and Mac only ATM\) found
 [here](https://github.com/Seeed-Solution/SenseCAP-Node-Configuration-Tool).
 
-<div style={{ textAlign: "center" }}>
+<div style={{ textAlign: 'center' }}>
   <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-config-tool.png"
-    )}
+    src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-config-tool.png')}
   />
 </div>
 
-Connect your cable, turn the unit on, and then tap the Reset button while
-holding the Set button. This will put you into programming mode. Following that,
-either jot down your Device EUI/App EUI/App Key from the right pane in the
-utility and enter those into the Helium Console, or get the Helium keys from the
-Console, enter them in this utility, and write them down to the node.
+Connect your cable, turn the unit on, and then tap the Reset button while holding the Set button.
+This will put you into programming mode. Following that, either jot down your Device EUI/App EUI/App
+Key from the right pane in the utility and enter those into the Helium Console, or get the Helium
+keys from the Console, enter them in this utility, and write them down to the node.
 
-<div style={{ textAlign: "center" }}>
-  <img
-    src={useBaseUrl(
-      "img/use-the-network/devices/ready-to-use/seeed-sensecap-console.png"
-    )}
-  />
+<div style={{ textAlign: 'center' }}>
+  <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/seeed-sensecap-console.png')} />
 </div>
 
-Voila! Unplug your cable, hit the reset button, wait for the red LIVE led to
-flash a few times, and you should see an activation come across your Helium
-Console! At this point, carefully replace the sensor cap, and you should be good
-to go!
+Voila! Unplug your cable, hit the reset button, wait for the red LIVE led to flash a few times, and
+you should see an activation come across your Helium Console! At this point, carefully replace the
+sensor cap, and you should be good to go!

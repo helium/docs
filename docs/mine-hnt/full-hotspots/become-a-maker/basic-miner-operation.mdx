@@ -6,63 +6,55 @@ slug: /mine-hnt/full-hotspots/become-a-maker/basic-miner-operation
 
 ## Basic Miner Operation
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-As you can see below, the Miner is central in routing data across the Helium
-Network. It is one of three pieces:
+As you can see below, the Miner is central in routing data across the Helium Network. It is one of
+three pieces:
 
-<img src={useBaseUrl("img/mine-hnt/mine-hnt-arch.png")} />
+<img src={useBaseUrl('img/mine-hnt/mine-hnt-arch.png')} />
+
+- Packet Forwarder: this is a utility that interacts with the radio front-end and sends and receives
+  raw radio packets with the Helium Miner
+- Miner: the Helium Blockchain comes into the picture here; the Miner is responsible for routing
+  packets to the appropriate Router and entering into micro-transactions brokered via libp2p
+- Router: a Helium compatible LoRaWAN Network Server, basically; this component is interested in
+  receiving the packets relating to its devices and handles downlink messages when appropriate
+
+In addition to packet routing, the Miner also participates in PoC and submits PoC packets as witness
+events. When challenge, the Miner sends packets to the packet forwarder for transmission.
 
 
-- Packet Forwarder: this is a utility that interacts with the radio front-end
-and sends and receives raw radio packets with the Helium Miner
-- Miner: the Helium Blockchain comes into the picture here; the Miner is
-responsible for routing packets to the appropriate Router and entering into
-micro-transactions brokered via libp2p
-- Router: a Helium compatible LoRaWAN Network Server, basically; this component
-is interested in receiving the packets relating to its devices and handles
-downlink messages when appropriate
+The Miner connects to other Miners over libp2p where, amongst other things, it is gossiping and
+saving blocks, while maintaining a ledger of the blockchain. Constantly syncing the blockchain and
+downloading blocks uses significant bandwidth and CPU.
 
-In addition to packet routing, the Miner also participates in PoC and submits
-PoC packets as witness events. When challenge, the Miner sends packets to the
-packet forwarder for transmission.
 
-The Miner connects to other Miners over libp2p where, amongst other things,
-it is gossiping and saving blocks, while maintaining a ledger of the blockchain.
-Constantly syncing the blockchain and downloading blocks uses significant
-bandwidth and CPU.
+In this guide, we will explain how to get a Docker image of the Helium Miner running on Ubuntu 20.04
+LTS, and finally some tips on how to interact with a running Miner.
 
-In this guide, we will explain how to get a Docker image of the Helium Miner
-running on Ubuntu 20.04 LTS, and finally some tips on how to interact with a
-running Miner.
+When preparing the Miner for a Hotspot product, you will want to go a little further and follow the
+steps outlined [here](/mine-hnt/full-hotspots/become-a-maker/docker-integration), where you will
+learn how to integrate it with security modules and BLE.
 
-When preparing the Miner for a Hotspot product, you will want to go a little
-further and follow the steps outlined [here](/mine-hnt/full-hotspots/become-a-maker/docker-integration),
-where you will learn how to integrate it with security modules and BLE.
-
-If you are interested in contributing to Miner development and code-review,
-please visit
+If you are interested in contributing to Miner development and code-review, please visit
 [the Miner's repository on Github](https://github.com/helium/miner).
 
 ### Setting Up Ubuntu for Docker
 
-Ubuntu is a widely available Linux distribution. Notably, it has an easy-to-use
-image available for Raspberry Pi 3 and 4, so we use it as an example system.
-That being said, any ARM64 or AMD64 \(X86-64\) based OS that can run Docker is
-suitable.
+Ubuntu is a widely available Linux distribution. Notably, it has an easy-to-use image available for
+Raspberry Pi 3 and 4, so we use it as an example system. That being said, any ARM64 or AMD64
+\(X86-64\) based OS that can run Docker is suitable.
 
 For Raspberry Pi, we recommend running the latest
-[64-bit RaspiOS](https://downloads.raspberrypi.org/raspios_arm64/images/) image.
-We currently do not have Docker image support for 32-bit systems, so please
-double-check that you're using a 64-bit image. Once you have followed the
-instructions and are logged into the system, you are ready for the rest of this
-guide.
+[64-bit RaspiOS](https://downloads.raspberrypi.org/raspios_arm64/images/) image. We currently do not
+have Docker image support for 32-bit systems, so please double-check that you're using a 64-bit
+image. Once you have followed the instructions and are logged into the system, you are ready for the
+rest of this guide.
 
-For most cloud service providers, launching an instance with Ubuntu 20.04 LTS
-should be fairly straightforward. With AWS for example, create an EC2 instance
-running Ubuntu 20.04. A t2.small will run the miner well once the initial
-blockchain sync has completed. Once that's launched and you're connected, you
-are ready for the rest of this guide.
+For most cloud service providers, launching an instance with Ubuntu 20.04 LTS should be fairly
+straightforward. With AWS for example, create an EC2 instance running Ubuntu 20.04. A t2.small will
+run the miner well once the initial blockchain sync has completed. Once that's launched and you're
+connected, you are ready for the rest of this guide.
 
 First, update the package manager registry:
 
@@ -76,45 +68,40 @@ Then, install Docker:
 sudo apt-get install docker.io
 ```
 
-To avoid needing to user docker with `sudo` privileges, add your user to the
-`docker` group, replacing $USER with your username:
+To avoid needing to user docker with `sudo` privileges, add your user to the `docker` group,
+replacing $USER with your username:
 
 ```text
 sudo usermod -aG docker $USER
 ```
 
-Log in and out of your account to apply these changes. You are now ready to use
-Docker!
+Log in and out of your account to apply these changes. You are now ready to use Docker!
 
 ### Port Forwarding
 
-Before launching the Miner, you will want to configure ports on your network to
-forward two ports:
+Before launching the Miner, you will want to configure ports on your network to forward two ports:
 
-- **44158/TCP**: the Miner communicates to other Miners over this port. The
-networking logic knows how to get around a lack of forwarding here, but you
-will get better performance by forwarding the port
-- **1680/UDP**: the radio connects to the Miner over this port. You will not be
-able to forward packets or participate in Proof of Coverage without this
+- **44158/TCP**: the Miner communicates to other Miners over this port. The networking logic knows
+  how to get around a lack of forwarding here, but you will get better performance by forwarding the
+  port
+- **1680/UDP**: the radio connects to the Miner over this port. You will not be able to forward
+  packets or participate in Proof of Coverage without this
 
-"Forwarding" on the second port is less relevant if you are running a radio
-packet forwarder on the same system at the miner \(both on a Raspberry Pi, for
-example\). But it is essential if you are running a Miner on the cloud for
-example.
+"Forwarding" on the second port is less relevant if you are running a radio packet forwarder on the
+same system at the miner \(both on a Raspberry Pi, for example\). But it is essential if you are
+running a Miner on the cloud for example.
 
-For AWS, for example, you will want to configure the "Security Group" of your
-EC2 as so:
+For AWS, for example, you will want to configure the "Security Group" of your EC2 as so:
 
-<img src={useBaseUrl("img/mine-hnt/run-a-miner-security-group.png")} />
+<img src={useBaseUrl('img/mine-hnt/run-a-miner-security-group.png')} />
 
 ### Run a Docker Container
 
 Miner releases are available as amd64 and arm64 images on at
-[quay.io](https://quay.io/repository/team-helium/miner?tab=tags). We do not
-currently provide 32-bit support.
+[quay.io](https://quay.io/repository/team-helium/miner?tab=tags). We do not currently provide 32-bit
+support.
 
-**Note**: on amd64 systems, AVX support is required. Verify that it exists on
-your host system:
+**Note**: on amd64 systems, AVX support is required. Verify that it exists on your host system:
 
 ```text
 grep avx /proc/cpuinfo
@@ -124,26 +111,24 @@ grep avx /proc/cpuinfo
 grep avx2 /proc/cpuinfo
 ```
 
-If nothing is returned from these commands, your host system does not have AVX
-support and your Miner may not be stable.
+If nothing is returned from these commands, your host system does not have AVX support and your
+Miner may not be stable.
 
 #### Start Container
 
-Before running the container for the first time, it is advisable to pick a
-'system mount point\`, i.e. a directory in your host system; some long-term
-miner data is stored there. This allows you to easily maintain your miner's
-blockchain identity \(i.e. swarm keys\) and blockchain state through miner image
-updates.
+Before running the container for the first time, it is advisable to pick a 'system mount point\`,
+i.e. a directory in your host system; some long-term miner data is stored there. This allows you to
+easily maintain your miner's blockchain identity \(i.e. swarm keys\) and blockchain state through
+miner image updates.
 
-If you are using a Linux system, you can just create a directory in your user's
-home directory:
+If you are using a Linux system, you can just create a directory in your user's home directory:
 
 ```text
 mkdir ~/miner_data
 ```
 
-If you are using Ubuntu as user ubuntu, this path would now be
-`/home/ubuntu/miner_data`. This will be used later.
+If you are using Ubuntu as user ubuntu, this path would now be `/home/ubuntu/miner_data`. This will
+be used later.
 
 Now you can try the `run` command to start your container for the first time:
 
@@ -159,81 +144,74 @@ docker run -d --init \
 quay.io/team-helium/miner:miner-xxxNN_YYYY.MM.DD
 ```
 
-Replace xxxNN with the architecture used, i.e. amd64 or arm64, and with the
-release date of the image.
+Replace xxxNN with the architecture used, i.e. amd64 or arm64, and with the release date of the
+image.
 
-The `-d` option runs in detached mode, which makes the command return or not;
-you may want to omit if you have a daemon manager running the docker for you.
+The `-d` option runs in detached mode, which makes the command return or not; you may want to omit
+if you have a daemon manager running the docker for you.
 
-The `-env REGION_OVERRIDE=US915` tells your miner that you are connecting to a
-packet forwarder configured for the US915 region. You will want to change this
-to your region i.e.
+The `-env REGION_OVERRIDE=US915` tells your miner that you are connecting to a packet forwarder
+configured for the US915 region. You will want to change this to your region i.e.
 `US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923 | KR920 | IN865`
 
-> Note: REGION_OVERRIDE may be completely omitted once your Miner has asserted
-> location and is fully synced, but leaving it there \(as long as the region is
-> properly configured\) is not harmful
+> Note: REGION_OVERRIDE may be completely omitted once your Miner has asserted location and is fully
+> synced, but leaving it there \(as long as the region is properly configured\) is not harmful
 
-The `--restart always` option asks Docker to keep the image running, starting
-the image on boot and restarting the image if it crashes. Depending on how you
-installed Docker in your system, it'll start on boot. In the AWS AMI above, we
-use systemd \(`systemctl status docker` to check\).
+The `--restart always` option asks Docker to keep the image running, starting the image on boot and
+restarting the image if it crashes. Depending on how you installed Docker in your system, it'll
+start on boot. In the AWS AMI above, we use systemd \(`systemctl status docker` to check\).
 
-The `--publish 1680:1680/udp` binds your system port 1680 to the container's
-port 1680, where the Miner is hosting a packet forwarder UDP server; this is
-necessary if you want to do any radio interactions with your miner.
+The `--publish 1680:1680/udp` binds your system port 1680 to the container's port 1680, where the
+Miner is hosting a packet forwarder UDP server; this is necessary if you want to do any radio
+interactions with your miner.
 
-The `--name miner` names the container, which makes interacting with the docker
-easier, but feel free to name the container whatever you want.
+The `--name miner` names the container, which makes interacting with the docker easier, but feel
+free to name the container whatever you want.
 
-The `--mount` with the parameters above will mount the container's `/var/data/`
-directory to the systems directory `/home/ec2-user/miner_data`.
+The `--mount` with the parameters above will mount the container's `/var/data/` directory to the
+systems directory `/home/ec2-user/miner_data`.
 
 ### Configure AWS Instance for Sync
 
-Amazon EC2 instances have CPU usage credits that will easily be depleted during
-the initial sync of the blockchain. To avoid having your instance throttled, you
-can temporarily uncap your instance by setting CPU credit usage to unlimited.
-Once your miner has reached full block height, a t2.small instance is sufficient
-to keep your miner running.
+Amazon EC2 instances have CPU usage credits that will easily be depleted during the initial sync of
+the blockchain. To avoid having your instance throttled, you can temporarily uncap your instance by
+setting CPU credit usage to unlimited. Once your miner has reached full block height, a t2.small
+instance is sufficient to keep your miner running.
 
 ### Interact with the Miner within the Container
 
 You may want to interrogate the Miner or interact with it it as described in the
-[using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner).
-Docker's `exec` command enables this e.g.
+[using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner). Docker's `exec`
+command enables this e.g.
 
 ```text
 docker exec miner miner info height
 ```
 
-In other words, prepend `docker exec miner` to any of the commands documented in
-the
-[using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner)).
-Or create an alias such as: `alias miner="docker exec miner miner"`
+In other words, prepend `docker exec miner` to any of the commands documented in the
+[using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner)). Or create an alias
+such as: `alias miner="docker exec miner miner"`
 
 ### Updating the Docker Image
 
-From time to time, the Helium Miner is updated. Keep tabs on
-[the releases here](https://github.com/helium/miner/releases). Depending on
-whether you are running a miner for fun, to route packets, or to participate in
-PoC, keeping it updated may be more or less urgent. Each release tagged on the
-Github will be on the quay repository. Simply remove the current image:
+
+[the releases here](https://github.com/helium/miner/releases). Depending on whether you are running
+a miner for fun, to route packets, or to participate in PoC, keeping it updated may be more or less
+urgent. Each release tagged on the Github will be on the quay repository. Simply remove the current
+image:
 
 ```text
 docker stop miner && docker rm miner
 ```
 
-And start the container again as described above, but with the new release tag!
-Thanks to the `--mount` option, the blockchain data and the miner keys are
-preserved through updates.
+And start the container again as described above, but with the new release tag! Thanks to the
+`--mount` option, the blockchain data and the miner keys are preserved through updates.
 
 ### Using the Miner
 
-These commands will assume you are running in Docker and they have the same
-prefix to get you executing a command within the docker: `docker exec miner` .
-If you want to make it easier, you can always create an an alias such as:
-`alias miner="docker exec miner miner"`.
+These commands will assume you are running in Docker and they have the same prefix to get you
+executing a command within the docker: `docker exec miner` . If you want to make it easier, you can
+always create an an alias such as: `alias miner="docker exec miner miner"`.
 
 #### Checking the Logs
 
@@ -243,8 +221,8 @@ This is always helpful to get some idea of what's going on:
 docker exec miner tail -F /var/data/log/console.log
 ```
 
-Also, if you are particularly interested in radio traffic, it can be helpful to
-filter for `lora` as so:
+Also, if you are particularly interested in radio traffic, it can be helpful to filter for `lora` as
+so:
 
 ```text
 docker exec miner tail -f /var/data/log/console.log | grep lora
@@ -252,19 +230,16 @@ docker exec miner tail -f /var/data/log/console.log | grep lora
 
 ### Checking the P2P Network
 
-This is the first health check you can do to see how your Miner is doing. Is it
-finding other Helium miners over libp2p properly?
+This is the first health check you can do to see how your Miner is doing. Is it finding other Helium
+miners over libp2p properly?
 
-The Helium blockchain uses an Erlang implementation of
-[libp2p](https://libp2p.io/). Because we expect Hotspot hardware to be installed
-in a wide variety of networking environments
-[erlang-libp2p](https://github.com/helium/erlang-libp2p) includes a number of
-additions to the core specification that provides support for NAT detection,
-proxying and relaying.
+The Helium blockchain uses an Erlang implementation of [libp2p](https://libp2p.io/). Because we
+expect Hotspot hardware to be installed in a wide variety of networking environments
+[erlang-libp2p](https://github.com/helium/erlang-libp2p) includes a number of additions to the core
+specification that provides support for NAT detection, proxying and relaying.
 
-The first order of business once the Miner is running is to see if you're
-connected to any peers, whether your NAT type has been correctly identified, and
-that you have some listen addresses:
+The first order of business once the Miner is running is to see if you're connected to any peers,
+whether your NAT type has been correctly identified, and that you have some listen addresses:
 
 ```text
 docker exec miner miner peer book -s
@@ -296,16 +271,15 @@ You will see an output roughly like the following:
 +--------------------------+-----------------------------+---------------------------------------------------------+------------------------------+
 ```
 
-As long as you have an address listed in `listen_addrs` and some peers in the
-table at the bottom, you're connected to the p2p network and good to go.
+As long as you have an address listed in `listen_addrs` and some peers in the table at the bottom,
+you're connected to the p2p network and good to go.
 
-If you are having trouble, try forwarding port `44158` to the miner. On AWS,
-double check your security group settings.
+If you are having trouble, try forwarding port `44158` to the miner. On AWS, double check your
+security group settings.
 
 ### Checking Block Height
 
-As long as a genesis block is loaded, this query will work and return height 1
-at least:
+As long as a genesis block is loaded, this query will work and return height 1 at least:
 
 ```text
 docker exec miner miner info height
@@ -318,12 +292,11 @@ If you are syncing, you should see something like this:
 6889        280756
 ```
 
-The first number is the election epoch and the second number is the block height
-of your miner. If you just launched an AMI instance, your Miner is been
-disconnected, or you simply have a slow connection, you may be a few blocks
-behind. To check, you can either check the mobile app, check
-[the browser-based block explorer](https://network.helium.com/blocks), or run a
-simple curl command to check in a Terminal:
+The first number is the election epoch and the second number is the block height of your miner. If
+you just launched an AMI instance, your Miner is been disconnected, or you simply have a slow
+connection, you may be a few blocks behind. To check, you can either check the mobile app, check
+[the browser-based block explorer](https://network.helium.com/blocks), or run a simple curl command
+to check in a Terminal:
 
 ```text
 ~$ curl https://api.helium.io/v1/blocks/height
@@ -332,10 +305,9 @@ simple curl command to check in a Terminal:
 
 ### Backing Up Your Swarm Keys
 
-Periodically, we may release updates or you may want to migrate your miner from
-one machine to another. The most important thing is that you maintain a copy of
-your miner's private key, i.e. `swarm_key`. Fun tidbit: this is also how your
-three-word name is generated.
+Periodically, we may release updates or you may want to migrate your miner from one machine to
+another. The most important thing is that you maintain a copy of your miner's private key, i.e.
+`swarm_key`. Fun tidbit: this is also how your three-word name is generated.
 
 Assuming you've mounted the Docker image as detailed above, it is located at:
 
@@ -343,25 +315,22 @@ Assuming you've mounted the Docker image as detailed above, it is located at:
 ~/miner_data/miner/swarm_key
 ```
 
-Another fun tidbit: for production hotspots sold by Helium, the swarm key is
-stored inside of a secure element and is thus unable to be migrated \(or
-compromised/accidentally lost unless physically damaged\).
+Another fun tidbit: for production hotspots sold by Helium, the swarm key is stored inside of a
+secure element and is thus unable to be migrated \(or compromised/accidentally lost unless
+physically damaged\).
 
 ### Snapshots
 
-Snapshots are summaries of the current state of the blockchain. Since you don't
-need every single block ever to sync with the blockchain, it's really just a
-summary of the last few blocks and the account balance of every account on the
-blockchain.
+Snapshots are summaries of the current state of the blockchain. Since you don't need every single
+block ever to sync with the blockchain, it's really just a summary of the last few blocks and the
+account balance of every account on the blockchain.
 
-You generally want to be careful who you accept snapshots from as they might
-give you an incorrect state. However, we also store hashes of valid snapshots in
-the blockchain.
+You generally want to be careful who you accept snapshots from as they might give you an incorrect
+state. However, we also store hashes of valid snapshots in the blockchain.
 
 #### Chain-based
 
-You can query a running Miner to see what snapshots it (1) knows about and (2)
-has a copy of:
+You can query a running Miner to see what snapshots it (1) knows about and (2) has a copy of:
 
 ```text
 $ miner snapshot list
@@ -376,24 +345,23 @@ Hash <<80,90,115,7,10,195,115,217,87,173,24,11,63,116,201,22,150,6,252,168,204,
 Have true
 ```
 
-A Miner knows about a snapshot in two ways: it either syncs a block where the
-snapshot hash and height have been saved, or the configuration file of the Miner
-(`sys.config`) has the **blessed** height and hash written into it (ie:
-`blessed_snapshot_block_height` and `blessed_snapshot_block_hash`).
+A Miner knows about a snapshot in two ways: it either syncs a block where the snapshot hash and
+height have been saved, or the configuration file of the Miner (`sys.config`) has the **blessed**
+height and hash written into it (ie: `blessed_snapshot_block_height` and
+`blessed_snapshot_block_hash`).
 
-If you have a fully synced Miner, you can extract these values from
-`snapshot list` and write them into the `sys.config` of another non-fully synced
-Miner. Restart the Miner to reload the `sys.config` and it will be able to
-"quick sync" to that snapshot. To make things go even faster, try manually
-connecting your Miner to one of your Miners that has the snapshot.
+If you have a fully synced Miner, you can extract these values from `snapshot list` and write them
+into the `sys.config` of another non-fully synced Miner. Restart the Miner to reload the
+`sys.config` and it will be able to "quick sync" to that snapshot. To make things go even faster,
+try manually connecting your Miner to one of your Miners that has the snapshot.
 
 ```text
 miner  peer connect /ip4/192.168.0.0.1/tcp/44158
 ```
 
-The only down-side of this approach is that snapshots happen at some rhythm
-defined by the blockchain (currently 720 blocks). You can use the manual
-approach to pass around arbitrary snapshots by hand.
+The only down-side of this approach is that snapshots happen at some rhythm defined by the
+blockchain (currently 720 blocks). You can use the manual approach to pass around arbitrary
+snapshots by hand.
 
 #### Manual
 
@@ -403,10 +371,10 @@ You can also manually move a snapshot file around. To take a snapshot:
 miner snapshot take /path/to/snapshot
 ```
 
-Naming the snapshot something like `snap-XXXXXX`, where `XXXXXX` is the height
-of the blockchain is a typical convention. Also, when using a Docker container,
-it's usually a good idea to save the snapshot to `/var/data` so that you can
-easily copy the snapshot out of the Docker and into the host system.
+Naming the snapshot something like `snap-XXXXXX`, where `XXXXXX` is the height of the blockchain is
+a typical convention. Also, when using a Docker container, it's usually a good idea to save the
+snapshot to `/var/data` so that you can easily copy the snapshot out of the Docker and into the host
+system.
 
 Loading the snapshot is as follows:
 
@@ -414,27 +382,23 @@ Loading the snapshot is as follows:
 miner snapshot load /path/to/snapshot
 ```
 
-Sometimes the load command times out. If so, try to tail the logs and see if
-blocks are being applied. It's working just fine! It just needs a moment to
-finish loading the snapshot.
+Sometimes the load command times out. If so, try to tail the logs and see if blocks are being
+applied. It's working just fine! It just needs a moment to finish loading the snapshot.
 
 ## Connecting a Packet Forwarder to the Miner
 
-You're almost done. The last step after you have your Miner running is to
-connect to it.
+You're almost done. The last step after you have your Miner running is to connect to it.
 
-With your favorite editor, open `global_conf.json` that lives in the packet
-forwarder directory:
+With your favorite editor, open `global_conf.json` that lives in the packet forwarder directory:
 
 ```text
 nano ~/sx1302_hal/lora_pkt_fwd/global_conf.json
 ```
 
-You want to change the field "server_address" from "localhost" to the IP address
-of the server, so in this case:
+You want to change the field "server_address" from "localhost" to the IP address of the server, so
+in this case:
 
-You'll need to restart the packet forwarder for the configuration change to take
-effect.
+You'll need to restart the packet forwarder for the configuration change to take effect.
 
 To verify that things are working, you can follow the logs on your miner. eg:
 
@@ -442,5 +406,4 @@ To verify that things are working, you can follow the logs on your miner. eg:
 docker exec miner tail -f /var/data/log/console.log | grep lora
 ```
 
-At the very least, you should see PULL_DATA messages every few seconds. If so,
-then you've done it!
+At the very least, you should see PULL_DATA messages every few seconds. If so, then you've done it!
