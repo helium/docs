@@ -4,8 +4,8 @@ sidebar_label: Pending Transactions
 slug: /api/blockchain/pending-transactions
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Pending Transactions
 
@@ -17,8 +17,8 @@ import TabItem from "@theme/TabItem";
 GET https://api.helium.io/v1/pending_transactions/:hash
 ```
 
-Fetches the status for a given pending transaction hash. Multiple transactions
-for the same hash may be returned.
+Fetches the status for a given pending transaction hash. Multiple transactions for the same hash may
+be returned.
 
 <Tabs
   block={true}
@@ -78,12 +78,11 @@ A successful pending transaction status request
 POST https://api.helium.io/v1/pending_transactions/:hash
 ```
 
-New transactions can be submitted to the blockchain by sending a pending
-transaction.The transaction has to be constructed using the protobuf form,
-encoded and then signed. The resulting signed transaction is then wrapped in a
-transaction wrapper which must be encoded and then submitted to this endpoint.If
-successful, the response will include a transaction hash that can be used to
-check for pending transaction status.
+New transactions can be submitted to the blockchain by sending a pending transaction.The transaction
+has to be constructed using the protobuf form, encoded and then signed. The resulting signed
+transaction is then wrapped in a transaction wrapper which must be encoded and then submitted to
+this endpoint.If successful, the response will include a transaction hash that can be used to check
+for pending transaction status.
 
 <Tabs
   block={true}

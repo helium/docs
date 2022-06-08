@@ -5,46 +5,134 @@ sidebar_label: Deep Links and QR Codes
 slug: /wallets/app-wallet/deep-links-and-qr-codes
 ---
 
-# Deep Links and External QR Codes (e.g. System Camera)
+# Deep Links and QR Codes
 
-To generate a QR code to scan, find a service to generate a QR code using the url's below.
-This is an example site: `https://www.qr-code-generator.com`
+:::info
 
-### View Hotspot
+This page refers to QR codes and deep links that are signed and submitted to the blockchain via the
+Helium Hotspot and Wallet Apps. Makers should not use the following information and instead use the
+[Helium React Native SDK](https://helium.github.io/react-native-helium/modules/WalletLink.html) to
+sign and submit transactions in their maker app.
 
-`helium://hotspot/:address`
+:::
 
-### Add Gateway
+To generate a QR code to scan, find a service to generate a QR code using the json data below. This
+is an example site: `https://www.qr-code-generator.com`
 
-`helium://add_gateway/:base64url_encoded_txn`
+## External QR Scanner (System Camera)
 
-Users can read more on how to generate an `add_gateway` transaction from the [Makers Guide > Hotspot Integration](https://docs.helium.com/mine-hnt/full-hotspots/become-a-maker/hotspot-integration-testing/#generate-an-add-hotspot-transaction).
+This section refers to deep links that navigate into the Helium Hotspot and Wallet apps via the
+native system camera. For QR codes scanned internally in the Helium Hotspot and Wallet apps see the
+[Internal QR Scanner](#internal-qr-scanner) section below.
 
-### Assert Location
+### View Hotspot (Hotspot App)
 
-// TODO: Not yet implemented
+```
+helium://hotspot/:address
+```
 
-# Internal QR Scanner
+| param   | Type     | Note                                  |
+| ------- | -------- | ------------------------------------- |
+| address | _string_ | b58 Address of the Hotspot to display |
 
-To generate a QR code to scan, find a service to generate a QR code using the json data below.
-This is an example site: `https://www.qr-code-generator.com`
+### View Validator (Hotspot App)
+
+```
+helium://validator/:address
+```
+
+| param   | Type     | Note                                    |
+| ------- | -------- | --------------------------------------- |
+| address | _string_ | b58 Address of the Validator to display |
+
+### Add Gateway (Hotspot App)
+
+```
+helium://add_gateway/:encoded_txn
+```
+
+| param       | Type     | Note                                          |
+| ----------- | -------- | --------------------------------------------- |
+| encoded_txn | _string_ | base64 url encoded add gateway V1 transaction |
+
+Users can read more on how to generate an `add_gateway` transaction from the
+[Makers Guide > Hotspot Integration](https://docs.helium.com/mine-hnt/full-hotspots/become-a-maker/hotspot-integration-testing/#generate-an-add-hotspot-transaction).
+
+### Payment (Hotspot App)
+
+```
+helium://payment?address={{address}}&amount={{amount}}&memo={{memo}}
+```
+
+| param           | Type     | Note                                   |
+| --------------- | -------- | -------------------------------------- |
+| address         | _string_ | b58 Address to send the payment to     |
+| amount          | _string_ | HNT amount, 1 = 1 HNT                  |
+| memo (optional) | _string_ | UTF8 string with a max size of 8 bytes |
+
+### Payment (Wallet App)
+
+```
+https://wallet.helium.com/payment?payee={{payee}}&amount={{amount}}&memo={{memo}}
+```
+
+| param           | Type     | Note                                             |
+| --------------- | -------- | ------------------------------------------------ |
+| payee           | _string_ | b58 Address to send the payment to               |
+| amount          | _string_ | HNT amount in bones, 100000000 = 1 HNT           |
+| memo (optional) | _string_ | Base64 encoded string with a max size of 8 bytes |
+
+### Add Gateway / Assert Location / Transfer Hotspot (Wallet App)
+
+The Wallet App requires a maker app in order to sign Add Gateway, Assert Location, and Transfer
+Hotspot Transactions via deep links. Please see the
+[Helium React Native SDK](https://helium.github.io/react-native-helium/index.html) and
+[WalletLink](https://helium.github.io/react-native-helium/modules/WalletLink.html) documentation for
+more information.
+
+## Internal QR Scanner
+
+This section refers to QR codes scanned internally by the Helium Hotspot and Wallet apps.
+
+:::info
+
+In the **Hotspot App** all memos must be **UTF8 strings** with a **max size of 8 bytes**.
+
+In the **Wallet App** all memos should be **base64 encoded strings** with a **max size of 8 bytes**.
+
+If you want to target **both the Wallet App and Hotspot App** with one QR you should add
+`"utf8Memo": true` to **use UTF8 memos for both**.
+
+:::
 
 ### Burn HNT
 
-Generated from console
+#### Generated from console
 
 ```json
 {
   "type": "dc_burn",
   "address": ":address",
   "amount": "1.00",
-  "memo": "n0XU06JdNNs="
+  "memo": "dGVzdA==="
+}
+```
+
+#### UTF8 memo
+
+```json
+{
+  "type": "dc_burn",
+  "utf8Memo": true,
+  "address": ":address",
+  "amount": "1.00",
+  "memo": "test"
 }
 ```
 
 ### Payment
 
-Single Payee without memo
+#### Single Payee without memo
 
 ```json
 {
@@ -54,18 +142,30 @@ Single Payee without memo
 }
 ```
 
-Single Payee with memo
+#### Single Payee with memo
 
 ```json
 {
   "type": "payment",
   "address": ":address",
   "amount": 1,
-  "memo": "n0XU06JdNNs="
+  "memo": "dGVzdA=="
 }
 ```
 
-Multiple Payee without memo
+#### Single Payee with UTF8 memo
+
+```json
+{
+  "type": "payment",
+  "utf8Memo": true,
+  "address": ":address",
+  "amount": 1,
+  "memo": "test"
+}
+```
+
+#### Multiple Payee without memo
 
 ```json
 {
@@ -77,7 +177,7 @@ Multiple Payee without memo
 }
 ```
 
-Multiple Payee with memo
+#### Multiple Payee with memo
 
 ```json
 {
@@ -85,11 +185,30 @@ Multiple Payee with memo
   "payees": {
     ":address1": {
       "amount": 10.2,
-      "memo": "n0XU06JdNNs="
+      "memo": "dGVzdA=="
     },
     ":address2": {
       "amount": 1.2,
-      "memo": "n0XU06JdNNs="
+      "memo": "dGVzdA=="
+    }
+  }
+}
+```
+
+#### Multiple Payee with UTF8 memo
+
+```json
+{
+  "type": "payment",
+  "utf8Memo": true,
+  "payees": {
+    ":address1": {
+      "amount": 10.2,
+      "memo": "test"
+    },
+    ":address2": {
+      "amount": 1.2,
+      "memo": "test"
     }
   }
 }
@@ -97,7 +216,8 @@ Multiple Payee with memo
 
 ### Wallet address QR code
 
-Create a qr code with a valid wallet address
+Create a qr code with a valid b58 wallet address. This is valid for both the Hotspot App and Wallet
+App.
 
 ```
 12ORy9GjFASqWWxHmUq4tNXcjvr5Xfno8qimGMrNReMsSaM9T8f

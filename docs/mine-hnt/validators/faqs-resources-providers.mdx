@@ -5,7 +5,7 @@ sidebar_label: FAQs, Resources, and Providers
 slug: /mine-hnt/validators/faqs-resources-providers
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## FAQs
 
@@ -17,7 +17,9 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 **What’s the minimum number of validators needed to go to Mainnet?**
 
-The current proposal is 100 with no maximum number of validators that can participate. We will activate a separate chain variable when we reach the proposed minimum which will enable Consensus Group election from the validator pool.
+The current proposal is 100 with no maximum number of validators that can participate. We will
+activate a separate chain variable when we reach the proposed minimum which will enable Consensus
+Group election from the validator pool.
 
 **Is there a validator cap?**
 
@@ -25,7 +27,8 @@ No.
 
 **How many validators are elected to the consensus group?**
 
-Initially 49, but expect to quickly grow the number.
+Currently 43. Check the [block explorer](https://explorer.helium.com/validators) for latest
+consensus group size.
 
 **When a validator is in the consensus group can I update it?**
 
@@ -39,40 +42,69 @@ API status updates can take up to 10 minutes for fully connected nodes.
 
 **Why do you [discourage running validators from home](/mine-hnt/validators/requirements)?**
 
-Many community members possess hardware that easily meets or exceeds the recommended CPU, memory, and storage guidelines. However, most home users rely on residential internet service providers. This is potentially problematic for the following reasons:
+Many community members possess hardware that easily meets or exceeds the recommended CPU, memory,
+and storage guidelines. However, most home users rely on residential internet service providers.
+This is potentially problematic for the following reasons:
 
-* Residential ISPs rarely offer service level agreements (SLA) that guarantee network uptime. If your neighborhood experiences a service outage due to headend hardware failure, software misconfiguration, or your neighbor trenching their front lawn and slicing a fiber line, you will need to wait for service to return just like any other residential customer.
-* Most residential ISPs lack distributed denial of service (DDoS) or denial of service (DoS) protection. If a bad actor decides to target your public IP address with a botnet, you may see your cable modem, DSL modem, or optical network terminal crash spectacularly. You may not have control over the assignment of a new public IP address, so power-cycling your modem may not allow you to recover from a continuous attack. Remember, your public IP is broadcast across the helium peer-to-peer network when you connect.
-* Your ISP may implement QoS (Quality of Service) or traffic shaping policies that dynamically prioritize or deprioritize certain types of traffic without your knowledge. This could potentially impact latency between your validator nodes and other nodes in a consensus group. Bad latency can result in your eviction from a consensus group.
-* Bad actors may target your public IP address with port scanners or other scanning techniques to identify entry points. Outdated router software, poor port management, or zero-day exploits could put your entire home network (including your personal computers, crypto wallets, mobile devices, and IoT devices) at risk for attack and compromise.
-* Your ISP may automatically throttle your connection speed if the sustained traffic or connection load exceeds a value that could negatively impact the performance of other customers in your neighborhood.
+- Residential ISPs rarely offer service level agreements (SLA) that guarantee network uptime. If
+  your neighborhood experiences a service outage due to headend hardware failure, software
+  misconfiguration, or your neighbor trenching their front lawn and slicing a fiber line, you will
+  need to wait for service to return just like any other residential customer.
+- Most residential ISPs lack distributed denial of service (DDoS) or denial of service (DoS)
+  protection. If a bad actor decides to target your public IP address with a botnet, you may see
+  your cable modem, DSL modem, or optical network terminal crash spectacularly. You may not have
+  control over the assignment of a new public IP address, so power-cycling your modem may not allow
+  you to recover from a continuous attack. Remember, your public IP is broadcast across the helium
+  peer-to-peer network when you connect.
+- Your ISP may implement QoS (Quality of Service) or traffic shaping policies that dynamically
+  prioritize or deprioritize certain types of traffic without your knowledge. This could potentially
+  impact latency between your validator nodes and other nodes in a consensus group. Bad latency can
+  result in your eviction from a consensus group.
+- Bad actors may target your public IP address with port scanners or other scanning techniques to
+  identify entry points. Outdated router software, poor port management, or zero-day exploits could
+  put your entire home network (including your personal computers, crypto wallets, mobile devices,
+  and IoT devices) at risk for attack and compromise.
+- Your ISP may automatically throttle your connection speed if the sustained traffic or connection
+  load exceeds a value that could negatively impact the performance of other customers in your
+  neighborhood.
 
-Despite the warnings above, some community members will decide to run their validator from home. Remember that Helium is not responsible for security, performance, or network issues that may result from your validator configuration.
+Despite the warnings above, some community members will decide to run their validator from home.
+Remember that Helium is not responsible for security, performance, or network issues that may result
+from your validator configuration.
 
 ### Rewards
 
 **What is the expected APR of running Helium validator?**
 
-It depends on the number of validators and how often a validator is randomly chosen to participate in the consensus group. Validators split the Consensus Group reward, [which is 6% of all HNT mined](/blockchain/mining/#hnt-distributions-per-epoch).
+It depends on the number of validators and how often a validator is randomly chosen to participate
+in the consensus group. Validators split the Consensus Group reward,
+[which is 6% of all HNT mined](/blockchain/mining/#hnt-distributions-per-epoch).
 
-The community has produced several models which should be instructive. Please do your own analysis before deciding to stake.
+The community has produced several models which should be instructive. Please do your own analysis
+before deciding to stake.
 
-* [Basic $HNT Projections Model](https://docs.google.com/spreadsheets/u/1/d/1C0Tsz31Qa2b8PHXrl0gMDh2_fXcd2qSWVgF0hmg9Hqg/edit#gid=63991307)
-* [Helium Validator Rewards Forecasting with Validator Ramp Calculations](https://docs.google.com/spreadsheets/d/1E4XLpF-a3xo3ZtNpJzd9g6EcuMZ1nSKKvtmKy_LVjhE/edit#gid=1705424601)
+- [Basic $HNT Projections Model](https://docs.google.com/spreadsheets/u/1/d/1C0Tsz31Qa2b8PHXrl0gMDh2_fXcd2qSWVgF0hmg9Hqg/edit#gid=63991307)
+- [Helium Validator Rewards Forecasting with Validator Ramp Calculations](https://docs.google.com/spreadsheets/d/1E4XLpF-a3xo3ZtNpJzd9g6EcuMZ1nSKKvtmKy_LVjhE/edit#gid=1705424601)
 
 **When can I get my validator rewards?**
 
-There is no rewards distribution lock up. After staking, validators elected into the consensus group immediately receive rewards at the end of that epoch.
+There is no rewards distribution lock up. After staking, validators elected into the consensus group
+immediately receive rewards at the end of that epoch.
 
 ### Staking and Unstaking
 
 **What happens when I unstake a validator?**
 
-It enters an unbonding state for approximately 5 months (250,000 blocks) and cannot be restaked. During this state the **validator does NOT earn rewards and the staked amount cannot be transferred or withdrawn**. After the unbonding state has passed, the stake is returned to the original owner’s wallet.
+It enters an unbonding state for approximately 5 months (250,000 blocks) and cannot be restaked.
+During this state the **validator does NOT earn rewards and the staked amount cannot be transferred
+or withdrawn**. After the unbonding state has passed, the stake is returned to the original owner’s
+wallet.
 
 **Is overstaking permitted? If so, what’s the benefit?**
 
-Initially there will be no overstaking. We'll decide later, via the HIP process, what kind of overstaking the network should allow and what it will mean for election into the Consensus Group and ultimately rewards.
+Initially there will be no overstaking. We'll decide later, via the HIP process, what kind of
+overstaking the network should allow and what it will mean for election into the Consensus Group and
+ultimately rewards.
 
 **Can I restake an unstaked validator?**
 
@@ -90,37 +122,46 @@ No. You must wait until the validator is out of the consensus group.
 
 ### Videos
 
-* [HIP25 Hips Don't Lie](https://www.youtube.com/watch?v=qOEAxXaANkI) - An in-depth discussion of [HIP25](https://github.com/helium/HIP/blob/master/0025-validators.md), the foundational HIP for validators.
-* [Validator Staking Tutorial](https://www.youtube.com/watch?v=S3eIIAPP9rk) - Full video guide on how to deploy a Validator from `jcarl`.
-* [Validator Quickstart](https://www.youtube.com/watch?v=4szCWSDowro) - Short overview from `joey` on how to deploy and stake a Validator.
-* [Staking provider comparison](https://www.youtube.com/watch?v=pnW72u3ysbo) - Courtesy of **@MattLong6**. [HNT Staking Vendors](https://docs.google.com/spreadsheets/d/1xl5IjZY3xeAXTmnbLk2Ynedb9Ssd6yxRBwHixJQg8xM)
+- [HIP25 Hips Don't Lie](https://www.youtube.com/watch?v=qOEAxXaANkI) - An in-depth discussion of
+  [HIP25](https://github.com/helium/HIP/blob/master/0025-validators.md), the foundational HIP for
+  validators.
+- [Validator Staking Tutorial](https://www.youtube.com/watch?v=S3eIIAPP9rk) - Full video guide on
+  how to deploy a Validator from `jcarl`.
+- [Validator Quickstart](https://www.youtube.com/watch?v=4szCWSDowro) - Short overview from `joey`
+  on how to deploy and stake a Validator.
+- [Staking provider comparison](https://www.youtube.com/watch?v=pnW72u3ysbo) - Courtesy of
+  **@MattLong6**.
+  [HNT Staking Vendors](https://docs.google.com/spreadsheets/d/1xl5IjZY3xeAXTmnbLk2Ynedb9Ssd6yxRBwHixJQg8xM)
 
 ## Staking Providers
 
 :::info
 
-Links to these Staking Providers are provided as is. Helium, Inc. is not directly associated with any of the following vendors and makes no endorsements about the quality of their offering.
-Additionally, any pricing details listed here are likely to be out of date. Please verify pricing details with the given staking provider.
+Links to these Staking Providers are provided as is. Helium, Inc. is not directly associated with
+any of the following vendors and makes no endorsements about the quality of their offering.
+Additionally, any pricing details listed here are likely to be out of date. Please verify pricing
+details with the given staking provider.
 
 :::
 
-| Provider                                                     | Non-custodial full node | Pooling     | Pricing                                                             | Notes
-| :----------------------------------------------------------- |:----------------------- |:----------- | :-------------------------------------------------------------------|:-----
-| [Allnodes](https://www.allnodes.com)                         | Yes                     | No          | $80 per month (Basic) or $0.2380 per hour (Advanced)                |
-| [Argon.build](https://www.argon.build)                       | Yes                     | No          | $80 per month + 3% reward share                                     |
-| [Bison Trails](https://www.bisontrails.co)                   | Yes                     | No          |                                                                     | Does not offer service to individuals who plan to run fewer than 10 nodes
-| [Chorus One](https://chorus.one/products/whitelabel-staking) | Yes                     | No          |                                                                     | Does not have public pricing.
-| [DLI](https://dlinodes.com)                                  | Yes                     | Yes         | All run in DLI Cloud, Staking, Nodes, 24/7 Support                  |
-| [Figment](https://figment.io/)                               | Yes                     | No          | 5% comission                                                        |
-| [Helium Rising](https://www.heliumrising.com)                | Yes                     | Yes         | 5% comission                                                        |
-| [Helium Staking](https://www.helium-staking.com)             | Yes                     | Yes         | $150 per month for non-custodial full node. 4% of rewards for pool. |
-| [HNT Staking](https://www.hntstaking.net)                    | Yes                     | Yes         | $149 per monthly or $3 per day + 3% commission on earnings"         |
-| [HNT Validators](https://www.hntvalidators.com)              | Yes                     | No          | $199 per month                                                      |
-| [HostNodes](https://hostnodes.online)                        | Yes                     | No          | $119 per month| 10% discount for 6 months plan, 20% discount for 1 year plan
-| [Multipool App](https://www.multipool.app)                   | Yes                     | Yes         | $120 per month for non-custodial full node or pool $120 shared between participants + 1.2% comission on earnings | 100 HNT min @ $1.2 (per 100 HNT increment)
-| [NodeValidators](https://nodevalidators.com)                 | Yes                     | Coming soon | $120 per month + 2.5% comission on earnings                         |
-| [Staked](https://staking.staked.us/helium-staking)           | Yes                     | No          |                                                                     | Does not have public pricing.
-| [StakeJoy](https://stakejoy.com)                             | Yes                     | No          | 5% comission on earnings                                            |
-| [StakeMyHNT](https://www.stakemyhnt.com)                     | Yes                     | Coming soon | $169 per month                                                      |
-| [Validators Pool](https://helium.bx-host.com)                | Yes                     | No          | $120 per month + 2% comission on earnings                           |
-| [Vanager](https://vanager.io)                                | No                      | Yes         | $4 per day + 3% comission on earnings                               |
+| Provider                                                     | Non-custodial full node | Pooling     | Pricing                                                                                                          | Notes                                                                     |
+| :----------------------------------------------------------- | :---------------------- | :---------- | :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------ |
+| [Allnodes](https://www.allnodes.com)                         | Yes                     | No          | $80 per month (Basic) or $0.2380 per hour (Advanced)                                                             |
+| [Argon.build](https://www.argon.build)                       | Yes                     | No          | 3% comission on earnings                                                                                         |
+| [Bison Trails](https://www.bisontrails.co)                   | Yes                     | No          |                                                                                                                  | Does not offer service to individuals who plan to run fewer than 10 nodes |
+| [Blockdaemon](https://blockdaemon.com/)                      | Yes                     | No          | 5% commission with flexible payment options                                                                      | Cloud offerings.                                                          |
+| [Chorus One](https://chorus.one/products/whitelabel-staking) | Yes                     | No          |                                                                                                                  | Does not have public pricing.                                             |
+| [DLI](https://dlinodes.com)                                  | Yes                     | Yes         | All run in DLI Cloud, Staking, Nodes, 24/7 Support                                                               |
+| [Figment](https://figment.io/)                               | Yes                     | No          | 5% comission                                                                                                     |
+| [Foundry Digital](https://foundrystaking.com/)               | Yes                     | No          | $150 per month                                                                                                   |
+| [Helium Rising](https://www.heliumrising.com)                | Yes                     | Yes         | 5% comission                                                                                                     |
+| [Helium Staking](https://www.helium-staking.com)             | Yes                     | Yes         | $150 per month for non-custodial full node. 4% of rewards for pool.                                              |
+| [HNT Staking](https://www.hntstaking.net)                    | Yes                     | Yes         | $149 per monthly or $3 per day + 3% commission on earnings"                                                      |
+| [HNT Validators](https://www.hntvalidators.com)              | Yes                     | No          | $199 per month                                                                                                   |
+| [HostNodes](https://hostnodes.online)                        | Yes                     | No          | $119 per month                                                                                                   | 10% discount for 6 months plan, 20% discount for 1 year plan              |
+| [Multipool App](https://www.multipool.app)                   | Yes                     | Yes         | $120 per month for non-custodial full node or pool $120 shared between participants + 1.2% comission on earnings | 100 HNT min @ $1.2 (per 100 HNT increment)                                |
+| [NodeValidators](https://nodevalidators.com)                 | Yes                     | Coming soon | $120 per month + 2.5% comission on earnings                                                                      |
+| [Staked](https://staking.staked.us/helium-staking)           | Yes                     | No          |                                                                                                                  | Does not have public pricing.                                             |
+| [StakeJoy](https://stakejoy.com)                             | Yes                     | No          | 3% comission on earnings                                                                                         |
+| [StakeMyHNT](https://www.stakemyhnt.com)                     | Yes                     | Coming soon | $169 per month                                                                                                   |
+| [Validators Pool](https://helium.bx-host.com)                | Yes                     | No          | $120 per month + 2% comission on earnings                                                                        |
