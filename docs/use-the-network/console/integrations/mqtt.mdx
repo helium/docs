@@ -6,27 +6,22 @@ slug: /use-the-network/console/integrations/mqtt
 
 # MQTT
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Add an MQTT Integration
 
-To add an integration, go to **Integrations** on the left-hand menu. Select the
-integration to add - in this case, the **MQTT** integration.
+To add an integration, go to **Integrations** on the left-hand menu. Select the integration to add -
+in this case, the **MQTT** integration.
 
-<img
-  src={useBaseUrl(
-    "img/use-the-network/console/integrations/integrations-select-mqtt.png"
-  )}
-/>
+<img src={useBaseUrl('img/use-the-network/console/integrations/integrations-select-mqtt.png')} />
 
 The next step is to paste your MQTT broker endpoint, and optional topic prefix.
 
 ## Connecting Integrations to Devices
 
-Devices or groups of devices (via labels) can be directly connected to
-integrations on the Flows Worskpace. Labels are identifiers used to group
-devices for easy management. To connect one or more devices to one or more
-integrations, simply connect the Device and Integration nodes on the Flows
+Devices or groups of devices (via labels) can be directly connected to integrations on the Flows
+Worskpace. Labels are identifiers used to group devices for easy management. To connect one or more
+devices to one or more integrations, simply connect the Device and Integration nodes on the Flows
 Workspace.
 
 :::info
@@ -36,8 +31,8 @@ Quick video tutorial connecting devices to an integration
 
 :::
 
-Node elements (devices, labels, integrations) need to be created before they're
-available on the Flows Workspace. More information about Flows
+Node elements (devices, labels, integrations) need to be created before they're available on the
+Flows Workspace. More information about Flows
 [here](https://docs.helium.com/use-the-network/console/flows/).
 
 ## MQTT Topic composition:
@@ -46,15 +41,15 @@ available on the Flows Workspace. More information about Flows
 
 **Subscribe to:** `{optional_prefix}/helium/{Device ID}/rx`
 
-Example with prefix: `mqtt/helium/3c822699-37fd-4df6-a84d-93037a450843/rx`
-Example without prefix: `helium/3c822699-37fd-4df6-a84d-93037a450843/rx`
+Example with prefix: `mqtt/helium/3c822699-37fd-4df6-a84d-93037a450843/rx` Example without prefix:
+`helium/3c822699-37fd-4df6-a84d-93037a450843/rx`
 
 ### Device Downlink \(Send Data to Device\)
 
 **Publish to:** `{optional_prefix}/helium/{Device ID}/tx`
 
-Example with prefix: `mqtt/helium/3c822699-37fd-4df6-a84d-93037a450843/tx`
-Example without prefix: `helium/3c822699-37fd-4df6-a84d-93037a450843/tx`
+Example with prefix: `mqtt/helium/3c822699-37fd-4df6-a84d-93037a450843/tx` Example without prefix:
+`helium/3c822699-37fd-4df6-a84d-93037a450843/tx`
 
 ## MQTT Messages
 
@@ -63,8 +58,7 @@ The MQTT for downlink and uplink follow the
 
 ## Send and Receive Device Data
 
-The following examples are done with the
-[MQTT CLI](https://hivemq.github.io/mqtt-cli) utility.
+The following examples are done with the [MQTT CLI](https://hivemq.github.io/mqtt-cli) utility.
 
 Example MQTT
 

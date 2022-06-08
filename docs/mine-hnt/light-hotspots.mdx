@@ -7,41 +7,39 @@ slug: /mine-hnt/light-hotspots
 
 # Light Hotspots Software Upgrade
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-This document describes the architecture and technical roadmap planned for
-converting existing Approved Hotspots to Light Hotspots as a software upgrade.
-As part of this migration, we have introduced a new Hotspot variant onto the
-network, called a [Data Only Hotspot](/mine-hnt/data-only-hotspots).
+This document describes the architecture and technical roadmap planned for converting existing
+Approved Hotspots to Light Hotspots as a software upgrade. As part of this migration, we have
+introduced a new Hotspot variant onto the network, called a
+[Data Only Hotspot](/mine-hnt/data-only-hotspots).
 
-A conversion of a Full Hotspot running Light Hotspot software is now being
-tested on [Testnet](https://testnet-explorer.helium.com).
+A conversion of a Full Hotspot running Light Hotspot software is now being tested on
+[Testnet](https://testnet-explorer.helium.com).
 
-This project is in progress and subject to change. **Last updated Monday April
-12, 2022**.
+This project is in progress and subject to change. **Last updated Monday April 12, 2022**.
 
 :::info
 
-For real-time development and community support, please join the
-#gateway-development channel on [Helium Discord](https://discord.gg/helium)
+For real-time development and community support, please join the #gateway-development channel on
+[Helium Discord](https://discord.gg/helium)
 
 :::
 
 ## What is a Light Hotspot?
 
-Light Hotspots are the evolution of how LoRaWAN gateways will interact with the
-Helium blockchain. Since the genesis block, the Helium blockchain has run
-entirely on the physical Hotspot itself. As the blockchain network grows, each
-Hotspot running a full node undergoes increasing load and are starting to fall
-out of sync due to the higher compute requirements.
+Light Hotspots are the evolution of how LoRaWAN gateways will interact with the Helium blockchain.
+Since the genesis block, the Helium blockchain has run entirely on the physical Hotspot itself. As
+the blockchain network grows, each Hotspot running a full node undergoes increasing load and are
+starting to fall out of sync due to the higher compute requirements.
 
-To mitigate this, the Hotspot's consensus work has been moved off of physical
-Hotspots and onto Validators. This simplifies the architecture and enables us to
-grow the Network exponentially while keeping blocktimes and epochs stable.
+To mitigate this, the Hotspot's consensus work has been moved off of physical Hotspots and onto
+Validators. This simplifies the architecture and enables us to grow the Network exponentially while
+keeping blocktimes and epochs stable.
 
-As all approved Hotspots transition to a Light Hotspot architecture, we also
-introduce a new type of Hotspot known as Data Only Hotspots, to satisfy the
-increasing demand and continue to expand network coverage.
+As all approved Hotspots transition to a Light Hotspot architecture, we also introduce a new type of
+Hotspot known as Data Only Hotspots, to satisfy the increasing demand and continue to expand network
+coverage.
 
 | Rewards Type            | Data Only Hotspots | Full & Light Hotspots |
 | :---------------------- | :----------------- | :-------------------- |
@@ -50,96 +48,80 @@ increasing demand and continue to expand network coverage.
 
 ## Light Hotspot Properties
 
-When the Light Hotspot software is fully developed and in production, they will
-satisfy the following properties:
+When the Light Hotspot software is fully developed and in production, they will satisfy the
+following properties:
 
-- A Hotspot on the Helium network that, via [Validators](/mine-hnt/validators),
-  can participate in PoC beacons and witnesses, and forwards data packets;
+- A Hotspot on the Helium network that, via [Validators](/mine-hnt/validators), can participate in
+  PoC beacons and witnesses, and forwards data packets;
 - Does not store a copy of the Blockchain, eliminating synchronization;
-- Does not create challenges (relies on Validators to create challenges on their
-  behalf);
-- Does not participate in Consensus Groups (relies on Validators for block
-  production);
-- Will no longer depend on libp2p or "gossip", and instead use
-  [gRPC](https://grpc.io/), a new framework to communicate between distributed
-  systems;
+- Does not create challenges (relies on Validators to create challenges on their behalf);
+- Does not participate in Consensus Groups (relies on Validators for block production);
+- Will no longer depend on libp2p or "gossip", and instead use [gRPC](https://grpc.io/), a new
+  framework to communicate between distributed systems;
 - Will be eligible to earn $HNT (see table below)
 
-In other words, the Light Hotspot software will allow the Hotspot to participate
-as a [Full Hotspot](/mine-hnt/full-hotspots), without the extra overhead of
-maintaining a local copy of the blockchain.
+In other words, the Light Hotspot software will allow the Hotspot to participate as a
+[Full Hotspot](/mine-hnt/full-hotspots), without the extra overhead of maintaining a local copy of
+the blockchain.
 
 ## Architecture
 
-This image shows the progression to Light Hotspots, with the role of Miner being
-deprecated as we move the blockchain off the Hotspots and into the Validator
-infrastructure. At the conclusion of Light Hotspot development, the entire
-Helium blockchain, and the coordination of Proof of Coverage, will be handled by
-Validators.
+This image shows the progression to Light Hotspots, with the role of Miner being deprecated as we
+move the blockchain off the Hotspots and into the Validator infrastructure. At the conclusion of
+Light Hotspot development, the entire Helium blockchain, and the coordination of Proof of Coverage,
+will be handled by Validators.
 
-<img
-  className="docsheader"
-  src={useBaseUrl("img/mine-hnt/validator-hotspot-dev.jpg")}
-/>
+<img className="docsheader" src={useBaseUrl('img/mine-hnt/validator-hotspot-dev.jpg')} />
 
 ## Code and Development
 
-The bulk of the code that enables Light Hotspots on actual LoRaWAN gateways is
-called [gateway-rs](https://github.com/helium/gateway-rs). It's easiest to think
-of this as Helium's next-generation packet forwarder.
+The bulk of the code that enables Light Hotspots on actual LoRaWAN gateways is called
+[gateway-rs](https://github.com/helium/gateway-rs). It's easiest to think of this as Helium's
+next-generation packet forwarder.
 
 Development of this code takes place in the above GitHub repo, as well at the
-`#gateway-developement` channel on the
-[Helium Discord Server](https://discord.gg/helium).
+`#gateway-developement` channel on the [Helium Discord Server](https://discord.gg/helium).
 
 # Development Timelines
 
 - **March 18 2021**: Data Only Hotspots routes free packets
 - **July 8 2021**: Hotspot Consensus work moves to Validators
-- **July 20 2021**: Data Only Hotspots activated on Helium Network (appears on
-  chain)
+- **July 20 2021**: Data Only Hotspots activated on Helium Network (appears on chain)
 - **October 11 2021**: Data Only Hotspots mine HNT
-- **December 2021**: Validators creating challenges for software-based miners on
-  Testnet
+- **December 2021**: Validators creating challenges for software-based miners on Testnet
 - **January 2022**: Hardware Audit starts for Light Hotspot manufacturers
-- **February 2022**: Introduce hardware-based Hotspots on Testnet (Full Hotspots
-  running Light Hotspot firmware). Validators create challenges using H3dex
-  targeting.
+- **February 2022**: Introduce hardware-based Hotspots on Testnet (Full Hotspots running Light
+  Hotspot firmware). Validators create challenges using H3dex targeting.
 - **February 22 2022**:
-  [HIP 54](https://heliumvote.com/14me3X7jpEmn3eeFfnAkMvUoFU3cN6GAS3CDomqCikr7VQfHWrU)
-  and
-  [HIP 55](https://heliumvote.com/14Rjhhz1DXLVmSRdzappqWgD6rfgu6XYxmdaSCvWLyLH8ZWbciK)
-  passes
+  [HIP 54](https://heliumvote.com/14me3X7jpEmn3eeFfnAkMvUoFU3cN6GAS3CDomqCikr7VQfHWrU) and
+  [HIP 55](https://heliumvote.com/14Rjhhz1DXLVmSRdzappqWgD6rfgu6XYxmdaSCvWLyLH8ZWbciK) passes
 - **February 2022**: HIP-19 Approved Makers participating in Testnet
-- **~~April 6 2022~~** **April 13**: Code related to Light Hotspot merged to
-  production, in an inactive state. Light Hotspot software update tagged for
-  Makers to upgrade their fleet. Validators will also receive a mandatory
-  software update.
-- **~~April 19 2022~~** **May 11**: Activate set of chain variables to enable
-  Light Hotspots on Mainnet
-- **Several weeks later**: Deactivate Miner on Light Hotspots on Mainnet such
-  that they run gateway-rs only
+- **~~April 6 2022~~** **April 13**: Code related to Light Hotspot merged to production, in an
+  inactive state. Light Hotspot software update tagged for Makers to upgrade their fleet. Validators
+  will also receive a mandatory software update.
+- **~~April 19 2022~~** **May 11**: Activate set of chain variables to enable Light Hotspots on
+  Mainnet
+- **Several weeks later**: Deactivate Miner on Light Hotspots on Mainnet such that they run
+  gateway-rs only
 
 ## Current progress on Testnet
 
-Hotspots on Testnet running Light Hotspot software are now participating in a
-new Proof-of-Coverage with Validators. In this test, all Hotspots use Testnet
-Validators for blockchain information and do not need to sync the blockchain
-directly. They also receive PoC Challenges from the Validator pool.
+Hotspots on Testnet running Light Hotspot software are now participating in a new Proof-of-Coverage
+with Validators. In this test, all Hotspots use Testnet Validators for blockchain information and do
+not need to sync the blockchain directly. They also receive PoC Challenges from the Validator pool.
 
 You can see their progress on [Testnet](https://testnet-explorer.helium.com).
 
 These Hotspots are also running a dockerized version of
-[gateway-rs (rust-based gateway firmware)](https://github.com/helium/gateway-rs)
-and an updated packet forwarder that relies on Validators.
+[gateway-rs (rust-based gateway firmware)](https://github.com/helium/gateway-rs) and an updated
+packet forwarder that relies on Validators.
 
 _Note that these Hotspots are earning testnet tokens (TNT) and not HNT._
 
 ## Current progress on Mainnet
 
-A portion of the complete Light Hotspot software is also on mainnet,
-transferring non-PoC packets on a test Hotspot using the new packet forwarder
-that relies on Validators.
+A portion of the complete Light Hotspot software is also on mainnet, transferring non-PoC packets on
+a test Hotspot using the new packet forwarder that relies on Validators.
 
 ### What's Next
 

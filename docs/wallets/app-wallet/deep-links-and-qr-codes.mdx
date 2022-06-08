@@ -9,22 +9,20 @@ slug: /wallets/app-wallet/deep-links-and-qr-codes
 
 :::info
 
-This page refers to QR codes and deep links that are signed and submitted to the
-blockchain via the Helium Hotspot and Wallet Apps. Makers should not use the
-following information and instead use the
-[Helium React Native SDK](https://helium.github.io/react-native-helium/modules/WalletLink.html)
-to sign and submit transactions in their maker app.
+This page refers to QR codes and deep links that are signed and submitted to the blockchain via the
+Helium Hotspot and Wallet Apps. Makers should not use the following information and instead use the
+[Helium React Native SDK](https://helium.github.io/react-native-helium/modules/WalletLink.html) to
+sign and submit transactions in their maker app.
 
 :::
 
-To generate a QR code to scan, find a service to generate a QR code using the
-json data below. This is an example site: `https://www.qr-code-generator.com`
+To generate a QR code to scan, find a service to generate a QR code using the json data below. This
+is an example site: `https://www.qr-code-generator.com`
 
 ## External QR Scanner (System Camera)
 
-This section refers to deep links that navigate into the Helium Hotspot and
-Wallet apps via the native system camera. For QR codes scanned internally in the
-Helium Hotspot and Wallet apps see the
+This section refers to deep links that navigate into the Helium Hotspot and Wallet apps via the
+native system camera. For QR codes scanned internally in the Helium Hotspot and Wallet apps see the
 [Internal QR Scanner](#internal-qr-scanner) section below.
 
 ### View Hotspot (Hotspot App)
@@ -86,28 +84,24 @@ https://wallet.helium.com/payment?payee={{payee}}&amount={{amount}}&memo={{memo}
 
 ### Add Gateway / Assert Location / Transfer Hotspot (Wallet App)
 
-The Wallet App requires a maker app in order to sign Add Gateway, Assert
-Location, and Transfer Hotspot Transactions via deep links. Please see the
-[Helium React Native SDK](https://helium.github.io/react-native-helium/index.html)
-and
-[WalletLink](https://helium.github.io/react-native-helium/modules/WalletLink.html)
-documentation for more information.
+The Wallet App requires a maker app in order to sign Add Gateway, Assert Location, and Transfer
+Hotspot Transactions via deep links. Please see the
+[Helium React Native SDK](https://helium.github.io/react-native-helium/index.html) and
+[WalletLink](https://helium.github.io/react-native-helium/modules/WalletLink.html) documentation for
+more information.
 
 ## Internal QR Scanner
 
-This section refers to QR codes scanned internally by the Helium Hotspot and
-Wallet apps.
+This section refers to QR codes scanned internally by the Helium Hotspot and Wallet apps.
 
 :::info
 
-In the **Hotspot App** all memos must be **UTF8 strings** with a **max size of 8
-bytes**.
+In the **Hotspot App** all memos must be **UTF8 strings** with a **max size of 8 bytes**.
 
-In the **Wallet App** all memos should be **base64 encoded strings** with a
-**max size of 8 bytes**.
+In the **Wallet App** all memos should be **base64 encoded strings** with a **max size of 8 bytes**.
 
-If you want to target **both the Wallet App and Hotspot App** with one QR you
-should add `"utf8Memo": true` to **use UTF8 memos for both**.
+If you want to target **both the Wallet App and Hotspot App** with one QR you should add
+`"utf8Memo": true` to **use UTF8 memos for both**.
 
 :::
 
@@ -222,8 +216,8 @@ should add `"utf8Memo": true` to **use UTF8 memos for both**.
 
 ### Wallet address QR code
 
-Create a qr code with a valid b58 wallet address. This is valid for both the
-Hotspot App and Wallet App.
+Create a qr code with a valid b58 wallet address. This is valid for both the Hotspot App and Wallet
+App.
 
 ```
 12ORy9GjFASqWWxHmUq4tNXcjvr5Xfno8qimGMrNReMsSaM9T8f

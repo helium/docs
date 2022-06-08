@@ -5,61 +5,54 @@ sidebar_label: Consensus Protocol
 slug: /blockchain/consensus-protocol
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<img className="docsheader" src={useBaseUrl("img/blockchain/consensus.png")} />
+<img className="docsheader" src={useBaseUrl('img/blockchain/consensus.png')} />
 
 # The Helium Consensus Protocol
 
-The Helium blockchain uses a new consensus protocol, called simply the **Helium
-Consensus Protocol**.
+The Helium blockchain uses a new consensus protocol, called simply the **Helium Consensus
+Protocol**.
 
 ## Consensus Protocol Design Goals
 
 In designing the protocol, we wanted to emphasize the following characteristics:
 
-- **Permissionless** - Any Hotspot operating in accordance with the consensus
-  rules and network specifications should be able to participate freely in the
-  Helium Network.
-- **Truly decentralized by design** - No incentive should be available for
-  taking advantage of factors like inexpensive energy cost or deploying more
-  hardware in the same location.
-- **Byzantine Fault Tolerant** - The protocol should be tolerant of Byzantine
-  failures such that consensus can still be reached as long as a threshold of
-  participants are acting honestly. For this, we selected a variant known as
-  `HoneyBadgerBFT` detailed below.
-- **Based on useful work** - Achieving network consensus should be useful and
-  reusable to the network. In Nakamoto Consensus-based systems like the bitcoin
-  blockchain, work performed to achieve consensus is only valid for a specific
-  block. By comparison, Helium’s consensus system should perform work that is
-  both useful and reusable to the network beyond simply securing the blockchain.
-- **High rate of confirmed transactions** - The protocol should be able to
-  achieve a high number of transactions per second, and once the transaction is
-  seen by the blockchain it should be assumed confirmed. Users sending device
-  data through the Helium Network cannot tolerate long block settlement times
-  typical of other blockchains.
-- **Censorship-resistant transactions** - Hotspots should not be able to censor
-  or otherwise select / deselect transactions to be included in a block.
+- **Permissionless** - Any Hotspot operating in accordance with the consensus rules and network
+  specifications should be able to participate freely in the Helium Network.
+- **Truly decentralized by design** - No incentive should be available for taking advantage of
+  factors like inexpensive energy cost or deploying more hardware in the same location.
+- **Byzantine Fault Tolerant** - The protocol should be tolerant of Byzantine failures such that
+  consensus can still be reached as long as a threshold of participants are acting honestly. For
+  this, we selected a variant known as `HoneyBadgerBFT` detailed below.
+- **Based on useful work** - Achieving network consensus should be useful and reusable to the
+  network. In Nakamoto Consensus-based systems like the bitcoin blockchain, work performed to
+  achieve consensus is only valid for a specific block. By comparison, Helium’s consensus system
+  should perform work that is both useful and reusable to the network beyond simply securing the
+  blockchain.
+- **High rate of confirmed transactions** - The protocol should be able to achieve a high number of
+  transactions per second, and once the transaction is seen by the blockchain it should be assumed
+  confirmed. Users sending device data through the Helium Network cannot tolerate long block
+  settlement times typical of other blockchains.
+- **Censorship-resistant transactions** - Hotspots should not be able to censor or otherwise select
+  / deselect transactions to be included in a block.
 
 ## HoneyBadger BFT
 
-The Helium Consensus Protocol is based on a variant of the HoneyBadgerBFT
-(HBBFT) protocol. HBBFT is based on a body of research originally kicked off by
-Andrew Miller and the team at the University of Illinois, Urbana-Champaign.
+The Helium Consensus Protocol is based on a variant of the HoneyBadgerBFT (HBBFT) protocol. HBBFT is
+based on a body of research originally kicked off by Andrew Miller and the team at the University of
+Illinois, Urbana-Champaign.
 
-HBBFT is an asynchronous atomic broadcast protocol designed to enable a group of
-known nodes to achieve consensus over unreliable links. In Helium’s
-implementation, a consensus group of
-[elected Validators](https://explorer-beta.helium.com/validators) receives
-encrypted transactions as inputs and proceeds to reach common agreement on the
-ordering of these transactions before forming a block and adding it to the
-blockchain.
+HBBFT is an asynchronous atomic broadcast protocol designed to enable a group of known nodes to
+achieve consensus over unreliable links. In Helium’s implementation, a consensus group of
+[elected Validators](https://explorer-beta.helium.com/validators) receives encrypted transactions as
+inputs and proceeds to reach common agreement on the ordering of these transactions before forming a
+block and adding it to the blockchain.
 
-HBBFT relies on a scheme known as threshold encryption. Using this scheme,
-transactions are encrypted using a shared public key, and are only decryptable
-when the elected consensus group works together to decrypt them. The usage of
-threshold encryption enables the Helium Consensus Protocol to achieve
-censorship-resistant transactions.
+HBBFT relies on a scheme known as threshold encryption. Using this scheme, transactions are
+encrypted using a shared public key, and are only decryptable when the elected consensus group works
+together to decrypt them. The usage of threshold encryption enables the Helium Consensus Protocol to
+achieve censorship-resistant transactions.
 
 ### Extended Reading
 
@@ -68,45 +61,39 @@ censorship-resistant transactions.
 
 ## The Consensus Group Election
 
-A new Consensus Group \(CG\) is elected once per epoch. Currently there are `43`
-members elected to each consensus group, as defined in the
-`num_consensus_members` chain variable.
+A new Consensus Group \(CG\) is elected once per epoch. Currently there are `43` members elected to
+each consensus group, as defined in the `num_consensus_members` chain variable.
 
 :::info
 
-For a more complete overview of how Validators are elected to the consensus
-group, see the
+For a more complete overview of how Validators are elected to the consensus group, see the
 [Election Process Documentation](/mine-hnt/validators/penalties/#the-election-process)
 
 :::
 
 ## Rewarding Hotspots
 
-At the end of each epoch, mining rewards are distributed by the consensus group
-to the wallet addresses that have earned them. Currently `65%` of all mining
-rewards go to the hotspot infrastructure \(with the remaining `35%` being
-distributed to Helium, Inc and other network investors\). A graphical overview
-of token reward system can be [viewed here](https://www.helium.com/tokens).
+At the end of each epoch, mining rewards are distributed by the consensus group to the wallet
+addresses that have earned them. Currently `65%` of all mining rewards go to the hotspot
+infrastructure \(with the remaining `35%` being distributed to Helium, Inc and other network
+investors\). A graphical overview of token reward system can be
+[viewed here](https://www.helium.com/tokens).
 
-During the course of any epoch, Hotspots are rewarded for the following list of
-activities:
+During the course of any epoch, Hotspots are rewarded for the following list of activities:
 
-- Successful participation in proof of coverage as a target \(as a
-  “challengee”\)
+- Successful participation in proof of coverage as a target \(as a “challengee”\)
 - Witnessing a proof of coverage challenge
 - Transferring device data over the network
 
-During the course of any epoch, Validators are rewarded for the following list
-of activities per changes from
-[HIP 55](https://github.com/helium/HIP/blob/main/0055-validator-challenges.md):
+During the course of any epoch, Validators are rewarded for the following list of activities per
+changes from [HIP 55](https://github.com/helium/HIP/blob/main/0055-validator-challenges.md):
 
 - Submitting valid proof of coverage challenges \(as a “challenger”\)
 - Serving as consensus group member
 
-The Consensus Group then splits `6%` of all HNT mined, as well as any
-transaction fees collected during the epoch.
+The Consensus Group then splits `6%` of all HNT mined, as well as any transaction fees collected
+during the epoch.
 
-Each one of the above activities is recorded in a block using the `reward`
-transaction. At the completion of each epoch, all the individual `reward`
-transactions are grouped in a `rewards` transaction at which point all $HNT
-mined in that epoch are distributed.
+Each one of the above activities is recorded in a block using the `reward` transaction. At the
+completion of each epoch, all the individual `reward` transactions are grouped in a `rewards`
+transaction at which point all $HNT mined in that epoch are distributed.

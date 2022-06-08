@@ -4,8 +4,8 @@ sidebar_label: Oracle Prices
 slug: /api/blockchain/oracle-prices
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Oracle Prices
 
@@ -54,8 +54,8 @@ The current Oracle Price and at which block it took effect.
 GET https://api.helium.io/v1/oracle/prices
 ```
 
-The current and historical Oracle Prices and at which block they took effect.
-This route is paged using a cursor.
+The current and historical Oracle Prices and at which block they took effect. This route is paged
+using a cursor.
 
 <Tabs
   block={true}
@@ -122,8 +122,7 @@ _Query Parameters_
 </TabItem>
 <TabItem value="response">
 
-Returns Oracle price statistics over the last 30 days by specifying
-`?min_time=-30%20day`
+Returns Oracle price statistics over the last 30 days by specifying `?min_time=-30%20day`
 
 200: OK
 
@@ -154,8 +153,7 @@ Returns Oracle price statistics over the last 30 days by specifying
 GET https://api.helium.io/v1/oracle/prices/:block
 ```
 
-Provides the oracle price at a specific block and at which block it initially
-took effect.
+Provides the oracle price at a specific block and at which block it initially took effect.
 
 <Tabs
   block={true}
@@ -196,8 +194,7 @@ Returns a list of recent Oracle Prices and at which block they took effect..
 GET https://api.helium.io/v1/oracle/activity
 ```
 
-List oracle price report transactions for all oracle keys. This route is paged
-with a cursor.
+List oracle price report transactions for all oracle keys. This route is paged with a cursor.
 
 <Tabs
   block={true}
@@ -248,8 +245,7 @@ _Path Parameters_
 GET https://api.helium.io/v1/oracle/:address/activity
 ```
 
-Lists price report transactions for the given oracle key. This route is paged
-using a cursor.
+Lists price report transactions for the given oracle key. This route is paged using a cursor.
 
 <Tabs
   block={true}
@@ -306,16 +302,14 @@ _Query Parameters_
 GET https://api.helium.io/v1/oracle/predictions
 ```
 
-This returns a list of expected times when the Oracle Price is expected to
-change.The blockchain operates in "block-time", meaning that blocks can come out
-at some schedule close to 1 per minute. Oracles report in "wall-clock-time",
-meaning they report what they believe the price should be.If the route returns
-one or more prices and times, it indicates that the chain is expected to adjust
-the price (based on Oracle reports) no earlier than the indicated time to the
-returned price.NOTE: A prediction may not be seen in the blockchain if they are
-close together (within 10 blocks) since block times may cause the blockchain to
-skip to a next predicted price. If no predictions are returned the current HNT
-Oracle Price is valid for at least 1 hour.
+This returns a list of expected times when the Oracle Price is expected to change.The blockchain
+operates in "block-time", meaning that blocks can come out at some schedule close to 1 per minute.
+Oracles report in "wall-clock-time", meaning they report what they believe the price should be.If
+the route returns one or more prices and times, it indicates that the chain is expected to adjust
+the price (based on Oracle reports) no earlier than the indicated time to the returned price.NOTE: A
+prediction may not be seen in the blockchain if they are close together (within 10 blocks) since
+block times may cause the blockchain to skip to a next predicted price. If no predictions are
+returned the current HNT Oracle Price is valid for at least 1 hour.
 
 <Tabs
   block={true}
@@ -330,8 +324,8 @@ _No Parameters_
 
 200: OK
 
-Returns a prediction that the price will change to 47000000 at the earliest at
-the indicated seconds since Unix epoch time.
+Returns a prediction that the price will change to 47000000 at the earliest at the indicated seconds
+since Unix epoch time.
 
 ```json
 {

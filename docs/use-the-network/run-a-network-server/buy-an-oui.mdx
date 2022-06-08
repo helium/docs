@@ -6,55 +6,48 @@ slug: /use-the-network/run-a-network-server/buy-an-oui
 
 # What is an OUI?
 
-Each LoRaWAN Network Server (LNS) on the Helium Network acquires an
-Organizationally Unique Identifier (OUI). This registers the LNS with the
-blockchain and allocates two very important routing objects owned and maintained
-by the OUI operator:
+Each LoRaWAN Network Server (LNS) on the Helium Network acquires an Organizationally Unique
+Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
+routing objects owned and maintained by the OUI operator:
 
-- up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the
-  LNS
-- one or more **slabs** of DevAddrs, reserving an address space for the OUI's
-  devices on the Helium Network
+- up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the LNS
+- one or more **slabs** of DevAddrs, reserving an address space for the OUI's devices on the Helium
+  Network
 
-A device, defined by (AppEui, DevEui), can be allocated any of the DevAddrs
-owned by the OUI. It is even possible to multiplex many devices on the same
-DevAddr at the same time, using the Message Integrity Check (MIC) to
-disambiguate.
+A device, defined by (AppEui, DevEui), can be allocated any of the DevAddrs owned by the OUI. It is
+even possible to multiplex many devices on the same DevAddr at the same time, using the Message
+Integrity Check (MIC) to disambiguate.
 
 :::info
 
-Based on latest benchmarking tests the upper limit for a Devaddr `1024` slab is
-approximately 5800 devices, but results still need to be replicated and
-bracketed. Community members are encouraged to run their own benchmarking tests.
-Instructions
-[here](https://docs.helium.com/use-the-network/run-a-network-server/router-benchmarking).
-Requires basic familiarity with Linux and Bash command-line.
+Based on latest benchmarking tests the upper limit for a Devaddr `1024` slab is approximately 5800
+devices, but results still need to be replicated and bracketed. Community members are encouraged to
+run their own benchmarking tests. Instructions
+[here](https://docs.helium.com/use-the-network/run-a-network-server/router-benchmarking). Requires
+basic familiarity with Linux and Bash command-line.
 
 :::
 
 # OUI Cost
 
-The OUI is purchased with [Data Credits (DC)](/blockchain/transaction-fees).
-Costs are subject to change, but currently the OUI itself costs US$100 worth of
-DCs and each DevAddr cost an additional US$100 in DC.
+The OUI is purchased with [Data Credits (DC)](/blockchain/transaction-fees). Costs are subject to
+change, but currently the OUI itself costs US$100 worth of DCs and each DevAddr cost an additional
+US$100 in DC.
 
 DevAddr are sold in sequential blocks between 8 and 65,536 and any power of two.
 
-You must purchase a slab when purchasing an OUI, therefore, the total minimum
-cost is US$900 worth of Data Credits: $100 for the OUI itself and $800 for eight
-DevAddr's.
+You must purchase a slab when purchasing an OUI, therefore, the total minimum cost is US$900 worth
+of Data Credits: $100 for the OUI itself and $800 for eight DevAddr's.
 
 [The OUI purchase transaction itself](https://github.com/helium/proto/blob/master/src/blockchain_txn_oui_v1.proto)
-incurs a fee based as does any other blockchain transaction; generally this will
-be $0.35-1.00 worth of DCs based on how the fields get filled and change the
-transaction size.
+incurs a fee based as does any other blockchain transaction; generally this will be $0.35-1.00 worth
+of DCs based on how the fields get filled and change the transaction size.
 
 # Purchase Transaction
 
-You need [the Helium wallet](https://github.com/helium/helium-wallet-rs) to go
-any further. You'll want to
-[create a wallet](https://github.com/helium/helium-wallet-rs#create-a-wallet)
-and to have at least US$900 in HNT (based on current HNT Oracle pricing).
+You need [the Helium wallet](https://github.com/helium/helium-wallet-rs) to go any further. You'll
+want to [create a wallet](https://github.com/helium/helium-wallet-rs#create-a-wallet) and to have at
+least US$900 in HNT (based on current HNT Oracle pricing).
 
 ## Purchase the OUI
 
@@ -64,12 +57,10 @@ Submit a "create OUI" transaction:
 ./helium-wallet oui create --subnet-size 8 --filter wVwCiewtCpEKAAAAAAAAAAAAcCK3fwAAAAAAAAAAAABI7IQOAHAAAAAAAAAAAAAAAQAAADBlAAAAAAAAAAAAADEAAAA2AAAAOgAAAA
 ```
 
-The filter is a dummy filter to initialize the OUI. When you get Console
-running, it will automatically maintain it. You can once again track the
-transaction with the endpoint above. When it is complete, you should also see
-your OUI as the most recently purchased and
+The filter is a dummy filter to initialize the OUI. When you get Console running, it will
+automatically maintain it. You can once again track the transaction with the endpoint above. When it
+is complete, you should also see your OUI as the most recently purchased and
 [on the list here](https://api.helium.io/v1/ouis).
 
-Congratulations! You are the proud owner of a Helium Network OUI. OUIs are
-numbered sequentially, so the lower you are, the earlier you were on the
-Network!
+Congratulations! You are the proud owner of a Helium Network OUI. OUIs are numbered sequentially, so
+the lower you are, the earlier you were on the Network!

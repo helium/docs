@@ -5,48 +5,43 @@ sidebar_label: Oracles
 slug: /blockchain/oracles
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<img className="docsheader" src={useBaseUrl("img/blockchain/oracle.png")} />
+<img className="docsheader" src={useBaseUrl('img/blockchain/oracle.png')} />
 
 # HNT Price Oracles
 
-HNT converts to Data Credits at a rate pegged to `$.00001` , and so the
-blockchain requires a canonical HNT/$USD price for this conversion. Beginning in
-June 2020, the Helium blockchain
-[started using a system](https://engineering.helium.com/2020/05/29/HNT-Price-Oracles.html)
-of decentralized price oracles to supply the $USD to HNT price used for on-chain
-for burn transactions. (This system is inspired by
+HNT converts to Data Credits at a rate pegged to `$.00001` , and so the blockchain requires a
+canonical HNT/$USD price for this conversion. Beginning in June 2020, the Helium blockchain
+[started using a system](https://engineering.helium.com/2020/05/29/HNT-Price-Oracles.html) of
+decentralized price oracles to supply the $USD to HNT price used for on-chain for burn transactions.
+(This system is inspired by
 [the Maker Foundation's Oracle usage.](https://blog.makerdao.com/introducing-oracles-v2-and-defi-feeds/))
 
-To find this price, nine oracles (this number may change in the future)
-periodically submit
+To find this price, nine oracles (this number may change in the future) periodically submit
 HNT/$USD prices. Once the blockchain has enough new price data, it will calculate a new HNT/$USD
-price that will remain valid until enough new, valid oracle inputs are
-submitted, triggering a new price revision.
+price that will remain valid until enough new, valid oracle inputs are submitted, triggering a new
+price revision.
 
 ### Calculating the HNT Price
 
-Every `10` blocks (roughly every 10 minutes) the blockchain will attempt to
-establish a new HNT/$USD price. To do this:
+Every `10` blocks (roughly every 10 minutes) the blockchain will attempt to establish a new HNT/$USD
+price. To do this:
 
-1. The blockchain looks for recent price submissions from valid Oracles
-   (submitted using a transaction called `price_oracle_submission`). A valid
-   price submission is anything that was submitted within the last 25 hours but
-   is older than 1 hour. This enables the blockchain to calculate a trailing 24
-   hour median while also having a buffer against outlier price inputs in the
-   most recent 60 minutes.
-2. If there are enough new, valid price submissions in the 24 hour window, a new
-   price will be calculated. For this to happen, a majority of the price Oracles
-   need to have submitted a price in the window - `((N / 2) +1 )`. So, in our
-   system of `9` Oracles, we would need valid prices from at least `5`. (If
-   there aren’t `((N / 2) +1 )` new prices, no new HNT price is calculated.)
-3. If there are at least `5` new prices, we then proceed to sort-order the list
-   low to high, and take the median. So, if we had `7` valid submissions of
-   `$.20,` `$.22`, `$.235`, `$.238`, `$.25`, `$.27`, `$.45`, the blockchain
-   would select `$.238`, and use this as the external price of HNT for all HNT /
-   DC burn transactions until a new price is established \(which could be as
-   soon as `10` blocks\).
+1. The blockchain looks for recent price submissions from valid Oracles (submitted using a
+   transaction called `price_oracle_submission`). A valid price submission is anything that was
+   submitted within the last 25 hours but is older than 1 hour. This enables the blockchain to
+   calculate a trailing 24 hour median while also having a buffer against outlier price inputs in
+   the most recent 60 minutes.
+2. If there are enough new, valid price submissions in the 24 hour window, a new price will be
+   calculated. For this to happen, a majority of the price Oracles need to have submitted a price in
+   the window - `((N / 2) +1 )`. So, in our system of `9` Oracles, we would need valid prices from
+   at least `5`. (If there aren’t `((N / 2) +1 )` new prices, no new HNT price is calculated.)
+3. If there are at least `5` new prices, we then proceed to sort-order the list low to high, and
+   take the median. So, if we had `7` valid submissions of `$.20,` `$.22`, `$.235`, `$.238`, `$.25`,
+   `$.27`, `$.45`, the blockchain would select `$.238`, and use this as the external price of HNT
+   for all HNT / DC burn transactions until a new price is established \(which could be as soon as
+   `10` blocks\).
 
 **What's the current HNT Oracle Price?**
 
@@ -54,20 +49,19 @@ establish a new HNT/$USD price. To do this:
 
 ### Who are the HNT Price Oracles?
 
-The HNT Oracle price feeds are supplied by a group of eleven (11) Oracles,
-composed of companies, organizations, and individuals. They are:
+The HNT Oracle price feeds are supplied by a group of eleven (11) Oracles, composed of companies,
+organizations, and individuals. They are:
 
 - Helium Foundation
 - Nova Labs
 - Nine (9) Anonymous Individual Community Members
 
-We’ve chosen to keep the names of the individual feed contributors anonymous as
-it’s essential to prevent any external attempts at extortion or blackmail. The
-names of large companies and organizations that supply feeds, however, are
-public and it’s easier for them to combat potential attacks and bad actors.
+We’ve chosen to keep the names of the individual feed contributors anonymous as it’s essential to
+prevent any external attempts at extortion or blackmail. The names of large companies and
+organizations that supply feeds, however, are public and it’s easier for them to combat potential
+attacks and bad actors.
 
-The current set of public keys for the eleven HNT Price Oracles are (in no
-particular order):
+The current set of public keys for the eleven HNT Price Oracles are (in no particular order):
 
 ```text
 13CFFcmPtMvNQCpWQRXCTqXPnXtcsibDWVwiQRKpUCt4nqtF7RE
@@ -93,23 +87,22 @@ https://api.helium.io/v1/oracle/:address/activity
 
 ## Submitting an HNT Oracle Price
 
-An HNT price will only be accepted if the transaction is signed by the private
-key associated with one of the known oracle public keys listed above.
+An HNT price will only be accepted if the transaction is signed by the private key associated with
+one of the known oracle public keys listed above.
 
 ### Required Software
 
-Currently Oracles use the
-[Helium Wallet CLI](https://github.com/helium/helium-wallet-rs) for submitting
-prices to the blockchain. Download this and get comfortable with it on your
-machine if you're not using it already.
+Currently Oracles use the [Helium Wallet CLI](https://github.com/helium/helium-wallet-rs) for
+submitting prices to the blockchain. Download this and get comfortable with it on your machine if
+you're not using it already.
 
 #### Submitting HNT Prices
 
 We've added a new transaction to the blockchain for Oracle price submissions -
 `price_oracle_submission`, and a corresponding CLI command - `oracle report`.
 
-When you download the CLI and run `helium-wallet oracle report --help`, you'll
-see something like this:
+When you download the CLI and run `helium-wallet oracle report --help`, you'll see something like
+this:
 
 ```text
 helium-wallet-oracle-report
@@ -132,16 +125,15 @@ OPTIONS:
 
 #### Example Command
 
-Here's a full command to submit a price (with the leading `$` the command line
-will supply). **Note the required `--commit` flag. This transaction will fail
-without this.**
+Here's a full command to submit a price (with the leading `$` the command line will supply). **Note
+the required `--commit` flag. This transaction will fail without this.**
 
 ```text
 $ helium-wallet oracle report --price 1.1 --block auto --commit
 ```
 
-This is telling the blockchain you are reporting a price of `$1.1` and the
-current block height and that you're ready to commit it.
+This is telling the blockchain you are reporting a price of `$1.1` and the current block height and
+that you're ready to commit it.
 
-Once you hit `Return`, you'll be asked to input your wallet key passphrase.
-Supply this, submit it, and you're done.
+Once you hit `Return`, you'll be asked to input your wallet key passphrase. Supply this, submit it,
+and you're done.

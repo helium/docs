@@ -6,35 +6,32 @@ slug: /mine-hnt/full-hotspots/become-a-maker/security-requirements
 
 # Security Requirements
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 When the Helium Community passed
-[HIP19](https://github.com/helium/HIP/blob/master/0019-third-party-manufacturers.md),
-it was made clear that open and easy access to the `swarm_key` is not permitted
-at this time. This helps insure that the Miner is running on real hardware and
-increases the barriers to dishonest actors.
+[HIP19](https://github.com/helium/HIP/blob/master/0019-third-party-manufacturers.md), it was made
+clear that open and easy access to the `swarm_key` is not permitted at this time. This helps insure
+that the Miner is running on real hardware and increases the barriers to dishonest actors.
 
 :::info
 
-The `swarm_key` is an ECC Compact Key used by the Miner to sign all blockchain
-and libp2p transactions. The three word animal name (e.g. angry-purple-tiger) is
-actually derived from the public key of the `swarm_key`.
+The `swarm_key` is an ECC Compact Key used by the Miner to sign all blockchain and libp2p
+transactions. The three word animal name (e.g. angry-purple-tiger) is actually derived from the
+public key of the `swarm_key`.
 
 :::
 
-While formalizing the audit process, the Helium Foundation has determined that
-the only approved approach to guaranteeing this at this time is using the ECC608
-to generate and store the key during manufacturing. Other approaches are
-possible, but they would require case-by-case consideration and the potentially
-a third-party audit.
+While formalizing the audit process, the Helium Foundation has determined that the only approved
+approach to guaranteeing this at this time is using the ECC608 to generate and store the key during
+manufacturing. Other approaches are possible, but they would require case-by-case consideration and
+the potentially a third-party audit.
 
 ## Securing the swarm_key with the ECC608
 
-Helium has open-sourced their ECC608 provisioning utility from their own
-manufacturing process [here](https://github.com/helium/gateway_mfr). By using
-this utility, not only do you automatically comply with the ECC608 provisioning
-process, but you also create compatability with the Helium Miner with no
-modifications (other than some configuration to the
+Helium has open-sourced their ECC608 provisioning utility from their own manufacturing process
+[here](https://github.com/helium/gateway_mfr). By using this utility, not only do you automatically
+comply with the ECC608 provisioning process, but you also create compatability with the Helium Miner
+with no modifications (other than some configuration to the
 [Docker overlay](/mine-hnt/full-hotspots/become-a-maker/docker-integration#enable-ecc608-and-d-bus)).
 
 You are free to compile the `gateway_mfr` repository from source or use the
@@ -47,11 +44,11 @@ docker load -i gateway_mfr.tar
 docker run -d --device /dev/i2c-1 --name provision gateway_mfr:arm64
 ```
 
-With the Docker container running, you are now able to interact with the utility
-and complete the provisioning.
+With the Docker container running, you are now able to interact with the utility and complete the
+provisioning.
 
-Throughout this process, you might get some errors because the ECC608 can
-frequently go to sleep. You may see something like this:
+Throughout this process, you might get some errors because the ECC608 can frequently go to sleep.
+You may see something like this:
 
 ```
 docker exec provision gateway_mfr ecc onboarding
@@ -76,8 +73,8 @@ $ docker exec provision gateway_mfr ecc test
 +--------------------+-------------------------------+
 ```
 
-This is a failing test, which is good in this case. Next, you will want to run
-the actual provision command:
+This is a failing test, which is good in this case. Next, you will want to run the actual provision
+command:
 
 ```
 $ docker exec provision gateway_mfr ecc provision
@@ -94,8 +91,7 @@ $ docker exec provision gateway_mfr ecc provision
 +--------------------+------+
 ```
 
-You can run the test from the end of the provision command to verify the table
-at any time:
+You can run the test from the end of the provision command to verify the table at any time:
 
 ```
 docker exec provision gateway_mfr ecc test
@@ -111,8 +107,8 @@ docker exec provision gateway_mfr ecc test
 +--------------------+------+
 ```
 
-And finally, you will want to extract the `onboarding_key` which is also called
-the Miner's "swarm_key":
+And finally, you will want to extract the `onboarding_key` which is also called the Miner's
+"swarm_key":
 
 ```
 docker exec provision gateway_mfr ecc onboarding

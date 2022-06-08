@@ -4,8 +4,8 @@ sidebar_label: Blocks
 slug: /api/blockchain/blocks
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Blocks
 
@@ -15,9 +15,8 @@ import TabItem from "@theme/TabItem";
 
 Gets the current height of the blockchainn.
 
-If `max_time` is specified this returns highest block height that was valid (but
-not equal to) the given time.`max_time` can be given as an ISO8601 timestamp or
-relative time can be used.
+If `max_time` is specified this returns highest block height that was valid (but not equal to) the
+given time.`max_time` can be given as an ISO8601 timestamp or relative time can be used.
 
 ```
 GET https://api.helium.io/v1/blocks/height
@@ -112,8 +111,8 @@ GET https://api.helium.io/v1/blocks
 
 ```
 
-Retrieves block descriptions. Blocks descriptions are paged. A `cursor` field
-will be in the response when more results are available.
+Retrieves block descriptions. Blocks descriptions are paged. A `cursor` field will be in the
+response when more results are available.
 
 <Tabs
   block={true}
@@ -314,8 +313,8 @@ _Path Parameters_
 GET https://api.helium.io/v1/blocks/:height/transactions
 ```
 
-Get transactions for a block at a given height. The list of returned
-transactions is paged. A cursor field is present if more results are available.
+Get transactions for a block at a given height. The list of returned transactions is paged. A cursor
+field is present if more results are available.
 
 <Tabs
   block={true}
@@ -628,9 +627,8 @@ _Path Parameters_
 GET https://api.helium.io/v1/blocks/hash/:hash/transactions
 ```
 
-Get transactions for a block at a given block hash. The list of returned
-transactions is paged. A `cursor` field is present if more results are
-available.
+Get transactions for a block at a given block hash. The list of returned transactions is paged. A
+`cursor` field is present if more results are available.
 
 <Tabs
   block={true}

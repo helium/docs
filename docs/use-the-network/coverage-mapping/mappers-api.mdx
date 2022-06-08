@@ -6,14 +6,13 @@ slug: /use-the-network/coverage-mapping/mappers-api
 
 # Mappers API
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 ## Introduction
 
-The Mappers API is a set of HTTP requests used for submitting data to the
-Mappers project. Data submitted is viewable on
-[mappers.helium.com](https://mappers.helium.com) and updated in real time.
+The Mappers API is a set of HTTP requests used for submitting data to the Mappers project. Data
+submitted is viewable on [mappers.helium.com](https://mappers.helium.com) and updated in real time.
 
 ---
 
@@ -31,12 +30,11 @@ Submit geo tagged device uplink.
 
 `Content-Type: application/json`
 
-Requests are intended to be sent from an HTTP integration within Console.
-Metadata from the standard JSON message is used in addition to the required
-fields detailed below.
+Requests are intended to be sent from an HTTP integration within Console. Metadata from the standard
+JSON message is used in addition to the required fields detailed below.
 
-All required fields are case sensitive and must be in the top level of the
-decoded payload section as shown below:
+All required fields are case sensitive and must be in the top level of the decoded payload section
+as shown below:
 
 ```json
 "decoded": {
@@ -49,8 +47,7 @@ decoded payload section as shown below:
 }
 ```
 
-All of the following fields are required `latitude`, `longitude`, `altitude` ,
-`accuracy`.
+All of the following fields are required `latitude`, `longitude`, `altitude` , `accuracy`.
 
 <Tabs
   block={true}
@@ -70,15 +67,13 @@ _Body Parameters_
 </TabItem>
 <TabItem value="response">
 
-200: OK  
-Request submission successful
+200: OK Request submission successful
 
 ```
 Success
 ```
 
-400: Bad Request  
-Required request parameters not found.
+400: Bad Request Required request parameters not found.
 
 ```
 Invalid Fields

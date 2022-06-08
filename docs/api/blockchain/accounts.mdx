@@ -4,8 +4,8 @@ sidebar_label: Accounts
 slug: /api/blockchain/accounts
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Accounts
 
@@ -17,12 +17,11 @@ import TabItem from "@theme/TabItem";
 GET https://api.helium.io/v1/accounts
 ```
 
-Retrieve the current set of known accounts.The result is paged. A `cursor` field
-is present if more results are available.
+Retrieve the current set of known accounts.The result is paged. A `cursor` field is present if more
+results are available.
 
-Note: The cursor for accounts is valid for a limited time. If you receive a
-`400` http response code for a cursor based request, you will need to start
-fetching accounts from the beginning of the list.
+Note: The cursor for accounts is valid for a limited time. If you receive a `400` http response code
+for a cursor based request, you will need to start fetching accounts from the beginning of the list.
 
 <Tabs
   block={true}
@@ -169,15 +168,14 @@ Result for `/v1/accounts/rich?limit=2`
 GET https://api.helium.io/v1/accounts/:address
 ```
 
-Retrieve a specific account record.The account details for a record include
-additional speculative nonces that indicate what the expected nonce for the
-account is for a specific balance. Any transactions affecting the given balance
-type should use an adjusted speculative nonce for that balance type.
+Retrieve a specific account record.The account details for a record include additional speculative
+nonces that indicate what the expected nonce for the account is for a specific balance. Any
+transactions affecting the given balance type should use an adjusted speculative nonce for that
+balance type.
 
-For example, when constructing a payment transaction, get the
-`speculative_nonce` field for the source account and use `speculative_nonce + 1`
-for the new transaction nonce.Currently only the speculative_nonce is supported.
-It indicates the expected nonce for the account
+For example, when constructing a payment transaction, get the `speculative_nonce` field for the
+source account and use `speculative_nonce + 1` for the new transaction nonce.Currently only the
+speculative_nonce is supported. It indicates the expected nonce for the account
 
 <Tabs
   block={true}
@@ -223,16 +221,15 @@ _Path Parameters_
 GET https://api.helium.io/v1/accounts/:address/hotspots
 ```
 
-Fetches hotspots owned by a given account address.The list of returned hotspots
-is paged. If a `cursor` field is present more results are available.
+Fetches hotspots owned by a given account address.The list of returned hotspots is paged. If a
+`cursor` field is present more results are available.
 
-The `filter_modes` parameter can be used to filter hotspot by how they were
-added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
-comma separated list (no whitespace) can be used to filter for multiple modes.
+The `filter_modes` parameter can be used to filter hotspot by how they were added to the blockchain.
+Supported values are `full`, `dataonly`, or `light`. A comma separated list (no whitespace) can be
+used to filter for multiple modes.
 
-Note: The cursor for accounts is valid for a limited time. If you receive a
-`400` http response code for a cursor based request, you will need to start
-fetching accounts from the beginning of the list.
+Note: The cursor for accounts is valid for a limited time. If you receive a `400` http response code
+for a cursor based request, you will need to start fetching accounts from the beginning of the list.
 
 <Tabs
   block={true}
@@ -307,8 +304,8 @@ The hotspot list for an account
 GET https://api.helium.io/v1/accounts/:address/validators
 ```
 
-Fetches validators owned by a given account address. The list of returned
-validators is paged. If a `cursor` field is present more results are available.
+Fetches validators owned by a given account address. The list of returned validators is paged. If a
+`cursor` field is present more results are available.
 
 <Tabs
   block={true}
@@ -482,8 +479,8 @@ The validator list for an account
 GET https://api.helium.io/v1/accounts/:address/ouis
 ```
 
-Fetches OUIs owned by a given account address.The list of returned OUIs is
-paged. If a `cursor` field is present more results are available.
+Fetches OUIs owned by a given account address.The list of returned OUIs is paged. If a `cursor`
+field is present more results are available.
 
 <Tabs
   block={true}
@@ -548,14 +545,13 @@ The `/activity` route will be deprecated on May 1, 2022 and will be replaced by
 GET https://api.helium.io/v1/accounts/:address/activity
 ```
 
-Fetches transactions that indicate activity for an account. This includes any
-transaction that involves the account, usually as a payer, payee or owner.
+Fetches transactions that indicate activity for an account. This includes any transaction that
+involves the account, usually as a payer, payee or owner.
 
-You may optionally add a transaction type filter. For example:
-`activity?filter_types=rewards_v2` will provide reward transactions only.
+You may optionally add a transaction type filter. For example: `activity?filter_types=rewards_v2`
+will provide reward transactions only.
 
-The results are paged. If a `cursor` field is present in the response, more
-results are available.
+The results are paged. If a `cursor` field is present in the response, more results are available.
 
 <Tabs
   block={true}
@@ -703,11 +699,10 @@ _Query Parameters_
 GET https://api.helium.io/v1/accounts/:address/roles
 ```
 
-Fetches transactions that indicate an account as a participant. This includes
-any transaction that involves the account, usually as a payer, payee or owner.
+Fetches transactions that indicate an account as a participant. This includes any transaction that
+involves the account, usually as a payer, payee or owner.
 
-The results are paged. If a `cursor` field is present in the response, more
-results are available.
+The results are paged. If a `cursor` field is present in the response, more results are available.
 
 <Tabs
   block={true}
@@ -781,11 +776,10 @@ _Query Parameters_
 GET https://api.helium.io/v1/accounts/:address/roles/count
 ```
 
-Count transactions that indicate activity for an account. This includes any
-transaction that involves the account, usually as a payer, payee or owner.
+Count transactions that indicate activity for an account. This includes any transaction that
+involves the account, usually as a payer, payee or owner.
 
-The results are a map keyed by the given `filter_types` and the count of
-transaction of that type.
+The results are a map keyed by the given `filter_types` and the count of transaction of that type.
 
 <Tabs
   block={true}
@@ -835,8 +829,7 @@ GET https://api.helium.io/v1/accounts/:address/elections
 
 Fetches elections that hotspots for the given account are elected in.
 
-The results are paged. If a `cursor` field is present in the response, more
-results are available.
+The results are paged. If a `cursor` field is present in the response, more results are available.
 
 <Tabs
   block={true}
@@ -933,11 +926,10 @@ _Query Parameters_
 GET https://api.helium.io/v1/accounts/:address/challenges
 ```
 
-Fetches challenges that hotspots owned by the given account are involved in as a
-challenger, challengee, or witness.
+Fetches challenges that hotspots owned by the given account are involved in as a challenger,
+challengee, or witness.
 
-The results are paged. If a `cursor` field is present in the response, more
-results are available.
+The results are paged. If a `cursor` field is present in the response, more results are available.
 
 <Tabs
   block={true}
@@ -1130,9 +1122,9 @@ _Query Parameters_
 GET https://api.helium.io/v1/accounts/:address/pending_transactions
 ```
 
-Fetches the outstanding transactions for the given account. See Pending
-Transactions for details.The list of returned pending transactions is paged. If
-a `cursor` field is present more results are available.
+Fetches the outstanding transactions for the given account. See Pending Transactions for details.The
+list of returned pending transactions is paged. If a `cursor` field is present more results are
+available.
 
 <Tabs
   block={true}
@@ -1197,21 +1189,21 @@ A single pending transaction for a given account
 GET https://api.helium.io/v1/accounts/:address/rewards
 ```
 
-Returns reward entries by block and gateway for a given account in a timeframe.
-Timestamps are given in ISO 8601 format. The block that contains the `max_time`
-timestamp is **excluded** from the result.
+Returns reward entries by block and gateway for a given account in a timeframe. Timestamps are given
+in ISO 8601 format. The block that contains the `max_time` timestamp is **excluded** from the
+result.
 
-The result will be a list of rewards between `min_time` and `max_time` both
-given in UTC. Both default to "now" which means that at least one of the two
-parameters is required.
+The result will be a list of rewards between `min_time` and `max_time` both given in UTC. Both
+default to "now" which means that at least one of the two parameters is required.
 
-The result includes a `type` field which is the type of activity that generated
-the reward.
+The result includes a `type` field which is the type of activity that generated the reward.
 
 This route is paged using a `cursor`.
 
-:::info For older reward results, if the `type` is `null` the amount is a total
-for that account or hotspot in the given block.
+:::info
+
+For older reward results, if the `type` is `null` the amount is a total for that account or hotspot
+in the given block.
 
 :::
 
@@ -1272,13 +1264,14 @@ GET https://api.helium.io/v1/accounts/:address/rewards/:block
 
 Returns rewards for a given account for a given block.
 
-The result includes a `type` field which is the type of activity that generated
-the reward.
+The result includes a `type` field which is the type of activity that generated the reward.
 
 This route is paged using a `cursor`.
 
-:::info For older reward results, if the `type` is `null` the amount is a total
-for that account in the given block.
+:::info
+
+For older reward results, if the `type` is `null` the amount is a total for that account in the
+given block.
 
 :::
 
@@ -1328,21 +1321,19 @@ Rewards for an account in block `470788`
 GET https://api.helium.io/v1/accounts/:address/rewards/sum
 ```
 
-Returns the total rewards for a given account in a given timeframe. Timestamps
-can be given in ISO 8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative
-time (e.g. `-1 week`, which when url esacped becomes `-1%20week`). When ommitted
-the current time is assumed.
+Returns the total rewards for a given account in a given timeframe. Timestamps can be given in ISO
+8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative time (e.g. `-1 week`, which when url
+esacped becomes `-1%20week`). When ommitted the current time is assumed.
 
-The results can also be bucketed in time by specifying a `bucket` query
-parameter which buckets information per bucket in the given timeframe. Data is
-bucketed per hotspot and time for the account to make hotspot performance
-comparison possible. Valid bucket values include `hour`, `day` and `week`).
+The results can also be bucketed in time by specifying a `bucket` query parameter which buckets
+information per bucket in the given timeframe. Data is bucketed per hotspot and time for the account
+to make hotspot performance comparison possible. Valid bucket values include `hour`, `day` and
+`week`).
 
-For example to get the last 7 days of rewards bucketed by day use the following
-path/parameters: `?min_time=-7%20day&bucket=day`
+For example to get the last 7 days of rewards bucketed by day use the following path/parameters:
+`?min_time=-7%20day&bucket=day`
 
-The block that contains the `max_time` timestamp is **excluded** from the
-result.
+The block that contains the `max_time` timestamp is **excluded** from the result.
 
 <Tabs
   block={true}
@@ -1392,9 +1383,8 @@ Returns the total rewards over a given time range
 GET https://api.helium.io/v1/accounts/:address/stats
 ```
 
-Fetches account statistics for a given account. This currently includes account
-balance information (in bones) for the last month (daily), last week (every 8
-hours), and daily (hourly).
+Fetches account statistics for a given account. This currently includes account balance information
+(in bones) for the last month (daily), last week (every 8 hours), and daily (hourly).
 
 <Tabs
   block={true}

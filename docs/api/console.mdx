@@ -5,14 +5,14 @@ sidebar_label: Console
 slug: /api/console
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 ## Console API
 
-The Console API is a set of HTTP Request that allows you to programatically
-interact with Console. It's the lowest level building block and is ideal for
-integrating with back-end services, for example.
+The Console API is a set of HTTP Request that allows you to programatically interact with Console.
+It's the lowest level building block and is ideal for integrating with back-end services, for
+example.
 
 ### Base URL
 
@@ -22,22 +22,20 @@ https://console.helium.com/
 
 ### Authentication
 
-All Console API requests require an API Key which provides access to devices
-owned by the **organization** which owns the device. Devices are never
-associated to a single user, but instead to an organization.
+All Console API requests require an API Key which provides access to devices owned by the
+**organization** which owns the device. Devices are never associated to a single user, but instead
+to an organization.
 
-To create an account key, go to your
-[profile](https://console.helium.com/profile) on Helium Console. From the top
-right corner, click: `Account -> Profile`.
+To create an account key, go to your [profile](https://console.helium.com/profile) on Helium
+Console. From the top right corner, click: `Account -> Profile`.
 
-From there, you may generate a key for your organization. _The key will only
-display once._
+From there, you may generate a key for your organization. _The key will only display once._
 
-**You must confirm the API key** creation by clicking a link that is emailed to
-the account that created the API key.
+**You must confirm the API key** creation by clicking a link that is emailed to the account that
+created the API key.
 
-From then on, you will want to include the API key in all of your API requests.
-You do this by placing your API key in an HTTP header field called "key.
+From then on, you will want to include the API key in all of your API requests. You do this by
+placing your API key in an HTTP header field called "key.
 
 _Headers_
 
@@ -730,15 +728,13 @@ Device removed from label successfully
 
 ### Create a Prebuilt Integration
 
-Create prebuilt integration for integration providers planning to offer
-connectivity as a service.
+Create prebuilt integration for integration providers planning to offer connectivity as a service.
 
 ```
 POST https://console.helium.com/api/v1/integrations/prebuilt
 ```
 
-Creates a device with corresponding name, Application EUI, Application Key, and
-Device EUI.
+Creates a device with corresponding name, Application EUI, Application Key, and Device EUI.
 
 <Tabs
   block={true}
@@ -786,8 +782,7 @@ _Body Parameters_
 POST https://console.helium.com/api/v1/integrations
 ```
 
-Creates a custom HTTP integration. Use the Console UI for JSON message
-templates.
+Creates a custom HTTP integration. Use the Console UI for JSON message templates.
 
 <Tabs
   block={true}
@@ -1243,8 +1238,7 @@ _Query Parameters_
 
 ### Create a Flow for an Integration
 
-Create a prebuilt integration for partners providing a connectivity as a service
-solution.
+Create a prebuilt integration for partners providing a connectivity as a service solution.
 
 ```
 POST https://console.helium.com/api/v1/flows

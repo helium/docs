@@ -5,69 +5,65 @@ sidebar_label: Discovery Mode Guide
 slug: /wallets/app-wallet/discovery-mode
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Discovery Mode
 
-Discovery Mode is one of the tools available for Hotspot owners to understand
-their Hotspot coverage and optimize their Hotspot setup.
+Discovery Mode is one of the tools available for Hotspot owners to understand their Hotspot coverage
+and optimize their Hotspot setup.
 
 Read our
 [announcement blog](https://blog.helium.com/uncover-your-hotspots-potential-discovery-mode-a14003ec23d).
 
 ## How does Discovery Mode work?
 
-Discovery Mode is a marriage between several core components on the Helium
-network: Helium App, Router, Console, and the Miner. Hotspots, when in Discovery
-Mode, acts like a device on the Helium network, sending data just like any
-sensor would.
+Discovery Mode is a marriage between several core components on the Helium network: Helium App,
+Router, Console, and the Miner. Hotspots, when in Discovery Mode, acts like a device on the Helium
+network, sending data just like any sensor would.
 
 :::note
 
-Hotspots that hear Discovery Mode packets are able to confirm directly with
-Router, even if they're relayed. This is different than how receipts work with
-Proof-of-Coverage. More on that later.
+Hotspots that hear Discovery Mode packets are able to confirm directly with Router, even if they're
+relayed. This is different than how receipts work with Proof-of-Coverage. More on that later.
 
 :::
 
 ### Helium App
 
-The Helium App's role in Discovery Mode is initiating the initial request and
-displaying the results. It primarily talks to the API to retrieve Discovery Mode
-responses, but also requests the initial Discovery Mode session.
+The Helium App's role in Discovery Mode is initiating the initial request and displaying the
+results. It primarily talks to the API to retrieve Discovery Mode responses, but also requests the
+initial Discovery Mode session.
 
 ### Router
 
-Router's role is to wait and listen from a Discovery Mode request from the API.
-Once it hears a request to initiate Discovery Mode, it tells the Miner on the
-Hotspot to get ready and send Discovery Mode packets. Router also creates an
-object in Console, known as a device.
+Router's role is to wait and listen from a Discovery Mode request from the API. Once it hears a
+request to initiate Discovery Mode, it tells the Miner on the Hotspot to get ready and send
+Discovery Mode packets. Router also creates an object in Console, known as a device.
 
 ### Console
 
-Once a Hotspot device is created in console, an integration is automatically
-associated with the device, where responses to Discovery Mode packets are
-stored. The packet data is stored in a database that only the API has access to.
+Once a Hotspot device is created in console, an integration is automatically associated with the
+device, where responses to Discovery Mode packets are stored. The packet data is stored in a
+database that only the API has access to.
 
 :::note
 
-Data Credits are used to send device data on the Helium network. For a limited
-time, Helium will cover the cost to send Discovery Mode packets.
+Data Credits are used to send device data on the Helium network. For a limited time, Helium will
+cover the cost to send Discovery Mode packets.
 
 :::
 
 ### Miner
 
-After receiving a request from Router, the miner on Hotspots is instructed to
-start sending packets. These packets are similar in size to Proof-of-Coverage
-packets. Miner is instructed to send 10 Discovery Mode packets.
+After receiving a request from Router, the miner on Hotspots is instructed to start sending packets.
+These packets are similar in size to Proof-of-Coverage packets. Miner is instructed to send 10
+Discovery Mode packets.
 
 :::note
 
-Discovery Mode sends 10x more packets than a normal Beacon for
-Proof-of-Coverage. It is normal to see more Hotspots respond to Discovery Mode
-than Beacons. Also keep in mind that Relayed Hotspots do not affect
-acknowledging Discovery Mode packets, but do affect witnessing Beacons.
+Discovery Mode sends 10x more packets than a normal Beacon for Proof-of-Coverage. It is normal to
+see more Hotspots respond to Discovery Mode than Beacons. Also keep in mind that Relayed Hotspots do
+not affect acknowledging Discovery Mode packets, but do affect witnessing Beacons.
 
 :::
 
@@ -75,63 +71,57 @@ acknowledging Discovery Mode packets, but do affect witnessing Beacons.
 
 Putting it all together:
 
-<img src={useBaseUrl("img/wallets/helium-app/disco-architecture.png")} />
+<img src={useBaseUrl('img/wallets/helium-app/disco-architecture.png')} />
 
 # Running Discovery Mode
 
-To start Discovery Mode for your Hotspot, go to the Hotspot and tap the
-**Settings** icon.
+To start Discovery Mode for your Hotspot, go to the Hotspot and tap the **Settings** icon.
 
 Then tap Discovery Mode.
 
-<img src={useBaseUrl("img/wallets/helium-app/disco-entry.png")} />
+<img src={useBaseUrl('img/wallets/helium-app/disco-entry.png')} />
 
 :::tip
 
-Make sure your Hotspot is not relayed. Hotspots that are relayed may not receive
-instructions from Router in a timely manner, preventing it from starting a
-session.
+Make sure your Hotspot is not relayed. Hotspots that are relayed may not receive instructions from
+Router in a timely manner, preventing it from starting a session.
 
 :::
 
-Once Discovery Mode starts, the Hotspot sends out 10 packets and takes about a
-minute to send all 10.
+Once Discovery Mode starts, the Hotspot sends out 10 packets and takes about a minute to send
+all 10.
 
-Responders that hear a Discovery Mode packet will be highlighted in a yellow
-hexagon. Tapping on the yellow hexagon will bring up the name of the Hotspot
-that responded.
+Responders that hear a Discovery Mode packet will be highlighted in a yellow hexagon. Tapping on the
+yellow hexagon will bring up the name of the Hotspot that responded.
 
-<img src={useBaseUrl("img/wallets/helium-app/hotspot-app-disco-results.png")} />
+<img src={useBaseUrl('img/wallets/helium-app/hotspot-app-disco-results.png')} />
 
-Discovery Mode runs for 5 minutes. You may close the app and do something else
-during this time.
+Discovery Mode runs for 5 minutes. You may close the app and do something else during this time.
 
 _Why 5 minutes?_
 
-Router sometimes receives late packets from Hotspots. By extending session
-lengths to 5 minutes, we can capture and display all the Hotspots that heard a
-Discovery Mode packet, even if they're late.
+Router sometimes receives late packets from Hotspots. By extending session lengths to 5 minutes, we
+can capture and display all the Hotspots that heard a Discovery Mode packet, even if they're late.
 
 # FAQ
 
 **Q. Is Discovery Mode a good representation of what a Hotspot can mine?**
 
-A. Discovery Mode is a tool meant to understand coverage and to compare if one
-setup or configuration is better than another.
+A. Discovery Mode is a tool meant to understand coverage and to compare if one setup or
+configuration is better than another.
 
-Discovery Mode ignores all the rules and logic of Proof-of-Coverage, so if you
-have lots of Hotspots nearby (within 300 meters), you may see them as valid
-responders in Discovery Mode, but they may be invalid witnesses for
-Proof-of-Coverage purposes.
+Discovery Mode ignores all the rules and logic of Proof-of-Coverage, so if you have lots of Hotspots
+nearby (within 300 meters), you may see them as valid responders in Discovery Mode, but they may be
+invalid witnesses for Proof-of-Coverage purposes.
 
 [Discovery Mode also ignores the issue with Relayed Hotspots](https://docs.helium.com/troubleshooting/understanding-witnesses/#relayed-hotspot-as-a-witness).
-Any Hotspots that witness a beacon but is relayed, is unlikely to appear as a
-valid witness but may appear as a responder in Discovery Mode.
+Any Hotspots that witness a beacon but is relayed, is unlikely to appear as a valid witness but may
+appear as a responder in Discovery Mode.
 
 **Q. How should I use Discovery Mode?**
 
-A. Use Discovery Mode to compare different antennas, different locations,
-elevations, inside, or outside.
+A. Use Discovery Mode to compare different antennas, different locations, elevations, inside, or
+outside.
 
 **Q. Do I need to set a location before running Discovery Mode?**
 
@@ -139,26 +129,23 @@ A. A location is not required before running Discovery Mode.
 
 **Q. What does it mean that my Hotspot was unable to initiate a session?**
 
-A. If the Hotspot is not relayed, it could mean that there were no responders or
-the Hotspot's firmware version is not up to date.
+A. If the Hotspot is not relayed, it could mean that there were no responders or the Hotspot's
+firmware version is not up to date.
 
 **Q. I have a relayed Hotspot. Can I run Discovery Mode?**
 
-A. We have seen varying levels of success when relayed Hotspots run Discovery
-Mode. Some succeed and some don't. We recommend getting your Hotspot out of
-Relayed status for optimal performance.
+A. We have seen varying levels of success when relayed Hotspots run Discovery Mode. Some succeed and
+some don't. We recommend getting your Hotspot out of Relayed status for optimal performance.
 
 **Q. My Discovery Mode results vary. What explains this?**
 
-A. Assuming all components of Discovery Mode are working properly (no outages on
-Router, app API, Console), differences between back to back sessions should not
-exist. But! Atmospheric and environmental impacts can affect whether a Hotspot
-can receive a packet.
+A. Assuming all components of Discovery Mode are working properly (no outages on Router, app API,
+Console), differences between back to back sessions should not exist. But! Atmospheric and
+environmental impacts can affect whether a Hotspot can receive a packet.
 
 **Q. How many sessions can I run per day?**
 
-A. Every Hotspot can run 5 Discovery Mode sessions per day, resetting to 0 at
-12AM UTC.
+A. Every Hotspot can run 5 Discovery Mode sessions per day, resetting to 0 at 12AM UTC.
 
 **Q. Who pays for Discovery Mode?**
 
@@ -170,5 +157,5 @@ A. No. Only Hotspot owners can run Discovery Mode.
 
 **Q. What are the basic requirements to run Discovery Mode?**
 
-A. The Hotspot firmware version should be on `2021.05.12.0` or newer, with app
-version `3.2.0` or newer.
+A. The Hotspot firmware version should be on `2021.05.12.0` or newer, with app version `3.2.0` or
+newer.
