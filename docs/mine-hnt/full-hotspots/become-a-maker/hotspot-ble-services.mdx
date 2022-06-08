@@ -6,28 +6,25 @@ slug: /mine-hnt/full-hotspots/become-a-maker/hotspot-ble-services
 
 # Hotspot BLE Services
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The Helium Hotspot provides a Bluetooth Low Energy\(BLE\) interface for users to
-configure several aspects of the device. The BLE services and advertisement data
-are provided below.
+The Helium Hotspot provides a Bluetooth Low Energy\(BLE\) interface for users to configure several
+aspects of the device. The BLE services and advertisement data are provided below.
 
-It is generally recommended that the user first press a button on the Hotspot to
-activate the BLE advertising. Alternatively, enabling BLE for ~5 minutes after
-power up is acceptable. Maintaining BLE advertising for a prolonged period of time
-is not recommended.
+It is generally recommended that the user first press a button on the Hotspot to activate the BLE
+advertising. Alternatively, enabling BLE for ~5 minutes after power up is acceptable. Maintaining
+BLE advertising for a prolonged period of time is not recommended.
 
-Hotspot Makers make develop their own BLE service which complies with the
-specification herein. In addition, they may leverage Helium's open-source
-example: [`gateway-config`](https://github.com/helium/gateway-config)
+Hotspot Makers make develop their own BLE service which complies with the specification herein. In
+addition, they may leverage Helium's open-source example:
+[`gateway-config`](https://github.com/helium/gateway-config)
 
 :::info
 
 Data may need to be serialized or de-serialized to
-[Protocol Buffers](https://developers.google.com/protocol-buffers) depending on
-the BLE Characteristic. The Protocol Buffers message definitions are listed
-below. For data that are listed as ASCII string, they can be directly
-interpreted as ASCII strings.
+[Protocol Buffers](https://developers.google.com/protocol-buffers) depending on the BLE
+Characteristic. The Protocol Buffers message definitions are listed below. For data that are listed
+as ASCII string, they can be directly interpreted as ASCII strings.
 
 :::
 

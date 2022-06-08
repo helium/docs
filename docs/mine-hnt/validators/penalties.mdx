@@ -7,13 +7,20 @@ slug: /mine-hnt/validators/penalties
 
 # Validator Penalties and Impact on Rewards
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-Validators are a new entity on the Helium Blockchain that will perform the work of the consensus group including verifying transactions and adding new blocks to the blockchain. As Validators will play an important role in the expansion, stability and success of the Helium network moving forward, it's critical that community run Validators meet the performance requirements of their role.
+Validators are a new entity on the Helium Blockchain that will perform the work of the consensus
+group including verifying transactions and adding new blocks to the blockchain. As Validators will
+play an important role in the expansion, stability and success of the Helium network moving forward,
+it's critical that community run Validators meet the performance requirements of their role.
 
-The consensus group is made up of Validator nodes that are rewarded with $HNT for working together to verify transactions and producing blocks.
+The consensus group is made up of Validator nodes that are rewarded with $HNT for working together
+to verify transactions and producing blocks.
 
-However, if a Validator node prevents the consensus group from performing its task, for example if it provides insufficient computing resources or has a weak network connection (equally strong upstream and downstream is needed), the Validator node will incur penalties that can affect the amount of rewards earned.
+However, if a Validator node prevents the consensus group from performing its task, for example if
+it provides insufficient computing resources or has a weak network connection (equally strong
+upstream and downstream is needed), the Validator node will incur penalties that can affect the
+amount of rewards earned.
 
 :::tip Before you continue
 
@@ -21,7 +28,9 @@ Be sure to first review the [Validator Technical Requirements](/mine-hnt/validat
 
 :::
 
-First, we'll discuss the consensus group election process and the roles penalties play during these events. Then we'll discuss how penalties are "earned" and "burned" to better understand the overall process.
+First, we'll discuss the consensus group election process and the roles penalties play during these
+events. Then we'll discuss how penalties are "earned" and "burned" to better understand the overall
+process.
 
 ## The Election Process
 
@@ -29,77 +38,110 @@ First, we'll discuss the consensus group election process and the roles penaltie
 
 HNT rewards are earned by Validators when they participate in Consensus Groups.
 
-Therefore, Validators with higher penalties than their peers will be chosen less _and_ will participate in consensus for shorter time periods. **Penalties directly affect your rewards.**
+Therefore, Validators with higher penalties than their peers will be chosen less _and_ will
+participate in consensus for shorter time periods. **Penalties directly affect your rewards.**
 
 :::
 
-At the end of each consensus group, an election is performed. During this election process, 25% of the Validators in the current consensus group are chosen to be ejected and replaced with non-elected Validators.
+At the end of each consensus group, an election is performed. During this election process, 25% of
+the Validators in the current consensus group are chosen to be ejected and replaced with non-elected
+Validators.
 
 Penalties play a role in both the ejection and election processes:
 
 **25% of the Validators in the consensus group are ejected:**
 
-- This is a probabilistic determination based on the current penalty scores of the Validators in the current consensus group.
+- This is a probabilistic determination based on the current penalty scores of the Validators in the
+  current consensus group.
 - Validators with _higher_ penalty score will have a _higher_ chance of being ejected
 - Validators with _lower_ penalty score will have a _lower_ chance of being ejected
 
 **The ejected 25% is replaced by available Validators:**
 
-- This is also probabilistic, based on the current penalty scores of the Validators available to be included in the consensus group.
+- This is also probabilistic, based on the current penalty scores of the Validators available to be
+  included in the consensus group.
 - Validators with _higher_ penalty score will have a _lower_ chance of being elected
 - Validators with _lower_ penalty score will have a _higher_ chance of being elected
 
-It's important to understand that elections are still based on probability. Merely having a high penalty will not ensure a Validator is removed from a consensus group. By contrast, having a low penalty score does not ensure that a Validator will _remain_ in a consensus group.
+It's important to understand that elections are still based on probability. Merely having a high
+penalty will not ensure a Validator is removed from a consensus group. By contrast, having a low
+penalty score does not ensure that a Validator will _remain_ in a consensus group.
 
 ## Penalty Types
 
-Now that there's a high-level description of how penalties affect the election process, let's define how penalties are assessed:
+Now that there's a high-level description of how penalties affect the election process, let's define
+how penalties are assessed:
 
 ### Tenure Penalty (Consensus Group Participation)
 
-To ensure that consensus groups members are continually churned, and that no individual Validator participates for too long, penalties are added. **This is not a performance based penalty and is added to _all_ Validators that participate in a consensus group.**
+To ensure that consensus groups members are continually churned, and that no individual Validator
+participates for too long, penalties are added. **This is not a performance based penalty and is
+added to _all_ Validators that participate in a consensus group.**
 
-- A tenure penalty of `0.5` is added at the beginning of each consensus group for each Validator participating in that group. If the Validator is not ejected from the consensus group, it will receive another `0.5` penalty at the beginning of each subsequent epoch.
-- This penalty is called the `tenure_penalty` and is a chain variable. You can view this variable by running `miner ledger variables tenure_penalty`.
-- At the start of each epoch, any performance penalties that have been accumulated during the prior epoch will be applied to each member of the outgoing consensus group.
+- A tenure penalty of `0.5` is added at the beginning of each consensus group for each Validator
+  participating in that group. If the Validator is not ejected from the consensus group, it will
+  receive another `0.5` penalty at the beginning of each subsequent epoch.
+- This penalty is called the `tenure_penalty` and is a chain variable. You can view this variable by
+  running `miner ledger variables tenure_penalty`.
+- At the start of each epoch, any performance penalties that have been accumulated during the prior
+  epoch will be applied to each member of the outgoing consensus group.
 
 ### DKG (Distributed Key Generation) Penalty
 
-A DKG penalty can occur if an election fails, and the Validator was part of the reason for the election to fail. This can occur throughout the dkg process or signature phase.
+A DKG penalty can occur if an election fails, and the Validator was part of the reason for the
+election to fail. This can occur throughout the dkg process or signature phase.
 
-- At the end of the election, all Validators vote and sign the election result. If the election fails, Validators that a majority agree did not sign the election results are penalized.
-- This penalty can be assessed for Validators in the current consensus group _or_ Validators attempting to be elected into the consensus group.
+- At the end of the election, all Validators vote and sign the election result. If the election
+  fails, Validators that a majority agree did not sign the election results are penalized.
+- Failed elections are significant to the network as they prevent new groups from being elected and
+  rewards from being issued to all network participants including Hotspots.
+- This penalty can be assessed for Validators in the current consensus group _or_ Validators
+  attempting to be elected into the consensus group.
 - This penalty can be applied once per consensus group per Validator.
-- The amount applied is a chain variable, currently set at `1.0`. The variable is viewable by running `miner ledger variables dkg_penalty`.
+- The amount applied is a chain variable was originally set at `1.0` and was changed to `5.0` as of
+  block 1,107,995. The variable is viewable by running `miner ledger variables dkg_penalty`.
 
 :::info
 
-Learn more about [Distributed Key Generation](https://en.wikipedia.org/wiki/Distributed_key_generation)
+Learn more about
+[Distributed Key Generation](https://en.wikipedia.org/wiki/Distributed_key_generation)
 
 :::
 
 ### Performance Penalty
 
-The details of the HoneyBadgerBFT protocol used is out of scope for this document, but this can be read more about [here](https://eprint.iacr.org/2016/199.pdf). What's important is that there are a few different types of failures that will create performance penalties that can be applied to a Validator while in consensus:
+The details of the HoneyBadgerBFT protocol used is out of scope for this document, but this can be
+read more about [here](https://eprint.iacr.org/2016/199.pdf). What's important is that there are a
+few different types of failures that will create performance penalties that can be applied to a
+Validator while in consensus:
 
 **Seen Penalties**
 
-- This penalty can occur if a majority of other Validators in the consensus group report your Validator as not being "seen"
-- This is equivalent to the Validator being offline, not available, or not communicating with the group.
-- This penalty is applied for each occurrence, which can happen multiple times during a consensus group.
-- The amount applied per occurrence is a chain variable, currently set at `0.33`. The variable is viewable by running `miner ledger variables election_seen_penalty`.
+- This penalty can occur if a majority of other Validators in the consensus group report your
+  Validator as not being "seen"
+- This is equivalent to the Validator being offline, not available, or not communicating with the
+  group.
+- This penalty is applied for each occurrence, which can happen multiple times during a consensus
+  group.
+- The amount applied per occurrence is a chain variable, currently set at `0.33`. The variable is
+  viewable by running `miner ledger variables election_seen_penalty`.
 
 **BBA (Byzantine Binary Agreement) Penalties**
 
-- This penalty can occur when the Validator is seen but fails to contribute a bundle of transactions and metadata to the block.
+- This penalty can occur when the Validator is seen but fails to contribute a bundle of transactions
+  and metadata to the block.
 - Acquiring this penalty usually means the Validator is slow/underpowered, or poorly connected.
-- This may also occur if the time on your Validator is skewed vs the group time. [Run `ntp`](https://en.wikipedia.org/wiki/Network_Time_Protocol)!
-- This penalty is applied for each occurrence, which can happen multiple times during a consensus group.
-- The amount applied per occurrence is a chain variable, currently set at `0.1`. The variable is viewable by running `miner ledger variables election_bba_penalty`.
+- This may also occur if the time on your Validator is skewed vs the group time.
+  [Run `ntp`](https://en.wikipedia.org/wiki/Network_Time_Protocol)!
+- This penalty is applied for each occurrence, which can happen multiple times during a consensus
+  group.
+- The amount applied per occurrence is a chain variable, currently set at `0.1`. The variable is
+  viewable by running `miner ledger variables election_bba_penalty`.
 
 :::info
 
-Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_fault) and their affect on [Consensus](<https://en.wikipedia.org/wiki/Consensus_(computer_science)>)
+Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_fault) and their
+affect on [Consensus](<https://en.wikipedia.org/wiki/Consensus_(computer_science)>)
 
 :::
 
@@ -107,9 +149,13 @@ Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_
 
 Penalties decay as blocks are formed.
 
-This decay rate is in blocks, and is stored as a chain variable. View the current decay block limit by running `miner ledger variables penalty_history_limit`. This value is set to `20160` blocks for mainnet, or a target of 2 weeks.
+This decay rate is in blocks, and is stored as a chain variable. View the current decay block limit
+by running `miner ledger variables penalty_history_limit`. This value is set to `20160` blocks for
+mainnet, or a target of 2 weeks.
 
-To phrase it in a different way, every time a penalty is assessed it begins to decay at `penalty * (1 - age/penalty_history_limit)` where `age` is the number of blocks that have occurred since the penalty was put in place.
+To phrase it in a different way, every time a penalty is assessed it begins to decay at
+`penalty * (1 - age/penalty_history_limit)` where `age` is the number of blocks that have occurred
+since the penalty was put in place.
 
 Each penalty accrued decays to `0.0` in `20160` blocks, regardless of its initial magnitude.
 
@@ -117,17 +163,21 @@ Each penalty accrued decays to `0.0` in `20160` blocks, regardless of its initia
 
 Through these rules, the penalties help maintain the the goals of the Validator network:
 
-- Ensuring that poor performing Validators have a less favorable chance of being included in a consensus group
+- Ensuring that poor performing Validators have a less favorable chance of being included in a
+  consensus group
 - Ensuring that poor performing Validators have an increased chance of being ejected in an election
-- A more even distribution of rewards by increasing a Validator's chance for ejection as they participate in sequential consensus groups
+- A more even distribution of rewards by increasing a Validator's chance for ejection as they
+  participate in sequential consensus groups
 
 ## Viewing Your Penalties
 
-There are a several tools available to you to view the current penalties of your validator, all validators, or ones currently elected to the consensus group.
+There are a several tools available to you to view the current penalties of your validator, all
+validators, or ones currently elected to the consensus group.
 
 **Viewing the Ledger**
 
-Metadata about validators, as well as current penalty data, is available in the ledger. View the ledger by running the following command:
+Metadata about validators, as well as current penalty data, is available in the ledger. View the
+ledger by running the following command:
 
 ```
 miner ledger validators
@@ -157,9 +207,12 @@ You'll receive an output similar to this:
 - `tenure_penalty` As defined above
 - `dkg_penalty` As defined above
 - `performance_penalty` This is a combination of both the Seen and BBA penalties as defined above
-- `total_penalty` This is the simple addition of `tenure_penalty`, `dkg_penalty` and `performance_penalty`
+- `total_penalty` This is the simple addition of `tenure_penalty`, `dkg_penalty` and
+  `performance_penalty`
 
-You can get the Docker console width limitation by adding `--format csv` to the `miner` command to receive a csv formatted output that should not be cut off. This is useful for scripting output into other systems, especially combined with `| grep 3word-validator-name` commands to filter output:
+You can get the Docker console width limitation by adding `--format csv` to the `miner` command to
+receive a csv formatted output that should not be cut off. This is useful for scripting output into
+other systems, especially combined with `| grep 3word-validator-name` commands to filter output:
 
 `miner ledger validators --format csv | grep 3word-validator-name`
 
