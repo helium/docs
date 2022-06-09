@@ -4,8 +4,7 @@ title: Style Guide
 sidebar_label: Style Guide
 ---
 
-You can write content using
-[GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
+You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
 
 ## Markdown Syntax
 
@@ -68,9 +67,8 @@ Strikethrough uses two tildes. ~~Scratch this.~~
 
 Or leave it empty and use the [link text itself].
 
-URLs and URLs in angle brackets will automatically get turned into links.
-http://www.example.com/ or <http://www.example.com/> and sometimes example.com
-(but not on GitHub, for example).
+URLs and URLs in angle brackets will automatically get turned into links. http://www.example.com/ or
+<http://www.example.com/> and sometimes example.com (but not on GitHub, for example).
 
 Some text to show that the reference links can follow later.
 
@@ -85,16 +83,16 @@ Some text to show that the reference links can follow later.
 Here's our logo (hover to see the title text):
 
 Inline-style:
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png 'Logo Title Text 1')
 
 Reference-style: ![alt text][logo]
 
 [logo]:
   https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png
-  "Logo Title Text 2"
+  'Logo Title Text 2'
 
-Images from any folder can be used by providing path to file. Path should be
-relative to markdown file.
+Images from any folder can be used by providing path to file. Path should be relative to markdown
+file.
 
 ![img](../static/img/icons/logo.svg)
 
@@ -103,8 +101,8 @@ relative to markdown file.
 ## Code
 
 ```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
+var s = 'JavaScript syntax highlighting'
+alert(s)
 ```
 
 ```python
@@ -119,7 +117,7 @@ But let's throw in a <b>tag</b>.
 
 ```js {2}
 function highlightMe() {
-  console.log("This line can be highlighted!");
+  console.log('This line can be highlighted!')
 }
 ```
 
@@ -135,9 +133,8 @@ Colons can be used to align columns.
 | col 2 is      |   centered    |   \$12 |
 | zebra stripes |   are neat    |    \$1 |
 
-There must be at least 3 dashes separating each header cell. The outer pipes (|)
-are optional, and you don't need to make the raw Markdown line up prettily. You
-can also use inline Markdown.
+There must be at least 3 dashes separating each header cell. The outer pipes (|) are optional, and
+you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.
 
 | Markdown | Less      | Pretty     |
 | -------- | --------- | ---------- |
@@ -148,14 +145,13 @@ can also use inline Markdown.
 
 ## Blockquotes
 
-> Blockquotes are very handy in email to emulate reply text. This line is part
-> of the same quote.
+> Blockquotes are very handy in email to emulate reply text. This line is part of the same quote.
 
 Quote break.
 
-> This is a very long line that will still be quoted properly when it wraps. Oh
-> boy let's keep writing to make sure this is long enough to actually wrap for
-> everyone. Oh, you can _put_ **Markdown** into a blockquote.
+> This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep
+> writing to make sure this is long enough to actually wrap for everyone. Oh, you can _put_ >
+> **Markdown** into a blockquote.
 
 ---
 
@@ -175,11 +171,10 @@ Quote break.
 
 Here's a line for us to start with.
 
-This line is separated from the one above by two newlines, so it will be a
-_separate paragraph_.
+This line is separated from the one above by two newlines, so it will be a _separate paragraph_.
 
-This line is also a separate paragraph, but... This line is only separated by a
-single newline, so it's a separate line in the _same paragraph_.
+This line is also a separate paragraph, but... This line is only separated by a single newline, so
+it's a separate line in the _same paragraph_.
 
 ---
 
