@@ -26,6 +26,7 @@ Current settings that can be set via Profiles:
 
 - [ADR](#adr)
 - [CF List](#cf-list)
+- [Receive Window Delay](#receive-window-delay)
 
 :::info
 
@@ -70,6 +71,23 @@ setting is enabled.
   command.
 
 **Notes:** By default this setting is disabled and only applicable to US915 devices.
+
+## Receive Window Delay
+
+This setting allows users to specify the number of seconds the device's first receive window begins
+after the transmit ends.
+
+The range window can be adjusted from 1 (default) to 15 seconds.
+
+A higher number increases the receive delay window and generally can increase downlink reliability
+as higher latencies between the LoRaWAN gateway and network server will be tolerated.
+
+However, devices that suffer from drift may not work as well and a longer delay reduces the
+theoretical maximum rate of communication since a subsequent transmit may only be accomplished after
+both receive windows.
+
+Note: According to the LoRaWAN spec, the second receive window always begins one second after the
+first.
 
 ## Creating Profiles
 
