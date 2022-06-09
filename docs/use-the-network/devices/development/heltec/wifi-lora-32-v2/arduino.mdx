@@ -5,19 +5,19 @@ sidebar_label: Arduino
 slug: /use-the-network/devices/development/heltec/wifi-lora-32-v2/arduino
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Heltec WiFi LoRa 32 V2 Arduino Guide
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 ## Introduction to Guide
 
 :::important
 
-Before we begin, please make sure you've followed the steps from this guide,
-which goes over some initial setup steps.
+Before we begin, please make sure you've followed the steps from this guide, which goes over some
+initial setup steps.
 
 :::
 
@@ -26,10 +26,8 @@ which goes over some initial setup steps.
 In this guide, you will learn:
 
 - How to setup your environment
-- How to program a basic application that will send packets over the Helium
-  Network
-- Verify real-time packets sent to the Helium Console via Hotspot that's in
-  range
+- How to program a basic application that will send packets over the Helium Network
+- Verify real-time packets sent to the Helium Console via Hotspot that's in range
 
 For this example, you will need the following:
 
@@ -48,20 +46,19 @@ For this example, you will need the following:
 
 ### Adding the Antenna
 
-Your board should have come with a U.FL antenna. All you have to do is attache
-it to the U.FL port as shown in the image at the top of the guide.
+Your board should have come with a U.FL antenna. All you have to do is attache it to the U.FL port
+as shown in the image at the top of the guide.
 
 ### Connect Board
 
-Next, lets connect our board to our computer with a USB 2.0 A-Male to Micro B
-cable.
+Next, lets connect our board to our computer with a USB 2.0 A-Male to Micro B cable.
 
 ## Software Setup
 
 ### Getting the Arduino IDE
 
-Download and install the latest version of
-[Arduino IDE](https://www.arduino.cc/en/Main/Software) for your preferred OS.
+Download and install the latest version of [Arduino IDE](https://www.arduino.cc/en/Main/Software)
+for your preferred OS.
 
 - [Windows](https://www.arduino.cc/en/Guide/Windows)
 - [Linux](https://www.arduino.cc/en/Guide/Linux)
@@ -69,20 +66,19 @@ Download and install the latest version of
 
 ### Arduino Board Support
 
-The Heltec WiFi LoRa 32 V2 requires one Arduino board support package. Follow
-the instructions below to install.
+The Heltec WiFi LoRa 32 V2 requires one Arduino board support package. Follow the instructions below
+to install.
 
 #### Arduino-ESP32
 
 To install, open your Arduino IDE:
 
-1. Navigate to **\(File &gt; Preferences\), \(Arduino &gt; Preferences\) on
-   MacOS.**
+1. Navigate to **\(File &gt; Preferences\), \(Arduino &gt; Preferences\) on MacOS.**
 2. Find the section at the bottom called **Additional Boards Manager URLs:**
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-preferences.png"
+    'img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-preferences.png',
   )}
 />
 
@@ -102,36 +98,33 @@ Next, to install this board support package:
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-board-support.png"
+    'img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-board-support.png',
   )}
 />
 
 ### Arduino Library
 
-To communicate with Helium's LoRaWAN network, we'll need to install two Arduino
-libraries.
+To communicate with Helium's LoRaWAN network, we'll need to install two Arduino libraries.
 
 #### Heltec ESP32
 
 To install, open your Arduino IDE:
 
-1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage
-   Libraries**\).
-2. In the search box, type **Heltec ESP32** into the search, select the version
-   shown below, and click Install.
+1. Navigate to Library Manager \(**Sketch &gt; Include Library &gt; Manage Libraries**\).
+2. In the search box, type **Heltec ESP32** into the search, select the version shown below, and
+   click Install.
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-library.png"
+    'img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-library.png',
   )}
 />
 )
 
 #### Heltec ESP32 LoRaWAN
 
-Download
-[this](https://github.com/HelTecAutomation/ESP32_LoRaWAN/archive/master.zip)
-find into the directory below and unzip.
+Download [this](https://github.com/HelTecAutomation/ESP32_LoRaWAN/archive/master.zip) find into the
+directory below and unzip.
 
 ```text
 linux: /home/{user}/Arduino/libraries
@@ -162,74 +155,69 @@ Arduino IDE:
 4. Wait for Done uploading message
 5. Select Tools -&gt; Serial Monitor Serial Monitor Window
 6. Select 115200 baud from bottom right dropdown.
-7. You should see something that looks like this every second
-   `ESP32 Chip ID = ############`
+7. You should see something that looks like this every second `ESP32 Chip ID = ############`
 8. Save this Chip ID
 
 #### Obtain License Key with Chip ID
 
 1. Go to [resource.heltec.cn/search](http://resource.heltec.cn/search)
 2. Enter ChipID
-3. Save license field, will look like
-   `0x########,0x#########,0x########,0x########`
+3. Save license field, will look like `0x########,0x#########,0x########,0x########`
 
 ### Programming **Example Sketch**
 
-Now that we have the required Arduino board support and library installed, lets
-program the board with the provided example sketch.
+Now that we have the required Arduino board support and library installed, lets program the board
+with the provided example sketch.
 
-To create a new Arduino sketch, open your Arduino IDE, \(**File &gt; New\).**
-Next, replace the template sketch with the sketch found
+To create a new Arduino sketch, open your Arduino IDE, \(**File &gt; New\).** Next, replace the
+template sketch with the sketch found
 [here](https://github.com/helium/longfi-arduino/blob/master/Heltec-WiFi-LoRa-32-V2/longfi-us915/longfi-us915.ino),
 copy and paste the entirety of it.
 
-Next we'll need to fill in the AppEUI\(msb\), DevEUI\(msb\), and AppKey\(msb\),
-in the sketch, which you can find on the device details page on Console. Be sure
-to use the formatting buttons to match the endianess and formatting required for
-the sketch, shown below.
+Next we'll need to fill in the AppEUI\(msb\), DevEUI\(msb\), and AppKey\(msb\), in the sketch, which
+you can find on the device details page on Console. Be sure to use the formatting buttons to match
+the endianess and formatting required for the sketch, shown below.
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-console-device-details.png"
+    'img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-console-device-details.png',
   )}
 />
 
-At the top of the sketch, replace the three **FILL_ME_IN** fields, with the
-matching field from Console, example shown below.
+At the top of the sketch, replace the three **FILL_ME_IN** fields, with the matching field from
+Console, example shown below.
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-sketch-keys.png"
+    'img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-sketch-keys.png',
   )}
 />
 )
 
+Finally, we will paste in the License Key we obtained above to the sketch. Replace the values in
+license[4] with the key obtained from [resource.heltec.cn/search](http://resource.heltec.cn/search)
+
+![image](https://user-images.githubusercontent.com/15837044/159526939-543bfb34-9651-426d-8089-85ce07ee477e.png)
+
 ### Selecting Port
 
-Next, we need to select the correct Serial port in the Arduino IDE. Navigate to
-\(**Tools &gt; Port: COM\#/ttyACM\#**\). You will also see either **COM\# or
-/dev/ttyACM\#** depending on whether you are on Windows, Mac, or Linux. If you
-do not see a port, please visit the Drivers section in
+Next, we need to select the correct Serial port in the Arduino IDE. Navigate to \(**Tools &gt; Port:
+COM\#/ttyACM\#**\). You will also see either **COM\# or /dev/ttyACM\#** depending on whether you are
+on Windows, Mac, or Linux. If you do not see a port, please visit the Drivers section in
 [Heltec's docs](https://heltec-automation-docs.readthedocs.io/en/latest/general/establish_serial_connection.html)
 to make sure you have what's needed for your operating system.
 
 ### Select LoRaWAN Region
 
-The last step before we upload our sketch is to select the correct LoRaWAN
-Region, navigate to **\(Tools &gt; LoRaWAN Region: &gt; REGION_US915\).**
-
-### Select **Uplink Mode**
-
-The last step before we upload our sketch is to select the LoRaWAN Uplink Mode,
-navigate to **\(Tools &gt; LoRaWAN Uplink Mode: &gt; UNCONFIRMED\).**
+The last step before we upload our sketch is to select the correct LoRaWAN Region, navigate to
+**\(Tools &gt; LoRaWAN Region: &gt; REGION_US915\).**
 
 ### Required Change to Default DataRate
 
-In this example sketch, ADR is turned off, therefore you must manually set the
-desired data rate for your payload size manually. This library uses a default
-data rate that is not supported by the Helium Network so you must change it to
-one in the following range DR_0 - DR_4. To do this change the default data rate
-on line 20 in the file found below for your operating system
+In this example sketch, ADR is turned off, therefore you must manually set the desired data rate for
+your payload size manually. This library uses a default data rate that is not supported by the
+Helium Network so you must change it to one in the following range DR_0 - DR_4. To do this change
+the default data rate on line 20 in the file found below for your operating system
 
 `linux: /home/{user}/Arduino/libraries/ESP32_LoRaWAN-master/src/ESP32_LoRaWAN.cpp`
 
@@ -252,63 +240,54 @@ If you don't want to change data rate manually,
 
 ### Upload Sketch
 
-We're finally ready to upload our sketch to the board. In the Arduino IDE, click
-the right arrow button, or navigate to \(**Sketch &gt; Upload\),** to build and
-upload your new firmware to the board. You should see something similar to the
-image below at the bottom of your Arduino IDE, when the upload is successful.
+We're finally ready to upload our sketch to the board. In the Arduino IDE, click the right arrow
+button, or navigate to \(**Sketch &gt; Upload\),** to build and upload your new firmware to the
+board. You should see something similar to the image below at the bottom of your Arduino IDE, when
+the upload is successful.
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-upload-sketch.png"
+    'img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-upload-sketch.png',
   )}
 />
 )
 
 ### Viewing Serial Output <a id="viewing-serial-output"></a>
 
-When your firmware update completes, the board will reset, and begin by joining
-the network. Let's use the Serial Monitor in the Arduino IDE to view the output
-from the board. We first need to select the serial port again, but this time it
-will be a **different port** than the one we selected to communicate with the
-bootloader. Once again, navigate to \(**Tools &gt; Port: COM\#/ttyACM\#**\), but
-make sure the serial device, either COM\# or ttyACM\#, is different! Next
-navigate to \(**Tools &gt; Serial Monitor**\), you should begin to see output
-similar to below.
+When your firmware update completes, the board will reset, and begin by joining the network. Let's
+use the Serial Monitor in the Arduino IDE to view the output from the board. We first need to select
+the serial port again, but this time it will be a **different port** than the one we selected to
+communicate with the bootloader. Once again, navigate to \(**Tools &gt; Port: COM\#/ttyACM\#**\),
+but make sure the serial device, either COM\# or ttyACM\#, is different! Next navigate to \(**Tools
+&gt; Serial Monitor**\), you should begin to see output similar to below.
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-debug-terminal.png"
+    'img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-arduino-debug-terminal.png',
   )}
 />
 )
 
-Your device may take several minutes to join and begin to send uplink packets
-because the library is designed to work in several LoRaWAN regions and networks.
-Because of this, the firmware will attempt different sub-bands until it is
-successful. If you would like to change the default channel mask in the library
-to speed up this process you can make the following change below in the file
-specified.
+Your device may take several minutes to join and begin to send uplink packets because the library is
+designed to work in several LoRaWAN regions and networks. Because of this, the firmware will attempt
+different sub-bands until it is successful. If you would like to change the default channel mask in
+the library to speed up this process you can make the following change below the sketch.
 
-**Change lines 343-348 to:**
+**Change line 59 to:**
 
 ```text
-channelsMaskTemp[0] = 0xFF00;
-channelsMaskTemp[1] = 0x0000;
-channelsMaskTemp[2] = 0x0000;
-channelsMaskTemp[3] = 0x0000;
-channelsMaskTemp[4] = 0x0002;
-channelsMaskTemp[5] = 0x0000;
+uint16_t userChannelsMask[6]={ 0xFF00,0x0000,0x0000,0x0000,0x0002,0x0000 };
 ```
 
-Now let's head back to [Helium Console](https://console.helium.com) and look at
-our device page, you should see something similar to the screenshot below.
+Now let's head back to [Helium Console](https://console.helium.com) and look at our device page, you
+should see something similar to the screenshot below.
 
 <img
   src={useBaseUrl(
-    "img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-console-event-graph.png"
+    'img/use-the-network/devices/development/heltec-wifi-lora-32-v2/heltec-wifi-lora-32-v2-console-event-graph.png',
   )}
 />
 
-Congratulations! You have just transmitted data on the Helium network! The next
-step is to learn how to use your device data to build applications, visit our
-Integrations docs [here](/use-the-network/console/integrations).
+Congratulations! You have just transmitted data on the Helium network! The next step is to learn how
+to use your device data to build applications, visit our Integrations docs
+[here](/use-the-network/console/integrations).

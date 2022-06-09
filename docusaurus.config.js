@@ -8,6 +8,7 @@ module.exports = {
   organizationName: 'helium', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
   themeConfig: {
+    hideableSidebar: true,
     googleAnalytics: {
       trackingID: 'UA-52432858-10',
     },
@@ -31,7 +32,7 @@ module.exports = {
     announcementBar: {
       id: 'join_discord',
       content:
-        '<a href="/use-the-network/console">Console 2.0 has arrived! Read more and get started here!</a>',
+        '<a href="/use-the-network/console">Console updates has arrived! Read more and get started here!</a>',
       backgroundColor: '#474DFF',
       textColor: '#FFFFFF',
       isCloseable: true,
@@ -45,6 +46,15 @@ module.exports = {
         srcDark: 'img/logowhite.svg',
       },
       items: [
+
+        {
+          to: '/use-the-network/console',
+          label: 'Try the New Console Today',
+          position: 'right',
+          activeBaseRegex: `docs`,
+          className: 'announcementnav',
+        },
+
 
         {
           to: '/',
