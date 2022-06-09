@@ -317,11 +317,13 @@ Now that you have your Validator running, you need to
   <summary>Deploy Validator from Source</summary>
   <p>
 
-Ok, brave soul. Here's what you'll need to build and deploy the miner from source:
+Ok, brave soul. All of the information here can and will change but this document should help you
+get across the finish line. Here's what you'll need to build and deploy the miner from source:
 
 - miner
 - Erlang package (the latest 22 or 23 versions are supported, the 24 release candidate will NOT
   work)
+
 - `libwxgtk` package
 - git
 
@@ -331,13 +333,9 @@ Before we get started, make sure you're fully up to date:
 sudo apt-get update -y
 ```
 
-Next, let's install all the things. Start by cloning the `miner` repo on GitHub:
+#### Next, let's install all the things.
 
-```
-git clone https://github.com/helium/miner.git
-```
-
-Then proceed to get you some Erlang (here we're specifying `22.3.1`):
+Get you some Erlang (here we're specifying `22.3.1`):
 
 ```
 wget https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
@@ -384,6 +382,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-h
 
 #This allows you to proceed without logging out and logging in on the server
 source $HOME/.cargo/env
+
 ```
 
 Then navigate to your `miner` directory:
@@ -395,13 +394,21 @@ cd miner
 Build the `miner`
 
 ```
-./rebar3 as validator release
+./rebar3 as validator do release -n miner -v 1.x.x
 ```
 
-Then start the `miner`:
+> Go get a cup of coffee and wait for the build to finish.
+
+Start the `miner`:
 
 ```
 _build/validator/rel/miner/bin/miner start
+```
+
+Build the `miner as a tar package`
+
+```
+./rebar3 as validator do tar -n miner -v 1.x.x
 ```
 
 #### Load the Genesis Block
