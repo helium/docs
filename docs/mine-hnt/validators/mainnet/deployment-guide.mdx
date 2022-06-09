@@ -129,17 +129,32 @@ You have three options for deploying the Validator. The deb package, a community
 package by PaulVMo, is the least complex to deploy and has very high performance. The Source build
 has the highest level of complexity to deploy, requires a higher level of Linux technical expertise,
 and also has very high performance. The docker version is less complex to deploy than Source, if you
-already have experience with Docker, but does not perform as well as the other two options. You only
-need to do ONE of the following:
+already have experience with Docker, but does not perform as well as the other two options. The
+debian package and docker options are also the simplest to deploy and maintain when running multiple
+validator instances on a single host.
 
-- [Deploy the Validator from deb package](https://github.com/PaulVMo/helium-validator-deb)
-- [Deploy the Validator Using Docker](#deploy-the-validator-using-docker)
-- [Build the Validator from Source](#deploy-validator-from-source)
+Performance comparison of three validators on a single 16 vCPU bare metal server, showing validation
+times from absorb_and_commit. Bottom line in graph is source build, middle is debian package, top is
+quay docker image.
+
+<p align="center">
+  <img
+    src="https://cdn.discordapp.com/attachments/857353417739730954/934259908692561990/unknown.png"
+    width="800"
+    title="absorb_and_commit performance metrics"
+  ></img>
+</p>
+
+You only need to do ONE of the following:
+
+[Deploy the Validator from deb package](https://github.com/PaulVMo/helium-validator-deb)
 
 NOTE: After deploying the deb package, come back to this page to perform the remaining steps
 starting at [Enable Firewall on the server](#enable-firewall-on-the-server)
 
-### Deploy the Validator Using Docker
+<details>
+  <summary>Deploy the Validator Using Docker</summary>
+  <p>
 
 Start by updating your packager manager registry:
 
@@ -247,26 +262,6 @@ Please watch and respond to upgrade requests on the `#validators-announcements` 
 
 :::
 
-#### Upgrade your Docker container
-
-To do manual upgrades, the latest miner tag
-[can be found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
-
-To upgrade your docker container to the latest version, do the following. These commands will stop
-the running container then delete it; pull an updated Validator docker image from the repository;
-and finally delete any out of date Validator docker images.
-
-```
-docker stop validator && docker rm validator
-
-docker pull quay.io/team-helium/validator:latest-validator-amd64
-
-docker image prune -f
-```
-
-Finally, re-launch docker with the same command as above under the
-[Run the Docker Container](#deploy-the-validator-using-docker) section.
-
 #### Interact with the Validator within the Container
 
 You may want to interrogate the Validator or interact with it. Docker's `exec` command enables this.
@@ -288,6 +283,26 @@ And start the container again as described above, but with the new release tag.
 And thanks to the `--mount option`, the blockchain data and the validator keys are preserved through
 updates.
 
+### Upgrading your Docker container
+
+To do manual upgrades, the latest miner tag
+[can be found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
+
+To upgrade your docker container to the latest version, do the following. These commands will stop
+the running container then delete it; pull an updated Validator docker image from the repository;
+and finally delete any out of date Validator docker images.
+
+```
+docker stop validator && docker rm validator
+
+docker pull quay.io/team-helium/validator:latest-validator-amd64
+
+docker image prune -f
+```
+
+Finally, re-launch docker with the same command as above under the
+[Run the Docker Container](#run-the-docker-container) section.
+
 :::info
 
 Now that you have your Validator running, you need to
@@ -295,7 +310,12 @@ Now that you have your Validator running, you need to
 
 :::
 
-### Deploy Validator from Source
+  </p>
+</details>
+
+<details>
+  <summary>Deploy Validator from Source</summary>
+  <p>
 
 Ok, brave soul. Here's what you'll need to build and deploy the miner from source:
 
@@ -342,7 +362,7 @@ sudo dpkg -i libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb
 sudo apt update -y
 ```
 
-Then onto Erlang. First `unpack` then `install`:
+Then on to Erlang. First `unpack` then `install`:
 
 ```
 sudo dpkg -i esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
@@ -397,7 +417,12 @@ miner genesis load </absolute/path/to/genesis/block>
 Note that in the above `miner` command, the `miner` binary here is nested within
 `_build/validator/rel/miner/bin/miner`.
 
-#### Enable Firewall on the server
+  </p>
+</details>
+
+After deploying one of the above three options, perform the remaining steps starting here:
+
+### Enable Firewall on the server
 
 It's good practice to restrict access to the server and you should allow access only to ports that
 are needed. If you also use node_exporter or a different type of exporter for monitoring, you should
@@ -417,7 +442,7 @@ sudo ufw allow 2154/tcp
 sudo ufw allow 8080/tcp
 ```
 
-#### A Note on Errors
+## A Note on Errors
 
 Source builders have sometimes reported error messages (after the miner has been running well for a
 while) referencing `Too many open files`. This can occur when a `ulimit` limitation is exceeded for
@@ -635,7 +660,7 @@ miner peer book -s
 You're looking for `listen_addrs`. If you don't have at least one, your Validator hasn't settled on
 how to tell other peers to reach it. Often this can take 15-30 mins, sometimes longer.
 
-### Copying your `swarm_key`
+### Backup your `swarm_key`
 
 Your validator's `swarm_key` is located in the `validator_data/miner` directory
 
