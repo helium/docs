@@ -5,14 +5,14 @@ sidebar_label: Console
 slug: /api/console
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 ## Console API
 
-The Console API is a set of HTTP Request that allows you to programatically
-interact with Console. It's the lowest level building block and is ideal for
-integrating with back-end services, for example.
+The Console API is a set of HTTP Request that allows you to programatically interact with Console.
+It's the lowest level building block and is ideal for integrating with back-end services, for
+example.
 
 ### Base URL
 
@@ -22,22 +22,20 @@ https://console.helium.com/api
 
 ### Authentication
 
-All Console API requests require an API Key which provides access to devices
-owned by the **organization** which owns the device. Devices are never
-associated to a single user, but instead to an organization.
+All Console API requests require an API Key which provides access to devices owned by the
+**organization** which owns the device. Devices are never associated to a single user, but instead
+to an organization.
 
-To create an account key, go to your
-[profile](https://console.helium.com/profile) on Helium Console. From the top
-right corner, click: `Account -> Profile`.
+To create an account key, go to your [profile](https://console.helium.com/profile) on Helium
+Console. From the top right corner, click: `Account -> Profile`.
 
-From there, you may generate a key for your organization. _The key will only
-display once._
+From there, you may generate a key for your organization. _The key will only display once._
 
-**You must confirm the API key** creation by clicking a link that is emailed to
-the account that created the API key.
+**You must confirm the API key** creation by clicking a link that is emailed to the account that
+created the API key.
 
-From then on, you will want to include the API key in all of your API requests.
-You do this by placing your API key in an HTTP header field called "key.
+From then on, you will want to include the API key in all of your API requests. You do this by
+placing your API key in an HTTP header field called "key.
 
 ---
 
@@ -134,9 +132,9 @@ Returns a device descriptor if device is found.
 
 _Path Parameters_
 
-| Parameter Name | Type     | Description        |
-| -------------- | -------- | ------------------ |
-| device_id (required)  | _string_ | UUID of the device |
+| Parameter Name       | Type     | Description        |
+| -------------------- | -------- | ------------------ |
+| device_id (required) | _string_ | UUID of the device |
 
 </TabItem>
 <TabItem value="response">
@@ -146,12 +144,12 @@ Device {
     "adr_allowed":(true/false),
     "app_eui": (app_eui),
     "app_key": (app_key),
-    "cf_list_enabled":(true/false), 
+    "cf_list_enabled":(true/false),
     "dc_usage": (dc_amount_used),
     "dev_eui": (dev_eui),
     "id": (device_id),
     "in_xor_filter":(true/false)
-    "labels": (labels) 
+    "labels": (labels)
     "last_connected": (time_UTC)
     "name": (device_name)
     "organization_id": (org_id)
@@ -172,6 +170,7 @@ GET https://console.helium.com/api/v1/devices/:device_id/events
 ```
 
 Returns the previous 100 events for the device if found.
+
 <Tabs
   block={true}
   defaultValue="request"
@@ -180,9 +179,9 @@ Returns the previous 100 events for the device if found.
 
 _Path Parameters_
 
-| Parameter Name | Type     | Description        |
-| -------------- | -------- | ------------------ |
-| device_id (required)  | _string_ | UUID of the device |
+| Parameter Name       | Type     | Description        |
+| -------------------- | -------- | ------------------ |
+| device_id (required) | _string_ | UUID of the device |
 
 </TabItem>
 <TabItem value="response">
@@ -246,9 +245,9 @@ Returns the previous 10 Integration events for the device if found.
 
 _Path Parameters_
 
-| Parameter Name | Type     | Description        |
-| -------------- | -------- | ------------------ |
-| device_id (required)  | _string_ | UUID of the device |
+| Parameter Name       | Type     | Description        |
+| -------------------- | -------- | ------------------ |
+| device_id (required) | _string_ | UUID of the device |
 
 </TabItem>
 <TabItem value="response">
@@ -324,8 +323,7 @@ Device {
 POST https://console.helium.com/api/v1/devices
 ```
 
-Creates a device with corresponding name, Application EUI, Application Key, and
-Device EUI.
+Creates a device with corresponding name, Application EUI, Application Key, and Device EUI.
 
 <Tabs
   block={true}
