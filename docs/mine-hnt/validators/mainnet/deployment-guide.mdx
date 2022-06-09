@@ -125,13 +125,24 @@ Validator may not be stable.
 
 :::
 
-You have three options for deploying the Validator. The deb package, a community member maintained package by PaulVMo, is the least complex to deploy and has very high performance. The Source build has the highest level of complexity to deploy, requires a higher level of Linux technical expertise, and also has very high performance. The docker version is less complex to deploy than Source, if you already have experience with Docker, but does not perform as well as the other two options. The debian package and docker options are also the simplest to deploy and maintain when running multiple validator instances on a single host.
+You have three options for deploying the Validator. The deb package, a community member maintained
+package by PaulVMo, is the least complex to deploy and has very high performance. The Source build
+has the highest level of complexity to deploy, requires a higher level of Linux technical expertise,
+and also has very high performance. The docker version is less complex to deploy than Source, if you
+already have experience with Docker, but does not perform as well as the other two options. The
+debian package and docker options are also the simplest to deploy and maintain when running multiple
+validator instances on a single host.
 
-Performance comparison of three validators on a single 16 vCPU bare metal server, showing validation times from absorb_and_commit. 
-Bottom line in graph is source build, middle is debian package, top is quay docker image.
+Performance comparison of three validators on a single 16 vCPU bare metal server, showing validation
+times from absorb_and_commit. Bottom line in graph is source build, middle is debian package, top is
+quay docker image.
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/857353417739730954/934259908692561990/unknown.png" width="800" title="absorb_and_commit performance metrics"></img>
+  <img
+    src="https://cdn.discordapp.com/attachments/857353417739730954/934259908692561990/unknown.png"
+    width="800"
+    title="absorb_and_commit performance metrics"
+  ></img>
 </p>
 
 You only need to do ONE of the following:
@@ -253,13 +264,15 @@ Please watch and respond to upgrade requests on the `#validators-announcements` 
 
 #### Interact with the Validator within the Container
 
-You may want to interrogate the Validator or interact with it. Docker's `exec` command enables this. For example:
+You may want to interrogate the Validator or interact with it. Docker's `exec` command enables this.
+For example:
 
 ```
 docker exec validator miner info height
 ```
 
-As shown above, you can prepend `docker exec validator` to any of the commands documented or create an alias such as
+As shown above, you can prepend `docker exec validator` to any of the commands documented or create
+an alias such as
 
 ```
 alias miner="docker exec validator miner"
@@ -267,13 +280,17 @@ alias miner="docker exec validator miner"
 
 And start the container again as described above, but with the new release tag.
 
-And thanks to the `--mount option`, the blockchain data and the validator keys are preserved through updates.
-    
+And thanks to the `--mount option`, the blockchain data and the validator keys are preserved through
+updates.
+
 ### Upgrading your Docker container
 
-To do manual upgrades, the latest miner tag [can be found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
+To do manual upgrades, the latest miner tag
+[can be found here](https://quay.io/repository/team-helium/validator?tag=latest&tab=tags).
 
-To upgrade your docker container to the latest version, do the following. These commands will stop the running container then delete it; pull an updated Validator docker image from the repository; and finally delete any out of date Validator docker images.
+To upgrade your docker container to the latest version, do the following. These commands will stop
+the running container then delete it; pull an updated Validator docker image from the repository;
+and finally delete any out of date Validator docker images.
 
 ```
 docker stop validator && docker rm validator
@@ -283,11 +300,13 @@ docker pull quay.io/team-helium/validator:latest-validator-amd64
 docker image prune -f
 ```
 
-Finally, re-launch docker with the same command as above under the [Run the Docker Container](#run-the-docker-container) section.
- 
+Finally, re-launch docker with the same command as above under the
+[Run the Docker Container](#run-the-docker-container) section.
+
 :::info
 
-Now that you have your Validator running, you need to [actually Stake tokens to make it official.](#stake-tokens-to-your-validator)
+Now that you have your Validator running, you need to
+[actually Stake tokens to make it official.](#stake-tokens-to-your-validator)
 
 :::
 
@@ -353,7 +372,8 @@ sudo dpkg -i esl-erlang_22.3.1-1~ubuntu~bionic_amd64.deb
 sudo apt-get install -f
 ```
 
-We also need to use a newer version of Rust. The one that comes by default with Ubuntu will not work.
+We also need to use a newer version of Rust. The one that comes by default with Ubuntu will not
+work.
 
 ```
 #Remove rustc so we can install a newer version
@@ -396,15 +416,17 @@ miner genesis load </absolute/path/to/genesis/block>
 
 Note that in the above `miner` command, the `miner` binary here is nested within
 `_build/validator/rel/miner/bin/miner`.
+
   </p>
 </details>
-
 
 After deploying one of the above three options, perform the remaining steps starting here:
 
 ### Enable Firewall on the server
 
-It's good practice to restrict access to the server and you should allow access only to ports that are needed. If you also use node_exporter or a different type of exporter for monitoring, you should add those ports as well.
+It's good practice to restrict access to the server and you should allow access only to ports that
+are needed. If you also use node_exporter or a different type of exporter for monitoring, you should
+add those ports as well.
 
 ```
 #Enable Firewall
@@ -547,7 +569,8 @@ After the validator has been up and running for 15 minutes, proceed with some of
 
 ### Check the API
 
-The [Validator API](/api/blockchain/validators) provides several useful calls to help monitor your Validator and the state of the Mainnet.
+The [Validator API](/api/blockchain/validators) provides several useful calls to help monitor your
+Validator and the state of the Mainnet.
 
 ```
 https://api.helium.io/v1/validators/
