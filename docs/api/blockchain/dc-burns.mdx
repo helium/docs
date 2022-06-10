@@ -4,8 +4,8 @@ sidebar_label: DC Burns
 slug: /api/blockchain/dc-burns
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # DC Burns
 
@@ -17,22 +17,19 @@ import TabItem from "@theme/TabItem";
 GET https://api.helium.io/v1/dc_burns/sum
 ```
 
-Returns the total Data Credits (DC) burned for the whole network in a given
-timeframe. Timestamps can be given in ISO 8601 format (e.g.
-`2020-08-27T00:00:00Z`) or in relative time (e.g. `-1 week`, which, when url-
-escaped becomes `-1%20week`). When omitted the current time (UTC) is assumed.
+Returns the total Data Credits (DC) burned for the whole network in a given timeframe. Timestamps
+can be given in ISO 8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative time (e.g. `-1 week`,
+which, when url- escaped becomes `-1%20week`). When omitted the current time (UTC) is assumed.
 
-The results can also be bucketed in time by specifying a `bucket` query
-parameter which buckets information per bucket in the given timeframe. Data is
-bucketed by time. Valid bucket values include `hour`, `day` and `week`).
+The results can also be bucketed in time by specifying a `bucket` query parameter which buckets
+information per bucket in the given timeframe. Data is bucketed by time. Valid bucket values include
+`hour`, `day` and `week`).
 
-For example to get the last 7 days of DC burns bucketed by day use the following
-path/parameters: 
+For example to get the last 7 days of DC burns bucketed by day use the following path/parameters:
 
 `?min_time=-7%20day&bucket=day`
 
-The block that contains the `max_time` timestamp is
-**excluded** from the result.
+The block that contains the `max_time` timestamp is **excluded** from the result.
 
 <Tabs
   block={true}
@@ -99,7 +96,7 @@ Return the last 3 hours of burns bucketed by hour
 GET https://api.helium.io/v1/dc_burns/stats
 ```
 
-Returns current statics for for Data Credits (DC) burntfor the whole network.
+Returns current statics for for Data Credits (DC) burnt for the whole network.
 
 <Tabs
   block={true}
@@ -159,14 +156,12 @@ Return the current DC burn stats
 GET https://api.helium.io/v1/dc_burns
 ```
 
-Use this API to list DC burn events. Events include a block, amount, type of burn, and the
-address of the account the DC were burned out of. The oracle price that was
-active at the point the DC burn happened is also listed to enable calculating
-how much HNT the burned DC represents.
+Use this API to list DC burn events. Events include a block, amount, type of burn, and the address
+of the account the DC were burned out of. The oracle price that was active at the point the DC burn
+happened is also listed to enable calculating how much HNT the burned DC represents.
 
-Note that this route does _not_ return the implicit HNT to DC conversion that
-happens when an account does not have enough DC available for a given
-transaction.
+Note that this route does _not_ return the implicit HNT to DC conversion that happens when an
+account does not have enough DC available for a given transaction.
 
 This route is `cursor` paginated.
 
