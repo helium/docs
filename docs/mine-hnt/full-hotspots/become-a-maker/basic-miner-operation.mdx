@@ -23,11 +23,9 @@ three pieces:
 In addition to packet routing, the Miner also participates in PoC and submits PoC packets as witness
 events. When challenge, the Miner sends packets to the packet forwarder for transmission.
 
-
 The Miner connects to other Miners over libp2p where, amongst other things, it is gossiping and
 saving blocks, while maintaining a ledger of the blockchain. Constantly syncing the blockchain and
 downloading blocks uses significant bandwidth and CPU.
-
 
 In this guide, we will explain how to get a Docker image of the Helium Miner running on Ubuntu 20.04
 LTS, and finally some tips on how to interact with a running Miner.
@@ -181,19 +179,18 @@ instance is sufficient to keep your miner running.
 ### Interact with the Miner within the Container
 
 You may want to interrogate the Miner or interact with it it as described in the
-[using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner). Docker's `exec`
-command enables this e.g.
+[using a miner section](/use-the-network/setup-a-packet-forwarder). Docker's `exec` command enables
+this e.g.
 
 ```text
 docker exec miner miner info height
 ```
 
 In other words, prepend `docker exec miner` to any of the commands documented in the
-[using a miner section](/mine-hnt/build-a-packet-forwarder/#using-the-miner)). Or create an alias
-such as: `alias miner="docker exec miner miner"`
+[using a miner section](/use-the-network/setup-a-packet-forwarder)). Or create an alias such as:
+`alias miner="docker exec miner miner"`
 
 ### Updating the Docker Image
-
 
 [the releases here](https://github.com/helium/miner/releases). Depending on whether you are running
 a miner for fun, to route packets, or to participate in PoC, keeping it updated may be more or less
