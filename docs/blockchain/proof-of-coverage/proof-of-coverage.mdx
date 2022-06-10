@@ -19,7 +19,7 @@ creating from that location.
 **See Proof of Coverage in Action**
 
 The [Helium Network Explorer](https://network.helium.com) is the best resources for viewing
-POC-related data. Before you dive into the POC internals, here are a few POC Challenges to help you
+POC-related data. Before you dive into the POC internals, here are a few PoC Challenges to help you
 visualize how this works:
 
 - [Cheesy Brick Mustang from block 641265](https://explorer.helium.com/txns/qmJF48v8ZlEfsPg_7jc2CrsLlOvgC7w-pvB_BWQAoOk)
@@ -53,9 +53,10 @@ actually happen.
 
 ### Proof-of-Coverage Roles
 
-POC Challenges involve three distinct roles:
+PoC Challenges involve three distinct roles:
 
-1. **Challenger** - The Validator that constructs and issues the POC Challenge. See
+
+1. **Challenger** - The Validator that constructs and issues the PoC Challenge. See
    [HIP 55](https://github.com/helium/HIP/blob/main/0055-validator-challenges.md) for further
    information about this change.
 2. **Beaconer** - Sometimes called "Challengee". This Hotspot is the target of the POC challenge and
@@ -64,9 +65,11 @@ POC Challenges involve three distinct roles:
 3. **Witness** - Hotspots that are geographically proximate to the Transmitter and report the
    existence of the challenge packet after it has been transmitted.
 
+
 (Note: The goal is to reduce the PoC Interval to 200 blocks or lower)
 
 ### Challenge Proof Construction and Target Selection
+
 
 Validators can create a challenge request every block, but a chain variable `poc_challenge_rate`
 determines how many Challenge requests are allowed in a block. As this number increases, more
@@ -117,7 +120,8 @@ Coverage relies entirely on beaconing. A beacon is a single transmission witness
 Previous versions used multi-hop challenge paths that didn't accurately test Hotspots on what they
 are built to do: capture RF packets.
 
-### POC Reward Scaling
+
+### PoC Reward Scaling
 
 For every epoch, each [reward type](/blockchain/mining) is split amongst Hotspots who had a role in
 that reward pool.
