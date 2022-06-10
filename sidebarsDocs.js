@@ -1014,6 +1014,22 @@ module.exports = {
       collapsed: false,
     },
   ],
+
+  rakwireless: [
+    {
+      type: "link",
+      label: "<- Back",
+      href: "/use-the-network/devices/ready-to-use",
+    },
+    {
+      type: "category",
+      label: "RAKwireless",
+      items: ["use-the-network/devices/ready-to-use/rakwireless/rak7201"],
+
+      collapsed: false,
+    },
+  ],
+
   seeedstudiortu: [
     {
       type: "link",
