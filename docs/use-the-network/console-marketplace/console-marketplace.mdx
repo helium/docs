@@ -77,7 +77,7 @@ An Integration must be enabled for devices to transfer data through it and a Dec
 
 :::
 
-### Enabling Integrations
+### Choosing Approved Integrations
 
 Console Hosting Providers can choose which Integrations are enabled for users by making the following configuration settings. 
 
@@ -89,15 +89,15 @@ Set ```ALLOWED_INTEGRATIONS``` .env variable to toggle desired integrations.
 
 - To enable selected integrations: ```ALLOWED_INTEGRATIONS=<integrations>```. For example, to enable the following integrations: HTTP, MQTT, CARGO: ```ALLOWED_INTEGRATIONS=http,mqtt,cargo```
 
-Integration keys can be found in ```/lib/console/channels/channel.ex```.
+Integration keys can be found in ```/lib/console/channels/channel.ex``` listed in ```@long_type_names```.
 
-### Enabling Decoder Functions (staging)
+### Choosing Approved Decoder Functions (staging)
 
 Console Hosting Providers can choose which Decoder Functions are enabled for users by making the following configuration settings. 
 
 Set ```ALLOWED_FUNCTIONS``` .env variable to toggle desired functions.
 
 To enable all reviewed functions (default): ```ALLOWED_FUNCTIONS=all```.
-To enable selected integrations: ```ALLOWED_FUNCTIONS=<functions>```. For example, to enable the following functions: CUSTOM, CAYENNE: ALLOWED_FUNCTIONS=custom,cayenne
+To enable selected integrations: ```ALLOWED_FUNCTIONS=<functions>```. For example, to enable the following functions: CUSTOM, CAYENNE: ```ALLOWED_FUNCTIONS=custom,cayenne```
 
 Function keys can be found in ```/lib/console/functions/function.ex``` listed in ```@all_formats```
