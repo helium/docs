@@ -53,7 +53,8 @@ next page:
 http get $(API_URL)/v1/blocks?cursor=eyJiZWZvcmUiOjQzOTIwMX0
 ```
 
-Which will return the next page of results and a next `cursor` for the following page.
+Which will return the next page of results and a next `cursor` for the following page. A cursor will
+be returned with each response until the last page is reached, at which point no cursor is returned.
 
 :::info
 
