@@ -21,7 +21,7 @@ The RAK7204 WisNode Sense Home is an LPWAN node with integrated environmental se
 
 ### Product Features
 
-- Measurement of a variety of environmental parameters: **Temperature**, **Humidity**, **Gas Pressure** and **Indoor Air Quality (IAQ)**
+- Measurement of a variety of environmental parameters: **Temperature**, **Humidity**, **Gas Pressure**, and **Indoor Air Quality (IAQ)**
 - **BOSCH BME680** Integrated Environmental Unit
 - **LoRaWAN 1.0.2** fully compliant
 - Low power operation and standby current of less than 15 uA
@@ -44,12 +44,12 @@ The RAK7204 WisNode Sense Home is an LPWAN node with integrated environmental se
 ## Connecting to Helium (The People's Network) 
 
 :::tip
-Before going through each and every step in Connecting the RAK7204 to Helium, it is recommended to check first our [Quick Start Guide](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7204/Quickstart/)
+Before going through each and every step in Connecting the RAK7204 to Helium, it is recommended to check first our [Quick Start Guide](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7204/Quickstart/).
 :::
 
-Helium has quickly become the most widespread LPWAN communal network with more than 27,000 devices deployed globally. All our node products are compatible with it and the process of adding a device to the network is intuitive and straightforward. This section will focus on giving a brief guide on how to connect the RAK7204 to the network console, assuming that there is a Helium Hotspot within range.
+Helium has quickly become the most widespread LPWAN communal network with more than 27,000 devices deployed globally. All the RAKwireless node products are compatible with it and the process of adding a device to the network is intuitive and straightforward. This section will focus on giving a brief guide on how to connect the RAK7204 to the network console, assuming that there is a Helium Hotspot within range.
 
-Log in or create your account [here](https://www.helium.com/console):
+Log in or create your account [here](https://www.helium.com/console).
 
 <img
   src={useBaseUrl(
@@ -58,7 +58,7 @@ Log in or create your account [here](https://www.helium.com/console):
 />
 
 
-Once registered/logged in you will end up at the home page where you can see your function tree on the left and your DC balance at the tops as well as a number of useful links.
+Once registered/logged in, you will end up at the home page where you can see your function tree on the left and your DC balance at the tops as well as a number of useful links.
 
 <img
   src={useBaseUrl(
@@ -67,7 +67,7 @@ Once registered/logged in you will end up at the home page where you can see you
 />
 
 
-Go to the "Devices" section in the function tree. If this is your first time doing this there will be no devices registered. Click the "+ Add Device" button to get started
+Go to the **Devices** section in the function tree. There will be no registered devices if this is your first time doing this. To add a device, click the **+ Add Device** button and get started.
 
 
 <img
@@ -76,7 +76,7 @@ Go to the "Devices" section in the function tree. If this is your first time doi
   )}
 />
 
-A window will pop up with a set of field containing the device parameters required for its registration:
+A window will pop up with a set of field containing the device parameters required for its registration.
 
 <img
   src={useBaseUrl(
@@ -85,7 +85,7 @@ A window will pop up with a set of field containing the device parameters requir
 />
 
 
-Fill a name of your choosing. The Dev EUI, App EUI and App Key (press the eye icon to reveal the values) will have random values generated for you by default. You can manually replace them with values of your own. For the purpose of this tutorial we will stay with the default. Press the "Submit" button and you are done.
+Fill in a name of your choosing. The **Dev EUI**, **App EUI**, and **App Key** will have random values generated for you by default. Press the eye icon to reveal the values. You can manually replace them with values of your own. For this tutorial, default values are used. Press the **Submit** button, and you are done.
 
 <img
   src={useBaseUrl(
@@ -93,7 +93,7 @@ Fill a name of your choosing. The Dev EUI, App EUI and App Key (press the eye ic
   )}
 />
 
-Now your RAK7204 is registered and is awaiting activation. For this to happen we need to import the Dev EUI, App EUI and App Key in the RAK7204 using the RAK Serial Port Tool
+Now your RAK7204 is registered and is awaiting activation. For this to happen we need to import the **Dev EUI**, **App EUI**, and **App Key** in the RAK7204 using the [RAK Serial Port Tool](https://downloads.rakwireless.com/en/LoRa/Tools/RAK_SERIAL_PORT_TOOL_V1.2.1.zip).
 
 Open the tool, select the desired port (default baud rate) and open it. Then start importing your settings.
 
@@ -131,7 +131,7 @@ at+set_config=lora:app_eui:XXXX
 Finally fill in the App key with the command:
 
 ```
-at++set_config=lora:app_key:XXXX
+at+set_config=lora:app_key:XXXX
 ```
 
 - Join Network
@@ -153,7 +153,7 @@ You output should resemble the one in figure below:
 />
 
 
-If you take a look at the Helium console you will also see the join request packets both in the graph and event log. Your node is now a part of the Helium Network :tada:.
+If you take a look at the Helium console, you will also see the join request packets both in the graph and event log. Your node is now a part of the Helium Network.
 
 <img
   src={useBaseUrl(

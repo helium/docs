@@ -42,17 +42,18 @@ This WisNode Button is suitable for a variety of Smart Home applications. Includ
 - [Datasheet](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7201/Datasheet/)
 - [AT Command Manual](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7201/AT-Command-Manual)
 - [Firmware Upgrade Guide](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7201/Firmware-Upgrade-Guide/)
+- [RAK7201 WisNode Button 4K](https://store.rakwireless.com/products/wisnode-button-4k-rak7201?utm_source=RAK7201WisNodeButton4K&utm_medium=Document&utm_campaign=BuyFromStore)
 
 
 ## Connecting to Helium (The People's Network)
 
 :::tip
-Before going through each and every step in connecting the RAK7201 to Helium, it is recommended to check first our [Quick Start Guide](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7201/Quickstart/)
+Before going through each and every step in connecting the RAK7201 to Helium, it is recommended to check first our [Quick Start Guide](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7201/Quickstart/).
 :::
 
-Helium has quickly become the most widespread LPWAN communal network with more than 27,000 devices deployed globally. All our node products are compatible with it and the process of adding a device to the network is intuitive and straightforward. This section will focus on giving a brief guide on how to connect the RAK7201 to the network console, assuming that there is a Helium Hotspot within range.
+Helium has quickly become the most widespread LPWAN communal network with more than 27,000 devices deployed globally. All the RAKwireless node products are compatible with it and the process of adding a device to the network is intuitive and straightforward. This section will focus on giving a brief guide on how to connect the RAK7201 to the network console, assuming that there is a Helium Hotspot within range.
 
-Log in or create your account [here](https://www.helium.com/console):
+Log in or create your account [here](https://www.helium.com/console).
 
 <img
   src={useBaseUrl(
@@ -78,7 +79,7 @@ Go to the **Devices** section in the function tree. There will be no registered 
 />
 
 
-A window will pop up with a set of fields containing the device parameters required for its registration:
+A window will pop up with a set of fields containing the device parameters required for its registration.
 
 <img
   src={useBaseUrl(
@@ -86,15 +87,14 @@ A window will pop up with a set of fields containing the device parameters requi
   )}
 />
 
-Fill in a name of your choosing. The Dev EUI, App EUI, and App Key (press the eye icon to reveal the values) will have random values generated for you by default. You can manually replace them with values of your own. For this tutorial, default values are used. Press the **Submit** button, and you are done.
-
+ill in a name of your choosing. The **Dev EUI**, **App EUI**, and **App Key** will have random values generated for you by default. Press the eye icon to reveal the values. You can manually replace them with values of your own. For this tutorial, default values are used. Press the **Submit** button, and you are done.
 <img
   src={useBaseUrl(
     "img/use-the-network/devices/ready-to-use/rakwireless/rak7201/5.Helium-Devices.png"
   )}
 />
 
-Now, your RAK7201 is registered and is awaiting activation. For this to happen, import the Dev EUI, App EUI, and App Key in the RAK7201 using the RAK Serial Port Tool.
+Now, your RAK7201 is registered and is awaiting activation. For this to happen, import the **Dev EUI**, **App EUI**, and **App Key** in the RAK7201 using the [RAK Serial Port Tool](https://downloads.rakwireless.com/en/LoRa/Tools/RAK_SERIAL_PORT_TOOL_V1.2.1.zip).
 
 Open the tool, select the desired port (default baud rate) and open it. Hold the button 1 for 3 seconds to enter configuration mode, and then start importing your settings.
 
@@ -132,13 +132,13 @@ at+set_config=lora:app_eui:XXXX
 Finally, fill in the App key with the command:
 
 ```
-at++set_config=lora:app_key:XXXX
+at+set_config=lora:app_key:XXXX
 ```
 
 - Join Network
 
 Finish executing the join command for the node to initiate the join procedure.
-Once the procedure is initiated and completed, you will have a notification in the serial console
+Once the procedure is initiated and completed, you will have a notification in the serial console.
 
 ```
 at+join
