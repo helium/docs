@@ -1018,10 +1018,11 @@ module.exports = {
       type: "category",
       label: "RAKwireless",
       items: [
+        'use-the-network/devices/ready-to-use/rakwireless/rak2171',
         'use-the-network/devices/ready-to-use/rakwireless/rak7200',
         'use-the-network/devices/ready-to-use/rakwireless/rak7201',
-        'use-the-network/devices/ready-to-use/rakwireless/rak7204',        
-        'use-the-network/devices/ready-to-use/rakwireless/rak2171',        
+        'use-the-network/devices/ready-to-use/rakwireless/rak7204',
+        'use-the-network/devices/ready-to-use/rakwireless/rak7431',
       ],
 
       collapsed: false,
