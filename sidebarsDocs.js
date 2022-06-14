@@ -1023,6 +1023,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/rakwireless/rak7201',
         'use-the-network/devices/ready-to-use/rakwireless/rak7204',
         'use-the-network/devices/ready-to-use/rakwireless/rak7431',
+        'use-the-network/devices/ready-to-use/rakwireless/rak10700',
       ],
 
       collapsed: false,
