@@ -1020,6 +1020,7 @@ module.exports = {
       items: [
         'use-the-network/devices/ready-to-use/rakwireless/rak7204',
         'use-the-network/devices/ready-to-use/rakwireless/rak7201',
+        'use-the-network/devices/ready-to-use/rakwireless/rak2171',
       ],
 
       collapsed: false,
