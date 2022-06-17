@@ -57,6 +57,8 @@ module.exports = {
         'use-the-network/coverage-mapping/coverage-mapping',
         'use-the-network/policies/policies',
       ],
+    },
+    {
       type: 'category',
       label: '5G on Helium',
       items: ['5g-on-helium/5g-on-helium'],
