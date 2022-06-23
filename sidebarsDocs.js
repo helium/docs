@@ -44,6 +44,12 @@ module.exports = {
     },
     {
       type: 'category',
+      label: '5G on Helium',
+      items: ['5g-on-helium/5g-on-helium'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Use The Network',
       items: [
         'use-the-network/use-the-network',
@@ -57,10 +63,6 @@ module.exports = {
         'use-the-network/coverage-mapping/coverage-mapping',
         'use-the-network/policies/policies',
       ],
-      type: 'category',
-      label: '5G on Helium',
-      items: ['5g-on-helium/5g-on-helium'],
-      collapsed: true,
     },
     {
       type: 'category',
