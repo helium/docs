@@ -1017,8 +1017,8 @@ module.exports = {
       href: '/use-the-network/devices/ready-to-use',
     },
     {
-      type: "category",
-      label: "RAKwireless",
+      type: 'category',
+      label: 'RAKwireless',
       items: [
         'use-the-network/devices/ready-to-use/rakwireless/rak2171',
         'use-the-network/devices/ready-to-use/rakwireless/rak7200',
