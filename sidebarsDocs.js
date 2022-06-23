@@ -1010,9 +1010,9 @@ module.exports = {
 
   rakwireless: [
     {
-      type: "link",
-      label: "<- Back",
-      href: "/use-the-network/devices/ready-to-use",
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/ready-to-use',
     },
     {
       type: "category",
