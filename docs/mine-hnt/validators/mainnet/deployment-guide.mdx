@@ -131,9 +131,11 @@ package by PaulVMo, is the least complex to deploy and has very high performance
 has the highest level of complexity to deploy, requires a higher level of Linux technical expertise,
 and also has very high performance. The docker version is less complex to deploy than Source, if you
 already have experience with Docker, but does not perform as well as the other two options. The
-Debian package is also the simplest to deploy and maintain when running multiple validator instances on a single host.
+Debian package is also the simplest to deploy and maintain when running multiple validator instances
+on a single host.
 
 ## Performance
+
 Performance comparison of three validators on a single 16 vCPU bare metal server, showing validation
 times from absorb_and_commit. Bottom line in graph is source build, middle is Debian package, top is
 quay docker image.
@@ -149,12 +151,14 @@ quay docker image.
 ## Choose one of the following options for your deployment:
 
 ### Option 1
+
 [Deploy the Validator from deb package](https://github.com/PaulVMo/helium-validator-deb)
 
 NOTE: After deploying the deb package, come back to this page to perform the remaining steps
 starting at [Enable Firewall on the server](#enable-firewall-on-the-server)
 
 ### Option 2
+
 <details>
   <summary>Deploy the Validator Using Docker</summary>
   <p>
@@ -317,6 +321,7 @@ Now that you have your Validator running, you need to
 </details>
 
 ### Option 3
+
 <details>
   <summary>Deploy Validator from Source</summary>
   <p>
@@ -432,6 +437,7 @@ Note that in the above `miner` command, the `miner` binary here is nested within
 </details>
 
 ## Next Steps
+
 After deploying one of the above three options, perform the remaining steps starting here:
 
 ### Enable Firewall on the server
@@ -477,7 +483,8 @@ that node’s owner, has control over that validator node, and receives rewards.
 
 :::info
 
-First, double check your wallet balance to make sure you have the `10000` HNT required to stake, **along with a few extra to cover the transaction fees**.
+First, double check your wallet balance to make sure you have the `10000` HNT required to stake,
+**along with a few extra to cover the transaction fees**.
 
 :::
 
@@ -497,13 +504,16 @@ To stake HNT, we need to get the validator node address. Obtain it using the fol
 miner peer addr
 ```
 
-The resulting output will look like this (except with your specific validator address). The string after `/p2p/` is your Validator address. For example:
+The resulting output will look like this (except with your specific validator address). The string
+after `/p2p/` is your Validator address. For example:
 
 ```
 /p2p/1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR
 ```
 
-We can now use this address with the Helium Wallet CLI `validators stake` command to formally stake the `10000 HNT` required **along with extra to cover the fee**. Here's the full command using the Validator address from above as an example. (**Make sure you replace it with yours.**)
+We can now use this address with the Helium Wallet CLI `validators stake` command to formally stake
+the `10000 HNT` required **along with extra to cover the fee**. Here's the full command using the
+Validator address from above as an example. (**Make sure you replace it with yours.**)
 
 ```
 helium-wallet validators stake one 1YwLbGTCEhVbwKEehRVQRC8N3q35ydXTH1B6BQys5FB1paHssdR 10000 --commit
@@ -543,8 +553,8 @@ service file, part of a docker run command, or included in a docker-compose file
 - JSONRPC_IP (default: `127,0,0,1`) - IP address that the JSON RPC endpoint listens on. JSRONRPC is
   used for monitoring and interacting with the validator.
 - JSONRPC_PORT (default: `4467`) - Port number that the JSON RPC endpoint listens on.
-- VALIDATION_WIDTH - Maximum number of concurrent transaction validations that the miner will do when
-  absorbing blocks. Default is N/2 + 1 where N is the number of Erlang schedulers which is by
+- VALIDATION_WIDTH - Maximum number of concurrent transaction validations that the miner will do
+  when absorbing blocks. Default is N/2 + 1 where N is the number of Erlang schedulers which is by
   default the number of CPUs/vCPUs.
 - SIDECAR_PARALLELISM_LIMIT (default: `3`) - Maximum number of concurrent transaction validations
   the miner will attempt while in consensus group.
@@ -563,7 +573,12 @@ things are hunky dory.
 
 ### Time Expectations
 
-Before your Validator will show Online status in Explorer, it must first sync up to the tip of the chain AND send a Heartbeat. The first Heartbeat will not be sent until after it syncs to the tip of the chain. You can check to see when your first heartbeat is sent within Explorer, on the Activity tab for your Validator. The Heartbeat is a transaction that each validator sends to the consensus group, approximately every 100 blocks, to assert that it is still alive and synced to the tip of the chain.
+Before your Validator will show Online status in Explorer, it must first sync up to the tip of the
+chain AND send a Heartbeat. The first Heartbeat will not be sent until after it syncs to the tip of
+the chain. You can check to see when your first heartbeat is sent within Explorer, on the Activity
+tab for your Validator. The Heartbeat is a transaction that each validator sends to the consensus
+group, approximately every 100 blocks, to assert that it is still alive and synced to the tip of the
+chain.
 
 The blockchain takes time. The distributed nature of verifying transactions into the blockchain
 takes time. The validator information gossiped on the blockchain takes time. APIs that run to update
