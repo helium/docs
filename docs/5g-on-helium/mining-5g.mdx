@@ -1,0 +1,110 @@
+---
+id: mining-5g
+hide_title: true
+sidebar_label: 5G Mining & Rewards
+sidebar_class_name: new
+slug: /5g-on-helium/mining-5g
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/mobile-header.png')} />
+
+# 5G Mining and MOBILE Rewards
+
+Several factors contribute to how much `MOBILE` a 5G Hotspot will earn over a given period, there
+are some higher level concepts, design elements, and rules to keep in mind that will help better
+explain what you might earn and why. This section covers these, as well as some mining and token
+reward basics.
+
+## How To Mine MOBILE
+
+Mining MOBILE and providing 5G coverage requires a Helium 5G Hotspot and a compatible CBRS Small
+Cell Radio. These components can be purchased as a bundle or separately. 5G Hotspots must be online
+and registered in the SAS (Spectrum Access System) maintained by the FCC. Specific instructions can
+be found during onboarding from individual 5G Hotspot Makers.
+
+:::note
+
+Once the 5G Hotspot is onboarded and Small Cell is physically installed and connected to the 5G
+Hotspot, it should automatically appear in the Radio Dashboard on the local IP address.
+
+[http://freedomfi-gateway.local/](http://freedomfi-gateway.local/)
+
+5G Hotspots will appear on explorer.helium.com between 2-4 days, depending on how quickly it is
+registered in the SAS.
+
+:::
+
+Install Helium Wallet app to manage HNT/Mobile token.
+
+- [App Store](https://apps.apple.com/us/app/helium-Hotspot/id1450463605)
+- [Google Play](https://play.google.com/store/apps/details?id=com.helium.wallet&gl=US)
+
+Once the 5G rewards are activated, and given correct installation, the 5G Hotspot will start earning
+MOBILE automatically.
+
+## Emissions Curve
+
+There will be a max supply of 250B MOBILE with issuance halvenings of every 2 years aligned with the
+HNT issuance halvenings. The first halving will occur on August 1, 2023 to align with HNT halving
+and will continue on a 2 year cycle afterward.
+
+This allocation is distributed throughout the shortened 1 year period to online 5G Hotspots on an
+epochal basis, weighted by Small Cell model.
+
+For clarity, the emission schedule is as follows:
+
+| Year | MOBILE at the start of the year | MOBILE minted |
+| ---- | ------------------------------- | ------------- |
+| 1    | 50B                             | 116B\*        |
+| 2    | 116B                            | 33B           |
+| 3    | 1495B                           | 33B           |
+| 4    | 182B                            | 16.5B         |
+| 5    | 198.5B                          | 16.5B         |
+| 6    | 215B                            | 8.25B         |
+| 7    | 223.25B                         | 8.25B         |
+
+\*50B pre-mine, 66B emitted in year 1
+
+## How Do Hotspots Earn Helium MOBILE Tokens?
+
+The Helium blockchain rewards 5G Hotspots for providing 5G wireless coverage and verifying the
+Helium Network. 5G Hotspots are rewarded in the Helium MOBILE Token.
+
+During the Genesis Period, 5G Hotspots will earn MOBILE by reporting their status via a “heartbeat”,
+an automatic process of reporting to the Blockchain that the Small Cell Radio is online and
+registered with the SAS.
+
+| Reward Type | Chain Variable | Description                                                             |
+| :---------- | :------------- | :---------------------------------------------------------------------- |
+| Heartbeat   | `UNKNOWN`      | Rewarded to any 5G Hotspot that maintains a valid connection to the SAS |
+
+**_Do I Have To Actively Participate to Earn Rewards Once My 5G Hotspot is Deployed?_**
+
+No. Once your 5G Hotspot is completely deployed and fully synced with the Helium blockchain, you as
+the owner are not required to do anything else in order to earn MOBILE. Your 5G Hotspot will perform
+all of the above activities on its own while it runs.
+
+### Indoor Small Cells
+
+These less powerful Small Cell Radios are ideal for indoor installations, such as coffee shops,
+bars, grocery stores, etc. Indoor Small Cell Radios are generally easier to install and create a
+shorter range, localized area of 5G coverage.
+
+Indoor Small Cell Radios are physically smaller radios and can be installed at any height. It is not
+recommended to install an Indoor Small Cell outdoors, as they are not weather resistant.
+
+### Outdoor Small Cells
+
+These Small Cell Radios are more Powerful than Indoor Small Cell Radios and are typically
+weatherized to endure the elements. Outdoor Small Cell Radios create a larger area of 5G coverage
+while requiring a bit more planning when installing and maintaining.
+
+Outdoor Small Cells require installation above ground level and require registration with the
+Spectrum Access System (SAS) to operate. Please be sure to evaluate your locations and ability to
+install these Small Cell Radios, and consider hiring a professional to ensure your installation is
+secure and meets all regulatory requirements.
+
+SAS registration is expected to be completed within 24 hours of submission, Hosts will be contacted
+via email with a rejection reply and an explanation of what needs to be corrected.
