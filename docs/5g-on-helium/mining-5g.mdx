@@ -19,15 +19,23 @@ reward basics.
 
 ## How To Mine MOBILE
 
-Mining MOBILE and providing 5G coverage requires a Helium 5G Hotspot and a compatible CBRS Small
-Cell Radio. These components can be purchased as a bundle or separately. 5G Hotspots must be online
-and registered in the SAS (Spectrum Access System) maintained by the FCC. Specific instructions can
-be found during onboarding from individual 5G Hotspot Makers.
+Mining MOBILE and providing 5G coverage requires a Helium Hotspot and a compatible CBRS Small Cell
+Radio. These components can be purchased as a bundle or separately. 5G Hotspots must be online and
+registered in the SAS (Spectrum Access System) maintained by the FCC. Specific instructions can be
+found during onboarding from individual 5G Hotspot Makers.
+
+:::warning
+
+Misrepresentation of a CBRS radio’s installation information, including GPS location, height,
+antenna orientation or other characteristics, in a SAS is a violation of FCC regulations and may
+result in fines or criminal penalties.
+
+:::
 
 :::note
 
-Once the 5G Hotspot is onboarded and Small Cell is physically installed and connected to the 5G
-Hotspot, it should automatically appear in the Radio Dashboard on the local IP address.
+Once the Hotspot is onboarded and Small Cell is physically installed and connected to the Hotspot,
+it should automatically appear in the Radio Dashboard on the local IP address.
 
 [http://freedomfi-gateway.local/](http://freedomfi-gateway.local/)
 
@@ -38,8 +46,8 @@ registered in the SAS.
 
 Install Helium Wallet app to manage HNT/Mobile token.
 
-- [App Store](https://apps.apple.com/us/app/helium-Hotspot/id1450463605)
-- [Google Play](https://play.google.com/store/apps/details?id=com.helium.wallet&gl=US)
+- [App Store](https://apps.apple.com/us/app/helium-hnt-wallet/id1609525848)
+- [Google Play](https://play.google.com/store/apps/details?id=com.helium.wallet.app&gl=US)
 
 Once the 5G rewards are activated, and given correct installation, the 5G Hotspot will start earning
 MOBILE automatically.
@@ -55,17 +63,61 @@ epochal basis, weighted by Small Cell model.
 
 For clarity, the emission schedule is as follows:
 
-| Year | MOBILE at the start of the year | MOBILE minted |
-| ---- | ------------------------------- | ------------- |
-| 1    | 50B                             | 116B\*        |
-| 2    | 116B                            | 33B           |
-| 3    | 1495B                           | 33B           |
-| 4    | 182B                            | 16.5B         |
-| 5    | 198.5B                          | 16.5B         |
-| 6    | 215B                            | 8.25B         |
-| 7    | 223.25B                         | 8.25B         |
-
-\*50B pre-mine, 66B emitted in year 1
+| Week |    Date    | Weekly Emmision |    Phase     | Standardized | Cumulative |
+| :--: | :--------: | :-------------: | :----------: | :----------: | :--------: |
+|  1   | 07/11/2022 |      0.64       |   Genesis    |     0.50     |    0.64    |
+|  2   | 07/18/2022 |      0.64       |   Genesis    |     0.50     |    1.28    |
+|  3   | 07/25/2022 |      0.64       |   Genesis    |     0.50     |    1.93    |
+|  4   | 08/01/2022 |      1.28       | 5G POC Start |     1.00     |    3.21    |
+|  5   | 08/08/2022 |      1.28       | 5G POC Start |     1.00     |    4.49    |
+|  6   | 08/15/2022 |      1.28       | 5G POC Start |     1.00     |    5.78    |
+|  7   | 08/22/2022 |      1.28       | 5G POC Start |     1.00     |    7.06    |
+|  8   | 08/29/2022 |      1.28       | 5G POC Start |     1.00     |    8.34    |
+|  9   | 09/05/2022 |      1.28       | 5G POC Start |     1.00     |    9.63    |
+|  10  | 09/12/2022 |      1.28       | 5G POC Start |     1.00     |   10.91    |
+|  11  | 09/19/2022 |      1.28       | 5G POC Start |     1.00     |   12.19    |
+|  12  | 09/26/2022 |      1.28       | 5G POC Start |     1.00     |   13.48    |
+|  13  | 10/03/2022 |      1.28       | 5G POC Start |     1.00     |   14.76    |
+|  14  | 10/10/2022 |      1.28       | 5G POC Start |     1.00     |   16.04    |
+|  15  | 10/17/2022 |      1.28       | 5G POC Start |     1.00     |   17.33    |
+|  16  | 10/24/2022 |      1.28       | 5G POC Start |     1.00     |   18.61    |
+|  17  | 10/31/2022 |      1.28       | 5G POC Start |     1.00     |   19.89    |
+|  18  | 11/07/2022 |      1.28       | 5G POC Start |     1.00     |   21.18    |
+|  19  | 11/14/2022 |      1.28       | 5G POC Start |     1.00     |   22.46    |
+|  20  | 11/21/2022 |      1.28       | 5G POC Start |     1.00     |   23.74    |
+|  21  | 11/28/2022 |      1.28       | 5G POC Start |     1.00     |   25.03    |
+|  22  | 12/05/2022 |      1.28       | 5G POC Start |     1.00     |   26.31    |
+|  23  | 12/12/2022 |      1.28       | 5G POC Start |     1.00     |   27.59    |
+|  24  | 12/19/2022 |      1.28       | 5G POC Start |     1.00     |   28.88    |
+|  25  | 12/26/2022 |      1.28       | 5G POC Start |     1.00     |   30.16    |
+|  26  | 01/02/2023 |      1.28       | 5G POC Start |     1.00     |   31.44    |
+|  27  | 01/09/2023 |      1.28       | 5G POC Start |     1.00     |   32.73    |
+|  28  | 01/16/2023 |      1.28       | 5G POC Start |     1.00     |   34.01    |
+|  29  | 01/23/2023 |      1.28       | 5G POC Start |     1.00     |   35.29    |
+|  30  | 01/30/2023 |      1.28       | 5G POC Start |     1.00     |   36.58    |
+|  31  | 02/06/2023 |      1.28       | 5G POC Start |     1.00     |   37.86    |
+|  32  | 02/13/2023 |      1.28       | 5G POC Start |     1.00     |   39.14    |
+|  33  | 02/20/2023 |      1.28       | 5G POC Start |     1.00     |   40.43    |
+|  34  | 02/27/2023 |      1.28       | 5G POC Start |     1.00     |   41.71    |
+|  35  | 03/06/2023 |      1.28       | 5G POC Start |     1.00     |   42.99    |
+|  36  | 03/13/2023 |      1.28       | 5G POC Start |     1.00     |   44.28    |
+|  37  | 03/20/2023 |      1.28       | 5G POC Start |     1.00     |   45.56    |
+|  38  | 03/27/2023 |      1.28       | 5G POC Start |     1.00     |   46.84    |
+|  39  | 04/03/2023 |      1.28       | 5G POC Start |     1.00     |   48.13    |
+|  40  | 04/10/2023 |      1.28       | 5G POC Start |     1.00     |   49.41    |
+|  41  | 04/17/2023 |      1.28       | 5G POC Start |     1.00     |   50.69    |
+|  42  | 04/24/2023 |      1.28       | 5G POC Start |     1.00     |   51.97    |
+|  43  | 05/01/2023 |      1.28       | 5G POC Start |     1.00     |   53.26    |
+|  44  | 05/08/2023 |      1.28       | 5G POC Start |     1.00     |   54.54    |
+|  45  | 05/15/2023 |      1.28       | 5G POC Start |     1.00     |   55.82    |
+|  46  | 05/22/2023 |      1.28       | 5G POC Start |     1.00     |   57.11    |
+|  47  | 05/29/2023 |      1.28       | 5G POC Start |     1.00     |   58.39    |
+|  48  | 06/05/2023 |      1.28       | 5G POC Start |     1.00     |   59.67    |
+|  49  | 06/12/2023 |      1.28       | 5G POC Start |     1.00     |   60.96    |
+|  50  | 06/19/2023 |      1.28       | 5G POC Start |     1.00     |   62.24    |
+|  51  | 06/26/2023 |      1.28       | 5G POC Start |     1.00     |   63.52    |
+|  52  | 07/03/2023 |      1.28       | 5G POC Start |     1.00     |   64.81    |
+|  53  | 07/10/2023 |      1.28       | 5G POC Start |     1.00     |   66.09    |
 
 ## How Do Hotspots Earn Helium MOBILE Tokens?
 
@@ -92,8 +144,8 @@ These less powerful Small Cell Radios are ideal for indoor installations, such a
 bars, grocery stores, etc. Indoor Small Cell Radios are generally easier to install and create a
 shorter range, localized area of 5G coverage.
 
-Indoor Small Cell Radios are physically smaller radios and can be installed at any height. It is not
-recommended to install an Indoor Small Cell outdoors, as they are not weather resistant.
+Indoor Small Cell Radios are physically smaller radios and can be installed at any height. It is
+Installing an Indoor Small Cell outdoors is not recommended as they are not weather resistant.
 
 ### Outdoor Small Cells
 
