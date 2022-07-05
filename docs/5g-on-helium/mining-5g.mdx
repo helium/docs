@@ -20,9 +20,9 @@ reward basics.
 ## How To Mine MOBILE
 
 Mining MOBILE and providing 5G coverage requires a Helium Hotspot and a compatible CBRS Small Cell
-Radio. These components can be purchased as a bundle or separately. 5G Hotspots must be online and
-registered in the SAS (Spectrum Access System) maintained by the FCC. Specific instructions can be
-found during onboarding from individual 5G Hotspot Makers.
+Radio. These components can be purchased as a bundle or separately. All 5G Hotspots must be online
+and registered in the SAS (Spectrum Access System) maintained by the FCC to earn rewards. Specific
+instructions can be found during onboarding from individual 5G Hotspot Makers.
 
 :::warning
 
@@ -32,8 +32,6 @@ result in fines and/or criminal penalties.
 
 :::
 
-:::note
-
 Once the Hotspot is onboarded and Small Cell is physically installed and connected to the Hotspot,
 it should automatically appear in the Radio Dashboard on the local IP address.
 
@@ -42,9 +40,7 @@ it should automatically appear in the Radio Dashboard on the local IP address.
 5G Hotspots will appear on explorer.helium.com between 2-4 days, depending on how quickly it is
 registered in the SAS.
 
-:::
-
-Install Helium Wallet app to manage HNT/Mobile token.
+### Install Helium Wallet app to manage HNT/MOBILE token.
 
 - [App Store](https://apps.apple.com/us/app/helium-hnt-wallet/id1609525848)
 - [Google Play](https://play.google.com/store/apps/details?id=com.helium.wallet.app&gl=US)
@@ -69,12 +65,6 @@ and will continue on a 2 year cycle afterward.
 This allocation is distributed throughout the shortened 1 year period to online 5G Hotspots on an
 epochal basis, weighted by Small Cell model.
 
-:::info
-
-More details on weighting will be added to this document in the future.
-
-:::
-
 For clarity, the emission schedule is as follows:
 
 |  Phase  | Weekly Emission |
@@ -82,7 +72,11 @@ For clarity, the emission schedule is as follows:
 | Genesis |     640,000,000 |
 | 5G PoC  |   1,280,000,000 |
 
-The Helium Foundation will work with the core developers to begin the Genesis period of MOBILE rewards. This will be paid out of the Foundation's pre-mined MOBILE rewards pool. The rate of rewards, as defined above, is half that defined in HIP 53 and will be proportionally distributed to all active 5G radios as described below.
+The Helium Foundation will work with the core developers to begin the Genesis period of MOBILE
+rewards. This will be paid out of the Foundation's pre-mined MOBILE rewards pool. The rate of
+rewards, as defined above, is half that defined in HIP 53 and will be proportionally distributed to
+all active 5G radios as described below.
+
 ## How Do Hotspots Earn Helium MOBILE Tokens?
 
 The Helium blockchain rewards 5G Hotspots for providing 5G wireless coverage and verifying the
@@ -95,6 +89,19 @@ registered with the SAS.
 Once your 5G Hotspot is completely deployed and fully synced with the Helium blockchain, you as the
 owner are not required to do anything else in order to earn MOBILE. Your 5G Hotspot will perform all
 of its activities on its own and will be rewarded for maintaining a valid connection to the SAS.
+
+### Small Cell Radio Model Reward Scaling
+
+All properly installed and registered 5G Hotspots will earn rewards for participating on the
+Network, a reward scalar is applied to the various Small Cell Models as follows:
+
+| Model           | Reward Scaler | Small Cell Type    |
+| --------------- | ------------: | ------------------ |
+| Nova 436H       |            2x | High Power Outdoor |
+| Nova 430i       |          1.5x | Outdoor            |
+| Sercomm Outdoor |          1.5x | Outdoor            |
+| Sercomm Indoor  |            1x | Indoor             |
+| Neutrino 430    |            1x | Indoor             |
 
 ### Indoor Small Cells
 
