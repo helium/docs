@@ -93,15 +93,18 @@ of its activities on its own and will be rewarded for maintaining a valid connec
 ### Small Cell Radio Model Reward Scaling
 
 All properly installed and registered 5G Hotspots will earn rewards for participating on the
-Network, a reward scalar is applied to the various Small Cell Models as follows:
+Network. A rewards unit multiple is applied to the various Small Cell Models based on whether they
+are indoor or outdoor, as well as their power output, as follows:
 
-| Model           | Reward Scaler | Small Cell Type    |
-| --------------- | ------------: | ------------------ |
-| Nova 436H       |            2x | High Power Outdoor |
-| Nova 430i       |          1.5x | Outdoor            |
-| Sercomm Outdoor |          1.5x | Outdoor            |
-| Sercomm Indoor  |            1x | Indoor             |
-| Neutrino 430    |            1x | Indoor             |
+| Model           | Reward Scaler |  Small Cell Type   |
+| --------------- | :-----------: | :----------------: |
+| Nova 436H       |      2x       | High Power Outdoor |
+| Nova 430i       |     1.5x      |      Outdoor       |
+| Sercomm Outdoor |     1.5x      |      Outdoor       |
+| Sercomm Indoor  |      1x       |       Indoor       |
+| Neutrino 430    |      1x       |       Indoor       |
+
+Inidividual rewards per period are calculated as a proporation of the total weighted rewards units.
 
 ### Indoor Small Cells
 
