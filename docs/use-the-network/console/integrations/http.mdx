@@ -180,3 +180,43 @@ Quick video tutorial connecting devices to an integration
 Node elements (devices, labels, integrations) need to be created before they're available on the
 Flows Workspace. More information about Flows
 [here](https://docs.helium.com/use-the-network/console/flows/).
+
+## Advanced - JSON Message Template
+
+:::important
+ 
+ This is an optional, advanced feature and should only be used by users familiar with logic-less templates.
+
+:::
+
+Users can customize the JSON Message structure sent to Integrations. Includes the ability to write custom JSON Messages and use supplied predefined JSON templates for Cayenne, and Browan. 
+
+### Decoding base64 payloads 
+
+Users can send decoded base64 payloads (to hex or bytes) from device to desired integration without creating a decoder function for brevity. 
+
+To decode the base64 payload simply use `base64_to_hex()` or `base64_to_bytes()` in your integration JSON like the following (other keys are optional):
+
+```
+{
+  "payload": "{{base64_to_hex(payload)}}",
+  "name": "{{name}}",
+  "app_eui": "{{app_eui}}",
+  "dev_eui": "{{dev_eui}}",
+  "devaddr": "{{devaddr}}",
+  "fcnt": "{{fcnt}}",
+  "port": "{{port}}",
+}
+```
+
+```
+{
+  "payload": "{{base64_to_bytes(payload)}}",
+  "name": "{{name}}",
+  "app_eui": "{{app_eui}}",
+  "dev_eui": "{{dev_eui}}",
+  "devaddr": "{{devaddr}}",
+  "fcnt": "{{fcnt}}",
+  "port": "{{port}}",
+}
+```
