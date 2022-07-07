@@ -138,47 +138,34 @@ As an example, we can calculate the rewards for a 5G Hotspot in a single epoch a
 following (the below numbers are examples and may not reflect actual deployed 5G Hotspots today):
 
 - 100,000 MOBILE Rewarded per epoch
-- 100 High Power Outdoor 5G Hotspots earn rewards
+- 300 High Power Outdoor 5G Hotspots earn rewards
 - 400 Outdoor 5G Hotspots earn rewards
-- 500 Indoor 5G Hotspots earn rewards
+- 800 Indoor 5G Hotspots earn rewards
 
 :::
 
-### Reward Ratios
+### Total Rewards Units for Epoch
 
-Calculate the Total Emissions Weight and Emissions Weight Ratio for each Small Cell Radio Type:
+Calculate the Total Reward Units for a given epoch, by using the reward weight for every small cell radio model.
 
-In this example, the Total Emissions Weight is 1,300 and the ratios are as follows (rounded for ease
-of understanding)
+In this example, the Total Rewards Units per epoch is 2,000 and the ratios are as follows:
 
 ```bash
-  (High Power Outdoor Count * 2.0)    =>    200  =>  200 / 1,300  => 16%
-+            (Outdoor Count * 1.5)    =>  + 600  =>  600 / 1,300  => 46%
-+             (Indoor Count * 1.0)    =>  + 500  =>  500 / 1,300  => 38%
+  (High Power Outdoor Count * 2.0)    =>    300
++            (Outdoor Count * 1.5)    =>  + 400
++             (Indoor Count * 1.0)    =>  + 800
 ------------------------------------      ------
-                                          1,300
+                                          2,000
 ```
 
-### Small Cell Radio Type Pool
+### Earnings per Small Cell Radio
 
-Each Small Cell Radio Type is allocated its ratio of the total rewards in the given epoch.
+Each Small Cell Radio is allocated its rewards based on it's reward weight.
 
-> Small Cell Radio Type Reward Pool = Epoch Rewards \* Weighted Small Cell Radio Type Ratio
-
-```bash
-High Power Outdoor  => 100,000 * 16% = 16,000 MOBILE
-Outdoor             => 100,000 * 46% = 46,000 MOBILE
-Indoor              => 100,000 * 38% = 38,000 MOBILE
-```
-
-### Rewards Per 5G Hotspot
-
-Each 5G Hotspot is rewarded from its respective rewards pool by Small Cell Radio Type.
-
-> Reward Per Epoch = Small Cell Radio Type Reward Pool / Number of Small Cell Radios of that Type
+> Small Cell Reward = Epoch Rewards x Model Reward Weight / Total Reward Units
 
 ```bash
-High Power Outdoor  => 16,000 / 100 =  160 MOBILE per High Power Outdoor Small Cell Radio
-Outdoor             => 46,000 / 400 =  115 MOBILE per Outdoor Small Cell Radio
-Indoor              => 38,000 / 500 =   76 MOBILE per Indoor Small Cell Radio
+High Power Outdoor  => 100,000 * 2.0 / 2,000 = 100 MOBILE
+Outdoor             => 100,000 * 1.5 / 2,000 = 75  MOBILE
+Indoor              => 100,000 * 1   / 2,000 = 50  MOBILE
 ```
