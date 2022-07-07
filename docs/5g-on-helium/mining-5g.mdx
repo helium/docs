@@ -19,33 +19,38 @@ reward basics.
 
 ## How To Mine MOBILE
 
-Mining MOBILE and providing 5G coverage requires a 5G Helium Hotspot and a compatible CBRS Small
-Cell Radio. These components can be purchased as a bundle or separately. All 5G Hotspots must be
+Mining MOBILE and providing 5G coverage requires a 5G Hotspot and one or more compatible CBRS Small
+Cell Radios. These components can be purchased as a bundle or separately. All 5G Hotspots must be
 online and registered in the SAS (Spectrum Access System) maintained by the FCC to earn MOBILE
 rewards.
 
+More than one Small Cell Radio can be connected to a single 5G Hotspot to create a larger 5G
+coverage area. 5G Hotspots can support as many Small Cell Radios as would saturate their bandwidth.
+
+Note that connecting more than one Small Cell Radio will require an additional networking switch.
+Refer to the 5G Hotspot Maker installation guides for specific instructions.
+
 Instructions on installing a CBRS Small Cell Radio and registration with the SAS is provided by the
-individual 5G Hotspot Makers. As an example, see the FreedomFi installation guides as a reference
-here:
+individual 5G Hotspot Makers. As an example, see the FreedomFi installation guides here:
 
 - [FreedomFi Indoor Install Guide](https://freedomfi.com/freedomfi-indoor-cbrs-small-cell-setup-guide/)
 - [FreedomFi Outdoor Install Guide](https://freedomfi.com/freedomfi-outdoor-cbrs-small-cell-setup-guide/)
 
 :::warning
 
-Misrepresentation of a CBRS Radio installation information, including GPS location, height, antenna
+Misrepresentation of CBRS Radio installation information, including GPS location, height, antenna
 orientation or other characteristics, in a SAS is a violation of FCC regulations and may result in
 fines and/or criminal penalties.
 
 :::
 
-Once the 5G Hotspot is onboarded and the Small Cell Radio is physically installed, the Small Cell
-will automatically initialize and aquire a GPS lock. Once that is complete, the Small Cell Radio
-dashboard appear under the "Radio Dashboard" tab on the local IP address.
+Once the 5G Hotspot is onboarded and a Small Cell Radio are physically installed, the Small Cell
+Radio will automatically initialize and aquire a GPS lock. Once that is complete, the Small Cell
+Radio dashboard appears under the "Radio Dashboard" tab on the local IP address of the 5G Hotspot.
 
 > [http://freedomfi-gateway.local/](http://freedomfi-gateway.local/)
 
-5G Hotspots will appear on [explorer.helium.com](https://explorer.helium.com/) between 2-4 days,
+5G Hotspot will appear on [explorer.helium.com](https://explorer.helium.com/) within 2-4 days,
 depending on how quickly it is registered in the SAS.
 
 ### Install Helium Wallet app to manage HNT/MOBILE token.
@@ -53,8 +58,8 @@ depending on how quickly it is registered in the SAS.
 - [App Store](https://apps.apple.com/us/app/helium-hnt-wallet/id1609525848)
 - [Google Play](https://play.google.com/store/apps/details?id=com.helium.wallet.app&gl=US)
 
-Once the 5G rewards are activated, and given correct installation, the 5G Hotspot will start earning
-MOBILE automatically.
+A 5G Hotspot with an attached and properly registered Small Cell Radio will start earning MOBILE
+automatically once the 5G rewards are activated on the Helium Blockchain.
 
 :::tip
 
@@ -66,14 +71,18 @@ Be sure to update the Helium Wallet app to the latest version. More information 
 
 ## How Do Hotspots Earn Helium MOBILE Tokens?
 
-The Helium blockchain rewards 5G Hotspots for providing 5G wireless coverage and verifying the
+The Helium Blockchain rewards 5G Hotspots for providing 5G wireless coverage and verifying the
 Helium Network. 5G Hotspots are rewarded in the Helium MOBILE Token.
 
+:::info
+
 During the Genesis Period, 5G Hotspots will earn MOBILE by reporting their status via a “heartbeat”,
-an automatic process of reporting to the Blockchain that the Small Cell Radio is online and
+an automatic process of reporting to the Helium Blockchain that the Small Cell Radio is online and
 registered with the SAS.
 
-Once your 5G Hotspot is completely deployed and fully synced with the Helium blockchain, you as the
+:::
+
+Once a 5G Hotspot is completely deployed and fully synced with the Helium Blockchain, you as the
 owner are not required to do anything else in order to earn MOBILE. Your 5G Hotspot will perform all
 of its activities on its own and will be rewarded for maintaining a valid connection to the SAS.
 
@@ -98,19 +107,19 @@ rewards will be paid out of the Foundation's pre-mined MOBILE rewards pool.
 Currently, the Helium Foundation intends to issue 100M tokens per day in the Genesis period and it
 will be proportionally distributed to all active 5G Small Cell Radios as described below.
 
-## Small Cell Type Reward Scaling
+## Small Cell Radio Reward Scaling
 
 All properly installed and registered 5G Hotspots will earn rewards for participating on the
-Network. A rewards unit multiple is applied to the various Small Cell Models based on whether they
-are indoor or outdoor, as well as their power output, as follows:
+Network. A rewards unit multiple is applied to the various Small Cell Radio models based on whether
+they are indoor or outdoor, as well as their power output, as follows:
 
-| Model           | Reward Weight | Small Cell Type    |
-| :-------------- | :-----------: | :----------------- |
-| Nova 436H       |     2.0x      | High Power Outdoor |
-| Nova 430i       |     1.5x      | Outdoor            |
-| Sercomm Outdoor |     1.5x      | Outdoor            |
-| Sercomm Indoor  |     1.0x      | Indoor             |
-| Neutrino 430    |     1.0x      | Indoor             |
+| Model           | Reward Weight | Small Cell Radio Type |
+| :-------------- | :-----------: | :-------------------- |
+| Nova 436H       |     2.0x      | High Power Outdoor    |
+| Nova 430i       |     1.5x      | Outdoor               |
+| Sercomm Outdoor |     1.5x      | Outdoor               |
+| Sercomm Indoor  |     1.0x      | Indoor                |
+| Neutrino 430    |     1.0x      | Indoor                |
 
 Individual rewards per period are calculated as a proportion of the total weighted reward units.
 
@@ -118,23 +127,28 @@ Individual rewards per period are calculated as a proportion of the total weight
 
 Earnings are calculated in 3 steps
 
-1. Calculate the Total Emissions Weight and Emissions Weight Ratio for each Small Cell Type
-2. Each Small Cell Type is allocated its ratio of the total rewards in the given epoch
-3. Each 5G Hotspot is proportionally rewarded from its respective rewards pool by Small Cell Type
+1. Calculate the Total Emissions Weight and Emissions Weight Ratio for each Small Cell Radio Type
+2. Each Small Cell Radio Type is allocated its ratio of the total rewards in the given epoch
+3. Each 5G Hotspot is proportionally rewarded from its respective rewards pool by Small Cell Radio
+   Type
+
+:::caution
 
 As an example, we can calculate the rewards for a 5G Hotspot in a single epoch assuming the
-following (the below numbers are examples and may not reflect actual deployed Hotspots today):
+following (the below numbers are examples and may not reflect actual deployed 5G Hotspots today):
 
 - 100,000 MOBILE Rewarded per epoch
-- 100 High Power Outdoor 5H Hotspots earn rewards
+- 100 High Power Outdoor 5G Hotspots earn rewards
 - 400 Outdoor 5G Hotspots earn rewards
 - 500 Indoor 5G Hotspots earn rewards
 
+:::
+
 ### Reward Ratios
 
-Calculate the Total Emissions Weight and Emissions Weight Ratio for each Small Cell Type:
+Calculate the Total Emissions Weight and Emissions Weight Ratio for each Small Cell Radio Type:
 
-In this example, the Total Emissions Weight it 1,300 and the ratios are as follows (rounded for ease
+In this example, the Total Emissions Weight is 1,300 and the ratios are as follows (rounded for ease
 of understanding)
 
 ```bash
@@ -145,11 +159,11 @@ of understanding)
                                           1,300
 ```
 
-### Small Cell Type Pool
+### Small Cell Radio Type Pool
 
-Each Small Cell Type is allocated its ratio of the total rewards in the given epoch.
+Each Small Cell Radio Type is allocated its ratio of the total rewards in the given epoch.
 
-> Small Cell Type Reward Pool = Epoch Rewards \* Weighted Small Cell Type Ratio
+> Small Cell Radio Type Reward Pool = Epoch Rewards \* Weighted Small Cell Radio Type Ratio
 
 ```bash
 High Power Outdoor  => 100,000 * 16% = 16,000 MOBILE
@@ -159,12 +173,12 @@ Indoor              => 100,000 * 38% = 38,000 MOBILE
 
 ### Rewards Per 5G Hotspot
 
-Each 5G Hotspot is rewarded from its respective rewards pool by Small Cell Type.
+Each 5G Hotspot is rewarded from its respective rewards pool by Small Cell Radio Type.
 
-> Reward Per Epoch = Small Cell Type Reward Pool / Number of Small Cell of that Type
+> Reward Per Epoch = Small Cell Radio Type Reward Pool / Number of Small Cell Radios of that Type
 
 ```bash
-High Power Outdoor  => 16,000 / 100 =  160 MOBILE per 5G Hotspot
-Outdoor             => 46,000 / 400 =  115 MOBILE per 5G Hotspot
-Indoor              => 38,000 / 500 =   76 MOBILE per 5G Hotspot
+High Power Outdoor  => 16,000 / 100 =  160 MOBILE per High Power Outdoor Small Cell Radio
+Outdoor             => 46,000 / 400 =  115 MOBILE per Outdoor Small Cell Radio
+Indoor              => 38,000 / 500 =   76 MOBILE per Indoor Small Cell Radio
 ```
