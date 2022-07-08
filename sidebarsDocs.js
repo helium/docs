@@ -45,7 +45,7 @@ module.exports = {
     {
       type: 'category',
       label: '5G on Helium',
-      items: ['5g-on-helium/5g-on-helium', '5g-on-helium/mining-5g'],
+      items: ['5g-on-helium/5g-on-helium', '5g-on-helium/cbrs-radios', '5g-on-helium/mining-5g'],
       collapsed: true,
     },
     {
