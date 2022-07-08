@@ -1,7 +1,7 @@
 ---
 id: mining-5g
 hide_title: true
-sidebar_label: 5G Mining & Rewards
+sidebar_label: Mine MOBILE
 sidebar_class_name: new
 slug: /5g-on-helium/mining-5g
 ---
@@ -13,7 +13,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 # 5G Mining and MOBILE Rewards
 
 Several factors contribute to how much `MOBILE` a 5G Hotspot will earn over a given period, there
-are some higher level concepts, design elements, and rules to keep in mind that will help better
+are some higher-level concepts, design elements, and rules to keep in mind that will help better
 explain what you might earn and why. This section covers these, as well as some mining and token
 reward basics.
 
@@ -30,7 +30,7 @@ coverage area. 5G Hotspots can support as many Small Cell Radios as would satura
 Note that connecting more than one Small Cell Radio will require an additional networking switch.
 Refer to the 5G Hotspot Maker installation guides for specific instructions.
 
-Instructions on installing a CBRS Small Cell Radio and registration with the SAS is provided by the
+Instructions on installing a CBRS Small Cell Radio and registration with the SAS are provided by the
 individual 5G Hotspot Makers. As an example, see the FreedomFi installation guides here:
 
 - [FreedomFi Indoor Install Guide](https://freedomfi.com/freedomfi-indoor-cbrs-small-cell-setup-guide/)
@@ -39,13 +39,13 @@ individual 5G Hotspot Makers. As an example, see the FreedomFi installation guid
 :::warning
 
 Misrepresentation of CBRS Radio installation information, including GPS location, height, antenna
-orientation or other characteristics, in a SAS is a violation of FCC regulations and may result in
+orientation or other characteristics in a SAS is a violation of FCC regulations and may result in
 fines and/or criminal penalties.
 
 :::
 
-Once the 5G Hotspot is onboarded and a Small Cell Radio are physically installed, the Small Cell
-Radio will automatically initialize and aquire a GPS lock. Once that is complete, the Small Cell
+Once the 5G Hotspot is onboarded and a Small Cell Radio is physically installed, the Small Cell
+Radio will automatically initialize and acquire a GPS lock. Once that is complete, the Small Cell
 Radio dashboard appears under the "Radio Dashboard" tab on the local IP address of the 5G Hotspot.
 
 > [http://freedomfi-gateway.local/](http://freedomfi-gateway.local/)
@@ -53,7 +53,7 @@ Radio dashboard appears under the "Radio Dashboard" tab on the local IP address 
 5G Hotspot will appear on [explorer.helium.com](https://explorer.helium.com/) within 2-4 days,
 depending on how quickly it is registered in the SAS.
 
-### Install Helium Wallet app to manage HNT/MOBILE token.
+### Install the Helium Wallet App to Manage HNT/MOBILE Token
 
 - [App Store](https://apps.apple.com/us/app/helium-hnt-wallet/id1609525848)
 - [Google Play](https://play.google.com/store/apps/details?id=com.helium.wallet.app&gl=US)
@@ -69,7 +69,7 @@ Be sure to update the Helium Wallet app to the latest version. More information 
 
 :::
 
-## How Do Hotspots Earn Helium MOBILE Tokens?
+## How 5G Hotspots Earn Helium MOBILE Tokens
 
 The Helium Blockchain rewards 5G Hotspots for providing 5G wireless coverage and verifying the
 Helium Network. 5G Hotspots are rewarded in the Helium MOBILE Token.
@@ -80,21 +80,24 @@ During the Genesis Period, 5G Hotspots will earn MOBILE by reporting their statu
 an automatic process of reporting to the Helium Blockchain that the Small Cell Radio is online and
 registered with the SAS.
 
+The Genesis Period begins when MOBILE mining starts and ends once the Mobile subDAO Treasury is
+established.
+
 :::
 
 Once a 5G Hotspot is completely deployed and fully synced with the Helium Blockchain, you as the
-owner are not required to do anything else in order to earn MOBILE. Your 5G Hotspot will perform all
-of its activities on its own and will be rewarded for maintaining a valid connection to the SAS.
+owner are not required to do anything else to earn MOBILE. Your 5G Hotspot will perform all of its
+activities on its own and will be rewarded for maintaining a valid connection to the SAS.
 
 ## Emissions Curve
 
 There will be a max supply of 250B MOBILE with issuance halvenings of every 2 years aligned with the
-HNT issuance halvenings. The first halving will occur on August 1, 2023 to align with HNT halving
-and will continue on a 2 year cycle afterward. This creates a "stub period" as defined by
+HNT issuance halvenings. The first halving will occur on August 1, 2023, to align with HNT halving
+and will continue on a 2-year cycle afterward. This creates a "stub period" as defined by
 [HIP 53: Mobile subDAO](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md) which will begin
-when normal emissions of MOBILE tokens begins (and MOBILE can be redeemed by HNT in the subDAO's
+when normal emissions of MOBILE tokens begin (and MOBILE can be redeemed by HNT in the subDAO's
 treasury). The date for this is currently TBD and dependent on core developers implementing the HNT
-token treasury and redemption transactions on chain. This is defined as Phase 2 of
+token treasury and redemption transactions on the Helium Blockchain. This is defined as Phase 2 of
 [HIP 51: Helium DAO](https://github.com/helium/HIP/blob/main/0051-helium-dao.md) for all new
 subDAOs.
 
@@ -113,13 +116,14 @@ All properly installed and registered 5G Hotspots will earn rewards for particip
 Network. A rewards unit multiple is applied to the various Small Cell Radio models based on whether
 they are indoor or outdoor, as well as their power output, as follows:
 
-| Model           | Reward Weight | Small Cell Radio Type |
-| :-------------- | :-----------: | :-------------------- |
-| Nova 436H       |     2.0x      | High Power Outdoor    |
-| Nova 430i       |     1.5x      | Outdoor               |
-| Sercomm Outdoor |     1.5x      | Outdoor               |
-| Sercomm Indoor  |     1.0x      | Indoor                |
-| Neutrino 430    |     1.0x      | Indoor                |
+| Small Cell Radio Model      | Reward Weight | Small Cell Radio Type |
+| :-------------------------- | :-----------: | :-------------------- |
+| Baicells Nova 436H          |     2.0x      | High-Power Outdoor    |
+| Baicells Nova 430i          |     1.5x      | Outdoor               |
+| MosoLabs Outdoor Small Cell |     1.5x      | Outdoor               |
+| FreedomFi Indoor Small Cell |     1.0x      | Indoor                |
+| MosoLabs Indoor Small Cell  |     1.0x      | Indoor                |
+| Baicells Neutrino 430H      |     1.0x      | Indoor                |
 
 Individual rewards per period are calculated as a proportion of the total weighted reward units.
 
@@ -138,22 +142,24 @@ As an example, we can calculate the rewards for a 5G Hotspot in a single epoch a
 following (the below numbers are examples and may not reflect actual deployed 5G Hotspots today):
 
 - 100,000 MOBILE Rewarded per epoch
-- 300 High Power Outdoor 5G Hotspots earn rewards
+- 300 High-Power Outdoor 5G Hotspots earn rewards
 - 400 Outdoor 5G Hotspots earn rewards
 - 800 Indoor 5G Hotspots earn rewards
+- 1 Small Cell Radio per 5G Hotspot (in real-world usage, multiple Small Cell Radios can be
+  connected to a 5G Hotspot)
 
 :::
 
 ### Total Rewards Units for Epoch
 
-Calculate the Total Reward Units for a given epoch, by using the reward weight for every small
-cell radio model.
+Calculate the Total Reward Units for a given epoch, by using the reward weight for every small cell
+radio model.
 
 In this example, the Total Rewards Units per epoch is 2,000 and the ratios are as follows:
 
 ```bash
-  (High Power Outdoor Count * 2.0)    =>    300
-+            (Outdoor Count * 1.5)    =>  + 400
+  (High-Power Outdoor Count * 2.0)    =>    600
++            (Outdoor Count * 1.5)    =>  + 600
 +             (Indoor Count * 1.0)    =>  + 800
 ------------------------------------      ------
                                           2,000
@@ -166,7 +172,7 @@ Each Small Cell Radio is allocated its rewards based on the reward weight of the
 > Small Cell Reward = Epoch Rewards x Model Reward Weight / Total Reward Units
 
 ```bash
-High Power Outdoor  => 100,000 * 2.0 / 2,000 = 100 MOBILE
-Outdoor             => 100,000 * 1.5 / 2,000 = 75  MOBILE
-Indoor              => 100,000 * 1   / 2,000 = 50  MOBILE
+High-Power Outdoor  => 100,000 * 2.0 / 2,000 = 100 MOBILE
+Outdoor             => 100,000 * 1.5 / 2,000 =  75 MOBILE
+Indoor              => 100,000 * 1   / 2,000 =  50 MOBILE
 ```
