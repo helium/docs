@@ -129,7 +129,7 @@ Validator may not be stable.
 You have three options for deploying the Validator. The deb package, a community member maintained
 package by PaulVMo, is the least complex to deploy and has very high performance. The Source build
 has the highest level of complexity to deploy, requires a higher level of Linux technical expertise,
-and also has very high performance. The docker version is less complex to deploy than Source, if you
+and also has very high performance. The docker version is less complex to deploy than Sdoource, if you
 already have experience with Docker, but does not perform as well as the other two options. The
 debian package and docker options are also the simplest to deploy and maintain when running multiple
 validator instances on a single host.
@@ -203,6 +203,7 @@ docker run -d --init \
 --publish 2154:2154/tcp \
 --publish 8080:8080/tcp \
 --name validator \
+--network host \
 --mount type=bind,source=$HOME/validator_data,target=/var/data \
 quay.io/team-helium/validator:latest-validator-amd64
 ```
