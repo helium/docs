@@ -97,27 +97,33 @@ change frequently.
 
 <div class="container" style={{ padding: 0, paddingTop: 0 }}>
   <div class="row">
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <h3>All Good</h3>
+    <div class="col col--3" style={{ marginBottom: 0 }}>
       <img className="homeicon" src={useBaseUrl('img/5g-on-helium/sas-success-small.png')} />
       <p>
         The Small Cell Radio has been granted Spectrum Access by the SAS and is providing 5G
         coverage.
       </p>
     </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <h3>Recent Connection</h3>
+    <div class="col col--3" style={{ marginBottom: 0 }}>
       <img className="homeicon" src={useBaseUrl('img/5g-on-helium/sas-connected-small.png')} />
       <p>
         The Small Cell Radio Spectrum Access was recently <code>None</code> and is comming back
         online, this status should be transitory.
       </p>
     </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <h3>Disconnected</h3>
+    <div class="col col--3" style={{ marginBottom: 0 }}>
       <img className="homeicon" src={useBaseUrl('img/5g-on-helium/sas-none-small.png')} />
       <p>The CBRS Spectrum access service is disabled to the Small Cell Radio. </p>
-      <p>See below for more information.</p>
+      <p>
+        See <a href="./cbrs-radios#spectrum-access-none-status">below</a> for more information.
+      </p>
+    </div>
+    <div class="col col--3" style={{ marginBottom: 0 }}>
+      <img className="homeicon" src={useBaseUrl('img/5g-on-helium/sas-failure-small.png')} />
+      <p>The CBRS Spectrum access service is disabled to the Small Cell Radio. </p>
+      <p>
+        See <a href="./cbrs-radios#spectrum-access-failure-status">below</a> for more information.
+      </p>
     </div>
   </div>
 </div>
@@ -137,6 +143,20 @@ A message similar to the following may also be present:
 > Suspension can last from hours to days for DPA Events. Contact support if you have been suspended
 > for more than 48hrs. This is more prevalent if your location is within 150km of the DPA Regions.
 
+### Spectrum Access `FAILURE` Status
+
+This status is alarming, but do not let it scare you.
+
+For newly installed Small Cell Radios, this "Failure" status is likely because the registration
+process has not been completed and submitted to the SAS.
+
+You may see information similar to this:
+
+> SAS status code: 200 SAS response message: Response data: installationParam
+
+For any other warning messages, contact [FreedomFi Support](https://freedomfi.com/contact-us/)
+directly.
+
 ### DPA Neighborhood Regions
 
 <div class="maps_iframe">
@@ -148,7 +168,7 @@ A message similar to the following may also be present:
 
 :::tip
 
-Further information and maps of the DPA Neighborhoods in The United States and territories can be
+Further information and maps of the DPA Neighborhoods in the United States and territories can be
 found here:
 [CBRS Encumbrances Overview](https://winnf.memberclicks.net/assets/work_products/WINNF-20-IN-0065r1%20CBRS%20Encumbrances%20Overview.pdf)
 
@@ -165,5 +185,5 @@ Radio's location when requesting approval to transmit from the FCC-regulated Spe
 
 Small Cell Radios will need to be placed somewhere that allows the GPS antenna to be in a location
 with good GPS reception (i.e. near a window). Indoor Small Cell Radios are shipped with an external
-GPS antenna that can be positioned independently while Outdoor Small Cell Radios have the GPS
+GPS antenna which can be positioned independently while Outdoor Small Cell Radios have the GPS
 antenna integrated into the body directly.
