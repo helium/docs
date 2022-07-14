@@ -8,9 +8,9 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # CBRS Small Cell Radios
 
-Instead of an antenna, Helium 5G Hotspots use Citizens Broadband Radio Service (CBRS) Radios to
+Instead of an LoRa antenna, Helium 5G Hotspots use Citizens Broadband Radio Service (CBRS) Radios to
 provide cellular coverage. CBRS is a wide broadcast 3.5Ghz band in the United States that does not
-require a tower operator to acquire spectrum licenses.
+require a 5G Hotspot Host to acquire spectrum licenses.
 
 More information about CBRS can be found on the
 [Federal Communications Commission Website](https://www.fcc.gov/35-ghz-band-overview)
@@ -65,59 +65,42 @@ only theoretical as the true limiting factor is bandwidth saturation. All 5G Hot
 a 1 Gbps Network Interface Card (NIC), the throughput of all the radios combined is limited to 1
 Gbps or your internet speed, whichever is lower.
 
-## The 5G Statistics Tab on Explorer
-
-The [Helium Explorer](https://explorer.helium.com/) will include an additional tab for all 5G
-Hotspots with active Small Cell Radios, "5G Statistics"
-
-This tab includes `Small Cell Status` and `Small Cell Location` widgets to describe the active
-status and Small Cell Radio Type respectively.
-
-Small Cell Status will be `Active` if the Small Cell has broadcast a `heartbeat` to the SAS in the
-past 10 minutes. Small Cell Location will be either `Indoor` or `Outdoor` depending on the Small
-Cell Radio type.
-
-:::note 5G Hotspots with more than one Small Cell Radio
-
-Small Cell Status will reflect all attached Small Cell Radios in aggregate, if any connected Small
-Cell Radio has broadcast a `heartbeat` to the SAS, the Status will be `Active` regardless of the
-actual status of any other connected Small Cell Radio.
-
-Refer to the 5G Hotspot dashboard for information on each connected Small Cell Radio (local network
-connection only) [http://freedomfi-gateway.local/](http://freedomfi-gateway.local/)
-
-:::
-
 ## Troubleshooting
 
 ### Spectrum Access on the 5G Hotspot Dashboard
 
-The Spectrum Access status will be in one of three states. It is not uncommon to see this status
+The Spectrum Access status will be in one of four states. It is not uncommon to see this status
 change frequently.
 
 <div class="container" style={{ padding: 0, paddingTop: 0 }}>
   <div class="row">
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <h3>All Good</h3>
+    <div class="col col--3" style={{ marginBottom: 0 }}>
       <img className="homeicon" src={useBaseUrl('img/5g-on-helium/sas-success-small.png')} />
       <p>
         The Small Cell Radio has been granted Spectrum Access by the SAS and is providing 5G
         coverage.
       </p>
     </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <h3>Recent Connection</h3>
+    <div class="col col--3" style={{ marginBottom: 0 }}>
       <img className="homeicon" src={useBaseUrl('img/5g-on-helium/sas-connected-small.png')} />
       <p>
-        The Small Cell Radio Spectrum Access was recently <code>None</code> and is comming back
+        The Spectrum Access was recently <code>None</code> and is comming back
         online, this status should be transitory.
       </p>
     </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <h3>Disconnected</h3>
+    <div class="col col--3" style={{ marginBottom: 0 }}>
       <img className="homeicon" src={useBaseUrl('img/5g-on-helium/sas-none-small.png')} />
-      <p>The CBRS Spectrum access service is disabled to the Small Cell Radio. </p>
-      <p>See below for more information.</p>
+      <p>The Spectrum Access is disabled to the Small Cell Radio. </p>
+      <p>
+        See <a href="./cbrs-radios#spectrum-access-none-status">below</a> for more information.
+      </p>
+    </div>
+    <div class="col col--3" style={{ marginBottom: 0 }}>
+      <img className="homeicon" src={useBaseUrl('img/5g-on-helium/sas-failure-small.png')} />
+      <p>The Spectrum Access Grant to the Small Cell Radio has Failed. </p>
+      <p>
+        See <a href="./cbrs-radios#spectrum-access-failure-status">below</a> for more information.
+      </p>
     </div>
   </div>
 </div>
@@ -133,15 +116,25 @@ Spectrum Access once the DPA event has concluded.
 
 A message similar to the following may also be present:
 
-```bash
-Spectrum Access status went back to “Connected” after it had been working. Wait and don’t reboot.
-Suspension can last from hours to days for DPA Events. Contact support if you have been suspended for
-more than 48hrs. This is more prevalent if your location is within 150km of the DPA Regions.
-```
+> Spectrum Access status went back to “Connected” after it had been working. Wait and don’t reboot.
+> Suspension can last from hours to days for DPA Events. Contact support if you have been suspended
+> for more than 48hrs. This is more prevalent if your location is within 150km of the DPA Regions.
 
-:::tip DPA Neighborhood Regions
+### DPA Neighborhood Regions
 
-Further information and maps of the DPA Neighborhoods in The United States and territories can be
+DPA regions can be viewed on the map below. Remember, these coordinates are not exact, and the
+effected regions for each DPA Event can reach as far as 150km inland.
+
+<div class="maps_iframe">
+  <iframe
+    src="https://www.google.com/maps/d/embed?mid=12A0vLwlriEfcX98azV1nJbHIs2OPwO4&hl=en&ehbc=2E312F"
+    frameborder="0"
+  ></iframe>
+</div>
+
+:::tip
+
+Further information and maps of the DPA Neighborhoods in the United States and territories can be
 found here:
 [CBRS Encumbrances Overview](https://winnf.memberclicks.net/assets/work_products/WINNF-20-IN-0065r1%20CBRS%20Encumbrances%20Overview.pdf)
 
@@ -149,6 +142,20 @@ This link and the included information are for reference only and may not addres
 Neighborhoods.
 
 :::
+
+### Spectrum Access `FAILURE` Status
+
+This status is alarming, but do not let it scare you.
+
+For newly installed Small Cell Radios, this "Failure" status is likely because the registration
+process has not been completed and submitted to the SAS.
+
+You may see an information pop up similar to this:
+
+> SAS status code: 200 SAS response message: Response data: installationParam
+
+For any other warning messages, contact [FreedomFi Support](https://freedomfi.com/contact-us/)
+directly.
 
 ### Small Cell Radios Need GPS
 
@@ -158,5 +165,5 @@ Radio's location when requesting approval to transmit from the FCC-regulated Spe
 
 Small Cell Radios will need to be placed somewhere that allows the GPS antenna to be in a location
 with good GPS reception (i.e. near a window). Indoor Small Cell Radios are shipped with an external
-GPS antenna that can be positioned independently while Outdoor Small Cell Radios have the GPS
+GPS antenna which can be positioned independently while Outdoor Small Cell Radios have the GPS
 antenna integrated into the body directly.
