@@ -6594,7 +6594,7 @@ GET https://api.helium.io/v1/validators/stats
 
 ```
 
-Returns stats for validators
+Returns stats for validators.
 
 <Tabs
   block={true}
@@ -6604,6 +6604,12 @@ Returns stats for validators
 
 </TabItem>
 <TabItem value="response">
+
+:::note
+
+Note that `amount` values are represented in `HNT`
+
+:::
 
 200: OK
 
@@ -7584,6 +7590,12 @@ _Query Parameters_
 
 Rewards for a validator in the last 24 hours: `min_time=-24%20hour`
 
+:::note
+
+Note that reward amount values are represented in `HNT`
+
+:::
+
 200: OK
 
 ```json
@@ -7642,6 +7654,12 @@ _Query Parameters_
 <TabItem value="response">
 
 Rewards for valdiators in the last 24 hours: `min_time=-24%20hour`
+
+:::note
+
+Note that reward amount values are represented in `HNT`
+
+:::
 
 200: OK
 

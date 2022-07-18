@@ -1335,9 +1335,9 @@ Rewards for an account in block `470788`
 GET https://api.helium.io/v1/accounts/:address/rewards/sum
 ```
 
-Returns the total rewards for a given account in a given timeframe. Timestamps can be given in ISO
-8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative time (e.g. `-1 week`, which when url
-esacped becomes `-1%20week`). When ommitted the current time is assumed.
+Returns the total rewards for a given account in a given timeframe in `bones`. Timestamps can be
+given in ISO 8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative time (e.g. `-1 week`, which
+when url esacped becomes `-1%20week`). When ommitted the current time is assumed.
 
 The results can also be bucketed in time by specifying a `bucket` query parameter which buckets
 information per bucket in the given timeframe. Data is bucketed per hotspot and time for the account

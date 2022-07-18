@@ -32,12 +32,11 @@ The API routes are grouped together in sub-pages of this page. Refer to the subp
 
 ## Cursors
 
-In order to return data quickly and reduce the load on the API, a `cursor` may be returned from an
-API request. The documentation for each route will indicate whether the result is paged with a
-cursor.
+To return data quickly and reduce the load on the API, a `cursor` may be returned from an API
+request. The documentation for each route will indicate whether the result is paged with a cursor.
 
-In order to request the next page of results, add a cursor URL parameter to the URL that was used to
-make the first request.
+To request the next page of results, add a cursor URL parameter to the URL that was used to make the
+first request.
 
 For example:
 
@@ -53,19 +52,26 @@ next page:
 http get $(API_URL)/v1/blocks?cursor=eyJiZWZvcmUiOjQzOTIwMX0
 ```
 
-Which will return the next page of results and a next `cursor` for the following page. A cursor will
-be returned with each response until the last page is reached, at which point no cursor is returned.
+Which will return the next page of results and the next `cursor` for the following page. A cursor
+will be returned with each response until the last page is reached, at which point no cursor is
+returned.
 
 :::info
 
-In order to improve caching the API may return an empty data array and a cursor. Use the cursor to
-request more data.
+To improve caching the API may return an empty data array and a cursor. Use the cursor to request
+more data.
 
 :::
 
 ## Transaction Units
 
-All API endpoints which return a transaction value (i.e. `fee`, `amount`, etc) are represented in
-the base unit `bones`.
+Unless otherwise specified, API calls return values in the following units:
 
-The conversion rate is `100,000,000 bone` per `HNT`.
+| value        | Units        | Conversion to HNT             |
+| ------------ | ------------ | ----------------------------- |
+| `amount`     | bones        | `100,000,000 bone` to `1 HNT` |
+| `balance`    | bones        | `100,000,000 bone` to `1 HNT` |
+| `stake`      | bones        | `100,000,000 bone` to `1 HNT` |
+| `sum`        | bones        | `100,000,000 bone` to `1 HNT` |
+| `fee`        | Data Credits | `100,000 DC` to `1 HNT`       |
+| `dc_balance` | Data Credits | `100,000 DC` to `1 HNT`       |
