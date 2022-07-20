@@ -128,14 +128,13 @@ All properly installed and registered 5G Hotspots will earn rewards for particip
 Network. A rewards unit multiple is applied to the various Small Cell Radio models based on whether
 they are indoor or outdoor, as well as their power output, as follows:
 
-| Small Cell Radio Model      | Reward Weight | Small Cell Radio Type |
-| :-------------------------- | :-----------: | :-------------------- |
-| Baicells Nova 436H          |     2.0x      | High-Power Outdoor    |
-| Baicells Nova 430i          |     1.5x      | Outdoor               |
-| MosoLabs Outdoor Small Cell |     1.5x      | Outdoor               |
-| FreedomFi Indoor Small Cell |     1.0x      | Indoor                |
-| MosoLabs Indoor Small Cell  |     1.0x      | Indoor                |
-| Baicells Neutrino 430H      |     1.0x      | Indoor                |
+| Small Cell Radio Type | Reward Weight |
+| :-------------------- | :-----------: |
+| High-Power Outdoor\*  |     4.0x      |
+| Outdoor               |     2.5x      |
+| Indoor                |     1.0x      |
+
+> \*Currently, the only High-Power Outdoor Radio is the `Baicells Nova436H`
 
 Individual rewards per period are calculated as a proportion of the total weighted reward units.
 
@@ -153,10 +152,10 @@ Earnings are calculated in 3 steps
 As an example, we can calculate the rewards for a 5G Hotspot in a single epoch assuming the
 following (the below numbers are examples and may not reflect actual deployed 5G Hotspots today):
 
-- 100,000 MOBILE Rewarded per epoch
-- 300 High-Power Outdoor 5G Hotspots earn rewards
-- 400 Outdoor 5G Hotspots earn rewards
-- 800 Indoor 5G Hotspots earn rewards
+- 1,000,000 MOBILE Rewarded per epoch
+- 150 High-Power Outdoor 5G Hotspots earn rewards
+- 800 Outdoor 5G Hotspots earn rewards
+- 1,400 Indoor 5G Hotspots earn rewards
 - 1 Small Cell Radio per 5G Hotspot (in real-world usage, multiple Small Cell Radios can be
   connected to a 5G Hotspot)
 
@@ -164,27 +163,27 @@ following (the below numbers are examples and may not reflect actual deployed 5G
 
 ### Total Rewards Units for Epoch
 
-Calculate the Total Reward Units for a given epoch, by using the reward weight for every small cell
-radio model.
+Calculate the Total Reward Points for a given epoch, by using the Reward Weight for every small cell
+radio type.
 
-In this example, the Total Rewards Units per epoch is 2,000 and the ratios are as follows:
+In this example, the total rewards Points per epoch is 4,000 and the ratios are as follows:
 
 ```bash
-  (High-Power Outdoor Count (300) * 2.0)    =>    600
-+            (Outdoor Count (400) * 1.5)    =>  + 600
-+             (Indoor Count (800) * 1.0)    =>  + 800
-------------------------------------            ------
-                                                2,000
+  (High-Power Outdoor Count (  150) * 4.0)    =>      600
++            (Outdoor Count (  800) * 2.5)    =>  + 2,000
++             (Indoor Count (1,400) * 1.0)    =>  + 1,400
+-------------------------------------------       --------
+                                                    4,000
 ```
 
 ### Earnings per Small Cell Radio
 
 Each Small Cell Radio is allocated its rewards based on the reward weight of the model.
 
-> Small Cell Reward = Epoch Rewards x Model Reward Weight / Total Reward Units
+> Small Cell Reward = Epoch Rewards x Model Reward Weight / Total Reward Points
 
 ```bash
-High-Power Outdoor  => 100,000 * 2.0 / 2,000 = 100 MOBILE
-Outdoor             => 100,000 * 1.5 / 2,000 =  75 MOBILE
-Indoor              => 100,000 * 1   / 2,000 =  50 MOBILE
+High-Power Outdoor  => 1,000,000 * 4.0 / 4,000 = 1,000 MOBILE
+Outdoor             => 1,000,000 * 2.5 / 4,000 =   625 MOBILE
+Indoor              => 1,000,000 * 1.0 / 4,000 =   250 MOBILE
 ```
