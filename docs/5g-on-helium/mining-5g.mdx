@@ -153,9 +153,9 @@ As an example, we can calculate the rewards for a 5G Hotspot in a single epoch a
 following (the below numbers are examples and may not reflect actual deployed 5G Hotspots today):
 
 - 1,000,000 MOBILE Rewarded per epoch
-- 600 High-Power Outdoor 5G Hotspots earn rewards
+- 150 High-Power Outdoor 5G Hotspots earn rewards
 - 800 Outdoor 5G Hotspots earn rewards
-- 1400 Indoor 5G Hotspots earn rewards
+- 1,400 Indoor 5G Hotspots earn rewards
 - 1 Small Cell Radio per 5G Hotspot (in real-world usage, multiple Small Cell Radios can be
   connected to a 5G Hotspot)
 
@@ -169,7 +169,7 @@ radio type.
 In this example, the total rewards Points per epoch is 4,000 and the ratios are as follows:
 
 ```bash
-  (High-Power Outdoor Count (  600) * 4.0)    =>    1,600
+  (High-Power Outdoor Count (  150) * 4.0)    =>      600
 +            (Outdoor Count (  800) * 2.5)    =>  + 2,000
 +             (Indoor Count (1,400) * 1.0)    =>  + 1,400
 -------------------------------------------       --------
@@ -183,7 +183,7 @@ Each Small Cell Radio is allocated its rewards based on the reward weight of the
 > Small Cell Reward = Epoch Rewards x Model Reward Weight / Total Reward Points
 
 ```bash
-High-Power Outdoor  => 1,000,000 * 4.0 / 4,000 = 1000 MOBILE
-Outdoor             => 1,000,000 * 2.5 / 4,000 =  625 MOBILE
-Indoor              => 1,000,000 * 1.0 / 4,000 =  250 MOBILE
+High-Power Outdoor  => 1,000,000 * 4.0 / 4,000 = 1,000 MOBILE
+Outdoor             => 1,000,000 * 2.5 / 4,000 =   625 MOBILE
+Indoor              => 1,000,000 * 1.0 / 4,000 =   250 MOBILE
 ```
