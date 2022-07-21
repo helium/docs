@@ -8,7 +8,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # CBRS Small Cell Radios
 
-Instead of an LoRa antenna, Helium 5G Hotspots use Citizens Broadband Radio Service (CBRS) Radios to
+Instead of a LoRa antenna, Helium 5G Hotspots use Citizens Broadband Radio Service (CBRS) Radios to
 provide cellular coverage. CBRS is a wide broadcast 3.5Ghz band in the United States that does not
 require a 5G Hotspot Host to acquire spectrum licenses.
 
@@ -67,6 +67,13 @@ Gbps or your internet speed, whichever is lower.
 
 ## Troubleshooting
 
+### Confirm the Network is Working
+
+Visit the [FreedomFi Status page](https://status.helium.freedomfi.com/).
+
+This status page will provide the latest updates on important issues that impact users like Device
+Onboarding, SAS services, or other major events.
+
 ### Spectrum Access on the 5G Hotspot Dashboard
 
 The Spectrum Access status will be in one of four states. It is not uncommon to see this status
@@ -84,8 +91,8 @@ change frequently.
     <div class="col col--3" style={{ marginBottom: 0 }}>
       <img className="homeicon" src={useBaseUrl('img/5g-on-helium/sas-connected-small.png')} />
       <p>
-        The Spectrum Access was recently <code>None</code> and is comming back
-        online, this status should be transitory.
+        The Spectrum Access was recently <code>None</code> and is coming back online, this status
+        should be transitory.
       </p>
     </div>
     <div class="col col--3" style={{ marginBottom: 0 }}>
@@ -104,15 +111,6 @@ change frequently.
     </div>
   </div>
 </div>
-
-### FreedomFi Dashboard
-
-## Confirm the Network is Working
-
-Visit the [FreedomFi Status page](https://status.helium.freedomfi.com/).
-
-This status page will provide the latest updates on important issues that impact users like Device
-Onboarding, SAS services or other major events.
 
 ### Spectrum Access `None` Status
 
@@ -136,7 +134,7 @@ This status is alarming, but do not let it scare you.
 For newly installed Small Cell Radios, this "Failure" status is likely because the registration
 process has not been completed and submitted to the SAS.
 
-You may see an information pop up similar to this:
+You may see an information pop-up similar to this:
 
 > SAS status code: 200 SAS response message: Response data: installationParam
 
