@@ -11,40 +11,52 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Mining and Token Rewards
 
-While there's no exact formula for calculating how much `HNT` you'll earn over a given period, there
-are some higher level concepts, design elements, and rules to keep in mind that will help better
-explain what you might earn and why. This section covers these, as well as some mining and token
-reward basics.
+While there's no exact formula for calculating how much HNT, IOT or MOBILE you'll earn over a given
+period, there are some higher level concepts, design elements, and rules to keep in mind that will
+help better explain what you might earn and why. This section covers these, as well as some mining
+and token reward basics.
 
-## How Do Hotspots Earn Helium Tokens?
+:::info HIP 51/52/53 the "Network of Networks"
+
+- [HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md) provides a general structure
+  for onboarding new Decentralized Network Protocols (DNPs) to the broader Helium Network.
+- [HIP-52](https://github.com/helium/HIP/blob/main/0052-iot-dao.md) establishes the IOT subDAO and
+  the IOT Token
+- [HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md) establishes the MOBILE subDAO
+  and the MOBILE Token
+
+:::
+
+## How Do Hotspots Earn Helium Network Tokens?
 
 The Helium blockchain rewards Hotspots for providing wireless coverage and verifying the Helium
-Network. Hotspots are rewarded in Helium Token, $HNT.
+Network.
+
+- LoRaWAN Hotspots are rewarded in the IOT Token.
+- 5G Hotspots are rewarded in the MOBILE Token.
 
 Every epoch, the current consensus group mines approximately 30 blocks on the blockchain. In each
 block, Hotspots perform various types of work and are awarded according to the following
 distribution:
 
-
-| Reward Type           | Chain Variable          | Description                                                                                                         |
-| :-------------------- | :---------------------- | :------------------------------------------------------------------------------------------------------------------ |
-| PoC Challenger        | poc_challengers_percent | Rewarded to any Hotspot that creates a valid PoC challenge and submits the corresponding receipt to the blockchain. |
-| PoC Challengees       | poc_challengees_percent | Awarded to any Hotspot that transmits a PoC packet after being targeted by the challenger.                          |
-| Witnesses             | poc_witnesses_percent   | Distributed to all Hotspots that witness a beacon packet as part of a PoC Challenge.                                |
-| Consensus Group       | consensus_percent       | Divided equally among the Validators that are part of the outgoing Consensus Group, responsible for mining blocks.  |
-| Security              | securities_percent      | Awarded to Helium, Inc and other Network investors who hold Security Tokens.                                        |
-| Network Data Transfer | dc_percent              | Distributed each epoch to Hotspots that route LongFi sensor data for sensors on the Network during that epoch.      |
-
+| Reward Type           | Chain Variable            | Description                                                                                                           |
+| :-------------------- | :------------------------ | :-------------------------------------------------------------------------------------------------------------------- |
+| PoC Challenger        | `poc_challengers_percent` | Rewarded to any Validator that creates a valid PoC challenge and submits the corresponding receipt to the blockchain. |
+| PoC Challengees       | `poc_challengees_percent` | Awarded to any Hotspot that transmits a PoC packet after being targeted by the challenger.                            |
+| Witnesses             | `poc_witnesses_percent`   | Distributed to all Hotspots that witness a beacon packet as part of a PoC Challenge.                                  |
+| Consensus Group       | `consensus_percent`       | Divided equally among the Validators that are part of the outgoing Consensus Group, responsible for mining blocks.    |
+| Security              | `securities_percent`      | Awarded to Helium, Inc and other Network investors who hold Security Tokens.                                          |
+| Network Data Transfer | `dc_percent`              | Distributed each epoch to Hotspots that route sensor data for sensors on the Network during that epoch.               |
 
 **_Do I Have To Actively Participate to Earn Rewards Once My Hotspot is Deployed?_**
 
-No. Once your Hotspot is completely deployed and fully synced with the Helium blockchain, you as the
-owner are not required to do anything else in order to earn $HNT. Your Hotspot will perform all of
-the above activities on its own while it runs.
+No. Once your Hotspot is completely deployed to the Helium blockchain, you as the owner are not
+required to do anything else in order to earn Tokens. Your Hotspot will perform all of the above
+activities on its own while it runs.
 
-## Target $HNT Production Per Epoch
+## Target Token Production Per Epoch
 
-As of August 1, 2021 (the most-recent halving), the target production rate for new $HNT minted per
+As of August 1, 2021 (the most-recent halving), the target production rate for new HNT minted per
 month is `2,500,000`. This means that, if the blockchain performs as designed, it will produce
 `2,500,000` HNT per month. This target rate is based on the following two parameters, as defined in
 their specific chain variables:
@@ -65,15 +77,15 @@ the blockchain will produce `2,500,000` HNT per month. Per epoch, this equals ro
 ### What Are The Current Block and Epoch Times?
 
 At any point you can go to the [Helium blockchain Explorer](http://explorer.helium.com/) to view
-recent block and epoch statistics, past $HNT production numbers, and much more.
+recent block and epoch statistics, past Token production numbers, and much more.
 
-## HNT Distributions Per Epoch
+## Token Distributions Per Epoch
 
-As calculated above, the target `HNT` per epoch is approximately `1736.1111`. The next logical
+As calculated above, the target HNT per epoch is approximately `1736.1111`. The next logical
 question is, "Where does all this HNT go?" Let's take a look.
 
 Below are the mining rewards per epoch as of August 1, 2021. For every complete epoch, marked by the
-election of a new Consensus Group, all the `HNT` produced are distributed over the following reward
+election of a new Consensus Group, all the HNT produced are distributed over the following reward
 types:
 
 | Reward Type           | Percentage      | HNT Earned by Reward Type |
