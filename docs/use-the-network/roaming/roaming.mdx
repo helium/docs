@@ -134,3 +134,53 @@ receive alerts.
 ### Setting Up Alerts
 
 To set up email alerts: click **Alerts**, choose alert and user role to receive alerts.
+
+## Sample JSON
+### Sample Uplink
+```json
+{
+    "MessageType": "PRStartReq",
+    "PHYPayload": "0x8041FD26E0800B0001932DE4E3AAC35CD0",
+    "ProtocolVersion": "1.1",
+    "ReceiverID": "0x000000",
+    "SenderID": "0xC00053",
+    "SenderNSID": "",
+    "TransactionID": 336746616,
+    "ULMetaData": 
+    {
+        "DataRate": 4,
+        "DevAddr": "0xAABBCCDD",
+        "FNSULToken": "0x3131334C6D4A7167434376765464585032467450564E616B5A5871576A7A6E4A6F76715863665A69664D745046796A666463623A45553836383A353838313637383235",
+        "GWCnt": 1,
+        "GWInfo": [
+            {
+                "DLAllowed": true,
+                "ID": "0xCD70F2C5E437B2BB",
+                "Lat": 44.8594,
+                "Lon": -0.586,
+                "RFRegion": "EU868",
+                "RSSI": -127,
+                "SNR": -8.5
+            }
+        ],
+        "RFRegion": "EU868",
+        "RecvTime": "2022-06-09T15:45:42Z",
+        "ULFreq": 867.7
+    }
+}
+```
+
+### Sample Downlink
+```json
+{
+    "DLFreq2": 869.525,
+    "MessageType": "XmitDataAns",
+    "ProtocolVersion": "1.1",
+    "ReceiverID": "0x000000",
+    "Result": {
+        "ResultCode": "Success"
+    },
+    "SenderID": "0xC00053",
+    "TransactionID": 7627
+}
+```
