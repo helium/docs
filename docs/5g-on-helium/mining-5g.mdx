@@ -154,7 +154,7 @@ Earnings are calculated in 3 steps
 As an example, we can calculate the rewards for a 5G Hotspot in a single epoch assuming the
 following (the below numbers are examples and may not reflect actual deployed 5G Hotspots today):
 
-- 1,000,000 MOBILE Rewarded per epoch
+- 100,000,000 MOBILE Rewarded per day
 - 150 High-Power Outdoor 5G Hotspots earn rewards
 - 800 Outdoor 5G Hotspots earn rewards
 - 1,400 Indoor 5G Hotspots earn rewards
@@ -165,27 +165,27 @@ following (the below numbers are examples and may not reflect actual deployed 5G
 
 ### Total Rewards Units for Epoch
 
-Calculate the Total Reward Points for a given epoch, by using the Reward Weight for every small cell
-radio type.
+Calculate the Total Reward Points for a given epoch, by using the Reward Weight for each Small Cell
+Radio type.
 
 In this example, the total rewards Points per epoch is 4,000 and the ratios are as follows:
 
 ```bash
-  High-Power Outdoor Count (  150) * 4.0    =>      600
-+            Outdoor Count (  800) * 2.5    =>  + 2,000
-+             Indoor Count (1,400) * 1.0    =>  + 1,400
+  High-Power Outdoor Count (  150) * 4.0    =>      600   =>  0.15
++            Outdoor Count (  800) * 2.5    =>  + 2,000   =>  0.50
++             Indoor Count (1,400) * 1.0    =>  + 1,400   =>  0.35
 -----------------------------------------       --------
-                                                    4,000
+                                                  4,000
 ```
 
 ### Earnings per Small Cell Radio
 
 Each Small Cell Radio is allocated its rewards based on the reward weight of the model.
 
-> Small Cell Reward = Epoch Rewards x Model Reward Weight / Total Reward Points
+> Small Cell Reward = Daily Rewards \* Small Cell Points Ratio / Count of Small Cell Type
 
 ```bash
-High-Power Outdoor  => 1,000,000 * 4.0 / 4,000 = 1,000 MOBILE
-Outdoor             => 1,000,000 * 2.5 / 4,000 =   625 MOBILE
-Indoor              => 1,000,000 * 1.0 / 4,000 =   250 MOBILE
+High-Power Outdoor  => 100,000,000 * 0.15 /   150 = 100,000 MOBILE per day
+           Outdoor  => 100,000,000 * 0.50 /   800 =  62,500 MOBILE per day
+            Indoor  => 100,000,000 * 0.35 / 1,400 =  25,000 MOBILE per day
 ```
