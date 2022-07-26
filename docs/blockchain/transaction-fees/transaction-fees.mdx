@@ -12,23 +12,24 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 # Transaction Fees
 
 Like most blockchains, Helium has a system of transaction fees. All transactions in the Helium
-blockchain are paid in Data Credits (DCs). Data Credits are produced via burning some amount of
-`HNT` using an on-chain transaction. And thanks to a system called "Implicit Burn", users
-(typically) don't need to manually supply `DCs` to pay fees. As long as the Helium wallet being used
-to submit the transaction contains enough `HNT` to burn to `DCs` to fund the transaction, the burn
-will happen implicitly, requiring no user intervention.
+blockchain are paid in Data Credits (DCs). Data Credits are produced via burning some amount of HNT
+using an on-chain transaction. And thanks to a system called "Implicit Burn", users (typically)
+don't need to manually supply DCs to pay fees.
+
+As long as the Helium wallet being used to submit the transaction contains enough HNT to burn to DCs
+to fund the transaction, the burn will happen implicitly, requiring no user intervention.
 
 ### Transaction Fee Schedule
 
 The following is a list of the current set of fees required for various transactions, along with
-their details. Transaction fees are paid in Data Credits. (Note that the cost is not shown in `HNT`
-as this number is variable based on the current $USD/HNT price as defined by the HNT Price Oracle.)
+their details. Transaction fees are paid in Data Credits. (Note that the cost is not shown in HNT as
+this number is variable based on the current $USD/HNT price as defined by the HNT Price Oracle.)
 
 | Fee Type                        | Fee Description                                                                                                 | **Cost (DC)** | Cost ($USD) |
 | :------------------------------ | :-------------------------------------------------------------------------------------------------------------- | :------------ | :---------- |
-| Send HNT                        | Transferring HNT from wallet to wallet                                                                          | `Variable`    | `Variable`  |
+| Send Token(s)                   | Transferring Token(s) from wallet to wallet                                                                     | `Variable`    | `Variable`  |
 | Transferring Device Packet Data | Fee paid by device owner when sending or receiving sensor data. Metered per 24 bytes.                           | `1`           | `$.00001`   |
-| Add Full Hotspot                | Fee paid to add full Hotspot to the blockchain. **Fee is generally covered by Hotspot maker**.                  | `4000000`     | `$40`       |
+| Add Full Hotspot                | Fee paid to add a Hotspot to the blockchain. **Fee is generally covered by Hotspot maker**.                     | `4000000`     | `$40`       |
 | Add Data Only Hotspot           | Fee paid to add a Data Only Hotspot to the blockchain.                                                          | `1000000`     | `$10`       |
 | Assert Hotspot Location         | Required when asserting a Hotspot's location. \(The **first assertions** is generaly covered by Hotspot maker\) | `1000000`     | `$10`       |
 | Assert Data Only Location       | Required for Optionally asserting a Data Only Hotspot's Location                                                | `500000`      | `$5`        |
@@ -37,7 +38,7 @@ as this number is variable based on the current $USD/HNT price as defined by the
 
 ### Calculating the DC cost for Sending HNT
 
-As noted above, the `DC` cost of a `Send` transaction is variable. The precise cost is based on the
+As noted above, the DC cost of a `Send` transaction is variable. The precise cost is based on the
 size of the transaction, in bytes. Once the size is calculated, we apply a `5000x` multiplier. For a
 typical send transaction, where one wallet is sending to one wallet
 ([like this one here](https://explorer.helium.com/txns/RP8xdjuYsvIAaEuyNvMmlBF7Kc8ShNoURtA1ccgMGpk)),
@@ -64,7 +65,7 @@ The Helium blockchain uses something called `implicit burn` when paying fees.
 
 **Implicit Burn™**
 
-The term `implicit burn` was coined by Helium PM Coco "cokes" Tang, a recognized innovator in the
+The term `implicit burn` was coined by Nova Labs PM Coco "cokes" Tang, a recognized innovator in the
 blockchain technology and terminology space.
 
 Thanks to Implicit Burn™, if you have enough HNT in your wallet to pay the transaction fee, the
@@ -75,7 +76,7 @@ transaction. For example:
 - You need to send `10 HNT` from a Helium Wallet that contains `11 HNT`
 - The cost for this `send` transaction is `35000 DCs`
 - Let's assume the `HNT/$USD` Oracle Price is `$.35` at the time you send the `HNT`. This means that
-  you'll need to supply a `1HNT` to fund the `35000 DCs` for this transaction.
+  you'll need to supply a `1 HNT` to fund the `35000 DCs` for this transaction.
 - When you send the `10 HNT`, the Helium Wallet automatically supplies the `1 HNT` to be burned into
   `DCs`.
 - After the transaction is submitted and processed, your resulting Helium Wallet balance will be
