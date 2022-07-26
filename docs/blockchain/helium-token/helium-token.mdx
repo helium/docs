@@ -1,7 +1,7 @@
 ---
 id: helium-token
 hide_title: true
-sidebar_label: Helium Token
+sidebar_label: Helium Tokens
 slug: /blockchain/helium-token
 ---
 
@@ -9,29 +9,75 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <img className="docsheader" src={useBaseUrl('img/blockchain/heliumtoken.png')} />
 
-# The Helium Token
+# The Helium Tokens
 
 The Helium Token is the native cryptocurrency and protocol token of the Helium blockchain. Its
-symbol is `HNT`. Prior to the launch of the Helium blockchain, there was no premine of `HNT`. The
-first `HNT` was produced on July 29th, 2019
+symbol is `HNT`. Prior to the launch of the Helium blockchain, there was no premine of HNT. The
+first HNT was produced on July 29th, 2019
 [as part of the block 93](https://explorer.helium.com/txns/sEP-cbb2tvSrfbBleT21yGDNM8FIjNr3UT3k3BeZELw).
 
-:::info For statistics on HNT,
+:::info
+
+For statistics on HNT,
 [see the Market section on the Helium Explorer](https://explorer.helium.com/market).
 
 :::
 
+## Helium subDAO Tokens
+
+With the passing of [HIP51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md), new
+communication networks can be built on top of the Helium Network, each with its own token.
+
+The key specifications of each network such as Proof-of-Coverage rules, mining rewards, and Data
+Transfer pricing are governed by each subDAO.
+
+The aim is to create an economy such that the underlying HNT-Data Credit burn-and-mint equilibrium
+continues to power the Helium Flywheel, while Proof-of-Coverage rules and earnings are dictated by
+the corresponding subDAO.
+
+<div class="container" style={{ padding: 0, paddingTop: 50 }}>
+  <div class="row">
+    <div class="col col--6">
+      <div className="tech--item">
+        {/* <img className="techicon" src={useBaseUrl('img/blockchain/mobiletoken.svg')} /> */}
+        <div className="tech--item_text">
+          <a href="/5g-on-helium">
+            <h3>MOBILE Token</h3>
+          </a>
+          <p>
+            <b>MOBILE</b> serves as the protocol token of the Helium 5G network.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col col--6">
+      <div className="tech--item">
+        {/* <img className="techicon" src={useBaseUrl('img/blockchain/mobiletoken.svg')} /> */}
+        <div className="tech--item_text">
+          <a href="/lorawan-on-helium">
+            <h3>IOT Token</h3>
+          </a>
+          <p>
+            <b>IOT</b> serves as the protocol token of the Helium LoRaWAN network.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Helium Token Usage
 
-The Helium Token is designed to serve the needs of the two primary parties in the Helium blockchain
-ecosystem:
+The Helium Tokens are designed to serve the needs of the two primary parties in the Helium
+blockchain ecosystems:
 
-1. **Hotspot Hosts and Network Operators**. Hosts [mine HNT](/blockchain/mining) while deploying and
-   maintaining network coverage.
-2. **Enterprises and developers using the Helium Network** to connect devices and build IoT
-   applications. Data Credits, which are a $USD-pegged utility token derived from HNT in a burn
-   transaction, [are used to pay transaction fees](/blockchain/transaction-fees) for wireless data
-   transmissions on the network (in addition to things like adding Hotspots and sending).
+1. **Hotspot Hosts and Network Operators**. Hosts [mine Tokens](/blockchain/mining) while deploying
+   and maintaining network coverage.
+2. **Enterprises and developers using the Helium Network** to connect devices, build IoT
+   applications, and connect 5G Cellular devices. Data Credits, which are a $USD-pegged utility
+   token derived from HNT in a burn transaction,
+   [are used to pay transaction fees](/blockchain/transaction-fees) for wireless data transmissions
+   on the network (in addition to things like adding Hotspots and sending).
 
 ## HNT Token Economic Concepts
 
@@ -52,62 +98,62 @@ HNT halving happens every two years from the genesis block, on the following sch
 
 In the below issuance schedule, year 1 starts on **August 1, 2019**. The first halving happened on
 approximately day one of the beginning of year three, **August 1, 2021**. The network is now
-producing `2,500,000` HNT until the next scheduled halving.
+producing `2,500,000` HNT per month until the next scheduled halving.
 
 :::
 
 | Year | HNT at start of year | Total HNT Minted |
-| :--- | :------------------- | :--------------- |
-| 1    | 0                    | 60,000,000.0     |
-| 2    | 60,000,000           | 60,000,000.0     |
-| 3    | 120,000,000          | 30,000,000.0     |
-| 4    | 150,000,000          | 30,000,000.0     |
-| 5    | 180,000,000          | 15,000,000.0     |
-| 6    | 195,000,000          | 15,000,000.0     |
-| 7    | 210,000,000          | 7,500,000.0      |
-| 8    | 217,500,000          | 7,500,000.0      |
-| 9    | 225,000,000          | 3,750,000.0      |
-| 10   | 228,750,000          | 3,750,000.0      |
-| 11   | 232,500,000          | 1,875,000.0      |
-| 12   | 234,375,000          | 1,875,000.0      |
-| 13   | 236,250,000          | 937,500.0        |
-| 14   | 237,187,500          | 937,500.0        |
-| 15   | 238,125,000          | 468,750.0        |
-| 16   | 238,593,750          | 468,750.0        |
-| 17   | 239,062,500          | 234,375.0        |
-| 18   | 239,296,875          | 234,375.0        |
-| 19   | 239,531,250          | 117,187.5        |
-| 20   | 239,648,438          | 117,187.5        |
-| 21   | 239,765,625          | 58,593.8         |
-| 22   | 239,824,219          | 58,593.8         |
-| 23   | 239,882,813          | 29,296.9         |
-| 24   | 239,912,109          | 29,296.9         |
-| 25   | 239,941,406          | 14,648.4         |
-| 26   | 239,956,055          | 14,648.4         |
-| 27   | 239,970,703          | 7,324.2          |
-| 28   | 239,978,027          | 7,324.2          |
-| 29   | 239,985,352          | 3,662.1          |
-| 30   | 239,989,014          | 3,662.1          |
-| 31   | 239,992,676          | 1,831.1          |
-| 32   | 239,994,507          | 1,831.1          |
-| 33   | 239,996,338          | 915.5            |
-| 34   | 239,997,253          | 915.5            |
-| 35   | 239,998,169          | 457.8            |
-| 36   | 239,998,627          | 457.8            |
-| 37   | 239,999,084          | 228.9            |
-| 38   | 239,999,313          | 228.9            |
-| 39   | 239,999,542          | 114.4            |
-| 40   | 239,999,657          | 114.4            |
-| 41   | 239,999,771          | 57.2             |
-| 42   | 239,999,828          | 57.2             |
-| 43   | 239,999,886          | 28.6             |
-| 44   | 239,999,914          | 28.6             |
-| 45   | 239,999,943          | 14.3             |
-| 46   | 239,999,957          | 14.3             |
-| 47   | 239,999,971          | 7.2              |
-| 48   | 239,999,979          | 7.2              |
-| 49   | 239,999,986          | 3.6              |
-| 50   | 239,999,989          | 3.6              |
+| :--- | -------------------: | ---------------: |
+| 1    |                    0 |     60,000,000.0 |
+| 2    |           60,000,000 |     60,000,000.0 |
+| 3    |          120,000,000 |     30,000,000.0 |
+| 4    |          150,000,000 |     30,000,000.0 |
+| 5    |          180,000,000 |     15,000,000.0 |
+| 6    |          195,000,000 |     15,000,000.0 |
+| 7    |          210,000,000 |      7,500,000.0 |
+| 8    |          217,500,000 |      7,500,000.0 |
+| 9    |          225,000,000 |      3,750,000.0 |
+| 10   |          228,750,000 |      3,750,000.0 |
+| 11   |          232,500,000 |      1,875,000.0 |
+| 12   |          234,375,000 |      1,875,000.0 |
+| 13   |          236,250,000 |        937,500.0 |
+| 14   |          237,187,500 |        937,500.0 |
+| 15   |          238,125,000 |        468,750.0 |
+| 16   |          238,593,750 |        468,750.0 |
+| 17   |          239,062,500 |        234,375.0 |
+| 18   |          239,296,875 |        234,375.0 |
+| 19   |          239,531,250 |        117,187.5 |
+| 20   |          239,648,438 |        117,187.5 |
+| 21   |          239,765,625 |         58,593.8 |
+| 22   |          239,824,219 |         58,593.8 |
+| 23   |          239,882,813 |         29,296.9 |
+| 24   |          239,912,109 |         29,296.9 |
+| 25   |          239,941,406 |         14,648.4 |
+| 26   |          239,956,055 |         14,648.4 |
+| 27   |          239,970,703 |          7,324.2 |
+| 28   |          239,978,027 |          7,324.2 |
+| 29   |          239,985,352 |          3,662.1 |
+| 30   |          239,989,014 |          3,662.1 |
+| 31   |          239,992,676 |          1,831.1 |
+| 32   |          239,994,507 |          1,831.1 |
+| 33   |          239,996,338 |            915.5 |
+| 34   |          239,997,253 |            915.5 |
+| 35   |          239,998,169 |            457.8 |
+| 36   |          239,998,627 |            457.8 |
+| 37   |          239,999,084 |            228.9 |
+| 38   |          239,999,313 |            228.9 |
+| 39   |          239,999,542 |            114.4 |
+| 40   |          239,999,657 |            114.4 |
+| 41   |          239,999,771 |             57.2 |
+| 42   |          239,999,828 |             57.2 |
+| 43   |          239,999,886 |             28.6 |
+| 44   |          239,999,914 |             28.6 |
+| 45   |          239,999,943 |             14.3 |
+| 46   |          239,999,957 |             14.3 |
+| 47   |          239,999,971 |              7.2 |
+| 48   |          239,999,979 |              7.2 |
+| 49   |          239,999,986 |              3.6 |
+| 50   |          239,999,989 |              3.6 |
 
 :::important
 
@@ -121,9 +167,9 @@ times. So the actual maximum supply is `223,000,000` HNT.
 
 As noted above, **Data Credits** are a $USD-pegged utility token derived from HNT in a burn
 transaction and used to pay [all transaction fees](/blockchain/transaction-fees) on the Helium
-Network. One Data Credit will always cost `$0.00001`. Or, `$1.00` will always buy you `100,000` Data
-Credits. But, as noted above, Data Credits are produced by burning HNT. And the market price of HNT
-will of course fluctuate.
+Networks. One Data Credit will always cost `$0.00001`. Or, `$1.00` will always buy you `100,000`
+Data Credits. But, as noted above, Data Credits are produced by burning HNT. And the market price of
+HNT will of course fluctuate.
 
 This HNT to DC relationship is based on a design commonly called a
 [burn and mint equilibrium](https://multicoin.capital/2018/02/13/new-models-utility-tokens/) and is
