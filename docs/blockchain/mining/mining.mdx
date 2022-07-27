@@ -12,7 +12,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 # Mining and Token Rewards
 
 While there's no exact formula for calculating how much HNT you'll earn over a given period, there
-are some higher level concepts, design elements, and rules to keep in mind that will help better
+are some higher-level concepts, design elements, and rules to keep in mind that will help better
 explain what you might earn and why. This section covers these, as well as some mining and token
 reward basics.
 
@@ -37,12 +37,12 @@ distribution:
 **_Do I Have To Actively Participate to Earn Rewards Once My Hotspot is Deployed?_**
 
 No. Once your Hotspot is completely deployed and onboarded to the Helium blockchain, you as the
-owner are not required to do anything else in order to earn HNT. Your Hotspot will perform all of
-the above activities on its own while it runs.
+owner are not required to do anything else to earn HNT. Your Hotspot will perform all of the above
+activities on its own while it runs.
 
 ## Target HNT Production Per Epoch
 
-As of August 1, 2021 (the most-recent halving), the target production rate for new HNT minted per
+As of August 1, 2021 (the most recent halving), the target production rate for new HNT minted per
 month is `2,500,000`. This means that, if the blockchain performs as designed, it will produce
 `2,500,000` HNT per month. This target rate is based on the following two parameters, as defined in
 their specific chain variables:
@@ -62,7 +62,7 @@ HNT. The math for this is as follows:
 
 ### What Are The Current Block and Epoch Times?
 
-At any point you can go to the [Helium blockchain Explorer](http://explorer.helium.com/) to view
+At any point, you can go to the [Helium blockchain Explorer](http://explorer.helium.com/) to view
 recent block and epoch statistics, past HNT production numbers, and much more.
 
 ## HNT Distributions Per Epoch
@@ -86,10 +86,10 @@ types:
 
 **Rewards Change Over Time**
 
-In the above table you can see the maximum allotted rewards per reward type in accordance with HIP
-10 (described below). If you want to see the current reward type percentage, you can always query
-the [Chain Variables API](/api/blockchain/chain-variables). The next maximum allotted rewards change
-is currently scheduled for **August 1, 2023.**
+In the above table, you can see the maximum allotted rewards per reward type following HIP 10
+(described below). If you want to see the current reward type percentage, you can always query the
+[Chain Variables API](/api/blockchain/chain-variables). The next maximum allotted rewards change is
+currently scheduled for **August 1, 2023.**
 
 ## HIP10 and Variable HNT Rewards for Network Data Transfer
 
@@ -99,9 +99,10 @@ HIP10 was introduced by Helium Community Member `hashc0de` and was adopted by th
 
 It ensures that HNT is rewarded at a rate of 1:1 to the amount of Data Credits (DCs) routed by any
 given Hotspot per epoch. In doing so, the Network Data Transfer reward is proportional to the DC
-spent that epoch. This proportional relationship between Network Data Transfer reward type and DC is
-capped at 37.50% (651.0417 HNT). Therefore, if the DC burned doesn't equal the value of `651.0417`
-HNT, the remaining HNT is redistributed to the Proof of Coverage (PoC) rewards groups pro-rata.
+spent in that epoch. This proportional relationship between Network Data Transfer reward type and DC
+is capped at 37.50% (651.0417 HNT). Therefore, if the DC burned doesn't equal the value of
+`651.0417` HNT, the remaining HNT is redistributed to the Proof of Coverage (PoC) rewards groups
+pro-rata.
 
 Here are a few examples to illustrate how this works in practice:
 
@@ -109,15 +110,10 @@ Here are a few examples to illustrate how this works in practice:
 
 - In a given epoch, `8,000,000` DCs are transferred across the network
 - The HNT Oracle Price is `$8.00`
-- In this scenario, total HNT value of DC transferred in this epoch is `10 HNT`. This calculation
-  is:`(8,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
-- These `10 HNT` would be split proportionally to the Hotspots who did the work routing packets at
+- In this scenario, the total HNT value of DC transferred in this epoch is `10 HNT`. This
+  calculation is:`(8,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
+- These `10 HNT` would be split proportionally to the Hotspots that did the work routing packets at
   the 1:1 rate.
-- The remaining `641.0417` from the Network Data Transfer reward would be distributed ratably among
-  the Challengers, Witnesses and Challengees.
-  - `22.2402` to the Challenger group => (0.85/(0.85+4.73+18.92) = 3%)
-  - `123.7603` to the Challengee group => (4.73/(0.85+4.73+18.92) = 19%)
-  - `495.0412` to the Witness group => (18.92/(0.85+4.73+18.92) = 77%)
 - The remaining `641.0417` from the Network Data Transfer reward would be distributed by weight
   among the Challengers, Witnesses, and Challengees.
   - `22.2402` to the Challenger group => `0.85/(0.85+4.73+18.92) = 3%`
@@ -129,11 +125,11 @@ Here are a few examples to illustrate how this works in practice:
 - In a given epoch, `800,000,000` DCs are spent on data transfer across the network
 - The HNT Oracle Price is `$8.00`
 
-In this scenario, total HNT value of DC transferred in this epoch is `1000 HNT`. This calculation
-is:`(800,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
+In this scenario, the total HNT value of DC transferred in this epoch is `1000 HNT`. This
+calculation is:`(800,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
 
 - Because the Network DC burn exceeded the `651.0417` available to the Network Data Transfer reward,
-  all Hotspots who did the work over this epoch with split the full `1000 HNT` proportionally.
+  all Hotspots that did the work over this epoch will split the full `1000 HNT` proportionally.
 
 **Additional Notes on Reward Types and Payouts**
 
@@ -156,11 +152,11 @@ of `2,500,000` is achieved even if block and epoch times aren't on target.
 
 **Target HNT Depends on Blocks, Not Clocks**
 
-It's easiest to think of target HNT production over the span of one month. If the blockchain
-performs on target, resulting in roughly 1440 epochs per month, then `2,500,000` new HNT will be
-produced. "One month" is a period of time measured by a clock. However, under the hood, we use block
-time, and the resulting epochs, to mark HNT production against our target. So when blocks are slow,
-HNT production is reduced proportionally.
+It's easiest to think of target HNT production over one month. If the blockchain performs on target,
+resulting in roughly 1440 epochs per month, then `2,500,000` new HNT will be produced. "One month"
+is a period of time measured by a clock. However, under the hood, we use block time, and the
+resulting epochs, to mark HNT production against our target. So when blocks are slow, HNT production
+is reduced proportionally.
 
 ### What Happens to HNT When Block Times are Slow?
 
@@ -180,20 +176,20 @@ not clocks. Here's a step-by-step example to make it clearer:
 
 ### When Block Times Slow Down, Everyone Earns Less
 
-The most important take away here is that, when block times slow and HNT production is reduced,
+The most important takeaway here is that, when block times slow and HNT production is reduced,
 everyone participating in the Network - Witnesses, Challengers, Security Token Holders, etc. - **is
-impacted equally** (with the exception of Consensus Group members; more on this below). So, although
-it's annoying that the effective rate of HNT may have dropped over a given period of time, know that
+impacted equally** (except for Consensus Group members; more on this below). So, although it's
+annoying that the effective rate of HNT may have dropped over a given period of time, know that
 you're not the only one earning less. And this is by design.
 
 ### Consensus Groups and Slow Block Times
 
 The only group that doesn't see its HNT reduced per epoch when blocks are slow is the Consensus
-Group. Currently there are 43 members of each Consensus Group, sharing 6% of the HNT produced per
+Group. Currently, there are 43 members of each Consensus Group, sharing 6% of the HNT produced per
 epoch.
 
 This amount stays fixed while every other category of HNT payout is prorated so that members of the
-Consensus Group are incentivized to keep elections fast. Otherwise, a malicious Consensus Group
+Consensus Groups are incentivized to keep elections fast. Otherwise, a malicious Consensus Group
 member might be inclined to prolong elections. This could be done, for example, to prevent a
 subsequent election, thus ensuring current membership in the Consensus Group stays intact. By
 distributing a fixed amount of HNT per `30` block epoch (as opposed to prorating payouts), we remove
