@@ -107,28 +107,28 @@ Here are a few examples to illustrate how this works in practice:
 
 **Example 1: DC Burn does not exceed 37.50% HNT**
 
-- In a given epoch, `2,000,000` DCs are transferred across the network
-- The HNT Oracle Price is `$2.00`
-- In this scenario, total HNT value of DC transferred in this epoch is `10HNT`. This calculation
-  is:`(2,000,000 DC * $0.00001 / $2 HNT Oracle Price)`
+- In a given epoch, `8,000,000` DCs are transferred across the network
+- The HNT Oracle Price is `$8.00`
+- In this scenario, total HNT value of DC transferred in this epoch is `10 HNT`. This calculation
+  is:`(8,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
 - These `10 HNT` would be split proportionally to the Hotspots who did the work routing packets at
   the 1:1 rate.
-- The remaining `597.6389` from the Network Data Transfer reward would be distributed ratably among
+- The remaining `641.0417` from the Network Data Transfer reward would be distributed ratably among
   the Challengers, Witnesses and Challengees.
-  - `20.6457` to the Challenger group
-  - `461.5945` to the Witness group
-  - `115.3986` to the Challengee group
+  - `22.2402` to the Challenger group => (0.85/(0.85+4.73+18.92) = 3%)
+  - `123.7603` to the Challengee group => (4.73/(0.85+4.73+18.92) = 19%)
+  - `495.0412` to the Witness group => (18.92/(0.85+4.73+18.92) = 77%)
 
-**Example 2: DC Burn exceeds 35% HNT**
+**Example 2: DC Burn exceeds 37.50% HNT**
 
-- In a given epoch, `500,000,000` DCs are spent on data transfer across the network
-- The HNT Oracle Price is `$2.00`
+- In a given epoch, `800,000,000` DCs are spent on data transfer across the network
+- The HNT Oracle Price is `$8.00`
 
-In this scenario, total HNT value of DC transferred in this epoch is `2500HNT`. This calculation
-is:`(500,000,000 DC * $0.00001 / $2 HNT Oracle Price)`
+In this scenario, total HNT value of DC transferred in this epoch is `1000 HNT`. This calculation
+is:`(800,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
 
-- Because the Network DC burn exceeded the `607.6389` available to the Network Data Transfer reward,
-  all Hotspots who did the work over this epoch with split the full `1113.0145HNT` proportionally.
+- Because the Network DC burn exceeded the `651.0417` available to the Network Data Transfer reward,
+  all Hotspots who did the work over this epoch with split the full `1000 HNT` proportionally.
 
 **Additional Notes on Reward Types and Payouts**
 
