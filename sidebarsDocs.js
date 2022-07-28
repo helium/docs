@@ -45,7 +45,7 @@ module.exports = {
     {
       type: 'category',
       label: '5G on Helium',
-      items: ['5g-on-helium/5g-on-helium'],
+      items: ['5g-on-helium/5g-on-helium', '5g-on-helium/cbrs-radios', '5g-on-helium/mining-5g'],
       collapsed: true,
     },
     {
@@ -155,7 +155,6 @@ module.exports = {
       items: [
         'wallets/app-wallet/twelve-words',
         'wallets/app-wallet/transfer-hotspot',
-        'wallets/app-wallet/rak-hotspot-setup',
         'wallets/app-wallet/hexagons',
         'wallets/app-wallet/discovery',
         'wallets/app-wallet/transaction-failures',
