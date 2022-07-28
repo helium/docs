@@ -1067,10 +1067,10 @@ module.exports = {
       type: 'category',
       label: 'Seeed Studio',
       items: [
-        'use-the-network/devices/development/seeed-studio/loramodule-e5',
-        'use-the-network/devices/development/seeed-studio/loramodule-e5-devkit',
-        'use-the-network/devices/development/seeed-studio/loramodule-e5-mini',
-        'use-the-network/devices/development/seeed-studio/loramodule-e5-grove',
+        'use-the-network/devices/development/seeed-studio/wiomodule-e5',
+        'use-the-network/devices/development/seeed-studio/wio-e5-dev-kit',
+        'use-the-network/devices/development/seeed-studio/wiomodule-e5-mini',
+        'use-the-network/devices/development/seeed-studio/wiomodule-e5-grove',
         'use-the-network/devices/development/seeed-studio/seeed-studio-lorawan-dev-kit',
       ],
 
