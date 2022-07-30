@@ -140,9 +140,9 @@ calculation is:`(800,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
 - Because the Network DC burn exceeded the `651.0417` available to the Network Data Transfer reward,
   all Hotspots that did the work over this epoch will split the full `1000 HNT` proportionally.
 
-**Additional Notes on Reward Types and Payouts**
+### Additional Notes on Reward Types and Payouts
 
-- All Validators in the `Consensus` group will earn an equal reward.
+- All Validators in the `Consensus Group` will earn an equal reward.
 - All Hotspots participating in PoC, including `Challengees` and `Witnesses` will earn rewards
   proportional to how many events they participated in out of the total number of events per epoch.
 - All Hotspots participating in `Network Data Transfer` will earn rewards proportional to their
@@ -151,6 +151,10 @@ calculation is:`(800,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
 - `PoC Challenger`, `PoC Challengee`, and `Witness` reward types get distributed in the epoch that
   includes the corresponding PoC receipt.
 - A Hotspots can earn more than one `PoC Challengee` and `Witness` rewards per epoch.
+- Validators use the `poc_challenge_rate` chain_var that defines the target number of Challenges per
+  block. See
+  [HIP55](https://github.com/helium/HIP/blob/main/0055-validator-challenges.md#poc-challenge-creation-and-the-consensus-group)
+  for more details.
 - `Challenger` rewards are distributed to Validators that create and collect Challenge data and
   submit this information to the blockchain.
 
