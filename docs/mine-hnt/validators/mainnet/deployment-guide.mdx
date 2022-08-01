@@ -32,10 +32,10 @@ To successfully deploy a Helium Validator, you'll need to do the following:
 
 Once you have your [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs) installed
 locally, it's time to create your Helium Wallet. Run the following command to create it. (This
-command format assumes you're using the executable. If you've built the wallet from source it'll
+command format assumes you're using the executable. If you've built the wallet from source, it will
 look slightly different.)
 
-At any time use -h or --help to get more help for a command.
+At any time, use -h or --help to get more help for a command.
 
 :::warning
 
@@ -49,7 +49,7 @@ helium-wallet create basic
 ```
 
 You'll be prompted to supply a new passphrase to complete it. This is used to encrypt/decrypt the
-`wallet.key` file, and is needed to sign transactions. **Don't lose it.**
+`wallet.key` file and is needed to sign transactions. **Don't lose it.**
 
 This command will produce a `wallet.key` file on your machine, along with output similar to the
 following:
@@ -131,11 +131,13 @@ package by PaulVMo, is the least complex to deploy and has very high performance
 has the highest level of complexity to deploy, requires a higher level of Linux technical expertise,
 and also has very high performance. The docker version is less complex to deploy than Source, if you
 already have experience with Docker, but does not perform as well as the other two options. The
-debian package and docker options are also the simplest to deploy and maintain when running multiple
-validator instances on a single host.
+Debian package is also the simplest to deploy and maintain when running multiple validator instances
+on a single host.
+
+## Performance
 
 Performance comparison of three validators on a single 16 vCPU bare metal server, showing validation
-times from absorb_and_commit. Bottom line in graph is source build, middle is debian package, top is
+times from absorb_and_commit. Bottom line in graph is source build, middle is Debian package, top is
 quay docker image.
 
 <p align="center">
@@ -146,12 +148,16 @@ quay docker image.
   ></img>
 </p>
 
-You only need to do ONE of the following:
+## Choose one of the following options for your deployment:
+
+### Option 1
 
 [Deploy the Validator from deb package](https://github.com/PaulVMo/helium-validator-deb)
 
 NOTE: After deploying the deb package, come back to this page to perform the remaining steps
 starting at [Enable Firewall on the server](#enable-firewall-on-the-server)
+
+### Option 2
 
 <details>
   <summary>Deploy the Validator Using Docker</summary>
@@ -314,6 +320,8 @@ Now that you have your Validator running, you need to
   </p>
 </details>
 
+### Option 3
+
 <details>
   <summary>Deploy Validator from Source</summary>
   <p>
@@ -348,7 +356,7 @@ Next, get the `libwxgtk` package:
 wget http://mirrors.kernel.org/ubuntu/pool/universe/w/wxwidgets3.0/libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb
 ```
 
-And finish things off by acquiring a some wonderful dependencies:
+And finish things off by acquiring some wonderful dependencies:
 
 ```
 sudo apt install -y libdbus-1-dev autoconf automake libtool flex libgmp-dev cmake libsodium-dev libssl-dev bison libsnappy-dev libclang-dev doxygen make cargo g++ libsctp1 libncurses5 libwxbase3.0-0v5 build-essential cmake libdbus-1-dev mosh vim parallel
@@ -427,6 +435,8 @@ Note that in the above `miner` command, the `miner` binary here is nested within
 
   </p>
 </details>
+
+## Next Steps
 
 After deploying one of the above three options, perform the remaining steps starting here:
 
@@ -543,8 +553,8 @@ service file, part of a docker run command, or included in a docker-compose file
 - JSONRPC_IP (default: `127,0,0,1`) - IP address that the JSON RPC endpoint listens on. JSRONRPC is
   used for monitoring and interacting with the validator.
 - JSONRPC_PORT (default: `4467`) - Port number that the JSON RPC endpoint listens on.
-- VALIDATION_WIDTH - Maxium number of concurrent transaction validations that the miner will do when
-  absorbing blocks. Default is N/2 + 1 where N is the number of Erlang schedulers which is by
+- VALIDATION_WIDTH - Maximum number of concurrent transaction validations that the miner will do
+  when absorbing blocks. Default is N/2 + 1 where N is the number of Erlang schedulers which is by
   default the number of CPUs/vCPUs.
 - SIDECAR_PARALLELISM_LIMIT (default: `3`) - Maximum number of concurrent transaction validations
   the miner will attempt while in consensus group.
@@ -552,7 +562,7 @@ service file, part of a docker run command, or included in a docker-compose file
 ### Erlang sys.config overlay
 
 For more advanced configuration of the miner process, the Erlang application configuration files can
-be also be edited. For this approach, it is recommend to add or update configuration parameters to
+also be edited. For this approach, it is recommend to add or update configuration parameters to
 `releases/<version number>/sys.config.src`. This file overlays (overrides) configuration on the base
 config file which is `config/sys.config` which includes all parameters used by the miner.
 
@@ -566,7 +576,9 @@ things are hunky dory.
 Before your Validator will show Online status in Explorer, it must first sync up to the tip of the
 chain AND send a Heartbeat. The first Heartbeat will not be sent until after it syncs to the tip of
 the chain. You can check to see when your first heartbeat is sent within Explorer, on the Activity
-tab for your Validator.
+tab for your Validator. The Heartbeat is a transaction that each validator sends to the consensus
+group, approximately every 100 blocks, to assert that it is still alive and synced to the tip of the
+chain.
 
 The blockchain takes time. The distributed nature of verifying transactions into the blockchain
 takes time. The validator information gossiped on the blockchain takes time. APIs that run to update
