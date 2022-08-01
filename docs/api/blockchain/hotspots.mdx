@@ -821,6 +821,13 @@ _Query Parameters_
 
 This lists the activity for a Hotspot which only had two transactions at the time of the request.
 
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/api/blockchain/introduction/#transaction-units)
+
+:::
+
 ```json
 {
   "data": [
@@ -1009,6 +1016,13 @@ _Query Parameters_
 
 Fetches consensus groups that the hotspot with address
 `11ztQpmCJbfPxv3RjsnvFTozbikpZ72dgmHTYwBQ2n2rABytnLE` was a part of
+
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/api/blockchain/introduction/#transaction-units)
+
+:::
 
 ```json
 {
@@ -2088,7 +2102,7 @@ _Query Parameters_
 
 | param               | Type     | Note                                        |
 | ------------------- | -------- | ------------------------------------------- |
-| max_time (required) | _string_ | Last timestamp to include rewards for       |
+| max_time (optional) | _string_ | Last timestamp to include rewards for       |
 | min_time (required) | _string_ | First timestamp to include rewards for      |
 | bucket (optional)   | _string_ | Get data in buckets ( hour / month / week ) |
 

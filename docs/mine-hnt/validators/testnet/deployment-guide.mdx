@@ -7,8 +7,8 @@ slug: /mine-hnt/validators/testnet/deployment-guide
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-This guide will cover the end-to-end process of deploying a Helium Validator on Testnet. It assumes
-you're starting from scratch. At the end, you'll have a Helium Validator deployed on the Network.
+This guide will cover the end-to-end process of deploying a Helium Validator on the Testnet. It assumes
+you're starting from scratch. At the end, you'll have a Helium Validator deployed on the Test Network.
 
 :::info
 
@@ -181,7 +181,7 @@ Now that docker is installed and ready, let's run the Validator.
 #### Run the Docker Container
 
 Before running the container for the first time, it is mandatory to pick a "system mount point".
-This allows you to easily maintain your Validator's blockchain identity - specifically it
+This allows you to easily maintain your Validator's blockchain identity - specifically its 
 `swarm keys` - and blockchain state through image updates. Without doing this, you will lose these
 items when upgrading docker images.
 
@@ -285,7 +285,7 @@ containrrr/watchtower \
 
 - `-v /var/run/docker.sock:/var/run/docker.sock` A volume flag to allow the watchtower container to
   monitor running containers.
-- `containrrr/watchtower` The Image of the watchtower container
+- `containrrr/watchtower` The Image of the watchtower container.
 - `--cleanup` Passes a flag into the watchtower container. This instructs watchtower to remove old
   images after updating.
 - `--interval 1800` Poll interval (in seconds). This value controls how frequently watchtower will
@@ -371,11 +371,10 @@ Now that you have your Validator running, you need to
 
 Ok, brave soul. Here's what you'll need to build and deploy the miner from source:
 
-- miner
-- Erlang package (the latest 22 or 23 versions are supported, the 24 release candidate will NOT
-  work)
-- `libwxgtk` package
 - git
+- miner repository
+- Erlang package (OTP 23 or 24)
+- `libwxgtk` package
 
 Before we get started, make sure you're fully up to date:
 
@@ -389,7 +388,7 @@ Next, let's install all the things. Start by cloning the miner repo.
 git clone https://github.com/helium/miner.git
 ```
 
-And checkout the latest testnet val tag. Consult GitHub for the current version and replace it into
+And checkout the latest Testnet Validator tag. Consult GitHub https://github.com/helium/miner/tags for the current version and replace it into
 this command:
 
 ```
@@ -524,7 +523,7 @@ things are hunky dory.
 
 The blockchain takes time. The distributed nature of verifying transactions into the blockchain
 takes time. The validator information gossiped on the blockchain takes time. APIs that run to update
-the [explorer](https://explorer.helium.wtf) are scheduled and have intervals. Basically, you won't
+the [Testnet Explorer](https://explorer.helium.wtf) are scheduled and have intervals. Basically, you won't
 be able to run the validator and instantly see that everything is "good".
 
 After the validator has been up and running for 15 minutes, proceed with some of the steps below.
