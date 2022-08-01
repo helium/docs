@@ -497,6 +497,19 @@ module.exports = {
       collapsed: false,
     },
   ],
+  opensourceinitiative: [
+    {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development',
+    },
+    {
+      type: 'category',
+      label: 'OpenSource Initiative',
+      items: ['use-the-network/devices/development/opensourceinitiative/paxcounter'],
+      collapsed: false,
+    },
+  ],
   rakwireless: [
     {
       type: 'link',
