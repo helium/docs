@@ -284,29 +284,29 @@ https://api.helium.io/v1/pending_transactions/YOUR_HASH_HERE
 
 ---
 
-## Transfer Hotspot from 24-words Wallet
+## Transfer Hotspot from 24-word Wallet
 
-If a Hotspot is transferred to a 24-words wallet, that is ok! However, most Maker Hotspot Management
-Apps do not currently support 24-words wallets.
+If a Hotspot is transferred to a 24-word wallet, that is ok! However, most Maker Hotspot Management
+Apps do not currently support 24-word wallets.
 
-To transfer a Hotspot from a 24-words wallet to a 12-words wallet, follow the steps below.
+To transfer a Hotspot from a 24-word wallet to a 12-word wallet, follow the steps below.
 
-1. Create a 12-words wallet to receive the Hotspot using the
+1. Create a 12-word wallet to receive the Hotspot using the
    [Helium Hotspot App](/wallets/app-wallet) and record the Public Key.
 
 2. Download and install the [Helium Command Line Wallet](/wallets/cli-wallet#installing-cli-wallet)
    as outlined above. and navigate to the installation directory.
-3. Import your 24-words seed phrase to the CLI Wallet.
+3. Import your 24-word seed phrase to the CLI Wallet.
 
 ```bash
-./helium-wallet create basic --seed bip39 --output my-24-words-wallet.key
+./helium-wallet create basic --seed bip39 --output my-24-word-wallet.key
 ```
 
-| argument                          | description                                                                                                       |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `create basic`                    | create a wallet with a single key, as opposed to a [sharded wallet](/wallets/cli-wallet#sharded-wallet)           |
-| `--seed bip39`                    | import with an existing seed phrase using the `bip39` word list                                                   |
-| `--output my-24-words-wallet.key` | output the wallet key file to a location of your choosing, in this case to a file called `my-24-words-wallet.key` |
+| argument                         | description                                                                                                      |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `create basic`                   | create a wallet with a single key, as opposed to a [sharded wallet](/wallets/cli-wallet#sharded-wallet)          |
+| `--seed bip39`                   | import with an existing seed phrase using the `bip39` word list                                                  |
+| `--output my-24-word-wallet.key` | output the wallet key file to a location of your choosing, in this case to a file called `my-24-word-wallet.key` |
 
 4. Find the Gateway ID of the Hotspot to be transferred by running
 
@@ -317,15 +317,15 @@ To transfer a Hotspot from a 24-words wallet to a 12-words wallet, follow the st
 5. Perform a Dry Run of the Hotspot transfer
 
 ```bash
-./helium-wallet -f my-24-words-wallet.key hotspots transfer <gateway> <new-owner>
+./helium-wallet -f my-24-word-wallet.key hotspots transfer <gateway> <new-owner>
 ```
 
-| argument                    | description                                                              |
-| --------------------------- | ------------------------------------------------------------------------ |
-| `-f my-24-words-wallet.key` | use a file for the hotspot wallet, in this case `my-24-words-wallet.key` |
-| `hotspots transfer`         | run a hotspot transfer                                                   |
-| `<gateway>`                 | the gateway id you collected from Step 4 above                           |
-| `<new-owner>`               | the public Wallet Address to receive the Hotspot                         |
+| argument                   | description                                                             |
+| -------------------------- | ----------------------------------------------------------------------- |
+| `-f my-24-word-wallet.key` | use a file for the hotspot wallet, in this case `my-24-word-wallet.key` |
+| `hotspots transfer`        | run a hotspot transfer                                                  |
+| `<gateway>`                | the gateway id you collected from Step 4 above                          |
+| `<new-owner>`              | the public Wallet Address to receive the Hotspot                        |
 
 6. The above will do a test try and have an output you should verify.
 
@@ -340,8 +340,8 @@ Including the `--commit` flag submits the transfer transaction to the blockchain
 :::
 
 ```bash
-./helium-wallet -f my-24-words-wallet.key hotspots transfer <gateway> <new-owner> --commit
+./helium-wallet -f my-24-word-wallet.key hotspots transfer <gateway> <new-owner> --commit
 ```
 
 8. Once the transfer transaction is validated by the blockchain, your Hotspot will appear in the new
-   12-words wallet.
+   12-word wallet.
