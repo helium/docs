@@ -1022,7 +1022,6 @@ module.exports = {
       collapsed: false,
     },
   ],
-
   rakwireless: [
     {
       type: 'link',
@@ -1044,7 +1043,6 @@ module.exports = {
       collapsed: false,
     },
   ],
-
   seeedstudiortu: [
     {
       type: 'link',
