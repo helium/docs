@@ -66,12 +66,14 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'HNT Wallets',
+      label: 'Helium Wallets',
       items: [
         'wallets/wallets',
         'wallets/helium-wallet-app',
         'wallets/cli-wallet',
         'wallets/ledger',
+        'wallets/twelve-words',
+        'wallets/twenty-four-words',
       ],
       collapsed: true,
     },
@@ -153,7 +155,6 @@ module.exports = {
       type: 'category',
       label: 'Helium App',
       items: [
-        'wallets/app-wallet/twelve-words',
         'wallets/app-wallet/transfer-hotspot',
         'wallets/app-wallet/hexagons',
         'wallets/app-wallet/discovery',
