@@ -511,7 +511,7 @@ module.exports = {
       collapsed: false,
     },
   ],
-  rakwireless: [
+  rakwireless_dev: [
     {
       type: 'link',
       label: '<- Back',
