@@ -238,20 +238,20 @@ quay.io/team-helium/validator:latest-validator-amd64
   **_image_** for the Validator that is tagged as the "latest" for the amd64 architecture. For arm
   architectures, replace with `latest-validator-arm64`.
 
-- If your host machine is behind a firewall that is performing Network Address Translation (NAT), 
-add **all** four of these `NAT_`variables to assist the Validator in quickly determining the external 
-IP address of the host machine. **NOTE**: You must add **ALL** four variables, for any one of them to 
-take effect:
-- `-e "NAT_INTERNAL_IP=192.168.0.139"` - Replace `192.168.0.139` with your local IP shown when running 
-ip addr`.
-- `-e "NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )"` - Determines the external IP of the NAT. The 
-curl command queries an external provider and returns the public IP address of the interface. You 
-can replace `$( curl -s ipv4.icanhazip.com )` with your external IP, if you have a static IP that you 
-know will not change.
-- `-e "NAT_INTERNAL_PORT=2154"` - Replace the port number with the port you've assigned to the validator, 
-if not using the default 2154.
-- `-e "NAT_EXTERNAL_PORT=2154"` - Replace the port number with the port you've opened on the firewall, 
-if not using the default 2154.
+- If your host machine is behind a firewall that is performing Network Address Translation (NAT),
+  add **all** four of these `NAT_`variables to assist the Validator in quickly determining the
+  external IP address of the host machine. **NOTE**: You must add **ALL** four variables, for any
+  one of them to take effect:
+- `-e "NAT_INTERNAL_IP=192.168.0.139"` - Replace `192.168.0.139` with your local IP shown when
+  running ip addr`.
+- `-e "NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )"` - Determines the external IP of the NAT.
+  The curl command queries an external provider and returns the public IP address of the interface.
+  You can replace `$( curl -s ipv4.icanhazip.com )` with your external IP, if you have a static IP
+  that you know will not change.
+- `-e "NAT_INTERNAL_PORT=2154"` - Replace the port number with the port you've assigned to the
+  validator, if not using the default 2154.
+- `-e "NAT_EXTERNAL_PORT=2154"` - Replace the port number with the port you've opened on the
+  firewall, if not using the default 2154.
 
 Once you run the command above, docker will retrieve the latest Validator image, and start the
 docker process. Barring any errors, your Validator is running.
@@ -526,8 +526,8 @@ override the default values. This is the most straightforward way to configure y
 Environment variables may be set in the shell session used to launch the miner, within a systemd
 service file, part of a docker run command, or included in a docker-compose file.
 
-- `LISTEN_ADDRESS` (default: `/ip4/0.0.0.0/tcp/2154/`) - the address that the miner will listen to on
-  the P2P network; currently only a single IP4 address is supported and it must be in
+- `LISTEN_ADDRESS` (default: `/ip4/0.0.0.0/tcp/2154/`) - the address that the miner will listen to
+  on the P2P network; currently only a single IP4 address is supported and it must be in
   [multiaddr](https://github.com/multiformats/multiaddr) format. This address must be publicly
   accessible.
 - `BASE_DIR` (default: `data`) - Directory location of data files. May be absolute or relative path.
@@ -540,29 +540,30 @@ service file, part of a docker run command, or included in a docker-compose file
 - `HOTFIX_DIR` (default: `/opt/miner/hotfix`) - Location that the miner looks in for code hotfixes.
 - `GRPC_PORT` (default: `8080`) - Port used by light gateways to interact with the validator. This
   port must be publicly accessible.
-- `JSONRPC_IP` (default: `127,0,0,1`) - IP address that the JSON RPC endpoint listens on. JSRONRPC is
-  used for monitoring and interacting with the validator.
+- `JSONRPC_IP` (default: `127,0,0,1`) - IP address that the JSON RPC endpoint listens on. JSRONRPC
+  is used for monitoring and interacting with the validator.
 - `JSONRPC_PORT` (default: `4467`) - Port number that the JSON RPC endpoint listens on.
-- `VALIDATION_WIDTH` - Maxium number of concurrent transaction validations that the miner will do when
-  absorbing blocks. Default is N/2 + 1 where N is the number of Erlang schedulers which is by
+- `VALIDATION_WIDTH` - Maxium number of concurrent transaction validations that the miner will do
+  when absorbing blocks. Default is N/2 + 1 where N is the number of Erlang schedulers which is by
   default the number of CPUs/vCPUs.
 - `SIDECAR_PARALLELISM_LIMIT` (default: `3`) - Maximum number of concurrent transaction validations
   the miner will attempt while in consensus group.
-- If your host machine is behind a firewall that is performing Network Address Translation (NAT), 
-add **all** four of these `NAT_`variables to assist the Validator in quickly determining the external 
-IP address of the host machine.
+- If your host machine is behind a firewall that is performing Network Address Translation (NAT),
+  add **all** four of these `NAT_`variables to assist the Validator in quickly determining the
+  external IP address of the host machine.
 - **NOTE**: You must add **ALL FOUR** variables, for any one of them to take effect.
-- NOTE: Expand [Run the Docker Container](#run-the-docker-container) section for details on adding these
-variables to a validator running in Docker.
-- `NAT_INTERNAL_IP=192.168.0.139` - Replace `192.168.0.139` with your local IP shown when running `ip addr`.
-- `NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )` - Determines the external IP of the NAT. The curl 
-command queries an external provider and returns the public IP address of the interface. You can replace 
-`$( curl -s ipv4.icanhazip.com )` with your external IP, if you have a static IP that you know will 
-not change.
-- `NAT_INTERNAL_PORT=2154` - Replace the port number with the port you've assigned to the validator, 
-if not using the default 2154.
-- `NAT_EXTERNAL_PORT=2154` - Replace the port number with the port you've opened on the firewall, 
-if not using the default 2154.
+- NOTE: Expand [Run the Docker Container](#run-the-docker-container) section for details on adding
+  these variables to a validator running in Docker.
+- `NAT_INTERNAL_IP=192.168.0.139` - Replace `192.168.0.139` with your local IP shown when running
+  `ip addr`.
+- `NAT_EXTERNAL_IP=$( curl -s ipv4.icanhazip.com )` - Determines the external IP of the NAT. The
+  curl command queries an external provider and returns the public IP address of the interface. You
+  can replace `$( curl -s ipv4.icanhazip.com )` with your external IP, if you have a static IP that
+  you know will not change.
+- `NAT_INTERNAL_PORT=2154` - Replace the port number with the port you've assigned to the validator,
+  if not using the default 2154.
+- `NAT_EXTERNAL_PORT=2154` - Replace the port number with the port you've opened on the firewall, if
+  not using the default 2154.
 
 ### Erlang sys.config overlay
 
