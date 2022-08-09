@@ -45,7 +45,7 @@ module.exports = {
     {
       type: 'category',
       label: '5G on Helium',
-      items: ['5g-on-helium/5g-on-helium'],
+      items: ['5g-on-helium/5g-on-helium', '5g-on-helium/cbrs-radios', '5g-on-helium/mining-5g'],
       collapsed: true,
     },
     {
@@ -66,12 +66,14 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'HNT Wallets',
+      label: 'Helium Wallets',
       items: [
         'wallets/wallets',
         'wallets/helium-wallet-app',
         'wallets/cli-wallet',
         'wallets/ledger',
+        'wallets/twelve-words',
+        'wallets/twenty-four-words',
       ],
       collapsed: true,
     },
@@ -153,9 +155,7 @@ module.exports = {
       type: 'category',
       label: 'Helium App',
       items: [
-        'wallets/app-wallet/twelve-words',
         'wallets/app-wallet/transfer-hotspot',
-        'wallets/app-wallet/rak-hotspot-setup',
         'wallets/app-wallet/hexagons',
         'wallets/app-wallet/discovery',
         'wallets/app-wallet/transaction-failures',
@@ -498,7 +498,20 @@ module.exports = {
       collapsed: false,
     },
   ],
-  rakwireless: [
+  opensourceinitiative: [
+    {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development',
+    },
+    {
+      type: 'category',
+      label: 'OpenSource Initiative',
+      items: ['use-the-network/devices/development/opensourceinitiative/paxcounter'],
+      collapsed: false,
+    },
+  ],
+  rakwireless_dev: [
     {
       type: 'link',
       label: '<- Back',
@@ -1009,7 +1022,6 @@ module.exports = {
       collapsed: false,
     },
   ],
-
   rakwireless: [
     {
       type: 'link',
@@ -1031,7 +1043,6 @@ module.exports = {
       collapsed: false,
     },
   ],
-
   seeedstudiortu: [
     {
       type: 'link',

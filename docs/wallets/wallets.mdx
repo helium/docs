@@ -9,7 +9,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <img className="docsheader" src={useBaseUrl('img/wallets/header.png')} />
 
-# Wallets
+# Helium Wallets
 
 In blockchain projects, various wallet applications exist to help users manage their own private
 keys, enabling them to sign transactions and transfer assets.
@@ -19,7 +19,7 @@ Tokens (HNT), and/or Data Credits (DC).
 
 Depending on your situation, one of the wallets here may be the best fit.
 
-### Helium Wallet App
+## Helium Wallet App
 
 In February 2022, the Helium Core Team announced the future of Helium Apps - splitting the existing
 [Helium Hotspot app](/wallets/app-wallet) into its two functional components; managing Hotspots and
@@ -36,7 +36,7 @@ Some notable features:
 - Helium Vote
 - Multiple Recipient Payment Support
 
-### Command Line Interface Wallet
+## Command Line Interface Wallet
 
 The Helium Command Line Interface (CLI) wallet is the most flexible but it also requires more
 technical knowledge. As such, it is suitable for all types of transactions, but requires more
@@ -45,7 +45,7 @@ caution on behalf of its users.
 Learn more about usage [here](/wallets/cli-wallet). Source code is available on
 [Github](https://github.com/helium/helium-wallet-rs).
 
-### Ledger Wallet
+## Ledger Wallet
 
 The Helium Ledger Wallet is an application that runs on the Ledger Hardware wallet. The Ledger
 Hardware wallet is the most secure way to send and receive the Helium Network Token (HNT), but
@@ -54,19 +54,32 @@ currently supports no other transactions.
 Learn more about usage [here](/wallets/ledger). Source code is available on
 [Github](https://github.com/helium/helium-ledger-cli).
 
-### Helium Hotspot App
+## Helium Hotspot App
 
-:::important Sunset
+:::important Sunsetting Features
 
 Wallet-related functionality in the Helium Hotspot app will be sunsetted over the coming months.
+More information on the [Helium Hotspot App](/wallets/app-wallet)
 
 :::
 
-The Helium Hotspot Appfocuses on people who want to send or receive HNT or manage hotspots. Other
-activities, such as managing end-devices and OUIs (i.e. users of the network) are generally best
-suited for the command line wallet. It may be downloaded for
-[iOS](https://apps.apple.com/us/app/helium-hotspot/id1450463605) or
-[Android](https://play.google.com/store/apps/details?id=com.helium.wallet) phones and provides
-simple pairing and setup with [Hotspots](/mine-hnt).
+## 12-Word and 24-Word Seed Phrases
 
-More information on the [Helium Hotspot App](/wallets/app-wallet)
+When a Helium Wallet is created with the Helium Wallet App or Helium Hotspot App, a 12-word or
+24-word "Seed Phrase" is generated.
+
+Users who created their Helium Wallet using the Helium Hotspot App will have a 12-word seed phrase,
+while the Helium Wallet App accepts 12-word seed phrases, all new wallets are created with 24-word
+seed phrases.
+
+Read more about Helium 12-word and 24-word here:
+
+- [12-Word Seed Phrase](/wallets/twelve-words)
+- [24-Word Seed Phrase](/wallets/twenty-four-words)
+
+:::note
+
+Transferring Hotspot ownership between 12-word and 24-word wallets can only be done using the
+[Wallet CLI](/wallets/cli-wallet)
+
+:::

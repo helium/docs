@@ -13,28 +13,34 @@ As requested by the Community via HIP13, the Transfer Hotspot feature is availab
 owners of the Network to transfer their Hotspots to another owner.
 
 This feature enables Hotspot owners to transfer ownership of a Hotspot to another user. Once
-transferred, the new owner will receive all future Hotspot mining rewards.
+transferred, the new owner will receive all future Hotspot mining rewards. The
+[Helium Wallet app](/wallets/helium-wallet-app) cannot be used to transfer Hotspots between wallets.
+
+Do not transfer Hotspots to wallets created with 24-word seed phrases unless the Hotspot Management
+App supports 24-word seed phrases. If a Hotspot is transferred to a 24-word wallet, you can use the
+[Wallet CLI](/wallets/cli-wallet) to transfer the Hotspot to a 12-word wallet.
 
 ### Requirements
 
 - Only the wallet that owns the Hotspot on the blockchain can initiate a transfer.
-- These steps are for Seller with app version 3.10.0
+- These steps are for Seller with [Helium Hotspot app](/wallets/app-wallet) version 3.10.0 or
+  higher, other vendor Hotspot Management apps will make the same checks.
 
 * Parties do not need to be physically next to the Hotspot for transfer to succeed.
 
-- This feature requires both users to have a valid Helium wallet account
+- This feature requires both users to have a valid Helium wallet account. Remember, 24-word wallets
+  are not supported by the Helium Hotspot App.
 - The Seller pays the transaction fee of ~55,000 DC.
-- Hotspots must have had Proof-of-Coverage activity (beaconing or witnessing) or Data Transfer
-  activity in the last 1200 blocks (approximately 20 hours) in order to be transferred. This is to
-  ensure the Hotspot is fully functional for the protection of the buyer.
-  blocks (approximately 20 hours) in order to be transferred. This is to ensure the Hotspot is fully
-  functional for the protection of the buyer.
+- Hotspots must have had LoraWAN Proof-of-Coverage activity (Issued a Broadcast Beacon or Witnessed
+  a valid or invalid Beacon) or performed LoraWAN Data Transfer activity in the last 1200 blocks
+  (approximately 20 hours) to be transferred. This is to ensure the Hotspot is functioning on the
+  network for the protection of the buyer.
 
 :::warning
 
 Things to keep in mind: Helium assumes no liability on the functionality of Hotspot hardware defined
 in the Transfer Hotspot transaction. Buyers must verify with the Seller the Hotspot is in good,
-working condition and once transferred, understand there is no guarantee that the Hotspot hardware
+working condition and, once transferred, understand there is no guarantee that the Hotspot hardware
 will arrive in working condition.
 
 :::
@@ -67,16 +73,19 @@ will arrive in working condition.
 
 7. The Seller will see an activity entry on their Account page showing the Hotspot Transfer.
 
-:::
-
 ## As a Buyer:
 
-Once the the transaction clears, a notification will appear in the Buyer’s notification center. The
+Once the transaction clears, a notification will appear in the Buyer’s notification center. The
 Hotspot will then show up in the Buyers wallet. Tap on the notification to view the transaction.
 
 <img src={useBaseUrl('img/wallets/helium-app/transfer-completed-transaction-v2.png')} />
 
 ## Common Questions
+
+### Can I transfer a Hotspot from a 24-word wallet to a 12-word wallet?
+
+Yes. Hotspots can be transferred from a 24-word wallet to a 12-word wallet using the
+[CLI](/wallets/cli-wallet#transfer-hotspot-from-24-word-wallet).
 
 ### Can I undo the transaction?
 
