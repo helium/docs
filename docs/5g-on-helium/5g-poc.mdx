@@ -1,0 +1,89 @@
+---
+id: 5g-poc
+sidebar_label: 5G Proof of Coverage
+slug: /5g-poc
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+# 5G Proof of Coverage
+
+The Helium blockchain uses a novel work algorithm called “Proof of Coverage” (PoC) to verify that
+Hotspots are located where they claim. Put another way, PoC tries to verify, on an ongoing basis,
+that Hotspots are honestly representing their location and the wireless network coverage they are
+creating from that location.
+
+LoRaWAN Hotspots utilize a PoC method that benefits from Hotspots being used as senders ("Beacon")
+and recievers ("Witness") of PoC activity, you can read more here:
+[Proof of Coverage](./blockchain/proof-of-coverage)
+
+While all current 5G Hotspot models _also_ participate in the LoRaWAN network and PoC, the CBRS
+Small Cell and 5G aspects of a 5G Helium Hotspot require a new approach to validating PoC.
+
+:::info One Way Traffic
+
+CBRS Small Cell Radios can only operate as transmitters, they are not able to receive incoming data
+and "hear" one another directly.
+
+:::
+
+## 5G PoC Roadmap
+
+MOBILE Rewards are given to the Wallet that owns the 5G Hotspot(s) not to the individual 5G
+Hotspot(s) themselves, check your Wallet for the MOBILE transaction and your MOBILE Balance.
+
+To qualify for the Genesis rewards in a Reward Period, a CBRS Small Cell Radio must:
+
+- be properly installed
+- be registered with the SAS (Outdoor Radios Only)
+- broadcast at least 1 "heartbeat" to the SAS per Reward Period
+
+### Reward Submission Triggered By Time Period
+
+MOBILE Rewards are earned by a Wallet with a 5G Hotspot and at least one connected, SAS registered,
+CBRS Small Cell Radio in one "lump sum" every roughly 24-hour interval. This system allows a high
+tolerance for downtime in infrastructure that is beyond the 5G Hotspot Owner's control.
+
+- 5G Hotspot must heartbeat 1 per Reward Period
+- Reward Period is 00:00 UTC to 23:59 UTC
+- reward submission occurs approx 17 hours later, once a day, around 10 am PST
+
+### Rewards Submission Triggered By Consensus Election
+
+MOBILE Rewards are earned by a Wallet with a 5G Hotspot and at least one connected, SAS registered,
+CBRS Small Cell Radio in one "lump sum" every 1440 block interval.
+
+- 5G Hotspot must heartbeat 1 per Reward Period
+- Reward Period is 48 Consensus Elections (1440 blocks)
+- reward submission occurs approx 30 minutes later, much closer to the period in which they are
+  earned.
+
+### Addition Of Speed Test Data Into Reward Calculation
+
+:::info Future Requirements
+
+Soon, 5G Hotspots will perform periodic speed tests which will be considered in reward calculations.
+
+:::
+
+A minimum Download and Upload speed will be required by each 5g Hotspot to ensure the 5G Hotspot is
+providing quality coverage.
+
+- 5G Hotspot must heartbeat 1 per Reward Period.
+- 5G Hotspot must meet or exceed minimum Download and Upload speeds when averaged over the Reward
+  Period.
+- Upload and Download speed tests are averaged over the Reward Period, 5G Hotspots that do not meet
+  the minimum requirements are excluded from reward calculations.
+- Reward Period is 48 Consensus Elections (1440 blocks)
+- reward submission occurs approx 30 minutes later, much closer to the period in which they are
+  earned.
+
+### Increase The Frequency Of Rewarding
+
+5G Hotspots will be rewarded for providing consistent coverage with Reward Periods shortened to 2
+Epochs (60 blocks). Rewards transactions are triggered with every Consensus Election.
+
+### Decouple Reward Period From Reward Submission Time
+
+This will increase tolerance for delay of heartbeat and speed test data because it will allow
+sending rewards for the receipts that came in late.
