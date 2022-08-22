@@ -14,7 +14,7 @@ that Hotspots are honestly representing their location and the wireless network 
 creating from that location.
 
 LoRaWAN Hotspots utilize a PoC method that benefits from Hotspots being used as senders ("Beacon")
-and recievers ("Witness") of PoC activity, you can read more here:
+and receivers ("Witness") of PoC activity, you can read more here:
 [Proof of Coverage](./blockchain/proof-of-coverage)
 
 While all current 5G Hotspot models _also_ participate in the LoRaWAN network and PoC, the CBRS
@@ -23,67 +23,120 @@ Small Cell and 5G aspects of a 5G Hotspot require a new approach to validating P
 :::info One Way Traffic
 
 CBRS Small Cell Radios can only operate as transmitters, they are not able to receive incoming data
-and "hear" one another directly.
+and thus can not "hear" one another directly.
 
 :::
 
 ## 5G PoC Roadmap
 
-MOBILE Rewards are given to the Wallet that owns the 5G Hotspot(s) not to the individual 5G
-Hotspot(s) themselves, check your Wallet for the MOBILE transaction and your MOBILE Balance.
+- **Stage 1:** Rewards Submissions Are Triggered By Time Period **(current)**
+- **Stage 2:** Rewards Submissions Are Triggered By Consensus Election
+- **Stage 3:** Addition Of Speed Test Data Into Reward Calculation
+- **Stage 4:** Increase Reward Frequency
+- **Stage 5:** Decouple Reward Period From Reward Submission Time
 
-To qualify for the Genesis rewards in a Reward Period, a CBRS Small Cell Radio must:
 
-- be properly installed
-- be registered with the SAS (Outdoor Radios Only)
-- broadcast at least 1 "heartbeat" to the SAS per Reward Period
+---
 
-### Reward Submission Triggered By Time Period
+## Current 5G PoC Reward Elegibility
 
 MOBILE Rewards are earned by a Wallet with a 5G Hotspot and at least one connected, SAS registered,
 CBRS Small Cell Radio in one "lump sum" every roughly 24-hour interval. This system allows a high
 tolerance for downtime in infrastructure that is beyond the 5G Hotspot Owner's control.
 
-- 5G Hotspot must heartbeat 1 per Reward Period
-- Reward Period is 00:00 UTC to 23:59 UTC
-- reward submission occurs approx 17 hours later, once a day, around 10 am PST
+To qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio must:
 
-### Rewards Submission Triggered By Consensus Election
+- Be connected to a 5G Hotspot.
+- Be properly installed.
+  - Be registered with the SAS (Outdoor Radios Only).
+- Broadcast at least 1 "heartbeat" per Reward Period.
 
-MOBILE Rewards are earned by a Wallet with a 5G Hotspot and at least one connected, SAS registered,
-CBRS Small Cell Radio in one "lump sum" every 1440 block interval.
+:::note What is a "Heartbeat"?
 
-- 5G Hotspot must heartbeat 1 per Reward Period
-- Reward Period is 48 Consensus Elections (1440 blocks)
-- reward submission occurs approx 30 minutes later, much closer to the period in which they are
-  earned.
+A "heartbeat" is an authorization that allows the Small Cell Radio to transmit 5G coverage.
 
-### Addition Of Speed Test Data Into Reward Calculation
-
-:::info Future Requirements
-
-Soon, 5G Hotspots will perform periodic speed tests which will be considered in reward calculations.
+Heartbeats occur every 60 seconds and transmit authorizations are valid for 240 seconds, this
+rolling overlap ensures that a Small Cell Radio can broadcast on an ongoing basis while allowing for
+brief interruptions.
 
 :::
 
-A minimum Download and Upload speed will be required by each 5G Hotspot to ensure the 5G Hotspot is
-providing quality coverage.
+---
 
-- 5G Hotspot must heartbeat 1 per Reward Period.
-- 5G Hotspot must meet or exceed minimum Download and Upload speeds when averaged over the Reward
-  Period.
-- Upload and Download speed tests are averaged over the Reward Period, 5G Hotspots that do not meet
-  the minimum requirements are excluded from reward calculations.
-- Reward Period is 48 Consensus Elections (1440 blocks)
-- reward submission occurs approx 30 minutes later, much closer to the period in which they are
-  earned.
+## Development Milestones
 
-### Increase The Frequency Of Rewarding
+:::info Reward Targets
 
-5G Hotspots will be rewarded for providing consistent coverage with Reward Periods shortened to 2
-Epochs (60 blocks). Rewards transactions are triggered with every Consensus Election.
+During Genesis, 100M Mobile tokens are allocated to be issued per day. Given the different Reward
+Transactions triggers, daily rewards may not equate to an exact 100M MOBILE.
 
-### Decouple Reward Period From Reward Submission Time
+Check out this
+[Example Reward Transaction](https://explorer.helium.com/txns/0n4TO_2W14rrsGt-nxBTotiHFCFukkO04QoXIxaOtAY)
+for reference.
 
-This will increase tolerance for delay of heartbeat and speed test data because it will allow
-sending rewards for the receipts that came in late.
+:::
+
+### Milestone 1: Rewards Submissions Are Triggered By Time Period
+
+> - Reward Period is 1440 blocks and closely aligns with 00:00 UTC to 23:59 UTC.
+> - Reward submission occurs approx 17 hours later, once a day, around 17:00 UTC.
+
+At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
+must:
+
+- Be connected to a 5G Hotspot.
+- Be properly installed.
+  - Be registered with the SAS (Outdoor Radios Only).
+- Broadcast at least 1 "heartbeat" per Reward Period.
+
+### Milestone 2: Rewards Submissions Are Triggered By Consensus Election
+
+> - Reward Period is 48 Consensus Elections (1440 blocks, approximately 24 hours).
+> - Reward submission occurs approx 30 minutes after the Reward Period ends.
+
+At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
+must:
+
+- Be connected to a 5G Hotspot.
+- Be properly installed.
+  - Be registered with the SAS (Outdoor Radios Only).
+- Broadcast at least 1 "heartbeat" per Reward Period.
+
+### Milestone 3: Addition Of Speed Test Data Into Reward Calculation
+
+> - 5G Hotspots perform periodic speed tests which will be considered in reward calculations.
+> - A minimum Download and Upload speed will be required by each 5G Hotspot to ensure it is
+>   providing quality coverage.
+
+A 5G Hotspot will perform a speed test every 12 hours with the results being averaged over the
+previous 6 tests. Any 5G Hotspots that do not meet the minimum requirements are excluded from reward
+calculations for a given Reward Period.
+
+At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
+must:
+
+- Be connected to a 5G Hotspot.
+- Be properly installed.
+  - Be registered with the SAS (Outdoor Radios Only).
+- Broadcast at least 1 "heartbeat" per Reward Period.
+- Meet or exceed 100 Mbps Download and 10 Mbps Upload speed.
+
+:::important
+
+To meet the speed test requirement a 5G Hotspot must have a rolling average download speed of at
+least 100Mbps **AND** a rolling average upload speed of at least 10Mbps.
+
+A 5G Hotspot that does not meet both of these requirements will be excluded from rewards
+calculations in the given Reward Period.
+
+:::
+
+### Milestone 4: Increase The Frequency Of Rewarding
+
+> - Reward Periods shortened to 2 Epochs (60 blocks, or approximately 1 hour).
+> - Rewards transactions are triggered with every other Consensus Election.
+
+### Milestone 5: Decouple Reward Period From Reward Submission Time
+
+> - Increase tolerance for delay of heartbeat and speed test data by allowing rewards to be sent for
+>   the receipts that came in late.
