@@ -29,17 +29,20 @@ and thus can not "hear" one another directly.
 
 ## 5G PoC Roadmap
 
-- **Stage 1: **
-  [Rewards Submissions Are Triggered By Time Period](/5g-on-helium/5g-poc#milestone-1-rewards-submissions-are-triggered-by-time-period)
-  ** (current)**
-- **Stage 2: **
-  [Rewards Submissions Are Triggered By Consensus Election](/5g-on-helium/5g-poc#milestone-2-rewards-submissions-are-triggered-by-consensus-election)
-- **Stage 3: **
-  [Addition Of Speed Test Data Into Reward Calculation](/5g-on-helium/5g-poc#milestone-3-addition-of-speed-test-data-into-reward-calculation)
-- **Stage 4: **
-  [Increase Reward Frequency](/5g-on-helium/5g-poc#milestone-4-increase-the-frequency-of-rewarding)
-- **Stage 5: **
-  [Decouple Reward Period From Reward Submission Time](/5g-on-helium/5g-poc#milestone-5-decouple-reward-period-from-reward-submission-time)
+- **Stage 1: ** Genesis Rewards
+  - Genesis Phase 1:
+    [Time Period Triggered Rewards](/5g-on-helium/5g-poc#genesis-phase-1-time-period-triggered-rewards)
+    ** (current)**
+  - Genesis Phase 2:
+    [Consensus Election Triggered Rewards](/5g-on-helium/5g-poc#genesis-phase-2-consensus-election-triggered-rewards)
+  - Genesis Phase 3:
+    [Speed Test and Quality of Service](/5g-on-helium/5g-poc#genesis-phase-3-speed-test-and-quality-of-service)
+  - Genesis Phase 4:
+    [Reward Frequency Increase](/5g-on-helium/5g-poc#genesis-phase-4-reward-frequency-increase)
+  - Genesis Phase 5:
+    [Reward Period Decoupling From Reward Submission Time](/5g-on-helium/5g-poc#genesis-phase-5-reward-period-decoupling)
+- **Stage 2: ** 5G Mappers Proof of Coverage
+- **Stage 3: ** Additional Methods of Proof of Coverage
 
 ---
 
@@ -68,7 +71,7 @@ brief interruptions.
 
 ---
 
-## Development Milestones
+## Stage 1: Genesis Rewards
 
 :::info Reward Targets
 
@@ -81,7 +84,7 @@ for reference.
 
 :::
 
-### Milestone 1: Rewards Submissions Are Triggered By Time Period
+### Genesis Phase 1: Time Period Triggered Rewards
 
 > - Reward Period is 1440 blocks and closely aligns with 00:00 UTC to 23:59 UTC.
 > - Reward submission occurs approx 17 hours later, once a day, around 17:00 UTC.
@@ -94,7 +97,7 @@ must:
   - Be registered with the SAS (Outdoor Radios Only).
 - Broadcast at least 1 "heartbeat" per Reward Period.
 
-### Milestone 2: Rewards Submissions Are Triggered By Consensus Election
+### Genesis Phase 2: Consensus Election Triggered Rewards
 
 > - Reward Period is 48 Consensus Elections (1440 blocks, approximately 24 hours).
 > - Reward submission occurs approx 30 minutes after the Reward Period ends.
@@ -107,7 +110,7 @@ must:
   - Be registered with the SAS (Outdoor Radios Only).
 - Broadcast at least 1 "heartbeat" per Reward Period.
 
-### Milestone 3: Addition Of Speed Test Data Into Reward Calculation
+### Genesis Phase 3: Speed Test and Quality of Service
 
 > - 5G Hotspots perform periodic speed tests which will be considered in reward calculations.
 > - A minimum Download speed, Upload speed, and Latency will be required by each 5G Hotspot to
@@ -148,16 +151,17 @@ that 5G Hotspots are providing high-quality coverage.**
 In a review of existing speed test data, many Download speed test results are capped _just_ below
 the 100Mbps requirement, and is possibly a result of the use of non-gigabit networking equipment.
 
-Network switches that are advertised as "100/10" switches are often "90/9" in real world use.
+Network switches that are advertised as "100/10" switches are often "90/9" in real-world use.
 
 :::
 
-### Milestone 4: Increase The Frequency Of Rewarding
+### Genesis Phase 4: Reward Frequency Increase
 
 > - Reward Periods shortened to 2 Epochs (60 blocks, or approximately 1 hour).
 > - Rewards transactions are triggered with every other Consensus Election.
 
-### Milestone 5: Decouple Reward Period From Reward Submission Time
+### Genesis Phase 5: Reward Period Decoupling
 
+> - Decouple Reward Period From Reward Submission Time.
 > - Increase tolerance for delay of heartbeat and speed test data by allowing rewards to be sent for
 >   the receipts that came in late.
