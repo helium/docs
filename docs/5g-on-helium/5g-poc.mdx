@@ -110,12 +110,18 @@ must:
 ### Milestone 3: Addition Of Speed Test Data Into Reward Calculation
 
 > - 5G Hotspots perform periodic speed tests which will be considered in reward calculations.
-> - A minimum Download and Upload speed will be required by each 5G Hotspot to ensure it is
->   providing quality coverage.
+> - A minimum Download speed, Upload speed, and Latency will be required by each 5G Hotspot to
+>   ensure it is providing quality coverage.
 
 A 5G Hotspot will perform a speed test every 12 hours with the results being averaged over the
-previous 6 tests. Any 5G Hotspots that do not meet the minimum requirements are excluded from reward
-calculations for a given Reward Period.
+previous 6 tests.
+
+To meet the speed test requirement a 5G Hotspot must have a rolling average Download speed of at
+least 100Mbps **AND** a rolling average Upload speed of at least 10Mbps **AND** a rolling average
+Latency of 50ms or less.
+
+**A 5G Hotspot that does not meet all three of these requirements will be excluded from rewards
+calculations in the given Reward Period.**
 
 At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
 must:
@@ -124,15 +130,25 @@ must:
 - Be properly installed.
   - Be registered with the SAS (Outdoor Radios Only).
 - Broadcast at least 1 "heartbeat" per Reward Period.
-- Meet or exceed 100 Mbps Download and 10 Mbps Upload speed.
+- Maintain 100 Mbps or greater Download speeds on a 6-interval moving average.
+- Maintain 10 Mbps or greater Upload speeds on a 6-interval moving average.
+- Maintain 50ms or lesser Latency on a 6-interval moving average.
 
-:::important
+:::warning
 
-To meet the speed test requirement a 5G Hotspot must have a rolling average download speed of at
-least 100Mbps **AND** a rolling average upload speed of at least 10Mbps.
+**The Minimum Download speed and Upload speed requirements will increase over time.**
 
-A 5G Hotspot that does not meet both of these requirements will be excluded from rewards
-calculations in the given Reward Period.
+**This is to give Hotspot hosts time to improve their setup and internet connections and to ensure
+that 5G Hotspots are providing high-quality coverage.**
+
+:::
+
+:::caution
+
+In a review of existing speed test data, many Download speed test results are capped _just_ below
+the 100Mbps requirement, and is possibly a result of the use of non-gigabit networking equipment.
+
+Network switches that are advertised as "100/10" switches are often "90/9" in real world use.
 
 :::
 
