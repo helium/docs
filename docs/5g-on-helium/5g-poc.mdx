@@ -15,7 +15,7 @@ creating from that location.
 
 LoRaWAN Hotspots utilize a PoC method that benefits from Hotspots being used as senders ("Beacon")
 and receivers ("Witness") of PoC activity, you can read more here:
-[Proof of Coverage](./blockchain/proof-of-coverage)
+[Proof of Coverage](/blockchain/proof-of-coverage)
 
 While all current 5G Hotspot models _also_ participate in the LoRaWAN network and PoC, the CBRS
 Small Cell and 5G aspects of a 5G Hotspot require a new approach to validating PoC.
@@ -61,7 +61,8 @@ To qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio m
 
 :::note What is a "Heartbeat"?
 
-A "heartbeat" is an authorization that allows the Small Cell Radio to transmit 5G coverage.
+A "heartbeat" is data sent by the 5G Hotspot indicating that the connected CBRS Small Cell Radio(s)
+is authorized to transmit 5G coverage.
 
 Heartbeats occur every 60 seconds and transmit authorizations are valid for 240 seconds, this
 rolling overlap ensures that a Small Cell Radio can broadcast on an ongoing basis while allowing for
@@ -75,10 +76,12 @@ brief interruptions.
 
 :::info Reward Targets
 
-During Genesis, 100M Mobile tokens are allocated to be issued per day. Given the different Reward
-Transactions triggers, daily rewards may not equate to an exact 100M MOBILE.
+During Genesis, 100M Mobile tokens are allocated to be issued per day. This 24-hour Reward Period is
+expressed in blocks, and aligns as close to the Reward Period time range as possible, but may not
+line up _exactly_ on 24-hour intervals.
 
-Check out this
+Given this slight differentiation, daily rewards may not equate to an exact 100M MOBILE. Check out
+this
 [Example Reward Transaction](https://explorer.helium.com/txns/0n4TO_2W14rrsGt-nxBTotiHFCFukkO04QoXIxaOtAY)
 for reference.
 
@@ -86,7 +89,7 @@ for reference.
 
 ### Genesis Phase 1: Time Period Triggered Rewards
 
-> - Reward Period is 1440 blocks and closely aligns with 00:00 UTC to 23:59 UTC.
+> - Reward Period is approximately 1440 blocks and closely aligns with 00:00 UTC to 23:59 UTC.
 > - Reward submission occurs approx 17 hours later, once a day, around 17:00 UTC.
 
 At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
@@ -119,9 +122,10 @@ must:
 A 5G Hotspot will perform a speed test every 12 hours with the results being averaged over the
 previous 6 tests.
 
-To meet the speed test requirement a 5G Hotspot must have a rolling average Download speed of at
-least 100Mbps **AND** a rolling average Upload speed of at least 10Mbps **AND** a rolling average
-Latency of 50ms or less.
+To meet the speed test requirements as outlined in
+[HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md#oracle-operations), a 5G Hotspot
+must have a rolling average Download speed of at least 100Mbps **AND** a rolling average Upload
+speed of at least 10Mbps **AND** a rolling average Latency of 50ms or less.
 
 **A 5G Hotspot that does not meet all three of these requirements will be excluded from rewards
 calculations in the given Reward Period.**
