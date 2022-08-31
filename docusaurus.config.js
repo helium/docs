@@ -29,14 +29,6 @@ module.exports = {
       // using user system preferences, instead of the hardcoded defaultMode
       respectPrefersColorScheme: false,
     },
-    announcementBar: {
-      id: 'join_discord',
-      content:
-        '<a href="/use-the-network/console">Console updates has arrived! Read more and get started here!</a>',
-      backgroundColor: '#474DFF',
-      textColor: '#FFFFFF',
-      isCloseable: true,
-    },
     navbar: {
       title: '',
       style: 'primary',
@@ -46,7 +38,6 @@ module.exports = {
         srcDark: 'img/logowhite.svg',
       },
       items: [
-
         {
           to: '/use-the-network/console',
           label: 'Try the New Console Today',
@@ -54,8 +45,6 @@ module.exports = {
           activeBaseRegex: `docs`,
           className: 'announcementnav',
         },
-
-
         {
           to: '/',
           label: 'Docs',
