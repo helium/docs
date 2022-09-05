@@ -7,8 +7,8 @@ slug: /mine-hnt/validators/testnet/deployment-guide
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-This guide will cover the end-to-end process of deploying a Helium Validator on Testnet. It assumes
-you're starting from scratch. At the end, you'll have a Helium Validator deployed on the Network.
+This guide will cover the end-to-end process of deploying a Helium Validator on the Testnet. It assumes
+you're starting from scratch. At the end, you'll have a Helium Validator deployed on the Test Network.
 
 :::info
 
@@ -25,7 +25,7 @@ To successfully deploy a Helium Validator, you'll need to do the following:
 - Install the [Helium CLI Wallet](https://github.com/helium/helium-wallet-rs). You are welcome to
   build from source, but easiest to download the latest binary release.
 - Deploy a virtual server on a cloud service like AWS, GCP, Azure, or Digital Ocean. Or deploy a
-  physical server on which to run the validator.
+  physical server on which to run the Validator.
   [The recommended hardware and networking requirements can be found here](/mine-hnt/validators/requirements/).
 
 ## Create Testnet Wallet
@@ -122,13 +122,13 @@ If all went to plan, you'll see this:
 +-----------------------------------------------------+----------------+--------------+-----------------+
 ```
 
-Glorious. You have the `10000` TNT to stake one validator, and a bit extra to cover the transaction
+Glorious. You have the `10000` TNT to stake one Validator, and a bit extra to cover the transaction
 fees. Now it's time to get your Validator running.
 
 ## Run a Validator
 
 With TNT in hand, it's time to deploy and run the actual Validator (can also be referred to as
-`miner` as the validator is part of the `miner` code base).
+`miner` as the Validator is part of the `miner` code base).
 
 :::warning
 
@@ -142,7 +142,7 @@ grep avx /proc/cpuinfo
 ```
 
 If nothing is returned from this command, your host system does not have AVX support and your
-validator may not be stable.
+Validator may not be stable.
 
 :::
 
@@ -181,7 +181,7 @@ Now that docker is installed and ready, let's run the Validator.
 #### Run the Docker Container
 
 Before running the container for the first time, it is mandatory to pick a "system mount point".
-This allows you to easily maintain your Validator's blockchain identity - specifically it
+This allows you to easily maintain your Validator's blockchain identity - specifically its 
 `swarm keys` - and blockchain state through image updates. Without doing this, you will lose these
 items when upgrading docker images.
 
@@ -285,7 +285,7 @@ containrrr/watchtower \
 
 - `-v /var/run/docker.sock:/var/run/docker.sock` A volume flag to allow the watchtower container to
   monitor running containers.
-- `containrrr/watchtower` The Image of the watchtower container
+- `containrrr/watchtower` The Image of the watchtower container.
 - `--cleanup` Passes a flag into the watchtower container. This instructs watchtower to remove old
   images after updating.
 - `--interval 1800` Poll interval (in seconds). This value controls how frequently watchtower will
@@ -371,11 +371,10 @@ Now that you have your Validator running, you need to
 
 Ok, brave soul. Here's what you'll need to build and deploy the miner from source:
 
-- miner
-- Erlang package (the latest 22 or 23 versions are supported, the 24 release candidate will NOT
-  work)
-- `libwxgtk` package
 - git
+- miner repository
+- Erlang package (OTP 23 or 24)
+- `libwxgtk` package
 
 Before we get started, make sure you're fully up to date:
 
@@ -389,7 +388,7 @@ Next, let's install all the things. Start by cloning the miner repo.
 git clone https://github.com/helium/miner.git
 ```
 
-And checkout the latest testnet val tag. Consult GitHub for the current version and replace it into
+And checkout the latest Testnet Validator tag. Consult GitHub https://github.com/helium/miner/tags for the current version and replace it into
 this command:
 
 ```
@@ -524,7 +523,7 @@ things are hunky dory.
 
 The blockchain takes time. The distributed nature of verifying transactions into the blockchain
 takes time. The validator information gossiped on the blockchain takes time. APIs that run to update
-the [explorer](https://explorer.helium.wtf) are scheduled and have intervals. Basically, you won't
+the [Testnet Explorer](https://testnet-explorer.helium.com/) are scheduled and have intervals. Basically, you won't
 be able to run the validator and instantly see that everything is "good".
 
 After the validator has been up and running for 15 minutes, proceed with some of the steps below.
@@ -621,10 +620,35 @@ miner peer book -s
 
 You're looking for `listen_addrs`. If you don't have at least one, your validator hasn't settled on
 how to tell other peers to reach it. Often this can take 15-30min, sometimes longer.
+The result of `docker exec validator miner info p2p_status` command can look like:
+
+```
++---------+------+
+|  name   |result|
++---------+------+
+|connected| no   |
+|dialable | no   |
+|nat_type | none |
+| height  | 1    |
++---------+------+
+```
+
+If the issue is persistent, try to establish outgoing connection to another Validator:
+  
+- find address of the Validator elected into the Consensus Group on the [Testnet Explorer](https://testnet-explorer.helium.com/validators/consensus)
+- get `listen_addrs` from the [testnet API]:
+  ```
+  https://testnet-api.helium.wtf/v1/validators/<validator_address>
+  ```
+- run connect command
+```
+  docker exec validator miner peer connect <listen_addrs>
+```
+
 
 ### Check the Explorer
 
-Head over to the [Helium Testnet Explorer's Validators Page](https://explorer.helium.wtf/validators)
+Head over to the [Helium Testnet Explorer's Validators Page](https://testnet-explorer.helium.com/validators)
 and search for your validator. This may take 10 to 15 minutes from the time that your Validator is
 both online and staked. You should see your 3-word validators name (short-umber-bull in the example
 above) listed. It may be easier to sort by #, decending, as your new Validator will be near the top
@@ -663,7 +687,7 @@ There are a few things you will notice may happen if you're "off chain".
 
 - You read an announcement on `#validators-announcement`
 - Your validator block height (`miner info height`) is higher than the block height reported on
-  [explorer](https://explorer.helium.wtf)
+  [Testnet Explorer](https://testnet-explorer.helium.com/validators)
 - Your validator block height is not moving.
 - Your wallet had TNT in it before, but now it's showing `0`
 - The version of your validator seems to be way behind other versions reported on explorer

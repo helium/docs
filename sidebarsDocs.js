@@ -45,7 +45,13 @@ module.exports = {
     {
       type: 'category',
       label: '5G on Helium',
-      items: ['5g-on-helium/5g-on-helium'],
+      items: [
+        '5g-on-helium/5g-on-helium',
+        '5g-on-helium/cbrs-radios',
+        '5g-on-helium/5g-poc',
+        '5g-on-helium/mining-5g',
+        '5g-on-helium/mobile-pre-mine',
+      ],
       collapsed: true,
     },
     {
@@ -66,12 +72,14 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'HNT Wallets',
+      label: 'Helium Wallets',
       items: [
         'wallets/wallets',
         'wallets/helium-wallet-app',
         'wallets/cli-wallet',
         'wallets/ledger',
+        'wallets/twelve-words',
+        'wallets/twenty-four-words',
       ],
       collapsed: true,
     },
@@ -153,9 +161,7 @@ module.exports = {
       type: 'category',
       label: 'Helium App',
       items: [
-        'wallets/app-wallet/twelve-words',
         'wallets/app-wallet/transfer-hotspot',
-        'wallets/app-wallet/rak-hotspot-setup',
         'wallets/app-wallet/hexagons',
         'wallets/app-wallet/discovery',
         'wallets/app-wallet/transaction-failures',
@@ -498,7 +504,20 @@ module.exports = {
       collapsed: false,
     },
   ],
-  rakwireless: [
+  opensourceinitiative: [
+    {
+      type: 'link',
+      label: '<- Back',
+      href: '/use-the-network/devices/development',
+    },
+    {
+      type: 'category',
+      label: 'OpenSource Initiative',
+      items: ['use-the-network/devices/development/opensourceinitiative/paxcounter'],
+      collapsed: false,
+    },
+  ],
+  rakwireless_dev: [
     {
       type: 'link',
       label: '<- Back',
@@ -1031,7 +1050,6 @@ module.exports = {
       collapsed: false,
     },
   ],
-
   seeedstudiortu: [
     {
       type: 'link',
@@ -1042,17 +1060,17 @@ module.exports = {
       type: 'category',
       label: 'Seeed Studio',
       items: [
-        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-soil-th',
-        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-air-th',
-        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-light',
-        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-co2',
-        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-pressure',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2100-data-logger',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2101-tem-humid',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2102-light',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2103-co2-tem-humid',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2104-soil-mois-tem',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-s2105-soil-mois-tem-ec',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-soil-th',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-air-th',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-light',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-co2',
+        'use-the-network/devices/ready-to-use/seeed-studio/sensecap-pressure',
       ],
 
       collapsed: false,
