@@ -36,7 +36,7 @@ and thus can not "hear" one another directly.
     [Time Period Triggered Rewards with Minimum Delay](/5g-on-helium/5g-poc#genesis-phase-2-time-period-triggered-rewards-with-minimum-delay)
     **(current)**
   - Genesis Phase 3:
-    [Speed Test and Quality of Service](/5g-on-helium/5g-poc#genesis-phase-3-speed-test-and-quality-of-service)
+    [Speed Test and Quality of Service](/5g-on-helium/5g-poc#genesis-phase-3-speed-tests-and-quality-of-service)
   - Genesis Phase 4:
     [Reward Frequency Increase](/5g-on-helium/5g-poc#genesis-phase-4-reward-frequency-increase)
   - Genesis Phase 5:
@@ -119,14 +119,17 @@ must:
   - Be registered with the SAS (Outdoor Radios Only).
 - Broadcast at least 1 "heartbeat" per Reward Period.
 
-### Genesis Phase 3: Speed Test and Quality of Service
+### Genesis Phase 3: Speed Tests and Quality of Service
 
+> - Reward Period is approximately 1440 blocks and closely aligns with 00:00 UTC to 23:59 UTC.
+> - Reward submission occurs approx 15 minutes after the Reward Period ends, around 00:00 UTC.
 > - 5G Hotspots perform periodic speed tests which will be considered in reward calculations.
 > - A minimum Download speed, Upload speed, and Latency will be required by each 5G Hotspot to
 >   ensure it is providing quality coverage.
 
 A 5G Hotspot will perform a speed test every 12 hours with the results being averaged over the
-previous 6 tests.
+previous `6` tests. This moving average is "reset" following a speed test gap of `>12 hours` and a
+minumum of `2` speed test results are required to be eligible for Genesis Rewards.
 
 To meet the speed test requirements as outlined in
 [HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md#oracle-operations), a 5G Hotspot
