@@ -32,7 +32,7 @@ At any time, use `--help` to see the most recent documentation and help for the 
 
 At time of this writing, version 1.7.5 looks like this:
 
-```
+```bash
 $ helium-wallet --help
 helium-wallet 1.7.5
 Common options for most wallet commands
@@ -83,7 +83,7 @@ SUBCOMMANDS:
 Exploring the help menu is always a good way to orient yourself. To learn more about a certain
 transaction (or subcommand), simply append `--help`. eg:
 
-```
+```bash
 helium-wallet pay --help
 ```
 
@@ -104,14 +104,14 @@ will make it difficult for someone to brute force the file should the file be co
 
 Displaying information for one or more wallets without needing its password can be done using;
 
-```
-    helium-wallet info
+```bash
+$ helium-wallet info
 ```
 
 To display a QR code for the public key of the given wallet use:
 
-```
-    helium-wallet info --qr
+```bash
+$ helium-wallet info --qr
 ```
 
 This is useful for sending tokens to the wallet from the mobile wallet.
@@ -121,9 +121,8 @@ This is useful for sending tokens to the wallet from the mobile wallet.
 Creating a wallet above is easy, but there's a lot more flexibility you might not know about. It's
 always recommended to explore the help menu to learn more:
 
-```
+```bash
 $ helium-wallet create basic --help
-
 helium-wallet-create-basic 1.7.5
 Create a new basic wallet
 
@@ -150,12 +149,16 @@ We'll go through a few examples next.
 You can specify a more precise location or filename when _creating a wallet_ by using the `--output`
 flag. eg:
 
-`helium-wallet create basic --output ~/my-wallets/wallet-5.key`
+```bash
+$ helium-wallet create basic --output ~/my-wallets/wallet-5.key
+```
 
 When _using a wallet_, you can specify a file other than the default `./wallet.key` by using the the
 global option `--file`. eg:
 
-`helium-wallet -f ~/my-wallets/wallet-5.key pay <AMOUNT> <ADDRESS>`
+```bash
+$ helium-wallet -f ~/my-wallets/wallet-5.key pay <AMOUNT> <ADDRESS>
+```
 
 ### Sharded Wallet
 
@@ -163,8 +166,8 @@ Sharding wallet keys is supported via Shamir's Secret Sharing. A key can be brok
 such that recovering the original key needs K distinct shards. This can be done by passing options
 to create:
 
-```
-    helium-wallet create sharded -n 5 -k 3
+```bash
+$ helium-wallet create sharded -n 5 -k 3
 ```
 
 This will create wallet.key.1 through wallet.key.5 (the base name of the wallet file can be supplied
@@ -406,7 +409,7 @@ To transfer a Hotspot from a 24-word wallet to a 12-word wallet, follow the step
 3. Import your 24-word seed phrase to the CLI Wallet.
 
 ```bash
-./helium-wallet create basic --seed bip39 --output my-24-word-wallet.key
+$ helium-wallet create basic --seed bip39 --output my-24-word-wallet.key
 ```
 
 | argument                         | description                                                                                                      |
@@ -418,13 +421,13 @@ To transfer a Hotspot from a 24-word wallet to a 12-word wallet, follow the step
 4. Find the Gateway ID of the Hotspot to be transferred by running
 
 ```bash
-./helium-wallet hotspots list
+$ helium-wallet hotspots list
 ```
 
 5. Perform a Dry Run of the Hotspot transfer
 
 ```bash
-./helium-wallet -f my-24-word-wallet.key hotspots transfer <gateway> <new-owner>
+$ helium-wallet -f my-24-word-wallet.key hotspots transfer <gateway> <new-owner>
 ```
 
 | argument                   | description                                                             |
@@ -447,7 +450,7 @@ Including the `--commit` flag submits the transfer transaction to the blockchain
 :::
 
 ```bash
-./helium-wallet -f my-24-word-wallet.key hotspots transfer <gateway> <new-owner> --commit
+$ helium-wallet -f my-24-word-wallet.key hotspots transfer <gateway> <new-owner> --commit
 ```
 
 8. Once the transfer transaction is validated by the blockchain, your Hotspot will appear in the new
