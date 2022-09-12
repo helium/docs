@@ -119,8 +119,8 @@ must:
 
 ### Genesis Phase 3: Speed Tests and Quality of Service
 
-> - Reward Period is approximately 1440 blocks and closely aligns with 00:00 UTC to 23:59 UTC.
-> - Reward submission occurs approx 15 minutes after the Reward Period ends, around 00:00 UTC.
+> - Reward Period is approximately 24 hours, with Reward submission occurring at approximately 01:30
+>   UTC.
 > - 5G Hotspots perform periodic speed tests which will be considered in reward calculations.
 > - A minimum Download speed, Upload speed, and Latency will be required by each 5G Hotspot to
 >   ensure it is providing quality coverage.
@@ -131,8 +131,20 @@ must have a rolling average Download speed of at least 100Mbps **AND** a rolling
 speed of at least 10Mbps **AND** a rolling average Latency of 50ms or less.
 
 A 5G Hotspot will perform a speed test approximately every 12 hours with the results being averaged
-over the previous `6` tests. This moving average is reset following a speed test gap of `>12 hours`
-and a minimum of `2` speed test results are required to be eligible for Genesis Rewards.
+by the Rewards Server over the previous `6` tests. This moving average is reset following a speed
+test gap of `>12 hours` and a minimum of `2` speed test results are required to be eligible for
+Genesis Rewards.
+
+:::note Moving Average
+
+The "Moving Average", also known as a "Rolling Average" is the average of the 6 most recent speed
+test results for each download, upload, and latency.
+
+:::
+
+#### Example Calculation Tables
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-success.png')} />
 
 **A 5G Hotspot that does not meet all three of these requirements will be excluded from rewards
 calculations in the given Reward Period.**
@@ -168,14 +180,12 @@ Network switches that are advertised as "100/10" switches are often "90/9" in re
 
 ### Genesis Phase 4: Heartbeats and Reliability of Service
 
-> - Reward Period is approximately 1440 blocks and closely aligns with 00:00 UTC to 23:59 UTC.
-> - Reward submission occurs approx 15 minutes after the Reward Period ends, around 00:00 UTC.
+> - Reward Period is approximately 24 hours, with Reward submission occurring at approximately 01:30
+>   UTC.
 > - 5G Hotspots perform periodic speed tests which will be considered in reward calculations.
-> - 5G Hotspots must generate 1 "heartbeat" in a 1 hour period for at least 12 periods to ensure it
->   is providing reliable coverage uptime.
+> - Small Cell Radios must generate at least 1 "heartbeat" per 1 hour for any 12 hours in the
+>   24-hour Reward Period.
 
-In addition to speed test requirements, a 5G Hotspot is required to generate at least 1 "heartbeat"
-per hour in each of at least 12 unique hours in the Reward Period.
 
 At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
 must:
