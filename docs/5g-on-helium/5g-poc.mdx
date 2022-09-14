@@ -131,14 +131,17 @@ must have a rolling average Download speed of at least 100Mbps **AND** a rolling
 speed of at least 10Mbps **AND** a rolling average Latency of 50ms or less.
 
 A 5G Hotspot will perform a Speed Test approximately every 12 hours with the results being averaged
-by the MOBILE PoC Oracle over the previous `6` tests. This moving average is reset following a speed
-test gap of `>12 hours` and a minimum of `2` Speed Test results are required to be eligible for
-Genesis Rewards.
+by the MOBILE PoC Oracle over the previous `6` tests, depending on the availability of the data.
+This moving average is reset following a speed test gap of `>12 hours` and a minimum of `2` Speed
+Test results are required to be eligible for Genesis Rewards.
 
 :::note Moving Average
 
-The "Moving Average", also known as a "Rolling Average" is the average of the 6 most recent speed
-test results for each download, upload, and latency.
+The "Moving Average", also known as a "Rolling Average" is the average of at least 2 but no more
+than 6 most recent speed test results for each download, upload, and latency.
+
+This means that when more than 6 Speed Test results are available, results that came before 6th most
+recent test won't be considered in the calculation.
 
 :::
 
