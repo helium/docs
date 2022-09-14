@@ -144,7 +144,103 @@ test results for each download, upload, and latency.
 
 #### Example Calculation Tables
 
+Here are a set of tables to help visualize all of these components that make up the Speed Test
+result.
+
+**Successful Speed Test Series:**
+
+Here all Speed Test Metrics are passing, the 5G Hotspot is providing a high quality connection.
+
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-success.png')} />
+
+**Missing A Single Speed Test:**
+
+This 5G Hotspot has not reported Speed Test data, this will be common for a newly connected 5G
+Hotspot. This 5G Hotspot _will_ be rewarded for all Reward Periods.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-miss.png')} />
+
+**Missing Multiple Speed Tests:**
+
+This 5G Hotspot has not reported a series of Speed Test data, this is often a result of a 5g Hotspot
+being disconnected from the internet for a long time. This 5G Hotspot _will not_ earn rewards during
+while Test 5 and 6 are the most recent.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-miss.png')} />
+
+**Failing A Speed Test:**
+
+This 5G Hotspot has "failed" its Speed Test on all metrics (orange cells), but the Moving Average
+(light green cells) stays within the passing range. This 5G Hotspot _will_ be rewarded for all
+Reward Periods.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-fail.png')} />
+
+**Failing Multiple Speed Tests:**
+
+This 5G Hotspot has failed many Speed Tests in a row (orange cells), this has caused the Moving
+Average to fail (light green cells). This 5G Hotspot _will not_ earn rewards during while Test 6, 7,
+and 8 are the most recent.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-fail.png')} />
+
+#### Helium Explorer 5G Hotspot Statistics Tab
+
+Current Speed Test Statistics for a given 5G Hotspot can be viewed on the Helium Explorer.
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>🟢 Speed Test Passing</b>
+      <p>
+        Here all Speed Test Metrics are passing, the 5G Hotspot is providing a high quality
+        connection.
+      </p>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-pass.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>🟣 Not Enough Data</b>
+      <p>
+        Here the 5G Hotspot has not reported Speed Test data, this will be common for a newly
+        connected 5G Hotspot.
+      </p>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-no-data.png')}
+      />
+    </div>
+  </div>
+  <hr></hr>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>🔴 Speed Test Fail - Latency</b>
+      <p>
+        Here the 5G Hotspot has poor latency, 5G Hotspots must maintain a <code>50ms</code> or
+        lesser latency to provide Quality coverage to connected devices.
+      </p>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-fail-latency.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>🔴 Speed Test Fail - Download</b>
+      <p>
+        Here the 5G Hotspot has poor Download speeds. 5G Hotspots must maintain a{' '}
+        <code>100Mbps</code> or greater Download Speed to provide Quality coverage.
+      </p>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-fail-download.png')}
+      />
+    </div>
+
+  </div>
+  <hr></hr>
+</div>
 
 **A 5G Hotspot that does not meet all three of these requirements will be excluded from rewards
 calculations in the given Reward Period.**
@@ -185,7 +281,6 @@ Network switches that are advertised as "100/10" switches are often "90/9" in re
 > - 5G Hotspots perform periodic speed tests which will be considered in reward calculations.
 > - Small Cell Radios must generate at least 1 "heartbeat" per 1 hour for any 12 hours in the
 >   24-hour Reward Period.
-
 
 At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
 must:
