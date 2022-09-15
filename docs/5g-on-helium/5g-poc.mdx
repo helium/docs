@@ -163,7 +163,25 @@ This 5G Hotspot is passing all Speed Test metrics and is providing a high-qualit
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-success.png')} />
 
-> This 5G Hotspot _will_ be eligible for rewards during all Reward Periods after Test 2.
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Not Eligible</b>
+      <p>
+        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
+        the results of Test 1 is most recent as there is not enough data to calculate a Moving
+        Average.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Eligible</b>
+      <p>
+        This 5G Hotspot <b>will</b> be eligible for rewards during the Reward Periods for which the
+        results of Test 2 or later are most recent.
+      </p>
+    </div>
+  </div>
+</div>
 
 ---
 
@@ -173,7 +191,30 @@ This 5G Hotspot has not reported Speed Test data at Test 5.
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-miss.png')} />
 
-> This 5G Hotspot _will not_ be eligible for rewards while Test 5 and Test 6 are the most recent.
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Not Eligible</b>
+      <p>
+        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
+        the results of Test 1 or 8 are the most recent as there is not enough data to calculate a
+        Moving Average.
+      </p>
+      <p>
+        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
+        the results of Test 5 and 6 are the most recent as a missed Speed Test resets the Moving
+        Average.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Eligible</b>
+      <p>
+        This 5G Hotspot <b>will</b> be eligible for rewards during the Reward Periods for which the
+        results of Tests 2 through 4 and Tests 7 through 12 are the most recent.
+      </p>
+    </div>
+  </div>
+</div>
 
 ---
 
@@ -184,8 +225,29 @@ This 5G Hotspot has not reported Speed Test data during Test 5, 6, or 7. This is
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-miss.png')} />
 
-> This 5G Hotspot _will not_ be eligible for rewards during the Reward Periods for which the results
-> of Test 5, 6, 7, or 8 are the most recent.
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Not Eligible</b>
+      <p>
+        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
+        the results of Test 1 or 8 are the most recent as there is not enough data to calculate a
+        Moving Average.
+      </p>
+      <p>
+        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
+        the results of Test 5, 6, or 7 are the most recent as there are missing Speed Test data.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Eligible</b>
+      <p>
+        This 5G Hotspot <b>will</b> be eligible for rewards during the Reward Periods for which the
+        results of Tests 2 through 4 and Tests 9 through 12 are the most recent.
+      </p>
+    </div>
+  </div>
+</div>
 
 ---
 
@@ -196,7 +258,24 @@ within the passing range.
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-fail.png')} />
 
-> This 5G Hotspot _will_ be eligible for rewards during all Reward Periods after Test 2.
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Not Eligible</b>
+      <p>
+        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
+        the results of Test 1 is most recent as there is not enough data to calculate a Moving
+        Average.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Eligible</b>
+      <p>
+        This 5G Hotspot <b>will</b> be eligible for rewards during all Reward Periods after Test 2.
+      </p>
+    </div>
+  </div>
+</div>
 
 ---
 
@@ -207,8 +286,30 @@ fail for Test 6, 7, and 8.
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-fail.png')} />
 
-> This 5G Hotspot _will not_ be eligible for rewards during the Reward Periods for which the results
-> of Test 6, 7, or 8 are the most recent.
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Not Eligible</b>
+      <p>
+        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
+        the results of Test 1 is most recent as there is not enough data to calculate a Moving
+        Average.
+      </p>
+      <p>
+        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
+        the results of Tests 6 through 8 are the most recent as at least one Speed Test metric has
+        failed.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Eligible</b>
+      <p>
+        This 5G Hotspot <b>will</b> be eligible for rewards during the Reward Periods for which the
+        results of Tests 2 through 5 and Tests 9 through 12 are the most recent.
+      </p>
+    </div>
+  </div>
+</div>
 
 ---
 
