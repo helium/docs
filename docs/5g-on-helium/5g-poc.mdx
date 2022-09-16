@@ -130,10 +130,10 @@ To meet the Speed Test requirements as outlined in
 must have a rolling average Download speed of at least 100Mbps **AND** a rolling average Upload
 speed of at least 10Mbps **AND** a rolling average Latency of 50ms or less.
 
-A 5G Hotspot will perform a Speed Test approximately every 12 hours with the results being averaged
-by the MOBILE PoC Oracle over the previous `6` tests, depending on the availability of the data.
-This moving average is reset following a speed test gap of `>12 hours` and a minimum of `2` Speed
-Test results are required to be eligible for Genesis Rewards.
+A 5G Hotspot will automatically perform a Speed Test approximately every 12 hours with the results
+being averaged by the MOBILE PoC Oracle over the previous `6` tests, depending on the availability
+of the data. This moving average is reset following a speed test gap of `>12 hours` and a minimum of
+`2` Speed Test results are required to be eligible for Genesis Rewards.
 
 :::note Moving Average
 
@@ -163,25 +163,15 @@ This 5G Hotspot is passing all Speed Test metrics and is providing a high-qualit
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-success.png')} />
 
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Not Eligible</b>
-      <p>
-        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
-        the results of Test 1 is most recent as there is not enough data to calculate a Moving
-        Average.
-      </p>
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Eligible</b>
-      <p>
-        This 5G Hotspot <b>will</b> be eligible for rewards during the Reward Periods for which the
-        results of Test 2 or later are most recent.
-      </p>
-    </div>
-  </div>
-</div>
+**Eligible**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Test 2 or later are most recent.
+
+**Not Eligible**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 is most recent as there is not enough data to calculate a Moving Average.
 
 ---
 
@@ -191,30 +181,18 @@ This 5G Hotspot has not reported Speed Test data at Test 5.
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-miss.png')} />
 
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Not Eligible</b>
-      <p>
-        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
-        the results of Test 1 or 8 are the most recent as there is not enough data to calculate a
-        Moving Average.
-      </p>
-      <p>
-        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
-        the results of Test 5 and 6 are the most recent as a missed Speed Test resets the Moving
-        Average.
-      </p>
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Eligible</b>
-      <p>
-        This 5G Hotspot <b>will</b> be eligible for rewards during the Reward Periods for which the
-        results of Tests 2 through 4 and Tests 7 through 12 are the most recent.
-      </p>
-    </div>
-  </div>
-</div>
+**Eligible**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 2 through 4 and Tests 7 through 12 are the most recent.
+
+**Not Eligible**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 or 8 are the most recent as there is not enough data to calculate a Moving Average.
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 5 and 6 are the most recent as a missed Speed Test resets the Moving Average.
 
 ---
 
@@ -225,29 +203,18 @@ This 5G Hotspot has not reported Speed Test data during Test 5, 6, or 7. This is
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-miss.png')} />
 
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Not Eligible</b>
-      <p>
-        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
-        the results of Test 1 or 8 are the most recent as there is not enough data to calculate a
-        Moving Average.
-      </p>
-      <p>
-        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
-        the results of Test 5, 6, or 7 are the most recent as there are missing Speed Test data.
-      </p>
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Eligible</b>
-      <p>
-        This 5G Hotspot <b>will</b> be eligible for rewards during the Reward Periods for which the
-        results of Tests 2 through 4 and Tests 9 through 12 are the most recent.
-      </p>
-    </div>
-  </div>
-</div>
+**Eligible**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 2 through 4 and Tests 9 through 12 are the most recent.
+
+**Not Eligible**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 or 8 are the most recent as there is not enough data to calculate a Moving Average.
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 5, 6, or 7 are the most recent as there are missing Speed Test data.
 
 ---
 
@@ -258,24 +225,14 @@ within the passing range.
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-fail.png')} />
 
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Not Eligible</b>
-      <p>
-        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
-        the results of Test 1 is most recent as there is not enough data to calculate a Moving
-        Average.
-      </p>
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Eligible</b>
-      <p>
-        This 5G Hotspot <b>will</b> be eligible for rewards during all Reward Periods after Test 2.
-      </p>
-    </div>
-  </div>
-</div>
+**Not Eligible**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 is most recent as there is not enough data to calculate a Moving Average.
+
+**Eligible**
+
+This 5G Hotspot **will** be eligible for rewards during all Reward Periods after Test 2.
 
 ---
 
@@ -286,30 +243,18 @@ fail for Test 6, 7, and 8.
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-fail.png')} />
 
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Not Eligible</b>
-      <p>
-        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
-        the results of Test 1 is most recent as there is not enough data to calculate a Moving
-        Average.
-      </p>
-      <p>
-        This 5G Hotspot <b>will not</b> be eligible for rewards during the Reward Periods for which
-        the results of Tests 6 through 8 are the most recent as at least one Speed Test metric has
-        failed.
-      </p>
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Eligible</b>
-      <p>
-        This 5G Hotspot <b>will</b> be eligible for rewards during the Reward Periods for which the
-        results of Tests 2 through 5 and Tests 9 through 12 are the most recent.
-      </p>
-    </div>
-  </div>
-</div>
+**Eligible**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 2 through 5 and Tests 9 through 12 are the most recent.
+
+**Not Eligible**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 is most recent as there is not enough data to calculate a Moving Average.
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Tests 6 through 8 are the most recent as at least one Speed Test metric has failed.
 
 ---
 
