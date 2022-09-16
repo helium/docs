@@ -201,294 +201,63 @@ integration, you need to set the device to work in
   )}
 />
 
-2. Datacake has ready-to-use templates for different devices. However, as TrackIt is a new device,
-   it doesn’t have a ready-to-use template, so you need to make one on your own. To add the device,
-   click **New Product** and type the name of your product in the **Product Name** field.
+2. Datacake has ready-to-use TrackIt template. To add the device, click **LoRaWAN** and then
+   **Next**.
 
 <img
   src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/16.new-product.png',
+    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/16.add-new-device.png',
   )}
 />
 
-3. Click **Next** to continue. On the next window, for Network Server, select **Helium** and click
-   **Next** again.
+3. On the next window, in the **Search** field, type **TrackIt** and choose the **Device Template**.
+   Then click **Next**.
 
 <img
   src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/17.choose-network.png',
+    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/17.product-template.png',
   )}
 />
 
-4. On the next page, type the **Dev EUI** and the **Name** of your device. You can add more than one
+4. On the next page, choose **Helium** for Network server and click **Next**.
+
+<img
+  src={useBaseUrl(
+    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/18.choose-network.png',
+  )}
+/>
+
+5. On the next page, type the **Dev EUI** and the **Name of your device**. You can add more than one
    device. You can also drag and drop a `.csv` file, and it automatically adds multiple devices at
    once. Then click **Next**.
 
 <img
-  src={useBaseUrl('img/use-the-network/devices/ready-to-use/rakwireless/rak2171/18.add-device.png')}
+  src={useBaseUrl('img/use-the-network/devices/ready-to-use/rakwireless/rak2171/19.add-device.png')}
 />
 
-5. On the next page, you have to choose a plan, then click the **Add 1 device** button to finish.
+6. Finally, choose a plan. For this example, choose the **Free** one. Click **Add 1 device** to
+   finish.
 
 <img
   src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/19.choose-plan.png',
+    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/20.choose-plan.png',
   )}
 />
 
-Now, your device is registered in Datacake.
+7. Now, your device is registered in Datacake.
 
 <img
   src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/20.registered-device.png',
+    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/21.registered-device.png',
   )}
 />
 
-6. Before setting up the Datacake Dashboard of the device, make sure that the device has already
-   joined in Helium Console.
+8. You can click the name of your device and check the Dashboard.
 
 <img
   src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/21.joined-device.png',
+    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/22.trackit-dashboard.png',
   )}
 />
 
-### Configure the Device in Datacake
-
-1. You need to decode the raw data the device sends to Datacake for a more user-friendly preview. On
-   the device page of the Datacake console, you can find different tabs like **Dashboard**,
-   **History**, and **Downlinks**. For now, head on to the **Configuration** tab.
-
-<img
-  src={useBaseUrl('img/use-the-network/devices/ready-to-use/rakwireless/rak2171/22.dashboard.png')}
-/>
-
-2. Scroll down until you find the **Payload Decoder** field.
-
-<img
-  src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/23.configuration-page.png',
-  )}
-/>
-
-3. In the **Payload Decoder** field, copy and paste the code below. Then click the **Save** button
-   below the decoder field.
-
-```js
-function Decoder(bytes, port) {
-  var decoded = {}
-
-  // adjust time zone, here Asia/Manila = +8H
-  var my_time_zone = 8 * 60 * 60
-
-  decoded.num = bytes[1]
-  decoded.app_id = (bytes[2] << 24) | (bytes[3] << 16) | (bytes[4] << 8) | bytes[5]
-  decoded.dev_id = (bytes[6] << 24) | (bytes[7] << 16) | (bytes[8] << 8) | bytes[9]
-  switch (bytes[0]) {
-    case 0xca: // No Location fix
-      decoded.acc = 0
-      decoded.fix = 0
-      decoded.batt = bytes[10]
-      decoded.time = (bytes[11] << 24) | (bytes[12] << 16) | (bytes[13] << 8) | bytes[14]
-      // adjust time zone
-      decoded.time = decoded.time + my_time_zone
-      var dev_date = new Date(decoded.time * 1000)
-      decoded.time_stamp = dev_date.getHours() + ':' + dev_date.getMinutes()
-      decoded.date_stamp =
-        dev_date.getDate() + '.' + (dev_date.getMonth() + 1) + '.' + dev_date.getFullYear()
-      decoded.stat = bytes[15] & 0x03
-      decoded.gps = bytes[15] & 0x0c
-      break
-    case 0xcb: // Location fix
-      decoded.fix = 1
-      decoded.batt = bytes[20]
-      decoded.time = (bytes[21] << 24) | (bytes[22] << 16) | (bytes[23] << 8) | bytes[24]
-      // adjust time zone
-      decoded.time = decoded.time + my_time_zone
-      var dev_date = new Date(decoded.time * 1000)
-      decoded.time_stamp = dev_date.getHours() + ':' + dev_date.getMinutes()
-      decoded.date_stamp =
-        dev_date.getDate() + '.' + (dev_date.getMonth() + 1) + '.' + dev_date.getFullYear()
-      decoded.stat = bytes[25] & 0x03
-      decoded.gps = bytes[25] & 0x0c
-      decoded.lng = (
-        ((bytes[10] << 24) | (bytes[11] << 16) | (bytes[12] << 8) | bytes[13]) *
-        0.000001
-      ).toFixed(4)
-      decoded.lat = (
-        ((bytes[14] << 24) | (bytes[15] << 16) | (bytes[16] << 8) | bytes[17]) *
-        0.000001
-      ).toFixed(4)
-      decoded.location = decoded.lat + ',' + decoded.lng
-      decoded.acc = bytes[18]
-      decoded.gps_start = bytes[19]
-      break
-    case 0xcc: // SOS
-      decoded.sos = 1
-      decoded.lng = (
-        ((bytes[10] << 24) | (bytes[11] << 16) | (bytes[12] << 8) | bytes[13]) *
-        0.000001
-      ).toFixed(4)
-      decoded.lat = (
-        ((bytes[14] << 24) | (bytes[15] << 16) | (bytes[16] << 8) | bytes[17]) *
-        0.000001
-      ).toFixed(4)
-      if (bytes.length > 18) {
-        var i
-        for (i = 18; i < 28; i++) {
-          decoded.name += bytes[i].toString()
-        }
-        for (i = 28; i < 40; i++) {
-          decoded.country += bytes[i].toString()
-        }
-        for (i = 39; i < 50; i++) {
-          decoded.phone += bytes[i].toString()
-        }
-      }
-      break
-    case 0xcd:
-      decoded.sos = 0
-      break
-    case 0xce:
-      decoded.alarm = 0x01
-      decoded.alarm_lvl = bytes[10]
-      break
-  }
-  return decoded
-}
-```
-
-4. Now you can see the decoded data you receive in the Debug tab.
-
-<img
-  src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/24.trackit-data.png',
-  )}
-/>
-
-5. Create fields for the different data that the device sends. Below is a list of the fields you can
-   create:
-
-| Type        | Name           | Identifier | Description                                                                                                                     |
-| ----------- | -------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Integer     | Frame Counter  | NUM        | Packets Counter                                                                                                                 |
-| Integer     | Application ID | APP_ID     | The ID of the application                                                                                                       |
-| Integer     | Device ID      | DEV_ID     | The ID of the device                                                                                                            |
-| Boolean     | Fix            | FIX        | GPS fix                                                                                                                         |
-| Integer     | Battery        | BATT       | Battery level                                                                                                                   |
-| String      | Time Stamp     | TIME_STAMP | Time of the packet                                                                                                              |
-| String      | Date Stamp     | DATE_STAMP | Date of the packet                                                                                                              |
-| Integer     | Status         | STAT       | <ul><li> 1=sending </li><li> 3=sending </li></ul>                                                                               |
-| Integer     | GPS            | GPS        | <ul><li> GPS Status </li><li> 0: open the GPS fix </li><li> 4: locating </li><li> 8: successful </li><li> 12: failed </li></ul> |
-| Integer     | Accuracy       | ACC        | Accuracy of GPS                                                                                                                 |
-| Geolocation | Location       | LOCATION   | GPS coordinates                                                                                                                 |
-| String      | Tracker ID     | TRACKER_ID | The ID of the tracker                                                                                                           |
-| Integer     | Alarm Level    | ALARM_LVL  | The level of the alarm set in the application                                                                                   |
-| Integer     | Alarm          | ALARM      | Shows if the alarm is triggered                                                                                                 |
-
-6. To create a field, in the **Configuration** tab for the device in the Datacake console, scroll
-   down to the **Fields** field and click the **+ Add Field** button. In the **Add Field** window,
-   fill in the following information based on the table above:
-
-- **Type** – Type of the field.
-- **Name** – Name of the field. Note that you can type a name of your choice. The above names are
-  just a template.
-- **Identifier** – The decoder decodes the data in fields. The identifier must be exactly the name
-  of the field of the decoded data (e.g. TIME_STAMP for the Time Stamp field). Note that field names
-  cannot be changed.
-- **Unit (optional)** – The unit of the value (e.g. V for battery (volts)).
-- **Use formula** - Formulas can be used to perform calculations on values based on other fields.
-
-<img
-  src={useBaseUrl('img/use-the-network/devices/ready-to-use/rakwireless/rak2171/25.add-field.png')}
-/>
-
-For example, to create a **LOCATION** field, choose **Geolocation** in the **Type** field. For the
-**Identifier** field, type the name of the decoded data field: **LOCATION**.
-
-<img
-  src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/26.location-field.png',
-  )}
-/>
-
-7. When you enter the required information, click **Add Field**. You will see the created field in
-   the **Field** tab. Once a packet is received, the field will take the value of the identifier.
-
-<img
-  src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/27.created-a-field.png',
-  )}
-/>
-
-Another example is if you want to create a field for the battery level. Click again **+ Add Field**,
-and select **Integer** in the **Type** field. Type **Battery** in the **Name** field and **BATT** in
-the **Identifier** field.
-
-<img
-  src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/28.battery-field.png',
-  )}
-/>
-
-8. Do the same with the other fields. It is up to you to decide on what fields are required for your
-   project. Make sure you select the right **Type** and enter the correct **Identifier**.
-
-9. Now that the fields are created, head to the **Dashboard** of the device. Activate the **Edit
-   mode** using the switch <img
-   src={useBaseUrl("img/use-the-network/devices/ready-to-use/rakwireless/rak2171/icon.png" )} /> and
-   click **+ Add Widget**. You can create a widget to preview the data in the dashboard. Choose the
-   correct widget for the desired field.
-
-<img
-  src={useBaseUrl('img/use-the-network/devices/ready-to-use/rakwireless/rak2171/29.widgets.png')}
-/>
-
-For example, when creating a map, click the **Map (Displays a map)** widget.
-
-<img
-  src={useBaseUrl('img/use-the-network/devices/ready-to-use/rakwireless/rak2171/30.map-widget.png')}
-/>
-
-10. In the **Basics** tab, you can type a name for the widget. In the **Appearance** tab, you can
-    set a design to your widget (color, style). The **Data** tab is most important. Here you need to
-    select the location field you have created above. Click the **+ Add field** and select the
-    **Location** field. In addition, in the **Timeframe** tab, you can enable whether the map will
-    show historical data.
-
-<img
-  src={useBaseUrl('img/use-the-network/devices/ready-to-use/rakwireless/rak2171/31.map-field.png')}
-/>
-
-11. Once, you have set the field, click **Save** and you will see the map in the Dashboard.
-
-<img
-  src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/32.datacake-map.png',
-  )}
-/>
-
-In addition, if you want to add a widget to see the battery level of the device, click again **+ Add
-Widget** and select **Value**. In the Data tab, select **Battery** for Field. Then click **Save** to
-add the widget.
-
-<img
-  src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/33.battery-widget.png',
-  )}
-/>
-
-12. If you want, you can create other widgets. For example:
-
-- **String/Integer** field - choose **Value (Displays a measurement)**.
-- **Boolean** field - choose **Boolean (Displays a boolean state)**.
-
-<img
-  src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/rakwireless/rak2171/34.trackit-dashboard.png',
-  )}
-/>
-
-13. Once you add your widgets, you can customize your Dashboard depending on your needs. Remember,
-    when you finish customizing your Dashboard, deactivate the Edit mode by clicking the yellow
-    switch to save your changes.
+Everything in the Dashboard is pre-configured (fields, decoder, widgets), and it is ready to use.

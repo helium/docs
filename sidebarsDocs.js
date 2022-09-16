@@ -1028,6 +1028,7 @@ module.exports = {
       collapsed: false,
     },
   ],
+
   rakwireless: [
     {
       type: 'link',
