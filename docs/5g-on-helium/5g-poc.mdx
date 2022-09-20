@@ -283,61 +283,80 @@ Tests 9 and later are the most recent.
 
 #### Helium Explorer 5G Hotspot Statistics Tab
 
-Current Speed Test Statistics for a given 5G Hotspot can be viewed on the Helium Explorer.
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-raw-data.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Latest Speed Test Data</b>
+      <p>
+        The 5G Statistics tab on Explorer shows the latest values for all three download, upload,
+        and latency.
+      </p>
+      <p>
+        This first iteration of Explorer 5G Statistics tab shows the most recent Speed Test metrics
+        and is for informational purposes only. These values <b>will not</b> impact eligibilty for
+        Rewards.
+      </p>
+    </div>
+  </div>
+</div>
+
+:::caution Coming Soon
+
+Soon, Explorer will show the **Moving Average** values for all three download, upload, and latency.
+These values _will_ impact eligibilty for Rewards.
+
+Examples of the various outcomes are shown below:
 
 <div class="container" style={{ padding: 0, paddingTop: 0 }}>
   <div class="row">
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <b>🟢 Speed Test Passing</b>
-      <p>
-        Here all Speed Test Metrics are passing, the 5G Hotspot is providing a high quality
-        connection.
-      </p>
       <img
         className="explorerSidebar"
         src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-pass.png')}
       />
+      <p>The 5G Hotspot is providing a high-quality connection, passing all Speed Test Metrics.</p>
     </div>
     <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>🔴 Not Enough Data</b>
-      <p>
-        Here the 5G Hotspot has not reported Speed Test data, this will be common for a newly
-        connected 5G Hotspot.
-      </p>
+      <b>🔴 Speed Test Fail - Failed Metric</b>
       <img
         className="explorerSidebar"
-        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-no-data.png')}
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-fail-poor-metric.png')}
       />
+      <p>The 5G Hotspot has not met one or more Speed Test Metrics on a Moving Average.</p>
+      <p>
+        <b>Note:</b> This status will appear when the 5G Hotspot has failed any combination of Speed
+        Test metrics.
+      </p>
     </div>
   </div>
-  <hr></hr>
   <div class="row">
     <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>🔴 Speed Test Fail - Latency</b>
-      <p>
-        Here the 5G Hotspot has poor latency, 5G Hotspots must maintain a <code>50ms</code> or
-        lesser latency to provide Quality coverage to connected devices.
-      </p>
+      <b>🔴 Speed Test Fail - No Recent Data</b>
       <img
         className="explorerSidebar"
-        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-fail-latency.png')}
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-no-recent-data.png')}
       />
+      <p>The 5G Hotspot has not successfully completed a Speed Test in the previous 24 hours.</p>
     </div>
     <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>🔴 Speed Test Fail - Download</b>
-      <p>
-        Here the 5G Hotspot has poor Download speeds. 5G Hotspots must maintain a{' '}
-        <code>100Mbps</code> or greater Download Speed to provide Quality coverage.
-      </p>
+      <b>🟠 Speed Test Fail - Not Enough Data</b>
       <img
         className="explorerSidebar"
-        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-fail-download.png')}
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-not-enough-data.png')}
       />
+      <p>The 5G Hotspot has not completed enough Speed Tests to calculate a Moving Average.</p>
     </div>
-
   </div>
-  <hr></hr>
 </div>
+
+:::
 
 At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
 must:
