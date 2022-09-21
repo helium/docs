@@ -36,11 +36,9 @@ and thus can not "hear" one another directly.
     [Time Period Triggered Rewards with Minimum Delay](/5g-on-helium/5g-poc#genesis-phase-2-time-period-triggered-rewards-with-minimum-delay)
     **(current)**
   - Genesis Phase 3:
-    [Speed Test and Quality of Service](/5g-on-helium/5g-poc#genesis-phase-3-speed-test-and-quality-of-service)
+    [Speed Test and Quality of Service](/5g-on-helium/5g-poc#genesis-phase-3-speed-tests-and-quality-of-service)
   - Genesis Phase 4:
-    [Reward Frequency Increase](/5g-on-helium/5g-poc#genesis-phase-4-reward-frequency-increase)
-  - Genesis Phase 5:
-    [Reward Period Decoupling From Reward Submission Time](/5g-on-helium/5g-poc#genesis-phase-5-reward-period-decoupling)
+    [Heartbeats and Consistency of Service](/5g-on-helium/5g-poc#genesis-phase-4-heartbeats-and-reliability-of-service)
 - **Stage 2: ** 5G Mappers Proof of Coverage
 - **Stage 3: ** Additional Methods of Proof of Coverage
 
@@ -119,22 +117,246 @@ must:
   - Be registered with the SAS (Outdoor Radios Only).
 - Broadcast at least 1 "heartbeat" per Reward Period.
 
-### Genesis Phase 3: Speed Test and Quality of Service
+### Genesis Phase 3: Speed Tests and Quality of Service
 
-> - 5G Hotspots perform periodic speed tests which will be considered in reward calculations.
+> - Reward Period is approximately 24 hours, with Reward submission occurring at approximately 01:30
+>   UTC.
+> - 5G Hotspots perform periodic Speed Tests which will be considered in reward calculations.
 > - A minimum Download speed, Upload speed, and Latency will be required by each 5G Hotspot to
 >   ensure it is providing quality coverage.
 
-A 5G Hotspot will perform a speed test every 12 hours with the results being averaged over the
-previous 6 tests.
-
-To meet the speed test requirements as outlined in
+To meet the Speed Test requirements as outlined in
 [HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md#oracle-operations), a 5G Hotspot
 must have a rolling average Download speed of at least 100Mbps **AND** a rolling average Upload
 speed of at least 10Mbps **AND** a rolling average Latency of 50ms or less.
 
-**A 5G Hotspot that does not meet all three of these requirements will be excluded from rewards
-calculations in the given Reward Period.**
+A 5G Hotspot will automatically perform a Speed Test approximately every 12 hours with the results
+being averaged by the MOBILE PoC Oracle over the previous `6` tests, depending on the availability
+of the data. This moving average is reset following a speed test gap of `>12 hours` and a minimum of
+`2` Speed Test results are required to be eligible for Genesis Rewards.
+
+:::note Moving Average
+
+The "Moving Average", also known as a "Rolling Average" is the average of at least 2 but no more
+than 6 most recent speed test results for each download, upload, and latency.
+
+This means that when more than 6 Speed Test results are available, results that came before 6th most
+recent test won't be considered in the calculation.
+
+:::
+
+#### Example Calculation Tables
+
+Here are a set of tables to help visualize all of these components that make up the Speed Test
+result.
+
+:::info
+
+Note that it may take up to 12 hours for newly connected 5G Hotspots to perform a Speed Test and a
+minimum of 2 Speed Tests are required for the MOBILE PoC Oracle to calculate a moving average.
+
+:::
+
+**Successful Speed Test:**
+
+This 5G Hotspot is passing all Speed Test metrics and is providing a high-quality connection.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-success.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 is most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 and Later**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+these are most recent.
+
+---
+
+**Missing A Single Speed Test:**
+
+This 5G Hotspot has not reported Speed Test data at Test 5.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-miss.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 is most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 4**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 2 through 4 are the most recent.
+
+**Test 5 through 6**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 5 through 6 is most recent as there is not enough data to calculate a Moving Average.
+
+**Test 7 and Later**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 7 and later are the most recent.
+
+---
+
+**Missing Multiple Speed Tests:**
+
+This 5G Hotspot has not reported Speed Test data during Test 5, 6, or 7. This is often a result of a
+5G Hotspot being disconnected from the Internet for a long time.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-miss.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 is most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 4**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 2 through 4 are the most recent.
+
+**Test 5 through 8**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 5 through 8 is most recent as there is not enough data to calculate a Moving Average.
+
+**Test 9 and Later**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 9 and later are the most recent.
+
+---
+
+**Failing A Speed Test:**
+
+This 5G Hotspot has failed its Speed Test on all metrics in Test 6, but the Moving Average stays
+within the passing range.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-fail.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 is most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 and Later**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 2 and later are the most recent.
+
+---
+
+**Failing Multiple Speed Tests:**
+
+This 5G Hotspot has failed Speed Tests in Test 3, 4, 5, and 6. This has caused the Moving Average to
+fail for Test 6, 7, and 8.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-fail.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 is most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 5**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 2 through 5 are the most recent.
+
+**Test 6 through 8**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Tests 6 through 8 are the most recent as at least one Speed Test metric Moving Average has not
+met or exceeded the required values.
+
+**Test 9 and Later**
+
+This 5G Hotspot **will** be eligible for rewards during the Reward Periods for which the results of
+Tests 9 and later are the most recent.
+
+---
+
+#### Helium Explorer 5G Hotspot Statistics Tab
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-raw-data.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Latest Speed Test Data</b>
+      <p>
+        The 5G Statistics tab on Explorer shows the latest values for all three download, upload,
+        and latency.
+      </p>
+      <p>
+        This first iteration of Explorer 5G Statistics tab shows the most recent Speed Test metrics
+        and is for informational purposes only. These values <b>will not</b> impact eligibilty for
+        Rewards.
+      </p>
+    </div>
+  </div>
+</div>
+
+:::caution Coming Soon
+
+Soon, Explorer will show the **Moving Average** values for all three download, upload, and latency.
+These values _will_ impact eligibilty for Rewards.
+
+Examples of the various outcomes are shown below:
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>🟢 Speed Test Passing</b>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-pass.png')}
+      />
+      <p>The 5G Hotspot is providing a high-quality connection, passing all Speed Test Metrics.</p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>🔴 Speed Test Fail - Failed Metric</b>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-fail-poor-metric.png')}
+      />
+      <p>The 5G Hotspot has not met one or more Speed Test Metrics on a Moving Average.</p>
+      <p>
+        <b>Note:</b> This status will appear when the 5G Hotspot has failed any combination of Speed
+        Test metrics.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>🔴 Speed Test Fail - No Recent Data</b>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-no-recent-data.png')}
+      />
+      <p>The 5G Hotspot has not successfully completed a Speed Test in the previous 24 hours.</p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>🟠 Speed Test Fail - Not Enough Data</b>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-not-enough-data.png')}
+      />
+      <p>The 5G Hotspot has not completed enough Speed Tests to calculate a Moving Average.</p>
+    </div>
+  </div>
+</div>
+
+:::
 
 At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
 must:
@@ -158,23 +380,32 @@ that 5G Hotspots are providing high-quality coverage.**
 
 :::caution
 
-In a review of existing speed test data, many Download speed test results are capped _just_ below
+In a review of existing Speed Test data, many Download Speed Test results are capped _just_ below
 the 100Mbps requirement, and is possibly a result of the use of non-gigabit networking equipment.
 
 Network switches that are advertised as "100/10" switches are often "90/9" in real-world use.
 
 :::
 
-### Genesis Phase 4: Reward Frequency Increase
+### Genesis Phase 4: Heartbeats and Reliability of Service
 
-> - Reward Periods shortened to 2 Epochs (60 blocks, or approximately 1 hour).
-> - Rewards transactions are triggered with every other Consensus Election.
+> - Reward Period is approximately 24 hours, with Reward submission occurring at approximately 01:30
+>   UTC.
+> - 5G Hotspots perform periodic Speed Tests which will be considered in reward calculations.
+> - Small Cell Radios must generate at least 1 "heartbeat" per 1 hour for any 12 hours in the
+>   24-hour Reward Period.
 
-### Genesis Phase 5: Reward Period Decoupling
+At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
+must:
 
-> - Decouple Reward Period From Reward Submission Time.
-> - Increase tolerance for delay of heartbeat and speed test data by allowing rewards to be sent for
->   the receipts that came in late.
+- Be connected to a 5G Hotspot.
+- Be properly installed.
+  - Be registered with the SAS (Outdoor Radios Only).
+- Broadcast at least 1 "heartbeat" per Reward Period.
+- Maintain 100 Mbps or greater Download speeds on a 6-interval moving average.
+- Maintain 10 Mbps or greater Upload speeds on a 6-interval moving average.
+- Maintain 50ms or lesser Latency on a 6-interval moving average.
+- Generate at least 1 "heartbeat" in at least 12 unique hours of the Reward Period.
 
 ---
 
