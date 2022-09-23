@@ -8,7 +8,12 @@ module.exports = {
   organizationName: 'helium', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
   themeConfig: {
-    hideableSidebar: true,
+    docs: {
+      sidebar: {
+        hideable: true,
+      },
+    },
+    // hideableSidebar: true,
     algolia: {
       appId: 'XC618T80WL',
       apiKey: '7d9c9bfed6c45d91cb148ac5a365079d',
@@ -88,6 +93,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          breadcrumbs: false,
           sidebarPath: require.resolve('./sidebarsDocs.js'),
           routeBasePath: '/',
           // Please change this to your repo.
