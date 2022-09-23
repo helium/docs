@@ -9,9 +9,6 @@ module.exports = {
   projectName: 'docs', // Usually your repo name.
   themeConfig: {
     hideableSidebar: true,
-    googleAnalytics: {
-      trackingID: 'UA-52432858-10',
-    },
     algolia: {
       appId: 'XC618T80WL',
       apiKey: '7d9c9bfed6c45d91cb148ac5a365079d',
@@ -94,8 +91,10 @@ module.exports = {
           sidebarPath: require.resolve('./sidebarsDocs.js'),
           routeBasePath: '/',
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/helium/docs/edit/master',
+          editUrl: 'https://github.com/helium/docs/edit/master',
+        },
+        googleAnalytics: {
+          trackingID: 'UA-52432858-10',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -103,6 +102,5 @@ module.exports = {
       },
     ],
   ],
-  plugins: [
-  ],
-};
+  plugins: [],
+}
