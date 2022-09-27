@@ -1,12 +1,12 @@
 ---
-id: 5g-poc
-sidebar_label: 5G Proof of Coverage
-slug: /5g-on-helium/5g-poc
+id: mobile-poc
+sidebar_label: MOBILE Proof of Coverage
+slug: /5g-on-helium/mobile-poc
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-# 5G Proof of Coverage
+# MOBILE Proof of Coverage
 
 The Helium blockchain uses a novel work algorithm called “Proof of Coverage” (PoC) to verify that
 Hotspots are located where they claim. Put another way, PoC tries to verify, on an ongoing basis,
@@ -20,31 +20,35 @@ and receivers ("Witness") of PoC activity, you can read more here:
 While all current 5G Hotspot models _also_ participate in the LoRaWAN network and PoC, the CBRS
 Small Cell and 5G aspects of a 5G Hotspot require a new approach to validating PoC.
 
-:::info One Way Traffic
+**One Way Traffic**
 
 CBRS Small Cell Radios can only operate as transmitters, they are not able to receive incoming data
 and thus can not "hear" one another directly.
 
+## MOBILE PoC Roadmap
+
+:::info Current Progress
+
+We are currently in Stage 1, Genesis Phase 2:
+[Time Period Triggered Rewards with Minimum Delay](/5g-on-helium/mobile-poc#genesis-phase-2-time-period-triggered-rewards-with-minimum-delay)
+
 :::
 
-## 5G PoC Roadmap
-
 - **Stage 1: ** Genesis Rewards
-  - Genesis Phase 1:
-    [Time Period Triggered Rewards](/5g-on-helium/5g-poc#genesis-phase-1-time-period-triggered-rewards)
-  - Genesis Phase 2:
-    [Time Period Triggered Rewards with Minimum Delay](/5g-on-helium/5g-poc#genesis-phase-2-time-period-triggered-rewards-with-minimum-delay)
-    **(current)**
-  - Genesis Phase 3:
-    [Speed Test and Quality of Service](/5g-on-helium/5g-poc#genesis-phase-3-speed-tests-and-quality-of-service)
-  - Genesis Phase 4:
-    [Heartbeats and Consistency of Service](/5g-on-helium/5g-poc#genesis-phase-4-heartbeats-and-reliability-of-service)
+  - _Genesis Phase 1_:
+    [Time Period Triggered Rewards](/5g-on-helium/mobile-poc#genesis-phase-1-time-period-triggered-rewards)
+  - _Genesis Phase 2_:
+    [Time Period Triggered Rewards with Minimum Delay](/5g-on-helium/mobile-poc#genesis-phase-2-time-period-triggered-rewards-with-minimum-delay)
+  - _Genesis Phase 3_:
+    [Speed Test and Quality of Service](/5g-on-helium/mobile-poc#genesis-phase-3-speed-tests-and-quality-of-service)
+  - _Genesis Phase 4_:
+    [Heartbeats and Consistency of Service](/5g-on-helium/mobile-poc#genesis-phase-4-heartbeats-and-reliability-of-service)
 - **Stage 2: ** 5G Mappers Proof of Coverage
 - **Stage 3: ** Additional Methods of Proof of Coverage
 
 ---
 
-## Current 5G PoC Reward Elegibility
+## Current MOBILE PoC Reward Elegibility
 
 MOBILE Rewards are earned by a Wallet with a 5G Hotspot and at least one connected, SAS registered,
 CBRS Small Cell Radio in one "lump sum" every roughly 24-hour interval. This system allows a high
@@ -137,7 +141,7 @@ of the data. This moving average is reset following a speed test gap of `>12 hou
 
 :::note Moving Average
 
-The "Moving Average", also known as a "Rolling Average" is the average of at least 2 but no more
+The "Moving Average", also known as a "Rolling Average", is the average of at least 2 but no more
 than 6 most recent speed test results for each download, upload, and latency.
 
 This means that when more than 6 Speed Test results are available, results that came before 6th most
@@ -418,7 +422,7 @@ In accordance with [HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-
 Mappers will earn 10% of Mobile rewards for verifying the Network.
 
 The transition from “heartbeat” rewards, as in
-[Genesis](/5g-on-helium/5g-poc#stage-1-genesis-rewards), to Mapping rewards will not happen
+[Genesis](/5g-on-helium/mobile-poc#stage-1-genesis-rewards), to Mapping rewards will not happen
 immediately. A transitional period will allow 5G Hotspot Owners with active CBRS Small Cell Radios
 to receive both “heartbeat” rewards and rewards for being mapped.
 
