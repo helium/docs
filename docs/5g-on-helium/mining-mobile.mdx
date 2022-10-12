@@ -132,11 +132,18 @@ All properly installed and registered 5G Hotspots will earn rewards for particip
 Network. A rewards unit multiple is applied to the various Small Cell Radio models based on whether
 they are indoor or outdoor, as well as their power output, as follows:
 
-| Small Cell Radio Type | Reward Weight |
-| :-------------------- | :-----------: |
-| High-Power Outdoor\*  |     4.0x      |
-| Outdoor               |     2.5x      |
-| Indoor                |     1.0x      |
+:::note
+
+Begining in [Genesis Phase 3](./mobile-poc#genesis-phase-3-speed-tests-and-quality-of-service) 5G
+Hotspots perform Speed Tests that impact Rewards Scaling Multipliers in additoin to Small Cell Type.
+
+:::
+
+| Speed Test           | Acceptable Performance | Degraded Performance | Poor Performance |  Fail   |
+| -------------------- | :--------------------: | :------------------: | :--------------: | :-----: |
+| High Power Outdoor\* |        `4.000`         |       `2.000`        |     `1.000`      | `0.000` |
+| Outdoor              |        `2.500`         |       `1.250`        |     `0.625`      | `0.000` |
+| Indoor               |        `1.000`         |       `0.500`        |     `0.250`      | `0.000` |
 
 > \*Currently, the only High-Power Outdoor Radio is the `Baicells Nova436H`
 
