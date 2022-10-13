@@ -14,7 +14,7 @@ that Hotspots are honestly representing their location and the wireless network 
 creating from that location.
 
 LoRaWAN Hotspots utilize a PoC method that benefits from Hotspots being used as senders ("Beacon")
-and receivers ("Witness") of PoC activity, you can read more here:
+and receivers ("Witness") of PoC activity, read more here:
 [Proof of Coverage](/blockchain/proof-of-coverage)
 
 While all current 5G Hotspot models _also_ participate in the LoRaWAN network and PoC, the CBRS
@@ -355,94 +355,6 @@ results of Tests 9 and later are the most recent.
 
 ---
 
-#### Helium Explorer 5G Hotspot Statistics Tab
-
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <img
-        className="explorerSidebar"
-        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-raw-data.png')}
-      />
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Latest Speed Test Data</b>
-      <p>
-        The 5G Statistics tab on Explorer shows the latest values for all three download, upload,
-        and latency.
-      </p>
-      <p>
-        This first iteration of Explorer 5G Statistics tab shows the most recent Speed Test metrics
-        and is for informational purposes only. These values <b>will not</b> impact eligibilty for
-        Rewards.
-      </p>
-    </div>
-  </div>
-</div>
-
-:::caution Coming Soon
-
-Soon, Explorer will show the **Moving Average** values for all three download, upload, and latency.
-These values _will_ impact eligibilty for Rewards.
-
-Examples of the various outcomes are shown below:
-
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>🟢 Speed Test Passing</b>
-      <img
-        className="explorerSidebar"
-        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-pass.png')}
-      />
-      <p>The 5G Hotspot is providing a high-quality connection, passing all Speed Test Metrics.</p>
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>🔴 Speed Test Fail - Failed Metric</b>
-      <img
-        className="explorerSidebar"
-        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-fail-poor-metric.png')}
-      />
-      <p>The 5G Hotspot has not met one or more Speed Test Metrics on a Moving Average.</p>
-      <p>
-        <b>Note:</b> This status will appear when the 5G Hotspot has failed any combination of Speed
-        Test metrics.
-      </p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>🔴 Speed Test Fail - No Recent Data</b>
-      <img
-        className="explorerSidebar"
-        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-no-recent-data.png')}
-      />
-      <p>The 5G Hotspot has not successfully completed a Speed Test in the previous 24 hours.</p>
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>🟠 Speed Test Fail - Not Enough Data</b>
-      <img
-        className="explorerSidebar"
-        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-not-enough-data.png')}
-      />
-      <p>The 5G Hotspot has not completed enough Speed Tests to calculate a Moving Average.</p>
-    </div>
-  </div>
-</div>
-
-:::
-
-At this Milestone, to qualify for the Genesis Rewards in a Reward Period, a CBRS Small Cell Radio
-must:
-
-- Be connected to a 5G Hotspot.
-- Be properly installed.
-  - Be registered with the SAS (Outdoor Radios Only).
-- Broadcast at least 1 "heartbeat" per Reward Period.
-- Maintain 100 Mbps or greater Download speeds on a 6-interval moving average.
-- Maintain 10 Mbps or greater Upload speeds on a 6-interval moving average.
-- Maintain 50ms or lesser Latency on a 6-interval moving average.
-
 :::warning
 
 **The Minimum Download speed and Upload speed requirements will increase over time.**
@@ -452,14 +364,145 @@ that 5G Hotspots are providing high-quality coverage.**
 
 :::
 
-:::caution
+#### Helium Explorer 5G Hotspot Statistics Tab
 
-In a review of existing Speed Test data, many Download Speed Test results are capped _just_ below
-the 100Mbps requirement, and is possibly a result of the use of non-gigabit networking equipment.
+Speed Test metrics can be viewed on the 5G Hotspot's page on Explorer under the `5G Statistics` tab.
 
-Network switches that are advertised as "100/10" switches are often "90/9" in real-world use.
+Here are some examples of each status and a brief description of each.
 
-:::
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-acceptable-pass.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Passing - Acceptable</b>
+      <p>
+        The Moving Average for all Speed Test metrics is in the <code>Acceptable</code> range.
+      </p>
+      <p>
+        A <code>1.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-degraded-latency.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Passing - Degraded Latency</b>
+      <p>
+        The Moving Average for Upload and Download metrics is in the <code>Acceptable</code> range,
+        however the <b>80 ms Latency</b> metric is in the <code>Degraded</code> Tier.
+      </p>
+      <p>
+        A <code>0.5x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-poor-dl.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Passing - Poor Download</b>
+      <p>
+        The Moving Average for Upload and Latency metrics is in the <code>Acceptable</code> range,
+        however the <b>30 Mbps Download</b> metric is in the <code>Poor</code> Tier.
+      </p>
+      <p>
+        A <code>0.25x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-fail-dl-ul.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Fail - Download and Upload</b>
+      <p>
+        The Moving Average for Latency metrics is in the <code>Acceptable</code> range, however the{' '}
+        <b>10 Mbps Download</b> and <b>1 Mbps Upload</b> metrics are below the <code>Poor</code>{' '}
+        Tier.
+      </p>
+      <p>
+        A <code>0.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-not-measured.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Not Measured</b>
+      <p>
+        This status appears when a 5G Hotspot has been newly installed and no Speed Tests have been
+        performed.
+      </p>
+      <p>
+        A <code>0.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-no-recent.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>No Recent Speed Test Data</b>
+      <p>
+        This status appears when a 5G Hotspot could not be performed in the previous 24 hours. For
+        example when recently recovered from a long network interruption, power interruption, or
+        other connection interruptions have occurred.
+      </p>
+      <p>
+        A <code>0.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-not-enough.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Not Enough Data</b>
+      <p>
+        This status appears when there are fewer than <code>2</code> available Speed Test records,
+        and a Moving Average can not yet be calculated.
+      </p>
+      <p>
+        This is common when a 5G Hotspot has been newly installed, has recently recovered from a
+        long network interruption, or other scenarios in which a Speed Test could not be performed.
+      </p>
+      <p>
+        A <code>0.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+</div>
 
 ### Genesis Phase 4: Heartbeats and Reliability of Service
 
