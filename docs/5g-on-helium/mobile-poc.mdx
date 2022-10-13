@@ -91,12 +91,12 @@ In response to community feedback and further exploration by Chris from DeWiPuls
 [analysis of and commentary on public Internet data in the United States](https://dewipulse.com/connectivity-where-it-matters/)
 Speed Test results are categorized into one of four Tiers.
 
-| Speed Test Tier | Reward Multiplier | Requirement (speeds in Mbps)                                   |
-| :-------------: | :---------------: | :------------------------------------------------------------- |
-| **Acceptable**  |      `1.00x`      | `100+` Download, **AND** `10+` Upload, **AND** `<50ms` Latency |
-|  **Degraded**   |      `0.50x`      | `50+` Download, **AND** `5+` Upload, **AND** `<75ms` Latency   |
-|    **Poor**     |      `0.25x`      | `30+` Download, **AND** `2+` Upload, **AND** `<100ms` Latency  |
-|    **Fail**     |      `0.00x`      | `<30` Download, **OR** `<2` Upload, **OR** `>100ms` Latency    |
+| Speed Test Tier | Reward Multiplier | Requirement (speeds in Mbps, latency in ms)                  |
+| :-------------: | :---------------: | :----------------------------------------------------------- |
+| **Acceptable**  |      `1.00x`      | `100+` Download, **AND** `10+` Upload, **AND** `<50` Latency |
+|  **Degraded**   |      `0.50x`      | `50+` Download, **AND** `5+` Upload, **AND** `<75` Latency   |
+|    **Poor**     |      `0.25x`      | `30+` Download, **AND** `2+` Upload, **AND** `<100` Latency  |
+|    **Fail**     |      `0.00x`      | `<30` Download, **OR** `<2` Upload, **OR** `>100` Latency    |
 
 :::note Why are Hotspots with slower speeds being rewarded at all?
 
@@ -111,7 +111,7 @@ incentivize Helium deployments in less well-connected areas.
 
 :::warning **backhaul requirements will evolve**
 
-As the needs and realities of the 5G Hotspot network change, internet backhaul requirements will
+As the needs and realities of the 5G Hotspot network change, Internet backhaul requirements will
 evolve to better suit the network and its users.
 
 :::
@@ -176,9 +176,10 @@ Latency     150 ->  `Fail`
 Speed Test Tier ->  `Fail`        -> 0.0x Multiplier
 ```
 
-### Statistics on Explorer
+### Statistics on Helium Explorer
 
-Speed Test metrics can be viewed on the 5G Hotspot's page on Explorer under the `5G Statistics` tab.
+Soon, Speed Test metrics will be viewable on the 5G Hotspot's page on Explorer under the
+`5G Statistics` tab.
 
 Here are some examples of each status and a brief description of each.
 
@@ -283,9 +284,9 @@ Here are some examples of each status and a brief description of each.
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <b>No Recent Speed Test Data</b>
       <p>
-        This status appears when a 5G Hotspot could not be performed in the previous 24 hours. For
-        example when recently recovered from a long network interruption, power interruption, or
-        other connection interruptions have occurred.
+        This status appears when a Speed Test could not performed in the previous 24 hours. For
+        example, when a 5G Hotspot has recently recovered from a long network interruption, power
+        interruption, or other connection interruptions have occurred.
       </p>
       <p>
         A <code>0.0x</code> multiplier is applied for the current Reward Period.
