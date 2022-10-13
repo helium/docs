@@ -27,31 +27,29 @@ and thus can not "hear" one another directly.
 
 :::
 
-## MOBILE PoC Roadmap
-
-- **Stage 1: ** Genesis Rewards
-  - _Current Implementation_:
-    [Speed Test and Quality of Service](/5g-on-helium/mobile-poc#speed-tests-and-quality-of-service)
-  - _Work in Progress_:
-    [Heartbeats and Consistency of Service](/5g-on-helium/mobile-poc#heartbeats-and-reliability-of-service)
-- **Stage 2: ** [5G Mappers Proof of Coverage](/5g-on-helium/mobile-poc#mobile-mappers)
-- **Stage 3: ** [Additional Methods of Proof of Coverage](/5g-on-helium/mobile-poc#future-roadmap)
-
----
-
-## PoC Reward Elegibility
-
 MOBILE Rewards are earned as one "lump sum" by a Wallet with a 5G Hotspot with at least one
 connected, SAS registered, CBRS Small Cell Radio every roughly 24-hour interval. This allows a high
 tolerance for downtime in infrastructure that is beyond the 5G Hotspot Owner's control.
 
-To qualify for Genesis Rewards in a Reward Period, a CBRS Small Cell Radio must:
+---
+
+## MOBILE Genesis
+
+During Genesis, 100M MOBILE tokens are allocated to be issued per day. This 24-hour Reward Period is
+expressed in blocks, and aligns as close to the Reward Period time range as possible, but may not
+line up exactly on 24-hour intervals.
+
+Given this slight differentiation, daily rewards may not equate to an exact 100M MOBILE. Check out
+this
+[Example Reward Transaction](https://explorer.helium.com/txns/0n4TO_2W14rrsGt-nxBTotiHFCFukkO04QoXIxaOtAY)
+for reference.
+
+To qualify for Genesis Rewards in a given Reward Period, a CBRS Small Cell Radio must:
 
 - Be connected to a 5G Hotspot.
 - Be properly installed.
   - Be registered with the SAS (Outdoor Radios Only).
 - Broadcast at least 1 "heartbeat" per Reward Period.
-- Meet Speed Test Metrics of at least `Poor` on all metrics.
 
 :::note What is a "Heartbeat"?
 
@@ -68,28 +66,30 @@ brief interruptions.
 
 ## Speed Tests and Quality of Service
 
-> - The reward Period is approximately 24 hours, with Reward submission occurring at approximately
->   01:30 UTC.
-> - 5G Hotspots perform periodic Speed Tests which will be considered in Reward calculations.
-> - A minimum Download speed, minimum Upload speed, and maximum Latency will be required by each 5G
->   Hotspot to ensure it is providing quality coverage.
+:::caution Coming Soon
+
+Speed Test metrics are not yet included in Rewards calculations.
+
+:::
 
 A 5G Hotspot will automatically perform a Speed Test approximately every 12 hours with the results
-being averaged by the MOBILE PoC Oracle over the previous `6` tests, depending on the availability
-of the data.
+being averaged by the MOBILE PoC Oracle.
 
-The "Moving Average", also known as a "Rolling Average", is the average of at least 2 but no more
-than 6 most recent Speed Test results for each download, upload, and latency. This means that when
-more than 6 Speed Test results are available, results that came before the 6th most recent test
-won't be considered in the calculation. Additionally, the Moving Average is reset following a Speed
-Test gap of `>12 hours` and a new series of Speed Test results must be collected before a Moving
-Average can be calculated.
+Soon, the MOBILE PoC Oracle will include these Speed Test metrics in the Rewards calculations for
+each 5G Hotspot.
+
+The "Moving Average", also known as a "Rolling Average", is the average of at least `2` but no more
+than `6` most recent Speed Test results for each download, upload, and latency for a given 5G
+Hotspot.
+
+Additionally, the Moving Average is reset following a Speed Test gap of `>12 hours` and a new series
+of Speed Test results must be collected before a Moving Average can be calculated.
 
 ### Tiered Speed Test
 
 In response to community feedback and further exploration by Chris from DeWiPulse for his
 [analysis of and commentary on public Internet data in the United States](https://dewipulse.com/connectivity-where-it-matters/)
-Speed Test results are categorized into four Tiers.
+Speed Test results are categorized into one of four Tiers.
 
 | Speed Test Tier | Reward Multiplier | Requirement (speeds in Mbps)                                   |
 | :-------------: | :---------------: | :------------------------------------------------------------- |
@@ -366,7 +366,7 @@ results of Tests 2 through 4 are the most recent.
 **Test 5 through 6**
 
 This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
-of Tests 5 through 6 is the most recent as there is not enough data to calculate a Moving Average.
+of Tests 5 through 6 are the most recent as there is not enough data to calculate a Moving Average.
 
 **Test 7 and Later**
 
@@ -459,19 +459,12 @@ Additional methods of MOBILE Proof of Coverage will emerge. Stay tuned!
 
 ### Heartbeats and Reliability of Service
 
-> Small Cell Radios must generate at least 1 "heartbeat" per 1 hour for any 12 hours in the 24-hour
-> Reward Period.
+To encourage reliable signal availability, 5G Hotspots and connected CBRS Small Cell Radios must:
 
-At this Milestone, to qualify for the Rewards in a Reward Period, a CBRS Small Cell Radio must:
-
-- Be connected to a 5G Hotspot.
 - Be properly installed.
   - Be registered with the SAS (Outdoor Radios Only).
-- Broadcast at least 1 "heartbeat" per Reward Period.
-- Maintain 100 Mbps or greater Download speeds on a 6-interval moving average.
-- Maintain 10 Mbps or greater Upload speeds on a 6-interval moving average.
-- Maintain 50ms or lesser Latency on a 6-interval moving average.
-- Generate at least 1 "heartbeat" in at least 12 unique hours of the Reward Period.
+- **Gnerate at least 1 "heartbeat" per 1 hour for any 12 hours in the 24-hour Reward Period.**
+- Meet minimum backhaul Speed Test requirements.
 
 ### MOBILE Mappers
 
@@ -481,10 +474,9 @@ assist in verifying the quality of coverage and their location in a particular h
 In accordance with [HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md) Mobile
 Mappers will earn 10% of Mobile rewards for verifying the Network.
 
-The transition from “heartbeat” rewards, as in
-[Genesis](/5g-on-helium/mobile-poc#stage-1-genesis-rewards), to Mapping rewards will not happen
-immediately. A transitional period will allow 5G Hotspot Owners with active CBRS Small Cell Radios
-to receive both “heartbeat” rewards and rewards for being mapped.
+The transition from “heartbeat” rewards, as in [Genesis](/5g-on-helium/mobile-poc#mobile-genesis),
+to Mapping rewards will not happen immediately. A transitional period will allow 5G Hotspot Owners
+with active CBRS Small Cell Radios to receive both “heartbeat” rewards and rewards for being mapped.
 
 The details on how data from Mobile Mappers will be used in rewards calculations are currently in
 development.
