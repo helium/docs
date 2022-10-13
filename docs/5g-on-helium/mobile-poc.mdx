@@ -136,7 +136,14 @@ speed of at least 10Mbps **AND** a rolling average Latency of 50ms or less.
 
 In response to community feedback and further exploration by Chris from DeWiPulse for his
 [analysis of and commentary on public Internet data in the United States](https://dewipulse.com/connectivity-where-it-matters/)
-Speed Test results are categorized into three Tiers.
+Speed Test results are categorized into four Tiers.
+
+| Speed Test Tier | Reward Multiplier |                  Requirement (speeds in Mbps)                  |
+| :-------------: | :---------------: | :------------------------------------------------------------: |
+|  `Acceptable`   |       1.00x       | `100+` Download, **AND** `10+` Upload, **AND** `<50ms` Latency |
+|   `Degraded`    |       0.50x       |  `50+` Download, **AND** `5+` Upload, **AND** `<75ms` Latency  |
+|     `Poor`      |       0.25x       | `30+` Download, **AND** `2+` Upload, **AND** `<100ms` Latency  |
+|     `Fail`      |       0.00x       |  `<30` Download, **OR** `<2` Upload, **OR** `>100ms` Latency   |
 
 :::info Why are Hotspots with slower speeds being rewarded at all?
 
@@ -155,13 +162,6 @@ A 5G Hotspot will automatically perform a Speed Test approximately every 12 hour
 being averaged by the MOBILE PoC Oracle over the previous `6` tests, depending on the availability
 of the data. This moving average is reset following a speed test gap of `>12 hours` and a minimum of
 `2` Speed Test results are required to be eligible for Genesis Rewards.
-
-| Speed Test Tier | Reward Multiplier |                  Requirement (speeds in Mbps)                  |
-| :-------------: | :---------------: | :------------------------------------------------------------: |
-|  `Acceptable`   |       1.00x       | `100+` Download, **AND** `10+` Upload, **AND** `<50ms` Latency |
-|   `Degraded`    |       0.50x       |  `50+` Download, **AND** `5+` Upload, **AND** `<75ms` Latency  |
-|     `Poor`      |       0.25x       | `30+` Download, **AND** `2+` Upload, **AND** `<100ms` Latency  |
-|     `Fail`      |       0.00x       |  `<30` Download, **OR** `<2` Upload, **OR** `>100ms` Latency   |
 
 - Speed Test Results are put into Tiers based on the minumum Tier of each Download, Upload and
   Latency. (logical `AND`)
