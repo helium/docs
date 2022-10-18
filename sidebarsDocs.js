@@ -49,7 +49,6 @@ module.exports = {
         '5g-on-helium/5g-on-helium',
         '5g-on-helium/cbrs-radios',
         '5g-on-helium/mobile-poc',
-        '5g-on-helium/mining-mobile',
         '5g-on-helium/mobile-pre-mine',
       ],
       collapsed: true,
