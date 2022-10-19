@@ -92,6 +92,21 @@ brief interruptions.
 
 :::
 
+---
+
+## Small Cell Radio Reward Scaling
+
+All 5G Hotspots with properly installed and registered CBRS Radios will earn rewards for
+participating on the Network. A rewards unit multiple is applied to the various Small Cell Radio
+models based on whether they are indoor or outdoor, as well as their power output, as follows:
+
+| Small Cell Radio Type | Reward Weight |
+| --------------------- | :-----------: |
+| High Power Outdoor\*  |    `4.000`    |
+| Outdoor               |    `2.500`    |
+| Indoor                |    `1.000`    |
+
+> \*Currently, the only High-Power Outdoor Radio is the `Baicells Nova436H.`
 
 Individual rewards per period are calculated as a proportion of the total weighted reward units.
 
@@ -213,11 +228,11 @@ When combined with existing
 [Small Cell Type Reward Scale Mulitpliers](/5g-on-helium/mobile-poc#small-cell-radio-reward-scaling)
 the Rewards Scaling Table is as follows:
 
-| Speed Test         | Acceptable | Degraded |  Poor   |  Fail   |
-| ------------------ | :--------: | :------: | :-----: | :-----: |
-| High Power Outdoor |  `4.000`   | `2.000`  | `1.000` | `0.000` |
-| Outdoor            |  `2.500`   | `1.250`  | `0.625` | `0.000` |
-| Indoor             |  `1.000`   | `0.500`  | `0.250` | `0.000` |
+| Small Cell Radio Type | Acceptable | Degraded |  Poor   |  Fail   |
+| --------------------- | :--------: | :------: | :-----: | :-----: |
+| High Power Outdoor    |  `4.000`   | `2.000`  | `1.000` | `0.000` |
+| Outdoor               |  `2.500`   | `1.250`  | `0.625` | `0.000` |
+| Indoor                |  `1.000`   | `0.500`  | `0.250` | `0.000` |
 
 **Example 1: All Acceptable**
 
