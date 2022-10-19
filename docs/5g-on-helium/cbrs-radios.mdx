@@ -12,11 +12,11 @@ Instead of a LoRa antenna, Helium 5G Hotspots use Citizens Broadband Radio Servi
 provide cellular coverage. CBRS is a wide broadcast 3.5Ghz band in the United States that does not
 require a 5G Hotspot Host to acquire spectrum licenses.
 
-More information about CBRS can be found on the
+You can find more information about CBRS on the
 [Federal Communications Commission Website](https://www.fcc.gov/35-ghz-band-overview)
 
-5G Hotspots can participate in providing 5G cellular coverage when connected to Indoor or Outdoor
-CBRS Small Cell Radios while also participating in providing LoRaWAN coverage.
+5G Hotspots can provide 5G cellular coverage when connected to Indoor or Outdoor CBRS Small Cell
+Radios while also providing LoRaWAN coverage.
 
 :::warning
 
@@ -39,20 +39,20 @@ channel is most relevant for using 5G on the Network.
 Instructions on installing a CBRS Small Cell Radio and registration with the SAS are provided by the
 individual 5G Hotspot Makers.
 
-For FreedomFi Gateways refer to the installation guides here:
+For FreedomFi Gateways, refer to the installation guides here:
 
 - [FreedomFi Indoor Install Guide](https://freedomfi.com/freedomfi-indoor-cbrs-small-cell-setup-guide/)
 - [FreedomFi Outdoor Install Guide](https://freedomfi.com/freedomfi-outdoor-cbrs-small-cell-setup-guide/)
 
-For Bobcat500 Gateways refer to the Bobcat Knowledge Center:
+For Bobcat500 Gateways, refer to the Bobcat Knowledge Center:
 
 - [Bobcat Knowledge Center CBRS Radio Troubleshooting Guide](https://bobcatminer.zendesk.com/hc/en-us/articles/4588536001435-Overview)
 
 :::warning
 
 Misrepresentation of CBRS Radio installation information, including GPS location, height, antenna
-orientation or other characteristics in a SAS is a violation of FCC regulations and may result in
-fines and/or criminal penalties.
+orientation, or other characteristics in a SAS, violates FCC regulations and may result in fines and
+possible criminal penalties.
 
 :::
 
@@ -60,7 +60,7 @@ fines and/or criminal penalties.
 
 ## Access Gateway and Radio Dashboards
 
-Once the 5G Hotspot is onboarded and a Small Cell Radio is physically installed, the Small Cell
+Once the 5G Hotspot is onboarded and a Small Cell Radio installation is complete, the Small Cell
 Radio will automatically initialize and acquire a GPS lock. Once that is complete, the Small Cell
 Radio dashboard appears under the "Radio Dashboard" tab on the local IP address of the 5G Hotspot.
 
@@ -70,24 +70,24 @@ Radio dashboard appears under the "Radio Dashboard" tab on the local IP address 
 - If you are using a Bobber 500 gateway, you can access the miner and radio dashboard via this URL:
   [http://bobber-gateway.local/](http://bobber-gateway.local/)
 
-5G Hotspot will appear on [explorer.helium.com](https://explorer.helium.com/) within 5 days,
+5G Hotspot will appear on [explorer.helium.com](https://explorer.helium.com/) within five days,
 depending on how quickly it is registered in the SAS.
 
 ---
 
 ## Outdoor Small Cell Radios
 
-Outdoor Small Cell Radios are more powerful than Indoor Small Cell Radios and are weatherized to
-endure the elements. Outdoor Small Cell Radios create a larger area of 5G coverage while requiring a
-bit more planning when installing and maintaining.
+Outdoor Small Cell Radios are weatherized to endure the elements and are more powerful than Indoor
+Small Cell Radios. However, Outdoor Small Cell Radios create a larger area of 5G coverage while
+requiring more planning when installing and maintaining.
 
 Outdoor Small Cell Radios require installation above ground level and require registration with the
-Spectrum Access System (SAS) to operate. Please be sure to evaluate your site location and ability
-to install these Small Cell Radios, and consider hiring a professional to ensure your installation
-is secure and meets all regulatory requirements.
+Spectrum Access System (SAS) to operate. Please evaluate your site location and ability to install
+these Small Cell Radios, and consider hiring a professional to ensure your installation is secure
+and meets all regulatory requirements.
 
-SAS registration is expected to be completed within 5 days of submission. Hotspot Owners will be
-contacted via email with a confirmation of successful registration, or with a rejection reply and an
+SAS registration is expected to be completed within five days of submission. Hotspot Owners will be
+contacted via email with a confirmation of successful registration or with a rejection reply and an
 explanation of what needs to be corrected.
 
 ## Indoor Small Cell Radios
@@ -103,9 +103,9 @@ resistant.**
 ## Using Multiple Small Cell Radios
 
 A single 5G Hotspot can support multiple Small Cell Radios but requires an additional network
-switch. A soft limit to consider is 7 Small Cell Radios to one 5G Hotspot, however, this limit is
-only theoretical as the true limiting factor is bandwidth saturation. All 5G Hotspots are built with
-a 1 Gbps Network Interface Card (NIC), the throughput of all the radios combined is limited to 1
+switch. A soft limit to consider is 7 Small Cell Radios to one 5G Hotspot; however, this limit is
+only theoretical as the real limiting factor is bandwidth saturation. All 5G Hotspots are built with
+a 1 Gbps Network Interface Card (NIC); the throughput of all the radios combined is limited to 1
 Gbps or your internet speed, whichever is lower.
 
 ---
@@ -116,8 +116,8 @@ Gbps or your internet speed, whichever is lower.
 
 Visit the [FreedomFi Status page](https://status.helium.freedomfi.com/).
 
-This status page will provide the latest updates on important issues that impact users like Device
-Onboarding, SAS services, or other major events.
+This status page will provide the latest updates on important issues that impact users, like Device
+Onboarding, SAS services, or other significant events.
 
 ### Spectrum Access on the 5G Hotspot Dashboard
 
@@ -168,7 +168,7 @@ re-grant Spectrum Access once the DPA Activation event has concluded.
 
 A message similar to the following may also be present:
 
-> Spectrum Access status went back to “Connected” after it had been working. Wait and don’t reboot.
+> Spectrum Access status returned to "Connected" after it had been working. Wait and don't reboot.
 > Suspension can last from hours to days for DPA Events. Contact support if you have been suspended
 > for more than 48hrs. This is more prevalent if your location is within 150km of the DPA Regions.
 
@@ -176,20 +176,19 @@ A message similar to the following may also be present:
 
 This status is alarming, but do not let it scare you.
 
-For newly installed Small Cell Radios, this "Failure" status is likely because the registration
-process has not been completed and submitted to the SAS.
+This "Failure" status is likely because the registration process has not been completed and
+submitted to the SAS for newly installed Small Cell Radios.
 
 You may see an information pop-up similar to this:
 
 > SAS status code: 200 SAS response message: Response data: installationParam
 
-For any other warning messages, contact [FreedomFi Support](https://freedomfi.com/contact-us/)
-directly.
+Contact [FreedomFi Support](https://freedomfi.com/contact-us/) for any other warning messages.
 
 ### DPA Neighborhood Regions
 
 DPA regions can be viewed on the map below. Remember, these coordinates are not exact, and the
-effected regions for each DPA Activation event can reach as far as 150km inland.
+affected areas for each DPA Activation event can reach as far as 150km inland.
 
 <div class="maps_iframe">
   <iframe
@@ -216,6 +215,6 @@ Radio's location when requesting approval to transmit from the FCC-regulated Spe
 (SAS).
 
 Small Cell Radios will need to be placed somewhere that allows the GPS antenna to be in a location
-with good GPS reception (i.e. near a window). Indoor Small Cell Radios are shipped with an external
-GPS antenna which can be positioned independently while Outdoor Small Cell Radios have the GPS
+with good GPS reception (i.e., near a window). Indoor Small Cell Radios are shipped with an external
+GPS antenna which can be positioned independently, while Outdoor Small Cell Radios have the GPS
 antenna integrated into the body directly.
