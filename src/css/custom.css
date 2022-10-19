@@ -351,7 +351,7 @@ a.quicklinkred:hover {
 }
 
 .announcementnav:before {
-  content: "";
+  content: '';
   width: 16px;
   height: 16px;
   display: inline-block;
@@ -412,7 +412,7 @@ a.block {
   padding-top: 5rem !important;
 }
 
-html[data-theme="light"] {
+html[data-theme='light'] {
   --ifm-background-color: #fff;
   --ifm-table-stripe-background: #f6f7fe;
   --ifm-menu-color-background-active: #f6f7fe;
@@ -427,7 +427,7 @@ html[data-theme="light"] {
   border-color: #fff !important;
 }
 
-html[data-theme="dark"] {
+html[data-theme='dark'] {
   --ifm-background-color: #13162e;
 }
 
@@ -440,10 +440,15 @@ html[data-theme="dark"] {
   color: #a334fb;
 }
 
+.navbar__link.announcementnav,
 .navbar__link:hover.announcementnav {
   color: white;
-  background: #2b2faa;
+  background: #474dff;
   transition: all 0.2s ease;
+}
+
+.navbar__link {
+  color: black;
 }
 
 .header-github-link:hover {
@@ -451,7 +456,7 @@ html[data-theme="dark"] {
 }
 
 .header-github-link:before {
-  content: "";
+  content: '';
   width: 24px;
   height: 24px;
   display: flex;
@@ -459,13 +464,12 @@ html[data-theme="dark"] {
     no-repeat;
 }
 
-html[data-theme="light"] .header-github-link:before {
+html[data-theme='light'] .header-github-link:before {
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
     no-repeat;
 }
 
-.announcementBarContent_node_modules-\@docusaurus-theme-classic-lib-next-theme-AnnouncementBar-
-  a {
+.announcementBarContent_node_modules-\@docusaurus-theme-classic-lib-next-theme-AnnouncementBar- a {
   text-decoration: none !important;
 }
 
@@ -480,6 +484,10 @@ img.appscreenbanner {
 
 img.appscreen {
   height: 500px;
+  display: inline-block;
+}
+
+img.explorerSidebar {
   display: inline-block;
 }
 
@@ -532,4 +540,35 @@ img.appscreen {
   overflow: hidden;
   border: 0;
   margin-top: -150px;
+}
+
+.alert--secondary {
+  background-color: #ebedf0;
+  color: #000000 !important;
+}
+
+.alert--info {
+  background-color: #a334fb;
+  color: #ffffff !important;
+}
+
+.alert--info p,
+.alert--info p a {
+  color: #ffffff;
+}
+
+.alert--danger {
+  background-color: #fa383e;
+  color: #ffffff !important;
+}
+.alert--danger p {
+  color: #ffffff;
+}
+
+.alert--warning {
+  background-color: #ffba00;
+  color: #ffffff !important;
+}
+.alert--warning p {
+  color: #ffffff;
 }

@@ -145,8 +145,8 @@ unstaked.
 ### Unstake Tokens
 
 If you unstake tokens the validator node enters a stake cooldown period. During this cooldown period
-the validator node will not earn rewards and at the end of the cooldown period (currently 250,000
-blocks or approximately 5.7 months in mainnet) your initial staking amount will be released to the
+the validator node will not earn rewards and at the end of the cooldown period (currently 125,000
+blocks or approximately 86 days in mainnet) your initial staking amount will be released to the
 wallet.
 
 To ensure the operator understands this unstake operation is not reversible and cannot be shortened,
@@ -154,12 +154,22 @@ there are additional calculations to be performed in the unstake command. You ne
 stake release block height which should be at least the current block height plus the cooldown
 period, and 5-10 blocks to allow for chain processing delays.
 
-For example, if the current block height was 5000, you'd add 250,000 for the stake withdrawl
-cooldown period, plus an additional 10 blocks to allow for chain processing delays. Therefore the
-`stake-release-height` = `5000 + 250000 + 10` or `255010`.
+:::tip
+
+The number 1537797 shown below is only an example. You must look up the current [block height in 
+explorer](https://explorer.helium.com/blocks) and use the current block height in your calculation
+of the `stake-release-height`.
+
+:::
+
+For example, if the current block height was 1,537,797, you'd add 125,000 for the stake withdrawl
+cooldown period, plus an additional 30 blocks to allow for chain processing delays. Therefore the
+`stake-release-height` = `1537797 (current block height) + 125000 (cool down period) + 30 (grace
+period)` = `1662827`. 
 
 The cooldown length, in blocks, is called `stake_withdrawal_cooldown` and is a chain variable. This
-variable is viewable by running `miner ledger variables stake_withdrawal_cooldown`.
+variable is viewable by running `miner ledger variables stake_withdrawal_cooldown`, and was changed 
+from `250,000` to `125,000` on September 9, 2022, in accordance with the passing of HIP70.
 
 #### To unstake tokens from a validator node perform the following:
 
@@ -179,7 +189,7 @@ transaction will also change the status to `cooldown` when viewing
 :::warning
 
 Once the unstake command is committed, this cannot be reversed. The validator will cease earning
-rewards and the stake amount will not be returned to the staking wallet until the 250,000 block
+rewards and the stake amount will not be returned to the staking wallet until the 125,000 block
 cooldown period has completed.
 
 :::

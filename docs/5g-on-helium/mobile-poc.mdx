@@ -1,0 +1,606 @@
+---
+id: mobile-poc
+sidebar_label: MOBILE Proof of Coverage
+slug: /5g-on-helium/mobile-poc
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+# MOBILE Proof of Coverage
+
+The Helium blockchain uses a novel work algorithm called "Proof of Coverage" (PoC) to verify that
+Hotspots are located where they claim. Put another way, PoC tries to verify, on an ongoing basis,
+that Hotspots are honestly representing their location and the wireless network coverage they are
+creating from that location.
+
+LoRaWAN Hotspots utilize a PoC method that benefits from Hotspots being used as senders ("Beacon")
+and receivers ("Witness") of PoC activity; read more here:
+[Proof of Coverage](/blockchain/proof-of-coverage)
+
+While all current 5G Hotspot models _also_ participate in the LoRaWAN Network and PoC, the CBRS
+Small Cell and 5G aspects of a 5G Hotspot require a new approach to validating PoC.
+
+:::info **One Way Traffic**
+
+CBRS Small Cell Radios can only operate as transmitters; they cannot receive incoming data and thus
+can not "hear" one another directly.
+
+:::
+
+---
+
+## How To Mine MOBILE
+
+Several factors contribute to the amount of MOBILE a 5G Hotspot will earn over a given period. This
+page covers some higher-level concepts, design elements, and rules to keep in mind that will help
+better explain what you might earn and why. This section covers these and some mining and token
+reward basics.
+
+The Helium Blockchain rewards 5G Hotspots with CBRS Radios for providing 5G wireless coverage and
+verifying the Helium Network with the Helium MOBILE Token.
+
+Mining MOBILE and providing 5G coverage requires a 5G Hotspot and one or more compatible CBRS Small
+Cell Radios. These components can be purchased as a bundle or separately. All 5G Hotspots must be
+online and registered in the SAS (Spectrum Access System) maintained by the FCC to earn MOBILE
+rewards. Once properly deployed, you, as the owner, are not required to do anything else with your
+5G Hotspot to earn MOBILE.
+
+More than one Small Cell Radio can be connected to a single 5G Hotspot to create a larger 5G
+coverage area. 5G Hotspots can support as many Small Cell Radios as would saturate their bandwidth.
+
+Connecting more than one Small Cell Radio will require an additional networking switch. Refer to the
+5G Hotspot Maker installation guides for specific instructions.
+
+:::info
+
+During [Genesis](./mobile-poc#mobile-genesis), 5G Hotspots earn MOBILE by reporting their status via
+a "heartbeat," an automatic reporting process to the Helium Blockchain that the Small Cell Radio is
+online and registered with the SAS.
+
+Genesis is the period during which Hotspot owners are rewarded for providing 5G coverage with
+pre-mined MOBILE tokens. MOBILE tokens will be redeemable for HNT after the Genesis period ends.
+
+:::
+
+---
+
+## MOBILE Genesis
+
+During Genesis, 100M MOBILE tokens are allocated to be issued per day. This 24-hour Reward Period is
+expressed in blocks and aligns as close to the Reward Period time range as possible but may not line
+up exactly on 24-hour intervals.
+
+Given this slight differentiation, daily rewards may not equal 100M MOBILE. Check out this
+[Example Reward Transaction](https://explorer.helium.com/txns/0n4TO_2W14rrsGt-nxBTotiHFCFukkO04QoXIxaOtAY)
+for reference.
+
+To qualify for Genesis Rewards in a given Reward Period, a CBRS Small Cell Radio must:
+
+- Be connected to a 5G Hotspot.
+- Be installed appropriately.
+  - Be registered with the SAS (Outdoor Radios Only).
+- Broadcast at least 1 "heartbeat" per Reward Period.
+
+:::note What is a "Heartbeat"?
+
+A "heartbeat" is data sent by the 5G Hotspot indicating that the connected CBRS Small Cell Radio(s)
+is authorized to transmit 5G coverage.
+
+Heartbeats occur every 60 seconds and transmit authorizations are valid for 240 seconds. This
+rolling overlap ensures that a Small Cell Radio can broadcast on an ongoing basis while allowing for
+brief interruptions.
+
+:::
+
+---
+
+## Small Cell Radio Reward Scaling
+
+All 5G Hotspots with properly installed and registered CBRS Radios will earn rewards for
+participating on the Network. A rewards unit multiple is applied to the various Small Cell Radio
+models based on whether they are indoor or outdoor, as well as their power output, as follows:
+
+| Small Cell Radio Type | Reward Weight |
+| --------------------- | :-----------: |
+| High Power Outdoor\*  |    `4.000`    |
+| Outdoor               |    `2.500`    |
+| Indoor                |    `1.000`    |
+
+> \*Currently, the only High-Power Outdoor Radio is the `Baicells Nova436H.`
+
+Individual rewards per period are calculated as a proportion of the total weighted reward units.
+
+### Earnings Example
+
+Earnings are calculated in 3 steps.
+
+1. Calculate the Total Emissions Weight and Emissions Weight Ratio for each Small Cell Radio Type
+2. Each Small Cell Radio Type is allocated its ratio of the total rewards in the given epoch
+3. Each 5G Hotspot is proportionally rewarded from its respective rewards pool by Small Cell Radio
+   Type
+
+:::caution
+
+As an example, we can calculate the rewards for a 5G Hotspot in a single epoch assuming the
+following (the below numbers are examples and may not reflect actual deployed 5G Hotspots today):
+
+- 100,000,000 MOBILE Rewarded per day
+- 150 High-Power Outdoor 5G Hotspots earn rewards
+- 800 Outdoor 5G Hotspots earn rewards
+- 1,400 Indoor 5G Hotspots earn rewards
+- 1 Small Cell Radio per 5G Hotspot (in real-world usage, multiple Small Cell Radios can be
+  connected to a 5G Hotspot)
+
+:::
+
+## Total Rewards Units for Epoch
+
+Calculate the Total Reward Points for a given epoch using the Reward Weight for each Small Cell
+Radio type.
+
+In this example, the total rewards Points per epoch is 4,000, and the ratios are as follows:
+
+```bash
+  High-Power Outdoor Count (  150) * 4.0    =>      600   =>  0.15
++            Outdoor Count (  800) * 2.5    =>  + 2,000   =>  0.50
++             Indoor Count (1,400) * 1.0    =>  + 1,400   =>  0.35
+-----------------------------------------       --------
+                                                  4,000
+```
+
+### Earnings per Small Cell Radio
+
+Each Small Cell Radio is allocated its rewards based on the reward weight of the model.
+
+> Small Cell Reward = Daily Rewards \* Reward Weight / Count of Small Cell Type
+
+```bash
+High-Power Outdoor  => 100,000,000 * 0.15 /   150 = 100,000 MOBILE per day
+           Outdoor  => 100,000,000 * 0.50 /   800 =  62,500 MOBILE per day
+            Indoor  => 100,000,000 * 0.35 / 1,400 =  25,000 MOBILE per day
+```
+
+---
+
+## Speed Tests and Quality of Service
+
+:::caution Coming Soon
+
+Speed Test metrics are not yet included in Rewards calculations.
+
+:::
+
+A 5G Hotspot will automatically perform a Speed Test approximately every 12 hours, with the results
+averaged by the MOBILE PoC Oracle.
+
+Soon, the MOBILE PoC Oracle will include these Speed Test metrics in the Rewards calculations for
+each 5G Hotspot.
+
+The "Moving Average," also known as a "Rolling Average," is the average of at least `2` but no more
+than `6` most recent Speed Test results for each download, upload, and latency for a given 5G
+Hotspot.
+
+Additionally, the Moving Average resets following a Speed Test gap of `>12 hours,` and a new series
+of Speed Test results must be collected before a Moving Average can be calculated.
+
+### Tiered Speed Test
+
+In response to community feedback and further exploration by Chris from DeWiPulse for his
+[analysis of and commentary on public Internet data in the United States,](https://dewipulse.com/connectivity-where-it-matters/)
+Speed Test results are categorized into one of four Tiers.
+
+| Speed Test Tier | Reward Multiplier | Requirement (speeds in Mbps, latency in ms)                  |
+| :-------------: | :---------------: | :----------------------------------------------------------- |
+| **Acceptable**  |      `1.00x`      | `100+` Download, **AND** `10+` Upload, **AND** `<50` Latency |
+|  **Degraded**   |      `0.50x`      | `50+` Download, **AND** `5+` Upload, **AND** `<75` Latency   |
+|    **Poor**     |      `0.25x`      | `30+` Download, **AND** `2+` Upload, **AND** `<100` Latency  |
+|    **Fail**     |      `0.00x`      | `<30` Download, **OR** `<2` Upload, **OR** `>100` Latency    |
+
+:::note Why are Hotspots with slower speeds being rewarded at all?
+
+Many locations where CBRS connectivity is being deployed, including some rural areas, do not always
+have the high-speed Internet connectivity needed to meet the acceptable Internet requirements for
+Genesis rewards consistently.
+
+Often these areas don't have good cellular coverage either. That's why we believe it is essential to
+incentivize Helium deployments in less well-connected areas.
+
+:::
+
+:::warning **backhaul requirements will evolve**
+
+As the needs and realities of the 5G Hotspot network change, Internet backhaul requirements will
+evolve to better suit the Network and its users.
+
+:::
+
+### Speed Test Tier Reward Scaling
+
+Tiered Speed Test values introduce a new multiplier to the Rewards calculations.
+
+- Speed Test Results are put into Tiers based on the minimum value of each Download, Upload, and
+  Latency (logical `AND`).
+- Speed Test results that do not meet the minimum requirements for any Download, Upload, or Latency
+  are considered to have `Failed` and are not eligible for Rewards until the Speed Test Average is
+  improved (logical `OR`).
+
+When combined with existing
+[Small Cell Type Reward Scale Mulitpliers](/5g-on-helium/mobile-poc#small-cell-radio-reward-scaling)
+the Rewards Scaling Table is as follows:
+
+| Small Cell Radio Type | Acceptable | Degraded |  Poor   |  Fail   |
+| --------------------- | :--------: | :------: | :-----: | :-----: |
+| High Power Outdoor    |  `4.000`   | `2.000`  | `1.000` | `0.000` |
+| Outdoor               |  `2.500`   | `1.250`  | `0.625` | `0.000` |
+| Indoor                |  `1.000`   | `0.500`  | `0.250` | `0.000` |
+
+**Example 1: All Acceptable**
+
+```bash
+Download    200 ->  `Acceptable`
+Upload       40 ->  `Acceptable`
+Latency      15 ->  `Acceptable`
+---------------------------------
+Speed Test Tier ->  `Acceptable`  -> 1.0x Multiplier
+```
+
+**Example 2: Degraded Upload**
+
+```bash
+Download    200 ->  `Acceptable`
+Upload        6 ->  `Degraded`
+Latency      15 ->  `Acceptable`
+---------------------------------
+Speed Test Tier ->  `Degraded`    -> 0.5x Multiplier
+```
+
+**Example 3: Poor Download, Degraded Upload**
+
+```bash
+Download     40 ->  `Poor`
+Upload        6 ->  `Degraded`
+Latency      15 ->  `Acceptable`
+---------------------------------
+Speed Test Tier ->  `Poor`        -> 0.25x Multiplier
+```
+
+**Example 4: Failed Latency**
+
+```bash
+Download    200 ->  `Acceptable`
+Upload       40 ->  `Acceptable`
+Latency     150 ->  `Fail`
+---------------------------------
+Speed Test Tier ->  `Fail`        -> 0.0x Multiplier
+```
+
+### Statistics on Helium Explorer
+
+**Current Explorer Statistics View**
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <p>
+        Currently, Speed Test Metrics on Explorer are the latest results, <b>NOT</b> the Moving
+        Average that will be used in Rewards Calculations.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-raw-data.png')}
+      />
+    </div>
+  </div>
+</div>
+
+:::caution Coming Soon
+
+**Speed Test Metrics shown on Explorer are currently the most recent results.**
+
+**Once Speed Tests are incorporated into Rewards calculations, the Explorer will be updated to show
+the Moving Average results for each metric. See Examples of possible results below.**
+
+:::
+
+Speed Test metrics will be viewable on the 5G Hotspot's page on Explorer under the `5G Statistics`
+tab. Here are examples of each status and a brief description of each metric and the resulting
+impact on Rewards calculations.
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-acceptable-pass.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Passing - Acceptable</b>
+      <p>
+        The Moving Average for all Speed Test metrics is in the <code>Acceptable</code> range.
+      </p>
+      <p>
+        A <code>1.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-degraded-latency.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Passing - Degraded Latency</b>
+      <p>
+        The Moving Average for Upload and Download metrics is in the <code>Acceptable</code> range,
+        however the <b>80 ms Latency</b> metric is in the <code>Degraded</code> Tier.
+      </p>
+      <p>
+        A <code>0.5x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-poor-dl.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Passing - Poor Download</b>
+      <p>
+        The Moving Average for Upload and Latency metrics is in the <code>Acceptable</code> range,
+        however the <b>30 Mbps Download</b> metric is in the <code>Poor</code> Tier.
+      </p>
+      <p>
+        A <code>0.25x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-fail-dl-ul.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Fail - Download and Upload</b>
+      <p>
+        The Moving Average for Latency metrics is in the <code>Acceptable</code> range, however the{' '}
+        <b>10 Mbps Download</b> and <b>1 Mbps Upload</b> metrics are below the <code>Poor</code>{' '}
+        Tier.
+      </p>
+      <p>
+        A <code>0.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-not-measured.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Speed Test Not Measured</b>
+      <p>
+        This status appears when a 5G Hotspot has been recently installed, and no Speed Tests have
+        been performed.
+      </p>
+      <p>
+        A <code>0.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-no-recent.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>No Recent Speed Test Data</b>
+      <p>
+        This status appears when a Speed Test could not be performed in the previous 24 hours. For
+        example, when a 5G Hotspot has recently recovered from a prolonged network interruption,
+        power interruption, or other connection interruptions have occurred.
+      </p>
+      <p>
+        A <code>0.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        className="explorerSidebar"
+        src={useBaseUrl('img/5g-on-helium/explorer-5g-stats-not-enough.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Not Enough Data</b>
+      <p>
+        This status appears when there are fewer than <code>2</code> available Speed Test records,
+        and a Moving Average can not yet be calculated.
+      </p>
+      <p>
+        This is common when a 5G Hotspot has been newly installed, has recently recovered from a
+        prolonged network interruption, or in other scenarios where a Speed Test could not be
+        performed.
+      </p>
+      <p>
+        A <code>0.0x</code> multiplier is applied for the current Reward Period.
+      </p>
+    </div>
+  </div>
+</div>
+
+### Example Calculation Tables
+
+Here are a set of tables to help visualize the components that make up the Speed Test result.
+
+:::info
+
+It may take up to 12 hours for newly connected 5G Hotspots to perform a Speed Test, and a minimum of
+2 Speed Tests are required for the MOBILE PoC Oracle to calculate a moving average.
+
+:::
+
+**Successful Speed Test:**
+
+This 5G Hotspot is passing all Speed Test metrics and is providing a high-quality connection.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-success.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of these are the most recent.
+
+---
+
+**Missing A Single Speed Test:**
+
+This 5G Hotspot has not reported Speed Test data at Test 5.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-miss.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 4**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 through 4 are the most recent.
+
+**Test 5 through 6**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Tests 5 through 6 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 7 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 7 and later are the most recent.
+
+---
+
+**Missing Multiple Speed Tests:**
+
+This 5G Hotspot has not reported Speed Test data during Test 5, 6, or 7. This is often a result of a
+5G Hotspot being disconnected from the Internet for a long time.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-miss.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 4**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 through 4 are the most recent.
+
+**Test 5 through 8**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Tests 5 through 8 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 9 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 9 and later are the most recent.
+
+---
+
+**Failing A Speed Test:**
+
+This 5G Hotspot has failed its Speed Test on all metrics in Test 6, but the Moving Average stays
+within the passing range.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-fail.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 and later are the most recent.
+
+---
+
+**Multiple Sub-Optimal Speed Tests:**
+
+This 5G Hotspot has less than `Acceptable` Speed Tests in Tests 3, 4, 5, and 6. This has caused the
+Moving Average to fall for Tests 6, 7, and 8.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-fail.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 5**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 through 5 are the most recent.
+
+**Test 6 through 8**
+
+This 5G Hotspot **will** be eligible for **half** rewards during the Reward Periods for which the
+results of Tests 6 through 8 are the most recent as at least one Speed Test metric Moving Average
+has not met or exceeded the required values.
+
+**Test 9 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 9 and later are the most recent.
+
+---
+
+## Future Roadmap
+
+### Heartbeats and Reliability of Service
+
+To encourage reliable signal availability, 5G Hotspots and connected CBRS Small Cell Radios must:
+
+- Be installed appropriately.
+  - Be registered with the SAS (Outdoor Radios Only).
+- **Generate at least 1 "heartbeat" per 1 hour for any 12 hours in the 24-hour Reward Period.**
+- Meet minimum backhaul Speed Test requirements.
+
+### MOBILE Mappers
+
+Mobile Mappers are hardware devices explicitly designed to attach to CBRS Small Cell Radios to
+verify coverage quality and location in a particular hex.
+
+Following [HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md), Mobile Mappers will
+earn 10% of Mobile rewards for verifying the Network.
+
+The transition from "heartbeat" rewards, as in [Genesis](/5g-on-helium/mobile-poc#mobile-genesis),
+to Mapping rewards will not happen immediately. Instead, a transitional period will allow 5G Hotspot
+Owners with active CBRS Small Cell Radios to receive both "heartbeat" rewards and rewards for being
+mapped.
+
+The details on how data from Mobile Mappers will be used in rewards calculations are currently in
+development.
