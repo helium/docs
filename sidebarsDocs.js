@@ -61,6 +61,7 @@ module.exports = {
         'use-the-network/setup-a-packet-forwarder',
         'use-the-network/community-projects/community-projects',
         'use-the-network/coverage-mapping/coverage-mapping',
+        'use-the-network/crowdspot',
         'use-the-network/policies/policies',
       ],
     },
