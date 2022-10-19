@@ -191,13 +191,13 @@ iteration count and the AES-GCM authentication tag.
 ### Import Seed
 
 The `--seed` flag enables you to import a wallet generated elsewhere. For example, you may want to
-import you key from the mobile wallet, so that you can submit transactions that may not be supported
-in the mobile wallet.
+import your key from the mobile wallet, so that you can submit transactions that may not be supported
+in the mobile wallet. The `--seed` command supports both 12-word and 24-word imports.
 
 Enter the command:
 
 ```
-$ helium-wallet create basic --seed mobile
+$ helium-wallet create basic --seed
 ```
 
 After you press enter, you will be prompted for your seed words.
@@ -409,13 +409,13 @@ To transfer a Hotspot from a 24-word wallet to a 12-word wallet, follow the step
 3. Import your 24-word seed phrase to the CLI Wallet.
 
 ```bash
-$ helium-wallet create basic --seed bip39 --output my-24-word-wallet.key
+$ helium-wallet create basic --seed --output my-24-word-wallet.key
 ```
 
 | argument                         | description                                                                                                      |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `create basic`                   | create a wallet with a single key, as opposed to a [sharded wallet](/wallets/cli-wallet#sharded-wallet)          |
-| `--seed bip39`                   | import with an existing seed phrase using the `bip39` word list                                                  |
+| `--seed`.                        | import with an existing seed phrase using the 24-word list.                                                      |
 | `--output my-24-word-wallet.key` | output the wallet key file to a location of your choosing, in this case to a file called `my-24-word-wallet.key` |
 
 4. Find the Gateway ID of the Hotspot to be transferred by running
