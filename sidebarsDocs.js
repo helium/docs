@@ -45,12 +45,7 @@ module.exports = {
     {
       type: 'category',
       label: '5G on Helium',
-      items: [
-        '5g-on-helium/5g-on-helium',
-        '5g-on-helium/cbrs-radios',
-        '5g-on-helium/mobile-poc',
-        '5g-on-helium/mobile-pre-mine',
-      ],
+      items: ['5g-on-helium/5g-on-helium', '5g-on-helium/cbrs-radios', '5g-on-helium/mobile-poc'],
       collapsed: true,
     },
     {
