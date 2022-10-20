@@ -23,7 +23,7 @@ of a Hotspot requires a Crowdspot account associated with a unique Helium Wallet
 If you do not have the [Helium Wallet app](/wallets/helium-wallet-app), you'll need to download the
 app and create a new wallet or import an existing wallet before proceeding.
 
-:::info Connections are Free
+:::info Crowdspot Connections are Free
 
 There are 0 fees to connect a Helium Wallet address to Crowdspot.
 
@@ -36,34 +36,14 @@ There are 0 fees to connect a Helium Wallet address to Crowdspot.
 To associate a Helium Wallet address, click the "Login" menu bar item on the Crowdspot homepage and
 scan the QR code with your phone.
 
-:::note Menu Bar Login Indicator
-
-If you are already logged in, you will see a Profile Badge and a portion of the connected wallet
-address. The Profile badge will match in the Helium Wallet app and on Crowdspot.
-
-Otherwise, if no account is logged in, no Profile Badge is visible, and the "Login" menu bar item is
-shown.
-
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <p>
-        <b>Logged In</b>
-      </p>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-logged-in.png')} />
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <p>
-        <b>Not Logged In</b>
-      </p>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-not-logged-in.png')} />
-    </div>
-  </div>
-</div>
-
-:::
-
 <img className="appscreenbanner" src={useBaseUrl('img/crowdspot/login-popover.png')} />
+
+Once you have scanned the QR Code, the Helium Wallet app will open and prompt you to authenticate
+Crowdspot.
+
+1. **Confirm Connection Start**: Confirm that you _do_ want to connect a Helium Wallet to Crowdspot.
+2. **Choose Wallet**: Choose the account you would like to use with Crowdspot, and tap Continue.
+3. **Authenticate**: Send a transaction to the Helium blockchain to complete login.
 
 <div class="container" style={{ padding: 0, paddingTop: 0 }}>
   <div class="row">
@@ -86,18 +66,40 @@ shown.
   <div class="row">
     <div class="col col--4" style={{ marginBottom: 0 }}>
       <b>Confirm Connection Start</b>
-      <p>The Helium Wallet app will open and prompt you to authenticate Crowdspot.</p>
     </div>
     <div class="col col--4" style={{ marginBottom: 0 }}>
-      <b>Choose Wallet to Connect</b>
-      <p>Choose the account you would like to use with Crowdspot, and tap Continue.</p>
+      <b>Choose Wallet</b>
     </div>
     <div class="col col--4" style={{ marginBottom: 0 }}>
       <b>Authenticate</b>
-      <p>Send a transaction to the Helium blockchain to complete login.</p>
     </div>
   </div>
 </div>
+
+<br></br>
+
+If you are already logged in, you will see a Profile Badge and a portion of the connected wallet
+address. The Profile badge will match in the Helium Wallet app and on Crowdspot.
+
+Otherwise, if no account is logged in, no Profile Badge is visible, and the "Login" menu bar item is
+shown.
+
+:::note Login Status Indication
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Logged In</b>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-logged-in.png')} />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Not Logged In</b>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-not-logged-in.png')} />
+    </div>
+  </div>
+</div>
+
+:::
 
 ### How to Log Out
 
