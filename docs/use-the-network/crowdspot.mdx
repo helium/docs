@@ -11,6 +11,98 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Crowdspot
 
+> Analyze. Decide. Vote.
+
 Crowdspot is an unmonitored, self-service tool built by Nova Labs for the community. This tool
 allows anyone to explore Helium Network Hotspot data to understand atypical Hotspot behavior and
-identify anomalies.
+identity anomalies.
+
+Similar to Voting, submitting Denylist additions, removals requests, or casting a vote on the status
+of a Hotspot requires a Crowdspot account associated with a unique Helium Wallet address.
+
+If you do not have the [Helium Wallet app](/wallets/helium-wallet-app), you'll need to download the
+app and create a new wallet or import an existing wallet before proceeding.
+
+:::info Connections are Free
+
+There are 0 fees to connect a Helium Wallet address to Crowdspot.
+
+:::
+
+---
+
+## Log In with the Helium Wallet App
+
+To associate a Helium Wallet address, click the "Login" menu bar item on the Crowdspot homepage and
+scan the QR code with your phone.
+
+:::note Menu Bar Login Indicator
+
+If you are already logged in, you will see a Profile Badge and a portion of the connected wallet
+address. The Profile badge will match in the Helium Wallet app and on Crowdspot.
+
+Otherwise, if no account is logged in, no Profile Badge is visible, and the "Login" menu bar item is
+shown.
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <p>
+        <b>Logged In</b>
+      </p>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-logged-in.png')} />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <p>
+        <b>Not Logged In</b>
+      </p>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-not-logged-in.png')} />
+    </div>
+  </div>
+</div>
+
+:::
+
+<img className="appscreenbanner" src={useBaseUrl('img/crowdspot/login-popover.png')} />
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <img className="appscreen" src={useBaseUrl('img/crowdspot/wallet-connect-prompt.png')} />
+    </div>
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <img
+        className="appscreen"
+        src={useBaseUrl('img/crowdspot/wallet-connect-choose-account.png')}
+      />
+    </div>
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <img
+        className="appscreen"
+        src={useBaseUrl('img/crowdspot/wallet-connect-sending-transaction.png')}
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <b>Confirm Connection Start</b>
+      <p>The Helium Wallet app will open and prompt you to authenticate Crowdspot.</p>
+    </div>
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <b>Choose Wallet to Connect</b>
+      <p>Choose the account you would like to use with Crowdspot, and tap Continue.</p>
+    </div>
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <b>Authenticate</b>
+      <p>Send a transaction to the Helium blockchain to complete login.</p>
+    </div>
+  </div>
+</div>
+
+### How to Log Out
+
+You can Log out of Crowdspot by clicking your profile badge in the upper right corner and selecting
+"Log Me Out" from the pop-up menu.
+
+<img className="appscreenbanner" src={useBaseUrl('img/crowdspot/logout-popover.png')} />
+
