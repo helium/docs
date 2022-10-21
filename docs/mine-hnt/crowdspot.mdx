@@ -108,3 +108,142 @@ You can Log out of Crowdspot by clicking your profile badge in the upper right c
 
 <img className="appscreenbanner" src={useBaseUrl('img/crowdspot/logout-popover.png')} />
 
+
+---
+
+## Hotspot Evaluation Metrics
+
+Crowdspot provides insight to several metrics for a given Hotspot that can be used to assist the
+Community in identifying abnormal Hotpots and validating legitimate Hotspots.
+
+:::note Current Denylist Status
+
+If a Hotspot is currently on the Denylist, they will have a special badge on their page. This badge
+is -not- present for Hotspots -not- currently on the Denylist.
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/denylist-badge.png')} />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <p>
+        This example badge includes <b>"+ 54 other appearances,"</b> which indicates that this
+        particular Hotspot appears on the latest Denylist and <b>54</b> Denylists.
+      </p>
+    </div>
+  </div>
+</div>
+
+:::
+
+### Location Confidence
+
+Using witness receipt data, 1,000 guesses of the asserted location are made to derive a predicted
+location of a Hotspot.
+
+The Location Confidence Score metric reflects what percentage of ‘guesses’ are within range of the
+Hotspots asserted location.
+
+When under 20%of guesses are further than 2.3 km from the asserted location, we would describe that
+Hotspot as abnormal.
+
+### Witness Maker Diversity
+
+The Witness Maker Diversity metric gives the percentage of Hotspots witnessed by the original
+Hotspot that are produced by different makers.
+
+When under 15% of the Hotspots being witnesses are made by different makers, then we would describe
+that Hotspot as abnormal.
+
+### Witness SNR Vs RSSI Plot
+
+This graph compares a Hotspot's Signal-to-Noise ratio (SNR) against its Relative Signal Strength
+(RSSI). In general, small RSSI values correlate to a low SNR and vice versa.
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Legitimate Hotspot</b>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/snr-rssi-legit-example.png')} />
+      <p>
+        Witnesses will likely show a more natural, positive correlation over a broad range of RSSI
+        and SNR values.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Abnormal Hotspot</b>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/snr-rssi-sus-example.png')} />
+      <p>
+        Witnesses tend to appear 'grid-like' and concentrated within a much smaller range of RSSI
+        (±3bm) and high SNR (+10db).
+      </p>
+    </div>
+  </div>
+</div>
+
+### Hotspot Witness Graph
+
+The graph shows a central Hotspot, the Hotspot’s immediate witnesses, and other witnesses
+connections within a 10 km range. Each line indicates a witness connection between two Hotspots.
+Hotspot owners are represented by unique colors, where Hotspots owned by the same wallet address
+will be displayed in the same color.
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Legitimate Hotspot</b>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/witness-graph-legit-example.png')} />
+      <p>
+        The central Hotspot's witnesses vary with placement and the natural terrain of the area.
+        These witness connections are more random and feature a wider variety of hotspot owners.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Abnormal Hotspot</b>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/witness-graph-sus-example.png')} />
+      <p>
+        The central Hotspot can only see a specific subset of Hotspots. This is illustrated by a
+        sphere-like containment of Hotspots witnessing only each other, but failing to connect
+        outside the containment. There may be less variation of hotspot owners in an abnormal
+        cluster.
+      </p>
+    </div>
+  </div>
+</div>
+
+### Witness RSSI Vs Distance
+
+As the distance between Hotspots increases, the signal strength (RSSI) decreases due to
+environmental factors. Signal strength ranges between -136 to -80 dBm, with -90 to -110 dBm is a
+very strong RSSI (unlikely in real life), while -130 dBm is very weak. Similarly, a high R² value
+indicates strong correlation and goodness of fit.
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Legitimate Hotspot</b>
+      <img
+        className="homeicon"
+        src={useBaseUrl('img/crowdspot/witness-rssi-distance-legit-example.png')}
+      />
+      <p>
+        A Hotspot's Witness RSSI compared to distance has a weak “fit” seen through the larger
+        deviations from the curve. This results in a low R² value closer to 0.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Abnormal Hotspot</b>
+      <img
+        className="homeicon"
+        src={useBaseUrl('img/crowdspot/witness-rssi-distance-sus-example.png')}
+      />
+      <p>
+        A Hotspot's Witness compared to distance has a predictable, strong “fit” with minimal
+        deviations from the curve. This results in a high R² value close to 1, suggesting few
+        effects from environmental factors.
+      </p>
+    </div>
+  </div>
+</div>
+
