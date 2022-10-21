@@ -108,7 +108,6 @@ You can Log out of Crowdspot by clicking your profile badge in the upper right c
 
 <img className="appscreenbanner" src={useBaseUrl('img/crowdspot/logout-popover.png')} />
 
-
 ---
 
 ## Hotspot Evaluation Metrics
@@ -247,3 +246,142 @@ indicates strong correlation and goodness of fit.
   </div>
 </div>
 
+---
+
+## How to Submit to the Denylist
+
+To submit Hotspots for Denylist consideration, start by clicking on the "Submit Denylist Request"
+button on the Crowdspot.io landing page.
+
+Once in the Submission form, users will be given the option to select the type of submission:
+
+- Submit additions to the Denylist
+- Request removals from the Denylist
+
+### Submit an Addition
+
+<img className="homeicon" src={useBaseUrl('img/crowdspot/report-addition.png')} />
+
+#### Submission Type
+
+On the Submission form, select the "Addition" radio button under "Submission Type."
+
+#### Enter Hotspot Address
+
+Copy and paste the `b58` address of the Hotspot into the "Enter Hotspot b58 Address" field. The
+`b58` address for a Hotspot is the 52-character address of the Hotspot **NOT THE ANIMAL NAME**. The
+`b58` address for a given hotspot is the end of the URL for the Hotspot on the Helium Explorer or
+the value next to "Address" on the Hotspot's page on Crowdspot.
+
+Multiple Hotspots can be added as part of a single Denylist submission by clicking the "+" button
+and inserting more Hotspot `b58` addresses.
+
+#### Reporting Clusters
+
+Some Abnormal Hotspots are part of a "Cluster," a group of Hotspots that only witness each other.
+Clusters are often asserted in a roughly circular formation and may be nestled among Legitimate
+Hotspots.
+
+When reporting a Cluster of Hotspots, include all `b58` addresses **and** toggle on the "Is this a
+cluster of Hotspots" checkbox. This information assists in evaluating the legitimacy of the Hotspots
+in the request.
+
+#### Written Reasoning
+
+While not required, submitting a written description to support the Denylist submission can provide
+valuable insight for evaluation.
+
+#### Create the Submittion
+
+Once you have added all the required and optional information, click the "Create Submission" button.
+
+:::note Submission Status
+
+You can view the status of your submission on the
+[Submissions page](https://www.crowdspot.io/submissions/), linked in the Crowdspot menu bar.
+
+:::
+
+---
+
+### Submit a Removal Request
+
+In an ideal world, Legitimate Hotspots are appropriately screened and not added to the Denylist.
+Still, when this _does_ happen, Hotspot Owners can potentially submit information and evidence to
+have a Hotspot removed from the Denylist.
+
+<img className="homeicon" src={useBaseUrl('img/crowdspot/report-removal.png')} />
+
+#### Submission Type
+
+On the Submission form, select the `Removal` Radio button under Submission Type.
+
+#### Visual Evidence
+
+Denylist Removal submissions can optionally include visual evidence, such as screenshots or other
+images, to support the removal claim. **At this time, visual evidence can be submitted as a URL.**
+There is a limit of 3 URLs per submission.
+
+- For multiple images, we recommend using a cloud image storage platform, such as
+  [Google Photos](https://photos.google.com/) or [Flikr](https://www.flickr.com/). Upload your
+  images and share a link to the folder here. **Please ensure you enable the correct sharing
+  settings, as links will be publicly available.**
+- For a single image, we recommend using a free image-to-link converter and paste the URL here.
+
+#### Written Reasoning
+
+While not required, submitting a written description to support the Denylist submission can provide
+valuable insight for evaluation.
+
+#### Create the Submittion
+
+Once you have added all the required and optional information, click the "Create Submission" button.
+
+:::note Submission Status
+
+You can view the status of your submission on the
+[Submissions page](https://www.crowdspot.io/submissions/), linked in the Crowdspot menu bar.
+
+:::
+
+---
+
+### Submitting Hotspots as a Batch
+
+Investigation of Abnormal Hotspots can be a lot of work, and many workflows exist, especially for
+the submission of large Clusters. To make the process easier for extensive submissions, Hotspot
+`b58` addresses can be added in a batch (of up to 100 addresses) rather than one at a time.
+
+<img className="homeicon" src={useBaseUrl('img/crowdspot/report-removal-batch.png')} />
+
+#### Entering a Batch of Hotspot Addresses
+
+To submit multiple Hotspots, Click the "Submit a Batch" link, and the individual address entry field
+will be replaced with a text box.
+
+:::caution Formatting is essential!
+
+Hotspot addresses must be separated by commas; no more than 100 addresses can be included in a
+single submission.
+
+:::
+
+#### Good Example
+
+> comma separated, no new lines, 100 or fewer addresses
+
+```bash
+112Y9MOI0cSuhXXmtdjbwbggmiUTXtpGvz26djJscfJKRfoj2sUN,112YoUnnjdbi2qW51UNdcfIfzLvfzLwmWkvE7ZO1LJoz8j5XyfGu,112snBh48MrKFwkzT29ciqPDjFkpq0FtQI6uCv4EpOK6QfW9w45N,112ugTSdVRHWvO85WrAuV5JvcytQYRnkgdxtxgXKNOGMi1XYXQR7,112ZTwJcUBGC65J3XjQGKWmNkcGspVFOkDyZJVCRs5vIQrpPyT8O,112VDtGIy9COHkZFdsBQyAXM9aOfbQ2oIKSOOBSVbpwV38dxnDN5,113oCV3rIwxwwG2umgc0vBbSqRm856HrUFRdgWAJERXkA9M5aVmu,113Wcs25X8JYDVzWKgAgf1nzkUnS2i9XLrYV4bbo9RL4Xv2Q4Yay,113nRmEovrRvQF6UNFrSv79Ys9Thuw6ajAJrN7wpmen9KbqZO7nU,114xSLeZSB6DaWkirHGZsxQ0kfs2DwZ8zIFQQWRnQshshcZ0zXl8
+```
+
+#### Bad Example
+
+> includes white space, addresses on multiple lines, includes notes, missing commas
+
+```bash
+112Y9MOI0cSuhXXmtdjbwbggmiUTXtpGvz26djJscfJKRfoj2sUN, 112YoUnnjdbi2qW51UNdcfIfzLvfzLwmWkvE7ZO1LJoz8j5XyfGu,
+112snBh48MrKFwkzT29ciqPDjFkpq0FtQI6uCv4EpOK6QfW9w45N112ugTSdVRHWvO85WrAuV5JvcytQYRnkgdxtxgXKNOGMi1XYXQR7, 112ZTwJcUBGC65J3XjQGKWmNkcGspVFOkDyZJVCRs5vIQrpPyT8O, 112VDtGIy9COHkZFdsBQyAXM9aOfbQ2oIKSOOBSVbpwV38dxnDN5, 113oCV3rIwxwwG2umgc0vBbSqRm856HrUFRdgWAJERXkA9M5aVmu
+113Wcs25X8JYDVzWKgAgf1nzkUnS2i9XLrYV4bbo9RL4Xv2Q4Yay - spoofer
+113nRmEovrRvQF6UNFrSv79Ys9Thuw6ajAJrN7wpmen9KbqZO7nU - probably colocated
+114xSLeZSB6DaWkirHGZsxQ0kfs2DwZ8zIFQQWRnQshshcZ0zXl8 - too many beacons
+```
