@@ -33,15 +33,89 @@ There are 0 fees to connect a Helium Wallet address to Crowdspot.
 
 ## How to Submit to the Denylist
 
-To submit Hotspots for Denylist consideration, start by clicking on the `Submit Denylist Request`
-button on the Crowdspot.io landing page.
+To submit Hotspots for Denylist consideration, start by logging in with your Helium Wallet and
+clicking on the `Submit Denylist Request` button on the Crowdspot.io landing page.
 
-Once in the Submission form, users will be given the option to select the type of submission:
+### Log In with the Helium Wallet App
 
-- Submit Additions to the Denylist
-- Request Removals from the Denylist
+To associate a Helium Wallet address, click the `Login` menu bar item on the Crowdspot homepage and
+scan the QR code with your phone.
+
+<img className="appscreenbanner" src={useBaseUrl('img/crowdspot/login-popover.png')} />
+
+Once you have scanned the QR Code, the Helium Wallet app will open and prompt you to authenticate
+Crowdspot.
+
+1. **Confirm Connection Start**: Confirm that you _do_ want to connect a Helium Wallet to Crowdspot.
+2. **Choose Wallet**: Choose the account you would like to use with Crowdspot, and tap Continue.
+3. **Authenticate**: Send a transaction to the Helium blockchain to complete login.
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <img className="appscreen" src={useBaseUrl('img/crowdspot/wallet-connect-prompt.png')} />
+    </div>
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <img
+        className="appscreen"
+        src={useBaseUrl('img/crowdspot/wallet-connect-choose-account.png')}
+      />
+    </div>
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <img
+        className="appscreen"
+        src={useBaseUrl('img/crowdspot/wallet-connect-sending-transaction.png')}
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <b>Confirm Connection Start</b>
+    </div>
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <b>Choose Wallet</b>
+    </div>
+    <div class="col col--4" style={{ marginBottom: 0 }}>
+      <b>Authenticate</b>
+    </div>
+  </div>
+</div>
+
+<br></br>
+
+If you are already logged in, you will see a Profile Badge and a portion of the connected wallet
+address. The Profile badge will match in the Helium Wallet app and on Crowdspot.
+
+Otherwise, if no account is logged in, no Profile Badge is visible, and the `Login` menu bar item is
+shown.
+
+:::note Login Status Indication
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Logged In</b>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-logged-in.png')} />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <b>Not Logged In</b>
+      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-not-logged-in.png')} />
+    </div>
+  </div>
+</div>
+
+:::
+
+#### How to Log Out
+
+You can Log out of Crowdspot by clicking your profile badge in the upper right corner and selecting
+`Log Me Out` from the pop-up menu.
+
+<img className="appscreenbanner" src={useBaseUrl('img/crowdspot/logout-popover.png')} />
 
 ### Submit an Addition
+
+Once you have logged in, click the `Submit Denylist Request` button to begin your submission.
 
 <img className="homeicon" src={useBaseUrl('img/crowdspot/report-addition.png')} />
 
@@ -200,85 +274,6 @@ See the section below on how to
 [log in with the Helium Wallet App](./crowdspot#log-in-with-the-helium-wallet-app)
 
 :::
-
----
-
-## Log In with the Helium Wallet App
-
-To associate a Helium Wallet address, click the `Login` menu bar item on the Crowdspot homepage and
-scan the QR code with your phone.
-
-<img className="appscreenbanner" src={useBaseUrl('img/crowdspot/login-popover.png')} />
-
-Once you have scanned the QR Code, the Helium Wallet app will open and prompt you to authenticate
-Crowdspot.
-
-1. **Confirm Connection Start**: Confirm that you _do_ want to connect a Helium Wallet to Crowdspot.
-2. **Choose Wallet**: Choose the account you would like to use with Crowdspot, and tap Continue.
-3. **Authenticate**: Send a transaction to the Helium blockchain to complete login.
-
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <img className="appscreen" src={useBaseUrl('img/crowdspot/wallet-connect-prompt.png')} />
-    </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <img
-        className="appscreen"
-        src={useBaseUrl('img/crowdspot/wallet-connect-choose-account.png')}
-      />
-    </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <img
-        className="appscreen"
-        src={useBaseUrl('img/crowdspot/wallet-connect-sending-transaction.png')}
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <b>Confirm Connection Start</b>
-    </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <b>Choose Wallet</b>
-    </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
-      <b>Authenticate</b>
-    </div>
-  </div>
-</div>
-
-<br></br>
-
-If you are already logged in, you will see a Profile Badge and a portion of the connected wallet
-address. The Profile badge will match in the Helium Wallet app and on Crowdspot.
-
-Otherwise, if no account is logged in, no Profile Badge is visible, and the `Login` menu bar item is
-shown.
-
-:::note Login Status Indication
-
-<div class="container" style={{ padding: 0, paddingTop: 0 }}>
-  <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Logged In</b>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-logged-in.png')} />
-    </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <b>Not Logged In</b>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/account-not-logged-in.png')} />
-    </div>
-  </div>
-</div>
-
-:::
-
-### How to Log Out
-
-You can Log out of Crowdspot by clicking your profile badge in the upper right corner and selecting
-`Log Me Out` from the pop-up menu.
-
-<img className="appscreenbanner" src={useBaseUrl('img/crowdspot/logout-popover.png')} />
 
 ---
 
