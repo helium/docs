@@ -29,6 +29,7 @@ module.exports = {
         'mine-hnt/maker-apps',
         'mine-hnt/understanding-hotspot-status',
         'wallets/app-wallet/app-wallet',
+        'mine-hnt/crowdspot',
       ],
       collapsed: true,
     },
