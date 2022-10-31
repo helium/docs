@@ -66,13 +66,11 @@ pre-mined MOBILE tokens. MOBILE tokens will be redeemable for HNT after the Gene
 
 ## MOBILE Genesis
 
-During Genesis, 100M MOBILE tokens are allocated to be issued per day. This 24-hour Reward Period is
-expressed in blocks and aligns as close to the Reward Period time range as possible but may not line
-up exactly on 24-hour intervals.
-
-Given this slight differentiation, daily rewards may not equal 100M MOBILE. Check out this
+During Genesis, 100M MOBILE tokens are allocated to be issued per Reward Period. Check out this
 [Example Reward Transaction](https://explorer.helium.com/txns/0n4TO_2W14rrsGt-nxBTotiHFCFukkO04QoXIxaOtAY)
 for reference.
+
+**The current Reward Period is from 1am UTC to 1am UTC.**
 
 To qualify for Genesis Rewards in a given Reward Period, a CBRS Small Cell Radio must:
 
@@ -170,18 +168,26 @@ Speed Test metrics are not yet included in Rewards calculations.
 
 :::
 
-A 5G Hotspot will automatically perform a Speed Test approximately every 12 hours, with the results
-averaged by the MOBILE PoC Oracle.
+A 5G Hotspot will automatically perform a Speed Test, with the results averaged by the MOBILE PoC
+Oracle.
 
 Soon, the MOBILE PoC Oracle will include these Speed Test metrics in the Rewards calculations for
 each 5G Hotspot.
+
+The 5G Hotspot will randomly measure download, upload, and latency to the MOBILE verifier twice in a
+given 24-hour period. If a test can not complete successfully, the 5G Hotspot will automatically
+retry every 30 minutes until a Speed Test is successful.
+
+The first Speed Test for a newly installed 5G Hotspot is performed within the first 12 hours after
+powering it on.
 
 The "Moving Average," also known as a "Rolling Average," is the average of at least `2` but no more
 than `6` most recent Speed Test results for each download, upload, and latency for a given 5G
 Hotspot.
 
-Additionally, the Moving Average resets following a Speed Test gap of `>12 hours,` and a new series
-of Speed Test results must be collected before a Moving Average can be calculated.
+A minimum of two Speed Tests are required in the previous 48 hours to calculate a Moving average,
+after which a new series of Speed Test results must be collected before a Moving Average can be
+calculated.
 
 ### Tiered Speed Test
 
