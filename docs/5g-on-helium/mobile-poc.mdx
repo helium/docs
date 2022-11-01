@@ -136,14 +136,20 @@ following (the below numbers are examples and may not reflect actual deployed 5G
 Calculate the Total Reward Points for a given epoch using the Reward Weight for each Small Cell
 Radio type.
 
-In this example, the total rewards Points per epoch is 4,000, and the ratios are as follows:
+In this example, the total rewards Points per epoch is 7,000, and the ratios are as follows:
 
 ```bash
-  High-Power Outdoor Count (  150) * 4.0    =>      600   =>  0.15
-+            Outdoor Count (  800) * 2.5    =>  + 2,000   =>  0.50
-+             Indoor Count (1,400) * 1.0    =>  + 1,400   =>  0.35
------------------------------------------       --------
-                                                  4,000
+  High-Power Outdoor Count Acceptable ( 250) * 4.0 * 1.00   =>     1000   =>  0.143
++ High-Power Outdoor Count Degraded   (  50) * 4.0 * 0.50   =>  +   100   =>  0.014
++ High-Power Outdoor Count Poor       (  10) * 4.0 * 0.25   =>  +    10   =>  0.001
++            Outdoor Count Acceptable (1100) * 2.5 * 1.00   =>  +  2750   =>  0.393
++            Outdoor Count Degraded   ( 500) * 2.5 * 0.50   =>  +   625   =>  0.089
++            Outdoor Count Poor       ( 400) * 2.5 * 0.25   =>  +   250   =>  0.036
++             Indoor Count Acceptable (1500) * 1.0 * 1.00   =>  +  1500   =>  0.214
++             Indoor Count Degraded   (1200) * 1.0 * 0.50   =>  +   600   =>  0.086
++             Indoor Count Poor       ( 660) * 1.0 * 0.25   =>  +   165   =>  0.024
+---------------------------------------------------------       --------
+                                                                  7,000
 ```
 
 ### Earnings per Small Cell Radio
@@ -153,9 +159,15 @@ Each Small Cell Radio is allocated its rewards based on the reward weight of the
 > Small Cell Reward = Daily Rewards \* Reward Weight / Count of Small Cell Type
 
 ```bash
-High-Power Outdoor  => 100,000,000 * 0.15 /   150 = 100,000 MOBILE per day
-           Outdoor  => 100,000,000 * 0.50 /   800 =  62,500 MOBILE per day
-            Indoor  => 100,000,000 * 0.35 / 1,400 =  25,000 MOBILE per day
+High-Power Outdoor Acceptabledegraded => 100,000,000 * 0.143 /  250 = 57,142.86 MOBILE per day
+High-Power Outdoor Degraded           => 100,000,000 * 0.014 /   50 = 28,571.43 MOBILE per day
+High-Power Outdoor Poordegraded       => 100,000,000 * 0.001 /   10 = 14,285.71 MOBILE per day
+           Outdoor Acceptabledegraded => 100,000,000 * 0.393 / 1100 = 35,714.29 MOBILE per day
+           Outdoor Degraded           => 100,000,000 * 0.089 /  500 = 17,857.14 MOBILE per day
+           Outdoor Poordegraded       => 100,000,000 * 0.036 /  400 =  8,928.57 MOBILE per day
+            Indoor Acceptabledegraded => 100,000,000 * 0.214 / 1500 = 14,285.71 MOBILE per day
+            Indoor Degraded           => 100,000,000 * 0.086 / 1200 =  7,142.86 MOBILE per day
+            Indoor Poordegraded       => 100,000,000 * 0.024 /  660 =  3,571.43 MOBILE per day
 ```
 
 ---
