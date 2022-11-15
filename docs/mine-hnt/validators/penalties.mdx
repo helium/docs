@@ -9,10 +9,10 @@ slug: /mine-hnt/validators/penalties
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-Validators are a new entity on the Helium Blockchain that will perform the work of the consensus
-group including verifying transactions and adding new blocks to the blockchain. As Validators will
-play an important role in the expansion, stability and success of the Helium network moving forward,
-it's critical that community run Validators meet the performance requirements of their role.
+Validators are an entity on the Helium Blockchain that perform the work of the consensus group
+including verifying transactions and adding new blocks to the blockchain. As Validators will play an
+important role in the expansion, stability and success of the Helium network, it's critical that
+community run Validators meet the performance requirements of their role.
 
 The consensus group is made up of Validator nodes that are rewarded with $HNT for working together
 to verify transactions and producing blocks.
@@ -123,7 +123,7 @@ Validator while in consensus:
   group.
 - This penalty is applied for each occurrence, which can happen multiple times during a consensus
   group.
-- The amount applied per occurrence is a chain variable, currently set at `0.33`. The variable is
+- The amount applied per occurrence is a chain variable, currently set at `0.50`. The variable is
   viewable by running `miner ledger variables election_seen_penalty`.
 
 **BBA (Byzantine Binary Agreement) Penalties**
@@ -135,13 +135,13 @@ Validator while in consensus:
   [Run `ntp`](https://en.wikipedia.org/wiki/Network_Time_Protocol)!
 - This penalty is applied for each occurrence, which can happen multiple times during a consensus
   group.
-- The amount applied per occurrence is a chain variable, currently set at `0.1`. The variable is
+- The amount applied per occurrence is a chain variable, currently set at `0.2`. The variable is
   viewable by running `miner ledger variables election_bba_penalty`.
 
 :::info
 
 Learn more about [Byzantine Agreements](https://en.wikipedia.org/wiki/Byzantine_fault) and their
-affect on [Consensus](<https://en.wikipedia.org/wiki/Consensus_(computer_science)>)
+effect on [Consensus](<https://en.wikipedia.org/wiki/Consensus_(computer_science)>)
 
 :::
 
@@ -150,18 +150,18 @@ affect on [Consensus](<https://en.wikipedia.org/wiki/Consensus_(computer_science
 Penalties decay as blocks are formed.
 
 This decay rate is in blocks, and is stored as a chain variable. View the current decay block limit
-by running `miner ledger variables penalty_history_limit`. This value is set to `20160` blocks for
-mainnet, or a target of 2 weeks.
+by running `miner ledger variables penalty_history_limit`. This value is set to `40320` blocks for
+mainnet, or a target of ~3 to 4 weeks.
 
 To phrase it in a different way, every time a penalty is assessed it begins to decay at
 `penalty * (1 - age/penalty_history_limit)` where `age` is the number of blocks that have occurred
 since the penalty was put in place.
 
-Each penalty accrued decays to `0.0` in `20160` blocks, regardless of its initial magnitude.
+Each penalty accrued decays to `0.0` in `40320` blocks, regardless of its initial magnitude.
 
 ## Penalty Objectives
 
-Through these rules, the penalties help maintain the the goals of the Validator network:
+Through these rules, the penalties help maintain the goals of the Validator network:
 
 - Ensuring that poor performing Validators have a less favorable chance of being included in a
   consensus group
@@ -243,9 +243,9 @@ This produces the following output:
 ```
 
 - `name` Validator name
-- `bba_completions` Shows a metric for BBA competions, as defined above.
+- `bba_completions` Shows a metric for BBA completions, as defined above.
 - `seen_votes` Shows a tally of seen votes across the consensus group, as defined above.
 - `last_bba` Number of recent BBA failures
 - `last_seen` Number of recent seen failures
-- `tenure` Curent `tenure_penalty` of the validator
+- `tenure` Current `tenure_penalty` of the validator
 - `penalty` The current `total_penalty` as defined above
