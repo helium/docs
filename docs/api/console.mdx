@@ -282,6 +282,7 @@ Device {
 
 </TabItem>
 </Tabs>
+
 ---
 
 ### Device Integration Events
@@ -411,6 +412,78 @@ _Body Parameters_
 <TabItem value="response">
 
 201: created
+
+</TabItem>
+</Tabs>
+
+---
+
+### Create Multiple Devices
+
+```
+POST https://console.helium.com/api/v1/devices
+```
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| Parameter Name          | Type     | Description      |
+| ----------------------- | -------- | ---------------- |
+| key (required)          | _string_ | your API key     |
+| content-type (required) | _string_ | application/json |
+
+_Body Parameters_
+
+| Parameter Name               | Type             | Description                                          |
+| ---------------------------- | ---------------- | ---------------------------------------------------- |
+| devices (required)           | Array of objects | Array of up to 1,000 device objects as defined below |
+    
+_Device Object_
+
+| Key                          | Value Type       | Description                              |
+| ---------------------------- | ---------------- | ---------------------------------------- |
+| name (required)              | _string_         | A human-friendly name for the device     |
+| app_eui (required)           | _string_         | LoRaWAN Application EUI                  |
+| app_key (required)           | _string_         | LoRaWAN Application Key                  |
+| dev_eui (required)           | _string_         | LoRaWAN Device EUI                       |
+| config_profile_id (optional) | _string_         | Config profile uuid to attach            |
+| label_ids (optional)         | Array of strings | Array of label uuids to attach to device |
+
+</TabItem>
+<TabItem value="response">
+
+200: ok
+    
+```json
+{
+    "failure": [
+        {
+            "app_eui": "2111111111111111",
+            "app_key": "21111111111111111111111111111111",
+            "dev_eui": "2111111111111111",
+            "error": "name: Name cannot be blank",
+            "organization_id": "b31295c0-7164-4f45-b634-d21d498737cd",
+            "oui": 1
+        }
+    ],
+    "success": [
+        {
+            "app_eui": "1111111111111111",
+            "app_key": "11111111111111111111111111111111",
+            "config_profile_id": null,
+            "dev_eui": "1111111111111111",
+            "id": "c13e435e-a122-44c1-8ebb-882d5cf84e8c",
+            "labels": [],
+            "name": "Test 1"
+        }
+    ]
+}
+```
 
 </TabItem>
 </Tabs>
