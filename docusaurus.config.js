@@ -8,12 +8,15 @@ module.exports = {
   organizationName: 'helium', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
   themeConfig: {
-    hideableSidebar: true,
-    googleAnalytics: {
-      trackingID: 'UA-52432858-10',
+    docs: {
+      sidebar: {
+        hideable: true,
+      },
     },
+    // hideableSidebar: true,
     algolia: {
-      apiKey: 'd5ff5c42607f0141934032162dab2cc2',
+      appId: 'XC618T80WL',
+      apiKey: '7d9c9bfed6c45d91cb148ac5a365079d',
       indexName: 'helium',
       contextualSearch: false,
     },
@@ -29,14 +32,6 @@ module.exports = {
       // using user system preferences, instead of the hardcoded defaultMode
       respectPrefersColorScheme: false,
     },
-    announcementBar: {
-      id: 'join_discord',
-      content:
-        '<a href="/use-the-network/console">Console updates has arrived! Read more and get started here!</a>',
-      backgroundColor: '#474DFF',
-      textColor: '#FFFFFF',
-      isCloseable: true,
-    },
     navbar: {
       title: '',
       style: 'primary',
@@ -46,7 +41,6 @@ module.exports = {
         srcDark: 'img/logowhite.svg',
       },
       items: [
-
         {
           to: '/use-the-network/console',
           label: 'Try the New Console Today',
@@ -54,8 +48,6 @@ module.exports = {
           activeBaseRegex: `docs`,
           className: 'announcementnav',
         },
-
-
         {
           to: '/',
           label: 'Docs',
@@ -101,11 +93,14 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          breadcrumbs: false,
           sidebarPath: require.resolve('./sidebarsDocs.js'),
           routeBasePath: '/',
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/helium/docs/edit/master',
+          editUrl: 'https://github.com/helium/docs/edit/master',
+        },
+        googleAnalytics: {
+          trackingID: 'UA-52432858-10',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -113,6 +108,5 @@ module.exports = {
       },
     ],
   ],
-  plugins: [
-  ],
-};
+  plugins: [],
+}

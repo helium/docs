@@ -7,22 +7,26 @@ slug: /mine-hnt/data-only-guides/kerlink
 
 # Kerlink gateways
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-All Kerlink gateways share the same operating system, called KerOS. It is based on Linux and uses OPKG, however not directly.
+All Kerlink gateways share the same operating system, called KerOS. It is based on Linux and uses
+OPKG, however not directly.
 
 :::warning
 
-Kerlink Gateways will only mine HNT through packet transfer, and is considered a Data Only Hotspot unless you purchase a Kerlink Miner specificlly designed for the Helium Network. The ability to mine HNT with anything other than
-[Approved Hotspots](https://helium.com/mine) is not currently supported. Please
-join the [#gateway-development](https://discord.gg/helium) channel in the Helium Discord Server for
-the latest updates.
+Kerlink Gateways will only mine HNT through packet transfer, and is considered a Data Only Hotspot
+unless you purchase a Kerlink Miner specificlly designed for the Helium Network. The ability to mine
+HNT with anything other than [Approved Hotspots](https://helium.com/mine) is not currently
+supported. Please join the
+[#gateway-development](discord://discord.com/channels/404106811252408320/784462269072277576) channel
+in the Helium Discord Server for the latest updates.
 
 :::
 
 ## Logging in
 
-Use SSH. Your username is `root` and the default password is `pdmk-XXXXXX` where the X's should be replaced with the last 6 digits of the gateway Board ID or the EUI (see labels on the gateway).
+Use SSH. Your username is `root` and the default password is `pdmk-XXXXXX` where the X's should be
+replaced with the last 6 digits of the gateway Board ID or the EUI (see labels on the gateway).
 
 Once logged in, please change your password.
 
@@ -46,10 +50,13 @@ reboot
 ```
 
 Example: upload from your computer
+
 ```
 user@computer:~ $ scp file.ipk root@gateway-ip:/user/.updates/
 ```
+
 or directly from the gateway:
+
 ```
 root@klk-wiis-050029:~ # wget https://github.com/helium/gateway-rs/releases/download/v1.0.0-alpha.8/helium-gateway-v1.0.0-alpha.8-klkgw.ipk
 Connecting to github.com (192.30.255.112:443)
@@ -61,11 +68,12 @@ root@klk-wiis-050029:~ # sync; kerosd -u; reboot; exit
 The system is going down for reboot NOW!029 (pts/0) (Tue Apr 20 17:49:37 2021)
 ```
 
-This is used because KerOS uses a backup mechanism when installing packages. As soon as you install an IPK, a backup snapshot is made. You can then
+This is used because KerOS uses a backup mechanism when installing packages. As soon as you install
+an IPK, a backup snapshot is made. You can then
 
-* restore to stock firmware: `kerosd -s`
-* restore to the latest backup: `kerosd -b`
-* trigger an update from `/user/.updates`: `kerosd -u`
+- restore to stock firmware: `kerosd -s`
+- restore to the latest backup: `kerosd -b`
+- trigger an update from `/user/.updates`: `kerosd -u`
 
 ## Check installation
 
@@ -79,7 +87,8 @@ keros - 4.3.3-0-g993efce1
 
 ## Configure LoRa Frequency Plan
 
-Use the built-in tool `klk_apps_config` to activate the Kerlink Packet Forwarder (CPF) on the appropriate region:
+Use the built-in tool `klk_apps_config` to activate the Kerlink Packet Forwarder (CPF) on the
+appropriate region:
 
 ```
 # this is multiline just for readability
@@ -96,10 +105,12 @@ lorafwd[1447]: <6> Parsing configuration file: /etc/lorafwd.toml
 root@klk-wiis-050029:~ #
 ```
 
-The list of available preconfigured regions are in `/etc/lorad/XXX` where XXX is the gateway model nickname:
-* iFemtoCell: `wifc`
-* iFemtoCell Evolution: `fevo`
-* iStation: `wiis`
+The list of available preconfigured regions are in `/etc/lorad/XXX` where XXX is the gateway model
+nickname:
+
+- iFemtoCell: `wifc`
+- iFemtoCell Evolution: `fevo`
+- iStation: `wiis`
 
 ```
 root@klk-wiis-050029:~ # ll /etc/lorad/wiis/
@@ -116,11 +127,13 @@ drwxr-xr-x    1 root     root        4.0K Apr 20 17:55 ..
 -rw-r--r--    1 root     root        1.9K Aug  3  2020 US915-US.json
 ```
 
-If the desired configuration file is not available, feel free to create a new one and restart the tool.
+If the desired configuration file is not available, feel free to create a new one and restart the
+tool.
 
 ## US915/AU915
 
-Kerlink uses the first sub-band in these regions by default. To use the appropriate sub-band (second), use this command:
+Kerlink uses the first sub-band in these regions by default. To use the appropriate sub-band
+(second), use this command:
 
 ```
 source /etc/default/lorad
@@ -136,7 +149,8 @@ monit restart lorad
 
 ## TX frequencies
 
-By default, Kerlink restricts the TX frequencies (downlinks) to what LoRaWAN defines. Helium Proofs of Coverage use the uplink bands for the transmission of the challenge RF packet.
+By default, Kerlink restricts the TX frequencies (downlinks) to what LoRaWAN defines. Helium Proofs
+of Coverage use the uplink bands for the transmission of the challenge RF packet.
 
 This is only required in US915 and AU915:
 
@@ -220,7 +234,8 @@ lorad[2011]: <6> Setting mode RX OK
 lorafwd[1449]: <6> Received uplink message: system event "Started"
 ```
 
-We can see it loaded channels 903.9MHz, 904.1MHz, etc: this is the appropriate frequency sub-band for US915.
+We can see it loaded channels 903.9MHz, 904.1MHz, etc: this is the appropriate frequency sub-band
+for US915.
 
 ## LoRa traffic
 
@@ -246,5 +261,7 @@ lorafwd[6973]: <6> Uplink message (43A6) acknowledged in 1.0356 ms
 
 Here we can confirm:
 
-* that the packet forwarder communicates well with the Helium light gateway because all the heartbeats / uplinks are acknowledged in a millisecond
-* that the radio is well configured because it received an uplink message (Join Request) at 903.3MHz, -65dBm RSSI and 15dB SNR (device was close)
+- that the packet forwarder communicates well with the Helium light gateway because all the
+  heartbeats / uplinks are acknowledged in a millisecond
+- that the radio is well configured because it received an uplink message (Join Request) at
+  903.3MHz, -65dBm RSSI and 15dB SNR (device was close)

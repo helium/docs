@@ -6,60 +6,66 @@ slug: /use-the-network/console/integrations/cargo
 
 # Cargo
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-:::info 
-[Helium Cargo](http://cargo.helium.com/) is an evaluation tool and the
-data collected is available to all developers. Please do not share any sensitive
-information. Use at your own discretion. 
+:::info
+
+[Helium Cargo](http://cargo.helium.com/) is an evaluation tool and the data collected is available
+to all developers. Please do not share any sensitive information. Use at your own discretion.
+
 :::
 
 ## Add a Cargo Integration
 
-To add an integration, go to **Integrations** on the left-hand menu. Select the
-integration to add - in this case, the **Cargo** integration.
+To add an integration, go to **Integrations** on the left-hand menu. Select the integration to add -
+in this case, the **Cargo** integration.
 
-<img
-  src={useBaseUrl(
-    "img/use-the-network/console/integrations/integrations-select-cargo.png"
-  )}
-/>
+<img src={useBaseUrl('img/use-the-network/console/integrations/integrations-select-cargo.png')} />
 
 The next step is to name the integration.
 
 ## Connecting Integrations to Devices
 
-Devices or groups of devices (via labels) can be directly connected to integrations on the Flows Worskpace. Labels are identifiers used to group devices for easy management. To connect one or more devices to one or more integrations, simply connect the Device and Integration nodes on the Flows Workspace.
+Devices or groups of devices (via labels) can be directly connected to integrations on the Flows
+Worskpace. Labels are identifiers used to group devices for easy management. To connect one or more
+devices to one or more integrations, simply connect the Device and Integration nodes on the Flows
+Workspace.
 
 :::info
-Quick video tutorial connecting devices to an integration [here](https://www.youtube.com/watch?v=lnERw1f7TGE).
+
+Quick video tutorial connecting devices to an integration
+[here](https://www.youtube.com/watch?v=lnERw1f7TGE).
+
 :::
 
-Node elements (devices, labels, integrations) need to be created before they're available on the Flows Workspace. More information about Flows [here](https://docs.helium.com/use-the-network/console/flows/).
+Node elements (devices, labels, integrations) need to be created before they're available on the
+Flows Workspace. More information about Flows
+[here](https://docs.helium.com/use-the-network/console/flows/).
 
 ## Cargo Endpoint
 
 The Cargo endpoint is where device data is sent if connected with a Label.
 
-**HTTP Details**  
-Method: `post`  
-Endpoint: `https://cargo.helium.com/api/payloads`  
-Headers: `{"Content-Type":"application/json"}`
+**HTTP Details**
+
+| key      | value                                   |
+| :------- | :-------------------------------------- |
+| Method   | `post`                                  |
+| Endpoint | `https://cargo.helium.com/api/payloads` |
+| Headers  | `{"Content-Type":"application/json"}`   |
 
 ## Cargo Payload
 
-The Cargo payload defines the content and structure of the data payload that
-must be sent to the cargo endpoint from a device or separate application. Cargo
-currently accepts data from either the `decoded` or the`payload` field. Each
-field has different requirements described below.
+The Cargo payload defines the content and structure of the data payload that must be sent to the
+cargo endpoint from a device or separate application. Cargo currently accepts data from either the
+`decoded` or the`payload` field. Each field has different requirements described below.
 
 ### Decoded Field
 
-The `decoded` field is the preferred method for sending data to Cargo. This
-method requires the use of a [Function Decoder](../../functions) on Console in
-order to decode the device payload before sending it to Cargo. The accepted
-fields are listed below and can be located at any depth within the `decoded`
-field.
+The `decoded` field is the preferred method for sending data to Cargo. This method requires the use
+of a [Function Decoder](/use-the-network/console/functions/) on Console in order to decode the
+device payload before sending it to Cargo. The accepted fields are listed below and can be located
+at any depth within the `decoded` field.
 
 | Required JSON Fields | Description          |
 | :------------------- | :------------------- |
@@ -74,8 +80,8 @@ field.
 
 ### Payload Field
 
-Cargo is also capable of decoding the `payload` field, but is only compatible
-with a few common tracking devices.
+Cargo is also capable of decoding the `payload` field, but is only compatible with a few common
+tracking devices.
 
 #### Compatible Devices:
 
@@ -84,8 +90,8 @@ with a few common tracking devices.
 - Browan Object Locator
 - Digital Matter Oyster & Yabby
 
-You also have the option of encoding the required data on a development device
-before transmitting it as described below.
+You also have the option of encoding the required data on a development device before transmitting
+it as described below.
 
 **Total Payload:**
 

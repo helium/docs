@@ -4,8 +4,8 @@ sidebar_label: Hotspots
 slug: /api/blockchain/hotspots
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Hotspots
 
@@ -17,12 +17,12 @@ import TabItem from "@theme/TabItem";
 GET https://api.helium.io/v1/hotspots
 ```
 
-List known hotspots as registered on the blockchain.The results are paged. If a
-`cursor` field is present in the response, more results are available.
+List known hotspots as registered on the blockchain.The results are paged. If a `cursor` field is
+present in the response, more results are available.
 
-The `filter_modes` parameter can be used to filter hotspot by how they were
-added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
-comma separated list (no whitespace) can be used to filter for multiple modes.
+The `filter_modes` parameter can be used to filter hotspot by how they were added to the blockchain.
+Supported values are `full`, `dataonly`, or `light`. A comma separated list (no whitespace) can be
+used to filter for multiple modes.
 
 <Tabs
   block={true}
@@ -208,10 +208,9 @@ _Path Parameters_
 GET https://api.helium.io/v1/hotspots/name/:name
 ```
 
-Fetch the hotspots which map to the given 3-word animal name. The name must be
-all lower-case with dashes between the words, e.g. tall-plum-griffin. Because
-of collisions in the Angry Purple Tiger algorithm, the given name might map to
-**more than one hotspot**.
+Fetch the hotspots which map to the given 3-word animal name. The name must be all lower-case with
+dashes between the words, e.g. tall-plum-griffin. Because of collisions in the Angry Purple Tiger
+algorithm, the given name might map to **more than one hotspot**.
 
 <Tabs
   block={true}
@@ -275,9 +274,8 @@ _Path Parameters_
 GET https://api.helium.io/v1/hotspots/name?search=<term>
 ```
 
-Fetch the hotspots which match a search term in the given `search` term query
-parameter. The search parameter needs to be at least one character, with 3 or
-more recommended.
+Fetch the hotspots which match a search term in the given `search` term query parameter. The search
+parameter needs to be at least one character, with 3 or more recommended.
 
 <Tabs
   block={true}
@@ -444,8 +442,8 @@ Search results for `search=clever-gray`
 GET https://api.helium.io/v1/hotspots/location/distance
 ```
 
-Fetch the hotspots which are within a given number of meters from the given `lat` and `lon` coordinates. This
-route is paged using a `cursor`.
+Fetch the hotspots which are within a given number of meters from the given `lat` and `lon`
+coordinates. This route is paged using a `cursor`.
 
 <Tabs
   block={true}
@@ -546,9 +544,8 @@ Search results for `?lat=38.12129445739087&lon=-122.52885074963571&distance=1000
 GET https://api.helium.io/v1/hotspots/location/box
 ```
 
-Fetch the hotspots which are within a given geographic boundary indicated by
-it's south-wesetern and north-eastern co-ordinates. This route is paged using a
-`cursor`.
+Fetch the hotspots which are within a given geographic boundary indicated by it's south-wesetern and
+north-eastern co-ordinates. This route is paged using a `cursor`.
 
 <Tabs
   block={true}
@@ -714,8 +711,8 @@ Search results for `?swlat=38.0795392&swlon=-122.5671627&nelat=38.1588012&nelon=
 GET https://api.helium.io/v1/hotspots/hex/:h3_index
 ```
 
-Fetch the hotspots which are in the given h3 index. The supported h3 indices are
-currently limited to resolution 8.
+Fetch the hotspots which are in the given h3 index. The supported h3 indices are currently limited
+to resolution 8.
 
 <Tabs
   block={true}
@@ -786,11 +783,14 @@ GET https://api.helium.io/v1/hotspots/:address/activity
 ```
 
 :::caution
-The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`, described below](#hotspot-roles)
+
+The `/activity` route will be deprecated on May 1, 2022 and will be replaced by
+[`/roles`, described below](#hotspot-roles)
+
 :::
 
-Lists all blockchain transactions that the given Hotspot was involved in. This
-route is paged using a `cursor`.
+Lists all blockchain transactions that the given Hotspot was involved in. This route is paged using
+a `cursor`.
 
 <Tabs
   block={true}
@@ -819,8 +819,14 @@ _Query Parameters_
 
 200: OK
 
-This lists the activity for a Hotspot which only had two
-transactions at the time of the request.
+This lists the activity for a Hotspot which only had two transactions at the time of the request.
+
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/api/blockchain/introduction/#transaction-units)
+
+:::
 
 ```json
 {
@@ -866,8 +872,8 @@ transactions at the time of the request.
 GET https://api.helium.io/v1/hotspots/:address/roles
 ```
 
-Lists all blockchain transactions that the given Hotspot was involved in. This
-route is paged using a `cursor`.
+Lists all blockchain transactions that the given Hotspot was involved in. This route is paged using
+a `cursor`.
 
 <Tabs
   block={true}
@@ -896,8 +902,7 @@ _Query Parameters_
 
 200: OK
 
-This lists the activity for a Hotspot which only had two
-transactions at the time of the request.
+This lists the activity for a Hotspot which only had two transactions at the time of the request.
 
 ```json
 {
@@ -933,8 +938,7 @@ GET https://api.helium.io/v1/hotspots/:address/roles/count
 
 Count transactions that indicate a Hotspot as a participant.
 
-The results are a map keyed by the given `filter_types` and the count of
-transaction of that type.
+The results are a map keyed by the given `filter_types` and the count of transaction of that type.
 
 <Tabs
   block={true}
@@ -981,8 +985,8 @@ Fetch counts with `filter_types=assert_location_v1` for hotspot
 GET https://api.helium.io/v1/hotspots/:address/elections
 ```
 
-Lists the consensus group transactions that the given hotspot was involved in.
-This route is paged using a `cursor`.
+Lists the consensus group transactions that the given hotspot was involved in. This route is paged
+using a `cursor`.
 
 <Tabs
   block={true}
@@ -1012,6 +1016,13 @@ _Query Parameters_
 
 Fetches consensus groups that the hotspot with address
 `11ztQpmCJbfPxv3RjsnvFTozbikpZ72dgmHTYwBQ2n2rABytnLE` was a part of
+
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/api/blockchain/introduction/#transaction-units)
+
+:::
 
 ```json
 {
@@ -1616,8 +1627,8 @@ _No Parameters_
 GET https://api.helium.io/v1/hotspots/:address/challenges
 ```
 
-Lists the challenge (receipts) that the given hotspot was a challenger, challengee
-or witness in. This route is paged using a `cursor`.
+Lists the challenge (receipts) that the given hotspot was a challenger, challengee or witness in.
+This route is paged using a `cursor`.
 
 <Tabs
   block={true}
@@ -1645,8 +1656,8 @@ _Query Parameters_
 
 200: OK
 
-Fetches the challenges that the hotspot with
-`11DvZivbwHVRx4PbQwAd5w2DQEAcfSCRVzsW7gjRKQ86nCEJxHJ` was involved in.
+Fetches the challenges that the hotspot with `11DvZivbwHVRx4PbQwAd5w2DQEAcfSCRVzsW7gjRKQ86nCEJxHJ`
+was involved in.
 
 ```json
 {
@@ -1917,22 +1928,22 @@ Fetches the challenges that the hotspot with
 GET https://api.helium.io/v1/hotspots/:address/rewards
 ```
 
-Returns rewards for a given hotspot per reward block the hotspot is in, for a
-given timeframe. Timestamps are given in ISO 8601 format. The block that
-contains the `max_time` timestamp is **excluded** from the result.
+Returns rewards for a given hotspot per reward block the hotspot is in, for a given timeframe.
+Timestamps are given in ISO 8601 format. The block that contains the `max_time` timestamp is
+**excluded** from the result.
 
-The result will be a list of rewards between `min_time` and `max_time` both
-given in UTC. Both default to "now" which means that at least one of the two
-parameters is required.
+The result will be a list of rewards between `min_time` and `max_time` both given in UTC. Both
+default to "now" which means that at least one of the two parameters is required.
 
-The result includes a `type` field which is the type of activity that generated
-the reward.
+The result includes a `type` field which is the type of activity that generated the reward.
 
 This route is paged using a `cursor`.
 
 :::info
-For older reward results, if the `type` is `null` the amount is a total for that
-hotspot in the given block.
+
+For older reward results, if the `type` is `null` the amount is a total for that hotspot in the
+given block.
+
 :::
 
 <Tabs
@@ -2014,14 +2025,15 @@ GET https://api.helium.io/v1/hotspots/:address/rewards/:block
 
 Returns rewards for a given hotspot for a given block.
 
-The result includes a `type` field which is the type of activity that generated
-the reward.
+The result includes a `type` field which is the type of activity that generated the reward.
 
 This route is paged using a `cursor`.
 
 :::info
-For older reward results, if the `type` is `null` the amount is a total for that
-hotspot in the given block.
+
+For older reward results, if the `type` is `null` the amount is a total for that hotspot in the
+given block.
+
 :::
 
 <Tabs
@@ -2070,9 +2082,9 @@ Rewards for a hotspot in block `470788`
 GET https://api.helium.io/v1/hotspots/:address/rewards/sum
 ```
 
-Returns the total rewards earned for a given hotspot over a given time range.
-Timestamps are given in ISO 8601 format. The block that includes the `max_time`
-timestamp is **excluded** from the result.
+Returns the total rewards earned for a given hotspot over a given time range. Timestamps are given
+in ISO 8601 format. The block that includes the `max_time` timestamp is **excluded** from the
+result.
 
 <Tabs
   block={true}
@@ -2088,10 +2100,11 @@ _Path Parameters_
 
 _Query Parameters_
 
-| param               | Type     | Note                                   |
-| ------------------- | -------- | -------------------------------------- |
-| max_time (required) | _string_ | Last timestamp to include rewards for  |
-| min_time (required) | _string_ | First timestamp to include rewards for |
+| param               | Type     | Note                                        |
+| ------------------- | -------- | ------------------------------------------- |
+| max_time (optional) | _string_ | Last timestamp to include rewards for       |
+| min_time (required) | _string_ | First timestamp to include rewards for      |
+| bucket (optional)   | _string_ | Get data in buckets ( hour / month / week ) |
 
 </TabItem>
 <TabItem value="response">
@@ -2245,8 +2258,7 @@ _Path Parameters_
 </TabItem>
 <TabItem value="response">
 
-Shows the hotspots that hotspot
-`11sYnfeGAbFzDhXJ9NujYY2v2CnrcXPrewiF4iRN8upMs3HYUN2` witnessed
+Shows the hotspots that hotspot `11sYnfeGAbFzDhXJ9NujYY2v2CnrcXPrewiF4iRN8upMs3HYUN2` witnessed
 
 200: OK
 

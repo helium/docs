@@ -6,9 +6,8 @@ slug: /lorawan-on-helium/frequency-plans
 
 # Frequencies on the Helium Network
 
-Helium's LoRaWAN Network is built upon 8-channel gateways. This page will help
-you confirm the appropriate frequencies for gateway configuration for each
-country.
+Helium's LoRaWAN Network is built upon 8-channel gateways. This page will help you confirm the
+appropriate frequencies for gateway configuration for each country.
 
 Feel free to use
 [our packet forwarder configuration examples](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder)
@@ -16,9 +15,8 @@ here.
 
 :::warning
 
-LoRa gateways on the Helium Network must transmit on uplink frequencies. Some
-gateways limit their transmit range to downlink frequencies and special
-configuration may be necessary.
+LoRa gateways on the Helium Network must transmit on uplink frequencies. Some gateways limit their
+transmit range to downlink frequencies and special configuration may be necessary.
 
 :::
 
@@ -30,31 +28,31 @@ Also known as **US902-928**
 
 #### Uplink
 
-| Frequency (MHZ) | Spreading Factor      |
-| :-------------- | :-------------------- |
-| 903.9           | SF7BW125 to SF10BW125 |
-| 904.1           | SF7BW125 to SF10BW125 |
-| 904.3           | SF7BW125 to SF10BW125 |
-| 904.5           | SF7BW125 to SF10BW125 |
-| 904.7           | SF7BW125 to SF10BW125 |
-| 904.9           | SF7BW125 to SF10BW125 |
-| 905.1           | SF7BW125 to SF10BW125 |
-| 905.3           | SF7BW125 to SF10BW125 |
-| 904.6           | SF8BW500              |
+| Channel Number | Frequency (MHZ) | Spreading Factor      |
+| :------------- | :-------------- | :-------------------- |
+| 8              | 903.9           | SF7BW125 to SF10BW125 |
+| 9              | 904.1           | SF7BW125 to SF10BW125 |
+| 10             | 904.3           | SF7BW125 to SF10BW125 |
+| 11             | 904.5           | SF7BW125 to SF10BW125 |
+| 12             | 904.7           | SF7BW125 to SF10BW125 |
+| 13             | 904.9           | SF7BW125 to SF10BW125 |
+| 14             | 905.1           | SF7BW125 to SF10BW125 |
+| 15             | 905.3           | SF7BW125 to SF10BW125 |
+| 65             | 904.6           | SF8BW500              |
 
 #### Downlink
 
-| Frequency (MHZ) | Spreading Factor            |
-| :-------------- | :-------------------------- |
-| 923.3           | SF7BW500 to SF12BW500 (RX1) |
-| 923.9           | SF7BW500 to SF12BW500 (RX1) |
-| 924.5           | SF7BW500 to SF12BW500 (RX1) |
-| 925.1           | SF7BW500 to SF12BW500 (RX1) |
-| 925.7           | SF7BW500 to SF12BW500 (RX1) |
-| 926.3           | SF7BW500 to SF12BW500 (RX1) |
-| 926.9           | SF7BW500 to SF12BW500 (RX1) |
-| 927.5           | SF7BW500 to SF12BW500 (RX1) |
-| 923.3           | SF12BW500 (RX2)             |
+| Channel Number | Frequency (MHZ) | Spreading Factor            |
+| :------------- | :-------------- | :-------------------------- |
+| 0              | 923.3           | SF7BW500 to SF12BW500 (RX1) |
+| 1              | 923.9           | SF7BW500 to SF12BW500 (RX1) |
+| 2              | 924.5           | SF7BW500 to SF12BW500 (RX1) |
+| 3              | 925.1           | SF7BW500 to SF12BW500 (RX1) |
+| 4              | 925.7           | SF7BW500 to SF12BW500 (RX1) |
+| 5              | 926.3           | SF7BW500 to SF12BW500 (RX1) |
+| 6              | 926.9           | SF7BW500 to SF12BW500 (RX1) |
+| 7              | 927.5           | SF7BW500 to SF12BW500 (RX1) |
+| 0              | 923.3           | SF12BW500 (RX2)             |
 
 ### EU868
 
@@ -75,7 +73,7 @@ Also known as **US902-928**
 #### Downlink
 
 - Uplink channels 1-9 (RX1)
-- We use the default parameters: 869.525 MHz / DR0 (SF12, 125 kHz) 
+- Helium uses the default parameters: 869.525 MHz / DR0 (SF12, 125 kHz)
 
 ### CN470
 
@@ -136,365 +134,392 @@ Also known as **US902-928**
 | 927.5           | SF7BW500 to SF12BW500 (RX1) |
 | 923.3           | SF12BW500 (RX2)             |
 
-
-
 ## Frequency Plans by Country
 
-Where a frequency plan is "Unknown" it means that non of the above Frequency Plans has been known to be assigned by the local telecommnications or radio authority in that country for use by LoraWAN. People in those countries are enouraged to contact the DeWi LoRaWAN Committee via #dewi in the Helium Discord, to help initiate the LoraWAN Alliance define a frequency plan for use in your country.
+Where a frequency plan is "Unknown", none of the above Frequency Plans have been known to
+be assigned by the local telecommnications or radio authority in that country for use by LoRaWAN.
+People in those countries are enouraged to contact the Helium Foundation LoRaWAN Committee via
+`#foundation` in the Helium Community Discord to help call to action the LoRaWAN Alliance to define a
+frequency plan for use in your country.
 
 #### A <a id="a"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Afghanistan                                 |Unknown       |
-|Aland Islands                               |EU868         |
-|Albania                                     |EU868         |
-|Algeria                                     |AS923_3       |
-|American Samoa                              |US915         |
-|Andorra                                     |EU868         |
-|Angola                                      |Unknown       |
-|Anguilla                                    |AU915         |
-|Antarctica - Chilean                        |AU915         |
-|Antarctica - Australian                     |AU915         |
-|Antarctica - British                        |EU868         |
-|Antarctica - Argentine                      |AU915         |
-|Antigua and Barbuda                         |Unknown       |
-|Argentina                                   |AU915         |
-|Armenia                                     |EU868         |
-|Aruba                                       |Unknown       |
-|Australia                                   |AU915         |
-|Austria                                     |EU868         |
-|Azerbaijan                                  |EU433         |
+
+| Country                 | Frequency Plan |
+| ----------------------- | -------------- |
+| Afghanistan             | Unknown        |
+| Aland Islands           | EU868          |
+| Albania                 | EU868          |
+| Algeria                 | AS923_3        |
+| American Samoa          | US915          |
+| Andorra                 | EU868          |
+| Angola                  | Unknown        |
+| Anguilla                | AU915          |
+| Antarctica - Chilean    | AU915          |
+| Antarctica - Australian | AU915          |
+| Antarctica - British    | EU868          |
+| Antarctica - Argentine  | AU915          |
+| Antigua and Barbuda     | Unknown        |
+| Argentina               | AU915          |
+| Armenia                 | EU868          |
+| Aruba                   | Unknown        |
+| Australia               | AS923/AU915 dualplan         |
+| Austria                 | EU868          |
+| Azerbaijan              | EU433          |
 
 #### B <a id="b"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Bahamas                                     |US915         |
-|Bahrain                                     |EU868         |
-|Bangladesh                                  |AS923_1       |
-|Barbados                                    |AU915         |
-|Belarus                                     |EU868         |
-|Belgium                                     |EU868         |
-|Belize                                      |AU915         |
-|Benin                                       |EU868         |
-|Bermuda                                     |US915         |
-|Bhutan                                      |EU868         |
-|Bolivia                                     |AU915         |
-|Bonaire Sint Eustatius and Saba             |EU868         |
-|Bosnia and Herzegovina                      |EU868         |
-|Botswana                                    |EU868         |
-|Bouvet Island                               |EU868         |
-|Brazil                                      |AU915         |
-|British Indian Ocean Territory              |Unknown       |
-|British Virgin Islands                      |AU915         |
-|Brunei                                      |AS923_1       |
-|Bulgaria                                    |EU868         |
-|Burkina Faso                                |Unknown       |
-|Burundi                                     |EU868         |
+
+| Country                         | Frequency Plan |
+| ------------------------------- | -------------- |
+| Bahamas                         | US915          |
+| Bahrain                         | EU868          |
+| Bangladesh                      | AS923_1        |
+| Barbados                        | AU915          |
+| Belarus                         | EU868          |
+| Belgium                         | EU868          |
+| Belize                          | AU915          |
+| Benin                           | EU868          |
+| Bermuda                         | US915          |
+| Bhutan                          | EU868          |
+| Bolivia                         | AS923_1          |
+| Bonaire Sint Eustatius and Saba | EU868          |
+| Bosnia and Herzegovina          | EU868          |
+| Botswana                        | EU868          |
+| Bouvet Island                   | EU868          |
+| Brazil                          | AU915          |
+| British Indian Ocean Territory  | Unknown        |
+| British Virgin Islands          | AU915          |
+| Brunei                          | AS923_1        |
+| Bulgaria                        | EU868          |
+| Burkina Faso                    | Unknown        |
+| Burundi                         | EU868          |
 
 #### C <a id="c"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Cambodia                                    |AS923_1       |
-|Cameroon                                    |EU433         |
-|Canada                                      |US915         |
-|Cape Verde                                  |EU868         |
-|Cayman Islands                              |US915         |
-|Central African Republic                    |Unknown       |
-|Chad                                        |Unknown       |
-|Chile                                       |AU915         |
-|China                                       |CN470         |
-|Christmas Island                            |AU915         |
-|Cocos [Keeling] Islands                     |AU915         |
-|Colombia                                    |AU915         |
-|Comoros                                     |EU868         |
-|Congo [DRC]                                 |Unknown       |
-|Congo [Republic]                            |Unknown       |
-|Cook Islands                                |AU915         |
-|Costa Rica                                  |AS923_1       |
-|Côte d'Ivoire                               |EU868         |
-|Croatia                                     |EU868         |
-|Cuba                                        |AS923_3       |
-|Curaçao                                     |AS923_1       |
-|Cyprus                                      |EU868         |
-|Czech Republic                              |EU868         |
+
+| Country                  | Frequency Plan |
+| ------------------------ | -------------- |
+| Cambodia                 | AS923_1        |
+| Cameroon                 | EU433          |
+| Canada                   | US915          |
+| Cape Verde               | EU868          |
+| Cayman Islands           | US915          |
+| Central African Republic | Unknown        |
+| Chad                     | Unknown        |
+| Chile                    | AU915          |
+| China                    | CN470          |
+| Christmas Island         | AU915          |
+| Cocos [Keeling] Islands  | AU915          |
+| Colombia                 | AU915          |
+| Comoros                  | EU868          |
+| Congo [DRC]              | Unknown        |
+| Congo [Republic]         | Unknown        |
+| Cook Islands             | AU915          |
+| Costa Rica               | AS923_1        |
+| Côte d'Ivoire            | EU868          |
+| Croatia                  | EU868          |
+| Cuba                     | AS923_3        |
+| Curaçao                  | AS923_1        |
+| Cyprus                   | EU868          |
+| Czech Republic           | EU868          |
 
 #### D <a id="d"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Denmark                                     |EU868         |
-|Djibouti                                    |Unknown       |
-|Dominica                                    |AU915         |
-|Dominican Republic                          |AU915         |
+
+| Country            | Frequency Plan |
+| ------------------ | -------------- |
+| Denmark            | EU868          |
+| Djibouti           | Unknown        |
+| Dominica           | AU915          |
+| Dominican Republic | AU915          |
 
 #### E <a id="e"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Ecuador                                     |AU915         |
-|Egypt                                       |EU868         |
-|El Salvador                                 |AU915         |
-|Equatorial Guinea                           |EU868         |
-|Eritrea                                     |Unknown       |
-|Estonia                                     |EU868         |
-|Eswatini [Swaziland]                        |Unknown       |
-|Ethiopia                                    |Unknown       |
+
+| Country              | Frequency Plan |
+| -------------------- | -------------- |
+| Ecuador              | AU915          |
+| Egypt                | EU868          |
+| El Salvador          | AU915          |
+| Equatorial Guinea    | EU868          |
+| Eritrea              | Unknown        |
+| Estonia              | EU868          |
+| Eswatini [Swaziland] | Unknown        |
+| Ethiopia             | Unknown        |
 
 #### F <a id="f"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Falkland Islands [Islas Malvinas]           |EU868         |
-|Faroe Islands                               |EU868         |
-|Fiji                                        |Unknown       |
-|Finland                                     |EU868         |
-|France                                      |EU868         |
-|French Guiana                               |EU868         |
-|French Polynesia                            |EU868         |
-|French Southern Territories                 |EU868         |
+
+| Country                           | Frequency Plan |
+| --------------------------------- | -------------- |
+| Falkland Islands [Islas Malvinas] | EU868          |
+| Faroe Islands                     | EU868          |
+| Fiji                              | Unknown        |
+| Finland                           | EU868          |
+| France                            | EU868          |
+| French Guiana                     | EU868          |
+| French Polynesia                  | EU868          |
+| French Southern Territories       | EU868          |
 
 #### G <a id="g"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Gabon                                       |Unknown       |
-|Gambia                                      |EU433         |
-|Gaza Strip                                  |Unknown       |
-|Georgia                                     |EU868         |
-|Germany                                     |EU868         |
-|Ghana                                       |EU433         |
-|Gibraltar                                   |EU868         |
-|Greece                                      |EU868         |
-|Greenland                                   |EU868         |
-|Grenada                                     |AU915         |
-|Guadeloupe                                  |EU868         |
-|Guam                                        |US915         |
-|Guatemala                                   |AU915         |
-|Guernsey                                    |EU868         |
-|Guinea                                      |EU433         |
-|Guinea-Bissau                               |Unknown       |
-|Guyana                                      |US915         |
+
+| Country       | Frequency Plan |
+| ------------- | -------------- |
+| Gabon         | Unknown        |
+| Gambia        | EU433          |
+| Gaza Strip    | Unknown        |
+| Georgia       | EU868          |
+| Germany       | EU868          |
+| Ghana         | EU433          |
+| Gibraltar     | EU868          |
+| Greece        | EU868          |
+| Greenland     | EU868          |
+| Grenada       | AU915          |
+| Guadeloupe    | EU868          |
+| Guam          | US915          |
+| Guatemala     | AU915          |
+| Guernsey      | EU868          |
+| Guinea        | EU433          |
+| Guinea-Bissau | Unknown        |
+| Guyana        | US915          |
 
 #### H <a id="h"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Haiti                                       |Unknown       |
-|Heard Island and McDonald Islands           |AU915         |
-|Honduras                                    |AU915         |
-|Hong Kong                                   |AS923_1       |
-|Hungary                                     |EU868         |
+
+| Country                           | Frequency Plan |
+| --------------------------------- | -------------- |
+| Haiti                             | Unknown        |
+| Heard Island and McDonald Islands | AU915          |
+| Honduras                          | AU915          |
+| Hong Kong                         | AS923_1        |
+| Hungary                           | EU868          |
 
 #### I <a id="i"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Iceland                                     |EU868         |
-|India                                       |IN865         |
-|Indonesia                                   |AS923_2       |
-|Iran                                        |EU868         |
-|Iraq                                        |Unknown       |
-|Ireland                                     |EU868         |
-|Isle of Man                                 |EU868         |
-|Israel                                      |AS923_4       |
-|Italy                                       |EU868         |
+
+| Country     | Frequency Plan |
+| ----------- | -------------- |
+| Iceland     | EU868          |
+| India       | IN865          |
+| Indonesia   | AS923_2        |
+| Iran        | EU868          |
+| Iraq        | Unknown        |
+| Ireland     | EU868          |
+| Isle of Man | EU868          |
+| Israel      | AS923_4        |
+| Italy       | EU868          |
 
 #### J <a id="j"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Jamaica                                     |AU915         |
-|Japan                                       |AS923_1       |
-|Jersey                                      |EU868         |
-|Jordan                                      |IN865         |
+
+| Country | Frequency Plan |
+| ------- | -------------- |
+| Jamaica | AU915          |
+| Japan   | AS923_1        |
+| Jersey  | EU868          |
+| Jordan  | IN865          |
 
 #### K <a id="k"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Kazakhstan                                  |EU433         |
-|Kenya                                       |EU868         |
-|Kiribati                                    |Unknown       |
-|Kosovo                                      |EU868         |
-|Kuwait                                      |EU868         |
-|Kyrgyzstan                                  |Unknown       |
+
+| Country    | Frequency Plan |
+| ---------- | -------------- |
+| Kazakhstan | IN865          |
+| Kenya      | EU868          |
+| Kiribati   | Unknown        |
+| Kosovo     | EU868          |
+| Kuwait     | EU868          |
+| Kyrgyzstan | Unknown        |
 
 #### L <a id="l"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Laos                                        |AS923_1       |
-|Latvia                                      |EU868         |
-|Lebanon                                     |EU868         |
-|Lesotho                                     |EU433         |
-|Liberia                                     |Unknown       |
-|Libya                                       |Unknown       |
-|Liechtenstein                               |EU868         |
-|Lithuania                                   |EU868         |
-|Luxembourg                                  |EU868         |
+
+| Country       | Frequency Plan |
+| ------------- | -------------- |
+| Laos          | AS923_1        |
+| Latvia        | EU868          |
+| Lebanon       | EU868          |
+| Lesotho       | EU433          |
+| Liberia       | Unknown        |
+| Libya         | Unknown        |
+| Liechtenstein | EU868          |
+| Lithuania     | EU868          |
+| Luxembourg    | EU868          |
 
 #### M <a id="m"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Macau                                       |AS923_1       |
-|North Macedonia                             |EU868         |
-|Madagascar                                  |EU868         |
-|Malawi                                      |Unknown       |
-|Malaysia                                    |AS923_1       |
-|Maldives                                    |Unknown       |
-|Mali                                        |EU433         |
-|Malta                                       |EU868         |
-|Marshall Islands                            |Unknown       |
-|Martinique                                  |EU868         |
-|Mauritania                                  |EU868         |
-|Mauritius                                   |EU433         |
-|Mayotte                                     |EU868         |
-|Mexico                                      |US915         |
-|Micronesia                                  |Unknown       |
-|Moldova                                     |EU868         |
-|Monaco                                      |EU868         |
-|Mongolia                                    |Unknown       |
-|Montenegro                                  |EU868         |
-|Montserrat                                  |AU915         |
-|Morocco                                     |EU433         |
-|Mozambique                                  |Unknown       |
-|Myanmar [Burma]                             |AS923_1       |
+
+| Country          | Frequency Plan |
+| ---------------- | -------------- |
+| Macau            | AS923_1        |
+| North Macedonia  | EU868          |
+| Madagascar       | EU868          |
+| Malawi           | Unknown        |
+| Malaysia         | AS923_1B       |
+| Maldives         | Unknown        |
+| Mali             | EU433          |
+| Malta            | EU868          |
+| Marshall Islands | Unknown        |
+| Martinique       | EU868          |
+| Mauritania       | EU868          |
+| Mauritius        | EU433          |
+| Mayotte          | EU868          |
+| Mexico           | US915          |
+| Micronesia       | Unknown        |
+| Moldova          | EU868          |
+| Monaco           | EU868          |
+| Mongolia         | Unknown        |
+| Montenegro       | EU868          |
+| Montserrat       | AU915          |
+| Morocco          | EU433          |
+| Mozambique       | Unknown        |
+| Myanmar [Burma]  | AS923_1        |
 
 #### N <a id="n"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Namibia                                     |EU868         |
-|Nauru                                       |Unknown       |
-|Nepal                                       |Unknown       |
-|Netherlands                                 |EU868         |
-|Netherlands Antilles                        |EU868         |
-|New Caledonia                               |EU868         |
-|New Zealand                                 |AU915         |
-|Nicaragua                                   |AU915         |
-|Niger                                       |IN865         |
-|Nigeria                                     |EU868         |
-|Niue                                        |AU915         |
-|Norfolk Island                              |AU915         |
-|North Korea                                 |Unknown       |
-|Northern Mariana Islands                    |US915         |
-|Norway                                      |EU868         |
+
+| Country                  | Frequency Plan |
+| ------------------------ | -------------- |
+| Namibia                  | EU868          |
+| Nauru                    | Unknown        |
+| Nepal                    | Unknown        |
+| Netherlands              | EU868          |
+| Netherlands Antilles     | EU868          |
+| New Caledonia            | EU868          |
+| New Zealand              | AU915          |
+| Nicaragua                | AU915          |
+| Niger                    | IN865          |
+| Nigeria                  | EU868          |
+| Niue                     | AU915          |
+| Norfolk Island           | AU915          |
+| North Korea              | Unknown        |
+| Northern Mariana Islands | US915          |
+| Norway                   | EU868          |
 
 #### O <a id="o"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Oman                                        |EU868         |
+
+| Country | Frequency Plan |
+| ------- | -------------- |
+| Oman    | EU868          |
 
 #### P <a id="p"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Pakistan                                    |IN865         |
-|Palau                                       |Unknown       |
-|Palestinian Territories                     |Unknown       |
-|Panama                                      |AU915         |
-|Papua New Guinea                            |AU915         |
-|Paraguay                                    |AU915         |
-|Peru                                        |AU915         |
-|Philippines                                 |AS923_3       |
-|Pitcairn Islands                            |Unknown       |
-|Poland                                      |EU868         |
-|Portugal                                    |EU868         |
-|Puerto Rico                                 |US915         |
+
+| Country                 | Frequency Plan |
+| ----------------------- | -------------- |
+| Pakistan                | AS923          |
+| Palau                   | Unknown        |
+| Palestinian Territories | Unknown        |
+| Panama                  | AU915          |
+| Papua New Guinea        | AU915          |
+| Paraguay                | AU915          |
+| Peru                    | AU915          |
+| Philippines             | AS923_3        |
+| Pitcairn Islands        | Unknown        |
+| Poland                  | EU868          |
+| Portugal                | EU868          |
+| Puerto Rico             | US915          |
 
 #### Q <a id="q"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Qatar                                       |EU868         |
+
+| Country | Frequency Plan |
+| ------- | -------------- |
+| Qatar   | EU868          |
 
 #### R <a id="r"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Réunion                                     |EU868         |
-|Romania                                     |EU868         |
-|Russia                                      |RU864         |
-|Rwanda                                      |EU868         |
+
+| Country | Frequency Plan |
+| ------- | -------------- |
+| Réunion | EU868          |
+| Romania | EU868          |
+| Russia  | RU864          |
+| Rwanda  | EU868          |
 
 #### S <a id="s"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Sahrawi Arab Democratic Republic            |Unknown       |
-|Saint Barthelemy                            |EU868         |
-|Saint Helena                                |Unknown       |
-|Saint Kitts and Nevis                       |AU915         |
-|Saint Lucia                                 |AU915         |
-|Saint Martin                                |EU868         |
-|Saint Pierre and Miquelon                   |EU868         |
-|Saint Vincent and the Grenadines            |AU915         |
-|Samoa                                       |EU868         |
-|San Marino                                  |EU868         |
-|São Tomé and Príncipe                       |Unknown       |
-|Saudi Arabia                                |EU868         |
-|Senegal                                     |EU868         |
-|Serbia                                      |EU868         |
-|Seychelles                                  |EU433         |
-|Sierra Leone                                |Unknown       |
-|Singapore                                   |AS923_1       |
-|Slovakia                                    |EU868         |
-|Slovenia                                    |EU868         |
-|Solomon Islands                             |AS923_1       |
-|Somalia                                     |EU868         |
-|South Africa                                |EU868         |
-|South Georgia and the South Sandwich Islands|EU868         |
-|South Korea                                 |KR920         |
-|South Sudan                                 |Unknown       |
-|Spain                                       |EU868         |
-|Sri Lanka                                   |AS923_1       |
-|Sudan                                       |Unknown       |
-|Suriname                                    |AU915         |
-|Svalbard and Jan Mayen                      |EU868         |
-|Swaziland see Eswatini                      |-             |
-|Sweden                                      |EU868         |
-|Switzerland                                 |EU868         |
-|Syria                                       |EU868         |
+
+| Country                                      | Frequency Plan |
+| -------------------------------------------- | -------------- |
+| Sahrawi Arab Democratic Republic             | Unknown        |
+| Saint Barthelemy                             | EU868          |
+| Saint Helena                                 | Unknown        |
+| Saint Kitts and Nevis                        | AU915          |
+| Saint Lucia                                  | AU915          |
+| Saint Martin                                 | EU868          |
+| Saint Pierre and Miquelon                    | EU868          |
+| Saint Vincent and the Grenadines             | AU915          |
+| Samoa                                        | EU868          |
+| San Marino                                   | EU868          |
+| São Tomé and Príncipe                        | Unknown        |
+| Saudi Arabia                                 | EU868          |
+| Senegal                                      | EU868          |
+| Serbia                                       | EU868          |
+| Seychelles                                   | EU433          |
+| Sierra Leone                                 | Unknown        |
+| Singapore                                    | AS923_1        |
+| Slovakia                                     | EU868          |
+| Slovenia                                     | EU868          |
+| Solomon Islands                              | AS923_1        |
+| Somalia                                      | EU868          |
+| South Africa                                 | EU868          |
+| South Georgia and the South Sandwich Islands | EU868          |
+| South Korea                                  | KR920          |
+| South Sudan                                  | Unknown        |
+| Spain                                        | EU868          |
+| Sri Lanka                                    | AS923_1        |
+| Sudan                                        | Unknown        |
+| Suriname                                     | AU915          |
+| Svalbard and Jan Mayen                       | EU868          |
+| Swaziland see Eswatini                       | -              |
+| Sweden                                       | EU868          |
+| Switzerland                                  | EU868          |
+| Syria                                        | EU868          |
 
 #### T <a id="t"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Taiwan                                      |AS923_1       |
-|Tajikistan                                  |Unknown       |
-|Tanzania                                    |AS923_1       |
-|Thailand                                    |AS923_1       |
-|Timor-Leste                                 |Unknown       |
-|Togo                                        |EU433         |
-|Tokelau                                     |AU915         |
-|Tonga                                       |AU915         |
-|Trinidad and Tobago                         |AU915         |
-|Tunisia                                     |EU868         |
-|Turkey                                      |EU868         |
-|Turkmenistan                                |Unknown       |
-|Turks and Caicos Islands                    |AU915         |
-|Tuvalu                                      |Unknown       |
+
+| Country                  | Frequency Plan |
+| ------------------------ | -------------- |
+| Taiwan                   | AS923_1        |
+| Tajikistan               | Unknown        |
+| Tanzania                 | AS923_1        |
+| Thailand                 | AS923_1        |
+| Timor-Leste              | Unknown        |
+| Togo                     | EU433          |
+| Tokelau                  | AU915          |
+| Tonga                    | AU915          |
+| Trinidad and Tobago      | AU915          |
+| Tunisia                  | EU868          |
+| Turkey                   | EU868          |
+| Turkmenistan             | Unknown        |
+| Turks and Caicos Islands | AU915          |
+| Tuvalu                   | Unknown        |
 
 #### U <a id="u"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|U.S. Minor Outlying Islands                 |US915         |
-|U.S. Virgin Islands                         |US915         |
-|Uganda                                      |AS923-1       |
-|Ukraine                                     |EU868         |
-|United Arab Emirates                        |EU868         |
-|United Kingdom                              |EU868         |
-|United States                               |US915         |
-|Uruguay                                     |AU915         |
-|Uzbekistan                                  |EU433         |
+
+| Country                     | Frequency Plan |
+| --------------------------- | -------------- |
+| U.S. Minor Outlying Islands | US915          |
+| U.S. Virgin Islands         | US915          |
+| Uganda                      | AS923-1        |
+| Ukraine                     | EU868          |
+| United Arab Emirates        | EU868          |
+| United Kingdom              | EU868          |
+| United States               | US915          |
+| Uruguay                     | AU915          |
+| Uzbekistan                  | EU433          |
 
 #### V <a id="v"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Vanuatu                                     |AS923_3       |
-|Vatican City (Holy See)                     |EU868         |
-|Venezuela                                   |AS923_1       |
-|Vietnam                                     |AS923_2       |
-|Virgin Islands (UK)                         |AU915         |
+
+| Country                 | Frequency Plan |
+| ----------------------- | -------------- |
+| Vanuatu                 | AS923_3        |
+| Vatican City (Holy See) | EU868          |
+| Venezuela               | AS923_1        |
+| Vietnam                 | AS923_2        |
+| Virgin Islands (UK)     | AU915          |
 
 #### W <a id="w"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Wallis and Futuna                           |EU868         |
-|Western Sahara                              |Unknown       |
+
+| Country           | Frequency Plan |
+| ----------------- | -------------- |
+| Wallis and Futuna | EU868          |
+| Western Sahara    | Unknown        |
 
 #### Y <a id="y"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Yemen                                       |Unknown       |
+
+| Country | Frequency Plan |
+| ------- | -------------- |
+| Yemen   | Unknown        |
 
 #### Z <a id="z"></a>
-|Country                                     |Frequency Plan|
-|--------------------------------------------|--------------|
-|Zambia                                      |EU868         |
-|Zimbabwe                                    |EU433         |
+
+| Country  | Frequency Plan |
+| -------- | -------------- |
+| Zambia   | EU868          |
+| Zimbabwe | EU868          |

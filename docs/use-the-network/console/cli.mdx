@@ -6,37 +6,35 @@ slug: /use-the-network/console/cli
 
 # Console CLI
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Introduction
 
-The Command Line Interface \(CLI\) allows you to interact with the Console API
-without making HTTP Requests, but instead via a command line prompt. It's ideal
-for mass provisioning or for integrating onto a production line.
+The Command Line Interface \(CLI\) allows you to interact with the Console API without making HTTP
+Requests, but instead via a command line prompt. It's ideal for mass provisioning or for integrating
+onto a production line.
 
-In addition, it has certain high-level features for account setup like importing
-devices from other network providers.
+In addition, it has certain high-level features for account setup like importing devices from other
+network providers.
 
 ## Installation
 
-Download a compiled release
-[here](https://github.com/helium/helium-console-cli/releases) for your
+Download a compiled release [here](https://github.com/helium/helium-console-cli/releases) for your
 appropriate platform.
 
 ## API Key
 
-You must activate [an API key](api#api-key) before using the CLI.
+You must activate a [Console API key](./my-account#console-api-keys) before using the CLI.
 
-The first time you run the CLI, it will prompt you for this key. It will save
-the key in a local file: `.helium-console-config.toml`
+The first time you run the CLI, it will prompt you for this key. It will save the key in a local
+file: `.helium-console-config.toml`
 
 ## Usage
 
 ### Features
 
-You can view the most current commands, features, and documentation by accessing
-the help menus. For example: `helium-console-cli --help` or
-`helium-console-cli device --help`.
+You can view the most current commands, features, and documentation by accessing the help menus. For
+example: `helium-console-cli --help` or `helium-console-cli device --help`.
 
 Current high level features are:
 
@@ -70,8 +68,7 @@ Device {
 }
 ```
 
-You can view this device again by either \(app_eui, app_key, dev_eui\) or by
-id/uuid. For example:
+You can view this device again by either \(app_eui, app_key, dev_eui\) or by id/uuid. For example:
 
 ```text
 helium-console-cli device get 000A000100000046 CB67C92DD5898D07872224202DED7E76 DEADBEEF23F23454
@@ -127,20 +124,19 @@ To start an import session, use the ttn import command:
 helium-console-cli ttn import
 ```
 
-You will be prompted for a ttnctl access code, which you can generate by
-clicking on `ttnctl access code` [here](https://account.thethingsnetwork.org/).
-This single-use access code is valid for 5 minutes. During this time the CLI may
-use the code to request an OAuth2 token; it expires after 60 minutes.
+You will be prompted for a ttnctl access code, which you can generate by clicking on
+`ttnctl access code` [here](https://account.thethingsnetwork.org/). This single-use access code is
+valid for 5 minutes. During this time the CLI may use the code to request an OAuth2 token; it
+expires after 60 minutes.
 
 The CLI's prompts will help you:
 
-- select to import from a single application or all applications \(maximum 10,
-  otherwise the OAuth2 token is "used up"\)
-- you may import all the devices at once or you may approve device import one by
-  one.
-- you may use the TTN App ID as an automatic label for every device or you may
-  approve device labelling one by one
+- select to import from a single application or all applications \(maximum 10, otherwise the OAuth2
+  token is "used up"\)
+- you may import all the devices at once or you may approve device import one by one.
+- you may use the TTN App ID as an automatic label for every device or you may approve device
+  labelling one by one
 
-The import process tolerates attempts to re-import or re-label the same device.
-As such, you may re-run the script to label devices with the TTN App ID even if
-you already imported the devices during a previous session.
+The import process tolerates attempts to re-import or re-label the same device. As such, you may
+re-run the script to label devices with the TTN App ID even if you already imported the devices
+during a previous session.

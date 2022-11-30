@@ -5,47 +5,54 @@ sidebar_label: Introduction
 slug: /lorawan-on-helium
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<img className="docsheader" src={useBaseUrl("img/lorawan-on-helium/lorawanheader.png")} />
+<img className="docsheader" src={useBaseUrl('img/lorawan-on-helium/lorawanheader.png')} />
 
 # LoRaWAN On Helium
 
-The LoRaWAN Network on Helium is **compatible with all LoRaWAN devices**.
-However, Helium distinguishes itself in how it treats the LoRaWAN Network Server
-(LNS).
+The LoRaWAN Network on Helium is **compatible with LoRaWAN class A devices**. However, Helium
+distinguishes itself in how it treats the LoRaWAN Network Server (LNS).
 
-In typical LoRaWAN Networks, a central or regional LNS is managed by a single
-entity. Helium’s design for a decentralized network, however, means not only do
-we want gateways (or what we sometimes call Hotspots) to be independently owned
-and operated, but we want to enable the independent operation of the LNS.
-Without this, access to the network would require permission from a single
-central entity, the LNS operator of the network.
+In typical LoRaWAN Networks, a central or regional LNS is managed by a single entity. Helium’s
+design for a decentralized network, however, means not only do we want gateways (referred to as
+Hotspots) to be independently owned and operated, but we want to enable the independent operation of
+the LNS.
 
-Therefore, we want to enable the _multi-tenancy_ of LNS’s on the same Public
-LoRaWAN Network. Achieving this distinguishes Helium’s LoRaWAN Network from any
-other: public wireless infrastructure is now compatible with privately-run
-network servers.
+Without this, access to the network would require permission from a single central entity, the LNS
+operator of the network.
 
-The rest of this article will discuss the networking primitives. If you want to
-go ahead and run a network server, please checkout our article about [running
-a network server](/use-the-network/run-a-network-server).
+Therefore, we want to enable the _multi-tenancy_ of LNS’s on the same Public LoRaWAN Network.
+Achieving this distinguishes Helium’s LoRaWAN Network from any other: public wireless infrastructure
+is now compatible with privately-run network servers.
+
+The rest of this article will discuss the networking primitives. If you want to go ahead and run a
+network server, please checkout our article about
+[running a network server](/use-the-network/run-a-network-server).
 
 ## The OUI
 
-Each LoRaWAN Network Server (LNS) on the Helium Network acquires an
-Organizationally Unique Identifier (OUI). This registers the LNS with the
-blockchain and allocates two very important routing objects owned and maintained
-by the OUI operator:
+Each LoRaWAN Network Server (LNS) on the Helium Network acquires an Organizationally Unique
+Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
+routing objects owned and maintained by the OUI operator:
 
-- up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the
-  LNS
-- one or more **slabs** of DevAddrs, reserving NwkAddr space for the OUI's
-  devices on the Helium Network
+- up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the LNS
+- one or more **slabs** of DevAddrs, reserving NwkAddr space for the OUI's devices on the Helium
+  Network
 
-A device defined by (AppEui, DevEui) can be allocated any of the DevAddrs owned
-by the OUI. It is even possible to multiplex many devices on the same DevAddr
-at the same time, using the Message Integrity Check (MIC) to disambiguate.
+A device defined by (AppEui, DevEui) can be allocated any of the DevAddrs owned by the OUI. It is
+even possible to multiplex many devices on the same DevAddr at the same time, using the Message
+Integrity Check (MIC) to disambiguate.
+
+:::info
+
+Based on latest benchmarking tests the upper limit for a Devaddr `1024` slab is approximately 5800
+devices, but results still need to be replicated and bracketed. Community members are encouraged to
+run their own benchmarking tests. Instructions
+[here](https://docs.helium.com/use-the-network/run-a-network-server/router-benchmarking). Requires
+basic familiarity with Linux and Bash command-line.
+
+:::
 
 ### Join Request Frames and Filters
 
@@ -59,17 +66,15 @@ A Join Request frame has the following unencrypted header:
 +---------------------------------------------------------+
 ```
 
-From the gateways perspective, the (AppEUI, DevEUI) may be used to figure out if
-one or more OUI's are interested in the Join Request.
+From the gateways perspective, the (AppEUI, DevEUI) may be used to figure out if one or more OUI's
+are interested in the Join Request.
 
-This is done by querying every filter maintained and written to the blockchain
-by every OUI. The filters themselves are _xorhash_ tables, thus the AppEui and
-DevEui cannot be extracted. Only with the AppEui and DevEui in-hand can the
-gateway run it through the table and to see if it's there.
+This is done by querying every filter maintained and written to the blockchain by every OUI. The
+filters themselves are _xorhash_ tables, thus the AppEui and DevEui cannot be extracted. Only with
+the AppEui and DevEui in-hand can the gateway run it through the table and to see if it's there.
 
-In response to the Join Request, a Join Accept is sent down, assigning the
-NwkAddr. Due to the multi-tenancy on the Helium Network, the LNS may only assign
-NwkAddrs within its DevAddr slab(s).
+In response to the Join Request, a Join Accept is sent down, assigning the NwkAddr. Due to the
+multi-tenancy on the Helium Network, the LNS may only assign NwkAddrs within its DevAddr slab(s).
 
 ### Data Frames and DevAddr Slabs
 
@@ -91,14 +96,11 @@ Within DevAddr, there is the NwkAddr of a device:
 +------------------------+-----------------------+
 |   NwkID (bits 31–25)   |  NwkAddr (bits 24–0)  |
 +-----------+--------------------+---------------+
-|     Helium Network     |   allocated by slab   | 
+|     Helium Network     |   allocated by slab   |
 |(‘H’ / 0b1001000 / 0x48)|      to OUIs          |
 +-----------+--------------------+---------------+
 ```
 
-
-From the gateways perspective, it is able to use DevAddr to determine the OUI of
-Data frames. A quick query can say which OUI owns this DevAddr slab. This look-up and routing by DevAddr instead of by \(AppEUI, DevEUI\) via _xorhash_
-filters is generally much quicker.
-
-
+From the gateways perspective, it is able to use DevAddr to determine the OUI of Data frames. A
+quick query can say which OUI owns this DevAddr slab. This look-up and routing by DevAddr instead of
+by \(AppEUI, DevEUI\) via _xorhash_ filters is generally much quicker.

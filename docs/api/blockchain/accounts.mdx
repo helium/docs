@@ -4,8 +4,8 @@ sidebar_label: Accounts
 slug: /api/blockchain/accounts
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Accounts
 
@@ -17,12 +17,11 @@ import TabItem from "@theme/TabItem";
 GET https://api.helium.io/v1/accounts
 ```
 
-Retrieve the current set of known accounts.The result is paged. A `cursor` field
-is present if more results are available.
+Retrieve the current set of known accounts.The result is paged. A `cursor` field is present if more
+results are available.
 
-Note: The cursor for accounts is valid for a limited time. If you receive a
-`400` http response code for a cursor based request, you will need to start
-fetching accounts from the beginning of the list.
+Note: The cursor for accounts is valid for a limited time. If you receive a `400` http response code
+for a cursor based request, you will need to start fetching accounts from the beginning of the list.
 
 <Tabs
   block={true}
@@ -45,53 +44,88 @@ _Query Parameters_
 {
   "data": [
     {
+      "validator_count": 0,
+      "staked_balance": 0,
+      "speculative_sec_nonce": 0,
+      "speculative_nonce": 11,
       "sec_nonce": 0,
       "sec_balance": 0,
-      "nonce": 2,
+      "nonce": 11,
+      "mobile_balance": 0,
+      "iot_balance": 0,
+      "hotspot_count": 0,
       "dc_nonce": 0,
       "dc_balance": 0,
-      "block": 435239,
-      "balance": 0,
+      "block": 1600652,
+      "balance": 97,
       "address": "13etjTqyGLK7WQh8pp9VJy5ejh5MXmwFee2eAi3TfAA5kS1jEJb"
     },
     {
+      "validator_count": 0,
+      "staked_balance": 0,
+      "speculative_sec_nonce": 0,
+      "speculative_nonce": 1,
       "sec_nonce": 0,
       "sec_balance": 0,
       "nonce": 1,
+      "mobile_balance": 0,
+      "iot_balance": 0,
+      "hotspot_count": 0,
       "dc_nonce": 0,
       "dc_balance": 0,
-      "block": 435239,
+      "block": 1600652,
       "balance": 0,
       "address": "14Vshtwv9RMY5GuTe1sgLDJmmF2f46EW3etEJzjDjhKJSEprtHh"
     },
     {
+      "validator_count": 0,
+      "staked_balance": 0,
+      "speculative_sec_nonce": 0,
+      "speculative_nonce": 8,
       "sec_nonce": 0,
       "sec_balance": 0,
-      "nonce": 0,
+      "nonce": 8,
+      "mobile_balance": 0,
+      "iot_balance": 0,
+      "hotspot_count": 1,
       "dc_nonce": 0,
       "dc_balance": 0,
-      "block": 435239,
-      "balance": 404040732,
+      "block": 1600652,
+      "balance": 70074024822,
       "address": "14PaJeSfNp5Q3MtDw5yEsJwb2kHJqbcjjLe9aycjroqNFnL4EyS"
     },
     {
+      "validator_count": 0,
+      "staked_balance": 0,
+      "speculative_sec_nonce": 0,
+      "speculative_nonce": 0,
       "sec_nonce": 0,
       "sec_balance": 0,
       "nonce": 0,
+      "mobile_balance": 0,
+      "iot_balance": 0,
+      "hotspot_count": 1,
       "dc_nonce": 0,
       "dc_balance": 0,
-      "block": 435239,
-      "balance": 1025990703,
+      "block": 1600652,
+      "balance": 35831331399,
       "address": "13rUthiDQUeY9HfwoZFpkqtsbtaubzRyerCsSu1qdDXuVZGL45k"
     },
     {
+      "validator_count": 0,
+      "staked_balance": 0,
+      "speculative_sec_nonce": 0,
+      "speculative_nonce": 2,
       "sec_nonce": 0,
       "sec_balance": 0,
-      "nonce": 0,
+      "nonce": 2,
+      "mobile_balance": 0,
+      "iot_balance": 0,
+      "hotspot_count": 0,
       "dc_nonce": 0,
       "dc_balance": 0,
-      "block": 435239,
-      "balance": 179087000000,
+      "block": 1600653,
+      "balance": 453431287,
       "address": "14Xg1SqiJDsmM2YvchR4UacevcuxjfyrjdyNEpRMmfBU7vrZba9"
     }
   ],
@@ -135,24 +169,38 @@ Result for `/v1/accounts/rich?limit=2`
 {
   "data": [
     {
-      "address": "1398hLeHESZHE5jVtaLAV5fdg2vrUeZEs2B92t7TzeQTtugr8dL",
-      "balance": 616416488712965,
-      "block": 489719,
-      "dc_balance": 0,
+      "validator_count": 310,
+      "staked_balance": 270000000000000,
+      "speculative_sec_nonce": 0,
+      "speculative_nonce": 428,
+      "sec_nonce": 0,
+      "sec_balance": 166205166949,
+      "nonce": 428,
+      "mobile_balance": 1500000000000000000,
+      "iot_balance": 0,
+      "hotspot_count": 0,
       "dc_nonce": 0,
-      "nonce": 3,
-      "sec_balance": 351543978600,
-      "sec_nonce": 0
+      "dc_balance": 0,
+      "block": 1600655,
+      "balance": 209859912321099,
+      "address": "1398hLeHESZHE5jVtaLAV5fdg2vrUeZEs2B92t7TzeQTtugr8dL"
     },
     {
-      "address": "14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz6S",
-      "balance": 292033864604925,
-      "block": 489719,
-      "dc_balance": 0,
-      "dc_nonce": 0,
-      "nonce": 0,
+      "validator_count": 0,
+      "staked_balance": 0,
+      "speculative_sec_nonce": 0,
+      "speculative_nonce": 4,
+      "sec_nonce": 0,
       "sec_balance": 166398670100,
-      "sec_nonce": 0
+      "nonce": 4,
+      "mobile_balance": 0,
+      "iot_balance": 0,
+      "hotspot_count": 0,
+      "dc_nonce": 0,
+      "dc_balance": 0,
+      "block": 1600656,
+      "balance": 83885120803643,
+      "address": "14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz6S"
     }
   ]
 }
@@ -169,15 +217,14 @@ Result for `/v1/accounts/rich?limit=2`
 GET https://api.helium.io/v1/accounts/:address
 ```
 
-Retrieve a specific account record.The account details for a record include
-additional speculative nonces that indicate what the expected nonce for the
-account is for a specific balance. Any transactions affecting the given balance
-type should use an adjusted speculative nonce for that balance type.
+Retrieve a specific account record.The account details for a record include additional speculative
+nonces that indicate what the expected nonce for the account is for a specific balance. Any
+transactions affecting the given balance type should use an adjusted speculative nonce for that
+balance type.
 
-For example, when constructing a payment transaction, get the
-`speculative_nonce` field for the source account and use `speculative_nonce + 1`
-for the new transaction nonce.Currently only the speculative_nonce is supported.
-It indicates the expected nonce for the account
+For example, when constructing a payment transaction, get the `speculative_nonce` field for the
+source account and use `speculative_nonce + 1` for the new transaction nonce.Currently only the
+speculative_nonce is supported. It indicates the expected nonce for the account
 
 <Tabs
   block={true}
@@ -199,15 +246,21 @@ _Path Parameters_
 ```json
 {
   "data": {
-    "address": "1122ZQigQfeeyfSmH2i4KM4XMQHouBqK4LsTp33ppP3W2Knqh8gY",
-    "balance": 0,
-    "block": 311833,
-    "dc_balance": 100000000000000,
-    "dc_nonce": 0,
-    "nonce": 0,
-    "sec_balance": 0,
+    "validator_count": 0,
+    "staked_balance": 0,
+    "speculative_sec_nonce": 0,
+    "speculative_nonce": 1,
     "sec_nonce": 0,
-    "speculative_nonce": 0
+    "sec_balance": 0,
+    "nonce": 1,
+    "mobile_balance": 0,
+    "iot_balance": 0,
+    "hotspot_count": 0,
+    "dc_nonce": 0,
+    "dc_balance": 0,
+    "block": 1600656,
+    "balance": 0,
+    "address": "1122ZQigQfeeyfSmH2i4KM4XMQHouBqK4LsTp33ppP3W2Knqh8gY"
   }
 }
 ```
@@ -223,16 +276,15 @@ _Path Parameters_
 GET https://api.helium.io/v1/accounts/:address/hotspots
 ```
 
-Fetches hotspots owned by a given account address.The list of returned hotspots
-is paged. If a `cursor` field is present more results are available.
+Fetches hotspots owned by a given account address.The list of returned hotspots is paged. If a
+`cursor` field is present more results are available.
 
-The `filter_modes` parameter can be used to filter hotspot by how they were
-added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
-comma separated list (no whitespace) can be used to filter for multiple modes.
+The `filter_modes` parameter can be used to filter hotspot by how they were added to the blockchain.
+Supported values are `full`, `dataonly`, or `light`. A comma separated list (no whitespace) can be
+used to filter for multiple modes.
 
-Note: The cursor for accounts is valid for a limited time. If you receive a
-`400` http response code for a cursor based request, you will need to start
-fetching accounts from the beginning of the list.
+Note: The cursor for accounts is valid for a limited time. If you receive a `400` http response code
+for a cursor based request, you will need to start fetching accounts from the beginning of the list.
 
 <Tabs
   block={true}
@@ -307,8 +359,8 @@ The hotspot list for an account
 GET https://api.helium.io/v1/accounts/:address/validators
 ```
 
-Fetches validators owned by a given account address. The list of returned
-validators is paged. If a `cursor` field is present more results are available.
+Fetches validators owned by a given account address. The list of returned validators is paged. If a
+`cursor` field is present more results are available.
 
 <Tabs
   block={true}
@@ -482,8 +534,8 @@ The validator list for an account
 GET https://api.helium.io/v1/accounts/:address/ouis
 ```
 
-Fetches OUIs owned by a given account address.The list of returned OUIs
-is paged. If a `cursor` field is present more results are available.
+Fetches OUIs owned by a given account address.The list of returned OUIs is paged. If a `cursor`
+field is present more results are available.
 
 <Tabs
   block={true}
@@ -538,21 +590,23 @@ The oui list for account `13tyMLKRFYURNBQqLSqNJg9k41maP1A7Bh8QYxR13oWv7EnFooc`
 ## Activity for Account
 
 :::caution
-The `/activity` route will be deprecated on May 1, 2022 and will be replaced by [`/roles`, described below](#roles-for-account)
+
+The `/activity` route will be deprecated on May 1, 2022 and will be replaced by
+[`/roles`, described below](#roles-for-account)
+
 :::
 
 ```
 GET https://api.helium.io/v1/accounts/:address/activity
 ```
 
-Fetches transactions that indicate activity for an account. This includes any
-transaction that involves the account, usually as a payer, payee or owner.
+Fetches transactions that indicate activity for an account. This includes any transaction that
+involves the account, usually as a payer, payee or owner.
 
-You may optionally add a transaction type filter. For example: 
-`activity?filter_types=rewards_v2` will provide reward transactions only.
+You may optionally add a transaction type filter. For example: `activity?filter_types=rewards_v2`
+will provide reward transactions only.
 
-The results are paged. If a `cursor` field is present in the response, more
-results are available.
+The results are paged. If a `cursor` field is present in the response, more results are available.
 
 <Tabs
   block={true}
@@ -700,11 +754,10 @@ _Query Parameters_
 GET https://api.helium.io/v1/accounts/:address/roles
 ```
 
-Fetches transactions that indicate an account as a participant. This includes any
-transaction that involves the account, usually as a payer, payee or owner.
+Fetches transactions that indicate an account as a participant. This includes any transaction that
+involves the account, usually as a payer, payee or owner.
 
-The results are paged. If a `cursor` field is present in the response, more
-results are available.
+The results are paged. If a `cursor` field is present in the response, more results are available.
 
 <Tabs
   block={true}
@@ -778,12 +831,10 @@ _Query Parameters_
 GET https://api.helium.io/v1/accounts/:address/roles/count
 ```
 
-Count transactions that indicate activity for an account. This includes any
-transaction that involves the account, usually as a payer, payee or
-owner.
+Count transactions that indicate activity for an account. This includes any transaction that
+involves the account, usually as a payer, payee or owner.
 
-The results are a map keyed by the given `filter_types` and the count of
-transaction of that type.
+The results are a map keyed by the given `filter_types` and the count of transaction of that type.
 
 <Tabs
   block={true}
@@ -833,8 +884,7 @@ GET https://api.helium.io/v1/accounts/:address/elections
 
 Fetches elections that hotspots for the given account are elected in.
 
-The results are paged. If a `cursor` field is present in the response, more
-results are available.
+The results are paged. If a `cursor` field is present in the response, more results are available.
 
 <Tabs
   block={true}
@@ -931,11 +981,10 @@ _Query Parameters_
 GET https://api.helium.io/v1/accounts/:address/challenges
 ```
 
-Fetches challenges that hotspots owned by the given account are involved in as a
-challenger, challengee, or witness.
+Fetches challenges that hotspots owned by the given account are involved in as a challenger,
+challengee, or witness.
 
-The results are paged. If a `cursor` field is present in the response, more
-results are available.
+The results are paged. If a `cursor` field is present in the response, more results are available.
 
 <Tabs
   block={true}
@@ -961,6 +1010,13 @@ _Query Parameters_
 <TabItem value="response">
 
 200: OK
+
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/api/blockchain/introduction/#transaction-units)
+
+:::
 
 ```json
 {
@@ -1128,9 +1184,9 @@ _Query Parameters_
 GET https://api.helium.io/v1/accounts/:address/pending_transactions
 ```
 
-Fetches the outstanding transactions for the given account. See Pending
-Transactions for details.The list of returned pending transactions is paged. If
-a `cursor` field is present more results are available.
+Fetches the outstanding transactions for the given account. See Pending Transactions for details.The
+list of returned pending transactions is paged. If a `cursor` field is present more results are
+available.
 
 <Tabs
   block={true}
@@ -1157,28 +1213,39 @@ _Query Parameters_
 
 A single pending transaction for a given account
 
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/api/blockchain/introduction/#transaction-units)
+
+:::
+
 ```json
 {
   "data": [
     {
-      "created_at": "2020-04-30T18:13:17.411141Z",
-      "failed_reason": "",
-      "hash": "IUXgVfnYPlv_Br3Rhng6bKTaLb_AzX9DC3E9NGJhAKs",
-      "status": "pending",
+      "updated_at": "2022-11-04T14:34:28.254881Z",
+      "type": "payment_v2",
       "txn": {
-        "fee": 0,
-        "nonce": 6,
-        "payer": "13C8mAv3M3SUQ1ZgREHsGxabcsHtDCkmkJLp9sGimqfWT4GRf9W",
+        "type": "payment_v2",
         "payments": [
           {
-            "amount": 2,
-            "payee": "13C8mAv3M3SUQ1ZgREHsGxabcsHtDCkmkJLp9sGimqfWT4GRf9W"
+            "token_type": "hnt",
+            "payee": "13PqSH7f5e2sySibkxXiLRvkiYR5cBbCNo5Nf7zZwySzM4n6S5S",
+            "memo": "AAAAAAAAAAA=",
+            "max": false,
+            "amount": 654251727
           }
         ],
-        "signature": "TcB6zhMf6_ImaMyuTbWRd33W-hlzCwxxZtyIeJRQwUTvHN00V1U4Jn7ooyNHjFAoBgvxBDN2VmQ5Fez0OQoICA"
+        "payer": "147UgrcgD8qD5JNpfRvz8FBZW86jZsQdsaX2zFV8GP5aUFiiLpQ",
+        "nonce": 23,
+        "hash": "p7EypW_zdOyU8pJG1k2NWEUW-10FldH7402bigTqfzw",
+        "fee": 35000
       },
-      "type": "payment_v2",
-      "updated_at": "2020-04-30T18:47:19.960477Z"
+      "status": "pending",
+      "hash": "p7EypW_zdOyU8pJG1k2NWEUW-10FldH7402bigTqfzw",
+      "failed_reason": "",
+      "created_at": "2022-11-04T14:33:03.060952Z"
     }
   ]
 }
@@ -1195,22 +1262,22 @@ A single pending transaction for a given account
 GET https://api.helium.io/v1/accounts/:address/rewards
 ```
 
-Returns reward entries by block and gateway for a given account in a timeframe.
-Timestamps are given in ISO 8601 format. The block that contains the `max_time`
-timestamp is **excluded** from the result.
+Returns reward entries by block and gateway for a given account in a timeframe. Timestamps are given
+in ISO 8601 format. The block that contains the `max_time` timestamp is **excluded** from the
+result.
 
-The result will be a list of rewards between `min_time` and `max_time` both
-given in UTC. Both default to "now" which means that at least one of the two
-parameters is required.
+The result will be a list of rewards between `min_time` and `max_time` both given in UTC. Both
+default to "now" which means that at least one of the two parameters is required.
 
-The result includes a `type` field which is the type of activity that generated the
-reward.
+The result includes a `type` field which is the type of activity that generated the reward.
 
 This route is paged using a `cursor`.
 
 :::info
-For older reward results, if the `type` is `null` the amount is a total for that
-account or hotspot in the given block.
+
+For older reward results, if the `type` is `null` the amount is a total for that account or hotspot
+in the given block.
+
 :::
 
 <Tabs
@@ -1265,19 +1332,20 @@ Rewards for an account with `min_time=2020-08-27&max_time=2020-08-28`
 ## Rewards in a Rewards Block for an Account
 
 ```
-GET https://api.helium.io/v1/hotspots/:address/rewards/:block
+GET https://api.helium.io/v1/accounts/:address/rewards/:block
 ```
 
 Returns rewards for a given account for a given block.
 
-The result includes a `type` field which is the type of activity that generated
-the reward.
+The result includes a `type` field which is the type of activity that generated the reward.
 
 This route is paged using a `cursor`.
 
 :::info
-For older reward results, if the `type` is `null` the amount is a total for that
-account in the given block.
+
+For older reward results, if the `type` is `null` the amount is a total for that account in the
+given block.
+
 :::
 
 <Tabs
@@ -1290,7 +1358,7 @@ _Path Parameters_
 
 | param              | Type     | Note                       |
 | ------------------ | -------- | -------------------------- |
-| address (required) | _string_ | B58 address of the hotspot |
+| address (required) | _string_ | B58 address of the account |
 
 </TabItem>
 <TabItem value="response">
@@ -1326,21 +1394,19 @@ Rewards for an account in block `470788`
 GET https://api.helium.io/v1/accounts/:address/rewards/sum
 ```
 
-Returns the total rewards for a given account in a given timeframe. Timestamps
-can be given in ISO 8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative
-time (e.g. `-1 week`, which when url esacped becomes `-1%20week`). When ommitted
-the current time is assumed.
+Returns the total rewards for a given account in a given timeframe. Timestamps can be given in ISO
+8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative time (e.g. `-1 week`, which when url
+esacped becomes `-1%20week`). When ommitted the current time is assumed.
 
-The results can also be bucketed in time by specifying a `bucket` query
-parameter which buckets information per bucket in the given timeframe. Data is
-bucketed per hotspot and time for the account to make hotspot performance
-comparison possible. Valid bucket values include `hour`, `day` and `week`).
+The results can also be bucketed in time by specifying a `bucket` query parameter which buckets
+information per bucket in the given timeframe. Data is bucketed per hotspot and time for the account
+to make hotspot performance comparison possible. Valid bucket values include `hour`, `day` and
+`week`).
 
-For example to get the last 7 days of rewards bucketed by day use the following
-path/parameters: `?min_time=-7%20day&bucket=day`
+For example to get the last 7 days of rewards bucketed by day use the following path/parameters:
+`?min_time=-7%20day&bucket=day`
 
-The block that contains the `max_time` timestamp is
-**excluded** from the result.
+The block that contains the `max_time` timestamp is **excluded** from the result.
 
 <Tabs
   block={true}
@@ -1390,9 +1456,8 @@ Returns the total rewards over a given time range
 GET https://api.helium.io/v1/accounts/:address/stats
 ```
 
-Fetches account statistics for a given account. This currently includes account
-balance information (in bones) for the last month (daily), last week (every 8
-hours), and daily (hourly).
+Fetches account statistics for a given account. This currently includes account balance information
+(in bones) for the last month (daily), last week (every 8 hours), and daily (hourly).
 
 <Tabs
   block={true}

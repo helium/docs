@@ -4,14 +4,13 @@ sidebar_label: Cities
 slug: /api/blockchain/cities
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Cities
 
-Hotspots are usually clustered in and around cities. The routes in this section
-help list all cities with their hotspot counts, or list all hotspots for a
-specific city
+Hotspots are usually clustered in and around cities. The routes in this section help list all cities
+with their hotspot counts, or list all hotspots for a specific city
 
 ---
 
@@ -21,9 +20,8 @@ specific city
 GET https://api.helium.io/v1/cities
 ```
 
-List all known hotspot cities with the total hotspot count for each city. Use a
-search parameter to filter the list of cities with the given search termThis
-route is paged with a `cursor`.
+List all known hotspot cities with the total hotspot count for each city. Use a search parameter to
+filter the list of cities with the given search termThis route is paged with a `cursor`.
 
 <Tabs
   block={true}
@@ -122,13 +120,12 @@ City for id `dG9yb250b29udGFyaW9jYW5hZGE`
 GET https://api.helium.io/v1/cities/:city_id/hotspots
 ```
 
-Lists all known hotspots for a given `city_id`. The `city_id` captures the city,
-state and country and is included in the city list result.This route is paged
-with a cursor.
+Lists all known hotspots for a given `city_id`. The `city_id` captures the city, state and country
+and is included in the city list result.This route is paged with a cursor.
 
-The `filter_modes` parameter can be used to filter hotspot by how they were
-added to the blockchain. Supported values are `full`, `dataonly`, or `light`. A
-comma separated list (no whitespace) can be used to filter for multiple modes.
+The `filter_modes` parameter can be used to filter hotspot by how they were added to the blockchain.
+Supported values are `full`, `dataonly`, or `light`. A comma separated list (no whitespace) can be
+used to filter for multiple modes.
 
 <Tabs
   block={true}

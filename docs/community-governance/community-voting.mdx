@@ -4,33 +4,53 @@ sidebar_label: HIP Voting
 slug: /community-voting
 ---
 
-
-import useBaseUrl from "@docusaurus/useBaseUrl";
-
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Voting on Helium
-In order to approve or deny changes to the blockchain, economics, or governance of the Helium Network; Helium and DeWi leverage on-chain voting which is open to the entire community. This on-chain voting is currently facilited through the website [helium.vote](https://helium.vote). 
 
-For most votes, voting power is currently determined by the HNT balance of the voting wallets at a rate of one vote per HNT. However, voting power may change vote-to-vote, depending on what the community is reaching consensus on. As example, a vote on on frequency plan for a region would only concern Hotspots in the region and one would use number Hotspots in the region as votes. Proposals to implement more involved voting mechanisms have been presented, but have not been voted on or implemented yet. See: [HIP41](https://github.com/helium/HIP/blob/master/0041-governance-by-token-lock-v2.md)
+In order to approve or deny changes to the blockchain, economics, or governance of the Helium
+Network; The Helium Network leverages on-chain voting which is open to the entire community. This
+on-chain voting is currently facilited through the website [helium.vote](https://helium.vote).
 
-HNT holders are able to vote by issuing a small token burn transaction from their wallet to a wallet associated with a particular ballot option, typically `For` or `Against`. Voting just a portion of a wallet's balance is not supported.
+For most votes, voting power is currently determined by the HNT balance of the voting wallets at a
+rate of one vote per HNT. However, voting power may change vote-to-vote, depending on what the
+community is reaching consensus on. As example, a vote on on frequency plan for a region would only
+concern Hotspots in the region and one would use number Hotspots in the region as votes. Proposals
+to implement more involved voting mechanisms have been presented, but have not been voted on or
+implemented yet. See:
+[HIP41](https://github.com/helium/HIP/blob/master/0041-governance-by-token-lock-v2.md)
+
+HNT holders are able to vote by issuing a small token burn transaction from their wallet to a wallet
+associated with a particular ballot option, typically `For` or `Against`. Voting just a portion of a
+wallet's balance is not supported.
 
 <!-- ## How to Vote -->
 
 ## Helium Vote Configuration
-This information is offered for the sake of transparency to the Helium Community and for the documentation of DeWi practices. Vote configuration is handled by DeWi to ensure that the accrued DC from a vote are burned from existance at the end of the voting period. 
 
-### How a HIP Becomes a Vote 
-A vote can be created by opening a PR against the [Helium Vote repository](https://github.com/helium/helium-vote/). Templates are provided within the repo. Authors are encouraged to write their HIP description in a nonbiased manner, and are subject to review.
-In partnership with DeWi and Helium, a block height deadline, vote ID, and voting addresses will be provided.
+This information is offered for the sake of transparency to the Helium Community and for the
+documentation of Helium Foundation practices. Vote configuration is handled by the Helium Foundation
+to ensure that the accrued DC from a vote are burned from existance at the end of the voting period.
+
+### How a HIP Becomes a Vote
+
+A vote can be created by opening a PR against the
+[Helium Vote repository](https://github.com/helium/helium-vote/). Templates are provided within the
+repo. Authors are encouraged to write their HIP description in a nonbiased manner, and are subject
+to review. In partnership with the Helium Foundation, a block height deadline, vote ID, and voting
+addresses will be provided.
 
 **Create Vote ID**
 
-The vote ID has no direct ties to the blockchain, but must be unique. The simplest way to generate a unique value is to create a quick Helium wallet.
+The vote ID has no direct ties to the blockchain, but must be unique. The simplest way to generate a
+unique value is to create a quick Helium wallet.
+
 ```shell
 helium-wallet create basic
 ```
+
 The returned address can be used as the vote ID.
+
 ```
 +-----------------------------------------------------+---------+--------+------------+
 | Address                                             | Sharded | Verify | PwHash     |
@@ -38,16 +58,24 @@ The returned address can be used as the vote ID.
 | 13fDZC6rCtZKebjNigeJP3HNMJTBrxJVLjV8JdoPMkyNS9aCHSJ | false   | true   | Argon2id13 |
 +-----------------------------------------------------+---------+--------+------------+
 ```
+
 This wallet does not need to be retained, as it will not be used for any on-chain transactions.
 
 **Create Each Vote Option**
 
-Most votes will be binary, only needing one address `for` and `against`. The wallet generation process is the same. A wallet is be created for each vote option. These wallet keys should be retained by DeWi for the sake of burning accrued DC at the end of the vote.
+Most votes will be binary, only needing one address `for` and `against`. The wallet generation
+process is the same. A wallet is be created for each vote option. These wallet keys should be
+retained by the Helium Foundation for the sake of burning accrued DC at the end of the vote.
 
 **Post Vote Cleanup**
 
-In order to burn the accrued DC, we leverage a neat feature of the HNT pay transaction. We transfer 1 HNT into a wallet needing to be cleared, then transfer it back out. On the outbound transaction we can specify an arbitrary DC fee. Any fee specified that is at least enough to cover the transaction will be accepted by the blockchain.
+In order to burn the accrued DC, we leverage a neat feature of the HNT pay transaction. We transfer
+1 HNT into a wallet needing to be cleared, then transfer it back out. On the outbound transaction we
+can specify an arbitrary DC fee. Any fee specified that is at least enough to cover the transaction
+will be accepted by the blockchain.
+
 ```shell
 helium-wallet pay one <origin-wallet> <amount> --fee <fee>
 ```
+
 The result should be a wallet with zero HNT or DC balance.
