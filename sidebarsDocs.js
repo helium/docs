@@ -26,6 +26,7 @@ module.exports = {
         'mine-hnt/light-hotspots',
         'mine-hnt/data-only-hotspots',
         'mine-hnt/validators/validators',
+        'mine-hnt/validators/validators-and-ve-tokens',
         'mine-hnt/maker-apps',
         'mine-hnt/understanding-hotspot-status',
         'wallets/app-wallet/app-wallet',
