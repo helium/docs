@@ -85,7 +85,7 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} Helium Systems Inc.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Helium Foundation`,
     },
   },
   presets: [
