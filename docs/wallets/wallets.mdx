@@ -12,34 +12,36 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Helium Is Moving To Solana
 
-All Hotspots on the Helium Network with an animal name will automatically become a
-[Solana NFT](https://solana.com/developers/nfts), visible in the
-[Helium Wallet app](/wallets/helium-wallet-app), and maintained by the Hotspot
+As part of the Helium blockchain migration to Solana, there are some changes to existing Helium
+Wallets and applications for users to be aware of.
+
+The Helium Network move to the Solana blockchain will result in all Hotspots automatically becoming
+[Solana NFTs](https://solana.com/developers/nfts) which, along with the Helium tokens, can be viewed
+in the [Helium Wallet app](/wallets/helium-wallet-app).
+
+The original Helium app [will be stripped of functionality](/wallets#sunsetting-the-helium-app) in
+phases, with transactions being moved to the Helium Wallet app and Hotspot maintenance moving to
 [Maker apps](/mine-hnt/maker-apps).
 
-As part of the Helium migration to Solana, there are some changes to existing Helium Wallets.
-
-The sections below provide more information for the different Wallets and what can be expected as
-part of the migration.
+The sections below provide more information about the different Wallets and what can be expected as
+part of the blockchain migration.
 
 ## Hotspots on Solana
 
-Hotspots will also move to the new Solana blockchain, specifically performing off-chain
-Proof-of-Coverage. More information on off-chain PoC can be found in
-[HIP-70](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md#implementing-proof-of-coverage-oracles).
-
-Makers will push a fleet-wide update to all their Hotspots that switches a Hotspot from receiving
-Challenges from Validators to automatically beaconing by themselves every 6 hours and sending
-results to an Off-Chain Oracle.
-
-Makers must push this mandatory update to their fleet of Hotspots. Failure to do so will mean their
-customers cease to mine and stop earning rewards once the migration is complete.
+- Hotspots will move to the new Solana blockchain, specifically performing off-chain
+  Proof-of-Coverage. More information on off-chain PoC can be found in
+  [HIP-70](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md#implementing-proof-of-coverage-oracles).
+- Makers will push a fleet-wide update to all their Hotspots that switches a Hotspot from receiving
+  Challenges from Validators to automatically beaconing by themselves every 6 hours and sending
+  results to an Off-Chain Oracle.
+- Makers must push this mandatory update to their fleet of Hotspots. Failure to do so will mean
+  their customers cease to mine and stop earning rewards once the blockchain migration is complete.
 
 ### Hotspots Will Earn IOT
 
-Hotspot Owners will start earning IOT as the migration will launch the IOT subDAO. To view IOT
-earned by your Hotspot, use the [Helium Wallet app](/wallets/helium-wallet-app). 5G Hotspot Owners
-will continue earning MOBILE and will additionally begin to earn IOT.
+Hotspot Owners will start earning IOT as the blockchain migration will launch the IOT subDAO. To
+view IOT earned by your Hotspot, use the [Helium Wallet app](/wallets/helium-wallet-app). 5G Hotspot
+Owners will continue earning MOBILE and will additionally begin to earn IOT.
 
 :::note 5G Hotspot Owners
 
@@ -50,7 +52,7 @@ before the Solana transition.
 
 ### Hotspots Become NFTs
 
-Account migration is required to view your Hotspot as NFT in the
+Wallet migration is required to view your Hotspot as NFT in the
 [Helium Wallet app](/wallets/helium-wallet-app).
 
 <div class="container" style={{ marginBottom: 20 }}>
@@ -88,14 +90,18 @@ Original Helium Hotspots in two phases.
 
 - Hotspot App users will be migrated to use the [Helium Wallet app](/wallets/helium-wallet-app) for
   Helium Wallet management.
-- Users can no longer onboard new Hotspots using the Helium App. All new Hotspots will be directed to use the Hotspot's Maker app, web dashboard, or contact email support (in the event that a Maker app is not available). 
+- Users can no longer onboard new Hotspots using the Helium App. All new Hotspots will be directed
+  to use the Hotspot's Maker app, web dashboard, or contact email support (in the event that a Maker
+  app is not available).
 
-:::note
-All Makers had a deadline to launch their Maker app by March of 2022. Makers without an app or web dashboard either have an app in development or have not responded to requests for additional updates. 
+:::info Maker app Availability
+
+All Makers had a deadline to launch their Maker app by March of 2022. Makers without an app or web
+dashboard either have an app in development or have not responded to requests for additional
+updates.
+
 :::
 
-
-  stores, dashboards, or their email support.
 - Hotspot management for _existing_ Hotspots still available in the Hotspot App.
 - The `transfer_hotspot` and `assert_location` will use the Helium Wallet app for signatures.
 
@@ -105,14 +111,15 @@ All Makers had a deadline to launch their Maker app by March of 2022. Makers wit
 
 - Hotspot management will be handled by Maker apps.
 - Original Helium Hotspots will be managed by the Helium App.
-- All remaining wallet functionality will use the Helium Wallet app.
+- All remaining Wallet functionality will use the Helium Wallet app.
 
-:::note What If I Miss The Migration Deadline?
+:::note What If I Miss The Wallet Migration Deadline?
 
-Users that do not transition to the Helium Wallet app prior to the Solana migration will still be
-able to access their seed phrase and transition to the Helium Wallet app but will not be able to
-submit transactions in the Helium app.
-Seed phrase export functionality will remain in the app for at least 1 year post-migration.
+Users that do not transition to the Helium Wallet app prior to the Solana blockchain migration will
+still be able to access their seed phrase and transition to the Helium Wallet app but will not be
+able to submit transactions in the Helium app. Seed phrase export functionality will remain in the
+app for at least 1 year post blockchain migration.
+
 :::
 
 ### Maker Apps
@@ -135,29 +142,33 @@ add new Hotspots to the network, transfer existing Hotspots, or assert locations
 
 ## Wallet Migration Guides
 
-As part of the migration to Solana, all Helium Wallets will need to be migrated to the Solana
-blockchain. What this means for each Helium Wallet type is explained below.
+All Helium Wallets will need to be migrated to the Solana blockchain. What this means for each
+Helium Wallet type is explained below.
 
 ### For Helium App Users
 
 The [Helium app](/wallets/app-wallet) will require a migration to the
-[Helium Wallet app](/wallets/helium-wallet-app). Migration is necessary to interact with your HNT,
-DC, MOBILE, IOT, and Hotspots.
+[Helium Wallet app](/wallets/helium-wallet-app). Wallet migration is necessary to interact with your
+HNT, DC, MOBILE, IOT, and Hotspots on the Solana blockchain.
 
 To start, ensure your [Helium app](/wallets/app-wallet) is updated and that you have downloaded the
 latest Helium Wallet app.
 
 1. Open the [Helium app](/wallets/app-wallet) (minimum v4.3.0)
-2. Tap `Start Migration` in the migration popup
-3. Confirm the Wallet account you want to import, then tap `Export to Wallet App`. The [Helium Wallet app](/wallets/helium-wallet-app) will automatically open and complete the migration.
-4. Now your HNT, DC, MOBILE, and Hotspots have successfully moved to the Helium Wallet App and ready for the Solana migration, which will happen automatically in January 2023.
+2. Tap `Start Migration` in the Wallet migration popup
+3. Confirm the Wallet account you want to import, then tap `Export to Wallet App`. The
+   [Helium Wallet app](/wallets/helium-wallet-app) will automatically open and complete the Wallet
+   migration.
+4. Now your HNT, DC, MOBILE, and Hotspots have successfully moved to the Helium Wallet App and ready
+   for the Solana migration, which will happen automatically in January 2023.
 
 You will use the [Helium Wallet app](/wallets/helium-wallet-app) moving forward. You can find
-Hotspot NFTs in the NFT Collectibles section once Helium on Solana goes live. Token balances are visible on the account page.
-You can also create multiple accounts in the [Helium Wallet app](/wallets/helium-wallet-app).
+Hotspot NFTs in the NFT Collectibles section once Helium on Solana goes live. Token balances are
+visible on the account page. You can also create multiple accounts in the
+[Helium Wallet app](/wallets/helium-wallet-app).
 
-Your public wallet address will change post-migration, but your private key and 12-word seed phrase will remain the
-same.
+Your public Wallet address will change post-migration, but your private key and 12-word seed phrase
+will remain the same.
 
 ### For Helium Wallet App Users
 
@@ -170,24 +181,27 @@ To migrate to Solana, simply update your [Helium Wallet app](/wallets/helium-wal
 If you have Hotspots in any account, they will appear as an NFT Collectable. All other tokens and
 their balances are automatically transferred to the Solana Blockchain under the same token name.
 
-Your public wallet address will change, but your private key and seed phrase (12 or 24 word) will
+Your public Wallet address will change, but your private key and seed phrase (12 or 24 word) will
 remain the same.
 
 ### For Ledger Wallet Users
 
 Ledger users will need to update their Helium Ledger App to a version that's pending release. This
 upcoming version will use the Solana private key derivation path that moves all your tokens and
-balances over to Solana. You may need to uninstall any Solana Ledger Apps during the migration
-process.
+balances over to Solana. You may need to uninstall any Solana Ledger Apps during the Wallet
+migration process.
 
 Your public key will change on Solana and the private key will also need to be updated.
 
 ### For CLI Wallet Users
 
-:::caution
+:::caution The Helium CLI Wallet Will Be Depreciated
 
-The CLI wallet will be completely deprecated except for exporting private seed phrases and
+The CLI Wallet will be completely deprecated except for exporting private seed phrases and
 displaying public Solana addresses.
+
+Check out the [Solana Documentation](https://docs.solana.com/wallet-guide/cli) for more information
+on Solana Command Line Wallets.
 
 :::
 
@@ -198,8 +212,9 @@ Wallets. The existing Helium CLI Wallet will be reduced to the following two fun
    [Helium Wallet app](/wallets/helium-wallet-app))
 2. Display Solana Public Address (for a given set of private keys)
 
-This means common payment transactions and staking should utilize Solana CLI Wallet or the Helium
-Wallet app.
+This means common payment transactions and staking should utilize
+[Solana CLI Wallet](https://docs.solana.com/wallet-guide/cli) or the
+[Helium Wallet app](/wallets/helium-wallet-app).
 
 ## 12-Word And 24-Word Seed Phrases
 
@@ -217,7 +232,7 @@ Read more about Helium 12-word and 24-word here:
 
 :::note
 
-Transferring Hotspot ownership between 12-word and 24-word wallets can only be done using the
+Transferring Hotspot ownership between 12-word and 24-word Wallets can only be done using the
 [Wallet CLI](/wallets/cli-wallet)
 
 :::
