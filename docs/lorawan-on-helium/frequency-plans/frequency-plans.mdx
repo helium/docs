@@ -8,6 +8,10 @@ slug: /lorawan-on-helium/frequency-plans
 
 Helium's LoRaWAN Network is built upon 8-channel gateways. This page will help you confirm the
 appropriate frequencies for gateway configuration for each country.
+Fixed Plan frequencies are defined in the latest LoRa Alliance Regional Parameters documentation.
+(https://resources.lora-alliance.org/technical-specifications/rp002-1-0-4-regional-parameters)
+
+The actual Regional Plan name used by each country is detailed in tables in [Region Plans](https://docs.helium.com/lorawan-on-helium/region-plans)
 
 Feel free to use
 [our packet forwarder configuration examples](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder)
@@ -20,7 +24,7 @@ transmit range to downlink frequencies and special configuration may be necessar
 
 :::
 
-## Frequency Plans
+## Fixed Frequency Plans
 
 ### US915
 
@@ -54,26 +58,6 @@ Also known as **US902-928**
 | 7              | 927.5           | SF7BW500 to SF12BW500 (RX1) |
 | 0              | 923.3           | SF12BW500 (RX2)             |
 
-### EU868
-
-#### Uplink
-
-| Frequency (MHZ) | Spreading Factor                   |
-| :-------------- | :--------------------------------- |
-| 868.1           | SF7BW125 to SF12BW125              |
-| 868.3           | SF7BW125 to SF12BW125 and SF7BW250 |
-| 868.5           | SF7BW125 to SF12BW125              |
-| 867.1           | SF7BW125 to SF12BW125              |
-| 867.3           | SF7BW125 to SF12BW125              |
-| 867.5           | SF7BW125 to SF12BW125              |
-| 867.7           | SF7BW125 to SF12BW125              |
-| 867.9           | SF7BW125 to SF12BW125              |
-| 868.8           | FSK                                |
-
-#### Downlink
-
-- Uplink channels 1-9 (RX1)
-- Helium uses the default parameters: 869.525 MHz / DR0 (SF12, 125 kHz)
 
 ### CN470
 
@@ -106,6 +90,8 @@ Also known as **US902-928**
 
 ### AU915
 
+Also known as **AU915-928**
+
 #### Uplink
 
 | Frequency (MHZ) | Spreading Factor      |
@@ -134,13 +120,212 @@ Also known as **US902-928**
 | 927.5           | SF7BW500 to SF12BW500 (RX1) |
 | 923.3           | SF12BW500 (RX2)             |
 
-## Frequency Plans by Country
+## Dynamic Frequency Plans
 
-Where a frequency plan is "Unknown", none of the above Frequency Plans have been known to
+### EU868
+
+Also known as **EU863-870**
+
+#### Uplink
+
+| Frequency (MHZ) | Spreading Factor                   |
+| :-------------- | :--------------------------------- |
+| 868.1           | SF7BW125 to SF12BW125              |
+| 868.3           | SF7BW125 to SF12BW125 and SF7BW250 |
+| 868.5           | SF7BW125 to SF12BW125              |
+| 867.1           | SF7BW125 to SF12BW125              |
+| 867.3           | SF7BW125 to SF12BW125              |
+| 867.5           | SF7BW125 to SF12BW125              |
+| 867.7           | SF7BW125 to SF12BW125              |
+| 867.9           | SF7BW125 to SF12BW125              |
+| 868.8           | FSK                                |
+
+#### Downlink
+
+- Uplink channels 1-9 (RX1)
+- Helium uses the default parameters: 869.525 MHz / DR0 (SF12, 125 kHz)
+
+## AS923
+
+AS923 always defines two hard-coded Join channels, e.g 923.2 Mhz and 923.4 Mhz.  
+Then it also defines 8 Uplink frequencies and 8 Downlink frequencies, which can be essentially 
+any frequencies.
+
+### AS923/AS923-1
+
+#### Uplink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 923.2 Join      | SF7BW125 to SF12BW125 |
+| 923.4 Join      | SF7BW125 to SF12BW125 |
+| 923.6           | SF7BW125 to SF12BW125 |
+| 923.8           | SF7BW125 to SF12BW125 |
+| 924.0           | SF7BW125 to SF12BW125 |
+| 924.2           | SF7BW125 to SF12BW125 |
+| 924.4           | SF7BW125 to SF12BW125 |
+| 924.6           | SF7BW125 to SF12BW125 |
+
+#### Downlink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 923.2           | SF7BW125 to SF12BW125 |
+| 923.4           | SF7BW125 to SF12BW125 |
+| 923.6           | SF7BW125 to SF12BW125 |
+| 923.8           | SF7BW125 to SF12BW125 |
+| 924.0           | SF7BW125 to SF12BW125 |
+| 924.2           | SF7BW125 to SF12BW125 |
+| 924.4           | SF7BW125 to SF12BW125 |
+| 924.6           | SF7BW125 to SF12BW125 |
+
+### AS923-1b (Malaysia)
+
+#### Uplink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 922.0           | SF7BW125 to SF12BW125 |
+| 922.2           | SF7BW125 to SF12BW125 |
+| 922.4           | SF7BW125 to SF12BW125 |
+| 922.6           | SF7BW125 to SF12BW125 |
+| 922.8           | SF7BW125 to SF12BW125 |
+| 923.0           | SF7BW125 to SF12BW125 |
+| 923.2 Join      | SF7BW125 to SF12BW125 |
+| 923.4 Join      | SF7BW125 to SF12BW125 |
+
+#### Downlink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 919.2           | SF7BW125 to SF12BW125 |
+| 919.4           | SF7BW125 to SF12BW125 |
+| 919.6           | SF7BW125 to SF12BW125 |
+| 919.8           | SF7BW125 to SF12BW125 |
+| 920.0           | SF7BW125 to SF12BW125 |
+| 920.2           | SF7BW125 to SF12BW125 |
+| 920.4           | SF7BW125 to SF12BW125 |
+| 920.6           | SF7BW125 to SF12BW125 |
+
+### AS923-2
+
+#### Uplink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 921.4 Join      | SF7BW125 to SF12BW125 |
+| 921.6 Join      | SF7BW125 to SF12BW125 |
+| 921.8           | SF7BW125 to SF12BW125 |
+| 922.0           | SF7BW125 to SF12BW125 |
+| 922.2           | SF7BW125 to SF12BW125 |
+| 923.4           | SF7BW125 to SF12BW125 |
+| 923.6           | SF7BW125 to SF12BW125 |
+| 923.8           | SF7BW125 to SF12BW125 |
+
+#### Downlink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 921.4           | SF7BW125 to SF12BW125 |
+| 921.6           | SF7BW125 to SF12BW125 |
+| 921.8           | SF7BW125 to SF12BW125 |
+| 922.0           | SF7BW125 to SF12BW125 |
+| 922.2           | SF7BW125 to SF12BW125 |
+| 923.4           | SF7BW125 to SF12BW125 |
+| 923.6           | SF7BW125 to SF12BW125 |
+| 923.8           | SF7BW125 to SF12BW125 |
+
+
+### AS923-3
+
+#### Uplink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 916.6 Join      | SF7BW125 to SF12BW125 |
+| 916.8 Join      | SF7BW125 to SF12BW125 |
+| 917.0           | SF7BW125 to SF12BW125 |
+| 917.2           | SF7BW125 to SF12BW125 |
+| 917.4           | SF7BW125 to SF12BW125 |
+| 917.6           | SF7BW125 to SF12BW125 |
+| 917.8           | SF7BW125 to SF12BW125 |
+| 918.0           | SF7BW125 to SF12BW125 |
+
+#### Downlink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 916.6           | SF7BW125 to SF12BW125 |
+| 916.8           | SF7BW125 to SF12BW125 |
+| 917.0           | SF7BW125 to SF12BW125 |
+| 917.2           | SF7BW125 to SF12BW125 |
+| 917.4           | SF7BW125 to SF12BW125 |
+| 917.6           | SF7BW125 to SF12BW125 |
+| 917.8           | SF7BW125 to SF12BW125 |
+| 918.0           | SF7BW125 to SF12BW125 |
+
+### AS923-4
+
+#### Uplink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 917.3 Join      | SF7BW125 to SF12BW125 |
+| 917.5 Join      | SF7BW125 to SF12BW125 |
+| 917.7           | SF7BW125 to SF12BW125 |
+| 917.9           | SF7BW125 to SF12BW125 |
+| 918.1           | SF7BW125 to SF12BW125 |
+| 918.3           | SF7BW125 to SF12BW125 |
+| 918.5           | SF7BW125 to SF12BW125 |
+| 918.7           | SF7BW125 to SF12BW125 |
+
+#### Downlink
+
+| Frequency (MHZ) | Spreading Factor      |
+| :-------------- | :-------------------- |
+| 917.3           | SF7BW125 to SF12BW125 |
+| 917.5           | SF7BW125 to SF12BW125 |
+| 917.7           | SF7BW125 to SF12BW125 |
+| 917.9           | SF7BW125 to SF12BW125 |
+| 918.1           | SF7BW125 to SF12BW125 |
+| 918.3           | SF7BW125 to SF12BW125 |
+| 918.5           | SF7BW125 to SF12BW125 |
+| 918.7           | SF7BW125 to SF12BW125 |
+
+##################################################################################################
+Split below here to /lorawan-on-helium/region-plans
+##################################################################################################
+---
+id: region-plans
+sidebar_label: Region Plans
+slug: /lorawan-on-helium/region-plans
+---
+
+# Regional Frequency Plans on the Helium Network
+
+Helium is a [member of the LoRaWAN Alliance](https://lora-alliance.org/alliance_member/helium-foundation/) and follows the required or recommended default frequency
+plans defined in the latest LoRa Alliance Regional Parameters documentation.
+(https://resources.lora-alliance.org/technical-specifications/rp002-1-0-4-regional-parameters)
+
+Where a frequency plan is "Unknown", none of the Regional Plans have been known to
 be assigned by the local telecommnications or radio authority in that country for use by LoRaWAN.
-People in those countries are enouraged to contact the Helium Foundation LoRaWAN Committee via
-`#foundation` in the Helium Community Discord to help call to action the LoRaWAN Alliance to define a
-frequency plan for use in your country.
+People in those countries are encouraged to contact the Helium Foundation LoRaWAN Committee via
+the `#foundation` channel in the Helium Community Discord to ask if a Regional Plan for their 
+country has been proposed.
+Lobbying for a specific Regional Plan Frequency to be used within a country can be directed to the 
+Regional Plan Working Group at the [LoRaWAN Alliance](https://lora-alliance.org/contact/)
+
+## Frequency Plans by Country AKA Regional Plans
+
+The specific radio frequencies used by a Frequency Plan are listed in [Frequency Plans](https://docs.helium.com/lorawan-on-helium/frequency-plans)
+
+The tables below match the file 'regions.csv' at the Helium Github repository
+https://github.com/dewi-alliance/hplans
+where can be found geojson representations of the Helium blockchain LoRaWAN regional parameter 
+channel plan.
+
+The term "AS923-1/AU915 dualplan" defines a plan where Helium [Proof of Coverage](https://docs.helium.com/blockchain/proof-of-coverage) operates on the AS923
+frequencies but both AS923 and AU915 sensors are supported. Read the [AUS/NZ FAQ](https://docs.google.com/document/d/1AAZjdMomfmd_gUeGoqXlw9EOO4DrDHp-FIUJCmTRQ9s) for more information.
 
 #### A <a id="a"></a>
 
