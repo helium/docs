@@ -41,6 +41,7 @@ module.exports = {
         'lorawan-on-helium/lorawan-on-helium',
         'lorawan-on-helium/lorawan-roaming/lorawan-roaming-on-helium',
         'lorawan-on-helium/frequency-plans/frequency-plans',
+        'lorawan-on-helium/frequency-plans/region-plans',
       ],
       collapsed: true,
     },
