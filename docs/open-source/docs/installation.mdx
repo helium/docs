@@ -9,110 +9,117 @@ slug: /open-source/docs/installation
 
 ## Node.js
 
-Download latest software: External link: [Node.js](https://nodejs.org/en/download) version >=
-10.15.1
+Download and install [Node.js](https://nodejs.org/en/download) version >= `18.12.1`
 
-:::info
+```bash
+# Verify your Node version with
+❯ node --version
+v18.12.1
+```
 
-Windows Node.js installation you do not need to install the Compiler and Chocolaty dependencies.
+:::info Windows Users
+
+Windows Node.js installation you do not need to install the `Compiler` or `Chocolaty` dependencies.
 
 :::
 
-Install Node.js
-
 ## Yarn
 
-Download software: External link: [Yarn](https://yarnpkg.com/getting-started/install) version >= 1.5
+Download and install [Yarn](https://yarnpkg.com/getting-started/install) version >= `3.3.1`
 
-After you install Node.js, which will install Node.js and npm as a dependency you can do the
-following.
+:::info You Must Set Yarn Version In Each Project Directory
 
+Starting with Node v16.10, the preferred way to manage Yarn is through
+[Corepack](https://nodejs.org/dist/latest/docs/api/corepack.html).
+
+```bash
+> cd ~/path/to/project
+> corepack enable
+> corepack prepare yarn@stable --activate
+> yarn set version stable
 ```
-$ npm install -g yarn
 
-> yarn@1.22.11 preinstall /path/to/npm/node_modules/yarn
-> :; (node ./preinstall.js > /dev/null 2>&1 || true)
-```
+:::
 
-To upgrade the Yarn version to be >= 1.5 you must set each project directory to version berry.
-
-```
-$ cd ~/path/to/project
-$ yarn set version berry
-
-Resolving berry to a url...
-Downloading https://github.com/yarnpkg/berry/raw/master/packages/berry-cli/bin/berry.js...
-Saving it into /path/to/fork/docs/.yarn/releases\yarn-berry.cjs...
-Updating /path/to/prjoect/docs/.yarnrc.yml...
-Done!
+```bash
+# Verify your yarn version with
+❯ yarn --version
+3.3.1
 ```
 
 Then you can install Yarn which will download and compile all the project module dependencies.
 
-```
-$ yarn install
+```bash
+❯ yarn
+➤ YN0070: Migrating from Yarn 1; automatically enabling the compatibility node-modules linker 👍
 
- YN0070: Migrating from Yarn 1; automatically enabling the compatibility node-modules linker
- ...
- YN0007: │ yarn@npm:1.22.10 must be built because it never has been before or the last one failed
- YN0007: │ core-js@npm:3.12.1 must be built because it never has been before or the last one failed
- YN0007: │ core-js-pure@npm:3.12.1 must be built because it never has been before or the last one failed
- YN0000: └ Completed in 42s 725ms
- YN0000: Done with warnings in 1m 31s
-```
-
-Check the final version and confirm that it is >= 1.5
-
-```
-$ yarn --version
-3.0.1
+➤ YN0000: ┌ Resolution step
+➤ YN0032: │ fsevents@npm:2.3.2: Implicit dependencies on node-gyp are discouraged
+➤ YN0061: │ mini-create-react-context@npm:0.4.1 is deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+➤ YN0061: │ stable@npm:0.1.8 is deprecated: Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility
+➤ YN0061: │ @npmcli/move-file@npm:2.0.1 is deprecated: This functionality has been moved to @npmcli/fs
+➤ YN0002: │ @docsearch/react@npm:3.2.1 [a28de] doesn't provide @algolia/client-search (p84dac), requested by @algolia/autocomplete-preset-algolia
+➤ YN0000: │ Some peer dependencies are incorrectly met; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code
+➤ YN0000: └ Completed in 3s 817ms
+➤ YN0000: ┌ Fetch step
+➤ YN0013: │ yallist@npm:4.0.0 can't be found in the cache and will be fetched from the remote registry
+➤ YN0013: │ yaml@npm:1.10.2 can't be found in the cache and will be fetched from the remote registry
+➤ YN0013: │ yarn@npm:1.22.19 can't be found in the cache and will be fetched from the remote registry
+➤ YN0013: │ yocto-queue@npm:0.1.0 can't be found in the cache and will be fetched from the remote registry
+➤ YN0013: │ zwitch@npm:1.0.5 can't be found in the cache and will be fetched from the remote registry
+➤ YN0000: └ Completed in 21s 354ms
+➤ YN0000: ┌ Link step
+➤ YN0007: │ yarn@npm:1.22.19 must be built because it never has been before or the last one failed
+➤ YN0007: │ core-js@npm:3.25.2 must be built because it never has been before or the last one failed
+➤ YN0007: │ core-js-pure@npm:3.25.2 must be built because it never has been before or the last one failed
+➤ YN0000: └ Completed in 3s 509ms
+➤ YN0000: Done with warnings in 28s 787ms
 ```
 
 ### Local Development
 
+Start a local development server using the `yarn start` command and open up a browser window. Most
+changes are reflected live without having to restart the server.
+
+```bash
+❯ yarn start
+[INFO] Starting the development server...
+[SUCCESS] Docusaurus website is running at: http://localhost:3000/
+
+✔ Client
+  Compiled successfully in 12.60s
+
+client (webpack 5.74.0) compiled successfully
+
+✔ Client
+  Compiled successfully in 194.38ms
+
+client (webpack 5.74.0) compiled successfully
 ```
-$ yarn start
-
-Starting the development server...
-Docusaurus website is running at: http://localhost:3000/
-
-√ Client
-  Compiled successfully in 5.90s
-
-i ｢wds｣: Project is running at http://localhost:3000/
-i ｢wds｣: webpack output is served from /
-i ｢wds｣: Content not from webpack is served from /path/to/project/docs
-i ｢wds｣: 404s will fallback to /index.html
-
-* Client ... done (99%) plugins
- WebpackDevMiddleware
-```
-
-This command starts a local development server and open up a browser window. Most changes are
-reflected live without having to restart the server.
 
 ### Link Checking before your PR
 
-Checking links can be accomplished by using the `yarn build` command
+Checking links can be accomplished by using the `yarn build` command.
 
-```
-$ yarn build
+```bash
+❯ yarn build
+[INFO] [en] Creating an optimized production build...
 
-[en] Creating an optimized production build...
+✔ Client
 
-√ Client
 
-√ Server
-  Compiled successfully in 1.25m
+✔ Server
+  Compiled successfully in 36.48s
 
-√ Client
 
-* Server █████████████████████████ cache (99%) shutdown IdleFileCachePlugin
+✔ Client
+
+
+● Server █████████████████████████ cache (99%) shutdown IdleFileCachePlugin
  stored
 
-Success! Generated static files in build.
-
-Use `npm run serve` to test your build locally.
+[SUCCESS] Generated static files in "build".
+[INFO] Use `npm run serve` command to test your build locally.
 ```
 
 ### Developing

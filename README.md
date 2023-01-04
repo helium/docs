@@ -20,39 +20,35 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more instructions.
 
 ## Creating a New Doc
 
-When authoring a new doc, be sure to apply `prettier` to it during review. For
-example: `npx prettier --write --prose-wrap always docs/blockchain/new_doc.mdx`
+When authoring a new doc, be sure to apply `prettier` to it during review. For example:
+`npx prettier --write --prose-wrap always docs/blockchain/new_doc.mdx`
 
 It will apply appropriate line wraps and other formatting niceties.
 
 ## Editing an Existing Doc
 
-When editing an existing doc, line wrap should not be applied (don't run
-`prettier`), and lines that run wider than 80 chars in width are okay. Applying
-`prettier` would cause many unimportant line changes and make review more
-difficult.
+When editing an existing doc, line wrap should not be applied (don't run `prettier`), and lines that
+run wider than 80 chars in width are okay. Applying `prettier` would cause many unimportant line
+changes and make review more difficult.
 
-Instead, from time to time, `prettier` will be run against the documents and
-those unimportant commits will be added to `.git-blame-ignore-revs`
+Instead, from time to time, `prettier` will be run against the documents and those unimportant
+commits will be added to `.git-blame-ignore-revs`
 
-Use the style guide found [here](docs/style-guide.md) to learn what markdown syntax
-is available.
+Use the style guide found [here](docs/style-guide.md) to learn what markdown syntax is available.
 
 For more advanced content consider using
 [JSX](https://v2.docusaurus.io/docs/markdown-features/#embedding-react-components-with-mdx).
 
 ## Linking to Other Docs
 
-When linking to other docs always use full path links or abbreviated links to
-full path links at the bottom of the doc. Abbreviated links help improve
-readability of the raw markdown and makes common links reusable in the same doc.
+When linking to other docs always use full path links or abbreviated links to full path links at the
+bottom of the doc. Abbreviated links help improve readability of the raw markdown and makes common
+links reusable in the same doc.
 
-Abbreviated Links Example:  
-If you would like to link to the development devices introduction page found at
-`/use-the-network/devices/development`, use
-`[development devices][devices.development]` inline with your text content.
-Next, create the link to the full path at the very bottom of the doc markdown
-like this `[devices.development]: /use-the-network/devices/development`.
+Abbreviated Links Example: If you would like to link to the development devices introduction page
+found at `/use-the-network/devices/development`, use `[development devices][devices.development]`
+inline with your text content. Next, create the link to the full path at the very bottom of the doc
+markdown like this `[devices.development]: /use-the-network/devices/development`.
 
 ## Adding Images
 
@@ -84,14 +80,13 @@ Create a new \*.mdx extension file following the existing naming conventions.
 
 ### Doc Front Matter
 
-When creating a new doc, use the following front matter at the very top of the
-doc with the following fields:
+When creating a new doc, use the following front matter at the very top of the doc with the
+following fields:
 
-`id: ` This should match the filename without the extension.  
-`title: ` The title of your document. If this field is not present, the document's title will default to its id.  
-`description: ` The description of your document.  
-`sidebar_label: ` This should match id name but with spaces and capitalized
-first letters.
+`id: ` This should match the filename without the extension. `title: ` The title of your document.
+If this field is not present, the document's title will default to its id. `description: ` The
+description of your document. `sidebar_label: ` This should match id name but with spaces and
+capitalized first letters.
 
 ```
 ---
@@ -103,13 +98,14 @@ sidebar_label: Devices
 ```
 
 `slug: ` If the doc id path has repeated sections like the following doc path
-`use-the-network/devices/devices`, define a `slug:` field in the front matter to
-make it pretty as shown below. This way when this doc is navigated to, the URL
-shown will not have repeating sections names in it.
+`use-the-network/devices/devices`, define a `slug:` field in the front matter to make it pretty as
+shown below. This way when this doc is navigated to, the URL shown will not have repeating sections
+names in it.
 
 ```
 slug: use-the-network/devices
 ```
+
 ## Check for dead links
 
 `yarn build` does a good job of checking for dead links.
@@ -127,5 +123,5 @@ When adding items use the raw id path, slug paths will not work.
 
 ## Attribution
 
-This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern
-static website generator.
+This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website
+generator.
