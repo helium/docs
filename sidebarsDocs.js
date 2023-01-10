@@ -4,7 +4,13 @@ module.exports = {
     {
       type: 'category',
       label: 'Solana Migration',
-      items: ['solana-migration/solana-migration', 'solana-migration/migration-infrastructure'],
+      items: [
+        'solana-migration/solana-migration',
+        'solana-migration/migration-infrastructure',
+        'solana-migration/migration-wallet-users',
+        'solana-migration/migration-wallet-infrastructure-providers',
+        'solana-migration/migration-hotspot-operators',
+      ],
       collapsed: true,
     },
     {
