@@ -1,0 +1,125 @@
+---
+id: migration-infrastructure
+title: Solana Migration Infrastructure Overview
+pagination_label: Solana Migration Infrastructure Overview
+sidebar_label: Migration Infrastructure
+description: Helium Solana Migration Documentation
+# Image:
+slug: /solana-migration/migration-infrastructure
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+# Migration Infrastructure Overview
+
+The migration of the Helium Network from its L1 to Solana brings several changes to the setup of the
+Network and its associated subDAOs infrastructure. Chief among these changes is moving a lot of data
+that has until now been on-chain (namely PoC data) off-chain.
+
+As such, this migration introduces several Oracles which serve as bridges between the external world
+and the blockchain. These infrastructure changes will allow the Helium Network to effectively
+introduce new Networks as new Decentralized Network Protocol (DNP) subDAOs and more easily scale
+existing DNP subDAOs by removing existing bottlenecks. The following is an attempt to document the
+future state of the infrastructure post-migration.
+
+---
+
+## Price Oracle
+
+On the Helium L1, the Price Oracle iss the only existing Oracle on the Helium Network. It is
+required on-chain as the price of HNT is needed to calculate HNT to burn when minting Data Credits
+(DC).
+
+### Current Implementation
+
+The price of HNT is updated every ten blocks on-chain by requiring Price Oracles run by several
+anonymous community members to submit prices through a specific transaction.
+
+Then, if most Oracles have submitted prices in the past 24 hours, the blockchain can calculate the
+new price by taking a trailing 24-hour median. It does this by taking the 24-hour median of
+submitted prices.
+
+### Post Migration Implementation
+
+With the migration to Solana, the Helium Network can now take advantage of the larger Solana
+ecosystem.
+
+The Helium Network will replace our hand-spun price oracle with the tried and tested
+[Pyth Network](https://pyth.network/), which publishes financial market data.
+
+At an overview, Pyth works by having publishers (exchanges and market makings firms) submit price
+points for given coin pair values and then aggregates this data and makes it available on-chain.
+
+Pyth's
+[exponentially-weighted moving average (EMA) price aggregation](https://docs.pyth.network/how-pyth-works/ema-price-aggregation)
+adds time to the aggregation with a heavier weight given to more recent price samples, smoothing the
+price and controlling for outliers.
+
+<img className="docsheader" src={useBaseUrl('img/solana-migration/price-oracle.png')} />
+
+---
+
+## Data Transfer Oracle
+
+Moving the entire data transfer login off-chain will increase scalability and reduce points of
+failure.
+
+### Lorawan Network Server Streamlining
+
+On the Helium L1, being a LoRaWAN Network Server (LNS) on the Helium Network requires running the
+router, [state channels](/blockchain/packet-purchasing/#state-channels), and the Helium chain, a
+significant hurdle for non-blockchain native LNS configurations.
+
+On the Solana L1, the LNS will have a much-reduced role. After purchasing their OUI and slabs, they
+must inform the Config Service of the routing for the devices under their network. The LNS can
+optionally curate an allow-list to, for example, not accept packets from disabled devices or
+tenants/devices with a depleted Data Credit (DC) balance. The LNS will directly transmit these
+routes and their allow-list to the Config Service.
+
+The updated and reduced role brings the responsibilities of a Helium LNS much more in line with a
+generic LNS while also easing the integrations of existing LNS systems, further helping the
+expansion of the Helium Network.
+
+### Config Service
+
+The Config Service will keep track of all the routing rules for all the devices connected to the
+Helium Network, aggregating from the LNSs into a database of routes that will propagate to each
+Packet Router. The Config Service will immediately update the Packet Routers whenever it receives an
+update.
+
+The Packet Verifier also uses the CONfig Service to fetch the list of OUIs, wallet addresses per
+gateway, and wallet addresses per OUI.
+
+### Packet Router Service
+
+The Packet Routers are responsible for routing the packets it receives from Hotspots to the
+appropriate LNS. This streamlined service follows the routing rules given to it by the Config
+Service.
+
+If a Packet Router can match a received packet to a defined route, it will forward that message to
+the appropriate LNS and submit a packet report to the Packet Reports Database.
+
+Each packet report includes OUI, network ID, region, gateway, and payload hash metadata. The full
+definition can be found
+[here](https://github.com/helium/proto/blob/master/src/service/packet_router.proto#L8).
+
+### Load Balancing Service
+
+Hotspots will interface directly with Load Balancers, helping the Helium Network scale horizontally
+when needed.
+
+### Packet Verifier Service
+
+The Packet Verifier verifies the submitted packets. Its primary responsibilities are to:
+
+- Confirm that each OUI and the associated LNS have enough DC to pay for the packets received. If a
+  given OUI does not, the packet verifier will inform the config service that it should disable the
+  associated routes. Once OUI has a positive DC balance, it will re-enable the associated routes.
+- Confirms that the Message Integrity Code (MIC) check passes.
+- Processes these reports into a separate database of verified and denied reports (denied reports
+  include the cause of denial).
+- Based on data transfer, calculate Rewards and the amount of DC to debit from each wallet
+  associated with an OUI.
+
+<img className="docsheader" src={useBaseUrl('img/solana-migration/packet-verifier-service.png')} />
+

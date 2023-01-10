@@ -3,6 +3,12 @@ module.exports = {
     'home',
     {
       type: 'category',
+      label: 'Solana Migration',
+      items: ['solana-migration/solana-migration', 'solana-migration/migration-infrastructure'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Blockchain',
       items: [
         'blockchain/blockchain',
