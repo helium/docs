@@ -23,11 +23,9 @@ module.exports = {
     colorMode: {
       // "light" | "dark"
       defaultMode: 'light',
-
       // Hides the switch in the navbar
       // Useful if you want to support a single color mode
       disableSwitch: true,
-
       // Should we use the prefers-color-scheme media-query,
       // using user system preferences, instead of the hardcoded defaultMode
       respectPrefersColorScheme: false,
@@ -70,7 +68,6 @@ module.exports = {
           label: 'Whitepaper (2018)',
           position: 'right',
         },
-
         {
           href: 'https://explorer.helium.com',
           label: 'Explorer',

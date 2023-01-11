@@ -26,9 +26,8 @@ future state of the infrastructure post-migration.
 
 ## Price Oracle
 
-On the Helium L1, the Price Oracle is the only existing Oracle on the Helium Network. It is
-required on-chain as the price of HNT is needed to calculate HNT to burn when minting Data Credits
-(DC).
+On the Helium L1, the Price Oracle is the only existing Oracle on the Helium Network. It is required
+on-chain as the price of HNT is needed to calculate HNT to burn when minting Data Credits (DC).
 
 ### Current Implementation
 
@@ -53,7 +52,11 @@ points for given coin pair values and then aggregates this data and makes it ava
 Pyth's
 [exponentially-weighted moving average (EMA) price aggregation](https://docs.pyth.network/how-pyth-works/ema-price-aggregation)
 adds time to the aggregation with a heavier weight given to more recent price samples, smoothing the
-price and controlling for outliers.
+price and controlling for outliers and further increases trust in the price and helps shield against
+potential bad actors.
+
+An out-of-the-box Oracle solution means fewer developer requirements for the Helium core developers
+and ensures more reliable service.
 
 <img className="docsheader" src={useBaseUrl('img/solana-migration/price-oracle.png')} />
 
@@ -123,3 +126,61 @@ The Packet Verifier verifies the submitted packets. Its primary responsibilities
 
 <img className="docsheader" src={useBaseUrl('img/solana-migration/packet-verifier-service.png')} />
 
+---
+
+## IOT Proof Of Coverage Oracle
+
+### Current Implementation
+
+On the Helium L1, Validators construct Challenges and perform Validation of the Proof of Coverage
+(PoC) on the Helium Network, with each Hotspot connected to a Validator.
+
+A Validator informs linked Hotspots when they are selected to be challenged, prompting a beacon to
+be sent by the Hotspot.
+
+Upon witnessing a beacon, Hotposts request routing information to the Challenger Validator through
+their linked Validator. to submit Witness Receipts, which the Challender Validator uses to submit a
+PoC Receipt transaction to the blockchain.
+
+Separately, Challenge Rate is related to the amount of active Hotspots on the Helium Network. The
+more Hotspots there are, the less each Hotspot will be challenged, with Hotspots currently being
+challenged once a day on average.
+
+While functional, the Helium blockchain is at a crossroads where PoC Challenges and Witnesses can be
+lost if the Hotspot's linked Validator has fallen behind the blockchain. Additionally, PoC activity
+is registered on-chain, limiting the number of Witnesses per beacon and how many Challenges can
+process in a given interval leaving Hotspot Owners unable to get quick feedback on their setups,
+resulting in uneven earnings and sub-optimal coverage.
+
+### Post Migration Implementation
+
+On the Solana L1, all PoC activity will be off-chain, removing Validators as a potential point of
+failure and greatly simplifying the beaconing process by allowing Hotspots to self-beacon at regular
+intervals. Additionally, off-chain PoC is much more easily scalable and will remove the limitations
+on the number of Witnesses per beacon.
+
+The main actors and their relationships with one another are as follows.
+
+### Hotspots
+
+Beaconing: Hotspots will now self-beacon at regular intervals, targeting a 6-hour interval at
+launch.
+
+Witnessing: When a Hotspot witnesses a beacon, the Hotspot directly submits the receipt to the PoC
+ingest farm.
+
+### PoC Ingest Farm
+
+The PoC Ingest farm will only perform basic validation that filters out structurally invalid data
+and will then submit both the beacon receipt and the witness receipts to an S3 bucket. The limited
+duties of the PoC Ingest farms make them easily scalable as the Network evolves.
+
+### PoC Verifier Oracle
+
+The PoC Verifier Oracle will verify all the data submitted by correlating witnesses to receipts and
+confirming the series of events, then submitting these processed rewardable and invalid receipts to
+a separate S3 bucket, including how many shares to give to each Hotspot.
+
+<img className="docsheader" src={useBaseUrl('img/solana-migration/poc-verifier-oracle.png')} />
+
+---
