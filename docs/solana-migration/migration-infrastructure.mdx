@@ -2,7 +2,7 @@
 id: migration-infrastructure
 title: Solana Infrastructure Migration
 pagination_label: Solana Infrastructure Migration
-sidebar_label: Infrastructure Migration
+sidebar_label: Infrastructure
 description: Helium Solana Migration Documentation
 # Image:
 slug: /solana-migration/migration-infrastructure
@@ -10,7 +10,7 @@ slug: /solana-migration/migration-infrastructure
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-# Infrastructure Migration Overview
+# Solana Migration for Infrastructure
 
 The migration of the Helium Network from its L1 to Solana brings several changes to the setup of the
 Network and its associated subDAOs infrastructure. Chief among these changes is moving a lot of data
@@ -18,8 +18,8 @@ that has until now been on-chain (namely PoC data) off-chain.
 
 As such, this migration introduces several Oracles which serve as bridges between the external world
 and the blockchain. These infrastructure changes will allow the Helium Network to effectively
-introduce new Networks as new Decentralized Network Protocol (DNP) subDAOs and more easily scale
-existing DNP subDAOs by removing existing bottlenecks. The following outlines the future state of
+introduce new Networks as Decentralized Network Protocol (DNP) subDAOs and more easily scale
+existing DNP subDAOs by removing existing bottlenecks. This document outlines the future state of
 the infrastructure post-migration.
 
 ---
@@ -193,6 +193,10 @@ The main actors and their relationships with one another are as follows.
 
 Beaconing: Hotspots will now self-beacon at regular intervals, targeting a 6-hour interval at
 launch.
+
+To prevent premature beaconing and replay attacks, the beacon will include some entropy. This
+Hotspot will beacon their Challenge and submit it to the PoC Ingest Farm through a Load Balancer
+proxy.
 
 Witnessing: When a Hotspot witnesses a beacon, the Hotspot directly submits the receipt to the PoC
 ingest farm.
