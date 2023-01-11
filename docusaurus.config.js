@@ -40,8 +40,8 @@ module.exports = {
       },
       items: [
         {
-          to: '/use-the-network/console',
-          label: 'Try the New Console Today',
+          to: '/solana-migration',
+          label: 'Read About the Migrating to Solana',
           position: 'right',
           activeBaseRegex: `docs`,
           className: 'announcementnav',
