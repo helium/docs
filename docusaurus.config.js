@@ -109,4 +109,8 @@ module.exports = {
     ],
   ],
   plugins: [],
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
 }
