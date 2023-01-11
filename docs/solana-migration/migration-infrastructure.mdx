@@ -311,6 +311,65 @@ on-chain; a dedicated Oracle will submit device count to the blockchain via Swit
 
 <img src={useBaseUrl('img/solana-migration/subdao-hnt-exchange.png')} />
 
+```mermaid
+%%{ init: { 'flowchart': { 'curve': 'linear' } } }%%
+flowchart LR
+  %% entities
+  solanaBlockchain[(Solana Blockchain)]
+
+  iotTransferReceipts[(Verified IOT Transfer Receipts)]
+  iotPoCReceipts[(Verified IOT PoC Receipts)]
+
+  iotRewardsOracle[IOT Rewards Oracle]
+  iotHotspot[IOT Hotspot]
+
+  iotTreasury[IOT Treasury]
+
+  mobileTransferReceipts[(Verified MOBILE Transfer Receipts)]
+  mobilePoCReceipts[(Verified MOBILE PoC Receipts)]
+
+  mobileRewardsOracle[MOBILE Rewards Oracle]
+  mobileHotspot[MOBILE Hotspot]
+
+  mobileTreasury[MOBILE Treasury]
+
+  hntRewardsOracle[HNT Rewards Oracle]
+
+  walletIOTBalance[Wallet IOT Balance];
+  walletHNTBalance[Wallet HNT Balance];
+  walletMOBILEBalance[Wallet MOBILE Balance];
+
+  %% flows
+  subgraph Wallet
+    walletHNTBalance;
+    walletIOTBalance;
+    walletMOBILEBalance;
+  end
+
+  subgraph IOT subDAO
+    iotTransferReceipts-->iotRewardsOracle
+    iotPoCReceipts-->iotRewardsOracle
+    iotRewardsOracle-->iotHotspot
+  end
+  iotHotspot-->|IOT Redemption|walletIOTBalance --> |Burn IOT for HNT|iotTreasury
+
+  subgraph MOBILE subDAO
+    mobileTransferReceipts-->mobileRewardsOracle
+    mobilePoCReceipts-->mobileRewardsOracle
+    mobileRewardsOracle-->mobileHotspot
+  end
+  mobileHotspot-->|MOBILE Redemption|walletMOBILEBalance --> |Burn MOBILE for HNT|mobileTreasury
+
+  hntRewardsOracle-->|HNT emmisions|iotTreasury & mobileTreasury -->|HNT from burn transaction|walletHNTBalance
+
+  subgraph Blockchain
+    solanaBlockchain-->|veHNT backing IOT|iotRewardsOracle
+    solanaBlockchain-->|utility score metrics|hntRewardsOracle
+    solanaBlockchain-->|veHNT backing MOBILE|mobileRewardsOracle
+  end
+
+```
+
 ### SubDAO to HNT Conversion
 
 Each subDAO is responsible for defining its Treasury Reserve Decentralized Network Token (DNT)
