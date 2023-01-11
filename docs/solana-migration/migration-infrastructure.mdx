@@ -135,6 +135,23 @@ The Packet Verifier verifies the submitted packets. Its primary responsibilities
 
 <img src={useBaseUrl('img/solana-migration/packet-verifier-service.png')} />
 
+```mermaid
+flowchart TB;
+    hotspots(Hotspots)-->|Send Packes|loadBalancer(Load Balancer);
+    loadBalancer--->packerRouters(Packet Routers);
+
+    configService(Config Service)-->|Routes|packerRouters;
+    packerRouters-->rawReportsDB[(Raw Packet Reports)];
+
+    packerRouters-->|Forward packets to appropriate LNS|lns;
+    lns[LNS]-->|Routes for a given LNS|configService;
+
+    rawReportsDB-->packetVerfier(Packet Verfier);
+    packetVerfier-->verfiedDataTransferReportsDB[(Verfied Data Transfer Reports)];
+    verfiedDataTransferReportsDB-->iotRewardsService(IOT Rewards Service);
+
+    packetVerfier-->|Disables/Enables LNS Routes based on DC balance|configService;
+```
 ---
 
 ## IOT Proof Of Coverage Oracle
