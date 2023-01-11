@@ -19,8 +19,8 @@ that has until now been on-chain (namely PoC data) off-chain.
 As such, this migration introduces several Oracles which serve as bridges between the external world
 and the blockchain. These infrastructure changes will allow the Helium Network to effectively
 introduce new Networks as new Decentralized Network Protocol (DNP) subDAOs and more easily scale
-existing DNP subDAOs by removing existing bottlenecks. The following is an attempt to document the
-future state of the infrastructure post-migration.
+existing DNP subDAOs by removing existing bottlenecks. The following outlines the future state of
+the infrastructure post-migration.
 
 ---
 
@@ -73,7 +73,7 @@ flowchart TD;
 
 ## Data Transfer Oracle
 
-Moving the entire data transfer login off-chain will increase scalability and reduce points of
+Moving the entire data transfer logic off-chain will increase scalability and reduce points of
 failure.
 
 ### Lorawan Network Server Streamlining
@@ -126,7 +126,8 @@ The Packet Verifier verifies the submitted packets. Its primary responsibilities
 
 - Confirm that each OUI and the associated LNS have enough DC to pay for the packets received. If a
   given OUI does not, the packet verifier will inform the config service that it should disable the
-  associated routes. Once OUI has a positive DC balance, it will re-enable the associated routes.
+  associated routes. Once a disabled OUI has a positive DC balance, it will re-enable the associated
+  routes.
 - Confirms that the Message Integrity Code (MIC) check passes.
 - Processes these reports into a separate database of verified and denied reports (denied reports
   include the cause of denial).
@@ -152,6 +153,7 @@ flowchart TB;
 
     packetVerfier-->|Disables/Enables LNS Routes based on DC balance|configService;
 ```
+
 ---
 
 ## IOT Proof Of Coverage Oracle
@@ -165,7 +167,7 @@ A Validator informs linked Hotspots when they are selected to be challenged, pro
 be sent by the Hotspot.
 
 Upon witnessing a beacon, Hotposts request routing information to the Challenger Validator through
-their linked Validator. to submit Witness Receipts, which the Challender Validator uses to submit a
+their linked Validator. to submit Witness Receipts, which the Challenger Validator uses to submit a
 PoC Receipt transaction to the blockchain.
 
 Separately, Challenge Rate is related to the amount of active Hotspots on the Helium Network. The
@@ -302,9 +304,8 @@ The following comprise the subDAO Utility Score:
 - subDAO's active device count and device activation fee
 - veHNT backing each subDAO
 
-DC burned, active device count, and veHNT staked are submitted to the chain throw the proxy of
+DC burned, active device count, and veHNT staked are submitted to the chain through the proxy of
 [Switchboard](https://switchboard.xyz/) to facilitate this process and keep a record.
-
 
 Device count is a fluctuating number based on recent PoC activity and is not readily available
 on-chain; a dedicated Oracle will submit device count to the blockchain via Switchboard.
