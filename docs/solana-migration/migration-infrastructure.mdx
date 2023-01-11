@@ -209,6 +209,32 @@ a separate S3 bucket, including how many shares to give to each Hotspot.
 
 <img src={useBaseUrl('img/solana-migration/poc-verifier-oracle.png')} />
 
+```mermaid
+flowchart TB;
+%%{ init: { 'flowchart': { 'curve': 'linear' } } }%%
+
+entropy(Entropy)-->beaconer;
+entropy(Entropy)-->witness1;
+entropy(Entropy)-->witness2;
+
+beaconer(Beacon Hotspot)-->|Beacon|witness1(Witness Hotspot 1);
+beaconer(Beacon Hotspot)-->|Beacon|witness2(Witness Hotspot 2);
+
+witness1-->|Witness Report|loadBalancer(Load Balancer);
+witness2-->|Witness Report|loadBalancer(Load Balancer);
+
+loadBalancer-->pocIngestFarms(PoC Ingest Farms);
+
+pocIngestFarms-->rawPocReceipts[(Raw PoC Receipts)];
+
+beaconer(Beacon Hotspot)-->|Beacon Report|loadBalancer;
+
+rawPocReceipts-->pocVerifier(PoC Verifier);
+pocVerifier-->verifiedPocReceiptsDB[(Verified PoC Receipts)];
+verifiedPocReceiptsDB-->iotRewardsService(IOT Rewards Service);
+
+```
+
 ---
 
 ## Mobile PoC Oracle
