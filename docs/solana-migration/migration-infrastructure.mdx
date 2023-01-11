@@ -60,6 +60,15 @@ and ensures more reliable service.
 
 <img src={useBaseUrl('img/solana-migration/price-oracle.png')} />
 
+```mermaid
+%%{ init: { 'flowchart': { 'curve': 'linear' } } }%%
+flowchart TD;
+    maker1(Exchange or Market Maker)-->|Price Point Submissions|Pyth;
+    maker2(Exchange or Market Maker)-->|Price Point Submissions|Pyth;
+    maker3(Exchange or Market Maker)-->|Price Point Submissions|Pyth;
+    Pyth(Pyth)-->|Publish Aggregate|blockchain[(Solana Blockchain)];
+```
+
 ---
 
 ## Data Transfer Oracle
