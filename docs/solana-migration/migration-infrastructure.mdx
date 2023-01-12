@@ -138,20 +138,25 @@ The Packet Verifier verifies the submitted packets. Its primary responsibilities
 
 ```mermaid
 flowchart TB;
-    hotspots(Hotspots)-->|Send Packes|loadBalancer(Load Balancer);
-    loadBalancer--->packerRouters(Packet Routers);
+    subgraph hotspots[Hotspots]
+      direction TB
+      hotspot1[Hotspot 1] & hotspot2[Hotspot 2] & hotspot3[Hotspot 3]
+    end
 
-    configService(Config Service)-->|Routes|packerRouters;
-    packerRouters-->rawReportsDB[(Raw Packet Reports)];
+    hotspots -->|Send Packets| loadBalancer(Load Balancer);
+    loadBalancer --> packerRouters(Packet Routers);
 
-    packerRouters-->|Forward packets to appropriate LNS|lns;
-    lns[LNS]-->|Routes for a given LNS|configService;
+    configService(Config Service) -->|Routes| packerRouters;
+    packerRouters --> rawReportsDB[(Raw Packet Reports)];
 
-    rawReportsDB-->packetVerfier(Packet Verfier);
-    packetVerfier-->verfiedDataTransferReportsDB[(Verfied Data Transfer Reports)];
-    verfiedDataTransferReportsDB-->iotRewardsService(IOT Rewards Service);
+    packerRouters -->|Forward packets to appropriate LNS| lns[LoRaWAN Network Servers];
+    lns --->|Routes for a given LNS| configService;
 
-    packetVerfier-->|Disables/Enables LNS Routes based on DC balance|configService;
+    rawReportsDB ---> packetVerfier(Packet Verfier);
+    packetVerfier --> verfiedDataTransferReportsDB[(Verfied Data Transfer Reports)];
+    verfiedDataTransferReportsDB --> iotRewardsService(IOT Rewards Service);
+
+    packetVerfier -->|Disables/Enables LNS Routes based on DC balance| configService;
 ```
 
 ---
@@ -219,12 +224,19 @@ a separate S3 bucket, including how many shares to give to each Hotspot.
 flowchart TB;
 %%{ init: { 'flowchart': { 'curve': 'linear' } } }%%
 
-entropy(Entropy)-->beaconer;
-entropy(Entropy)-->witness1;
-entropy(Entropy)-->witness2;
+subgraph hotspotactivity[Hotspot PoC Activity]
+  direction LR
+  beaconer(Beacon Hotspot) 
+  witness1(Witness Hotspot 1) 
+  witness2(Witness Hotspot 2)
+end
 
-beaconer(Beacon Hotspot)-->|Beacon|witness1(Witness Hotspot 1);
-beaconer(Beacon Hotspot)-->|Beacon|witness2(Witness Hotspot 2);
+beaconer -->|Beacon| witness1;
+beaconer -->|Beacon| witness2;
+beaconer -->|Beacon Report| loadBalancer;
+
+entropy(Entropy)
+entropy -->hotspotactivity;
 
 witness1-->|Witness Report|loadBalancer(Load Balancer);
 witness2-->|Witness Report|loadBalancer(Load Balancer);
@@ -232,8 +244,6 @@ witness2-->|Witness Report|loadBalancer(Load Balancer);
 loadBalancer-->pocIngestFarms(PoC Ingest Farms);
 
 pocIngestFarms-->rawPocReceipts[(Raw PoC Receipts)];
-
-beaconer(Beacon Hotspot)-->|Beacon Report|loadBalancer;
 
 rawPocReceipts-->pocVerifier(PoC Verifier);
 pocVerifier-->verifiedPocReceiptsDB[(Verified PoC Receipts)];
