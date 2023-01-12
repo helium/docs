@@ -271,6 +271,26 @@ to MOBILE PoC. You can read this
 [roadmap](https://blog.helium.com/mobile-proof-of-coverage-the-road-ahead-73a25601a13d) to learn
 more about these plans.
 
+<img src={useBaseUrl('img/solana-migration/mobile-poc-oracle.png')} />
+
+```mermaid
+flowchart LR;
+%%{ init: { 'flowchart': { 'curve': 'linear' } } }%%
+  %% entities
+  entropy[Entropy]
+  hotspot[Hotspot]
+  loadBalancer[Load Balancer]
+  pocIngestFarms[PoC Ingest Farms]
+  rawPocRecipts[(Raw PoC Receipts)]
+  pocVerifier[PoC Verifier]
+  verifiedPocRecipts[(Verified PoC Receipts)]
+  mobileRewardsService[MOBILE Rewards Service]
+
+  %% flows
+  entropy-->hotspot-->loadBalancer-->pocIngestFarms-->rawPocRecipts-->pocVerifier-->verifiedPocRecipts-->mobileRewardsService
+
+```
+
 ---
 
 ## Rewards Oracles And Infrastructure
