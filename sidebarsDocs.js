@@ -30,6 +30,8 @@ module.exports = {
         'mine-hnt/maker-apps',
         'mine-hnt/understanding-hotspot-status',
         'wallets/app-wallet/app-wallet',
+        'mine-hnt/denylist',
+        'mine-hnt/denylist-removals',
         'mine-hnt/crowdspot',
       ],
       collapsed: true,
