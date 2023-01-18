@@ -16,16 +16,16 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 :::warning Removing A Hotspot from the Denylist with Crowdspot
 
 If a Hotspot has been added to the Denylist in error, the **only** method to have it removed is to
-file a Removal Request using Crowdspot.
+file a Removal Request using [Crowdspot](https://crowdspot.io/).
 
 **Instructions for submitting a removal request can be found on the
 [Denylist Removal Request documentation page.](/mine-hnt/denylist-removals)**
 
 :::
 
-Crowdspot is an unmonitored, self-service tool built by Nova Labs for the community. This tool
-allows anyone to explore Helium Network Hotspot data to understand atypical Hotspot behavior and
-identify anomalies.
+[Crowdspot](https://crowdspot.io/) is an unmonitored, self-service tool built by Nova Labs for the
+community. This tool allows anyone to explore Helium Network Hotspot data to understand atypical
+Hotspot behavior and identify anomalies.
 
 Similar to Voting, submitting Denylist additions, removals requests, or casting a vote on the status
 of a Hotspot requires a Crowdspot account associated with a unique Helium Wallet address.
@@ -33,7 +33,7 @@ of a Hotspot requires a Crowdspot account associated with a unique Helium Wallet
 If you do not have the [Helium Wallet app](/wallets/helium-wallet-app), you'll need to download the
 app and create a new wallet or import an existing wallet before proceeding.
 
-:::info Crowdspot Connections are Free
+:::note Crowdspot Connections are Free
 
 There are 0 fees to connect a Helium Wallet address to Crowdspot.
 
@@ -51,7 +51,9 @@ clicking on the `Submit Denylist Request` button on the Crowdspot.io landing pag
 To associate a Helium Wallet address, click the `Login` menu bar item on the Crowdspot homepage and
 scan the QR code with your phone.
 
-<img className="appscreenbanner" src={useBaseUrl('img/crowdspot/login-popover.png')} />
+<div className="img-center">
+  <img className="appscreenbanner" src={useBaseUrl('img/crowdspot/login-popover.png')} />
+</div>
 
 Once you have scanned the QR Code, the Helium Wallet app will open and prompt you to authenticate
 Crowdspot.
@@ -62,16 +64,16 @@ Crowdspot.
 
 <div class="container" style={{ padding: 0, paddingTop: 0 }}>
   <div class="row">
-    <div class="col col--4" style={{ marginBottom: 0 }}>
+    <div class="col col--4 img-center" style={{ marginBottom: 0 }}>
       <img className="appscreen" src={useBaseUrl('img/crowdspot/wallet-connect-prompt.png')} />
     </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
+    <div class="col col--4 img-center" style={{ marginBottom: 0 }}>
       <img
         className="appscreen"
         src={useBaseUrl('img/crowdspot/wallet-connect-choose-account.png')}
       />
     </div>
-    <div class="col col--4" style={{ marginBottom: 0 }}>
+    <div class="col col--4 img-center" style={{ marginBottom: 0 }}>
       <img
         className="appscreen"
         src={useBaseUrl('img/crowdspot/wallet-connect-sending-transaction.png')}
@@ -121,13 +123,17 @@ shown.
 You can Log out of Crowdspot by clicking your profile badge in the upper right corner and selecting
 `Log Me Out` from the pop-up menu.
 
-<img className="appscreenbanner" src={useBaseUrl('img/crowdspot/logout-popover.png')} />
+<div className="img-center">
+  <img className="appscreenbanner" src={useBaseUrl('img/crowdspot/logout-popover.png')} />
+</div>
 
 ### Submit an Addition
 
 Once you have logged in, click the `Submit Denylist Request` button to begin your submission.
 
-<img className="homeicon" src={useBaseUrl('img/crowdspot/report-addition.png')} />
+<div className="img-center">
+  <img className="homeicon" src={useBaseUrl('img/crowdspot/report-addition.png')} />
+</div>
 
 #### Submission Type
 
@@ -155,8 +161,8 @@ the Hotspots in the request.
 
 #### Written Reasoning
 
-While not required, submitting a written description to support the Denylist submission can provide
-valuable insight for evaluation.
+Submitting a written description to support the Denylist submission provides valuable insight for
+evaluation. A minimum of 150 characters is required.
 
 #### Create the Submittion
 
@@ -177,7 +183,9 @@ Investigation of Abnormal Hotspots can be a lot of work, and many workflows exis
 the submission of large Clusters. To make the process easier for extensive submissions, Hotspot
 `b58` addresses can be added in a batch (of up to 100 addresses) rather than one at a time.
 
-<img className="homeicon" src={useBaseUrl('img/crowdspot/report-removal-batch.png')} />
+<div className="img-center">
+  <img className="homeicon" src={useBaseUrl('img/crowdspot/report-removal-batch.png')} />
+</div>
 
 #### Entering a Batch of Hotspot Addresses
 
@@ -225,11 +233,14 @@ provided.
 
 <div class="container" style={{ padding: 0, paddingTop: 0 }}>
   <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/vote-legitimate.png')} />
+    <div class="col col--6 img-center" style={{ marginBottom: 0 }}>
+      <img
+        className="crowdspot-vote-button"
+        src={useBaseUrl('img/crowdspot/vote-legitimate.png')}
+      />
     </div>
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/vote-abnormal.png')} />
+    <div class="col col--6 img-center" style={{ marginBottom: 0 }}>
+      <img className="crowdspot-vote-button" src={useBaseUrl('img/crowdspot/vote-abnormal.png')} />
     </div>
   </div>
 </div>
@@ -257,8 +268,8 @@ is -not- present for Hotspots -not- currently on the Denylist.
 
 <div class="container" style={{ padding: 0, paddingTop: 0 }}>
   <div class="row">
-    <div class="col col--6" style={{ marginBottom: 0 }}>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/denylist-badge.png')} />
+    <div class="col col--6 img-center" style={{ marginBottom: 0 }}>
+      <img className="crowdspot-vote-button" src={useBaseUrl('img/crowdspot/denylist-badge.png')} />
     </div>
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <p>
@@ -299,7 +310,10 @@ This graph compares a Hotspot's Signal-to-Noise ratio (SNR) against its Relative
   <div class="row">
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <b>Legitimate Hotspot</b>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/snr-rssi-legit-example.png')} />
+      <img
+        className="crowdspot-chart img-center"
+        src={useBaseUrl('img/crowdspot/snr-rssi-legit-example.png')}
+      />
       <p>
         Witnesses will likely show a more natural, positive correlation over a broad range of RSSI
         and SNR values.
@@ -307,7 +321,10 @@ This graph compares a Hotspot's Signal-to-Noise ratio (SNR) against its Relative
     </div>
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <b>Abnormal Hotspot</b>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/snr-rssi-sus-example.png')} />
+      <img
+        className="crowdspot-chart img-center"
+        src={useBaseUrl('img/crowdspot/snr-rssi-sus-example.png')}
+      />
       <p>
         Witnesses tend to appear 'grid-like' and concentrated within a much smaller range of RSSI
         (±3bm) and high SNR (+10db).
@@ -327,7 +344,10 @@ will be displayed in the same color.
   <div class="row">
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <b>Legitimate Hotspot</b>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/witness-graph-legit-example.png')} />
+      <img
+        className="crowdspot-chart img-center"
+        src={useBaseUrl('img/crowdspot/witness-graph-legit-example.png')}
+      />
       <p>
         The central Hotspot's witnesses vary with placement and the natural terrain of the area.
         These witness connections are more random and feature a wider variety of Hotspot owners.
@@ -335,7 +355,10 @@ will be displayed in the same color.
     </div>
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <b>Abnormal Hotspot</b>
-      <img className="homeicon" src={useBaseUrl('img/crowdspot/witness-graph-sus-example.png')} />
+      <img
+        className="crowdspot-chart img-center"
+        src={useBaseUrl('img/crowdspot/witness-graph-sus-example.png')}
+      />
       <p>
         The central Hotspot can only see a specific subset of Hotspots. This is illustrated by a
         sphere-like containment of Hotspots witnessing only each other, but failing to connect
@@ -358,7 +381,7 @@ indicates strong correlation and goodness of fit.
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <b>Legitimate Hotspot</b>
       <img
-        className="homeicon"
+        className="crowdspot-chart img-center"
         src={useBaseUrl('img/crowdspot/witness-rssi-distance-legit-example.png')}
       />
       <p>
@@ -369,7 +392,7 @@ indicates strong correlation and goodness of fit.
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <b>Abnormal Hotspot</b>
       <img
-        className="homeicon"
+        className="crowdspot-chart img-center"
         src={useBaseUrl('img/crowdspot/witness-rssi-distance-sus-example.png')}
       />
       <p>
