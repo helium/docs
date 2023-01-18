@@ -9,10 +9,12 @@ slug: /5g-on-helium/mobile-poc
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # MOBILE Proof of Coverage
 
-The Helium blockchain uses a novel work algorithm called "Proof of Coverage" (PoC) to verify that
+The Helium blockchain uses a novel work algorithm called "Proof of Coverage" ("PoC") to verify that
 Hotspots are located where they claim. Put another way, PoC tries to verify, on an ongoing basis,
 that Hotspots are honestly representing their location and the wireless network coverage they are
 creating from that location.
@@ -24,12 +26,8 @@ and receivers ("Witness") of PoC activity; read more here:
 While all current 5G Hotspot models _also_ participate in the LoRaWAN Network and PoC, the CBRS
 Small Cell and 5G aspects of a 5G Hotspot require a new approach to validating PoC.
 
-:::info **One Way Traffic**
-
-CBRS Small Cell Radios can only operate as transmitters; they cannot receive incoming data and thus
-can not "hear" one another directly.
-
-:::
+A CBRS Small Cell Radio ("Radio") can only operate as a transmitter; they cannot receive incoming
+data and thus can not "hear" one another directly.
 
 ---
 
@@ -40,91 +38,73 @@ factors:
 
 <img className="docsheader" src={useBaseUrl('img/5g-on-helium/mobile-poc-milestones.png')} />
 
-These factors will be rolled out in stages over the course of the next twelve months and explained
-in detail to ensure network builders can take concrete steps to plan or improve their setups. You
-can check out the MOBILE PoC Roadmap
+These factors will be rolled out in stages over the next twelve months and explained in detail to
+ensure Network Builders can take concrete steps to plan or improve their setups. Check out the
+MOBILE PoC Roadmap
 [here](https://blog.helium.com/mobile-proof-of-coverage-the-road-ahead-73a25601a13d).
 
 ---
 
-## How To Mine MOBILE
+## Modeled Coverage
 
-Several factors contribute to the amount of MOBILE a 5G Hotspot may earn over a given period. This
-page covers some higher-level concepts, design elements, and rules to keep in mind that help better
-explain what you might earn and why. This section covers these and some mining and token reward
-basics.
+With the [passing](https://heliumvote.com/14jH67zhctwb3B5NmwiAjaXQuyF7jZMZCAnfyBYhSpRS3L22sQE) of
+[HIP-74](https://github.com/helium/HIP/blob/main/0074-mobile-poc-modeled-coverage-rewards.md) the
+Core Devs will implement a new Modeled Coverage Oracle on the Helium Network to replace the current
+algorithm for MOBILE Rewards initially introduced based on the Radio Type multipliers.
 
-The Helium Blockchain rewards 5G Hotspots with CBRS Radios for providing 5G wireless coverage and
-verifying the Helium Network with the Helium MOBILE Token.
+This new algorithm uses the location of the Radio to calculate MOBILE Rewards based on the number of
+res12 hexes receiving coverage from a given Radio by considering the directionality of Radios and
+environmental obstructions that prevent the propagation of the signals they generate. Modeled
+Coverage, combined with other parameters like uptime ("heartbeats") and backhaul ("speed tests"),
+aims to allow for more appropriate Rewards and incentivizes the deployment of Radios at optimal
+locations.
 
-Mining MOBILE and providing 5G coverage requires a 5G Hotspot and one or more compatible CBRS Small
-Cell Radios. These components can be purchased as a bundle or separately. All 5G Hotspots must be
-online and registered in the SAS (Spectrum Access System) maintained by the FCC to earn MOBILE
-rewards. Once properly deployed, you, as the owner, are not required to do anything else with your
-5G Hotspot to earn MOBILE.
+:::tip check coverage
 
-More than one Small Cell Radio can be connected to a single 5G Hotspot to create a larger 5G
-coverage area. 5G Hotspots can support as many Small Cell Radios as would saturate their bandwidth.
+Temporary Modeled Coverage Explorer is available [here](https://coverage-explorer.herokuapp.com/).
 
-Connecting more than one Small Cell Radio requires an additional networking switch. Refer to the 5G
-Hotspot Maker installation guides for specific instructions.
-
-:::info
-
-During [Genesis](./mobile-poc#mobile-genesis), 5G Hotspots earn MOBILE by reporting their status via
-a "heartbeat," an automatic reporting process to the Helium Blockchain that the Small Cell Radio is
-online and registered with the SAS.
-
-Genesis is the period during which Hotspot owners are rewarded for providing 5G coverage with
-pre-mined MOBILE tokens. MOBILE tokens will be redeemable for HNT after the Genesis period ends.
+Modeled Coverage Explorer is available [here](https://coverage-explorer.helium.com/).
 
 :::
 
 ---
 
-## MOBILE Genesis
+## Uptime Heartbeats
 
-During Genesis, 100M MOBILE tokens are allocated to be issued per Reward Period. Check out this
-[Example Reward Transaction](https://explorer.helium.com/txns/0n4TO_2W14rrsGt-nxBTotiHFCFukkO04QoXIxaOtAY)
-for reference.
-
-**The current Reward Period is from 1am UTC to 1am UTC.**
-
-To qualify for Genesis Rewards in a given Reward Period, a CBRS Small Cell Radio must:
-
-- Be connected to a 5G Hotspot.
-- Be installed appropriately.
-- Be registered with the SAS (Outdoor Radios Only).
-- Broadcast at least 1 "heartbeat" per Hour for 12 hours of the 24-hour Reward Period.
-- Meet minimum backhaul Speed Test requirements.
-
----
-
-## Heartbeats and Reliability of Service
-
-:::note What is a "Heartbeat"?
-
-A "heartbeat" is data sent by the 5G Hotspot indicating that the connected CBRS Small Cell Radio(s)
-is authorized to transmit 5G coverage.
+A "heartbeat" is data sent by the 5G Hotspot indicating that a connected Radio is authorized to
+transmit 5G coverage.
 
 Heartbeats occur every 60 seconds and transmit authorizations are valid for 240 seconds. This
 rolling overlap ensures that a Small Cell Radio can broadcast on an ongoing basis while allowing for
 brief interruptions.
 
+To encourage reliable signal availability, 5G Hotspots and connected CBRS Small Cell Radios must
+generate at least one heartbeat per hour in 12 unique hours of the 24-hour Reward Period.
+
+### Heartbeat Reward Scaling
+
+:::info Heartbeat impact on Radio rewards
+
+Each Radio is given a `heartbeat multiplier` of either `0` or `1`.
+
 :::
 
-To encourage reliable signal availability, 5G Hotspots and connected CBRS Small Cell Radios must
-generate at least one heartbeat per hour in 12 unique hours in the 24-hour Reward Period.
+Each Radio is awarded 1 point for a successful heartbeat in each hour, with a maximum of 24 points
+in the Reward Period. All Radios with at least 12 points in the 24-hour Reward Period are given a
+`heartbeat multiplier` of `1` and will be eligible to earn MOBILE Rewards.
 
-Each 5G Hotspot is awarded 1 point for a successful heartbeat in each hour, with a maximum of 24
-points in the Reward Period. All 5G Hotspots with at least 12 points in the 24-hour Reweard Period
-will be eligible to earn rewards.
+:::note Heartbeat Examples
 
-### No Missed Heartbeats Example
+Choose from the options below to see some heartbeat example scenarios and the impact on MOBILE
+rewards.
 
-In this example, the 5G Hotspot generated a heartbeat every hour of every day, earning 24 points.
+<Tabs block={true}>
 
-This 5G Hotspot **will** be eligible for rewards during the Reward Period.
+<TabItem value="no_missed_heartbeats" label="✅ No Missed Heartbeats" default>
+
+The Radio generated a heartbeat every hour of the day, earning 24 points.
+
+This Radio **will** be eligible for rewards during the Reward Period.
 
 | Hour  | Heartbeat | Points |     | Hour  | Heartbeat | Points |
 | :---: | :-------: | :----: | --- | :---: | :-------: | :----: |
@@ -141,11 +121,13 @@ This 5G Hotspot **will** be eligible for rewards during the Reward Period.
 | 10-11 |    Yes    | **1**  |     | 23-24 |    Yes    | **1**  |
 | 11-12 |    Yes    | **1**  |     | 22-23 |    Yes    | **1**  |
 
-### Half Day Offline Example
+</TabItem>
 
-In this example, the 5G Hotspot did not generate Heartbeats for 12 hours, earning 12 points.
+<TabItem value="half_day_offline" label="✅ Half Day Offline" default>
 
-This 5G Hotspot **will** be eligible for rewards during the Reward Period.
+The Radio did not generate Heartbeats for 12 hours, earning 12 points.
+
+This Radio **will** be eligible for rewards during the Reward Period.
 
 | Hour  | Heartbeat | Points |     | Hour  | Heartbeat | Points |
 | :---: | :-------: | :----: | --- | :---: | :-------: | :----: |
@@ -162,11 +144,13 @@ This 5G Hotspot **will** be eligible for rewards during the Reward Period.
 | 10-11 |    No     | **0**  |     | 23-24 |    No     | **0**  |
 | 11-12 |    Yes    | **1**  |     | 22-23 |    Yes    | **1**  |
 
-### Mostly Offline Example
+</TabItem>
 
-In this example, the 5G Hotspot did not generate Heartbeats for 19 hours, earning 5 points.
+<TabItem value="mostly_offline" label="🚫 Mostly Offline" default>
 
-This 5G Hotspot **will not** be eligible for rewards during the Reward Period.
+The Radio did not generate Heartbeats for 19 hours, earning 5 points.
+
+This Radio **will not** be eligible for rewards during the Reward Period.
 
 | Hour  | Heartbeat | Points |     | Hour  | Heartbeat | Points |
 | :---: | :-------: | :----: | --- | :---: | :-------: | :----: |
@@ -183,23 +167,129 @@ This 5G Hotspot **will not** be eligible for rewards during the Reward Period.
 | 10-11 |    No     | **0**  |     | 22-23 |    No     | **0**  |
 | 11-12 |    No     | **0**  |     | 23-24 |    No     | **0**  |
 
-## Small Cell Radio Reward Scaling
+</TabItem>
 
-All 5G Hotspots with properly installed and registered CBRS Radios will be eligible to earn rewards
-for participating on the Network. A rewards unit multiple is applied to the various Small Cell Radio
-models based on whether they are indoor or outdoor, as well as their power output, as follows:
+</Tabs>
 
-| Small Cell Radio Type | Reward Weight |
-| --------------------- | :-----------: |
-| High Power Outdoor\*  |    `4.000`    |
-| Outdoor               |    `2.500`    |
-| Indoor                |    `1.000`    |
+:::
 
-> \*Currently, the only High-Power Outdoor Radio is the `Baicells Nova436H.`
+---
 
-Individual rewards per period are calculated as a proportion of the total weighted reward units.
+## Backhaul Speed Tests
 
-### Earnings Example
+A 5G Hotspot automatically performs Speed Tests, with the results averaged by the MOBILE PoC Oracle.
+The MOBILE PoC Oracle includes these Speed Test metrics in the Rewards calculations for each 5G
+Hotspot.
+
+The 5G Hotspot will randomly measure download, upload, and latency to the MOBILE verifier twice in a
+given 24-hour period. If a test can not complete successfully, the 5G Hotspot automatically retries
+every 30 minutes until a Speed Test is successful. The first Speed Test for a newly installed 5G
+Hotspot is performed within the first 12 hours after powering it on.
+
+A minimum of two and maximum of six Speed Tests are required in the previous 48 hours to calculate a
+Moving average results for each download, upload, and latency, after which a new series of Speed
+Test results must be collected before a Moving Average can be calculated.
+
+### Speed Test Tiers
+
+Many locations where CBRS connectivity is being deployed, including some rural areas, do not always
+have the high-speed Internet connectivity needed to meet the acceptable Internet requirements for
+Genesis rewards consistently.
+
+Often these areas do not have good cellular coverage either. That's why we believe it is essential
+to incentivize Helium deployments in less well-connected areas.
+
+### Speed Test Reward Scaling
+
+:::info Speed test impact on Radio rewards
+
+Each 5G Hotspot is given a `speedtest multiplier` of either `0.0`, `0.25`, `0.5` or `1.0`.
+
+This multiplier is applied to all connected Radios in rewards calculations.
+
+:::
+
+In response to community feedback and further exploration by Chris from DeWiPulse for his
+[analysis of and commentary on public Internet data in the United States,](https://dewipulse.com/connectivity-where-it-matters/)
+Speed Test results are categorized into one of four Tiers.
+
+| Speed Test Tier | Speedtest Multiplier | Requirement (speeds in Mbps, latency in ms)                  |
+| :-------------: | :------------------: | :----------------------------------------------------------- |
+| **Acceptable**  |       `1.00x`        | `100+` Download, **AND** `10+` Upload, **AND** `<50` Latency |
+|  **Degraded**   |       `0.50x`        | `50+` Download, **AND** `5+` Upload, **AND** `<75` Latency   |
+|    **Poor**     |       `0.25x`        | `30+` Download, **AND** `2+` Upload, **AND** `<100` Latency  |
+|    **Fail**     |       `0.00x`        | `<30` Download, **OR** `<2` Upload, **OR** `>100` Latency    |
+
+Tiered Speed Test values are used as a multiplier in Rewards calculations as follows:
+
+- Speed Test Results are put into Tiers based on the minimum value of each Download, Upload, and
+  Latency (logical `AND`).
+- Speed Test results that do not meet the minimum requirements for any Download, Upload, or Latency
+  are considered to have `Failed` and are not eligible for Rewards until the Speed Test Average is
+  improved (logical `OR`).
+
+:::note Speedtest Examples
+
+Choose from the options below to see some speedtest example scenarios and the impact on MOBILE
+rewards.
+
+<Tabs block={true}>
+<TabItem value="all_acceptable" label="✅ Example 1: All Acceptable" default>
+
+```bash
+Download    200 ->  `Acceptable`
+Upload       40 ->  `Acceptable`
+Latency      15 ->  `Acceptable`
+---------------------------------
+Speed Test Tier ->  `Acceptable`  -> 1.0x Multiplier
+```
+
+</TabItem>
+<TabItem value="degraded upload" label="❎ Example 2: Degraded Upload" default>
+
+```bash
+Download    200 ->  `Acceptable`
+Upload        6 ->  `Degraded`
+Latency      15 ->  `Acceptable`
+---------------------------------
+Speed Test Tier ->  `Degraded`    -> 0.5x Multiplier
+```
+
+</TabItem>
+<TabItem value="poor_download_degraded_upload" label="⛔️ Example 3: Poor Download" default>
+
+```bash
+Download     40 ->  `Poor`
+Upload        6 ->  `Degraded`
+Latency      15 ->  `Acceptable`
+---------------------------------
+Speed Test Tier ->  `Poor`        -> 0.25x Multiplier
+```
+
+</TabItem>
+<TabItem value="failed_latency" label="🚫 Example 4: Failed Latency" default>
+
+```bash
+Download    200 ->  `Acceptable`
+Upload       40 ->  `Acceptable`
+Latency     150 ->  `Fail`
+---------------------------------
+Speed Test Tier ->  `Fail`        -> 0.0x Multiplier
+```
+
+</TabItem>
+</Tabs>
+
+:::
+
+### Requirements Will Evolve
+
+As the needs and realities of the Network change, backhaul requirements will evolve to better suit
+the Network and its users.
+
+---
+
+## Radio Earnings Calculation
 
 Earnings are calculated in 3 steps.
 
@@ -259,120 +349,6 @@ High-Power Outdoor Poor       => 100,000,000 * 0.001 /   10 = 14,285.71 MOBILE p
             Indoor Acceptable => 100,000,000 * 0.214 / 1500 = 14,285.71 MOBILE per day
             Indoor Degraded   => 100,000,000 * 0.086 / 1200 =  7,142.86 MOBILE per day
             Indoor Poor       => 100,000,000 * 0.024 /  660 =  3,571.43 MOBILE per day
-```
-
----
-
-## Speed Tests and Quality of Service
-
-A 5G Hotspot automatically performs a Speed Test, with the results averaged by the MOBILE PoC
-Oracle. The MOBILE PoC Oracle includes these Speed Test metrics in the Rewards calculations for each
-5G Hotspot.
-
-The 5G Hotspot will randomly measure download, upload, and latency to the MOBILE verifier twice in a
-given 24-hour period. If a test can not complete successfully, the 5G Hotspot automatically retries
-every 30 minutes until a Speed Test is successful.
-
-The first Speed Test for a newly installed 5G Hotspot is performed within the first 12 hours after
-powering it on.
-
-The "Moving Average," also known as a "Rolling Average," is the average of at least `2` but no more
-than `6` most recent Speed Test results for each download, upload, and latency for a given 5G
-Hotspot.
-
-A minimum of two Speed Tests are required in the previous 48 hours to calculate a Moving average,
-after which a new series of Speed Test results must be collected before a Moving Average can be
-calculated.
-
-### Tiered Speed Test
-
-In response to community feedback and further exploration by Chris from DeWiPulse for his
-[analysis of and commentary on public Internet data in the United States,](https://dewipulse.com/connectivity-where-it-matters/)
-Speed Test results are categorized into one of four Tiers.
-
-| Speed Test Tier | Reward Multiplier | Requirement (speeds in Mbps, latency in ms)                  |
-| :-------------: | :---------------: | :----------------------------------------------------------- |
-| **Acceptable**  |      `1.00x`      | `100+` Download, **AND** `10+` Upload, **AND** `<50` Latency |
-|  **Degraded**   |      `0.50x`      | `50+` Download, **AND** `5+` Upload, **AND** `<75` Latency   |
-|    **Poor**     |      `0.25x`      | `30+` Download, **AND** `2+` Upload, **AND** `<100` Latency  |
-|    **Fail**     |      `0.00x`      | `<30` Download, **OR** `<2` Upload, **OR** `>100` Latency    |
-
-:::note Why are Hotspots with slower speeds being rewarded at all?
-
-Many locations where CBRS connectivity is being deployed, including some rural areas, do not always
-have the high-speed Internet connectivity needed to meet the acceptable Internet requirements for
-Genesis rewards consistently.
-
-Often these areas don't have good cellular coverage either. That's why we believe it is essential to
-incentivize Helium deployments in less well-connected areas.
-
-:::
-
-:::warning **backhaul requirements will evolve**
-
-As the needs and realities of the 5G Hotspot network change, Internet backhaul requirements will
-evolve to better suit the Network and its users.
-
-:::
-
-### Speed Test Tier Reward Scaling
-
-Tiered Speed Test values introduce a new multiplier to the Rewards calculations.
-
-- Speed Test Results are put into Tiers based on the minimum value of each Download, Upload, and
-  Latency (logical `AND`).
-- Speed Test results that do not meet the minimum requirements for any Download, Upload, or Latency
-  are considered to have `Failed` and are not eligible for Rewards until the Speed Test Average is
-  improved (logical `OR`).
-
-When combined with existing
-[Small Cell Type Reward Scale Mulitpliers](/5g-on-helium/mobile-poc#small-cell-radio-reward-scaling)
-the Rewards Scaling Table is as follows:
-
-| Small Cell Radio Type | Acceptable | Degraded |  Poor   |  Fail   |
-| --------------------- | :--------: | :------: | :-----: | :-----: |
-| High Power Outdoor    |  `4.000`   | `2.000`  | `1.000` | `0.000` |
-| Outdoor               |  `2.500`   | `1.250`  | `0.625` | `0.000` |
-| Indoor                |  `1.000`   | `0.500`  | `0.250` | `0.000` |
-
-**Example 1: All Acceptable**
-
-```bash
-Download    200 ->  `Acceptable`
-Upload       40 ->  `Acceptable`
-Latency      15 ->  `Acceptable`
----------------------------------
-Speed Test Tier ->  `Acceptable`  -> 1.0x Multiplier
-```
-
-**Example 2: Degraded Upload**
-
-```bash
-Download    200 ->  `Acceptable`
-Upload        6 ->  `Degraded`
-Latency      15 ->  `Acceptable`
----------------------------------
-Speed Test Tier ->  `Degraded`    -> 0.5x Multiplier
-```
-
-**Example 3: Poor Download, Degraded Upload**
-
-```bash
-Download     40 ->  `Poor`
-Upload        6 ->  `Degraded`
-Latency      15 ->  `Acceptable`
----------------------------------
-Speed Test Tier ->  `Poor`        -> 0.25x Multiplier
-```
-
-**Example 4: Failed Latency**
-
-```bash
-Download    200 ->  `Acceptable`
-Upload       40 ->  `Acceptable`
-Latency     150 ->  `Fail`
----------------------------------
-Speed Test Tier ->  `Fail`        -> 0.0x Multiplier
 ```
 
 ### Statistics on Helium Explorer
