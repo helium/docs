@@ -127,11 +127,11 @@ brief interruptions.
 To encourage reliable signal availability, 5G Hotspots and connected CBRS Small Cell Radios must
 generate at least one heartbeat per hour in 12 unique hours of the 24-hour Reward Period.
 
-### Heartbeat Reward Scaling
+### Heartbeat Reward Tiers
 
 :::info Heartbeat impact on Radio rewards
 
-Each Radio is given a `heartbeat multiplier` of either `0` or `1`.
+Each Radio is given a **heartbeat multiplier** of either `0` or `1`.
 
 :::
 
@@ -139,7 +139,7 @@ Each Radio is awarded 1 point for a successful heartbeat in each hour, with a ma
 in the Reward Period. All Radios with at least 12 points in the 24-hour Reward Period are given a
 `heartbeat multiplier` of `1` and will be eligible to earn MOBILE Rewards.
 
-:::note Heartbeat Examples
+### Heartbeat Examples
 
 Choose from the options below to see some heartbeat example scenarios and the impact on MOBILE
 rewards.
@@ -187,8 +187,6 @@ This Radio **will not** be eligible for rewards during the Reward Period.
 
 </Tabs>
 
-:::
-
 ---
 
 ## Backhaul Speed Tests
@@ -206,16 +204,7 @@ A minimum of two and maximum of six Speed Tests are required in the previous 48 
 Moving average results for each download, upload, and latency, after which a new series of Speed
 Test results must be collected before a Moving Average can be calculated.
 
-### Speed Test Tiers
-
-Many locations where CBRS connectivity is being deployed, including some rural areas, do not always
-have the high-speed Internet connectivity needed to meet the acceptable Internet requirements for
-Genesis rewards consistently.
-
-Often these areas do not have good cellular coverage either. That's why we believe it is essential
-to incentivize Helium deployments in less well-connected areas.
-
-### Speed Test Reward Scaling
+### Speed Test Reward Tiers
 
 :::info Speed test impact on Radio rewards
 
@@ -225,9 +214,17 @@ This multiplier is applied to all connected Radios in rewards calculations.
 
 :::
 
+Many locations where CBRS connectivity is being deployed, including some rural areas, do not always
+have the high-speed Internet connectivity needed to meet the acceptable Internet requirements for
+Genesis rewards consistently.
+
+Often these areas do not have good cellular coverage either. That's why we believe it is essential
+to incentivize Helium deployments in less well-connected areas.
+
 In response to community feedback and further exploration by Chris from DeWiPulse for his
 [analysis of and commentary on public Internet data in the United States,](https://dewipulse.com/connectivity-where-it-matters/)
-Speed Test results are categorized into one of four Tiers.
+Speed Test results are categorized into one of four Tiers - `Acceptable`, `Degraded`, `Poor`, and
+`Fail`.
 
 | Speed Test Tier | Speedtest Multiplier | Requirement (speeds in Mbps, latency in ms)                  |
 | :-------------: | :------------------: | :----------------------------------------------------------- |
@@ -244,7 +241,14 @@ Tiered Speed Test values are used as a multiplier in Rewards calculations as fol
   are considered to have `Failed` and are not eligible for Rewards until the Speed Test Average is
   improved (logical `OR`).
 
-:::note Speedtest Examples
+:::tip Requirements Will Evolve
+
+As the needs and realities of the Network change, backhaul requirements will evolve to better suit
+the Network and its users.
+
+:::
+
+### Speedtest Examples
 
 Choose from the options below to see some speedtest example scenarios and the impact on MOBILE
 rewards.
@@ -296,12 +300,141 @@ Speed Test Tier ->  `Fail`        -> 0.0x Multiplier
 </TabItem>
 </Tabs>
 
+### Speed Test Example Calculations
+
+Here are a set of tables to help visualize the components that make up the Speed Test result.
+
+:::info
+
+It may take up to 12 hours for newly connected 5G Hotspots to perform a Speed Test, and a minimum of
+2 Speed Tests are required for the MOBILE PoC Oracle to calculate a moving average.
+
 :::
 
-### Requirements Will Evolve
+<Tabs block={true}>
 
-As the needs and realities of the Network change, backhaul requirements will evolve to better suit
-the Network and its users.
+<TabItem value="successful speed test" label="Successful Speed Test" default>
+
+This 5G Hotspot is passing all Speed Test metrics and is providing a high-quality connection.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-success.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of these are the most recent.
+
+</TabItem>
+<TabItem value="missing a single speed test" label="Missing A Single Speed Test" default>
+
+This 5G Hotspot has not reported Speed Test data at Test 5.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-miss.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 4**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 through 4 are the most recent.
+
+**Test 5 through 6**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Tests 5 through 6 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 7 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 7 and later are the most recent.
+
+</TabItem>
+<TabItem value="missing multiple speed tests" label="Missing Multiple Speed Tests" default>
+
+This 5G Hotspot has not reported Speed Test data during Test 5, 6, or 7. This is often a result of a
+5G Hotspot being disconnected from the Internet for a long time.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-miss.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 4**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 through 4 are the most recent.
+
+**Test 5 through 8**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Tests 5 through 8 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 9 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 9 and later are the most recent.
+
+</TabItem>
+<TabItem value="failing a speed test" label="Failing A Speed Test" default>
+
+This 5G Hotspot has failed its Speed Test on all metrics in Test 6, but the Moving Average stays
+within the passing range.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-fail.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 and later are the most recent.
+
+</TabItem>
+<TabItem value="multiple sub-optimal speed tes" label="Multiple Sub-Optimal Speed Tests" default>
+
+This 5G Hotspot has less than `Acceptable` Speed Tests in Tests 3, 4, 5, and 6. This has caused the
+Moving Average to fall for Tests 6, 7, and 8.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-fail.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 5**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 through 5 are the most recent.
+
+**Test 6 through 8**
+
+This 5G Hotspot **will** be eligible for **half** rewards during the Reward Periods for which the
+results of Tests 6 through 8 are the most recent as at least one Speed Test metric Moving Average
+has not met or exceeded the required values.
+
+**Test 9 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 9 and later are the most recent.
+
+</TabItem>
+</Tabs>
+
+---
 
 ---
 
