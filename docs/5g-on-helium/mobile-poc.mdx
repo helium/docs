@@ -14,20 +14,31 @@ import TabItem from '@theme/TabItem'
 
 # MOBILE Proof of Coverage
 
+## Introduction
+
 The Helium blockchain uses a novel work algorithm called "Proof of Coverage" ("PoC") to verify that
 Hotspots are located where they claim. Put another way, PoC tries to verify, on an ongoing basis,
 that Hotspots are honestly representing their location and the wireless network coverage they are
 creating from that location.
 
+Modeled Coverage introduces a fundamental difference in using hexes for the MOBILE Network compared
+to the IOT Network. In the IOT Network, hexes determine the locations and number of Hotspots within
+the given hex. In the MOBILE Network, hexes determine where the coverage exists. Modeled Coverage
+data allows us to un-tie a Radio's location from its signal strength and propagation.
+
+While all current 5G Hotspot models _also_ participate in the IOT Network and PoC, the CBRS Small
+Cell and 5G aspects of a 5G Hotspot require a new approach to validating PoC.
+
+:::tip One Way Traffic
+
+A CBRS Small Cell Radio ("Radio") can only operate as a transmitter; they cannot receive incoming
+data and thus can not "hear" one another directly.
+
 LoRaWAN Hotspots utilize a PoC method that benefits from Hotspots being used as senders ("Beacon")
 and receivers ("Witness") of PoC activity; read more here:
 [Proof of Coverage](/blockchain/proof-of-coverage)
 
-While all current 5G Hotspot models _also_ participate in the LoRaWAN Network and PoC, the CBRS
-Small Cell and 5G aspects of a 5G Hotspot require a new approach to validating PoC.
-
-A CBRS Small Cell Radio ("Radio") can only operate as a transmitter; they cannot receive incoming
-data and thus can not "hear" one another directly.
+:::
 
 ---
 
@@ -48,22 +59,57 @@ MOBILE PoC Roadmap
 ## Modeled Coverage
 
 With the [passing](https://heliumvote.com/14jH67zhctwb3B5NmwiAjaXQuyF7jZMZCAnfyBYhSpRS3L22sQE) of
-[HIP-74](https://github.com/helium/HIP/blob/main/0074-mobile-poc-modeled-coverage-rewards.md) the
-Core Devs will implement a new Modeled Coverage Oracle on the Helium Network to replace the current
-algorithm for MOBILE Rewards initially introduced based on the Radio Type multipliers.
+[HIP-74](https://github.com/helium/HIP/blob/main/0074-mobile-poc-modeled-coverage-rewards.md)
+Modeled Coverage aims to allow for more appropriate Rewards and incentivizes the deployment of
+Radios at optimal locations.
 
 This new algorithm uses the location of the Radio to calculate MOBILE Rewards based on the number of
-res12 hexes receiving coverage from a given Radio by considering the directionality of Radios and
-environmental obstructions that prevent the propagation of the signals they generate. Modeled
-Coverage, combined with other parameters like uptime ("heartbeats") and backhaul ("speed tests"),
-aims to allow for more appropriate Rewards and incentivizes the deployment of Radios at optimal
-locations.
+res12 hexes receiving coverage from a given Radio.
+
+The MOBILE Rewards Oracle will calculate a coverage model for each Radio by considering the physical
+location, antenna direction, radio max transmit power, and Obstruction Data Oracle inputs to
+calculate the number of res12 hexes receiving coverage from each Radio.
+
+Depending on the number of res12 hexes and the resulting signal power in each, the MOBILE Rewards
+Oracle will allot **Coverage Points** to a given Radio for calculating its MOBILE Rewards instead of
+assuming a fixed Radio Type multiplier Reward.
 
 :::tip check coverage
 
 Temporary Modeled Coverage Explorer is available [here](https://coverage-explorer.herokuapp.com/).
 
 Modeled Coverage Explorer is available [here](https://coverage-explorer.helium.com/).
+
+:::
+
+### Reward Hexagon Sizing
+
+Analysis of the coverage by a single Outdoor Radio with Modeled Coverage data shows that the res8
+hex used in the IOT Network is too large to represent a Radio's coverage. Using res12 hexes better
+aligns with what an Outdoor Radio can reasonably cover, with an average area of 0.0003071 km² and an
+edge length of 9.4 m, slightly bigger than an average single-family home.
+
+To summarize:
+
+- Hexes in the MOBILE Network identify the level of coverage from all the different Radios providing
+  coverage to each res12 hex.
+- A Radio can provide coverage for a hex it is not located within.
+- A Radio can earn Rewards by providing coverage in multiple hexes.
+
+To help visualize the significant difference between these two resolutions, below is a map with a
+green res8 hex and a purple res12 hex inside.
+
+<img
+  className="explorerSidebar"
+  src={useBaseUrl('img/5g-on-helium/hex-12-and-hex-8-comparison.png')}
+/>
+
+### Modeled Coverage Reward Tiers
+
+:::info Heartbeat impact on Radio rewards
+
+Each Radio is given a **coverage points** value depending on the number and signal strength of the
+res12 hexes receiving coverage from the Radio.
 
 :::
 
