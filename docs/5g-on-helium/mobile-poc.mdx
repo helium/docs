@@ -113,6 +113,59 @@ res12 hexes receiving coverage from the Radio.
 
 :::
 
+#### Outdoor Radios
+
+Modeled Coverage replaces Radio Type multipliers with **coverage points** represented by four tiers
+of potential signal power as modeled by the Obstruction Data Oracle - `High`, `Medium`, `Low`, and
+`None`.
+
+The reward tiers for Outdoor Radios will be as follows:
+
+|                               |    Tier 1     |           Tier 2           |           Tier 3            |      Tier 4      |
+| ----------------------------- | :-----------: | :------------------------: | :-------------------------: | :--------------: |
+| **Potential Signal Power**    | $P > -95 dBm$ | $-95 dBm \ge P > -105 dBm$ | $-105 dBm \ge P > -115 dBm$ | $P \le -115 dBm$ |
+| **Potential Signal Level**    |     High      |           Medium           |             Low             |       None       |
+| **Estimated coverage points** |      16       |             8              |              4              |        0         |
+
+#### Indoor Radios
+
+Like Outdoor, Indoor Radios can collect MOBILE Rewards by providing coverage in multiple hexes.
+
+The Obstruction Data Oracle cannot evaluate coverage by Indoor Radios as there are no good and
+reliable data sources about obstacles in indoor spaces. Instead, the Modeled Coverage Oracle uses an
+approximation based on the data gathered while testing certified Indoor Radios in various indoor
+settings.
+
+From this testing, the hex in which an Indoor Radio is physically located receives maximum signal
+strength coverage, and all adjacent hexes receive lower signal strength. Therefore, the algorithm
+errs on generosity to ensure equitable potential MOBILE Rewards for Indoor Radio coverage.
+
+Estimated per-hex coverage points for Indoor Radios are intentionally significantly higher than
+those awarded to Outdoor Radios to balance the importance of Indoor Radios in the MOBILE Network
+with their relatively smaller coverage footprints.
+
+The reward tiers for Indoor Radios will be as follows:
+
+|                               |   Tier 1   |       Tier 2       |
+| ----------------------------- | :--------: | :----------------: |
+| **Location**                  | Inside hex | All adjacent hexes |
+| **Potential Signal Level**    |    High    |        Low         |
+| **Estimated coverage points** |    400     |        100         |
+
+These values were chosen by taking all the Outdoor Radios in an example area and analyzing the
+resulting distribution of estimated coverage points per Radio . Estimated coverage point values were
+chosen such that Indoor Radios receive roughly ¼th the estimated coverage points as the 95th
+percentile Outdoor Radios and about ½ the points of the average Outdoor Radio.
+
+These results align with the current Radio Type Multiplieres approach `1:2.5:4` for Indoor Radios,
+Outdoor Radios, and High-Power Outdoor Radios. Figure 2 below is the cumulative distribution
+function plot of the sample market Outdoor Radio estimated coverage points.
+
+<img className="explorerSidebar" src={useBaseUrl('img/5g-on-helium/propagation_point_cdf.png')} />
+
+Cumulative distribution function of Outdoor Radio estimated coverage points for 904 Radios in the
+L.A. market area.
+
 ---
 
 ## Uptime Heartbeats
