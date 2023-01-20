@@ -64,7 +64,7 @@ module.exports = {
           activeBaseRegex: `api`,
         },
         {
-          to: '/blog',
+          to: '/devblog',
           label: 'Dev Blog',
           position: 'right',
         },
@@ -115,13 +115,6 @@ module.exports = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-        blog: {
-          blogTitle: 'Helium Engineering Blog',
-          blogDescription: 'Helium Engineering Blog',
-          postsPerPage: 'ALL',
-          blogSidebarTitle: 'All posts',
-          blogSidebarCount: 'ALL',
-        },
       },
     ],
   ],
@@ -133,7 +126,30 @@ module.exports = {
       crossorigin: 'anonymous',
     },
   ],
-  plugins: [],
+  plugins: [
+    // uncomment and repear for multiple blogs
+    // [
+    //   '@docusaurus/plugin-content-blog',
+    //   {
+    //     id: 'blog',
+    //     routeBasePath: 'blog',
+    //     path: './blog',
+    //   },
+    // ],
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        id: 'engineering-blog',
+        routeBasePath: 'devblog',
+        path: './devblog',
+        blogTitle: 'Helium Engineering Blog',
+        blogDescription: 'Helium Engineering Blog',
+        postsPerPage: 'ALL',
+        blogSidebarTitle: 'All posts',
+        blogSidebarCount: 'ALL',
+      },
+    ],
+  ],
   markdown: {
     mermaid: true,
   },
