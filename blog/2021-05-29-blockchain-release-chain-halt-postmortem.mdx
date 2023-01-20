@@ -13,7 +13,7 @@ network. Please read further for more details.
 ## What Happened?
 
 The team changed the election_info API in `blockchain-core` as part of support for
-[Validators](https://engineering.helium.com/2021/05/28/major-blockchain-release-validator-support.html)
+[Validators](https://engineering.helium.comhttps://docs.helium.com/blog/2021/05/28/major-blockchain-release-validator-support.html)
 but missed updating the relevant API calls in miner. Surprisingly `xref` and `dialyzer`, two tools
 used in the Erlang ecosystem to do static analysis, didn't catch the incorrect calls either. This
 regression led to a chain halt as the code change broke a critical HoneyBadgerBFT recovery code

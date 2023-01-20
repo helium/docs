@@ -13,20 +13,21 @@ long elections
 
 <!--truncate-->
 
-In a [recent post](/2020/01/08/chain-var.html), we discussed a reduction in the rate of Proof of
-Coverage (PoC) challenges. While this seemed to briefly be effective, we quickly found ourselves
-back where we started with the growth of the network. While slowing the rate of challenge did have
-the intended effect, soon after we fixed a number of bugs and reissued a large number of location
-assertion transactions that had gotten lost, making the network even larger, and taking back most of
-the ground we had gained. While we were observing these changes, we have been working on a feature
-called [hierarchical targeting](https://github.com/helium/blockchain-core/pull/318). This pull
-requests and other related requests changes how the _initial target_ of a PoC challenge. The initial
-target is the first step of a PoC challenge path. Previously, this Hotspot was selected from the
-entire list of hotspots. Somewhat obviously, this scales poorly as the network grows (recall, that
-while there are only a few thousand Hotspots at this point, they're all running on relatively
-under-powered hardware). This code uses a new index that is built and maintained on disk of Hotspots
-that are relatively nearby each other (in [H3](https://eng.uber.com/h3/) terms, they all share the
-same parent hex at resolution 5).
+In a [recent post](https://docs.helium.com/blog/2020/01/08/chain-var.html), we discussed a reduction
+in the rate of Proof of Coverage (PoC) challenges. While this seemed to briefly be effective, we
+quickly found ourselves back where we started with the growth of the network. While slowing the rate
+of challenge did have the intended effect, soon after we fixed a number of bugs and reissued a large
+number of location assertion transactions that had gotten lost, making the network even larger, and
+taking back most of the ground we had gained. While we were observing these changes, we have been
+working on a feature called
+[hierarchical targeting](https://github.com/helium/blockchain-core/pull/318). This pull requests and
+other related requests changes how the _initial target_ of a PoC challenge. The initial target is
+the first step of a PoC challenge path. Previously, this Hotspot was selected from the entire list
+of hotspots. Somewhat obviously, this scales poorly as the network grows (recall, that while there
+are only a few thousand Hotspots at this point, they're all running on relatively under-powered
+hardware). This code uses a new index that is built and maintained on disk of Hotspots that are
+relatively nearby each other (in [H3](https://eng.uber.com/h3/) terms, they all share the same
+parent hex at resolution 5).
 
 ### Contents
 

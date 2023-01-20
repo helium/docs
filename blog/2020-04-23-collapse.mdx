@@ -7,8 +7,8 @@ date: 2020-04-23 15:00 -0800
 ### Block Weather
 
 While yesterdays fix for block times
-([see here](https://engineering.helium.com/2020/04/22/various-times.html)) went well, a seemingly
-unrelated change has caused quite a bit of trouble today.
+([see here](https://engineering.helium.comhttps://docs.helium.com/blog/2020/04/22/various-times.html))
+went well, a seemingly unrelated change has caused quite a bit of trouble today.
 
 <!--truncate-->
 
@@ -27,13 +27,15 @@ This issue by itself was not a horrible problem. Mostly things would retry in th
 our gossip server does not appear to handle this situation correctly, and when a gossip worker dies
 due to the above misdial, it never seems to notice, so eventually the node cannot establish any
 gossip connections and the gossip network collapses like we have seen today.
-[You can read this post](https://engineering.helium.com/2020/03/31/sync-fix.html) for more context.
+[You can read this post](https://engineering.helium.comhttps://docs.helium.com/blog/2020/03/31/sync-fix.html)
+for more context.
 
 This release adds filtering both for the relay and for the peerbook `random` function, so now we
 favor newly updated random peers and never return a stale peer from the random function. We've also
 found and fixed the tracking of gossip workers, so if they crash their replacement is correctly
 tracked and used for sending gossip messages. In addition, it bumps the assumed valid block. The
-speed-ups for hbbft mentioned [here](https://engineering.helium.com/2020/04/22/various-times.html)
+speed-ups for hbbft mentioned
+[here](https://engineering.helium.comhttps://docs.helium.com/blog/2020/04/22/various-times.html)
 will land in a release early next week.
 
 ### Contents

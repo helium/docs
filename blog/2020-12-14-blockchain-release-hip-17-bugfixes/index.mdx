@@ -13,11 +13,12 @@ Please find a detailed breakdown of the bugfixes below.
 #### [blockchain-core#697](https://github.com/helium/blockchain-core/pull/697): Fix H3 Index Corruption
 
 Before the team could activate support for HIP 17 in a previous release (you can read more about
-this [here](https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html)), we realized
-that the network could run into a potential blockchain halt due to mismatching h3 indexes, which are
-updated on every `add_gateway` and `assert_location` transaction. We had an internal discussion on
-the impact of this issue and collectively decided to address the bug and postpone HIP 17 activation
-for a day. Please find the plan below.
+this
+[here](https://engineering.helium.comhttps://docs.helium.com/blog/2020/12/09/blockchain-release-hip-17.html)),
+we realized that the network could run into a potential blockchain halt due to mismatching h3
+indexes, which are updated on every `add_gateway` and `assert_location` transaction. We had an
+internal discussion on the impact of this issue and collectively decided to address the bug and
+postpone HIP 17 activation for a day. Please find the plan below.
 
 The bug was quickly root caused to malformed case clauses in `assert_location` transaction which
 were not correctly updating the h3 indexes when a Hotspot's location changed on the network. Please
@@ -62,7 +63,7 @@ This release also adjusts spreading factors again to take into account the lack 
 for PoC. We're including this change in this release since it's a minor code change but a
 significant improvement for EU Hotspots and a useful improvement for US Hotspots. You can see a past
 description of spreading factor changes in this
-[old post](https://engineering.helium.com/2020/10/02/spreading-factor-changes-poc.html).
+[old post](https://engineering.helium.comhttps://docs.helium.com/blog/2020/10/02/spreading-factor-changes-poc.html).
 
 #### [blockchain-core#699](https://github.com/helium/blockchain-core/pull/699): Fix Bad Snapshot Binary Tag
 
