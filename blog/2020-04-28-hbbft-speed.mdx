@@ -9,6 +9,8 @@ date: 2020-04-28 14:00 -0700
 [Recently](https://engineering.helium.com/2020/04/23/collapse.html), we mentioned that we had some
 pending speedups to our HBBFT implementation. This image releases them to the cluster.
 
+<!--truncate-->
+
 These changes mostly speed up HBBFT by eliminating duplicate work. Our threshold decryption library,
 used (albeit indirectly) to anonymize transaction proposals, now retains its verification state in
 between operations, which both makes it faster to use and harder to misuse. Additionally, the local

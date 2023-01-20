@@ -13,6 +13,8 @@ would not. The fix was to enable the
 options which ensures that all updates in a batch update are committed atomically, even across
 column families.
 
+<!--truncate-->
+
 Additionally we added a small optimization to block validation for bypassing validation for a block
 the node is a signatory of. This helps the consensus group move to a new round faster, especially
 when the block is large or slow to validate. Since the signer has already validated the block before

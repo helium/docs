@@ -10,6 +10,8 @@ snapshot. As the network gets larger and the snapshot size increases, Hotspots w
 have trouble loading them. We will continue to support these Hotspots until all manufacturers have
 an upgrade path to Light Hotspot firmware.
 
+<!--truncate-->
+
 Prior to this release, the blocks from snapshot were all loaded into memory before being imported;
 this release switches to importing the snapshot blocks from disk, _one at a time_, and avoiding
 using more memory than is strictly necessary.

@@ -12,6 +12,8 @@ as-yet-unidentified issue, either to do with RocksDB itself, how the RocksDB Erl
 written, or how our code is creating and using these snapshots, we're seeing some writes which have
 been synchronously written to disk missing from the snapshots.
 
+<!--truncate-->
+
 While we look into this, we're releasing this image, which will make affected Hotspots fall back
 onto a less efficient path when they run into a validation error. The less efficient path is not
 affected by this issue, and syncing should continue.

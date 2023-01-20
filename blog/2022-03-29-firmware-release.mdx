@@ -8,6 +8,8 @@ date: 2022-03-29
 The Helium team has tagged a new `2022.03.29.1` firmware release for Original Helium and RAK/MNTD
 Hotspots.
 
+<!--truncate-->
+
 This release fixes a regression in ECC key slot handling. Earlier firmware releases specified ECC
 key slots 0 and 15 for public and onboarding keys, respectively. However, recent releases specified
 slot 0 for both. This release reverts `sys.config` to the old spec. Note that slot 15 was only used

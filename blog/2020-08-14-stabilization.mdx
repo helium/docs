@@ -10,6 +10,8 @@ structures off of disk and into memory for the duration of various operations. T
 that way, but these in-memory structures have come to cause a lot of problems as the number of
 gateways has gotten larger.
 
+<!--truncate-->
+
 The `2020.08.14.0` release includes incrementalized rewrites of all of the above mentioned places,
 which were causing OOM issues on some of our older Hotspot hardware when in the consensus group. It
 shouldn't change the behavior of the network other than to allow smoother block times.

@@ -9,6 +9,8 @@ date: 2021-10-18
 This post-mortem describes the events leading up to the app outage on October 17, what happened, and
 what the team is doing moving forward.
 
+<!--truncate-->
+
 ## Timeline
 
 On Friday October 15, the team deployed a new tileserver database to bring back the data-packet map
@@ -41,8 +43,8 @@ notifications, and act as an intermediary for discovery mode and transfer Hotspo
 
 On Oct 17 at 8:30pm PST, the team issued a
 
-<a href="http://status.helium.com/incidents/5c0bczm5fd8z">status update </a>notifying the community
-of the app outage.
+<a href="http://status.helium.com/incidents/5c0bczm5fd8z">status update </a>
+notifying the community of the app outage.
 
 At 9:40pm PST, the team narrowed down the root cause (crashing native SDKs due to duplicate IDs) and
 recognized the wallet-api as the IP address making the hundreds of requests to both API endpoints.

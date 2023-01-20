@@ -10,6 +10,8 @@ for performance reasons, the transactions in the block were being verified in pa
 Unfortunately there was no limit on the amount of concurrency used and this led to CPU and memory
 exhaustion as all 65 transactions in block 110,710 were being verified simultaneously.
 
+<!--truncate-->
+
 A hotfix to limit the number of transactions verified at once was developed and rolled out around
 10:30am PST to the consensus group. This immediately allowed the in-progress block to be completed
 and gossipped around. However non-concensus nodes without the fix, when trying to validate the new

@@ -13,6 +13,8 @@ the path. This can lead to single transactions that take the Hotspot hardware mu
 validate, which can cause a lot of problems for protocol completion and steady block times as the
 validation and the Honeybadger runners compete for the disk.
 
+<!--truncate-->
+
 This release introduces a new chain variable that will allow us to restrict the number of Hotspots
 that will be considered per target and pathing transaction step. This should more tightly bound the
 amount of time that a single transaction can take and should make block times more predictable. This

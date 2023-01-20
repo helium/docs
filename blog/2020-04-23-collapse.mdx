@@ -9,6 +9,9 @@ date: 2020-04-23 15:00 -0800
 While yesterdays fix for block times
 ([see here](https://engineering.helium.com/2020/04/22/various-times.html)) went well, a seemingly
 unrelated change has caused quite a bit of trouble today.
+
+<!--truncate-->
+
 [This PR](https://github.com/helium/erlang-libp2p/pull/267) simplified our P2P relay system quite a
 lot and should allow us to get better performance for less memory. However, the `random` routine in
 our peerbook (which the PR uses heavily) does not filter for stale peer entries (which contain the

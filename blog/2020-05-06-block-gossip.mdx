@@ -8,6 +8,8 @@ This release fixes some problems where nodes would re-gossip a block several tim
 not finished processing the block absorb when other copies of the block came in. This could lead to
 a bunch of unnecessary work as the same block would be received several times, from several peers.
 
+<!--truncate-->
+
 A related fix was made to the fast-forward handler, which is used to ensure consensus members can be
 quickly synced if they fall behind. Several fast-forwards could happen at once and cause contention.
 A fix has been make to limit the number of active fast-forwards at once to 1.
