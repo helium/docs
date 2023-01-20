@@ -535,3 +535,27 @@ img.app-mockup {
   max-height: 500px;
   margin-bottom: 20px;
 }
+
+/* bring 'read more' link closer to post summary */
+.blog-list-page footer{
+  margin-top: 1.5rem;
+}
+
+/* using :root to jack up specificity 💩 */
+:root.blog-list-page article :not(header) h1, 
+:root.blog-list-page article :not(header) h2, 
+:root.blog-list-page article :not(header) h3 {
+  font-size: inherit;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+/* handle cases where there are two header tags in a row */
+/* handle first header */
+:root.blog-list-page article :not(header) h1:has(+ h2) {
+  margin-bottom: 0;
+}
+/* handle second header */
+:root.blog-list-page article :not(header) h1 + h2 {
+  margin-top: 0;
+}
