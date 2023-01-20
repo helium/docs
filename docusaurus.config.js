@@ -75,7 +75,7 @@ module.exports = {
         },
         {
           href: 'http://whitepaper.helium.com',
-          label: 'Whitepaper (2018)',
+          label: 'Whitepaper',
           position: 'right',
         },
 
@@ -84,11 +84,11 @@ module.exports = {
           label: 'Explorer',
           position: 'right',
         },
-        {
-          href: 'https://network.helium.com/coverage',
-          label: 'Coverage Map',
-          position: 'right',
-        },
+        // {
+        //   href: 'https://network.helium.com/coverage',
+        //   label: 'Coverage Map',
+        //   position: 'right',
+        // },
       ],
     },
     footer: {
