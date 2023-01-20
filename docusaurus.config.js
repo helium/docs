@@ -44,13 +44,13 @@ module.exports = {
         srcDark: 'img/logowhite.svg',
       },
       items: [
-        {
-          to: '/use-the-network/console',
-          label: 'Try the New Console Today',
-          position: 'right',
-          activeBaseRegex: `docs`,
-          className: 'announcementnav',
-        },
+        // {
+        //   to: '/use-the-network/console',
+        //   label: 'Try the New Console Today',
+        //   position: 'right',
+        //   activeBaseRegex: `docs`,
+        //   className: 'announcementnav',
+        // },
         {
           to: '/',
           label: 'Docs',
