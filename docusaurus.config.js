@@ -116,8 +116,8 @@ module.exports = {
           customCss: require.resolve('./src/css/custom.css'),
         },
         blog: {
-          blogTitle: 'Docusaurus blog!',
-          blogDescription: 'A Docusaurus powered blog!',
+          blogTitle: 'Helium Engineering Blog',
+          blogDescription: 'Helium Engineering Blog',
           postsPerPage: 'ALL',
           blogSidebarTitle: 'All posts',
           blogSidebarCount: 'ALL',
