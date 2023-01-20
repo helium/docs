@@ -146,6 +146,7 @@ module.exports = {
         blogDescription: 'Helium Engineering Blog',
         postsPerPage: 'ALL',
         blogSidebarCount: 0,
+        authorsMapPath: 'authors.yaml',
       },
     ],
   ],
