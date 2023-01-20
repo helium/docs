@@ -64,6 +64,11 @@ module.exports = {
           activeBaseRegex: `api`,
         },
         {
+          to: '/blog',
+          label: 'Dev Blog',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/helium',
           position: 'right',
           label: 'Github',
@@ -109,6 +114,13 @@ module.exports = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+        blog: {
+          blogTitle: 'Docusaurus blog!',
+          blogDescription: 'A Docusaurus powered blog!',
+          postsPerPage: 'ALL',
+          blogSidebarTitle: 'All posts',
+          blogSidebarCount: 'ALL',
         },
       },
     ],
