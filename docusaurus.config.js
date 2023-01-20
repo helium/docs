@@ -127,7 +127,7 @@ module.exports = {
     },
   ],
   plugins: [
-    // uncomment and repear for multiple blogs
+    // uncomment and repair for multiple blogs
     // [
     //   '@docusaurus/plugin-content-blog',
     //   {
