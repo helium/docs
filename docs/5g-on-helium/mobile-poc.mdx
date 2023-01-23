@@ -184,7 +184,7 @@ green res8 hex and a purple res12 hex inside.
 
 ### Modeled Coverage Reward Tiers
 
-:::info Heartbeat impact on Radio rewards
+:::info
 
 Each Radio is given a **coverage points** value depending on the number and signal strength of the
 res12 hexes receiving coverage from the Radio.
@@ -320,7 +320,7 @@ This Radio **will** be eligible for rewards during the Reward Period.
 
 </TabItem>
 
-<TabItem value="mostly_offline" label="🚫 Mostly Offline" default>
+<TabItem value="mostly_offline" label="⛔️ Mostly Offline" default>
 
 The Radio did not generate Heartbeats for 19 hours, earning 5 points.
 
@@ -461,7 +461,7 @@ It may take up to 12 hours for newly connected 5G Hotspots to perform a Speed Te
 
 <Tabs block={true}>
 
-<TabItem value="successful speed test" label="Successful Speed Test" default>
+<TabItem value="successful speed test" label="✅ Successful Speed Test" default>
 
 This 5G Hotspot is passing all Speed Test metrics and is providing a high-quality connection.
 
@@ -478,7 +478,25 @@ This 5G Hotspot **will** be eligible for **full** rewards during the Reward Peri
 results of these are the most recent.
 
 </TabItem>
-<TabItem value="missing a single speed test" label="Missing A Single Speed Test" default>
+<TabItem value="failing a speed test" label="✅ Failing A Speed Test" default>
+
+This 5G Hotspot has failed its Speed Test on all metrics in Test 6, but the Moving Average stays
+within the passing range.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-fail.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 and later are the most recent.
+
+</TabItem>
+<TabItem value="missing a single speed test" label="❎ Missing A Single Speed Test" default>
 
 This 5G Hotspot has not reported Speed Test data at Test 5.
 
@@ -505,53 +523,7 @@ This 5G Hotspot **will** be eligible for **full** rewards during the Reward Peri
 results of Tests 7 and later are the most recent.
 
 </TabItem>
-<TabItem value="missing multiple speed tests" label="Missing Multiple Speed Tests" default>
-
-This 5G Hotspot has not reported Speed Test data during Test 5, 6, or 7. This is often a result of a
-5G Hotspot being disconnected from the Internet for a long time.
-
-<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-miss.png')} />
-
-**Test 1**
-
-This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
-of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
-
-**Test 2 through 4**
-
-This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
-results of Tests 2 through 4 are the most recent.
-
-**Test 5 through 8**
-
-This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
-of Tests 5 through 8 are the most recent as there is not enough data to calculate a Moving Average.
-
-**Test 9 and Later**
-
-This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
-results of Tests 9 and later are the most recent.
-
-</TabItem>
-<TabItem value="failing a speed test" label="Failing A Speed Test" default>
-
-This 5G Hotspot has failed its Speed Test on all metrics in Test 6, but the Moving Average stays
-within the passing range.
-
-<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-one-fail.png')} />
-
-**Test 1**
-
-This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
-of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
-
-**Test 2 and Later**
-
-This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
-results of Tests 2 and later are the most recent.
-
-</TabItem>
-<TabItem value="multiple sub-optimal speed tes" label="Multiple Sub-Optimal Speed Tests" default>
+<TabItem value="multiple sub-optimal speed tes" label="❎ Multiple Sub-Optimal Speed Tests" default>
 
 This 5G Hotspot has less than `Acceptable` Speed Tests in Tests 3, 4, 5, and 6. This has caused the
 Moving Average to fall for Tests 6, 7, and 8.
@@ -573,6 +545,34 @@ results of Tests 2 through 5 are the most recent.
 This 5G Hotspot **will** be eligible for **half** rewards during the Reward Periods for which the
 results of Tests 6 through 8 are the most recent as at least one Speed Test metric Moving Average
 has not met or exceeded the required values.
+
+**Test 9 and Later**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 9 and later are the most recent.
+
+</TabItem>
+<TabItem value="missing multiple speed tests" label="🆘 Missing Multiple Speed Tests" default>
+
+This 5G Hotspot has not reported Speed Test data during Test 5, 6, or 7. This is often a result of a
+5G Hotspot being disconnected from the Internet for a long time.
+
+<img className="docsheader" src={useBaseUrl('img/5g-on-helium/speed-test-many-miss.png')} />
+
+**Test 1**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Test 1 are the most recent as there is not enough data to calculate a Moving Average.
+
+**Test 2 through 4**
+
+This 5G Hotspot **will** be eligible for **full** rewards during the Reward Periods for which the
+results of Tests 2 through 4 are the most recent.
+
+**Test 5 through 8**
+
+This 5G Hotspot **will not** be eligible for rewards during the Reward Periods for which the results
+of Tests 5 through 8 are the most recent as there is not enough data to calculate a Moving Average.
 
 **Test 9 and Later**
 
