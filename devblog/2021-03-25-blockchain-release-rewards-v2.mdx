@@ -1,0 +1,37 @@
+---
+layout: post
+title: 'Blockchain Release: Rewards v2'
+date: 2021-03-25 12:00 -0700
+hide_table_of_contents: true
+authors: [abhay]
+---
+
+The team has a new release tagged `2021.03.24.0` which contains a significant overhaul of the
+Rewards transaction and maintenance improvements including a regular snapshot bump.
+
+<!--truncate-->
+
+### [core#751](https://github.com/helium/blockchain-core/pull/751) Rewards v2
+
+The bulk of this release is enabling support for a new kind of reward transaction on chain. The
+transaction itself has been significantly improved to be smaller, more efficiently produced, and
+easier to gossip to nodes on the network (due to size). As more Hotspots come online and validators
+are introduced to the network, the rewards transaction becomes a bottleneck on the network's ability
+to produce blocks and becomes a more significant component to ledger size. We have not made any
+changes to the calculation of rewards so there will be no impact to actual rewards issued on the
+network.
+
+### Bump Snapshot
+
+We have updated the snapshot block to `774001` to allow newly onboarded hotspots to sync faster to
+the current blockchain head block.
+
+### Plan
+
+We have been beta testing `2021.03.24.0` since March 24th, 2021 5:15 PM PT. Current ETA for GA is
+2:00 PM PT, March 25th, 2021.
+
+The Rewards v2 transaction will not be used on chain until a chain variable is issued on chain,
+likely early next week. This will require an upgrade by all blockchain participants before chain
+variable activation. We will be updating all downstream projects, including `blockchain-etl` and
+`blockchain-node`, and updating Docker images when `2021.03.24.0` is released to GA.

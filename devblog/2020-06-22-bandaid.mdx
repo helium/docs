@@ -1,0 +1,33 @@
+---
+layout: post
+title: Sync Issues Remediation
+date: 2020-06-22 15:50 -0700
+hide_table_of_contents: true
+authors: [evanmcc]
+---
+
+Recently it's come to our attention that a growing number of Hotspots are having issues staying in
+sync with the chain. Hotspots use RocksDB as their storage layer for the ledger and the blockchain.
+RocksDB offers a feature called snapshots which purports to provide an immutable, read-only version
+of your store, in this case, old ledgers to make validation cheaper. Unfortunately, due to an
+as-yet-unidentified issue, either to do with RocksDB itself, how the RocksDB Erlang NIF library is
+written, or how our code is creating and using these snapshots, we're seeing some writes which have
+been synchronously written to disk missing from the snapshots.
+
+<!--truncate-->
+
+While we look into this, we're releasing this image, which will make affected Hotspots fall back
+onto a less efficient path when they run into a validation error. The less efficient path is not
+affected by this issue, and syncing should continue.
+
+### Contents
+
+- _Drop Snapshots on Validation Error_: PR:
+  - [core/518](https://github.com/helium/blockchain-core/pull/518)
+- _Condense Block Absorb into One Context_: PR:
+  - [core/520](https://github.com/helium/blockchain-core/pull/520)
+
+### Plan
+
+A `2020.06.22.0` release was deployed to the beta group on the afternoon of Monday June 22th at
+around 3:40PM PDT. After testing we expect to release this to GA around 5:30PM PDT.

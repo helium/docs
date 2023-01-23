@@ -1,0 +1,41 @@
+---
+layout: post
+title: 'Blockchain Release: Performance Fixes'
+date: 2021-09-28 11:12 -0700
+hide_table_of_contents: true
+authors: [vagabond, abhay]
+---
+
+The core developers have tagged a new `2021.09.27.0` Hotspot firmware release which includes some
+performance fixes and a bug fix to block sync. It also includes a new core developer blessed
+snapshot at height `1029491`. We've identified the cause of lack of agreements on on-chain snapshots
+and have issued a fix for it as well but this will require a validator release.
+
+<!--truncate-->
+
+This is a **optional** update for manufacturers.
+
+#### Related PRs
+
+- [miner#1098](https://github.com/helium/miner/pull/1098): Use Swarm TID when possible
+
+- [blockchain-core#1020](https://github.com/helium/blockchain-core/pull/1020): Re-run "score clean"
+  ledger upgrade hook to aid in snapshot agreement
+- [blockchain-core#1019](https://github.com/helium/blockchain-core/pull/1019): Use Swarm TID when
+  possible
+- [blockchain-core#1016](https://github.com/helium/blockchain-core/pull/1016): Fix handling of
+  plausible blocks when syncing
+- [blockchain-core#1018](https://github.com/helium/blockchain-core/pull/1018): Optimize performance
+  of PoC request transaction absorbs
+- [blockchain-core#945](https://github.com/helium/blockchain-core/pull/945): Receipts for HTLC
+  redemptions (thanks syuan100)
+- [blockchain-core#989](https://github.com/helium/blockchain-core/pull/989): Better handling for
+  systems where system make is BSD make
+
+- [erlang-libp2p#393](https://github.com/helium/erlang-libp2p/pull/393): Don't crash on peerbook
+  entry with invalid signature
+
+### Plan
+
+We have been beta testing `2021.09.27.0` since Sept 27, 2021 7:00 PM PT. Current ETA for GA is 9:30
+AM PT, Sept 28, 2021.

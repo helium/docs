@@ -1,0 +1,33 @@
+---
+layout: post
+title: 'Blockchain Release: Gossip v2 Support and Chain Variable Fixes'
+date: 2021-11-03 11:12 -0700
+hide_table_of_contents: true
+authors: [vihu, abhay]
+---
+
+The core developers have tagged a new `2021.11.02.0` Hotspot firmware release which includes two
+critical blockchain-core fixes, firstly, blockchain core can now handle v1 and v2 block gossip
+seamlessly; secondly, the developers noticed that the `transaction_validity_version` chain variable
+definition was set incorrectly in the header file, this has been fixed. An unfortunate effect of
+this is that `transfer_hotspot_v2` support has been slightly delayed.
+
+<!--truncate-->
+
+This is a **mandatory** update for manufacturers in order to correctly handle future
+`transfer_hotspot_v2` transactions once `transaction_validity_version` chain variable appears on
+chain. Future notices will be sent in relevant channels.
+
+#### Related PRs
+
+- [miner#1147](https://github.com/helium/miner/pull/1147): Fix received witness check
+
+- [blockchain-core#1070](https://github.com/helium/blockchain-core/pull/1070): Fix
+  transaction_validity_version var definition
+- [blockchain-core#1063](https://github.com/helium/blockchain-core/pull/1063): Add a fall-back path
+  for getting v1 gossip while running v2 code
+
+### Plan
+
+We have been beta testing `2021.11.02.0` since November 02, 2021 5:45 PM PT. Current ETA for GA is
+5:00 PM PT, November 03, 2021.

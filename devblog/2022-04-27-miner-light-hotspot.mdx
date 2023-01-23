@@ -1,0 +1,56 @@
+---
+layout: post
+title: 'Miner Release: Updated Golden Build for Light Hotspot Activation'
+date: 2022-04-28
+hide_table_of_contents: true
+authors: [jdgemm, cokes518]
+---
+
+The core developers have tagged a new `2022.04.27.0` `miner` release. This release is **mandatory**
+for all Hotspot Makers.
+
+<!--truncate-->
+
+We request that Hotspot Manufacturers **upgrade their fleets by 00:00 UTC on 2022-05-11**.
+
+This update contains Light Hotspot software, and when activated via chain variable will change how
+Hotspots receive challenges, remove block sync from Hotspots, and stabilize Hotspot performance.
+
+This will allow the approved
+[HIP 55](https://github.com/helium/HIP/blob/main/0055-validator-challenges.md) chain variable to be
+activated and prepare for the activation of Light Hotspots.
+
+#### Related PRs
+
+miner
+
+- [#1576](https://github.com/helium/miner/pull/1576) Fix rebase typos
+- [#1575](https://github.com/helium/miner/pull/1575) Fix missing setting of udp_port in state record
+  (used only on restarts
+- [#1574](https://github.com/helium/miner/pull/1574) Add audit var-127
+- [#1573](https://github.com/helium/miner/pull/1573) Deb: create data/log dirs, set helium user
+  homedir
+- [#1566](https://github.com/helium/miner/pull/1566) Use env vars for common validator configs
+- [#1564](https://github.com/helium/miner/pull/1564) Fix format error
+- [#1567](https://github.com/helium/miner/pull/1567) Fix jsonrpc peer_refresh and add peer_book
+  count
+- [#1572](https://github.com/helium/miner/pull/1572) Fix typos
+- [#1568](https://github.com/helium/miner/pull/1568) Handling non-poc packets in light mode w/o rust
+  gw
+- [#1562](https://github.com/helium/miner/pull/1562) Incorporate debian package enhancements
+- [#1569](https://github.com/helium/miner/pull/1569) Bump deps
+
+blockchain
+
+- [#1315](https://github.com/helium/blockchain-core/pull/1315) Make filtering gateways cheaper
+- [#1312](https://github.com/helium/blockchain-core/pull/1312) Verify poc key pair
+- [#1314](https://github.com/helium/blockchain-core/pull/1314) Reduce logs
+- [#1307](https://github.com/helium/blockchain-core/pull/1307) Remove dc-overage from challenger
+  rewards
+- [#1308](https://github.com/helium/blockchain-core/pull/1308) Don't use context in a block absorb
+  hook
+
+### Plan
+
+We have been testing `2022.04.27.0` on Testnet since April 27. Current ETA for GA is April 28, 2022
+1:00 PM PST.

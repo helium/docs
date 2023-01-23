@@ -1,0 +1,68 @@
+---
+layout: post
+title: Console Post Mortem
+date: 2020-07-31 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+### Summary
+
+- We're moving the Phase 3 Data Credits go live date to 8/11 for further testing and fixing issues.
+- A fix has been pushed to address issue with Hotspots not transferring packets.
+- We're going to improve communication and status of issues with this tool, subscribe
+  [here](http://status.helium.com/).
+
+<!--truncate-->
+
+### Long week
+
+It’s been a long week for Console and we’re sorry for any inconvenience.
+
+Throughout this entire process we have tried to be transparent to keep users informed and updated as
+best we could.
+
+Releasing Data Credits live is an important milestone and these updates need to be made before any
+devices started paying for packets and Hotspots can start earning rewards for transferring.
+
+During testing we have discovered issues that we’ll need additional time to fix and test.
+
+**Therefore the team has decided to push the phase 3 Data Credits live date from 8/4 to 8/11.**
+
+Until then device users will continue to connect without needing Data Credits, and Hotspots will
+continue earning as usual.
+
+### What went wrong
+
+These state channel v2 changes are a massive protocol update for the
+[blockchain](https://github.com/helium/blockchain-core/pull/543). We've needed to test state
+channels to ensure devices correctly pay for connectivity with Data Credits, and verify correct
+communication between the Console backend (Router), and Hotspots to accept the offer and sent
+packets to the desired location. There was an issue with state channels not correctly spaced out and
+a gap ensued. This communication issue between state channels and Router prevented packets from
+being forwarded. We
+[updated chain vars](https://github.com/helium/miner/blob/master/audit/var-36.md) to fix this issue.
+
+Another [issue](https://github.com/helium/erlang-libp2p/pull/294) prevented Hotspots from forwarding
+packets despite otherwise normally participating in POC challenges.
+
+We pushed out a fix this afternoon which includes a mechanism that allows a Hotspot to connect to
+Console when transferring packets.
+
+### Better communication
+
+To improve communication going forward in addition to Discord announcements, we will ensure Console
+backend (Router) status is kept up to date [here](http://status.helium.com/).
+
+This tool will allow us to better provide status updates in real time, and we will also use it for
+future planned maintenance updates. Please subscribe to get updated in real time.
+
+After Data Credits go live, we will give much more advanced notice for future maintenance updates
+that may result in interruption of packet transfers and minimize the time frame for disruptions.
+However, we don’t anticipate needing to make any fundamental infrastructure changes that rival the
+scope of the work that caused this outage.
+
+### We’re sorry
+
+All the teams, blockchain, firmware, Console work very hard with the community to build this network
+and the tools needed to use it and our sincerest apologies for the interruptions.

@@ -1,0 +1,24 @@
+---
+layout: post
+title: 'Miner Release: Add exponential back-off'
+date: 2022-10-31
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+The core developers have tagged a new `2022.10.28.0` `miner` release. This release adds exponential
+back-off for Hotspots when requesting ledger information from Validators. This also ensures timely
+back-off when block times are too high and avoids too many Hotspots attempting to connect to a
+Validator. The pull request specifically addresses the blockchain outages over the past week from a
+Hotspot's perspective.
+
+<!--truncate-->
+
+#### Related PRs
+
+[#1839](https://github.com/helium/miner/pull/1839) add exp backoff to grpc client reconnects to vals
+
+### Plan
+
+We have been testing `2022.10.28.0` on Mainnet since October 28 8:43am PT. GA is October 31, 2022
+10:00am PT.

@@ -1,0 +1,108 @@
+---
+layout: post
+title: Blockchain Maintenance Release
+date: 2020-10-19 14:36 -0700
+hide_table_of_contents: true
+authors: [vihu, abhay]
+---
+
+**Update: The current release candidate primed for GA is `2020.10.23.0` which fixes minor state
+channel server side issues. We will keep this post updated with more details.**
+
+<!--truncate-->
+
+~~Note: The `2020.10.21.0` has been held prior to GA while we continue to work through small issues
+that were found during beta testing. We will update this post with more details.~~
+
+The ~~`2020.10.19.0`~~ ~~`2020.10.20.0`~~ ~~`2020.10.21.0`~~ `2020.10.23.0` release is a blockchain
+maintenance release. Notably the team has fixed an issue where miners running in Docker were getting
+stuck during elections, finalized support for multisig, and improved client side packet transfer
+performance for state channels.
+
+#### Highlights and Related PRs
+
+- Handle unsupported regions for miner lora module.
+  [miner#540](https://github.com/helium/miner/pull/540)
+- Added asynchronous election completion. [miner#537](https://github.com/helium/miner/pull/537)
+- Fixed divide by zero error for calculating next block time.
+  [miner#536](https://github.com/helium/miner/pull/536)
+- Use bloom filter to improve packet times.
+  [blockchain-core#602](https://github.com/helium/blockchain-core/pull/602)
+- Fixed bad match error on state channel garbage collection.
+  [blockchain-core#651](https://github.com/helium/blockchain-core/pull/651)
+- Filter downed packet streams on client side state channels.
+  [blockchain-core#654](https://github.com/helium/blockchain-core/pull/654)
+- Added timeouts for outbound packet dials.
+  [blockchain-core#653](https://github.com/helium/blockchain-core/pull/653)
+- Refactored voting counts for multisig.
+  [blockchain-core#650](https://github.com/helium/blockchain-core/pull/650)
+- Added safe defaults to `reward_version` for state channel garbage collection.
+  [blockchain-core#647](https://github.com/helium/blockchain-core/pull/647)
+- Fixed lost state when enqueuing packets on client side state channels.
+  [blockchain-core#647](https://github.com/helium/blockchain-core/pull/646)
+- Added ability to fetch snapshot from the network.
+  [blockchain-core#648](https://github.com/helium/blockchain-core/pull/648)
+
+#### Blessed Snapshot Update
+
+Finally, this release bumps the blessed snapshot to height `549361` which will improve sync times of
+newly onboarded Hotspots.
+
+### Release Update: New tag `2020.10.20.0` October 20th, 2020
+
+As a result of beta testing overnight, the team identified a few more regression induced bugs. We
+have addressed those bugs and have updated the tag from `2020.10.19.0` to `2020.10.20.0`.
+
+Below is a short summary of the bug fixes and their related PRs
+
+- Switch downstream `erbloom` depenency with an updated `rebar.config` file.
+  [blockchain-core#657](https://github.com/helium/blockchain-core/pull/657)
+- Add miner side support for invalid transaction log messages.
+  [miner#432](https://github.com/helium/miner/pull/432)
+- Update libp2p for downstream `relcast` bug fixes.
+  [libp2p#301](https://github.com/helium/erlang-libp2p/pull/301)
+
+### Release Update: New tag `2020.10.21.0` October 21st, 2020
+
+The team has added support for LoRaWAN rx2 window and squashed a few more bugs in the new release
+tagged `2020.10.21.0`. Below is a list of related PRs:
+
+- Add support for rx2 window.
+  [blockchain-core#656](https://github.com/helium/blockchain-core/pull/656)
+- Fix state channel test suite.
+  [blockchain-core#652](https://github.com/helium/blockchain-core/pull/652)
+- Fix txn validation printing.
+  [blockchain-core#660](https://github.com/helium/blockchain-core/pull/660)
+- Add miner side support for rx2 window. [miner#542](https://github.com/helium/miner/pull/542)
+- Fix state channel tests for miner. [miner#543](https://github.com/helium/miner/pull/543)
+
+### Release Update: New tag `2020.10.23.0` October 23rd, 2020
+
+The team noticed additional issues with state channel server side handling while beta testing the
+previous release candidate, we have fixed those in `2020.10.23.0` release candidate. Additionally we
+have updated the blessed snapshot block to `555121` and updated the Dockerfile for ARM images.
+Related PRs:
+
+- Don't close state channel on overspend.
+  [blockchain-core#664](https://github.com/helium/blockchain-core/pull/664)
+- Reapply nonce fix for correct state keeping sc server side.
+  [blockchain-core#663](https://github.com/helium/blockchain-core/pull/663)
+- Update blockchain-core and snapshot block. [miner-548](https://github.com/helium/miner/pull/548)
+- Add rust and cargo for ARM docker image. [miner-546](https://github.com/helium/miner/pull/546)
+
+### Plan
+
+As you can note in our release updates, the team continues to iterate on a stable release version we
+were comfortable sending to GA. We are finding important issues through beta testing. Ultimately we
+decided to scrap three release candidates but we have documented the plan below for posterity.
+
+We will likely work towards finding a solution and initiate testing tomorrow and over the weekend.
+
+- ~~We have begun beta-testing `2020.10.19.0` around 2:30 PM PST on 19th October, 2020 and plan to
+  release it to GA by 3 PM PST, 20th October, 2020.~~
+- ~~We will begin beta-testing `2020.10.20.0` around 2:30 PM PST, October 20th, 2020 and keep the
+  community apprised of any further changes.~~
+- ~~We have begun beta-testing `2020.10.21.0` around 2:30 PM PST, October 21st, 2020 and plan to GA
+  by October 22nd, 2020 around 3PM PST.~~
+- We have begun beta-testing `2020.10.23.0` around 2:30 PM PST, October 23rd, 2020 and plan to GA on
+  Monday, October 26th, 2020 around 11AM PST.

@@ -1,0 +1,63 @@
+---
+layout: post
+title: Console Updates- v2.2.13
+date: 2022-07-14 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+Sprint: 80
+
+The team has released the latest version of Console `2.2.13` to production.
+
+<!--truncate-->
+
+Key updates: This release provides users tha ability to decode base64 payloads without needing to
+use a decoder
+([docs](https://docs.helium.com/use-the-network/console/integrations/http/#decoding-base64-payloads)),
+support for Malaysia (AS923_1B defines uplink frequencies at 922.0, 922.2, 922.4, 922.6, 922.8,
+923.0, 923.2, 923.4), and additional benchmarking information for users who want to those their own
+Console. Among UI enhancements made, the dropdown menu was expanded to see up to 250 devices for a
+label.
+
+Full list of this sprint’s features and fixes:
+
+- Frontend [(Console)](https://github.com/helium/console/milestone/18?closed=1)
+- Backend [(Router)](https://github.com/helium/router/milestone/18?closed=1)
+
+(Note: a closed issue does not mean the team took action, for example the issue could have been a
+duplicate or no longer relevant).
+
+### Open source users
+
+Check the [readme](https://github.com/helium/console) for instructions on how to use prebuilt
+Console images.
+
+- **REQUIRED** upgrade for Router as it includes a necessary Blockchain Core update.
+
+- New open source users should follow Option 1 listed in the readme and use
+  `docker-compose-quay.yaml` as the template for their docker-compose file.
+
+- Existing open-source users can update their existing docker-compose file and replace the lines for
+  just the "console" section with the updated lines in the latest `docker-compose-quay.yaml` file.
+  If something does not work, simply revert your changes back to the `docker-compose-quay.yaml`, and
+  file an issue [here](https://github.com/helium/console/issues).
+
+Database migrations will still happen automatically when using the hosted Console image.
+
+Docs for customization options
+[here](https://docs.helium.com/use-the-network/run-a-network-server/run-console/#customize-console-environment).
+IMPORTANT: If you choose to customize your version of Console you need to build from source, or your
+customizations will be overwritten by the docker image.
+
+Additional
+[technical documentation](https://docs.helium.com/use-the-network/run-a-network-server/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Improving network scalability
+- Scaling out roaming services
+- [LoRaWAN roaming protocol support](https://lora-alliance.org/wp-content/uploads/2022/01/TR010-1.0.0-LoRaWAN-Roaming-Hub.pdf)
+- LoRaWAN library

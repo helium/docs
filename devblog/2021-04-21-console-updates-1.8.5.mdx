@@ -1,0 +1,72 @@
+---
+layout: post
+title: Console Updates- Event Log and Downlink Improvements
+date: 2021-04-22 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+This release was the first with our three-tier development environment and focused on improved
+downlink capabilities and provided more details for LoRaWAN MAC commands for uplink events.
+
+<!--truncate-->
+
+### Features and updates
+
+Event log
+
+- Added MAC commands for uplink events.
+- Included Hotspot column which provides the number of Hotspots that sent packets.
+- Added a filter for events with commands.
+
+Downlink
+
+- Downlink provides the ability to schedule where a downlink is in the queue (first and last) and
+  view which downlinks are queued.
+- Updated downlink input to make more clear for supported formats (either base64 or plain text).
+
+Debug mode
+
+- Included a check box to expand all events.
+- Included a flag in the header for events that contain decoded payloads.
+- Decoded payload displays among multiple lines.
+
+Integrations:
+
+- Provided a visual way to identify if a device's label does not have an Integration attached.
+- Made it easier to access existing Integrations.
+
+Other:
+
+- Added ability to sort Labels on the Label index page.
+- Handle ADRAckReq flag even when Allow ADR is false.
+- Included internal metrics for early alerts related to blockchain issues
+
+### Fixes
+
+- Users no longer need to need to scroll through the entire list of events when expanded all.
+- Downlink no longer shows an error if two or more integrations are attached.
+- HTTP integration works even if “&” inside of URL.
+- Reduced the number of warnings during the open-source build to avoid confusion.
+- Console logs out at session expiration.
+
+### Open source users
+
+- New users use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations. To update, check the
+  newest instructions, rebuild, and restart. The database is not affected.
+
+Documentation [here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Discovery mode support for Hotspot new feature
+- Increase accuracy of timestamps
+- Add a prebuilt integration for Google Sheets
+- Provide docs to help monitor open source Console
+- Create a module to integrate with other LoRaWAN network servers, initially ChirpStack.
+- Update Console core design based on Flows (beta) feedback

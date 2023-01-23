@@ -1,0 +1,37 @@
+---
+layout: post
+title: POC V6
+date: 2020-01-06 13:51 -0800
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+With this update we hope to alleviate some of the known concerns regarding POC path construction
+while also fixing some overlooked typos.
+
+<!--truncate-->
+
+## Content
+
+We've updated the following chain vars:
+
+| Var            | Old       | New  | Rationale                                                                |
+| -------------- | --------- | ---- | ------------------------------------------------------------------------ |
+| poc_version    | 5         | 6    | Update poc version to disallow pathing with known impossible RSSI values |
+| poc_typo_fixes | undefined | true | Introduce this chain var to trigger POC receipt validation typo fixes    |
+
+## Related PRs
+
+- [blockchain-core#326. Fix incorrect bad RSSI check](https://github.com/helium/blockchain-core/pull/326).
+
+We have updated the `poc_version` to `6` which triggers filtering witnesses eligible for a potential
+next hop when constructing a path to have reasonable RSSI values. We track known RSSI values as a
+histogram in the ledger for each hotspot and can veriafiably prove that a hotspot A has witnessed
+another hotspot B with an _impossible_ RSSI value in accordance with the Free Space Path Loss.
+
+- [blockchain-core#328. Fix two typos in POC receipt validation](https://github.com/helium/blockchain-core/pull/328).
+
+Prior to the typo fixes we were mistakenly dropping about 1/3rd of POC receipts when doing
+validation. We expect the number of POC receipts to go significantly up with this change. However,
+to not break consensus rules we have masked this change behind `poc_typo_fixes` chain var and have
+activated it to be `true`.

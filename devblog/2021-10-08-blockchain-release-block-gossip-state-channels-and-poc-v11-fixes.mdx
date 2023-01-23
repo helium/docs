@@ -1,0 +1,74 @@
+---
+layout: post
+title: 'Blockchain Release: Block Gossip, State Channels and PoC-v11 Fixes'
+date: 2021-10-08 10:50 -0700
+hide_table_of_contents: true
+authors: [vihu, abhay]
+---
+
+The core developers have tagged a new `2021.10.07.0` Hotspot firmware release which includes several
+updates.
+
+<!--truncate-->
+
+This is a **mandatory** update for manufacturers as it contains updates to PoCv11 code that will be
+required when we are ready to activate those chain variables and updates to how we will be doing
+block gossip in the near future.
+
+## Improvements to Hotspot bandwidth utilization and Block Gossip
+
+We have found that as the network expands, bandwidth expectations of individual Hotspots have gone
+up significantly and want to address this sooner than the Light Hotspot code is available. This
+release includes preparatory work to enable lower bandwidth gossip. Details are available in the PR
+listed below but at a high level, this change introduces a new protocol to gossip that dramatically
+reduces bandwidth utilization.
+
+## Critical Bug Fixes in PoCv11 and others
+
+This release also fixes critical bugs that would prevent activation of PoCv11. Once this blockchain
+release is on all Hotpots, Validators, ETLs, Routers and Node operators, we believe we can safely
+activate PoCv11.
+
+## Improvements to Witness Decay Rate Implementation
+
+Although this implementation is not active, we found a few bugs and improvements to the
+implementation of witness decay rate that could be activated through a HIP and community process to
+address gaming via over-witnessing. This release updates the implementation to add a threshold and
+fix some bugs found through review.
+
+## Transfer Hotspot v2 Support
+
+This release also adds support for the new `transfer_hotspot_v2` transaction. This transaction
+removes the requirement of the recipient signature and removes the atomic transfer of HNT with the
+transfer. The latter feature has been used by a small fraction of total Hotspot transfers. We have
+also found that the implementation of requiring a recipient signature requires a centralized
+coordination service which we believe should be removed in the network. This implementation is
+behind a chain variable that will need to be activated once all blockchain participants have a
+chance to upgrade to this release.
+
+## Snapshot update, Other Bug Fixes and additional OTP-24 support
+
+This release also addresses other miscellaneous bugs found in the past few weeks and updates the
+snapshot height to `1042510`. It also adds additional support for Erlang/OTP 24 which should allow
+all blockchain participants to upgrade.
+
+#### Related PRs
+
+- [miner#1107](https://github.com/helium/miner/pull/1107): Miner support for hash gossip
+- [miner#1103](https://github.com/helium/miner/pull/1103): Adjust gain to float and add to summary
+
+- [blockchain-core#1035](https://github.com/helium/blockchain-core/pull/1035): Add packet hash to
+  state channel rejection
+- [blockchain-core#1034](https://github.com/helium/blockchain-core/pull/1034): Add witness reward
+  decay rate as a legal var and add an exclusion count
+- [blockchain-core#1030](https://github.com/helium/blockchain-core/pull/1030): Access chain
+  variables through a var-cache
+- [blockchain-core#1023](https://github.com/helium/blockchain-core/pull/1023): Change block gossip
+  to pull model
+- [blockchain-core#992](https://github.com/helium/blockchain-core/pull/992): Add support for
+  transfer-hotspot-v2 txn
+
+### Plan
+
+We have been beta testing `2021.10.07.0` since Oct 7, 2021 5:15 PM PT. Current ETA for GA is 1:00 PM
+PT, Oct 08, 2021.

@@ -44,13 +44,13 @@ module.exports = {
         srcDark: 'img/logowhite.svg',
       },
       items: [
-        {
-          to: '/use-the-network/console',
-          label: 'Try the New Console Today',
-          position: 'right',
-          activeBaseRegex: `docs`,
-          className: 'announcementnav',
-        },
+        // {
+        //   to: '/use-the-network/console',
+        //   label: 'Try the New Console Today',
+        //   position: 'right',
+        //   activeBaseRegex: `docs`,
+        //   className: 'announcementnav',
+        // },
         {
           to: '/',
           label: 'Docs',
@@ -64,13 +64,18 @@ module.exports = {
           activeBaseRegex: `api`,
         },
         {
+          to: '/devblog',
+          label: 'Dev Blog',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/helium',
           position: 'right',
           label: 'Github',
         },
         {
           href: 'http://whitepaper.helium.com',
-          label: 'Whitepaper (2018)',
+          label: 'Whitepaper',
           position: 'right',
         },
 
@@ -79,11 +84,11 @@ module.exports = {
           label: 'Explorer',
           position: 'right',
         },
-        {
-          href: 'https://network.helium.com/coverage',
-          label: 'Coverage Map',
-          position: 'right',
-        },
+        // {
+        //   href: 'https://network.helium.com/coverage',
+        //   label: 'Coverage Map',
+        //   position: 'right',
+        // },
       ],
     },
     footer: {
@@ -121,7 +126,30 @@ module.exports = {
       crossorigin: 'anonymous',
     },
   ],
-  plugins: [],
+  plugins: [
+    // uncomment and repair for multiple blogs
+    // [
+    //   '@docusaurus/plugin-content-blog',
+    //   {
+    //     id: 'blog',
+    //     routeBasePath: 'blog',
+    //     path: './blog',
+    //   },
+    // ],
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        id: 'engineering-blog',
+        routeBasePath: 'devblog',
+        path: './devblog',
+        blogTitle: 'Helium Engineering Blog',
+        blogDescription: 'Helium Engineering Blog',
+        postsPerPage: 'ALL',
+        blogSidebarCount: 0,
+        authorsMapPath: 'authors.yaml',
+      },
+    ],
+  ],
   markdown: {
     mermaid: true,
   },

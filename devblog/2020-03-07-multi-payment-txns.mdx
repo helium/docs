@@ -1,0 +1,31 @@
+---
+layout: post
+title: Multi-payment Transactions
+date: 2020-03-07
+hide_table_of_contents: true
+authors: [fvasquez, vihu, evanmcc]
+---
+
+### Summary
+
+This `2020.03.07.0` release adds support for multi-payment transactions and includes bug fixes for
+repairing the blockchain on-disk. Additionally this release bumps the assumed valid block to
+`234600`.
+
+<!--truncate-->
+
+### Contents
+
+- _Don't crash loop on ledger mismatch so we can attempt repair_:
+  [miner/#266](https://github.com/helium/miner/pull/266)
+- _Resync the chain if the ledger is missing or at height 0_: PR:
+  [blockchain-core/#331](https://github.com/helium/blockchain-core/pull/331)
+- _Support nonce in HTLC transactions_: PR:
+  [blockchain-core/378](https://github.com/helium/blockchain-core/pull/378)
+- _Add payment_v2 transactions for multiple payees_: PR:
+  [blockchain-core/382](https://github.com/helium/blockchain-core/pull/382)
+
+### Plan
+
+We will beta `2020.03.07.0` Saturday morning and release it to general availability early that
+afternoon.

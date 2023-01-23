@@ -1,0 +1,42 @@
+---
+layout: post
+title: 'Blockchain Release: Network and Snapshot Improvements'
+date: 2021-07-22 14:01 -0700
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The core developers have tagged a new `2021.07.22.0` Hotspot firmware release which updates the
+currently blessed snapshot and contains networking and snapshot improvements. This is an optional
+but _recommended_ release for Hotspot owners and manufacturers to continue syncing with newly
+blessed snapshots.
+
+<!--truncate-->
+
+- #### Related PRs
+
+  - [blockchain-core#923](https://github.com/helium/blockchain-core/pull/923): Faster state channel
+    server side broadcast with caching
+  - [blockchain-core#909](https://github.com/helium/blockchain-core/pull/909): Make snapshot
+    download and load into discrete steps
+  - [blockchain-core#889](https://github.com/helium/blockchain-core/pull/889): Update debit_fee to
+    include potential implicit burn storage. Thanks [@syuan100](https://github.com/syuan100)!
+  - [blockchain-core#798](https://github.com/helium/blockchain-core/pull/798): Fix for loading a
+    snapshot with an aux ledger
+
+  - [libp2p#366](https://github.com/helium/erlang-libp2p/pull/366): Make faster connected addr lists
+  - [libp2p#335](https://github.com/helium/erlang-libp2p/pull/335): Manage the stungun timer better
+
+  - [hbbft#71](https://github.com/helium/erlang-hbbft/pull/71): Remove PBC based cryptography
+
+  - [miner#952](https://github.com/helium/miner/pull/952): Bump core and update snap for 7/22
+    release
+  - [miner#939](https://github.com/helium/miner/pull/939): Clean up JSON/RPC API for proper use of
+    errors and data types. Thanks [@ke6jjj](https://github.com/ke6jjj)!
+  - [miner#929](https://github.com/helium/miner/pull/929): Upgrade to hbbft version without PBC
+    encryption support
+
+### Plan
+
+We have been beta testing `2021.07.22.0` since July 22nd, 2021 12:30 PM PT. Current ETA for GA is
+6:00 PM PT, July 22nd, 2021.

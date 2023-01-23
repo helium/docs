@@ -1,0 +1,53 @@
+---
+layout: post
+title: Console Post Mortem (10/27 Connectivity Issues)
+date: 2021-11-01 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm, madninja]
+---
+
+On 10/27 a fix based on a community-raised issue was deployed along with a number of other updates
+in the `2021.10.27.0` Hotspot firmware release.
+
+<!--truncate-->
+
+The firmware update included related PR `miner#1136` which caused timing issues that resulted in
+perpetual join accept and requests, and impacted downlinks.
+
+More details:
+
+- [Blog](https://engineering.helium.comhttps://docs.helium.com/blog/2021/10/27/blockchain-release-auto-snaps-and-bug-fixes.html)
+- [PR](https://github.com/helium/miner/pull/1136)
+
+This issue only affected devices attempting joins or downlinks. Devices sending uplinks were not
+affected.
+
+An emergency update `2021.10.29.0` was pushed on 10/29 afternoon to miners/hotspots to fix the
+issue. Read
+[blog](https://engineering.helium.comhttps://docs.helium.com/blog/2021/10/29/miner-emergency-release.html)
+for more information.
+
+## Next Steps
+
+To increase the robustness of the network and prevent a similar issue from reoccurring the team
+agreed upon the following next steps.
+
+### More focused releases
+
+- Focus on targeted releases which address related items vs just opportunistically adding unrelated
+  items.
+
+### More scrutiny for issues raised
+
+Request clarity from community for relevant issues by asking members up front to include additional
+context to answer the following:
+
+    - What’s the problem that needs fixed or the opportunity for this feature?
+    - Define the success criteria to test in the field to make sure it’s fixed or working.
+
+### More canaries
+
+- Broaden beta Hotspot test environment to include more canaries (hardware devices connected to beta
+  Hotspot test groups).
+- Add automated network side black-box testing to verify devices continue to operate as expected
+  after beta Hotspots updated.

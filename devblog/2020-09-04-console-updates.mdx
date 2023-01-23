@@ -1,0 +1,45 @@
+---
+layout: post
+title: Console Updates- Manual Downlink and Fixes
+date: 2020-09-04 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+This release includes the ability to manually downlink from Console, UI updates, and a number of
+Router (backend) fixes related to packet transfer.
+
+<!--truncate-->
+
+### Features
+
+- Allow users to manually test downlink for a device from within Console. Instructions
+  [here](https://docs.helium.com/use-the-network/console/integrations/http/#downlink-tool-example).
+- Updated event logs to add categories for errors.
+- Provided ability on the Device index page to choose the number of devices to display on screen.
+- Added the ability to apply bulk actions to all devices.
+
+### Fixes
+
+- Resolved an issue related to a state channel causality check that caused packet loss and the
+  ability for devices to rejoin.
+- Downlink payloads no longer incorrectly display as empty in the Debug Window.
+- Addressed an issue that devices may have trouble joining due to initially connecting to a Hotspot
+  with weak RSSI. To resolve multiple copies of packets may be purchased, but users are only charged
+  for one. Only the Hotspot that forwards the packet earns rewards.
+- Released a patch to address the issue of DIY Hotspots not able to transfer data. As a reminder
+  regardless of Hotspot (DIY or “official”) devices need to pay Data Credits to transfer data.
+- An issue of communication between Console and Router that led to dots or events occasionally not
+  updating correctly has been fixed.
+- Labels no longer auto expand within Console when navigating content.
+- Fixed issue preventing scrolling left nav with many Labels.
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Provide ability to pause data transfer for a device or an Organization.
+- Make debug information easier to view.
+- Update MQTT integration to allow more flexibility.
+- Include support for LoRaWAN adaptive data rate (ADR).
+- Release Console and its backend network server and blockchain components (Router) as open source.

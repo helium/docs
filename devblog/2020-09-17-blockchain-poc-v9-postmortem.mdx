@@ -1,0 +1,96 @@
+---
+layout: post
+title: Blockchain PoC v9 Postmortem
+date: 2020-09-17 12:30 -0700
+hide_table_of_contents: true
+authors: [vihu, madninja, abhay]
+---
+
+On 9/16/2020 the team activated
+[PoC v9](https://github.com/helium/miner/blob/master/audit/var-43.md), which didn't go as planned,
+causing a complete blockchain halt for ~5 hours and subsequent slow down of blocks for ~7 hours.
+Longer term effects included several hotspots going out of sync for several hours after the chain
+resumed. Please read on for the details on what happened, what we did in the short term to fix it,
+and the steps we'll be taking to address these kinds of issues longer term.
+
+<!--truncate-->
+
+### What went wrong?
+
+With the introduction of PoC v9, we require validation of `poc_receipts` and `poc_witnesses` at the
+time of a `poc_receipts_txn` _and_ a `rewards_txn`. Both these operations are relatively expensive
+to perform, especially the rewards transaction, which grows in size relative to the number of
+receipts in the election epoch. Note that the rewards transaction appears at consensus epoch change
+(ideally every 30 blocks) and gathers PoC details about the past `poc_receipts_txns` which occurred
+within the epoch.
+
+In order to validate witnesses at `rewards_txn` time, we walk the chain backwards to find the
+corresponding `poc_request` transaction for each corresponding `poc_receipt` transaction to
+cross-check the reported witnesses and receipts. This is a tremendously costly operation which we
+did not consider during development as even a developer's slow laptop is much faster than the
+deployed Generation 1 Hotspots.
+
+### Timeline
+
+#### Activation of PoC v9, Wed Sep 16 07:09:40 PM UTC 2020
+
+- PoC v9 was activated in block
+  [502316](https://github.com/helium/miner/blob/master/audit/var-43.md)
+
+#### PoC v9: Blockchain Halts, Wed Sep 16 07:09:40 PM UTC 2020 - Wed Sep 16 12:09:40 PM UTC 2020
+
+- At block `502342`, the blockchain came to a halt due to disagreement over the block that was
+  produced by the consensus round.
+- We were monitoring the situation closely and ensured that we did not have any latent ledger drift,
+  which could cause ongoing problems in terms of consensus agreement.
+- The team narrowed the root cause to two potential issues:
+  - A bad call to a stale ledger in `poc_receipts_txn` which we quickly fixed
+    [here](https://github.com/helium/blockchain-core/pull/621)
+  - Extraneous logging in `poc_receipts_txn` and `rewards_txn`, which we addressed
+    [here](https://github.com/helium/blockchain-core/pull/619)
+- A subsequent
+  [release](https://engineering.helium.comhttps://docs.helium.com/blog/2020/09/16/blockchain-emergency-release.html)
+  with the above two fixes was GA-ed and deployed immediately
+
+#### Continued Troubles: Extremely long election blocks, Wed Sep 16 12:09:40 PM UTC 2020
+
+- Despite the emergency release, the team noticed that election blocks were taking close to 15
+  minutes to get accepted. This is unacceptable behavior and was causing eventual network gossip
+  collapse.
+- In order to maintain ~60s block times, the team agreed to downgrade PoC v9 back to v8 while a more
+  optimized fix for PoC v9 was being discussed internally.
+
+#### Downgrading back to PoC v8, Thu Sep 17 02:34:45 AM UTC 2020
+
+- After internal discussion and ensuring that downgrading PoC back to v8 was safe and backwards
+  compatible, the team issued another chain variable transaction to revert back to PoC v8.
+  [Details](https://github.com/helium/miner/blob/master/audit/var-44.md)
+- This was sufficient to get back to normal block and election times.
+
+#### Addressing stuck hotspots, Thu Sep 17 06:15:00 PM UTC 2020
+
+- We let the blockchain recover overnight Sep 16th, 2020 after reverting back to PoC v8, however,
+  early morning Sep 17th, the team noticed that we had ~1000 hotspots stuck at block `502499`.
+- In order to address that, we started working on an immediate GA release `2020.09.17.0` with a new
+  blessed snapshot targeted at block height [503281](https://github.com/helium/miner/pull/515).
+
+### Solutions?
+
+- A relatively simple fix is to avoid walking the chain backwards altogether by attaching the
+  `poc_request_txn` block hash to the `poc_receipts_txn`, this would in theory be a constant time
+  lookup at transaction validation time. Please refer the following PRs for progress:
+  [helium/proto](https://github.com/helium/proto/pull/52),
+  [helium/blockchain-core](https://github.com/helium/blockchain-core/pull/622),
+  [helium/miner](https://github.com/helium/miner/pull/516).
+- Due to the nature of blockchains, protocol buffers, and immutable ledgers, we cannot reactivate
+  PoC v9 with different and less problematic code. Instead, we will skip over PoC v9 altogther and
+  jump straight to PoC v10.
+- Finally, we plan on accelerating setting up a testnet to catch such issues before they make it to
+  production. We look forward to engaging with the community to participate in the development of
+  this testnet.
+
+### Next Steps
+
+- Once the team has confirmed that the fixes indeed work as intended, we shall deploy a beta release
+  and apprise the community of eventual GA release.
+- Current timeline is to activate PoC v10 on Monday, Sep 21st, 2020.

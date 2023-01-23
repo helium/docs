@@ -1,0 +1,37 @@
+---
+layout: post
+title: Command Line Interface for Console
+date: 2020-03-13
+hide_table_of_contents: true
+authors: [lthiery]
+---
+
+### Summary
+
+In order to streamline device uploading to Helium Console, and, in particular, migrations from The
+Things Network (TTN) Console, we are releasing
+[pre-built executables](https://github.com/helium/helium-console-cli/releases) and the
+[source code](https://github.com/helium/helium-console-cli) of helium-console-cli.
+
+<!--truncate-->
+
+This public release includes the following features:
+
+- create and delete devices records, using (app_eui, app_key, dev_eui) or UUID
+- list all device records from an organization
+- create and delete labels by UUID
+- create and delete device labels, by using (device_uuid, label_uuid)
+- import devices from The Things Network (TTN) with optional labeling with app i
+
+  d
+
+### Notes
+
+- **Console 'api/v1' Endpoint**: a new endpoint and the ability to generate keys that don't expire
+  has been added to Console. The endpoints have been rate limited in the following way:
+
+  - a single user can create a maximum of 10k labels and devices
+  - the API is rate limited to 100 calls per second
+
+- **API Keys stored in Plain Text**: currently, when the user types in their API keys, it is stored
+  in the directory of the executable in plain text.

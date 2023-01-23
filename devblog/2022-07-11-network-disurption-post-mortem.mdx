@@ -1,0 +1,54 @@
+---
+layout: post
+title: 'Network Disruption Postmortem: 2022-07-11'
+date: 2022-07-11 17:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+&nbsp;
+
+# What happened
+
+On Monday 2022-07-11 at approximately 12:42 PM UTC the Consensus Group stopped producing blocks at
+block `1,435,692`. Normal chain operations continued at 17:15 PM UTC just over 4 hours later.
+
+<!--truncate-->
+
+Throughout the disruption, devices continued to have coverage to transfer data and operate normally
+as state channels remained open processing packets. There were also no risks to Hotspot owners or
+HNT holders, but they did experience a delay in transaction processing and Proof-of-Coverage
+activity.
+
+# Cause
+
+A minimum of 29 of the 43 Consensus Group members must be online, connected to each other, and on
+the same consensus round to produce blocks.
+
+This disruption was caused by a combination of factors including an issue with the `1.12.3`
+validator beta build and a local network outage experienced by a number of validators in the
+Consensus Group.
+
+# Recovery
+
+The core team worked with the Validator community to manually move relevant, online validators to
+the same consensus round so they could become synchronized and resume normal operations.
+
+At 10:15 AM PST the Consensus Group continued block production with `1,435,693`.
+
+# Resolution
+
+The root cause of the 1.12.3 issue was identified and fix was released with the latest `1.12.4` GA
+validator build that is currently available.
+
+To avoid this type of situation, there is an auto-skip feature that enables validators to move to a
+different consensus round without manual intervention. However, a known issue prevented the
+auto-skip feature from working as expected.
+
+This issue along with additional performance improvements are planned for the next validator
+release.
+
+# Power of Community
+
+Thank you once again to our community members that host validators. We deeply appreciate both your
+timeliness and willingness to troublehsoot issues that affect the entire network.

@@ -1,0 +1,52 @@
+---
+layout: post
+title: Console Updates- v2.2.1
+date: 2022-01-27 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+Sprint: 68
+
+This release includes mostly backend under the hood fixes. The team plans to do an out of band
+release next week to address the latest issue related to receive window delay, specifically this
+[issue](https://github.com/helium/router/issues/571).
+
+<!--truncate-->
+
+The receive window delay feature has been deployed in phases, and the team believes this update will
+resolve issues related to downlinks and ADR.
+
+The team continues to work hard to scale out the front end given the increase in coverage, usage,
+and the resulting number of device-related events. If the next release requires a maintenance window
+it will be communicated via the [status page](https://status.helium.com/). Sign up to receive this
+and other notifications related to Console operational status.
+
+Full list of this sprint’s features and fixes: Backend
+[(Router)](https://github.com/helium/router/milestone/6?closed=1)
+
+(Note: a closed issue does not necessarily mean the team took action, for example the issue could
+have been a duplicate or no longer relevant).
+
+### Open source users
+
+- New users should use the latest master version.
+
+- Existing users are highly recommended to update Console/Router to the latest version as it may
+  include the latest blockchain core updates needed to ensure smooth operations.
+
+For upgrading instructions check
+[readme](https://github.com/helium/console#upgrading-your-open-source-consolerouter).
+
+Additional
+[technical documentation](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Continue building out production-ready roaming services
+- Continue scaling front end
+- Microsoft Azure IoT Central integration
+- Light Hotspot support (diffs for state channels)
+- Preferred Hotspot selection

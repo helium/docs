@@ -1,0 +1,53 @@
+---
+layout: post
+title: Console Functions and HTTP Downlink
+date: 2020-05-07 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm, madninja, evanmcc]
+---
+
+### Key feature updates
+
+### Functions
+
+We’ve added the ability to execute functions on Console, the first can be used to decode payloads.
+With the Decoder Function, users can can transform and/or parse a raw payload before it is posted to
+an endpoint, such that, for example, individual sensor values are reported rather than the base64
+string. This transformation also applies to debug output, allowing it to be more human-readable.
+
+<!--truncate-->
+
+When a Decoder Function is applied to the device via a Label, the Decoder Function code is executed
+on the payload sent by the device. The Decoder Function could be written using custom javascript
+code provided by the user or prebuilt code (currently Browan Object Locator and Cayenne LPP exist as
+pre-provided decoders).
+
+Our decoder API is compatible with existing The Things Network decoders, which are already available
+for a wide array of devices.
+
+### HTTP Downlink
+
+HTTP integration has been extended to include the ability to asynchronously POST and enqueue a
+Downlink packet; previously, Downlink was only available in the HTTP Response to an Uplink POST. In
+addition, this features enables a Downlink to be enqueued for an entire group of devices that share
+the same label, allowing messages to be broadcasted easily.
+
+### Other updates/fixes
+
+- Home screen with shortcuts and links to resources can be accessed by the Home icon in the top
+  right corner.
+- LoRaWAN Link Check commands are supported to validate network connectivity.
+- An issue with the Debug mode has been resolved.
+
+### Next up
+
+We have a scheduled outage to make a number of network updates and switch from subband 7 to 2. In
+addition, we will deploy stronger account authentication.
+
+On Tuesday, May 12 this planned outage will start at 8 am PDT / 11 am ET and last approximately one
+hour. During this time Console will be inaccessible.
+
+### Impact of planned update
+
+Details about the switch from subband 7 and other network updates including the impact can be found
+[here](https://engineering.helium.comhttps://docs.helium.com/blog/2020/05/05/lorawan-network-upgrade-potential-disruption-mitigation.html).

@@ -1,0 +1,91 @@
+---
+layout: post
+title: App Version 1.9.0
+date: 2020-06-25
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+&nbsp;
+
+# Summary
+
+PLEASE UPDATE TO THIS RELEASE. This update includes the following new features and is not backwards
+compatible. Failure to update to `1.9.0` will cause all transactions in the mobile app to fail once
+we activate **transaction fee chain variables**.
+
+<!--truncate-->
+
+What will fail:
+
+- wallet-to-wallet payment transactions
+- updating hotspot locations
+- adding a hotspot
+
+What will NOT fail, as these are blockchain activities and not wallet activities:
+
+- hotspot earnings
+- proof-of-coverage challenges
+- witnessing
+- consensus groups
+- creating challenges
+
+## Why will those transactions fail if I don't update my app version?
+
+The blockchain essentially has a new way of processing transactions (with transaction fees). So any
+service (including the app) will need to "speak the blockchain's new language" for transactions to
+succeed.
+
+# Other Features included in this release
+
+## GPS Information (Experimental)
+
+As part of validating network coverage, the team looked to expose key GPS information for Hotspot
+owners to see if their GPS location matched their Hotspot location on the blockchain. For more
+information, please see the previous post on this:
+[https://helium-community.slack.com/files/T23CDV4N4/F014793ASPR?origin_team=T23CDV4N4](https://helium-community.slack.com/files/T23CDV4N4/F014793ASPR?origin_team=T23CDV4N4)
+
+At this stage, the GPS information is experimental and merely for informational purposes. _There is
+no impact to Hotspot mining_. If you do decide to move the Hotspot, do so at your own discretion.
+
+- Reasserting it across a room is not necessary, just unplug and replug the power.
+- Acquiring a GPS fix may also take up to 48 hours, depending on satellites in the sky, cloud
+  coverage, and obstacles in the way between the GPS antenna underneath the black disc and the sky.
+- If you occasionally see a bad assert, and your Hotspot is asserted in its physical location
+  (accurate to 200 meters), do not panic! The GPS can wander. If you leave it alone, the bad assert
+  will likely change back to a good fix.
+
+## Show synced block height if a Hotspot falls out of sync with the chain
+
+If your Hotspot falls out of sync with the tip of the blockchain, the app will now show it's current
+synced block height so you know how many blocks it has before the Hotspot is caught up.
+
+## Transaction Fees
+
+As mentioned earlier, the breaking change introduced in `1.9.0` relates to how the mobile app
+calculates transaction fees.
+
+When the chain variable for transaction fees are activated, users will see how much it will cost to
+send a payment transaction (wallet-to-wallet), add a hotspot, and update hotspot location.
+
+All Hotspots from Helium will continue to see 0 fees for adding a Hotspot, and setting a location
+for the first time.
+
+We will send another notice when the chain variable is activated.
+
+# Bug Fixes
+
+- Fixed Hotspot filter for consensus groups
+
+- Fixed how participants in a challenge and witnesses are displayed in the mobile app.
+
+- Fixed Hotspot loading times for those with 50+ Hotspots in their app
+
+- Fixed stale data when swiping between Hotspots
+
+### Known Issues
+
+Switching Wi-Fi networks doesn't work if both Wi-Fi networks are found in the scan list.
+
+- If you need to update your Wi-Fi credentials and both old and new networks appear in the scan
+  list, contact support@helium.com and we can help manually update it for you.

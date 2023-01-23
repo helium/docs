@@ -1,0 +1,25 @@
+---
+layout: post
+title: 'Blockchain Release: Maintenance Update'
+date: 2021-02-12 7:45 -0800
+hide_table_of_contents: true
+authors: [vagabond, madninja, abhay]
+---
+
+### Contents
+
+The team has a new minor release tagged `2021.02.12.0` which reverts the RSSIS change from
+`2021.02.10.4`. This change, while correct, interacts poorly with our existing PoC acceptance
+criteria and we're reverting it temporarily while we fix those.
+
+<!--truncate-->
+
+### [miner#638](https://github.com/helium/miner/pull/638): Revert "Use packet_rssi function to use RSSIS is available"
+
+We've decided to revert this change as it was causing distant witnessing to be incorrectly penalized
+in PoC.
+
+### Plan
+
+We have been beta testing `2021.02.12.0` since February 12th, 2021 7:00 AM PT. Current ETA for GA is
+10:30 AM PT, February 12th, 2021.

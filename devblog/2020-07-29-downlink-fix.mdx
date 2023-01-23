@@ -1,0 +1,29 @@
+---
+layout: post
+title: Prevent Dropped Downlink Packets
+date: 2020-07-29
+hide_table_of_contents: true
+authors: [fvasquez]
+---
+
+This `2020.07.29.0` release fixes a bug in miner that resulted in numerous downlink LoRa packets
+being dropped.
+
+<!--truncate-->
+
+In addition, this release upgrades the Linux image on the Helium Hotspot to Buildroot 2020.02.1.
+This LTS release of Buildroot includes various security fixes and allowed us to upgrade the onboard
+Erlang/OTP installation to 22.3.1.
+
+Lastly, this release also bumps the onboard blessed snapshot to block height `435601`.
+
+### Contents
+
+- _Prevent dropped downlink packets_: PR:
+  - [miner/465](https://github.com/helium/miner/pull/465)
+
+### Plan
+
+A `2020.07.29.0` release was deployed to the beta group on the morning of Wednesday July 29 at
+around 10:30AM PDT. After reactivating the `state_channels_v2` chain variable we expect to release
+`2020.07.29.0` to GA at 2:00PM PDT later that day.

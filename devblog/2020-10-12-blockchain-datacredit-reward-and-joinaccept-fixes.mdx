@@ -1,0 +1,54 @@
+---
+layout: post
+title: Blockchain DataCredit Reward and JoinAccept Fixes
+date: 2020-10-12 17:08 -0700
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The primary objective of the `2020.10.12.1` release is to address the missing data credit rewards
+for `blockchain_txn_state_close_v1` transaction. This release also fixes inconsistent `JoinAccept`
+for packet transfers.
+
+<!--truncate-->
+
+#### Addressing the Missing DataCredit Rewards
+
+When a `blockchain_txn_state_channel_close_v1` transaction appears between the next epoch start
+(next election block for new consensus group) and the grace period of the state channel close (as
+defined in the corresponding open state channel transaction), there's a possibility that the data
+credit rewards for hotspots involved in packet transfer for the duration of the state channel would
+not appear in the next epoch. The team has addressed this bug and to preserve backwards
+compatability guarded the change behind chain variable `reward_version`.
+
+Once `reward_version` is set to `5` the fix will come into effect and data credit rewards will
+appropriately appear in the corresponding epoch change.
+
+#### Addressing Inconsistent JoinAccept for Packet Transfer
+
+The team has addressed reported concerns for inconsistent `JoinAccept` for packet transfers as
+reported by network users. This was caused due a regression in refactoring old code. We expect
+`JoinAccept` to be more consistent once `2020.10.12.1` release goes GA. Note, this does _not_
+require a chain variable to trigger.
+
+#### Blessed Snapshot Update
+
+Finally, this release bumps the blessed snapshot to height `540721` which will improve sync times of
+newly onboarded Hotspots.
+
+#### Related PRs
+
+- _Calculate DC rewards in previous epoch grace blocks_
+  - [blockchain-core/627](https://github.com/helium/blockchain-core/pull/627)
+- _Fix lost state when enqueueing packets_
+  - [blockchain-core/646](https://github.com/helium/blockchain-core/pull/646)
+- _Test that state channel closes within grace blocks of an epoch end are rewarded_
+  - [miner/523](https://github.com/helium/miner/pull/523)
+- _Update blessed snapshot to 540721_
+  - [miner/535](https://github.com/helium/miner/pull/535)
+
+### Plan
+
+We have begun beta-testing `2020.10.12.1` around 6:30 PM PST on 12th October, 2020 and plan to
+release it to GA by 3 PM PST, 13th October, 2020. And we will activate `reward_vesion=5` on Monday,
+19th October, 2020.

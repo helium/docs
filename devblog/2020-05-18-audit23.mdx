@@ -1,0 +1,65 @@
+---
+layout: post
+title: Chain Variable Changes
+date: 2020-05-18 10:00 -0700
+hide_table_of_contents: true
+authors: [evanmcc, cokes518, vihu]
+---
+
+Today we're going to issue a transaction to change several chain variables. The high level summary:
+
+<!--truncate-->
+
+1. More high scoring Hotspots will have a chance to be part of the consensus group.
+2. More transactions will be allowed per block.
+3. We'll widen the range of RSSIs that are allowable for PoC witnesses, to address community
+   complaints.
+4. Old witnesses will get get cleaned up over time and no longer contribute to Proof of Coverage
+   path generation.
+
+### Details
+
+1. `election_selection_pct` will be changed from 20 to 1. Since we now have a large number of high
+   scoring Hotspots and the top of the list is currently dominated by Hotspots in suspect
+   configurations, we're spreading out consensus membership more, in the hopes of disincentivizing
+   bad behavior by lowering the returns to cheating your way to a high score.
+
+How will this affect Hotspot owners?
+
+- More high scoring Hotspots will have a chance to be in the consensus group instead of the select
+  few now. This, in conjunction with a change we made a few weeks ago to geographically distribute
+  consensus group Hotspots will further disincentivize unwanted behavior.
+
+2. `batch_size` will be changed from 200 to 400. We lowered this a few weeks ago due to some
+   gigantic blocks that caused some issues with gossip. It looks like we lowered it too much, as
+   we're only able to sustain about 150 transactions per block. We currently have a target of 250
+   transactions per block, so we're raising the limit in order to hit that target. Expect more
+   adjustments in the future.
+
+How will this affect Hotspot owners?
+
+- While this may not have a direct affect on Hotspot owners, you may see reduced pending transaction
+  times.
+
+3. `poc_good_bucket_high` will be changed from -80 to -70 and `poc_good_bucket_low` will be changed
+   from -118 to -130. These change what recorded signal strengths are allowed for witnesses. This is
+   an anti-cheating measure, but it looks like we've been too restrictive, and people with high gain
+   antennas are having issues with Hotspots witnesses nearby and valid Hotspots too clearly.
+
+How will this affect Hotspot owners?
+
+- This means those with non-stock antennas will no longer be penalized and bucketed as a poor
+  witness. Hotspot owners with high gain antennas may see more challenges succeed.
+
+4. `witness_refresh_interval` will be added to the chain at 10080 (approximately one week of
+   blocks), and `witness_refresh_rand_n` will be added at 1000 (an implementation detail that
+   nevertheless must be on the chain for the sake of determinism). The former will probabilistically
+   age out witnesses over the course of a week, leading to more valid and recent paths. This should
+   allow the network to adjust to seasonal variations and the slow churn of spots as people add,
+   remove, and move them around.
+
+How will this affect Hotspot owners?
+
+- Currently witnesses never expire, which means old and weak witnesses are often used to create
+  paths. By refreshing witnesses on a weekly interval, we can purge bad Hotspots and create more
+  meaningful PoC paths. We can expect fewer challenges to spuriously fail with this change.

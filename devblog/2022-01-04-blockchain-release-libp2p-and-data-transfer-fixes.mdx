@@ -1,0 +1,37 @@
+---
+layout: post
+title: 'Blockchain Release: Libp2p and Hotspot Sync Fixes'
+date: 2022-01-04 10:21 -0800
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The core developers have tagged a new `2022.01.04.0` Hotspot firmware release which includes
+**recommended** improvements in `miner` specifically related to ensure that Hotspots with unasserted
+location are still able to sync to the head of the blockchain. Secondly this release also includes
+ability to use additional packet metadata provided by certain packet forwarders.
+
+<!--truncate-->
+
+#### Allow usage of RSSIS when available
+
+As reported by some community members, certain packet forwarders (SX1302 for example) include
+additional packet metadata **RSSIS (RSSI of signal)**. This additional metadata more accurately
+reflects the power level at which a packet gets received. With the release of `2022.01.04.0`
+`miner_lora` would begin using `RSSIS` whenever it's available.
+
+#### Related PRs
+
+- [miner#1328](https://github.com/helium/miner/pull/1328): Handle unasserted hotspots in
+  `miner_lora` module
+- [miner#1317](https://github.com/helium/miner/pull/1317): Fix usage of `RSSIS` when available
+
+- [libp2p#418](https://github.com/helium/erlang-libp2p/pull/418): Remove duplicate call to
+  `changed_listener`
+- [libp2p#416](https://github.com/helium/erlang-libp2p/pull/416): Use `rocksdb:snapshot` for
+  `fold_peers` for speedup
+
+### Plan
+
+We have been beta testing `2022.01.04.0` since January 04, 2022 09:15 AM PT. Current ETA for GA is
+05:00 PM PT, January 04, 2022.

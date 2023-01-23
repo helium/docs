@@ -1,0 +1,26 @@
+---
+layout: post
+title: Bugfix Release for Snapshot OOMs and State Channel Lifecycle Issues
+date: 2020-08-10 16:00 -0700
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+This `2020.08.10.0` release fixes an out of memory issue encountered when computing blockchain
+snapshots, especially consensus members, which has been leading to the rough block times over the
+weekend. Additionally a couple state channel issues have been identified and fixed as well.
+
+<!--truncate-->
+
+### Contents
+
+- _Fix spurious state channel close_: PR:
+  - [blockchain-core/559](https://github.com/helium/blockchain-core/pull/559)
+- _Limit memory usage when computing snapshots_: PR:
+  - [blockchain-core/555](https://github.com/helium/blockchain-core/pull/555)
+- _Improve performance of packet offer rejections_: PR:
+  - [blockchain-core/554](https://github.com/helium/blockchain-core/pull/554)
+
+### Plan
+
+We will beta `2020.08.10.0` this afternoon PST and release it to GA this evening or early tomorrow.

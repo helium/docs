@@ -1,0 +1,32 @@
+---
+layout: post
+title: Beta Deploy
+date: 2019-10-28
+hide_table_of_contents: true
+authors: [fvasquez]
+---
+
+On October 25 around 6 PM PDT we rolled out a
+[GA release](https://docs.helium.com/blog/2019/20/25/beta-deploy-2) to address blockchain syncing
+problems. This was a network-wide change that intentionally broke compatibility with the previous
+1.0 version of the blockchain sync protocol.
+
+<!--truncate-->
+
+While the change did not appear to effect any hotspots that were already fully synced with the
+blockchain, several reports of stuck or backwards syncing hotspots began arriving the following
+morning from customers who had just finished onboarding their newly unboxed hotspots.
+
+## Content
+
+The beta group was updated with Hotspot firmware version `2019.10.25.1-2-g64a37ee4` which includes:
+
+- Add block height to assume valid block information
+- Implement recursive locking for blockchain mutex
+- Bump assume valid block to 98917 (2019.10.29.0 GA release only)
+
+## Deployment Plan
+
+We plan to let this beta overnight to give the targeted hotspots enough time to resync past the
+assumed valid block from scratch. If resyncing succeeds we will tag the branch as `2019.10.29.0` and
+confirm that the GA release OTA updates successfully before making it available to all hotspots.

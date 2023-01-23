@@ -1,0 +1,24 @@
+---
+layout: post
+title: Downlink Packet Timing
+date: 2020-06-19 20:20 -0700
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+While we are aware of some Hotspots falling out of sync (although they will eventually recover) we
+have not yet isolated the root cause. This release only makes 2 changes, it fixes a problem with the
+timing of LoRaWAN packets, specifically around meeting the downlink window and it blesses a new
+snapshot at height 379441. The new snapshot should help unstick some Hotspots that are struggling,
+and we will continue to work on a more permanent fix.
+
+<!--truncate-->
+
+### Contents
+
+- _Packet downlink timing_: PR: [core/512](https://github.com/helium/blockchain-core/pull/512)
+
+### Plan
+
+A `2020.06.19.0` will be deployed to the beta group this evening, Friday the 19th of June, and once
+it passes basic testing, being a simple release, will be promoted to GA thereafter.

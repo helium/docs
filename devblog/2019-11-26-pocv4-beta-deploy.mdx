@@ -1,0 +1,34 @@
+---
+layout: post
+title: Proof of Coverage v4 Beta Deploy
+date: 2019-11-27 5:40
+hide_table_of_contents: true
+authors: [vagabond, madninja, evanmcc]
+---
+
+On November 26 around 9:40 PM PDT we rolled out a new beta release.
+
+<!--truncate-->
+
+This beta contains the new version of the proof of coverage implementation. A fuller explanation of
+the changes will be delivered in a subsequent blog post but the essence of the changes are:
+
+- Pathing is based on historical witnessing, not raw geography
+- Hotspots will not be challenged until they themselves have synced and begun to challenge
+- All hotspots will have the opportunity to be challenged
+- Proof of Coverage paths are now much, much faster to compute and verify, which should lower block
+  times and avoid dropping PoC receipts that are too slow to verify
+
+## Content
+
+- _PoCv4_: Implement PoCv4 [miner](https://github.com/helium/miner/pull/254)
+  [blockchain](https://github.com/helium/blockchain-core/pull/257)
+
+In additon the assume valid block was updated to block 119,972.
+
+## Deployment Plan
+
+We plan to let this `2019.11.26` release beta overnight and deploy it to general availability
+sometime Wednesday. We plan to activate the new code next Monday, December 2nd after the
+Thanksgiving holiday in the US so we will have as many personnel as possible online to watch for
+issues during the activation.

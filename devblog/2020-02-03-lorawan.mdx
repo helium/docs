@@ -1,0 +1,42 @@
+---
+layout: post
+title: Enabling Beta Support for LoRaWAN
+date: 2020-02-03 14:00 -0800
+hide_table_of_contents: true
+authors: [vagabond, evanmcc]
+---
+
+## Executive summary
+
+We have enabled LoRaWAN support on the Helium network. This has not been without compromises but we
+feel we have found a solution that should work for the vast majority of existing LoRaWAN devices.
+
+<!--truncate-->
+
+The Helium Console has been updated with support for generating LoRaWAN AppEUIs and AppKeys that can
+be provisioned to existing LoRaWAN devices. We have decided to use the 7th bank of 8 channels in the
+US902-928 LoRaWAN regional parameters. The specific channel frequencies are (in mHz) 911.9, 912.1,
+912.3, 912.5, 912.7, 912.9, 913.1, 913.3. These channels are 125kHz wide and use 4/5 coding. Devices
+that support enabling an 8 channel sub bank of the defined 64 default channels should use that
+option, devices which join across all 64 channels must wait to hit one of the enabled channels. A
+subsequent ADR adjustment will be sent after joining.
+
+We are currently targeting class A devices and the LoRaWAN 1.0.2 spec. We will work on adding
+support for class C devices and 1.0.3 and 1.1 features that make sense in the future.
+
+### Details
+
+LoRaWAN is more like layer 3 and Helium needs more of a layer 2 protocol, which means that we've had
+to bend the rules of LoRaWAN a bit. Speficially we abuse the DeviceID issued to joining devices to
+be a routing identifier rather than a unique device ID and instead on the destination router we
+brute-force the Message Integrity Check to discover what device actually sent the packet. This is
+similar to something the Things Network does, but it does introduce some ambiguity about packet
+provenence while the packet is in transit. We hope to address some of these shortcomings in the
+future with a LoRaWAN extension that compliant devices will be able to use to improve the packet
+handoff between Helium Hotspots and Routers.
+
+Unfortunately, due to the frequency changes required to be LoRaWAN compatible, we will be breaking
+compatibility with any active LongFi devices. Simply changing the frequencies used will be
+sufficient but we don't currently expect to be able to dedicate more time to LongFi support as we
+have decided to focus on providing seamless LoRaWAN support to take advantage of the large number of
+devices with difficult, or impossible to change LoRaWAN stacks.

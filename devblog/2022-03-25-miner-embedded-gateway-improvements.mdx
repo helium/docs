@@ -1,0 +1,39 @@
+---
+layout: post
+title: 'Miner Release: Embedded Gateway Stability and Configuration Improvements'
+date: 2022-03-25
+hide_table_of_contents: true
+authors: [jeffgrunewald]
+---
+
+The core developers have tagged a new `2022.03.23.1` `miner` release. This release is **mandatory**
+for all Hotspot Makers. We request that Hotspot Manufacturers upgrade their fleets by 12:00 UTC on
+2022-03-29. This will allow the approved
+[HIP 54](https://github.com/helium/HIP/blob/main/0054-h3dex-targeting.md) chain variable to be
+activated and ensure Hotspots can continue creating Challenges using the new H3Dex-based PoC
+targeting.
+
+<!--truncate-->
+
+The primary changes for this release are related to simplifying configuration or improving stability
+of the embedded light hotspot `helium_gateway` that, once enabled, will have device packet routing
+and crypto signing delegated to it from the primary miner process. With this change, the rpc
+connection between the miner and light gateway processes becomes more robust, and all UDP listening
+ports are automatically configured from the primary `miner, radio_device` setting in the
+`sys.config` which defaults to 1680. This release includes an updated version of the gwmp-mux
+embedded application routing UDP packets between the light hotspot and miner services. This release
+_does not_ enable the embedded light gateway and mux services by default.
+
+#### Related PRs
+
+- [miner#1479](https://github.com/helium/miner/pull/1479): Consolidate udp listener port config
+  under radio_device
+- [miner#1470](https://github.com/helium/miner/pull/1470): Monitoring and testing gateway grpc pid
+- [miner#1387](https://github.com/helium/miner/pull/1387): Support h3dex based targeting
+- [blockchain-core#1214](https://github.com/helium/blockchain-core/pull/1214): h3dex andymck
+  additions
+
+### Plan
+
+We have been testing `2022.03.23.1` since Mar 23 12:00 PM PST. Current ETA for GA is March 25, 2022
+10:00 AM PST.

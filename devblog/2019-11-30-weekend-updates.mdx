@@ -1,0 +1,27 @@
+---
+layout: post
+title: Weekend Updates to Fix Block Time Issues
+date: 2019-11-30 10:40
+hide_table_of_contents: true
+authors: [vagabond, evanmcc]
+---
+
+On November 30, around 10:30 PST we will be rolling out a new beta release.
+
+<!--truncate-->
+
+This beta contains only 2 changes, one to fix a problem introduced by an earlier release that turned
+out to have some performance impacts and one fix for a long-standing problem where a node would
+generate an invalid PoC receipt and thus fail to submit the results of its challenge.
+
+## Content
+
+- [libp2p - make peerbook metadata asynchronous](https://github.com/helium/erlang-libp2p/pull/231)
+- [blockchain-core - snapshot ledger after block is committed](https://github.com/helium/blockchain-core/pull/300)
+
+No assume-valid adjustments were made.
+
+## Deployment Plan
+
+Due to the performance impacts, we will probably fast track this beta to GA if the deployment to the
+beta group looks good.

@@ -1,0 +1,38 @@
+---
+layout: post
+title: Blockchain Beta Deploy
+date: 2019-10-18 23:41 -0700
+hide_table_of_contents: true
+authors: [madninja]
+---
+
+As part of improving network behavior and testing it in a real environment we use a number of opt-in
+beta hotspots.
+
+<!--truncate-->
+
+There are some ground rules for beta deployments that we strictly follow:
+
+- The change can _not_ affect blockchain consensus behavior. Any behavior change that affects chain
+  consensus rules _must_ be gated on a chain variable
+
+- The change can improve peripheral elements of the software which _may_ indirectly affect the
+  behavior of the blockchain. Changes are usually related to performance or stability improvements
+  that make it more likely that a hotspot can talk to more hotspots or recover from error conditions
+  better than before the update.
+
+## Content
+
+The beta group was updated with firmware `2019.10.18.1` which includes:
+
+- Improving some error resilience in the network relay service
+- Only blacklisting relays that are explicitly known to not be connected by the intermediate host
+- Speed improvements in NAT detection
+- Using more available peer targets when syncing the blockchain
+- Fix ledger disagreement over ordering of each hotspot's geographic neighbor list
+
+## Deployment Plan
+
+Given the small set of patches this beta includes and the expected stabilizing effect on block sync
+and PoC receipt delivery issues, we plan to let this beta run for 24 hours and then deploy it to the
+network at large.

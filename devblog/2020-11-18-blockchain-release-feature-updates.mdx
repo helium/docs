@@ -1,0 +1,44 @@
+---
+layout: post
+title: 'Blockchain Release: Feature Updates'
+date: 2020-11-18 12:20 -0800
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The team has been busy working on a new blockchain chain release tagged `2020.11.17.0`. This release
+contains a few new features:
+
+<!--truncate-->
+
+| Feature                           | PRs                                                                                                                              | HIP                                                                                        |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Transfer hotspot                  | [blockchain-core#659](https://github.com/helium/blockchain-core/pull/659), [miner#555](https://github.com/helium/miner/pull/555) | [HIP13](https://github.com/helium/HIP/blob/master/0013-transfer-hotspot.md)                |
+| Remove score from consensus group | [blockchain-core#676](https://github.com/helium/blockchain-core/pull/676), [miner#561](https://github.com/helium/miner/pull/561) | [HIP16](https://github.com/helium/HIP/blob/master/0016-random-consensus-group-election.md) |
+| Beaconing Rewards                 | [blockchain-core#662](https://github.com/helium/blockchain-core/pull/662)                                                        | [HIP15](https://github.com/helium/HIP/blob/master/0015-beaconing-rewards.md)               |
+
+**NOTE: Each of the above features will remain dormant until we activate their corresponding chain
+variables. This release is in preparation for the support for the above features.**
+
+We have also updated the snapshot block to `591841` to allow newly onboarded hotspots to sync faster
+to the current blockchain head block.
+
+### Chain Variable Activation Schedule
+
+The team has settled on the below chain variable activation schedule for the features mentioned
+above. We will keep the community apprised if this changes.
+
+| Feature                           | Proposed Activation Date     |
+| --------------------------------- | ---------------------------- |
+| Transfer hotspot                  | Planned: Monday Nov 23, 2020 |
+| Remove score from consensus group | Planned: Monday Nov 23, 2020 |
+| Beaconing Rewards                 | Tentative: End of November   |
+
+**NOTE: There's some remaining work to be done to implement transfer hotspot using
+[the CLI](https://github.com/helium/helium-wallet-rs/issues/60) and will be prioritized as one of
+the last features of the v2 mobile app.**
+
+### Plan
+
+We have been beta testing `2020.11.17.0` since November 17th, 2020. Once the team is comfortable
+with initial testing, we plan on releasing to GA at 10:00 AM PST, November 19th 2020.

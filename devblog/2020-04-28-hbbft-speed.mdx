@@ -1,0 +1,39 @@
+---
+layout: post
+title: HBBFT Speed and Correctness Improvements
+date: 2020-04-28 14:00 -0700
+hide_table_of_contents: true
+authors: [evanmcc, madninja]
+---
+
+### Block Weather
+
+[Recently](https://engineering.helium.comhttps://docs.helium.com/blog/2020/04/23/collapse.html), we
+mentioned that we had some pending speedups to our HBBFT implementation. This image releases them to
+the cluster.
+
+<!--truncate-->
+
+These changes mostly speed up HBBFT by eliminating duplicate work. Our threshold decryption library,
+used (albeit indirectly) to anonymize transaction proposals, now retains its verification state in
+between operations, which both makes it faster to use and harder to misuse. Additionally, the local
+node was not giving its own inputs any special treatment, despite the fact that it knew them
+already, so now it retains the pre-verified and decrypted shares for the combination phase of the
+protocol. There have been a few other changes to guarantee that we're duplicating as little work as
+possible.
+
+Additionally, this release contains:
+
+- Currently disabled code for resetting witnesses over time, which will be activated later.
+- Relaxed Proof of Coverage receipt timeouts, so we will wait longer for a delayed request.
+
+### Contents
+
+- _Update to New TPKE Version_: PR: [hbbft/52](https://github.com/helium/erlang-hbbft/pull/52)
+- _Retain Own Proposal_: PR: [hbbft/54](https://github.com/helium/erlang-hbbft/pull/54)
+- _Relax PoC Statem Request Timeout_: PR: [miner/379](https://github.com/helium/miner/pull/379)
+- _Reset Witnesses_: PR: [core/360](https://github.com/helium/blockchain-core/pull/360)
+
+### GA Plan
+
+The image will be put on the beta group around 2PM PDT, and will beta overnight.

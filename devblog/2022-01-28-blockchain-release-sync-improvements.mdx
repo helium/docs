@@ -1,0 +1,82 @@
+---
+layout: post
+title: 'Blockchain Release: Denylist Support and Performance Improvements'
+date: 2022-01-28
+hide_table_of_contents: true
+authors: [abhay]
+---
+
+The core developers have tagged a new `2022.01.27.0` `miner` release. This release is recommended,
+but not mandatory, for all Hotspot manufacturers.
+
+<!--truncate-->
+
+This release includes denylist support, adds snapshot polling, and better storage reclamation. The
+addition of denylist support allows asynchronous updates to this list independent of miner releases.
+Additionally, `2022.01.27.0` improves block sync and fixes some rare crashes.
+
+Reminder: `miner` Docker image releases are no longer coupled to firmware releases. This release
+**does not** have a corresponding firmware release / updated SD card image (for those running RAKs
+and OG hotspots).
+
+### Denylist Support
+
+This release includes support for a denylist of Hotspot addresses that limits witnessing and
+challenging by the Challenger. More details on how it works are available in the
+[denylist](https://github.com/helium/denylist) repository and in the PRs listed below. The
+management of the denylist is through a coordinated multisig of the Helium, Inc team and members of
+the community. This list can be updated on a separate release cycle from `miner` and Hotspot
+firmware.
+
+### Snapshot and Storage Improvements
+
+Several updates have been made to Snapshot management and Hotspot storage of blocks. Notably, a
+Consensus Group or manually blessed snapshot will now be downloaded if the Hotspot is behind on
+block sync periodically rather than on startup. This should help reduce the time that a Hotspot is
+not participating in the network.
+
+Separately, a change to how blocks are stored and garbage collected has been made to reduce the
+overall storage on disk. This should reduce the number of times a Hotspot needs to be cleared before
+it can start syncing again. Again, this reduces the amount of time a Hotspot is not transferring
+data or performing Proof-of-Coverage actions.
+
+We've also made a change to improve block sync speed specifically related to storing PoC records in
+the ledger.
+
+### Other Fixes
+
+We've also fixed a rare crash in miner PoC state management and implemented some JSON-RPC fixes
+requested by makers.
+
+#### Related PRs
+
+- [miner#1378](https://github.com/helium/miner/pull/1378): Fix #1377 and other JSONRPC related
+  parameter issues. <!-- helium/jsc/fix-jsonrpc-optional-params -->
+- [miner#1390](https://github.com/helium/miner/pull/1390): Be less strict on poc statem load failure
+  clause <!-- helium/adt/avoid-poc-statem-crash -->
+- [miner#1361](https://github.com/helium/miner/pull/1361): Add PoC denylist, downloaded from github
+  releases <!-- helium/adt/poc-banlist -->
+- [miner#1392](https://github.com/helium/miner/pull/1392): configuring new denylist on docker
+  release profile <!-- helium/jg/enable_denylist -->
+- [miner#1394](https://github.com/helium/miner/pull/1394): default denylist in sysconfig, disable
+  explicitly <!-- helium/jg/denylist_config_to_main_sysconfig -->
+- [miner#1398](https://github.com/helium/miner/pull/1398): Fix incomplete xorf api refactor
+  <!-- helium/adt/fix-xorf-api -->
+
+- [blockchain-core#1210](https://github.com/helium/blockchain-core/pull/1210): Attempt to make poc
+  records easier to read/write from ledger <!-- helium/adt/poc-ledger-optimization -->
+- [blockchain-core#1208](https://github.com/helium/blockchain-core/pull/1208): Check s3
+  latest-snap.json in another place <!-- helium/adt/check-s3-snap-more-places -->
+- [blockchain-core#1200](https://github.com/helium/blockchain-core/pull/1200): If snapshot file on
+  disk is not deserializeable, remove it <!-- helium/adt/remove-corrupted-disk-snapshot -->
+- [blockchain-core#1215](https://github.com/helium/blockchain-core/pull/1215): fix snap load
+  <!-- helium/pevm/fix-snap-load -->
+- [blockchain-core#1218](https://github.com/helium/blockchain-core/pull/1218): handle undefined
+  snap_info record <!-- helium/jg/snap_loading_etag_fix -->
+- [blockchain-core#1212](https://github.com/helium/blockchain-core/pull/1212): continuous block gc
+  <!-- helium/adt/continuous-gc -->
+
+### Plan
+
+We have been testing `2022.01.27.0` since Jan 27, 2022 9:35 AM PST. Current ETA for GA is Jan 28,
+2022 2:00 PM PST.

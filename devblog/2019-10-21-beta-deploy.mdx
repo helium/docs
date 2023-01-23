@@ -1,0 +1,32 @@
+---
+layout: post
+title: Blockchain Beta Deploy
+date: 2019-10-22 08:56 -0700
+hide_table_of_contents: true
+authors: [madninja]
+---
+
+We rolled out the [Beta update](https://docs.helium.com/blog/2019/10/10/beta-deploy) over the
+weekend and it appears to have helped some, but a number of issues were discovered that caused
+unneeded network load, slowing down blocks and elections.
+
+<!--truncate-->
+
+## Content
+
+- An optimization was added to ignore transactions already in the honey badger buffer.
+
+- Elections that failed were not being cleaned up. Now they are.
+
+- A recent blockchain refactor was reverted because it was inappropriately dropping transactions.
+
+- The transaction manager now dumps a transaction if it sees f+1 rejections from the consensus
+  group.
+
+- More informative logging messages added around transaction validation and speculative absorption.
+  This will help diagnose lingering issues.
+
+## Deployment Plan
+
+The patches are directly related to a focused set of issues that should improve chain behavior. We
+plan to let this beta run for 24 hours and then deploy it to the network at large.

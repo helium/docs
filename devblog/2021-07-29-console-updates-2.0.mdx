@@ -1,0 +1,103 @@
+---
+layout: post
+title: Console Updates- ver. 2.0
+date: 2021-07-29 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+After many months of work and testing based on community feedback, the team is excited to announce
+the official release of Console 2.0! The team not only worked on new features and capabilities, but
+also focused on making sure migration to Console 2.0 would be seamless for existing users.
+
+<!--truncate-->
+
+The two major changes to Console with the release of 2.0 are the Flows feature and the use of the
+XOR filter.
+
+### Flows
+
+Flows makes it easy for users to transfer data from devices to endpoints by providing a
+visual-centric view of the key elements: devices, functions, and integrations. No more reliance on
+Labels to act as the superglue, on the Flows workspace devices directly connect to function or
+integrations. Labels are soley used to group devices for better organization allowing flexibility as
+your projects scale and grow.
+
+### XOR Filter
+
+The XOR filter allows the Console back-end, Router, to only process known traffic which will
+significantly improve performance by allowing Router to avoid spending resources on unfamiliar
+packets.
+
+**Important: The first time a device joins the Network, its keys need to be added to the blockchain
+and the updated block propagated to the miners (Hotspots) and this initial join process could take
+up to 20 mins depending on:**
+
+- When this transaction (batched with others) gets added to the Helium blockchain
+- The overall performance of the blockchain
+
+### XOR Filter Details
+
+The device attempts a new join via XOR filter associated with the paired OUI. The OUI includes a set
+of devaddrs that will be assigned to newly joined devices (note these devaddrs do not need to be
+unique for each device, the combination of application key is used to avoid conflicts).
+
+New devices are assigned to a devaddr which are handed out based on the OUI. The `app_eui`, and
+`dev_eui` are added to the XOR filter which is then written to the blockchain (added to a block and
+propagated to miners). This process could take up to 20 mins.
+
+Gateways use device `app_eui`, `dev_eui` to query the blockchain via xor filter to identify which
+OUI to send join packets.
+
+Router which belongs to OUI receives join request, sends down a join accept, and assigns the
+NwkAddr.
+
+For future uplinks, gateways use a device’s devaddr to identify which router/oui to send to which is
+significantly quicker.
+
+### Features and fixes
+
+- Continued optimization with state channels to improve performance including increasing the number
+  of actors per state channel.
+- Device 'Last Modified' date shows current date/time
+  [707](https://github.com/helium/console/issues/707).
+- Missing Device name, EUI & other info in Group
+  [704](https://github.com/helium/console/issues/704).
+- Make Initial organization dc balance as a parameter
+  [683](https://github.com/helium/console/issues/683).
+- Staging UI Tweaks: Device Name [677](https://github.com/helium/console/issues/677).
+
+### Open source users
+
+- New users should use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations.
+
+To update, view upgrading instructions
+[here](https://github.com/helium/console/releases/tag/2021.07.29). The database is not affected.
+
+Check the readme for overall upgrading instructions
+[here](https://github.com/helium/console#upgrading-your-open-source-consolerouter).
+
+Additional technical documentation
+[here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Migrating Devices from Staging to Production Console
+
+For users migrating devices from staging to production, perform the following:
+
+1. Deactivate device(s) on staging (can do individually or from the Organization section can
+   deactivate all).
+2. Add device on production Console.
+3. Wait up to 20 mins for device to get added to production.
+4. After confirmation device is functioning as expected, delete device on staging.
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Gateway monitoring
+- Microsoft Azure IoT Hub pre-built Integration
+- Support AS923 for Australia
+- Packet purchaser: integrate with ChirpStack LoRaWAN Network Server

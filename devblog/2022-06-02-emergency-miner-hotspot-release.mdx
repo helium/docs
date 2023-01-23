@@ -1,0 +1,30 @@
+---
+layout: post
+title: 'Miner Release: Emergency Fix for Genesis Load Crash and Disable Mux'
+date: 2022-06-02
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+The core developers have tagged a new `2022.06.02.1` `miner` release. This is an emergency release
+to address issues found in `2022.06.01.0`. A new dependency was introduced related to telemetry work
+that wasn't properly configured for the release process.
+
+<!--truncate-->
+
+As the Hotspot boots up, it tries to look for a dependency that doesn't exist, causing crashes on a
+subset of Hotspots where "fast sync"-like features are used and causes crashes on brand new Hotspots
+just added to the blockchain.
+
+This release also disables the mux as the team has identified an issue with routing packets. Mux
+will be re-enabled in the next release with the bug fix.
+
+#### Related PRs
+
+[#1712](https://github.com/helium/miner/pull/1712) disable the mux to bypass an issue that requires
+testing [#1375](https://github.com/helium/blockchain-core/pull/1375) include telemetry in app src
+
+### Plan
+
+We have been testing `2022.06.02.1` on Mainnet and Testnet since June 2 8:20am PT. Current ETA for
+GA is June 2, 2022 9:00am PT.

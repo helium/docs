@@ -1,0 +1,25 @@
+---
+layout: post
+title: 'Blockchain Release: Libp2p Fix for Relayed Hotspots'
+date: 2021-12-09 10:18 -0800
+hide_table_of_contents: true
+authors: [vihu, abhay]
+---
+
+The core developers have tagged a new `2021.12.09.0` Hotspot firmware release which includes a
+**recommended** bug fix in `erlang-libp2p`. This change potentially mitigates the zero-witness
+beacon issue that has been afflicting, mostly, relayed Challenger Hotspots failing to receive
+witness receipts. Special thanks to @groot#3396 and others in the #poc-discussion channel on Discord
+for their efforts in tracking this issue down.
+
+<!--truncate-->
+
+#### Related PRs
+
+- [erlang-libp2p#412](https://github.com/helium/erlang-libp2p/pull/412): Ensure `has_private_ip`
+  function only checks TCP
+
+### Plan
+
+We have been beta testing `2021.12.09.0` since December 09, 2021 09:56 AM PT. Current ETA for GA is
+11:00 AM PT, December 09, 2021.

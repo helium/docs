@@ -1,0 +1,38 @@
+---
+layout: post
+title: 'Blockchain Release: Seed Node DNS and Snapshot Update'
+date: 2021-08-11 09:30 -0700
+hide_table_of_contents: true
+authors: [vagabond, abhay]
+---
+
+The core developers have tagged a new `2021.08.11.0` Hotspot firmware release which allows a new way
+to fetch seed nodes from DNS, updates the currently blessed snapshot, and contains a few other small
+fixes
+
+<!--truncate-->
+
+This is an optional but _recommended_ release for Hotspot owners and manufacturers to continue
+syncing with newly blessed snapshots.
+
+- #### Related PRs
+
+  - [erlang-libp2p#370](https://github.com/helium/erlang-libp2p/pull/370): Don't crash random peer
+    selection when no peers exist
+  - [miner#975](https://github.com/helium/miner/pull/975): Update blessed snap to snap-959041
+  - [miner#972](https://github.com/helium/miner/pull/975): Fetch seed nodes from CNAME DNS record
+  - [miner#868](https://github.com/helium/miner/pull/868): Clarify connected status in p2p info
+
+### Plan
+
+We have been beta testing `2021.08.11.0` since Aug 10th, 2021 3:30 PM PT. Current ETA for GA is
+11:30 AM PT, Aug 11th, 2021.
+
+### Update
+
+The core developers noticed that the above release was incompatible with the way connectedness is
+reported in Hotspot Diagnostic Reports. We have been testing `2021.08.11.2` that reverts these
+changes since 5:30 PM PT, Aug 11th, 2021 and will GA immediately. We recommend that other Hotspot
+manufacturers deploy this version of the miner code base instead.
+
+Sorry for the inconvenience!

@@ -1,0 +1,26 @@
+---
+layout: post
+title: Communications Compression for Hotspots
+date: 2020-05-15 11:00 -0700
+hide_table_of_contents: true
+authors: [evanmcc]
+---
+
+Some common feedback we get is that Hotspots use too much bandwidth. We've taken some steps to
+address this in the past, and today is the latest step in scaling bandwidth back. This release
+applies compression to all connections between Hotspots and their other gossip peers, and makes it
+easier to shift to more effective compression in the future. For non-Hotspot peers, this code is
+backwards compatible, but you'll need to upgrade to see the benefits.
+
+<!--truncate-->
+
+### Contents
+
+- _Compress Fastforward and Block Sync_: PR:
+  [core/377](https://github.com/helium/blockchain-core/pull/377)
+- _Compress Gossip_: PR: [libp2p/274](https://github.com/helium/erlang-libp2p/pull/274)
+
+### Plan
+
+A `2020.05.15.0` release was deployed to the beta group in the morning of Friday the 14th PST. We'll
+beta shortly and then GA when things seem stable.

@@ -1,0 +1,20 @@
+---
+layout: post
+title: Chain Variable Reversion
+date: 2020-05-18 10:00 -0700
+hide_table_of_contents: true
+authors: [evanmcc]
+---
+
+It turns out that there is an issue with the implementation of the old witness refresh code and
+we're going to disable these chain variables until we can fix the issue and re-enable them.
+
+<!--truncate-->
+
+## Details
+
+Our chain implementation keeps two different copies of the ledger, one which is delayed 50 blocks
+behind main one. When we change something that happens to the ledger outside of a transaction we
+have to be sure that we're doing the same things to both versions (at that same delay). In this case
+we failed to do so, and since the lagging ledger is used to validate old transactions, we're seeing
+differences in the validity of transactions on different nodes.

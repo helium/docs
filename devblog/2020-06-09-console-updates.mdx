@@ -1,0 +1,35 @@
+---
+layout: post
+title: Console Network Server and Infrastructure Improvements
+date: 2020-06-09 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+### Key feature updates
+
+See below for the updates and enhancements we’ve made to Console.
+
+<!--truncate-->
+
+### Network Server and infrastructure improvements
+
+- Console and the Network Server now use web sockets for internal communication instead of caching
+  which improves performance for a number of capabilities including switching integrations.
+- Updated Console testing infrastructure which allows us to do full testing without any dependency
+  on the Network Server.
+
+### UX enhancements/updates
+
+- Gateway channel info is included in json payloads.
+- The number of devices connected to a Label is reflected in the Console left-hand menu.
+- The Downlink URL is populated with the Integration ID’s and Downlink Keys.
+- Users can create Labels while they’re adding new Integrations.
+- Smoother onboarding flow to add devices for first time Console users.
+
+### Next up
+
+We’re working on supporting the acquisition of Data Credits using Console. The initial release will
+allow users to purchase Data Credits using their credit card directly from Console.
+
+In a follow up release users can use their own HNT to convert and add to their Data Credit balance.

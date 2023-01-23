@@ -1,0 +1,49 @@
+---
+layout: post
+title: Console Updates- Downlink MAC Info, and Discovery Mode for Hotspots
+date: 2021-05-20 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm, madninja]
+---
+
+The team delivered the ability to view LoRaWAN MAC command information for downlinks. Also along
+with other updates backend work was done to enable Discovery Mode for Hotspots. See details about
+Discovery Mode
+[here](https://engineering.helium.comhttps://docs.helium.com/blog/2021/05/18/app-version-320.html).
+
+<!--truncate-->
+
+### Features and updates
+
+- Included downlink MAC command information.
+- Backend work needed to support Discovery Mode for Hotspots.
+- Functions page includes link to github repo that includes custom decoders provided by the
+  community (choose Functions > Custom Script to reveal link).
+- DevEUI, AppEUI prefix generated from Console includes Helium IEEE standards OUI.
+- Updated API to list labels for a device by adding labels field to v1/devices/:device_id endpoint
+  response
+
+### Fixes
+
+- Only a single downlink queue appears regardless of the number of integrations.
+- Updated Google Sheet pre-built Integration icon.
+- Resolved an issue related to creating new Organizations.
+
+### Open source users
+
+- New users use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations. To update, check the
+  newest instructions, rebuild, and restart. The database is not affected.
+
+Documentation [here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Provide ability to recognize and forward non-Helium packets to other LoRaWAN Network Servers
+- Create a module to integrate with other LoRaWAN network servers, initially ChirpStack
+- Update Console core design based on Flows (beta) feedback
+- Microsoft Azure Pre-built Integration

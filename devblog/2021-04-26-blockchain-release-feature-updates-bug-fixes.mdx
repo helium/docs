@@ -1,0 +1,83 @@
+---
+layout: post
+title: 'Blockchain Release: Feature Updates & Bug Fixes'
+date: 2021-04-26 11:19 -0700
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The team has a new release tagged `2021.04.26.1` which contains some new features and bug fixes.
+This is a _required_ upgrade for all miners and will be automatic for all Hotspots using the Helium
+firmware when we GA. Specifically, this release includes support for Payment Memos which requires a
+chain variable to activate and makes this a required release. We don't intend to activate this chain
+variable for about a week. Please read further for more details.
+
+<!--truncate-->
+
+### [miner#742](https://github.com/helium/miner/pull/742): Update only snapshot to 819361
+
+The team has updated only the snapshot block to `819361` for faster sync to the current blockchain
+head block.
+
+### [miner#737](https://github.com/helium/miner/pull/737): Update dependencies and snapshot to 813601
+
+The team updated miner dependencies and the snapshot block to `813601` to allow newly onboarded
+hotspots to sync faster to the current blockchain head block.
+
+### [miner#655](https://github.com/helium/miner/pull/655): Update rebar to v3.14
+
+As part of regular maintenance the team has updated the rebar version to 3.14 included in miner
+repo.
+
+### [blockchain-core#785](https://github.com/helium/blockchain-core/pull/785): Better stacktrace for gossip handler crash
+
+A minor change to allow better error messages when libp2p gossip handler crashes in blockchain-core.
+
+### [blockchain-core#782](https://github.com/helium/blockchain-core/pull/782): Fix for syncing blockchain-etl
+
+Some members of the community reported that they had issues syncing blockchain-etl. The team found
+the root cause to be an unnecessrary call to lookup the entire chain for previous
+`blockchain_txn_poc_request`, this has been fixed to only start searching from the current ledger
+height.
+
+### [blockchain-core#768](https://github.com/helium/blockchain-core/pull/768): Allow memo support for payment transactions
+
+The team has enabled memo support for payment-v2 transactions. Note that the implementation is a bit
+different than proposed in [HIP-26](https://github.com/helium/HIP/issues/125) in the sense that the
+only memos the blockchain supports will be 64 bit unsigned integers.
+
+### [blockchain-core#750](https://github.com/helium/blockchain-core/pull/750): Sync performance improvements
+
+The team updated the `blockchain_sync_handler` to try adding blocks in a spawned process so that
+blocks will continue to be added if a connection drops during sync. This may improve sync times.
+
+### [blockchain-core#743](https://github.com/helium/blockchain-core/pull/743): Update rebar for blockchain
+
+As part of regular maintenance the team has updated the rebar version to 3.14 included in
+blockchain-core repo.
+
+### [blockchain-core#733](https://github.com/helium/blockchain-core/pull/733): Add aux-ledger support
+
+The team added support for an auxiliary ledger to enable better testing of potential future chain
+variables and new blockchain features. The aux ledger maintains a copy of the actual on-chain ledger
+while allowing the team to test additional chain related changes.
+
+### [erlang-libp2p#335](https://github.com/helium/erlang-libp2p/pull/335): Manage the stungun timer better
+
+This update adds a stungun timer reference to `libp2p_transport_tcp` module state and appropriately
+handles it.
+
+### [erlang-libp2p#334](https://github.com/helium/erlang-libp2p/pull/334): Fix fdset race condition
+
+This change fixes a race condition the team noticed in `libp2p_transport_tcp` module.
+
+### [erlang-libp2p#333](https://github.com/helium/erlang-libp2p/pull/333): Garbage collect unused processes
+
+This change adds a process id garbage collection monitor to better handle stale processes in the
+`libp2p_swarm_server`.
+
+### Plan
+
+We have been beta testing `2021.04.26.1` since April 26th, 2021 12:30 PM PT. Current ETA for GA is
+4:00 PM PT, April 26th, 2021. We've been beta testing a prior version `2021.04.22.1` over the
+weekend and updated just the snapshot today in order to improve initial sync times for new miners.

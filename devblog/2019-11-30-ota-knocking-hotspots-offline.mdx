@@ -1,0 +1,38 @@
+---
+layout: post
+title: Latest OTA Knocking Hotspots Offline
+date: 2019-11-30 22:20
+hide_table_of_contents: true
+authors: [vagabond, madninja, evanmcc]
+---
+
+The prior update, shipped this morning, has had some unintented consequences. Because of a change in
+an init script, a latent race condition in the configuration of the WiFi interface has caused some
+Hotspots to be unable to connect to WiFi. Whether a Hotspot is affected depends on what firmware
+version it was running when it was initially configured for WiFi. Hotspots on Ethernet should not be
+affected.
+
+<!--truncate-->
+
+**If your Hotspot is showing 'needs attention' and has a greenish/yellow LED color, you are likely
+affected.**
+
+We have analyzed the problem and there are 2 known fixes:
+
+- Re-configure the wifi credentials on the Hotspot
+- Boot the previous firmware
+
+To boot the previous firmware, use the following procedure:
+
+- Unplug the power
+- Press down the black pairing button on the side of the Hotspot
+- Reconnect the power while holding down the black pairing button
+- While holding down the button, wait for the status LED to light up, then wait an additional 10
+  seconds
+- Release the button
+
+This will cause the Hotspot to boot the previous firmware where the race condition was far less
+likely and the Hotspot will be able to use its configured Wifi credentials.
+
+An OTA with a permanent fix is in testing and will be deployed once it is confirmed to work as
+intended. We apologize for the inconvienience.

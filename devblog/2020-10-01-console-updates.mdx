@@ -1,0 +1,51 @@
+---
+layout: post
+title: Console Updates- MQTT Integration overhaul, UI enhancements
+date: 2020-10-01 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+The team has overhauled MQTT integration to make topic composition more flexible and added templates
+to use for device and org identifiers.
+
+<!--truncate-->
+
+Existing MQTT Integrations should continue to work fine. However, should you encounter any issues
+related to data transfer due to MQTT integration, simply update the topics on those existing
+integrations.
+
+### Features and Updates
+
+- MQTT topic composition and UI update: In addition, to interface updates to make it more similar to
+  other integrations, we have also overhauled the topic composition, making it more flexible, and
+  included templating which provides an easy way to insert device ID, and key information should you
+  want to include that in your topic structure.
+- Topics should follow MQTT topic rules. Templates can be provided using \{\{template}} format.
+  Valid template tags are: `device_id`, `device_eui`, `app_eui`, and `organization_id`.
+- During TTN import provided the ability to delete application handlers to avoid rejoin attempts
+  after import.
+- UI enhancements:
+  - Debug mode: moved Packet Information to top and expanded by default.
+  - Updated retransmission procedure to align with LoRaWAN spec.
+  - Added ability to delete devices on specific Device page.
+  - Added confirmation for Organization delete even if no devices.
+
+### Fixes
+
+- Import TTN devices consistently appears in the Console device list.
+- Resolved an issue with search to ensure results are clear.
+- Fcnt in Debug mode aligns with Console event information.
+- New data in the event log consistently appears.
+- Addressed an HTTPS cert issue that was causing issues with certain HTTP endpoint integrations.
+- A device no longer requires two join attempts before a join accept is downlinked if a device does
+  not already have an established session.
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Include support for LoRaWAN adaptive data rate (ADR).
+- UI enhancements for sorting and filtering tables.
+- Updates to event logs, more information, ability to export json format.
+- Release Console and its backend network server and blockchain components (Router) as open source.

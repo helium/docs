@@ -1,0 +1,40 @@
+---
+layout: post
+title: 'Blockchain Release: Minor Updates and Snapshot'
+date: 2021-06-11 13:22 -0700
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The core developers have tagged a new `2021.06.11.2` Hotspot firmware release which has minor test
+related fixes and a newly generated snapshot. This is an optional release for Hotspot owners but
+recommended to get newly onboarded and/or un-synced hotspots to sync to the head of the blockchain.
+
+<!--truncate-->
+
+Below are the related PRs:
+
+- #### [miner#818](https://github.com/helium/blockchain-core/pull/818): Update core and set blessed snap-879121
+
+  This change updates `blockchain-core` dependency and supplies a newly blessed chain generated
+  snapshot at height `879121`.
+
+- #### [blockchain-core#861](https://github.com/helium/blockchain-core/pull/861): Don't validate chain vars for genesis block
+
+  This change allows the construction of genesis block without any chain var validation. Primarily
+  used for testing.
+
+- #### [blockchain-core#860](https://github.com/helium/blockchain-core/pull/860): Don't download S3 snapshot if honor_quick_sync is false
+
+  The core developers noticed that miner would continue to attempt to download S3 snapshot despite
+  setting `honor_quick_sync` as false preventing debugging, this has been fixed.
+
+- #### [blockchain-core#859](https://github.com/helium/blockchain-core/pull/859): Diff more elements of snapshots
+
+  This is a minor change to allow verification and debugging of ledger deviation when generating
+  snapshots.
+
+### Plan
+
+We have been beta testing `2021.06.11.2` since June 11th, 2021 1:15 PM PT. Current ETA for GA is
+2:15 PM PT, June 11th, 2021.

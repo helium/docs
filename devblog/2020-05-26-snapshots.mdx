@@ -1,0 +1,39 @@
+---
+layout: post
+title: Ledger Snapshots
+date: 2020-05-26 15:00 -0700
+hide_table_of_contents: true
+authors: [evanmcc]
+---
+
+Another big issue that we've been dealing with recently is sync times on new Hotspots. We've seen
+cases recently when new Hotspots have taken in excess of 10 days to fully sync and start issuing
+challenges. This release is the first to support a feature we're calling "ledger snapshots", which
+allow Hotspots to safely sync without downloading the entire blockchain first. A few times a day,
+the running consensus group will take a snapshot of its ledger, package it up with a relatively
+small number of blocks and then store its hash on the chain. We can then attest the validity of a
+particular snapshot to allow new Hotspots to download that snapshot and start using it, much as we
+now attest to the validity of a particular block (and all the blocks leading up to it). This should
+allow syncing in hours, rather than in days as is currently the case.
+
+<!--truncate-->
+
+This feature requires a new chain variable to be enabled, so please, if you're running a blockchain
+core based service, go update it to the latest core now, so that it doesn't halt when we issue the
+chain variable transaction.
+
+This release also contains enhancements for our recent state channels releases, and a number of
+support features for our API services.
+
+### Contents
+
+- _Ledger Snapshots_: PR: [core/403](https://github.com/helium/blockchain-core/pull/403)
+- _Ledger Snapshots - Miner Support_: PR: [miner/388](https://github.com/helium/miner/pull/388)
+
+### Plan
+
+A `2020.05.27.0` release was deployed to the beta group in the morning of Wednesday the 27th around
+11:50AM PST. This follows a series of previous beta releases we used for testing, starting on Friday
+22nd. We'll briefly beta, given the numerous previous releases, and then GA in the early afternoon.
+Following this we'll release a chain variable transaction (setting `snapshot_interval` to 240) to
+activate this code.

@@ -1,0 +1,49 @@
+---
+layout: post
+title: Beta Deploy
+date: 2019-11-01
+hide_table_of_contents: true
+authors: [evanmcc]
+---
+
+On November 1 around 3 PM PDT we rolled out a new beta release to better distribute PoC requests
+throughout the election cycle, and including some other longer-term engineering improvements.
+
+<!--truncate-->
+
+## Block Weather
+
+We're aware of the increasing block times and low PoC success rate and are working actively to
+ameliorate them. They are largely a result of increasing hotspot density interacting poorly with our
+soon-to-be-deprecated initial PoC path selection code.
+
+We're working as quickly as possible on a new version of this code which should scale more cleanly
+due to its use of radio data, rather than asserted location, for hotspot neighborhood graph
+construction. If the new code to spread the work into more blocks isn't effective enough, we will
+likely alter the PoC challenge interval from 30 to 60 to decrease the number of PoC receipts that we
+have to process. Since the PoC rewards are proportional, rather than per-challenge, this should not,
+in aggregate, effect challenge rewards once the challenges have redistributed themselves. We expect
+challenge rewards to rise as we improve the distribution and make them less expensive to process.
+
+## Content
+
+- _Validation Timings_: We've added more log data so as to better understand which transaction
+  validations are expensive, so that we can better optimize them.
+- _PoC Request Randomization_: We've changed how we approach the randomization of when in the
+  request cycle PoC requests are issued. This should do a better job of spreading them out and allow
+  more of them to go through. This change also persists temporary receipt information so that fewer
+  requests are lost to restarts.
+- _Prorated Rewards_: Up to now, we have calculated all rewards on the basis of an idealized 30
+  round election period. This is sometimes not the case. The code here prepares for the activation
+  of a new chain variable which will switch us to a code path that changes all rewards to use the
+  actual period (other than for consensus rewards, which will continue to use the ideal period to
+  disincentiveize delaying the completion of elections). Expect another dev blog update when this
+  variable is activated.
+- _Chain Var Validation_: All chain vars are now fully validated when their transaction is absorbed.
+  This is a safety measure to keep hotspots with stale firmware from absorbing blocks that have
+  chain vars their firmware doesn't know about, which they cannot safely process.
+
+## Deployment Plan
+
+We plan to let this beta over the weekend, but may activate it before Monday if block times continue
+to be poor.

@@ -1,0 +1,31 @@
+---
+layout: post
+title: 'Helium Hotspot Firmware Release: Containerize Miner'
+date: 2022-01-24
+hide_table_of_contents: true
+authors: [jaykickliter, cokes518]
+---
+
+This release decouples miner releases from Hotspot firmware updates by running miner in a
+self-updating container.
+
+<!--truncate-->
+
+Running miner in a self-updating container allows for lighter-weight, miner-only updates without the
+need to fully replace Hotspot firmware. Additionally, downtime is kept to a minimum because updating
+the miner container is quick and doesn't require a reboot.
+
+While the miner self-updating container is Docker-compatible, it does not _require_ a full instance
+of Docker Engine on the miner host hardware to run and in fact this firmware change utilizes a
+[lightweight, daemon-less container runtime](https://podman.io/) to orchestrate the miner container
+in order to reduce the unnecessary consumption of the host hardware's resources. See the Open
+Container Initiative [OCI](https://opencontainers.org/about/overview/) for more details about the
+container specification and non-Docker container runtimes.
+
+This is not a release for Makers and only for Helium Hotspots and RAK Hotspots. There are no miner
+changes.
+
+**Plan**
+
+We have been beta testing `2022.01.24.0` since January 21, 2022 6:00 PM PST. Current ETA for GA is
+9:00 AM PT, January 24, 2022.

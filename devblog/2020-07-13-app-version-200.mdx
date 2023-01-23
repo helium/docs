@@ -1,0 +1,35 @@
+---
+layout: post
+title: App Version 2.0.0
+date: 2020-07-13
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+## Removal of GPS Status
+
+In our last release `1.9.0`, we introduced and experimental feature on a Hotspot's GPS status that
+was meant to be informational.
+
+<!--truncate-->
+
+It was clear to us that GPS was not a useful metric to validate Hotspot coverage as satellite
+positions change, clouds get in the way, or if a tree happened to sway in the wind.
+
+Because of this, we are removing the GPS information and will not depend on it to determine a
+Hotspot's ability to earn HNT.
+
+Some other updates:
+
+- We've updated the API used under the hood.
+- You may notice Hotspot Activity loading take a bit longer. We've changed how that information is
+  loaded so that the rest of the app is speedier, and swiping between Hotspots is less buggy.
+- Wallet now supports sending payments using `payments_v2` transaction types.
+- Fixed a crash when viewing a `Confirm Location` transaction on the accounts page
+
+### Known Issues
+
+Switching Wi-Fi networks doesn't work if both Wi-Fi networks are found in the scan list.
+
+- If you need to update your Wi-Fi credentials and both old and new networks appear in the scan
+  list, contact support@helium.com and we can help manually update it for you.

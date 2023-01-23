@@ -1,0 +1,38 @@
+---
+layout: post
+title: Hotspot Firmware and Reliability Fixes
+date: 2021-03-08 16:44 -0800
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+The team has a new release tagged `2021.03.08.0`. This release includes a fix to Hotspot firmware
+where onboarding keys were incorrectly generated, a snapshot bump to `750241`, and several
+reliability fixes that were identified in our Validators Testnet.
+
+<!--truncate-->
+
+### Hotspot Firmware Update [miner#679](https://github.com/helium/miner/pull/679)
+
+Release `2021.03.04.0` included a fix for Hotspots crashing early on boot because it would fail to
+get the onboarding key. The fix inadvertently caused a new onboarding key to be generated if there
+was none found. This is not the correct logic for Hotspots, since the onboarding key is the public
+key of the Hotspot.
+
+This meant that when a user tries to onboard a Hotspot with this firmware image (can happen if they
+leave it connected to internet and it received an OTA before they `add_hotspot`), they will get an
+onboarding error message.
+
+The fix is to no longer generate a key if none exists.
+
+### Consensus Group Reliability Updates
+
+Several improvements have been backported from the validators branch including reductions of
+CPU/memory use due to better garbage collection of old consensus and election groups as well as a
+fix to eject bad nodes from the consensus group when proposing a new consensus group. These
+improvements should lead to smoother block and election times.
+
+### Plan
+
+We have been beta testing `2021.03.08.0 ` since March 8th, 2021 11:00 AM PT. Current ETA for GA is
+March 8th, 2021 2:00 PM PT.

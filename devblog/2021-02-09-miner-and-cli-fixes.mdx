@@ -1,0 +1,36 @@
+---
+layout: post
+title: 'Blockchain Release: Minor Reliability and CLI Fixes'
+date: 2021-02-05 13:35 -0800
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+The team has a new minor release tagged `2021.02.09.2` which contains a reliabiliy fix for consensus
+group members and some CLI fixes.
+
+<!--truncate-->
+
+### [miner#612](https://github.com/helium/miner/pull/612): Have consensus manager monitor miner process
+
+This improves the behaviour of the consensus manager when the miner process crashes. This could lead
+to a consensus member failing to run the consensus group, lowering the group's resilience to
+failure.
+
+### [miner#619](https://github.com/helium/miner/pull/619): Useablity improvments to miner info commands
+
+Community contribution from maco2035.
+
+### [miner#614](https://github.com/helium/miner/pull/612): Remove staging router from default_routers list
+
+This is work towards enabling other routers to manage their own routing tables.
+
+### [miner#622](https://github.com/helium/miner/pull/622): Bump miner snapshot
+
+We have updated the snapshot block to `706321` to allow newly onboarded hotspots to sync faster to
+the current blockchain head block.
+
+### Plan
+
+We have been beta testing `2021.02.09.2` since around 10:00 AM PT, February 9th, 2021. Current ETA
+for GA is 2:00 PM PT, February 9th, 2021.

@@ -1,0 +1,145 @@
+---
+layout: post
+title: 'Network Disruption Postmortem: 2022-02-07'
+date: 2022-02-11 17:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+&nbsp;
+
+# What happened
+
+On Monday 2022-02-07 5:46 AM UTC the team announced a chain halt caused by enlarged block 121528.
+Normal chain operations were announced at 3:04 PM UTC, less than 10 hours later.
+
+<!--truncate-->
+
+Throughout the disruption, devices continued to have coverage and operate normally as state channels
+remained open processing packets. There were also no risks to Hotspot owners or HNT holders but they
+did experience a delay in transaction processing and Proof-of-Coverage activity.
+
+# Cause
+
+A roaming server (see Roaming Server background below) crash created a disparity between its state
+channel record and the record held by state channel participants (Hotspots).
+
+Due to this disparity, the state channel participants submitted a large number of dispute
+transactions which increased the size of block `121528`. Low-performance validators in the Consensus
+Group were unable to consume the large block, ultimately causing the chain halt.
+
+# Recovery
+
+The team worked with the validator community to execute a command for validators in the Consensus
+Group. This command allowed the validators to clear the pending dispute transactions and replace
+them with a chain variable that set the state channel grace period to 1 block.
+
+The state channel grace period is the window when valid state channel disputes can be submitted
+after state channels close. Typically, this grace period is set at a number of blocks which allows
+state channel participants time for dispute transactions. By limiting it to 1 block, essentially no
+valid disputes can be submitted.
+
+# Resolution
+
+A fix was implemented and deployed with the latest Validator release v1.7.0 which limits valid
+dispute transactions. This [fix](https://github.com/helium/blockchain-core/pull/1229/) provides the
+foundation for a future chain variable which will effectively eliminate the possibility that a large
+amount of valid dispute transactions can be submitted. This upgrade is designed to increase network
+resiliency but also impacts transfer rewards if disputes occur so an accompanying HIP will be
+proposed soon.
+
+The roaming servers have been upgraded and additional monitoring has been implemented to anticipate
+and prevent future crashes.
+
+The team is further considering whether to adjust the maximum block size.
+
+In addition, to upgrade communication channels with the Validator community Helium Status includes
+an additional page specifically for validator operators.
+
+To reduce the time to coordinate responses to situations like this in the future, operators hosting
+large numbers of validators are **highly encouraged** to subscribe to the Helium Validator
+[Status](http://validators-status.helium.com/) page.
+
+This is purely an opt-in channel, but will allow validator operators to subscribe and receive email,
+sms, or webhook notifications.
+
+Additionally, an opt-in “bat signal”, a way to notify the validator community that help is needed,
+so core developers can work with validator operators in real-time during future incidents is also
+getting worked out.
+
+# Roaming Server Background
+
+Helium has been partnering with several leading LoRaWAN Network Service Providers to provide roaming
+services. These service providers value the amount and growth of network coverage the Helium
+community has provided to augment their own coverage for their customers.
+
+To enable this service, Helium has set up roaming servers that accept and purchase packets on behalf
+of the interested partners. These roaming servers use a simplified version of Console’s backend
+(Router), called Packet Purchaser. Because of the explosive growth of the Network, the number of
+packets “seen” by these roaming servers continues to rapidly increase.
+
+A spike in traffic caused one of the roaming servers to go down, and when it restarted there were
+differences between the state channel record of the packet purchaser and the records held by a large
+number of state channel participants (Hotspots). These Hotspots saw the difference in the packet
+purchaser state channel and submitted dispute transactions. A large number of these dispute
+transactions were added to the block which became difficult for low-performance validators in the
+Consensus Group to consume.
+
+# Community Powered
+
+Many THANKS to our overall validator community, but _specifically to the validator operators who
+quickly responded to the core team’s requests_ for aid and helped ensure the chain recovered and
+returned to normal operations.
+
+Scaling challenges are related to the enormous demand not only to provide coverage (nearing 600K
+Hotspots), but also the increased usage of the Network.
+
+The Network is still in its early stages and we appreciate your patience and support as we continue
+to work together to build the world’s largest contiguous wireless network.
+
+# Timeline of Announcements
+
+Throughout the disruption, the team worked to provide frequent updates and report on status:
+
+**02/07 Monday 5:56 AM (all times UTC)** Helium Validator operators and core developers are
+investigating a potential chain halt @ block 1215286. The Consensus Group has not produced a block
+in about 46 minutes.
+
+More information to come as we uncover more details.
+
+Validator community, please come online if you have validators currently in the Consensus Group.
+
+Proof of Coverage may be degraded, and other transactions may be queued until the Consensus Group
+resumes block production. Data Transfer remains unaffected.
+
+**6:32 AM** The Consensus Group is still struggling to produce the next block with transactions and,
+as a result, the chain remains halted. Data Transfer continues to be unaffected but all other
+blockchain activity is delayed, including transaction processing.
+
+**7:49 AM** We are continuing to monitor the Consensus Group. It is making slow progress but has not
+produced a block yet.
+
+**9:09 AM** The Validator community continues to monitor the Consensus Group as it tries to agree
+upon a block. Once this is completed, the core developers will prepare a chain variable to address
+the State Channel issue that may be affecting the blockchain. Although we are prepared to issue a
+Rescue block, we are hoping to avoid doing this as Data Transfer continues to be unaffected. Other
+transactions (including Hotspot onboarding, Payments, and Proof of Coverage) remain degraded at this
+time.
+
+**1:36 PM** The Validator community is still trying to get the chain started again. As mentioned
+before we are hoping to avoid a Rescue Block since Data Transfer is still unaffected. Pending
+transaction posts should be avoided and will remain disabled, and other transactions (including
+Hotspot onboarding, Payments, and Proof of Coverage) remain degraded at this time.
+
+**3:04 PM** Validators have resumed block production and the chain is back to normal operations.
+Pending transactions have been re-enabled and already cleared.
+
+A large block was created and the skip of the halting block included wiping the transaction buffer
+and replacing with a chain var to temporarily reduce the state channel grace period to mitigate the
+issue.
+
+However, state channel closes will be negatively impacted including rewards for packet transfer and
+high overages. Another chain var will be issued to return the state channel back to normal
+operations.
+
+The team is performing further investigation to determine root cause.

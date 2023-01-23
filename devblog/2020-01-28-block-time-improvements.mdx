@@ -1,0 +1,31 @@
+---
+layout: post
+title: Block production speed improvements
+date: 2020-01-28 15:40 -0800
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+### Block Weather
+
+While the out of memory improvements from yesterday have helped, the erratic block times have
+returned. We believe this has to do with the gossip network topolology degrading over time (an OTA
+resets the gossip network connections as the nodes reboot). We have identified some more fixes that
+should help block propogation times between the consensus group which should limit the impact of bad
+gossip topologies on the block production rate.
+
+<!--truncate-->
+
+### Contents
+
+- _Cleanup Proof of Coverage state machine_: PR:
+  [miner/277](https://github.com/helium/miner/pull/277)
+- _Fix some deadlocks in blockchain core_: PR:
+  [core/357](https://github.com/helium/blockchain-core/pull/357)
+- _Fastforward consensus members that did not sign the block and gossip full block signature list_:
+  PR: [miner/300](https://github.com/helium/miner/pull/300)
+
+### Plan
+
+We'll beta this release briefly starting around 4pm PST and release it to general availability this
+afternoon or evening.

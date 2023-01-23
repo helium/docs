@@ -1,0 +1,40 @@
+---
+layout: post
+title: 'Blockchain Release: Networking Improvements'
+date: 2021-06-30 12:41 -0700
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The core developers have tagged a new `2021.06.30.0` Hotspot firmware release which contains updates
+to improve peerbook performance and a new blessed snapshot. This is an _optional_ but recommended
+release for Hotspot owners.
+
+<!--truncate-->
+
+- #### Blockchain Updates
+
+  The core developers fixed a few issues related to corrupted ledger and libp2p dials. Please read
+  through the PRs listed below for further details:
+
+  - [blockchain-core#892](https://github.com/helium/blockchain-core/pull/892): Delete corrupt ledger
+    on open
+  - [blockchain-core#891](https://github.com/helium/blockchain-core/pull/891): Reduce sync noise,
+    change errors to exits
+
+- #### Libp2p Updates
+
+  The team has also made several peerbook related performance updates. Details available in the PRs
+  listed below:
+
+  - [erlang-libp2p#361](https://github.com/helium/erlang-libp2p/pull/361): Truncate connected
+    sessions, improve random peer selection
+  - [erlang-libp2p#360](https://github.com/helium/erlang-libp2p/pull/360): Don't allow a relay
+    address which points to itself
+  - [erlang-libp2p#359](https://github.com/helium/erlang-libp2p/pull/359): Increment random
+    connection limit for gossip
+
+### Plan
+
+We have been beta testing `2021.06.30.0` since June 30th, 2021 1:00 PM PT. Current ETA for GA is
+2:30 PM PT, June 30th, 2021.

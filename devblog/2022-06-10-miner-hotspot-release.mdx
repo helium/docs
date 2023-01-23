@@ -1,0 +1,133 @@
+---
+layout: post
+title: 'Miner Release: Flatline Fix and Prepare to Disable Chain Sync'
+date: 2022-06-10
+hide_table_of_contents: true
+authors: [cokes518, ke6jjj, abhay]
+---
+
+The core developers have tagged a new `2022.06.09.0` `miner` release. This release contains fixes to
+the packet issue identified in the last release by bumping the gateway-rs version to `alpha-27`,
+fixes a crash in ebus (more on this below), and a "flatline" fix (more on this below).
+
+<!--truncate-->
+
+&nbsp;
+
+# Enabling Mux
+
+- Makers must enable mux explicitly in their docker overlay by adding
+  `{gateway_and_mux_enable, true}` to your configuration file under the miner application block
+
+# Summary of Flatline and Ebus fixes
+
+These two issues have been causing various crashes and out of memory errors on Hotspots that have
+been preventing them from participating in network and potentially causing "flatline" reports in the
+community.
+
+More details are below but the team has identified an issue where Hotspots were talking to both the
+Mainnet and Testnet causing a Hotspot to run out of memory. Additionally, a Hotspot can crash due to
+a latent bug in the bluetooth stack. Both of these issues have been fixed.
+
+## Ebus Crash
+
+The network is in the middle of transitioning from Full (chain syncing Hotspots running Erlang-based
+miners) Hotspots to Light (no chain sync, running a rust-based gateway) Hotspots. In this middle
+period, the Hotspot itself uses both erlang-based and rust-based components. The core team chose to
+transition this way to avoid disruptions and ease the transition over a period of time. One of the
+components that needs to transition over is called "ebus".
+
+### What is ebus?
+
+ebus is used to communicate to Manufacturer Hotspot mobile applications over Bluetooth to run
+diagnostics and perform the initial onboarding. During onboarding and running diagnostic reports,
+ebus asks for the Hotspot's block height so it can return that information (over Bluetooth) back to
+the user.
+
+### Explaining the problem
+
+Before Light Hotspots, ebus would ask the erlang-based miner what the block height is and it would
+return that information. However, now that Hotspots get their chain information from Validators
+using a protocol called gRPC, ebus (still talking to the erlang-based miner) thinks there is no
+block height at all, and crashes.
+
+The fix is to tell ebus to talk to the Validator using the new rust-based gateway using gRPC.
+
+## "Flatline" Fix
+
+The core team had been chasing down the flatline fix for a while and we're optimistic that this will
+resolve the issue.
+
+### Some background on Seed Nodes and Peerbooks
+
+All Hotspots, when they first boot up and connect to the internet, connect to a seed node (think of
+it like a directory of all Hotspots and Validators on the network). These seed nodes share a peer
+book that provide routing information for the Hotspots (like directions to a store).
+
+There are both Testnet seed nodes and Mainnet seed nodes that exist, providing peer book information
+to whichever Hotspot requests it.
+
+### Explaining the problem
+
+When Hotspots participate in Proof-of-Coverage, they often need to look up where to send the
+receipt, so they ask a seed node. The problem arises when both Testnet and Mainnet seed nodes
+respond.
+
+Some Hotspots are unable to untangle the mix of seed nodes responding back to them, filling up their
+memory, and completely exhausting any available memory they have, causing a "flatline".
+
+The fix is to separate out the crosstalk and ensure only Mainnet seed nodes respond to a Mainnet
+Hotspot.
+
+For a more technical explanation, see "Flatline: Detailed Discussion".
+
+#### Related PRs
+
+[#1390](https://github.com/helium/blockchain-core/pull/1390) Prevent Testnet and Mainnet crosstalk
+that caused, on boot, the Hotspot miner to think its peer book database is in a legacy byte order
+state and needs to be reconverted to reversed byte order.
+[#439](https://github.com/helium/erlang-libp2p/pull/439) Fixes bug that caused memory issues in
+peerbook [#1381](https://github.com/helium/blockchain-core/pull/1381) Fixes Poc Targeting and
+Filtering [#1723](https://github.com/helium/miner/pull/1723) Fixes an ebus crash on miner as it
+tries to get `block_height` and other ledger-related params.
+
+### Plan
+
+We have been testing `2022.06.09.0` on Mainnet since June 9 3pm PT. Current ETA for GA is June 10,
+2022 12:00pm PT.
+
+### "Flatline": Detailed Discussion
+
+To participate in the network effectively, Hotspots must communicate with any one of several
+Validators for various services. But to do so, the Hotspot must first obtain a directory listing,
+also called a peer book, of all available Validators and Hotspots on the network. It obtains the
+most up-to-date peer book by contacting any other Hotspot or Validator and asking for one. If a
+Hotspot doesn't have any directory listing to begin with, it will contact any one of several special
+Seed Nodes to download one. Once downloaded, a Hotspot will save its peer book to disk so that it
+can avoid having to ask for a full peer book from a seed on reboot. As the Hotspot hears about
+changes to the peer book it will update its local copy to keep it in sync.
+
+The format of the peer book disk database underwent a change long ago, and to accomodate that
+change, Hotspots first attempt to check whether the peer book appears to be in the older or newer
+format at start up. If the Hotspot believes its database format is of the older version, it attempts
+to correct the database at start up by completely rewriting it. When this "upgrade" code was written
+the peer book was so small that it could effectively have been loaded entirely into memory first
+before being corrected. Nowadays, however, the database is so large that when the "upgrade" code
+runs it exhausts all memory on the Hotspot, causing it to crash. Fortunately, the upgrade code
+hasn't been needed for quite some time, so it rarely runs, and rarely causes the crash.
+
+Unfortunately, however, the upgrade code can be activated accidentally if there are unusual peer
+book entries in the database. Some hotspots have unfortunately started collecting unusual entries in
+their peer books due to a couple of additional problems that had been occuring with Seed Nodes, one
+of which is that they had been delivering peer books filled with both mainnet and testnet Validator
+and Hotspot addresses. Once a Hotspot receives and stores these unusual peer book entries, it can
+get in a state such that it continuously tries to "upgrade" its peer book, over and over, at
+startup. Since the upgrade itself causes a crash, the Hotspot cannot get itself out of this loop (in
+the affected versions).
+
+The solution to the issue is several fold.
+
+1. Remove the "upgrade" code altogether. It simply isn't needed.
+2. Prevent Seed Nodes from accumulating and propagating listings for peers outside their network
+   type (testnet vs mainnet).
+3. Prevent Seed Nodes from accumulating and propogating _empty_ peer book listings.

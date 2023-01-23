@@ -1,0 +1,54 @@
+---
+layout: post
+title: Console Updates- ADR (Beta), APIs, More Notifications
+date: 2021-01-21 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+In this release we’ve included beta support for LoRaWAN adaptive data rate (ADR), increased the
+number of email notifications, and added a new API for multiple packet purchase. ADR allows devices
+to use an optimal data rate which reduces power consumption and airtime on the network based on RF
+conditions. It's recommended to only use this setting for fixed or non-mobile devices to ensure
+reliable connectivity.
+
+<!--truncate-->
+
+### Features and updates
+
+- Added LoRaWAN adaptive data rate (ADR) support (beta). For flexibility we’ve included ADR as a
+  Label setting which allows users to allow ADR settings for a group of devices. ADR needs to be
+  requested by a device for this setting to have an effect. To access this setting, choose the Label
+  from the side menu > click `Label Settings` > choose the `ADR (Beta)` tab.
+- Provided an API to include ability to specify multiple packet purchases if coverage is available.
+  Use a POST request: `https://console.helium.com/api/v1/labels/label_id/multi_buy` In Body
+  Parameters, specify `value`: and choose [1-10] for the desired number of packets to purchase, 10 =
+  all available packets.
+- API reminders:
+  - To obtain an API key, click the user icon in the top right corner > `My Account` >
+    `Generate Key`. You will need to verify the API key via email before you can use it.
+  - To obtain a Label UUID, Use a GET request: `https://console.helium.com/api/v1/labels/`
+- Increase the number of email notifications for a number of conditions related to devices and
+  integrations including when devices are deleted, Integrations updated or deleted.
+
+### Fixes
+
+- Deployed a patch that fixed a potential vulnerability for a Server Side Request Forgery
+  vulnerability attack.
+- Deployed a patch that prevents JoinRequest replay attacks.
+- Sorting the device table no longer causes the Device table to hang.
+- Fixed pixel shift when clicking top bar profile icon.
+- Updated clickable areas on different tables (e.g., Devices, Integrations) to be consistent.
+- Fixed an inaccurate display of device count when deleting a Label from an Integration.
+- Resolved an issue that prevented certain users from confirming invitations.
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Provide the ability to send notifications via a web hook.
+- Add APIs for notifications.
+- Release Console and its backend network server and blockchain components (Router) as open source.
+- Update the Event log to include more LoRaWAN-related information.
+- Build foundation for a more visual-oriented interface for improved usability.
+- Create a module to integrate with other LoRaWAN network servers, initially ChirpStack.

@@ -1,0 +1,51 @@
+---
+layout: post
+title: Console Updates- ver. 2.1.2
+date: 2021-09-23 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+This release includes an integration for Microsoft Azure IoT Hub. Microsoft had requested an
+integration with Console based on feedback from their customers. In addition, the team made
+usability updates based on community feedback, and enhanced device APIs.
+
+<!--truncate-->
+
+### Features and fixes
+
+- Microsoft Azure IoT Hub Integration, for information check docs
+  [here](https://docs.helium.com/use-the-network/console/integrations/azure/).
+- Much easier to delete labels: https://github.com/helium/console/issues/731, labels info
+  [here](https://docs.helium.com/use-the-network/console/labels).
+- Flows includes autosave feature
+- Additional apis:
+  - `GET v1/devices/:device_id`- this endpoint now provides dc_usage, total_packets, last_connected
+    in the payload
+  - `GET v1/devices/:device_id/events`- this endpoint now provides last 100 events for desired
+    device
+  - `GET v1/devices/:device_id/events?sub_category=uplink_integration_req`- this endpoint now
+    provides last 10 events for desired device in the desired sub_category
+
+### Open source users
+
+- New users should use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations.
+
+Check the readme for upgrading instructions
+[here](https://github.com/helium/console#upgrading-your-open-source-consolerouter).
+
+Additional technical documentation
+[here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Scale out state channels
+- Continue building roaming services
+- Continue to expand Console APIs
+- Light Hotspot support
+- Packet purchaser: integrate with ChirpStack LoRaWAN Network Server

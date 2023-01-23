@@ -1,0 +1,78 @@
+---
+layout: post
+title: 2020-05-18 Incident Postmortem
+date: 2020-05-20 15:30 -0700
+hide_table_of_contents: true
+authors: [evanmcc]
+---
+
+### What Happened?
+
+We activated witness refresh at block 339044
+([see audit 23](https://github.com/helium/miner/blob/master/audit/var-23.md)), which was intended to
+gradually clear witness tables over the course of about a week. Unfortunately we neglected to apply
+this refresh to the lagging ledger in the same way. Once we realized this, we issued a deactivation
+of the new feature at block 339291. Unfortunately it was too late and about 37 ledger entries were
+now divergent between the leading and lagging ledger. This led to disagreements on the block
+contents between the consensus members and caused a chain halt.
+
+<!--truncate-->
+
+### When?
+
+All times approximate, in PDT.
+
+11:20AM Monday, May 18th: Initial chain variable transaction absorbed. <br/> 3:10PM Monday, May
+18th: Initial signs of trouble as some nodes start to have issues absorbing blocks. <br/> 3:23PM
+Monday, May 18th: Chain halts for the first time. <br/> 5:40PM Monday, May 18th: Second chain
+variable transaction, disabling witness refresh
+([see audit 24](https://github.com/helium/miner/blob/master/audit/var-24.md)). <br/> 6:30PM Monday,
+May 18th: Chain halts again, is left down. <br/> 6:51PM Monday, May 18th: Issue diagnosed. <br/> 7PM
+to late: Work on recovery code, eventually giving up for the night. <br/> 7:15AM Tuesday, May 19th:
+Issue fully understood, fix code written. <br/> 8:00AM Tuesday, May 19th: Hard reset plan
+formulated. <br/> 11:00AM Tuesday, May 19th: Fixed image goes GA. <br/> 11:45AM Tuesday, May 19th:
+Ancillary services fully updated, chain restarted, hard reset chain variable issued. <br/> 1:45PM
+Tuesday, May 19th: Witness reset interval chain variable submitted, returning the value to
+approximately one week.
+
+### Why did it happen?
+
+The core of the problem was disagreement between the two versions of the ledger that we keep on
+disk. The leading ledger is the current ledger. The lagging ledger is 50 blocks behind, so that we
+have a stable base to play transactions into to validate things at heights between these ledgers.
+Problems started occurring when different members of the consensus group would disagree about which
+transactions they considered as valid. We use witnesses to generate the paths that PoC requests can
+go along, and when the witnesses on the ledger disagree, some nodes can consider the paths generated
+by others impossible. When, after some time, the disagreements happened between too many members, we
+could no longer construct a block.
+
+Our lagging ledger had two sources of drift:
+
+1. The witness, PoC entry, and state channel garbage collection processes were not run on the
+   lagging ledger.
+2. When the ledger was played forward via ledger_at, for the purposes of transaction validation, the
+   GC processes were not invoked either, so even if the lagging ledger was correct, the played
+   forward ledger that we would have arrived at would not be.
+
+Garbage collection in this context means that we have rules for the removal of stale data from the
+ledgers that are invoked potentially at every block. Currently we have collectors for PoC challenge
+data, state channel data, and Hotspot challenge witness data.
+
+### How did we fix it?
+
+There are additional complications, but these facts suffice to contextualize the fix, which was to
+apply the garbage collection process both during the playforward and also as the lagging ledger
+absorbed blocks.
+
+Operationally, things were a bit more complicated. The team stayed up late into the night trying to
+understand how the ledger could reliably be repaired, but in the end, we decided that since witness
+data was now meant to be ephemeral, we could simply set the witness reset interval to 1, which would
+reset all witnesses at each block. If we let this run for 50+ blocks, longer than the gap between
+the leading and the lagging ledger, the witnesses should be consistent (which is to say, absent) in
+both versions of the ledger and we could let them start to accumulate again. This required building
+a new image with the new code, and then starting up the group again, skipping past the split block
+it had stalled on, with only the new chain var transaction in their buffers
+([see audit 25](https://github.com/helium/miner/blob/master/audit/var-25.md)). Once the group was
+moving again, we monitored it closely for halts and issues until the ledger was consistent across
+almost all nodes, at which point we could submit another transaction that would allow witnesses to
+accumulate ([see audit-26](https://github.com/helium/miner/blob/master/audit/var-26.md)).

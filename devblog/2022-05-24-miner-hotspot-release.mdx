@@ -1,0 +1,31 @@
+---
+layout: post
+title: 'Miner Release: Fix HTTP2 Client and Chain Var support for PoC'
+date: 2022-05-24
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+The core developers have tagged a new `2022.05.24.0` `miner` release. This release is **mandatory**
+for all Hotspot Makers. Contained in this release are chain variables to support Validator
+Performance (to be activated some time after May 25 9:00AM PT). Failure to update your fleet before
+the chain variables are activated will cause the Hotspot to stop functioning as Hotspots still
+follow the blockchain.
+
+<!--truncate-->
+
+This release also adds a timeout on gen_tcp connect on the HTTP2 client and monitors the connection
+to restart on unexpected disconnects.
+
+#### Related PRs
+
+[HTTP2 Fix](https://github.com/helium/http2_client/commit/45163af5399cede1c1210ea665a4532d1a67eca3)
+Fix HTTP2 client timeout [#1359](https://github.com/helium/blockchain-core/pull/1359) bypass of
+witness validation with chain variable `poc_receipt_witness_validation`
+[#1358](https://github.com/helium/blockchain-core/pull/1358) Always process gw reactivation list
+with chain variable `poc_always_process_reactivations`
+
+### Plan
+
+We have been testing `2022.05.24.0` on Mainnet and Testnet since May 24 12:00pm PT. Current ETA for
+GA is May 24, 2022 2:00pm PT.

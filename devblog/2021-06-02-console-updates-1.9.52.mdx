@@ -1,0 +1,50 @@
+---
+layout: post
+title: Console Updates- ver. 1.9.52
+date: 2021-06-03 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm, madninja]
+---
+
+This sprint we included updates for downlinks including refresh and showing payloads in both base64
+and decoded text.
+
+<!--truncate-->
+
+In addition, the team updated the backend (Router) with the latest major blockchain core release,
+more details
+[here](https://engineering.helium.comhttps://docs.helium.com/blog/2021/05/28/major-blockchain-release-validator-support.html).
+
+### Features and updates
+
+- Ability to refresh the downlink queue
+- Console downlink queue shows payloads in Base64 and decoded text
+- LPP Decoder supports The Things Stack v3 additional data types
+- Discovery Mode work to customize frame time outs
+
+### Fixes
+
+- Fixed data rate used when queueing downlinks
+- Resolved issue that forced JoinAccept DLSettings to always be 0
+
+### Open source users
+
+- New users use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations. To update, check the
+  newest instructions, rebuild, and restart. The database is not affected.
+
+Documentation [here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Microshare pre-built Integration
+- Microsoft Azure IoT Hub pre-built Integration
+- CFList appended to JoinAccept: https://github.com/helium/router/issues/322
+- Packet purchaser:
+- provide ability to recognize and forward non-Helium packets to other LoRaWAN Network Servers
+- integrate with ChirpStack LoRaWAN Network Server
+- Console 2.0 migration testing

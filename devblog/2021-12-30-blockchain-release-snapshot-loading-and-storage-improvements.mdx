@@ -1,0 +1,89 @@
+---
+layout: post
+title: 'Blockchain Release: Snapshot Loading and Storage Improvements'
+date: 2021-12-30 12:40 -0800
+hide_table_of_contents: true
+authors: [abhay, vihu, ke6jjj]
+---
+
+The core developers have tagged a new `2021.12.29.2` Hotspot firmware release which includes
+**recommended** improvements in `blockchain-core` specifically in how Snapshots are loaded and
+blocks are stored locally on Hotspot disks.
+
+<!--truncate-->
+
+### Snapshot Loading
+
+As the chain continues to grow in size and more Hotspots come online, Snapshots are starting to
+become larger than 300 megabytes which make it difficult for some Hotspots to load them entirely
+into memory. This change to Snapshot loading allows these files to be streamed from disk in pieces
+and reduce the overall memory requirements for bootstrapping a node. This is important as some
+Hotspots will reset their local storage and restart syncing blocks from a Snapshot in order to clear
+room for future blocks.
+
+As a reminder, Snapshots are still generated on-chain by Validators when they come to agreement. The
+last chain blessed snapshot was created at block height `1156321` or around
+`2021-12-28 04:07:07 UTC`.
+
+### Blockchain Garbage Collection
+
+The longer a Hotspot remains online and follows the blockchain the more storage space it will
+consume. Most of this storage space is dedicated to storing blocks from the blockchain, but since
+blocks are less useful the older they are, a long-running Hotspot will eventually run out of space
+storing blocks that it doesn't need. Previously, manufacturers have exclusively handled out-of-space
+situations by completely removing the Hotspot's blockchain database and rebuilding it anew by
+downloading a recent Snapshot and re-syncing. During the sync process, however, the Hotspot is
+unavailable to participate in Proof-of-Coverage challenges or to route device data -- the very
+things that make a Hotspot valuable to the network.
+
+To help reduce the frequency and duration of these blockchain database rebuilds and re-syncs, there
+are two configurable items in the `miner` process which will enable garbage collection of old blocks
+at miner startup. These variables are:
+
+- a `BLOCKCHAIN_ROCKSDB_GC_BYTES` environment variable (not set by default), and
+- a `blocks_to_protect_from_gc` variable in the blockchain section of `sys.config` (current default:
+  10_000)
+
+At startup, the `miner` will check for the presence of `BLOCKCHAIN_ROCKSDB_GC_BYTES`. If it is
+present, its value will be parsed as an integer and the `miner` will examine its blockchain database
+and attempt to prune this many _bytes_ of unneeded blocks from the database. However, the garbage
+collection process will always keep the most recent `blocks_to_protect_from_gc` blocks in storage,
+even if the `BLOCKCHAIN_ROCKSDB_GC_BYTES` limit hasn't yet been reached, to ensure the Hotspot
+retains enough recent blocks to function properly.
+
+This should reduce the number of times a Hotspot will need to do a full reset from a Snapshot,
+reducing the time a Hotspot will be unable to perform Data Transfer or Proof of Coverage.
+
+### Additional Updates
+
+- The core developers have also modified `transfer_hotspot_v2` transaction support to ensure that
+  the owner of the hotspot is the fee payer for the transaction and guarded this change behind
+  `transaction_validity_version` chain variable. Future updates will be posted to outline the time
+  for activation.
+
+- This release also contains POC-V11 related performance improvements to prepare for updating the
+  LoraWAN parameters in the near future.
+
+- Finally, the core developers have also fixed a few long standing sync stall bugs that potentially
+  prevented nodes syncing from the genesis block with full validation.
+
+#### Related PRs
+
+- [blockchain-core#1178](https://github.com/helium/blockchain-core/pull/1178): Fix snapshot install
+- [blockchain-core#1175](https://github.com/helium/blockchain-core/pull/1175): Allow snapshot to be
+  stream loaded from disk
+- [blockchain-core#1172](https://github.com/helium/blockchain-core/pull/1172): Make region check
+  compatible with previous versions
+- [blockchain-core#1163](https://github.com/helium/blockchain-core/pull/1163): Read through var
+  cache and rewards var pre-caching
+- [blockchain-core#1160](https://github.com/helium/blockchain-core/pull/1160): Repair chain if
+  genesis block is missing
+- [blockchain-core#1149](https://github.com/helium/blockchain-core/pull/1149): Change `fee_payer`
+  for `transfer_hotspot_v2` to owner
+- [blockchain-core#1144](https://github.com/helium/blockchain-core/pull/1144): Handle plausible
+  block edge cases
+
+### Plan
+
+We have been beta testing `2021.12.29.2` since December 29, 2021 05:30 PM PT. Current ETA for GA is
+04:30 PM PT, December 30, 2021.

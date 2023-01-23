@@ -1,0 +1,38 @@
+---
+layout: post
+title: Upcoming Changes to Block Time Targets
+date: 2020-01-31 13:00 -0800
+hide_table_of_contents: true
+authors: [evanmcc]
+---
+
+## Executive summary
+
+Block time disruptions have lowered the rate of token production from the chain, and we're
+implementing a mechanism to shorten block times when this is the case, so that we catch up to our
+targeted production rates of 5 million HNT per month if we experience long block times.
+
+<!--truncate-->
+
+### Details
+
+Currently, the lifetime average block interval is around 85 seconds, due to some long pauses, halts,
+and various growing pains. While we do our best to maintain good block times, we are ultimately
+running a complex distributed system on commodity networks and small machines running on mains
+power. Some level of disruption is inevitable.
+
+Understandably, this variable rate of token emission is concerning, and we have put some thought
+into various alternatives. While we considered time-based proration, we were concerned that the
+incentives there were not particularly good, as anyone who wanted to minimize work while maximizing
+return would simply do what they could to slow times down by interfering with the consensus group.
+The strategy we have eventually settled on is a deterministic speedup. Typically, the next target
+block time is calculated by taking the time of the last block and adding a chain variable called
+`block_time`, which is currently 60000ms. If that time is in the past, we start immediately.
+
+The current proposal, implemented in [this PR](https://github.com/helium/miner/pull/306), takes the
+lifetime average of block times by finding the time at block 187000 (a recent round number after the
+latest period of disruption), comparing it with the time from the last block, and nudging the target
+time back by the difference. Originally, we took a moving average over the last several hundred
+blocks, but we were concerned that this would be too expensive on the modest Hotspot hardware. This
+strategy, cribbed from NTP, means that we'll gently accelerate (and pleasingly, decelerate, should a
+bug cause us to produce blocks too quickly) until the average block time is on target.

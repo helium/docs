@@ -1,0 +1,62 @@
+---
+layout: post
+title: Console Updates- v2.2.5
+date: 2022-03-24 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+Sprint: 72
+
+Console `v2.2.5` has been released to production. During this sprint the team also launched Helium
+Roaming Services. LoRaWAN network providers can learn more about how to leverage Helium coverage
+[here](https://blog.helium.com/helium-roaming-services-brings-new-opportunities-for-partners-4d940ee7a030).
+
+<!--truncate-->
+
+The ability to export and import complete Organizations was added as well as a number of backend
+community reported issues. Users can migrate their Organization from a Console instance hosted by
+one provider to another or to their own hosted version of Console. Note Data Credits are not
+transferable and will not be migrated. For more information check
+[here](https://docs.helium.com/use-the-network/console/users/#organizations).
+
+**Important**: The Multiple Packet feature has been updated to accurately reflect the amount
+specified by user configuration regardless if they're uplinks or initial joins.
+
+Full list of this sprint’s implemented features and fixes:
+
+- Backend [(Router)](https://github.com/helium/router/milestone/10?closed=1)
+- Frontend [(Console)](https://github.com/helium/console/milestone/10?closed=1)
+
+(Note: a closed issue does not mean the team took action, for example the issue could have been a
+duplicate or no longer relevant).
+
+### Open source users
+
+Check the [readme](https://github.com/helium/console) for instructions on how to use prebuilt
+Console images.
+
+**Important**: the seed nodes in the `.env-router` template need to be updated. Check the
+`.env-router` template file, and copy the value of the `ROUTER_SEED_NODES env var` to your local
+`.env-router` file.
+
+- New open source users should follow Option 1 listed in the readme and use
+  `docker-compose-quay.yaml` as the template for their docker-compose file.
+
+- Existing open source users can update their existing docker-compose file and replace the lines for
+  just the "console" section with the updated lines in the latest `docker-compose-quay.yaml` file.
+  If something does not work, simply revert your changes back to the `docker-compose-quay.yaml` file
+  an issue [here](https://github.com/helium/console/issues).
+
+Database migrations will still happen automatically when using the hosted Console image.
+
+Additional
+[technical documentation](https://docs.helium.com/use-the-network/run-a-network-server/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Microsoft Azure IoT Central integration
+- Scaling out roaming services
+- Preferred Hotspot selection

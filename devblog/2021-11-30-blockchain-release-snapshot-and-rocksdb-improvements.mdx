@@ -1,0 +1,41 @@
+---
+layout: post
+title: 'Blockchain Release: Snapshot and RocksDB Improvements'
+date: 2021-11-30 11:30 -0800
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The core developers have tagged a new `2021.11.30.1` Hotspot firmware release which includes
+**recommended** fixes to snapshot load performance, underlying rocksdb tuning and other important
+bug fixes.
+
+<!--truncate-->
+
+#### Related PRs
+
+- [miner#1264](https://github.com/helium/miner/pull/1264): Limit the size and age of rocksdb log
+  files
+- [miner#1237](https://github.com/helium/miner/pull/1237): Keep checking for blockchain in case of
+  long miner startup
+- [miner#1229](https://github.com/helium/miner/pull/1229): Add election transaction to local
+  transaction buffer
+- [miner#1267](https://github.com/helium/miner/pull/1267): Temporarily make more seed nodes static
+- [miner#1248](https://github.com/helium/miner/pull/1248): Disable fetching latest snapshot on
+  validators (Thanks [@PaulVMo](https://github.com/PaulVMo)!)
+
+- [blockchain-core#1133](https://github.com/helium/blockchain-core/pull/1133): Fix recovering from
+  corrupt blockchain database
+- [blockchain-core#1129](https://github.com/helium/blockchain-core/pull/1129): Explicitly handle
+  return cases for receipt validation `is_too_far` function
+- [blockchain-core#1127](https://github.com/helium/blockchain-core/pull/1127): Fix bootup when no
+  genesis block is specified
+- [blockchain-core#1125](https://github.com/helium/blockchain-core/pull/1125): Add CLI handler for
+  fast-forwarding a remote peer
+- [blockchain-core#1124](https://github.com/helium/blockchain-core/pull/1124): Try to use more
+  memory efficent parsing for hexes in snapshots
+
+### Plan
+
+We have been beta testing `2021.11.30.1` since November 30, 2021 12:30 PM PT. Current ETA for GA is
+2:30 PM PT, November 30, 2021.

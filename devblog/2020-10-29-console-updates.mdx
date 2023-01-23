@@ -1,0 +1,94 @@
+---
+layout: post
+title: Console Updates- Second rx window, custom JSON messages
+date: 2020-10-29 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm, vihu]
+---
+
+In this release we provide support for a second receive window, a number of UI improvements, as well
+as a beta feature that allows users customize JSON messages sent to Integrations.
+
+<!--truncate-->
+
+### Features and Updates
+
+- Included a second receive window for devices aligned with LoRaWAN spec.
+- Increased Data Credit visibility: total for Organization prominently displayed, as well as on
+  specific device page.
+- Group import capability supports adding an additional labelID column in the CSV file for imports.
+- Labels can be quickly swapped from one to another from the quick action menu. For example, if
+  Labels were defined for location (SF, LA), and a device moved from SF to LA, users could easily
+  swap these location Labels for devices. This same feature could be used to define different
+  customers, POC vs. production devices, etc.
+- Included pause/resume device transfer on Device index page quick action menu.
+- Significantly improved uplink speed by caching devices instead of needing to query DB each time.
+- Beta - JSON Message Templates: provide users the ability to customize the JSON message sent to
+  HTTP, MQTT or AWS IoT Integrations. This is a beta feature and we expect only users familiar with
+  templating to try this feature. More info about the logic-less Mustache templating we're using
+  [here](https://mustache.github.io/mustache.5.html).
+
+```json
+{
+// Browan example
+  {% raw %}{{#decoded}}{{#payload}} {% endraw %}
+  "battery": {% raw %}"{{battery_percent}}"{% endraw %},
+  "lat": {% raw %}"{{latitude}}"{% endraw %},
+  "long": {% raw %}"{{longitude}},{{payload}}{{decoded}}"{% endraw %}
+  "device_id": {% raw %}"{id}}"{% endraw %}
+}
+```
+
+- Current list of template of supported keys and values:
+
+```json
+{
+  "id": "device_uuid",
+  "name": "device_name",
+  "dev_eui": "dev_eui",
+  "app_eui": "app_eui",
+  "metadata": {},
+  "fcnt": 2,
+  "reported_at": 123,
+  "payload": "base64 encoded payload",
+  // ONLY if payload is decoded
+  "decoded": {
+    "status": "success | error",
+    "error": "...",
+    "payload": "..."
+  },
+  "port": 1,
+  "devaddr": "devaddr",
+  "hotspots": [
+    {
+      "id": "hotspot_id",
+      "name": "hotspot name",
+      "reported_at": 123,
+      "status": "success | error",
+      "rssi": -30,
+      "snr": 0.2,
+      "spreading": "SF9BW125",
+      "frequency": 923.3,
+      "channel": 12,
+      "lat": 37.00001962582851,
+      "long": -120.9000053210367
+    }
+  ],
+  "dc": {
+    "balance": 3000,
+    "nonce": 2
+  }
+}
+```
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Add manager role: this would be an operational role that is similar to an Administrator without
+  certain capabilities including the ability to manage Data Credits, users, or Organizations.
+- Provide email alerting for a number of conditions related to devices and integrations.
+- Include support for LoRaWAN adaptive data rate (ADR).
+- Providing more information related to LoRaWAN commands in the Event log.
+- Release Cargo asset tracking eval tool as open source.
+- Release Console and its backend network server and blockchain components (Router) as open source

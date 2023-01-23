@@ -1,0 +1,65 @@
+---
+layout: post
+title: Spreading factor changes and how they may affect Proof of Coverage
+date: 2020-10-02 14:00 -0700
+hide_table_of_contents: true
+authors: [abhay]
+---
+
+In order to comply with local North American and European regulations, we added an undocumented
+update to PoC to correct the spreading factor used by PoC packets.
+
+<!--truncate-->
+
+This change was deployed along with a recent maintenance update, but was not communicated. We're
+sorry about the late communication, but given the importance of complying with regulations we wanted
+to deploy this as quickly as possible.
+
+**Why was this change made?**
+
+Thanks to testing and verification of members of the community, we realized that PoC packets were
+being sent with the longest range possible in all cases. Instead, we needed to set the spreading
+factor based on the size of the packet (which is directly correlated with the number of Hotspots in
+the challenge path).
+
+**What is spreading factor and why does it matter?**
+
+There are resources online to learn more about data rate and spreading factor if you want to dive
+into the specifics of how LoRa works, but here's a high level overview.
+
+LoRa uses what is known as a “chirp” protocol and spreading factors are the duration of the "chirp".
+Typically you're looking at a range of SF7 to SF12 where the 7 is the shortest time on air. Each
+step up doubles the time on air to transmit the same amount of data and increases the range. Due to
+local restrictions, we are limited by max payload sizes to certain spreading factors, usually SF8
+and SF9 for most packets.
+
+**How does this affect currently issued PoCs?**
+
+Because we are now dynamically adjusting spreading factor based on packet size, PoC paths with a
+larger number of Hotspots and over longer distances may not complete. There are a variety of things
+that we could have considered including forcing all witness lists to reset over a shorter interval
+temporarily but we decided not to do that since it would create other disruptions.
+
+**Does this impact my earnings?**
+
+Possibly. This change can impact earnings for some Hotspots if the newer spreading factors result in
+existing witnesses being out of range. If the Hotspot isn't able to complete a PoC challenge with a
+witness that it was able to reach earlier, the failed challenge will not earn HNT.
+
+**Why do my earnings fluctuate?**
+
+There are a lot of factors to take into consideration here given that the system that generates PoC
+based rewards is not static. Hotspots come online and go offline and anything that could temporarily
+(or permanently) affect RF and/or the internet connectivity of the Hotspot can affect the success of
+a PoC challenge.
+
+This is why we typically advise looking at PoC over a longer period of time (weekly or longer) with
+respect to HNT rewards. Rewards over short periods, like days or hours, can fluctuate 100s of
+percentage points due to the inherently random nature of the system and RF performance.
+
+**What can I change to fix my witness list now?**
+
+You shouldn't have to change anything proactively. Witness lists update automatically (on average,
+every two weeks). You should be able to verify this using the API. You can certainly trigger an
+update to this manually if you want via re-asserting your location, but this may incur a Data Credit
+cost.

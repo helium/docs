@@ -1,0 +1,46 @@
+---
+layout: post
+title: Console Updates- ver. 1.9.53
+date: 2021-06-17 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+The team focused on delivering an pre-built integration for Microshare in addition to continuing to
+build out our roaming capabilities for non-Helium traffic.
+
+<!--truncate-->
+
+### Features and fixes
+
+- Provided a pre-built Integration for Microshare.
+- Packet purchaser: support transfer of both uplinks and downlinks of non-Helium packets to other
+  LoRaWAN Network Servers.
+- Enhanced Event Graph with more information for uplinks/downlinks.
+- Updated NetID parsing for internal metrics.
+- Addressed issue that prevented certain label notifications from sending.
+
+### Open source users
+
+- New users should use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations. To update, check the
+  newest instructions, rebuild, and restart. The database is not affected.
+
+Check the readme for specific upgrading instructions
+[here](https://github.com/helium/console#upgrading-your-open-source-consolerouter).
+
+Additional technical documentation
+[here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Microsoft Azure IoT Hub pre-built Integration
+- Scaling State Channels
+- CFList appended to JoinAccept: https://github.com/helium/router/issues/322
+- Support AS923 for Australia
+- Console 2.0 migration testing
+- Packet purchaser: integrate with ChirpStack LoRaWAN Network Server

@@ -1,0 +1,49 @@
+---
+layout: post
+title: 'Blockchain Update: Proof of Coverage Update'
+date: 2021-03-04 16:44 -0800
+hide_table_of_contents: true
+authors: [abhay]
+---
+
+The team has a new release tagged `2021.03.05.0`. This release collects some small but important
+maintenance upgrades to the blockchain but primarily is focused on adding a new functionality to the
+Proof of Coverage system. We also included a few code changes that will support Light Hotspots in
+the future and snapshot bump.
+
+<!--truncate-->
+
+### Proof of Coverage Updates
+
+The Proof of Coverage system, as many of you are aware, rewards Hotspots for being correctly
+asserted and provide coverage for IoT devices that use the Helium network. It is the primary
+incentive for Hotspot placement. This update adds a new feature that allows blockchain participants
+to evaluate the quality of coverage that is being provided by Hotspots. This system needs to
+continuously be updated to ensure that good providers continue to be rewarded and reduce the impact
+of poor placement and bad actors in the network.
+
+We've introduced a new way for Hotspots to be identified on chain through the hash of the Hotspot's
+IP address. The new field is associated with a chain variable `poc_addr_hash_byte_count` that will
+need to be activated for this system to be used. Roughly speaking, the Challenger will hash the IP
+address it sees from the challengee and attach it to the receipt. Future Challengers will be able to
+inspect all receipts in the last PoC interval, see if the IP address has already been challenged,
+and skip them.
+
+#### How will this impact me and my participation in Proof of Coverage?
+
+Correctly asserted Hotspots on individual IP addresses will see no impact.
+
+If your Hotspot is affected, you may see a reduction in Challenge rate and your Witnesses will see a
+reduction in Witness rate. If you see a reduction in Witness rate, you may notice that the Challenge
+rate of your neighbors is reduced.
+
+The filtering is done over a single PoC interval (which is currently set at 240 blocks), and, as
+always, we recommend correctly asserting your location. This is an enhancement to existing radio
+based filtering and upcoming work on FSPL-based judgements.
+
+### Plan
+
+We have been beta testing `2021.03.05.0` and its predecessor `2021.03.04.0` since March 4th, 2021
+5:00 PM PT. Current ETA for GA is 1:00 PM PST, March 5th, 2021. The chain variable that will
+activate the address hash will be activated early next week, likely Monday, March 8th, 2021 around
+11:00 AM PST.

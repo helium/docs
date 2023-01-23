@@ -1,0 +1,39 @@
+---
+layout: post
+title: Consensus Group Crash Loops and Block Sync Fixes
+date: 2020-02-19 09:20 -0800
+hide_table_of_contents: true
+authors: [vagabond, fvasquez, evanmcc]
+---
+
+### Summary
+
+In a previous release, we attempted to resolve some rare issues with consensus members forgetting
+they're in the consensus group. Unfortunately this traded a rare consensus member failure for a rare
+crash loop. This issue led to the long block over the weekend and we've been testing a fix for the
+last couple days.
+
+<!--truncate-->
+
+Additionally it was observed that nodes with clock skew behind the block time would refuse to sync.
+This has also been corrected and validarted to unstick such nodes.
+
+Additionally we've landed a bugfix for a rare division by 0 during PoC packet construction and
+bumped the assume-valid block to 211438.
+
+### Contents
+
+- **Consensus member crash loop**: [miner#326](https://github.com/helium/miner/pull/326)
+  [libp2p#259](https://github.com/helium/erlang-libp2p/pull/259)
+
+- **Sync improvements**: [core#373](https://github.com/helium/blockchain-core/pull/373)
+  [core#374](https://github.com/helium/blockchain-core/pull/374)
+
+- **Divide by zero fix**: [core#372](https://github.com/helium/blockchain-core/pull/372)
+
+- **Assume-valid bump to 211438**: [miner#327](https://github.com/helium/miner/pull/327)
+
+### Plan
+
+We've been betaing this `2020.02.18.1` release overnight and plan to roll it out to general
+availability shortly.

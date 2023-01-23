@@ -1,0 +1,36 @@
+---
+layout: post
+title: 'Hotspot Firmware Release: Operational Fixes for RAK/MNTD and Helium Hotspots'
+date: 2022-02-04 11:51 -0800
+hide_table_of_contents: true
+authors: [abhay]
+---
+
+_Note: This release is only relevant to RAK/MNTD and Original Helium Hotspots._
+
+<!--truncate-->
+
+The `2022.02.04.1` release continues the work that the Helium team is doing to enable RAK/MNTD and
+Original Helium Hotspots to use `miner` containers rather than custom firmware builds. At a high
+level, this release includes several fixes to how the `miner` container operates on the firmware.
+This release also fixes an issue with Diagnostic Reports, where users were unable to retrieve some
+details. Finally, this release contains a fix where `miner` containers were unable to start for
+Hotspots that have not been powered on for over a year.
+
+Although this isn't directly Hotspot owner facing, it allows easier iteration of new `miner`
+releases and reduces restarts and downtime of Hotspots. Separately, the work also enables the RAK
+team to take over managing the firmware for RAK/MNTD Hotspots. Original Helium Hotspots will
+continue to be managed by the Helium team.
+
+This release does not update the `miner` container (which will be a separate release that will go
+into testing as well). A separate announcement will follow regarding this release.
+
+For those Hotspot owners flashing new SD Cards for RAK/MNTD and original Helium Hotspots, please use
+this base image going forward. No action is required otherwise and all RAK/MNTD and original
+Hotspots will receive this update automatically over the air as long as your Hotspot is plugged in
+and connected to the internet.
+
+**Plan**
+
+We have been beta testing `2022.02.04.1` since February 4, 2022 12:00 PM PST. Current ETA for GA is
+14:30 PM PT, February 4, 2022.

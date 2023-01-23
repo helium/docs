@@ -1,0 +1,209 @@
+---
+layout: post
+title: POC V4
+date: 2019-12-02 09:19 -0700
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+As part of our efforts to continually improve the network, we recently implemented Proof-of-Coverage
+(PoC) version 4. This blog attempts to detail some of the planning, decisions and analysis that went
+into overhauling the existing PoC mechanism.
+
+<!--truncate-->
+
+## Motivation
+
+The team has learned a lot of valuable lessons from having the first version of PoC out in the wild
+and watching the network grow organically. The initial PoC design was reliant on geography, simply
+because we did not have enough RF coverage data to make any decisions about the potential quality of
+a network generated via RF witnesses.
+
+As the network grew past 500 Hotspots, we began to realize that we had several shortcomings in our
+PoC algorithm, the most important being:
+
+- **Expensive Computation**
+
+  Our path and target calculation were extremely computationally expensive, and did a fair amount of
+  superfluous work. This was exacerbated by the resource constraints of the Hotspot hardware.
+
+- **Favoring localized clusters**
+
+  We saw several clusters of 3 and 5 Hotspots which would get challenged more frequently than
+  others. This behavior stems from the fact that we biased paths towards confirming high score, so
+  these clusters would complete their challenges, gain score and enter into a feedback loop which
+  would challenge them again too soon, leading to score inflation. While we originally thought this
+  score bias would be reasonable, we realized that this was prohibitive to organic network growth
+  and it is more equitable and useful to keep PoCs more evenly distributed across all Hotspots on
+  the network.
+
+- **New Hotspots left out**
+
+  We soon realized that the old PoC pathing strategy does not account well enough for newly added
+  Hotspots, as there was no way to construct a path with them if they have no geographic neighbors,
+  even if they could hear those neighbors via RF and do useful work in the PoC process. We alleviate
+  this to a degree by allowing every Hotspot to _issue_ PoC challenges and rewarding them for that,
+  but a better way to address this problem was needed. PoC V4 brings in a new concept, which we call
+  "beaconing", to address this concern.
+
+## Getting started: Collecting witness data
+
+Radio propagation is finicky, and you cannot rely on nearby Hotspots to reliably be able to hear
+each other, especially in cities. To improve things, we needed a way to understand which Hotspots
+were able to talk to each other during the PoC process.
+
+This realization led to adding "witness" data in the blockchain ledger. A "witness" is a Hotspot
+which has seen an RF packet over the air for any ongoing PoC. Witnesses allow us to gain another key
+metric - true RF range between Hotspots. You may have noticed in the Helium mobile app under any PoC
+challenge that there are now "witnesses" for each step in path.
+
+We activated witness collection in block
+[89232](https://github.com/helium/miner/blob/master/audit/var-8.md) to begin the process of data
+collection while simultaneously deploying the building blocks require to solve the aforementioned
+issues.
+
+## Planning: New Proof-of-Coverage model
+
+Once we had enough witness data, which you can view
+[via the API](https://explorer.helium.foundation/api/witnesses/115JucmPFDKUwvE4fkHR6GyQsttSUMi11KYme6pRcRTVXTqE7ww),
+we began working on simulating new PoC models.
+
+We started by setting out some motivating questions:
+
+- Which Hotspot to target?
+- How do we build a high quality PoC challenge path?
+- What do we do if we can't build a path?
+
+### Targeting
+
+We find a "target" Hotspot to be the first Hotspot in the PoC challenge path. The "target" in itself
+has no special role other than allowing us to narrow our field of search. So rather than looking at
+the network as a whole, we start building a path outwards from the target Hotspot.
+
+The targeting mechanism is based on the following set of rules:
+
+- **Favor high scoring Hotspots**.
+
+  Since the initial PoC challenge gets delivered via p2p over the network to the first Hotspot in
+  the path (target), we require some confidence that this Hotspot will be online to successfully
+  receive the challenge and subsequently broadcast it via RF.
+
+- **Favor loosely connected Hotspots**
+
+  We believe it is far more interesting to construct PoC paths on the edge of the existing network
+  because we don't have as much information about the Hotspots there. This enables newly added
+  Hotspots to get a chance to participate in future Proofs-of-Coverage.
+
+- **Assigning probabilites and weights**
+
+  Both the above criteria have
+  [chain variable](https://developer.helium.com/blockchain/blockchain-primitives#chain-variables)
+  controlled probabilities and weights associated with them to allow us to better tune the selection
+  over time.
+
+- **Filter Hotspots which haven't issued a PoC request for a long time**
+
+  We require that the Hotspots must be synced to the network and have constructed PoC requests
+  within a certain number of blocks. This is to try and ensure that we don't have targets which have
+  been offline for a long time.
+
+- **A target must ALWAYS be found**
+
+  We require that we always find _a_ target Hotspot to be start of the PoC path. If we don't find
+  one, we simply retry.
+
+### Beaconing
+
+The simplest way to describe beaconing is to consider it a PoC challenge with a target no other
+Hotspot can _decrypt_, but any can _witness_.
+
+We believe this is an extremely valuable new addition to the PoC mechanism since it has multiple
+benefits:
+
+- New geographically aloof Hotspots now have a way to broadcast that they too are ready for PoC
+  challenges. Prior to beaconing, all a new Hotspot could do (assuming it was alone geographically)
+  was issue network rate-limited PoC challenges. With the introduction of PoC v4 these Hotspots
+  would also be able to construct a beacon which other Hotspots can potentially witness. Both the
+  challengee Hotspot and the potential witness Hotspot add each other to their witness lists, grow
+  the network, and PoC further. We hope the information gathered because of this change will allow
+  us to construct more interesting paths in the future.
+
+- Even if a Hotspot in a crowded region cannot witness any other Hotspots over RF and was selected
+  as a target, it would still be able to construct the single layer challenge and get a chance to
+  grow its witness list.
+
+### Greedy Paths
+
+Prior to PoC V4, the way paths were calculated was dependent on the state of the entire network,
+which is an expensive calculation to perform every time a Hotspot issues a PoC request, and also
+when that request needs to be verified.
+
+In V4, we've altered the algorithm to be _greedy_ by nature and reduced the size of the input to the
+path creation by a significant factor.
+
+We start path creation by first finding a candidate target Hotspot and grow the path outwards from
+it. A brief overview of the algorithm can be described as:
+
+1. Find target Hotspot, an `O(n)` operation, where `n` is the size of the network. We have plans to
+   reduce the cost of this further.
+2. Inspect witness list of the target Hotspot. An `O(k)` operation, where `k` is the size of the
+   witness list associated with the target Hotspot. Note that `k` is usually a significantly lower
+   number than the number of Hotspots present on the network.
+3. Assign weights and probabilities to each of the witness members in the witness list. Detailed
+   further below.
+4. Run an inverse cumulative distribution function to select the next hop from the target.
+5. Repeat step 2, with the selected witness as the next target Hotspot.
+
+The overall asymptotic run time of the algorithm is `O(n) + O(m*k) ~ O(n*m)`, which we know is
+orders of magnitude faster than the previous PoC version run times. Not only do we get a better run
+time complexity with V4, we also gain a huge saving from the reduced input sizes in step 2 onwards.
+
+#### Weights and probabilites for witness selection
+
+The blockchain ledger maintains a list of associated witnesses for each Hotspot in the network
+(given that there are any) and a
+[witness RSSI histogram](https://explorer.helium.foundation/api/witnesses/11bVX2ViJ3yPAgnhGhBhrNtAvDYQLA1K1PucdNz6pQfVe7NUUk8).
+
+To select a witness as a next potential hop from a target Hotspot we assign probabilities and
+weights to each of the target Hotspot's witnesses.
+
+We defined four distinct probabilities and associated weights with each, these are calculated on the
+fly given the Hotspot's behavior on the network, namely:
+
+- The witness having a good RSSI value.
+- The witness timestamp being stale.
+- The witness being infrequently challenged.
+- A randomness factor.
+
+Each of these probabilities can be controlled via chain variables to allow for easy tuning in the
+future.
+
+Furthermore, each of the above probabilities have chain variable controlled weights associated with
+them, which allow even more fine tuning.
+
+The overall probability of selecting a witness thus becomes:
+
+```
+P(Witness) = RSSIWeight * P(WitnessRSSI) +
+             TimeWeight * P(WitnessTime) +
+             CountWeight * P(WitnessCount) +
+             RandomnessWeight * 1.0
+```
+
+Note that the probabilty of a witness being selected as random is set to 1.0 as the controlling
+factor would be driven by the `RandomnessWeight` given that all the other weights are scaled
+accordingly. This was a community suggestion we added to make witness selection slightly more
+interesting and random. (Thank you,`@andrew gifft`, for this idea.)
+
+Once we have the probability tagged witness list for the target, we do an
+[inverse cumulative distribution function](https://en.wikipedia.org/wiki/Cumulative_distribution_function)
+to pick the next hop and repeat the algorithm to grow the path further.
+
+## Summary
+
+We hope that these improvements to Proof-of-Coverage will meaningfully improve both the quality of
+the PoC system and the consistency of block times, which have suffered of late as receipt counts
+have climbed and those receipts have grown ever more expensive to validate.
+
+Please visit our [Community Slack Chat](http://chat.helium.com/) if you have questions or would like
+to engage in discussion with the team.

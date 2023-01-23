@@ -1,0 +1,69 @@
+---
+layout: post
+title: App Version 3.6.0
+date: 2021-09-30
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+App Version 3.6.0
+
+&nbsp;
+
+# New Features
+
+## Deployment Mode
+
+Ever need to hand your phone to someone for installation but don’t want them seeing your seed
+phrase, use the wallet payment functionality, or transfer Hotspots?
+
+<!--truncate-->
+
+Now you can! With deployment mode, users can “lock down” their app by hiding or disabling all
+sensitive information. To enable deployment mode, go to Settings > Deployment mode.
+
+Please note that to disable Deployment mode, you’ll have to sign out and sign back in again. So
+double check that your 12 words are written down!
+
+Big Thanks to Michael Brew for this contribution!
+
+## Check that payment transactions are to a valid wallet address
+
+We now have a check in the app to make sure it’s a valid wallet address so no HNT is sent to
+Hotspots or Validators by mistake.
+
+## Scan QR Code to Assert Location
+
+Another Michael Brew contribution - users can now generate QR codes to assert a Hotspot’s location,
+simply by going to the QR Code scanner, scanning a code, and it magically populates the update
+Hotspot location fields.
+
+## Check the Sender is the valid owner for scanned QR Payments
+
+The final Michael Brew contribution, if you generate a QR code that has an embedded payment
+transaction with a sender address, the app will verify that the logged in account matches the sender
+before proceeding.
+
+## Validator Filters
+
+If you have owned or followed Validators, they now show up on the Home screen lists.
+
+# New Hotspot Support
+
+We’ve added PantherX and hummingbird as new options to add a Hotspot to the Helium network.
+
+# Bug Fixes
+
+- Fixed a bug where if you selected an unowned or unfollowed Hotspot, the cursor will stay on a
+  Hotspot name instead of scrolling back to the Explore icon.
+
+# Housekeeping
+
+## Update to City Search
+
+We’ve had to disable city search functionality for the time being. We look to re-enable this in the
+future once we have some tools in place.
+
+## File Cleanup on the Hotspot-app Repository
+
+Thanks to @friederbluemle for keeping us honest.

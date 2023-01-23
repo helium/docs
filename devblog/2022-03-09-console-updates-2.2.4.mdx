@@ -1,0 +1,55 @@
+---
+layout: post
+title: Console Updates- v2.2.4
+date: 2022-03-10 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+Sprint: 71
+
+The team has released `v2.2.4` release to production. A number of usability updates were completed
+including minimizing user input for Azure IoT Hub, making it simpler to add a label to new devices,
+and adding abiliity to use mobile UI to scan QR codes for devices that have implemented the LoRaWAN
+Device Identification QR Codes specification.
+
+<!--truncate-->
+
+In addition, additional APIs were added to create custom integrations including HTTP, MQTT, Azure
+IoT Hub, and AWS IoT Core.
+
+Full list of this sprint’s implemented features and fixes:
+
+- Backend [(Router)](https://github.com/helium/router/milestone/9?closed=1)
+- Frontend [(Console)](https://github.com/helium/console/milestone/9?closed=1)
+
+(Note: a closed issue does not necessarily mean the team took action, for example the issue could
+have been a duplicate or no longer relevant).
+
+### Open source users
+
+Check the [readme](https://github.com/helium/console) for instructions on how to use prebuilt
+Console images.
+
+- New open source users should follow Option 1 listed in the readme and use
+  `docker-compose-quay.yaml` as the template for their docker-compose file.
+
+- Existing open source users can update their existing docker-compose file and replace the lines for
+  just the "console" section with the updated lines in the latest `docker-compose-quay.yaml` file.
+  If something does not work, simply revert your changes back to the `docker-compose-quay.yaml` file
+  an issue [here](https://github.com/helium/console/issues).
+
+Database migrations will still happen automatically when using the hosted Console image.
+
+Additional
+[technical documentation](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Continue building out production-ready roaming services
+- Organization migration tools
+- Microsoft Azure IoT Central integration
+- Scaling out roaming services
+- Preferred Hotspot selection

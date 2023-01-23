@@ -1,0 +1,25 @@
+---
+layout: post
+title: Docker Images
+date: 2020-05-05 13:00 -0700
+hide_table_of_contents: true
+authors: [fvasquez, evanmcc]
+---
+
+This release adds support for amd64 and arm64 Docker images containing miner. These images can be
+fetched from Helium's image registry at quay.io. They are Alpine Linux-based so specify /bin/ash as
+the interactive terminal. The amd64 images will run in the cloud and the arm64 images will run on a
+Raspberry Pi 3 or 4 that has Ubuntu 20.04 LTS 64-bit installed.
+
+<!--truncate-->
+
+This release also bumps the assumed valid block up to `320747`.
+
+### Contents
+
+- _Build miner for Docker_: PRs: [miner/362](https://github.com/helium/miner/pull/362)
+
+### Plan
+
+A `2020.05.05.0` release was deployed to the beta group before noon on Tuesday the 5th PST. We
+anticipate releasing it to general ability before the end of the day.

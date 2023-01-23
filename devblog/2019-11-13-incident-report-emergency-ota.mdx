@@ -1,0 +1,35 @@
+---
+layout: post
+title: Incident Report and Emergency OTA
+date: 2019-11-13 11:00 -0800
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+On November 13 around 7am PST the blockchain halted due to an out of memory bug. All the consensus
+members, having agreed on the next block's contents were unable to verify them. This was because,
+for performance reasons, the transactions in the block were being verified in parallel.
+Unfortunately there was no limit on the amount of concurrency used and this led to CPU and memory
+exhaustion as all 65 transactions in block 110,710 were being verified simultaneously.
+
+<!--truncate-->
+
+A hotfix to limit the number of transactions verified at once was developed and rolled out around
+10:30am PST to the consensus group. This immediately allowed the in-progress block to be completed
+and gossipped around. However non-concensus nodes without the fix, when trying to validate the new
+block, then began to OOM as they saw the new block. An OTA build was completed around 11:20am PST
+and deployed to the beta group. Shortly afterwards, assuming everything looks good, we will do a
+deployment to the wider network.
+
+Longer term, this relates to the rapid growth of the network. We are still working hard on improving
+the scalability of the systems as the network grows and expect to deploy significant improvements to
+make transactions much cheaper to validate soon.
+
+## Content
+
+- _Limit pmap width when validating signatures and transactions_: PRs
+  [blockchain-core/#292](https://github.com/helium/blockchain-core/pull/292)
+
+## Deployment Plan
+
+The OTA is already in beta and will be deployed more widely soon.

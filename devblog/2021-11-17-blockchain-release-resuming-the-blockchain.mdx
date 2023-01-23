@@ -1,0 +1,84 @@
+---
+layout: post
+title: 'Blockchain Release: Resuming Block Production and Gossip'
+date: 2021-11-17 13:48 -0800
+hide_table_of_contents: true
+authors: [vihu, abhay]
+---
+
+#### Hotspot Release
+
+The core developers have tagged a new `2021.11.17.2` Hotspot firmware release which includes
+CRITICAL fixes to ensure that Hotspots continue to follow the chain after the
+[24 hr+ chain halt observed on November 15th](https://status.helium.com).
+
+<!--truncate-->
+
+This is a **mandatory** release for manufacturers to ensure that overall network gossip continues to
+work as expected.
+
+Note: A full post-mortem will be shared with the community early next week.
+
+#### Blockchain Halt Fixes
+
+- Consensus group members were saving transaction proposals to disk more often than was needed.
+  Proposal construction state has been changed to write to disk piecewise.
+- There were numerous places where blocks were unnecessarily read from the disk, leading to
+  disastrous performance with the unexpectedly large block. Most of these have been eliminated by
+  better block metadata caching.
+- General performance sweep of the entire transaction validation and absorb pathways.
+- Rewrite two low level repositories, `e2qc` and `vincenty`, in Rust to improve performance
+- Added `block_size_limit` chain variable which is defaulted to 50MB on miner but can be updated in
+  the future with a chain variable transaction.
+
+Please feel free to skim through the PRs mentioned below for more information.
+
+#### PRs for resuming Hotspots sync
+
+- [blockchain-core#1108](https://github.com/helium/blockchain-core/pull/1108): Fix sync flag on add
+  block events
+- [blockchain-core#1107](https://github.com/helium/blockchain-core/pull/1108): Ignore sync for
+  recent blocks
+
+#### PRs for resuming Blockchain
+
+- [miner#1213](https://github.com/helium/miner/pull/1213): Switch to `block_info_v2`
+- [miner#1210](https://github.com/helium/miner/pull/1210): Add a max block size when constructing
+  blocks
+
+- [blockchain-core#1105](https://github.com/helium/blockchain-core/pull/1105): Fix snapshot info
+  handling
+- [blockchain-core#1103](https://github.com/helium/blockchain-core/pull/1103): Update elections to
+  not pull blocks
+- [blockchain-core#1098](https://github.com/helium/blockchain-core/pull/1098): Upgrade block info to
+  include hbbft round and election info
+- [blockchain-core#1097](https://github.com/helium/blockchain-core/pull/1097): Remove two more
+  unnecessary uses of `head_block`
+- [blockchain-core#1094](https://github.com/helium/blockchain-core/pull/1094): Add
+  `block_size_limit` chain variable
+- [blockchain-core#1093](https://github.com/helium/blockchain-core/pull/1093): Add
+  `gossip_block_limit_mb` application variable
+- [blockchain-core#1091](https://github.com/helium/blockchain-core/pull/1091): Do not send a stale
+  state channel
+- [blockchain-core#1090](https://github.com/helium/blockchain-core/pull/1090): Various performance
+  improvements from downstream
+
+- [relcast#48](https://github.com/helium/relcast/pull/48): Write keytree under txn in another spot
+- [relcast#47](https://github.com/helium/relcast/pull/47): Attempt to add other key types to relcast
+  serialization tree
+
+- [erlang-hbbft#74](https://github.com/helium/erlang-hbbft/pull/74): Attempt better
+  serialization/deserialzation for rbc
+- [erlang-hbbft#73](https://github.com/helium/erlang-hbbft/pull/73): Temporarily hardcode max rpc
+  proposal size to 5mb
+- [erlang-hbbft#72](https://github.com/helium/erlang-hbbft/pull/72): Attempt to use a keytree
+  serialization for rbc to help performance
+
+- [vincenty#2](https://github.com/helium/vincenty/pull/2): Switch vincenty backend to Rust
+
+- [e2qc#1](https://github.com/helium/e2qc/pull/1): Switch e2qc backend to Rust
+
+### Plan
+
+We have been beta testing `2021.11.17.2` since November 17, 2021 1:50 PM PT. Current ETA for GA is
+4:30 PM PT, November 17, 2021.

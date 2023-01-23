@@ -1,0 +1,62 @@
+---
+layout: post
+title: 'LoRaWAN Network Upgrade: Impact & Mitigation'
+date: 2020-05-05 12:00 -0700
+hide_table_of_contents: true
+authors: [lthiery, lthiery]
+---
+
+On Tuesday, May 12th, we plan to start a network upgrade both to the blockchain and the LoRaWAN
+compliant infrastructure at 8 am PDT / 11 am ET. The operation is expected to be complete no later
+than 8:59 am PDT / 11:59 am ET. Progress will be reported live [here](http://status.helium.com/).
+
+<!--truncate-->
+
+The upgrade focuses on many infrastructure improvements which are designed to help the network scale
+and continue to decentralize as adoption continues to grow. We consider that upgrades with potential
+disruptions should be infrequent and avoided whenever possible, but as our adaptation of LoRaWAN to
+a decentralized model for network infrastructure has matured, such an upgrade is necessary at this
+time.
+
+In addition, be aware that there is only the _potential_ for disruption and, in fact, many devices
+with resilient LoRaWAN implementations should experience minimal interruption. That being said, the
+reality is that resilience is often at odds with simplicity, and as such, many LoRaWAN
+implementations have opted for simplicity and may not navigate the upcoming changes without
+intervention.
+
+The upcoming updates include the following:
+
+- A blockchain transaction for registering LoRaWAN identifiers (ie: AppEui, DevEui pairs) to the
+  blockchain; Organizational Unique Identifiers (OUIs) all maintain their own table of these which
+  allow Miners to know that the OUIs LoRaWAN Network Server (or “Router”) is interested in
+  JoinRequests from these devices. **This effectively enables permissionless registering of devices
+  to the network.**
+- A blockchain transaction for reserving a subnet, ie: bits in the DevAddr space; after the Join, a
+  Router may allocate any of its reserved subnet space to any of its devices. **This permits the
+  co-location of many devices on the same public network despite having disparate private network
+  servers.**
+- Switching to subband 2; We've made the decision to adopt subband 2 (switching from subband 7, our
+  current selection). As we’ve on-boarded various existing LoRaWAN devices and gateways to the
+  network, it’s become apparent that standardizing on subband 2 will increase usage and reduce
+  onboarding friction. And though there is some traffic on this subband already, we have determined
+  that it's minimal and shouldn't pose a problem for our Network users. **By reducing friction, we
+  increase adoption of the network, which in turn drives Data Credit usage and thus the
+  incentivization for Hotspot operators.**
+
+There are several potential disruptions resulting from these changes:
+
+- Due to the new DevAddr scheme, existing sessions will expire and devices will need to Join again.
+  Many LoRaWAN stacks detect network presence with occasional ADR commands or ConfirmedUplinks and
+  will Join again on their own. However, if your device stack does not have such logic -
+  specifically if it's not configured to join on all potential subbands - a manual resetting to
+  trigger a new Join may be necessary allowing for a DevAddr to be assigned that is compliant with
+  the new scheme
+- Due to the subband switch, devices will need to issue Joins on subband 2 rather than 7 to Join the
+  Helium Network. In theory, LoRaWAN-compliant devices should attempt to Join on many subbands. In
+  our experience, however, many LoRaWAN stacks are pre-configured for a subband and only attempt to
+  Join on said subband. If this is the case, you will need to reconfigure the subband or update the
+  LoRaWAN stack so it attempts to Join on other subbands than the preconfigured subband. In both
+  cases, manual intervention may be required.
+
+If you need help determining if and how this may impact your devices, please reach out to
+developer@helium.com or join us on [Slack](http://chat.helium.com/).

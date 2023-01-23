@@ -1,0 +1,56 @@
+---
+layout: post
+title: 'RAK Hotspot Miner: Firmware Update Issues'
+date: 2020-11-06 12:13 -0800
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The team has noticed issues where a small number of RAK Hotspot Miners are not applying firmware
+updates containing bug fixes.
+
+<!--truncate-->
+
+After investigation, we found that these Miners were booting from a secondary, fallback image that
+is used as backup on the device. The Miner is fooled into thinking a reset button was pressed which
+doesn't exist on the RAK Hotspot Miner. The code is in place to support Helium Hotspots.
+
+Because the RAK Hotspot Miners continue to think the "reset button" is being pushed, they will
+always boot from their older, fallback image.
+
+**This issue only affects a very small number of RAK Hotspot Miners**
+
+#### Identifying the Problem
+
+- Is it a Helium Hotspot? -> If yes, you do not have the issue
+- Is it actively mining? -> If yes, you do not have the issue
+- Does it have the latest firmware `2020.10.31.1`? -> If yes, you do not have the issue
+
+If you find that you do not have the latest firmware, unplug it from power, wait ~30 minutes, and
+plug it back in. Then check if it has the latest firmware. If it doesn’t update, you have an
+affected unit.
+
+#### Interim Solution
+
+Since we know OTA updates continue to be applied to the primary image, the fix is to copy the
+primary image to the fallback image, effectively making the image the same. This allows the RAK
+Hotspot Miners to boot the fallback image which is the latest version.
+
+#### Permanent Solution
+
+The permanent solution requires two steps:
+
+1. An OTA with a permanent fix that will be applied to the primary image.
+2. Manually copying the primary image to the fallback image and reboot.
+
+Once rebooted, the RAK Hotspot miner will download and apply new firmware updates to both locations,
+so there is no difference between locations.
+
+### Plan
+
+The short term fix can be applied at any time. If your RAK Hotspot Miner does not have the latest
+update `2020.10.31.1`, please contact support@helium.com. You can find out by running a diagnostic
+report on the Miner.
+
+The permanent fix needs additional testing. The plan is to beta the next firmware on Tuesday,
+November 10th, 2020 with a scheduled GA on Wednesday, November 11th, 2020.

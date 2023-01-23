@@ -1,0 +1,75 @@
+---
+layout: post
+title: Console Updates- ver. 1.9.55
+date: 2021-07-15 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm, madninja]
+---
+
+This release the team worked on addressing issues reported for Console 2.0 beta and also backend
+fixes to make joins and packet transfer more reliable.
+
+<!--truncate-->
+
+### Join and uplink issues
+
+A number of issues have impacted joins and uplinks over the past few weeks. Here’s a list of updates
+made to address these issues as well as upcoming fixes.
+
+Hotspot syncing - an issue causing earlier versions of Hotspots to continually sync, which could
+have impacted packet delivery was fixed
+[blog](https://engineering.helium.comhttps://docs.helium.com/blog/2021/07/11/blockchain-release-snapshot-performance-update.html)
+
+State channels - increased the maximum number of open state channels to 10 (from 5) which helps
+Console backend (Router) serve more packets as the demand on using the network continues to
+increase. For more information about state channels and their role check
+[here](https://blog.helium.com/helium-state-channels-383ade2368d0)
+
+Channel frequency list (CFlist)- this feature was enabled according to feedback from the community,
+however it was discovered to cause issues if device firmware did not closely adhere to the LoRaWAN
+spec. Based on community feedback we’ve included a toggle to enable it, but disabled it by default.
+
+XOR filter - to help scale in an upcoming release we are updating the production Console/Router to
+use an xor filter. This will allow the backend to only process known traffic and avoid spending
+resources on unfamiliar packets. More information about xor filters
+[here](https://docs.helium.com/lorawan-on-helium/#join-request-frames-and-filters).
+
+### Features and fixes
+
+- Updates to Console 2.0 beta on staging server based on feedback.
+  - Staging UI: Icons without text descriptions of their actions
+    [647](https://github.com/helium/console/issues/674)
+  - Staging UI Tweeks: Device Name [677](https://github.com/helium/console/issues/677)
+- Provided a new Label setting to enable CFList for supported devices US915 (default off).
+- Opening device detail in new tab has strange behavior
+  [653](https://github.com/helium/console/issues/653)
+- Provide a backend cache to help address late packets
+  [343](https://github.com/helium/router/issues/343),
+  [338](https://github.com/helium/router/issues/338)
+
+### Open source users
+
+- New users should use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations.
+  - To update, check the newest instructions, rebuild, and restart. The database is not affected.
+  - Libressl-dev has been swapped with openssl-dev in the Dockerfile dependencies list. This simply
+    requires a rebuild.
+  - If you experience issues running Console/Router locally, update Docker to the latest version and
+    pick up the changes in docker-compose-local.yaml
+
+Check the readme for specific upgrading instructions
+[here](https://github.com/helium/console#upgrading-your-open-source-consolerouter).
+
+Additional technical documentation
+[here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Microsoft Azure IoT Hub pre-built Integration
+- Gateway monitoring
+- Support AS923 for Australia
+- Packet purchaser: integrate with ChirpStack LoRaWAN Network Server

@@ -1,0 +1,38 @@
+---
+layout: post
+title: Stabilization Firmware Release
+date: 2020-08-14 15:30 -0700
+hide_table_of_contents: true
+authors: [evanmcc, vihu]
+---
+
+Recent increases in the size of the network have caused some scaling issues. When the network was
+smaller, we wrote some code without concern for scaling, pulling the entirety of various data
+structures off of disk and into memory for the duration of various operations. The code was simpler
+that way, but these in-memory structures have come to cause a lot of problems as the number of
+gateways has gotten larger.
+
+<!--truncate-->
+
+The `2020.08.14.0` release includes incrementalized rewrites of all of the above mentioned places,
+which were causing OOM issues on some of our older Hotspot hardware when in the consensus group. It
+shouldn't change the behavior of the network other than to allow smoother block times.
+
+Furthermore, we have also fixed a few more bottlenecks concerning state channel clients that should
+further increase the likelyhood of hotspots being able to transfer packets.
+
+This release also bumps the blessed snapshot and contains some bugfixes for full nodes.
+
+### Contents
+
+- _Reduce Snapshot Cost_: PR:
+  - [blockchain-core/557](https://github.com/helium/blockchain-core/pull/557)
+- _Incrementalize Metadata and Reassertion_: PR
+  - [blockchain-core/571](https://github.com/helium/blockchain-core/pull/571)
+- _Cache pubkeybin and sigfun on sc client_: PR:
+  - [blockchain-core/578](https://github.com/helium/blockchain-core/pull/578)
+
+### Plan
+
+We will beta `2020.08.14.0` this afternoon PST and release it to GA on an accelerated schedule in
+hopes of stabilizing the chain.

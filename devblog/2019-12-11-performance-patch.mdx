@@ -1,0 +1,42 @@
+---
+layout: post
+title: Performance Enhancement Beta
+date: 2019-12-11 15:00 -0700
+hide_table_of_contents: true
+authors: [evanmcc, madninja]
+---
+
+On December 11 around 3 PM PDT we rolled out a new beta release.
+
+<!--truncate-->
+
+## Block Weather
+
+While our [PoCv4](https://docs.helium.com/blog/2019/12/02/poc-v4) changes have improved the
+performance of the chain somewhat, we're still regularly missing our 60 block production target,
+with an average block production time of 76s at the time of this writing. We've also seen increasing
+problems with block sync as the increased performance of receipts has roughly tripled the average
+block size. This beta is meant to address both of these issues and improve performance in the medium
+term so that the chain performs acceptably until we have time to make changes that address the root
+of the problems rather than the symptoms.
+
+Going forward, we are reworking our targeting such that it does not require knowledge of all of the
+Hotspots on the network, which should speed up targeting and validation of PoC challenges quite
+alot. Additionally, we'll be investigating why sync streams are failing so often with bigger blocks.
+Reducing the rate of failures will speed the initial sync of new Hotspots.
+
+## Contents
+
+- _Targeting performance changes_: We were doing too much work here, so we stopped. PR:
+  [miner/268](https://github.com/helium/miner/pull/269)
+- _Validation performance changes_: Since receipt validation needs to re-do the work of targeting,
+  performed the same optimization here as well. PR:
+  [blockchain-core/320](https://github.com/helium/blockchain-core/pull/320)
+- _Stream monitoring_: A part of our p2p networking layer would stall when a failure was too quick
+  and not recover in a timely fashion, which slowed down syncing to the assumed valid block quite a
+  lot. This fix speeds recovery quite a lot. PR:
+  [libp2p/232](https://github.com/helium/erlang-libp2p/pull/232)
+
+## Deployment Plan
+
+We plan to let this beta overnight and deploy in the morning PST on Thursday the 12th.

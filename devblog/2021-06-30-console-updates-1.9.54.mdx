@@ -1,0 +1,49 @@
+---
+layout: post
+title: Console Updates- ver. 1.9.54
+date: 2021-07-01 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+This week we’re excited to release Console 2.0 beta on our staging server. Console 2.0 beta
+represents months of work by the team and we’re excited to share with our community and get their
+feedback.
+
+<!--truncate-->
+
+Check the Console 2.0 beta announcement [here](https://bit.ly/3waPF7x).
+
+### Features and fixes
+
+- Console 2.0 beta released to staging server.
+- First phase of scaling state channels to support network growth
+- Roaming in addition to uplinks/downlinks also includes joins (using ABP)
+- Clear pending downlinks request as part of the backend downlink response (integration)
+  [293](https://github.com/helium/router/issues/293)
+- Decoded payload is available for dynamic URL parameters
+  [307](https://github.com/helium/router/issues/307)
+- CFList appended to JoinAccept for US915 [322](https://github.com/helium/router/issues/322)
+
+### Open source users
+
+- New users should use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations. To update, check the
+  newest instructions, rebuild, and restart. The database is not affected.
+
+Check the readme for specific upgrading instructions
+[here](https://github.com/helium/console#upgrading-your-open-source-consolerouter).
+
+Additional technical documentation
+[here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Microsoft Azure IoT Hub pre-built Integration
+- Gateway monitoring
+- Support AS923 for Australia
+- Packet purchaser: integrate with ChirpStack LoRaWAN Network Server

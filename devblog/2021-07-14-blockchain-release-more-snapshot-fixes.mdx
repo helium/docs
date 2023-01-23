@@ -1,0 +1,40 @@
+---
+layout: post
+title: 'Blockchain Release: More Snapshot Fixes'
+date: 2021-07-14 16:26 -0700
+hide_table_of_contents: true
+authors: [vihu, madninja]
+---
+
+The core developers have tagged a new `2021.07.15.0` Hotspot firmware release which introduces more
+snapshot related fixes. This is a _mandatory_ release for Hotspot owners and manufacturers to
+continue syncing with newly blessed snapshots.
+
+<!--truncate-->
+
+This release improves on the
+[previous](https://engineering.helium.comhttps://docs.helium.com/blog/2021/07/13/blockchain-release-snapshot-fixes.html)
+release and fixes some critical issues related to light gateway support, snapshot disagreement and
+non-invalidation (follow) mode. As many community members have noticed, there hasn't been a blessed
+snapshot on the blockchain for a while, the core developers believe that the fixes in this new
+release will further improve chances of getting a snapshot on chain.
+
+- #### Related PRs
+
+  - [blockchain-core#914](https://github.com/helium/blockchain-core/pull/914): Force clean
+    witnesses, don't allow them to be added, disable gc
+  - [blockchain-core#915](https://github.com/helium/blockchain-core/pull/915): Fix add light gateway
+    validation
+  - [blockchain-core#917](https://github.com/helium/blockchain-core/pull/917): Add a
+    no_staking_mapping test
+  - [blockchain-core#918](https://github.com/helium/blockchain-core/pull/918): Cover more checkpoint
+    code under the follow mode check
+  - [blockchain-core#920](https://github.com/helium/blockchain-core/pull/920): Zero out the last
+    location nonce
+  - [blockchain-core#921](https://github.com/helium/blockchain-core/pull/921): Diff more gateway
+    fields in snapshot diff
+
+### Plan
+
+We have been beta testing `2021.07.15.0` since July 15th, 2021 10:00 AM PT. Current ETA for GA is
+12:00 PM PT, July 15th, 2021.

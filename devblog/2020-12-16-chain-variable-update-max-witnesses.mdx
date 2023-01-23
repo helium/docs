@@ -1,0 +1,40 @@
+---
+layout: post
+title: 'Chain Variable Update: Max Witnesses'
+date: 2020-12-16 14:00 -0800
+hide_table_of_contents: true
+authors: [vihu, madninja]
+---
+
+The team has successfully deployed support for
+[HIP 15](https://github.com/helium/HIP/blob/master/0015-beaconing-rewards.md) and
+[HIP 17](https://github.com/helium/HIP/blob/master/0017-hex-density-based-transmit-reward-scaling.md)
+and switched to a beacon-only PoC model. One of the things we decided not to change with all of the
+other chain variables this morning was an increase to the number of max witnesses for each PoC. Now
+that we are confident with the way the Consensus Group is able to handle the new PoC receipts and
+new rewards calculations, we feel like it's safe to increase the max number of witnesses in each PoC
+receipt.
+
+<!--truncate-->
+
+Previously, we allowed maximum PoC path length of 5 with each PoC hop allowed to have 5 max
+witnesses. This implied that the total number of witnesses per PoC transaction would be 25 (best
+case scenario). In the beacon-only model, since there's only a single challengee (beaconer) who
+would transmit a PoC packet, we are increasing the witness limit from 5 to 25.
+
+You can read more about the deployment progress of HIPs 15 and 17 in our previous blog posts
+[here](https://engineering.helium.comhttps://docs.helium.com/blog/2020/12/09/blockchain-release-hip-17.html),
+[here](https://engineering.helium.comhttps://docs.helium.com/blog/2020/12/14/blockchain-release-hip-17-bugfixes.html)
+and
+[here](https://engineering.helium.comhttps://docs.helium.com/blog/2020/12/15/blockchain-release-hip-17-additional-bugfixes.html).
+
+#### Proposed Chain Variable
+
+| Chain Variable            | Proposed Value | Reason                                           |
+| ------------------------- | -------------- | ------------------------------------------------ |
+| poc_per_hop_max_witnesses | 25             | Increased to allow more witnesses per PoC beacon |
+
+### Plan
+
+We plan on issuing the chain variable transaction at 3PM PST on Wednesday, Dec 16 2020. We will
+update this post to reflect the transaction on chain when it goes live.

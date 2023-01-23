@@ -1,0 +1,35 @@
+---
+layout: post
+title: HBBFT Signature Phase Fixes
+date: 2020-04-22 10:00 -0800
+hide_table_of_contents: true
+authors: [evanmcc]
+---
+
+### Block Weather
+
+Lately, as our receipt count has improved, we've been seeing long block times again.
+
+<!--truncate-->
+
+We have spent a couple of days doing some performance analysis and instrumenting the consensus code
+a bit better, and have come up with some changes that should hopefully improve the situation. This
+release mostly focuses on some correctness issues with the signature phase of our HBBFT system.
+There will be another release in a few days which should contain some speedups to HBBFT primitives,
+once we've had a chance to validate them for a bit longer.
+
+This release also contains various low-level tweaks to things like P2P relay selection, and when
+exactly a block is gossiped on.
+
+### Contents
+
+- _Fix Gossip Phase Threshold_: PRs: [miner/371](https://github.com/helium/miner/pull/371)
+- _Fix Race in Validation Sidecar_: PRs: [miner/374](https://github.com/helium/miner/pull/374)
+- _Fix Signature Validation_: PRs: [miner/375](https://github.com/helium/miner/pull/375)
+- _Optimistic Block Gossip_: PRs: [core/429](https://github.com/helium/blockchain-core/pull/429)
+
+### Plan
+
+In the late afternoon of Tuesday, April 21st, we rolled this image out to the beta group. It has
+betaed overnight and we will roll it out to General Availability sometime in the late morning today,
+April 22.

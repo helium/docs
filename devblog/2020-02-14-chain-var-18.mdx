@@ -1,0 +1,31 @@
+---
+layout: post
+title: Chain Variable 18
+date: 2020-02-14 10:57 -0800
+hide_table_of_contents: true
+authors: [vihu, evanmcc]
+---
+
+### Summary
+
+We continue to receive excellent feedback from the community regarding some of the decisions we made
+with the introduction of PoC V8. This update clarifies the new chain variable transaction we issued
+on Thu 13 Feb 2020 09:29:39 PM UTC.
+
+<!--truncate-->
+
+### Concerns
+
+- **Consensus group membership not geographically diverse**: In order to ensure that the consensus
+  members are geographically diverse, we have reduced the `election_cluster_res` from `8` to `4`.
+
+- **Lower bucket for good RSSI values too strict**: In order to allow witnesses seen at RSSI values
+  below our initial expectation to be considered good enough for constructing paths, we have reduced
+  the lower threshold `poc_good_bucket_low` from `-115` to `-118`. Note that since this is a
+  logarthmic scale, we believe that any RSSI below -118 is likely too low to be considered good
+  enough.
+
+### Audit
+
+You can find the chain variable transaction details
+[here](https://github.com/helium/miner/blob/master/audit/var-18.md).

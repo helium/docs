@@ -1,0 +1,22 @@
+---
+layout: post
+title: Further state channel improvements
+date: 2020-08-18 21:00 -0700
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+This `2020.08.18.4` release addresses some addtional issues in the state channel client. It simply
+consists of 4 commits backported from a state channel fixup branch:
+
+<!--truncate-->
+
+- [Safely get num_dcs for a state channel](https://github.com/helium/blockchain-core/commit/e247c489a9484472d3d930b41758f36535dbe912)
+- [Use a queue for pending packets in state channel client](https://github.com/helium/blockchain-core/commit/2c00a71884d91d9250c7a26e636baff5b4fb1a76)
+- [Don't send on channel until banner; avoid redundant sc broadcasts](https://github.com/helium/blockchain-core/commit/c82ae4cea341a0ce663604aa1a6db161c7acabf1)
+- [Don't loose packet ordering on the client side](https://github.com/helium/blockchain-core/commit/b96223aa5f4d038dcda44e7e43e187ee2764005a)
+
+### Plan
+
+We have been betaing `2020.08.18.4` and its prior tags throughout the day and will be releasing it
+GA by 9:30 pm PST.

@@ -1,0 +1,29 @@
+---
+layout: post
+title: 'Miner Release: Emergency release for dropped packets'
+date: 2021-10-29 14:37 -0700
+hide_table_of_contents: true
+authors: [vihu, jdgemm, abhay]
+---
+
+The core developers have tagged a new `2021.10.29.0` Hotspot firmware release which includes bug
+fixes for dropped packets reported by the community and verified by the router team.
+
+<!--truncate-->
+
+Devices attempting to join would continue in a join accept and request loop or devices trying to
+downlink would be unsuccessful. This issue did not impact existing devices sending uplink packets.
+
+This is a **mandatory** update for manufacturers as it includes other necessary fixes from
+`2021.10.27.0`. If a manufacturer hasn't updated to `2021.10.27.0`, they should skip that build and
+simply update to `2021.10.29.0`. The `2021.10.29.0` release will allow Hotspots to continue to route
+LoRaWAN packets. The core developers apologize for creating urgent weekend work.
+
+#### Related PRs
+
+- [miner#1148](https://github.com/helium/miner/pull/1148): Do not use AdjustedTmst_us for tmst field
+
+### Plan
+
+We have been beta testing `2021.10.29.0` since Oct 29, 2021 3:45 PM PT. Current ETA for GA is 6:00
+PM PT, Oct 29, 2021.

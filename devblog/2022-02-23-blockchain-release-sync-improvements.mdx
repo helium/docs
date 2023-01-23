@@ -1,0 +1,49 @@
+---
+layout: post
+title: 'Blockchain Release: Sync Improvements and Mandatory Core Upgrade'
+date: 2022-02-23
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+The core developers have tagged a new `2022.02.22.0` `miner` and `blockchain-core` release. This
+release is **mandatory** for all Hotspot Makers (please update your fleet by March 3, 2021 00:00
+UTC) and will be mandatory in the near future for Validators, ETLs, Routers and Nodes. It contains a
+network improvement that is gated behind some currently inactive chain variables. Hotspots without
+this update _will not_ be able to sync or mine once the chain variable is activated later.
+
+<!--truncate-->
+
+In addition to these improvements, this release will be the first to ship (but not use) some of the
+infrastructure required for the transition to Light Hotspots: `gateway-rs`. The use of `gateway-rs`
+will be
+[controlled by the value of a new `sys.config` variable `gateway_and_mux_enable`](https://github.com/helium/miner/pull/1370),
+which is set to `false` by default.
+
+If this variable is set to `true`, however, the image will run an internal copy of `gateway-rs` in a
+support role to the miner process. In this phase of the transition, the `gateway-rs` will perform
+two functions for the miner: process all traffic to and from the packet forwarder and interface with
+the security chip (ECC) for all device transactions.
+
+This will allow manufacturers to begin testing the behavior of `gateway-rs`, including its ability
+to transfer device packets without fully syncing with the blockchain. The miner process will
+continue to manage PoC traffic for the hotspot during this phase as usual.
+
+Lastly, the core team has made several performance improvements that allow Hotspots to sync and stay
+in sync with the blockchain over libp2p.
+
+#### Related PRs
+
+- [miner#1370](https://github.com/helium/miner/pull/1370): Integrate rust gateway-rs and semtech-udp
+  mux as erlang ports of miner #1370
+
+- [blockchain-core#1229](https://github.com/helium/blockchain-core/pull/1229): State Channel
+  Disputes
+
+- [erlang-libp2p#424](https://github.com/helium/erlang-libp2p/pull/424): Remove extremely noisy
+  logging statement
+
+### Plan
+
+We have been testing `2022.02.22.0` since Feb 22, 2022 3:00 PM PST. Current ETA for GA is Feb 23,
+2022 1:30 PM PST.

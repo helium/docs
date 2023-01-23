@@ -1,0 +1,32 @@
+---
+layout: post
+title: GA Deploy of 2019-11-03.0
+date: 2019-11-04
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+We have released a firmware based on the previous beta to general availability. This firmware is
+focused on improving Proof of Coverage construction and validation times. The main change from the
+last beta has been to refactor our PoC path calculation routines to be more efficent and to improve
+our caching of expensive to obtain information necessary for pathing. This change can be seen at
+[blockchain-core#289](https://github.com/helium/blockchain-core/pull/289) .
+
+<!--truncate-->
+
+Other notable changes, mentioned in the previous beta post:
+
+Blockchain:
+
+- [blockchain-core#282](https://github.com/helium/blockchain-core/pull/282)
+- [blockchain-core#280](https://github.com/helium/blockchain-core/pull/280)
+
+Miner:
+
+- [miner#240](https://github.com/helium/miner/pull/240)
+
+We are still working towards an overhaul of the proof of coverage system that should be fairer and
+generate more achieveable paths, as well as be much cheaper to compute. That work is being tracked,
+at least partially in [blockchain-core#257](https://github.com/helium/blockchain-core/pull/257). In
+the meantime this release should help improve the proportion of hotspots getting rewarded and
+stabilize block times a little more.

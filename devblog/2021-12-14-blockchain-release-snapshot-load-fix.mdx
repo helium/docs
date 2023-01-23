@@ -1,0 +1,47 @@
+---
+layout: post
+title: 'Blockchain Release: Latest snapshot load fix for interrupted snapshot loading'
+date: 2021-12-14 09:27 -0800
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+The core developers have tagged a new `2021.12.14.0` Hotspot firmware release which includes
+**recommended** bug fixes in `erlang-libp2p` and `blockchain-core` specifically in Snapshot loading
+and UPnP.
+
+<!--truncate-->
+
+### Snapshot Loading
+
+This change helps with a case where a snapshot obtained by checking `latest.json` instead of the
+snapshot in the config file was interrupted during loading. If the snapshot in the config file was
+older, this would lead to the node determining it had completed the load of the snapshot and
+attempting to move onto block sync. This would often not work and the node would be stuck.
+
+### libp2p / UPnP improvements
+
+Additionally a negative UPNP/PMP renew timer was observed in some hotspot logs, which is an error.
+This has also been corrected.
+
+### Additional Updates
+
+Additionally there's a fix for doing a fullsync against the early chain and a PoCv11 ETL fix, but
+these do not apply to Hotspots.
+
+#### Related PRs
+
+- [erlang-libp2p#413](https://github.com/helium/erlang-libp2p/pull/413): constrain renew timer
+- [erlang-libp2p#414](https://github.com/helium/erlang-libp2p/pull/414): minium retry time on lease
+  renewal
+- [blockchain-core#1157](https://github.com/helium/blockchain-core/pull/1157): If a snapshot listed
+  in latest.json is interrupted when loading, fix it
+- [blockchain-core#1154](https://github.com/helium/blockchain-core/pull/1154): Catch unknown region
+  for tagged path elements
+- [blockchain-core#1153](https://github.com/helium/blockchain-core/pull/1153): fix poc v1 to work
+  properly with mode
+
+### Plan
+
+We have been beta testing `2021.12.14.0` since December 14, 2021 09:22 AM PT. Current ETA for GA is
+12:00 PM PT, December 14, 2021.

@@ -1,0 +1,56 @@
+---
+layout: post
+title: App Version 3.8.3
+date: 2021-11-18
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+&nbsp;
+
+# App Version 3.8.3
+
+This release includes improvements to API loading, adds rewards caching, and updates how earnings
+are calculated.
+
+<!--truncate-->
+
+## 24H Hotspot Rewards
+
+The 24 hour Hotspot rewards and summary found on the home page of the app is now based on UTC
+Calendar day and not a rolling 24 hour window. The impetus behind this change is to reduce the
+number of queries to the API to calculate this value.
+
+## App Cacheing
+
+The app will now cache transaction data to reduce the number of calls it needs to make to the API on
+app launch.
+
+## Earnings Charts
+
+The new default chart for Hotspots has changed from 14D to 24H. The chart also displays bucketed
+earnings in a UTC calendar day and no longer a rolling 24 hour window.
+
+The 14 and 30 day charts are also updated to UTC calendar days.
+
+## Places Hotspot Checklist behind a feature flag
+
+This feature flag will allow us to toggle this feature on and off without a new release.
+
+# Bug Fixes
+
+- Fixes a bug where the second map of assert location was off
+- Fixes a bug when asserting location and the button does not respond on first press because it's
+  checking for a pending transaction
+- Removes the API check when pairing with a Hotspot over Bluetooth
+- Fixes a URL issue on Android where links can't be opened
+
+# Maker Support
+
+- Adds Deeper Maker support
+- Adds QR Code support for Controllino
+
+# Other Improvements
+
+- Adds HNTenna to the list of selectable antennas in the dropdown
+- Sorts antenna list by alphabetical order

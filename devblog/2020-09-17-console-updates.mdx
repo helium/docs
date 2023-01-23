@@ -1,0 +1,44 @@
+---
+layout: post
+title: Console Updates- Debug Pane, pause transfer, and internal monitoring
+date: 2020-09-17 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+Debug pane enhancements, ability to pause data transfer for devices and across organizations, and
+tools for internal monitoring by Helium dev team.
+
+<!--truncate-->
+
+### Features and Updates
+
+- Updated Debug pane: information is easier to view, can be copied to clipboard or exported as json
+  file, and entries can be cleared.
+- Provided ability to pause data transfer for a device or an Organization with on/off switches on
+  pages: Device, Device index, Labels, and Organizations.
+- Added more front end metrics for internal monitoring by Helium dev team.
+- Internal backend monitoring and metrics for Helium dev team.
+- Fix custom decoders crashing (it will now retry to decode if crash is detected).
+- Improve state channels handling.
+- Updated to enforce a max payload for downlinks to adhere to LoRaWAN spec.
+
+### Fixes
+
+- Deployed a fix for the issue causing decoder functions to suddenly stop working. Decoders exist in
+  a "context", an isolated memory space in a v8 VM (see
+  [here](https://github.com/helium/erlang_v8)). A context will now be recreated if it fails and the
+  function restarted.
+- Released a patch to update state channels and increase stability.
+- Fixed an issue with TTN devices and Labels not appearing consistently.
+- Addressed downlink payloads incorrectly displaying as empty in Debug window.
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Ability to filter and sort tables.
+- Adding MAC command information in event logs.
+- Update MQTT integration to allow more flexibility.
+- Include support for LoRaWAN adaptive data rate (ADR).
+- Release Console and its backend network server and blockchain components (Router) as open source.

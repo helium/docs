@@ -1,0 +1,154 @@
+---
+layout: post
+title: Incident Report - Oct 10 - 17, 2019
+date: 2019-10-18 22:36 -0700
+hide_table_of_contents: true
+authors: [madninja]
+---
+
+## Overview
+
+The Helium blockchain team has been working for several weeks on some incremental upgrades to our
+Proof of Coverage (PoC) and election systems, to make them more scalable and fair. Changes here
+include:
+
+<!--truncate-->
+
+- adjustments to make consensus groups more geographically diverse.
+- changes to limit the length of PoC paths, which grow exponentially more expensive to validate
+  (`O(n²)` for the computer scientists in the audience) as they grow longer.
+- changes to PoC challenge generation to make it impossible for an unsynced hotspot to participate
+  in a PoC challenge.
+
+## What Happened
+
+### PoCv2 Issues
+
+On October 10th around noon PDT, we submitted the chain variable transaction to activate these
+changes, which had gone, disabled, into production over the preceeding few weeks. Shortly
+thereafter, things began to go badly wrong. We were immediately aware of the impact and began
+analysis of the situation. While we were able to determine quickly that block gossip has stopped
+functioning effectively, it was unclear why. Our public-facing API server, which allows our mobile
+apps to communicate with the hotspot blockchain network, was also not functioning correctly.
+
+First, we discovered that the code version on our cloud based full nodes was too old, and they had
+stopped syncing the chain and participating in block gossip, slowing things down quite a bit. This
+was remedied by 3pm, but did not help as much as expected, so we continued to look at hotspots to
+figure out what the true root of the issue was. It was clear that validating PoC receipt
+transactions was a major part of the problem, but it was unclear how they had become problematic.
+
+By 8PM PDT the ledger on the API had been reset and it resumed normal service, and the team was deep
+into discussions of how to resolve the issue. At 11PM PDT a transaction was prepared that rolled
+back part of the configuration change, and this seemed, initially, to be effective, so the team went
+to sleep. Overnight, at approximately 1:30AM, the chain halted again, for similar reasons.
+
+The next morning was also dedicated to analysis of the problem. We prepared and partially rolled out
+a patch by 3pm that set a deadline on how long a transaction would have to have to validate,
+preventing extremely long block times. It was declared GA at 4:20PM PDT and seemed to help somewhat,
+but not enough. By 6PM PDT, it was decided that this was not helping enough and the full suite of
+PoC changes should be removed via another chain variable change transaction. This had the desired
+effect of restabilizing the chain.
+
+### Ledger Fork
+
+However, just after 8PM PDT, the chain experienced another halt. Investigation revealed that a large
+number of hotspots considered the block invalid and could not continue syncing the chain. While we
+initially feared that this was related to the earlier problems, it turned out to be unrelated. We
+have been dealing with long-term determinism issues surrounding retained floating point values and
+list ordering diverging over time for a while now, and this was another in the same category.
+
+Our initial response was to skip past the invalid block that had been generated, but the block that
+the consensus group subsequently generated proved impossible (for the aforementioned determinism
+issues) for a large percentage of the hotspot fleet to progress past. However, the rest of the fleet
+managed to continue making blocks and holding elections. Over the weekend, we spent time refining
+the process for safely bringing hotspots back into line with the group. This involved reconstructing
+the ledger data from blocks on disk, which was moderately time-consuming and not particularly safe.
+By Monday, we had improved the existing code around this enough to safely fix the remaining
+hotspots.
+
+### API Recovery
+
+The API server essentially is a blockchain consumer and was affected by the ledger fork as well. A
+conflicting view of the ledger wouldn't allow the API server to ingest blocks and update the
+necessary data in the back-end database required by the app to render different screens.
+
+Before we realized that the root issue was the ledger fork, we tried a few cleanup methods on the
+API server:
+
+- Rebooted the API server on all the AWS instances, between 1–2 PM PDT Thursday, Oct 10
+- Rebuilt the API server from scratch with updated blockchain dependencies, between 2–5 PM PDT
+  Thursday, Oct 10
+
+None of which actually resolved the issue. However, once we knew that we had a conflicting ledger,
+it was a simple matter of:
+
+- Pausing the API server's sync process
+- Resetting the API server's copy of the ledger
+- Resuming the blockchain sync process
+
+These steps worked as intended and the API server was back up and running around 8PM PDT, Thursday,
+Oct 10.
+
+### Continued Struggles with Pathing
+
+Through the weekend and for most of the following week we struggled with block production and a
+phenomenon where PoC rate would fall terribly low, causing a large number of issues as many active
+hotspots were assumed down due to how long it had been since they'd issued a PoC challenge.
+
+We eventually realized that the issue had nothing, strictly, to do with the PoC code, but that in
+our more crowded cities, changes to how long a hotspot would be judged a poor network participant
+for failing PoC challenges was lessened, leading to many new hotspots being in the neighborhood all
+at once. This lead to many new and exceptionally long paths.
+
+Since paths grow exponentially more expensive with their length, this would lead to situations where
+our PoC challenge generation state machine would be stuck so long generating challenges that no
+challenge that it generated could ever succeed, as their validity is height-limited.
+
+Since challenge generation took longer than the rate at which new challenges would be issues, this
+state machine entered a spiral from which it would never recover, until either restarted or fixed by
+a code change, which was made on the 17th.
+
+## Resolution
+
+There were a number of operational and code fixes undertaken over the course of the week. We added
+time budgets to all of the places where a PoC challenge could be generated or validated, and added
+new path limitation code to trim paths as soon as they grow too long, rather than computing them in
+full before truncating them. The new PoC code was re-enabled on Thursday, October 17th, along with
+these changes.
+
+Operationally, our team worked to reset all of the nodes that had been effected by the ledger fork
+and return them to proper working order.
+
+## Impact
+
+Over the course of the incident, block production was massively slowed down, and with them,
+elections, so token production was slowed down. We were regularly seeing block times of well over
+half an hour, many of which took manual intervention to resolve.
+
+A number of hotspots had their PoC challenge code fall behind such that they could no longer issue
+challenges, impacting their ability to make tokens.
+
+Due to the ledger fork, 65 hotspots ceased to stay synchronized with the chain, making it so that
+they couldn't, temporarily, participate in PoC processes or elections, making them effectively
+unable to earn tokens.
+
+These changes also altered the topology of the network, leading to unstable block and election
+times.
+
+## Next steps
+
+We've taken action to continually measure determinism drift on the ledger, and when we detect any,
+we'll work to reduce it until there is none.
+
+Work on restablizing block and election times is ongoing. Since our consensus groups run on
+appliances using consumer internet, this is will be an ongoing challenge.
+
+We have put in place procedures for slower and more careful roll out of new chain variables, and
+re-prioritized the reconstruction of our separated test cluster.
+
+This blog is a first step in clearly documenting both incidents and our work to remediate them, as
+well as the place to announce planned changes, deployments of those changes, and any maintenance of
+the app and associated services.
+
+We apologize for the instability as we work to improve everyone's ability to participate in the
+growth of the network.

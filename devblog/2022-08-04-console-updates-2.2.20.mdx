@@ -1,0 +1,61 @@
+---
+layout: post
+title: Console Updates- v2.2.20
+date: 2022-08-04 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+The team has released the latest version of Console `2.2.20` to production. This release includes a
+rollup of a number of updates:
+
+<!--truncate-->
+
+#### v2.2.20
+
+This update fixes out of order uplinks that occur when Hotspots are very slow to deliver data. This
+Hotspot delay could be caused by extreme latency or local power or network outages.
+
+#### v2.2.19
+
+Key updates include: connectivity updates with grpc, upgrading the LoRaWAN library, and addressing
+an issue to allow dual plan support in Australia.
+
+#### v2.2.18
+
+Addresses a serious issue related to device joins and the upcoming Hotspot release planned for early
+next week. Without this update devices may experience issues attempting to join.
+
+### Open source users
+
+Check the [readme](https://github.com/helium/console) for instructions on how to use prebuilt
+Console images.
+
+- **REQUIRED** upgrade for Router as it includes a necessary Blockchain Core update.
+
+- New open source users should follow Option 1 listed in the readme and use
+  `docker-compose-quay.yaml` as the template for their docker-compose file.
+
+- Existing open-source users can update their existing docker-compose file and replace the lines for
+  just the "console" section with the updated lines in the latest `docker-compose-quay.yaml` file.
+  If something does not work, simply revert your changes back to the `docker-compose-quay.yaml`, and
+  file an issue [here](https://github.com/helium/console/issues).
+
+Database migrations will still happen automatically when using the hosted Console image.
+
+Docs for customization options
+[here](https://docs.helium.com/use-the-network/run-a-network-server/run-console/#customize-console-environment).
+IMPORTANT: If you choose to customize your version of Console you need to build from source, or your
+customizations will be overwritten by the docker image.
+
+Additional
+[technical documentation](https://docs.helium.com/use-the-network/run-a-network-server/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Improving network scalability
+- Scaling out roaming services
+- [LoRaWAN roaming protocol support](https://lora-alliance.org/wp-content/uploads/2022/01/TR010-1.0.0-LoRaWAN-Roaming-Hub.pdf)
+- LoRaWAN library

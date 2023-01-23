@@ -1,0 +1,28 @@
+---
+layout: post
+title: 'Blockchain Release: Networking and Snapshot Improvements'
+date: 2021-07-31 09:55 -0700
+hide_table_of_contents: true
+authors: [abhay]
+---
+
+The core developers have tagged a new `2021.07.30.0` Hotspot firmware release which updates the
+currently blessed snapshot, fixes a minor bug in snapshot downloads from the Amazon S3 source, and a
+community contribution from [@PaulVMo](https://github.com/PaulVMo) that improves libp2p
+identification of private IP addresses. This is an optional but _recommended_ release for Hotspot
+owners and manufacturers to continue syncing with newly blessed snapshots.
+
+<!--truncate-->
+
+- #### Related PRs
+
+  - [erlang-libp2p#368](https://github.com/helium/erlang-libp2p/pull/368): Expand IP bogon list
+  - [blockchain-core@b55319](https://github.com/helium/blockchain-core/commit/b55319b7cc46da3334a262314022daca1888df5e):
+    Bump libp2p dependency for bogon fix and fix snapshot download cleanup process
+  - [miner@a16147](https://github.com/helium/miner/commit/a161473a4b257641ee1068207f19138e4832b71e):
+    Update blockchain-core and update snapshot to 944641
+
+### Plan
+
+We have been beta testing `2021.07.30.0` since July 30th, 2021 2:15 PM PT. Current ETA for GA is
+10:15 AM PT, July 31st, 2021.

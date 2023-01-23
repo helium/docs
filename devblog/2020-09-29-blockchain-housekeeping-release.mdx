@@ -1,0 +1,78 @@
+---
+layout: post
+title: Blockchain Housekeeping Release
+date: 2020-09-29 18:03 -0700
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+The `2020.09.30.1` release is a regular blockchain maintenance update. Notably, the team has added
+support for providing witness validity information to Proof of Coverage receipts, fixed blockchain
+snapshot determinism and updated state channel client to make device join accepts more robust.
+
+<!--truncate-->
+
+#### Witness Validation Visibility
+
+`blockchain-core` now provides visibility for Proof of Coverage witness validation. This would allow
+network participants to better correlate their PoC mining rewards with `poc_receipts_txn` paths.
+This is intended to be used by [blockchain-etl](https://github.com/helium/blockchain-etl) and the
+API. Ultimately this data will be visible in explorer and the Helium mobile wallet.
+
+#### Snapshot Determinism Fixes
+
+Another minor change was made to make snapshot serialization more deterministic. While this would
+not normally merit a mention, these serialization issues are making it less likely that any given
+Hotspot will generate and store a correct snapshot, which has two effects that that a user might
+notice:
+
+1. It makes it harder for the Consensus Group to generate a snapshot, because two-thirds of the
+   group needs to agree. This means that snapshots fail more often than they should and there are
+   fewer to choose from when it comes time to bless the latest.
+
+2. Since fewer Hotspots agree, it's less likely that any given Hotspot will agree about the snapshot
+   hash and store it. New Hotspots coming on to the network have to look around for longer to find a
+   snapshot. Currently, agreement seems to have fallen into two major groups covering around 75% of
+   all spots with a long tail of smaller groups.
+
+#### Device JoinAccept Fixes
+
+This release also addresses concerns related to client devices not being able to send join requests
+to the console without repeated attempts. We updated the state channel client on the miner to
+properly enqueue and dequeue packets once the router accepts an incoming packet offer from a
+Hotspot.
+
+#### Blessed Snapshot Update
+
+Finally, this release bumps the blessed snapshot to height `522721` which will improve sync times of
+newly onboarded Hotspots.
+
+#### Related PRs
+
+- _Fix snapshot diffs for serialization changes_
+  - [blockchain-core/624](https://github.com/helium/blockchain-core/pull/624)
+- _Ensure oracle prices are recalculated while absorbing snapshot_
+  - [blockchain-core/625](https://github.com/helium/blockchain-core/pull/625)
+- _Expose snapshot_height from blockchain_
+  - [blockchain-core/626](https://github.com/helium/blockchain-core/pull/626)
+- _Add request_block_hash to receipts json_
+  - [blockchain-core/629](https://github.com/helium/blockchain-core/pull/629)
+- _Add is_valid entries for poc_receipts/poc_witnesses_
+  - [blockchain-core/632](https://github.com/helium/blockchain-core/pull/632)
+- _Fix snapshot deserialize upgrades for older snaps_
+  - [blockchain-core/634](https://github.com/helium/blockchain-core/pull/634)
+- _Cleanup poc receipt txn logging noise_
+  - [blockchain-core/636](https://github.com/helium/blockchain-core/pull/636)
+- _Enqueue packet when sending offer on banner recv_
+  - [blockchain-core/637](https://github.com/helium/blockchain-core/pull/637)
+- _Dynamically select spreading factor for PoC packets_
+  - [miner/521](https://github.com/helium/miner/pull/521)
+- _Update blockchain-core and snapshot_
+  - [miner/524](https://github.com/helium/miner/pull/524)
+- _Bump core for join accept fix_
+  - [miner/525](https://github.com/helium/miner/pull/525)
+
+### Plan
+
+We will begin beta-testing `2020.09.30.1` around 4 PM PST on 30th September, 2020 and plan to
+release it to GA by 11 AM PST, 1st October, 2020.

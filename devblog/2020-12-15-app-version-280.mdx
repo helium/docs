@@ -1,0 +1,69 @@
+---
+layout: post
+title: App Version 2.8.0
+date: 2020-12-15
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+&nbsp;
+
+# Transfer Hotspot
+
+As approved by HIP13, the engineering team has finished the implementation of Transfer Hotspot,
+allowing any Hotspot owner to transfer ownership of a Hotspot to a new owner. The full help
+documentation can be found here: https://docs.helium.com/wallets/app-wallet/transfer-hotspot/ and
+CLI support here: https://developer.helium.com/blockchain/blockchain-cli#hotspots-transfer
+
+<!--truncate-->
+
+**To successfully transfer a Hotspot, both parties must have app version 2.8.0 installed.**
+**Sellers and Buyers do not need to be physically next to the Hotspot to transfer.**
+
+## How It Works
+
+As a seller, the user navigates to the Hotspot to be transferred and taps Settings (cog). In the
+settings is a new option to Transfer Hotspot. Press "Start".
+
+A message will appear letting the seller know they will no longer see the Hotspot in their app or
+earn HNT from mining. Enter the Hotspot name to proceed. This is not case-sensitive.
+
+At this point, the user is asked to enter the buyer wallet address (note that the buyer must also
+have a valid wallet address on the Helium network). _The amount in HNT is optional. This allows for
+other methods of payment using fiat (PayPal, other cryptocurrencies)._
+
+The seller confirms the transfer and a partial transaction is constructed and signed by the seller.
+
+The buyer receives a notification in their Helium app and views the transaction to confirm a) seller
+address b) Hotspot name c) last reported activty on the blockchain and d) cost of Hotspot.
+
+When the buyer accepts the transfer, the transaction is countersigned by the buyer and the fully
+constructed transaction is submitted to the blockchain.
+
+After the transaction clears, the Hotspot will appear in the new owner's account and the HNT (if
+any) is debited from the buyer's balance. The Hotspot will be removed from the seller's account, and
+all new HNT earnings will belong to the new owner.
+
+**Note: All mining history from the Hotspot will transfer to the new owner as well. This cannot be
+cleared as all history is from the ledger.**
+
+It is up to the buyer and seller to coordinate the physical exchange of the Hotspot.
+
+## Canceling a Pending Transfer
+
+A seller can cancel a pending Hotspot transfer by going to the Hotspot settings and tapping "Cancel"
+next to Transfer Hotspot. The buyer will receive a notification that the transfer has been
+cancelled.
+
+## Things to Keep In Mind
+
+It is the buyer's responsibility to confirm the Hotspot is fully functional and will arrive in the
+same, working condition.
+
+The buyer must pay the transaction fee, even if the cost of Hotspot is zero.
+
+# Known Issues
+
+## Transaction Screen spacing
+
+Some device screens may see more or less spacing on the Transfer Hotspot transaction screen.

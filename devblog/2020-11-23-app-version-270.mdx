@@ -1,0 +1,36 @@
+---
+layout: post
+title: App Version 2.7.0
+date: 2020-11-23
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+&nbsp;
+
+# Performance Fixes
+
+- Migrate legacy secure store data in preparation for new app version (v3). We recommend all users
+  update to this new app version. Failure to update to this version could mean losing access to your
+  Wallet/Account and associated Hotspots if a user directly upgrades from 2.6.1 to 3.x.x. as a
+  restore from the deprecated secure store will no longer be supported. This is also a good reminder
+  to write down the 12 words used to generate the wallet's private key. You can find those 12 words
+  by launching the Helium App > More > Advanced > Reveal 12 Words.
+
+<!--truncate-->
+
+# Bug Fixes
+
+## Android 8.0.0
+
+Some Samsung Galaxy S7 users running Android 8.0.0 were unable to launch the app due to a splash
+screen size issue. We've optimized the logic for those types of devices so that it pulls a smaller
+file instead. Users will be able to launch the app once they update to 2.7.0.
+
+## iPhone 12 Pro Max Layout Fix
+
+New iPhone 12 Pro Max users saw a layout issue with the navigation menu. This is now fixed.
+
+## Hotspot Offline Notification Icon clipped
+
+The Hotspot Offline Notification had a clipped icon. This is fixed.

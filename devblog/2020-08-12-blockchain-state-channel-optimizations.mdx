@@ -1,0 +1,29 @@
+---
+layout: post
+title: Blockchain State Channel Optimizations
+date: 2020-08-12 16:18 -0700
+hide_table_of_contents: true
+authors: [vihu]
+---
+
+This `2020.08.12.0` release addresses some of the concerns regarding the opening/closing of state
+channels responsible for packet transfer. Essentially it allows the router to maintain state
+channels better as we have introduced proper rollover of the channels on DC exhaustion.
+
+<!--truncate-->
+
+Lastly, we removed a lot of extraneous logging which should improve performance on the Hotspots.
+
+### Contents
+
+- _Reduce state channel server logging_: PR:
+  - [blockchain-core/567](https://github.com/helium/blockchain-core/pull/567)
+- _Lookup ledger before client issues an sc close txn_: PR:
+  - [blockchain-core/565](https://github.com/helium/blockchain-core/pull/565)
+- _Minimal state channel rollover_: PR:
+  - [blockchain-core/560](https://github.com/helium/blockchain-core/pull/560)
+
+### Plan
+
+We will beta `2020.08.12.0` this evening around 5PM PST and release it to GA on an accelerated
+schedule.

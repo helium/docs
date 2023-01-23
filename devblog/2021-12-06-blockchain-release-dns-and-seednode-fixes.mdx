@@ -1,0 +1,39 @@
+---
+layout: post
+title: 'Blockchain Release: DNS and Seednode Fixes'
+date: 2021-12-06 11:47 -0800
+hide_table_of_contents: true
+authors: [vihu, abhay]
+---
+
+The core developers have tagged a new `2021.12.06.0` Hotspot firmware release which includes
+**recommended** fixes to Seed nodes and DNS query improvements.
+
+<!--truncate-->
+
+Hotspot manufacturers should update to this release when possible in order to give their customers
+access to these improvements. It specifically helps Hotspots in parts of Europe who have ISPs with
+specific DNS settings (enforcing packet sizes for DNSSEC) and it also improves peer gossip (reducing
+the amount of stale data that is shared amongst the 380K+ nodes in the network).
+
+#### Related PRs
+
+- [miner#1277](https://github.com/helium/miner/pull/1277): Pull seed node IPs from DNS pool
+- [miner#1271](https://github.com/helium/miner/pull/1271): Honor `follow_mode` set in app env
+
+- [blockchain-core#1141](https://github.com/helium/blockchain-core/pull/1141): Fix nonce upgrade for
+  new chain instantiation
+- [blockchain-core#1140](https://github.com/helium/blockchain-core/pull/1140): Maybe get new active
+  state channel when current state channel is overspent
+
+- [erlang-libp2p#405](https://github.com/helium/erlang-libp2p/pull/405): Use a pool of CNAMEs to
+  fetch IPs
+- [erlang-libp2p#404](https://github.com/helium/erlang-libp2p/pull/404): Avoid gossiping stale and
+  peers with no `listen_addr`
+- [erlang-libp2p#403](https://github.com/helium/erlang-libp2p/pull/403): Reduce ack stream
+  inactivity timeout to 1 minute
+
+### Plan
+
+We have been beta testing `2021.12.06.0` since December 06, 2021 07:45 AM PT. Current ETA for GA is
+1:30 PM PT, December 06, 2021.

@@ -1,0 +1,54 @@
+---
+layout: post
+title: App Version 3.10.0
+date: 2022-02-08
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+&nbsp;
+
+# New Features
+
+## Transfer Hotspot v2
+
+A new way to transfer Hotspots is now available on the app. Now transferring Hotspots is as easy as
+sending a payment transaction. Hotspot **sellers** can initiate the transfer from Hotspot Settings,
+the same as before, but instead of waiting for the **buyer** to accept the transaction, the transfer
+is immediately submitted to the blockchain. Once cleared, the **buyer** will see the new Hotspot in
+their app. When the transfer is successful, both buyers and sellers will receive a notification.
+
+<!--truncate-->
+
+Please note that Sellers now pay the transaction fee of ~55,000 DC.
+
+Hotspots must have had Proof-of-Coverage activity (creating a challenge, beaconing, or witnessing)
+in the last 1200 blocks (approximately 20 hours) in order to be transferred.
+
+## Earnings Map Filter
+
+Now available on the app, the earnings map filter introduced in Explorer in January can be found by
+tapping the Map Layers icon on a Hotspot details view. Other map filters include Transmit Scale,
+Witnessed Hotspots, and Coverage.
+
+## Hotspot Year to Date earnings
+
+See how much your Hotspot has earned this year by going to a Hotspot and tapping **YTD**.
+
+# Bug Fixes
+
+- We’ve fixed an issue when the Maker app uses deeplinking to add a Hotspot to the network did not
+  elicit the correct error message. Now we know to check if the Hotspot was already onboarded and
+  surfaces a clearer error message to contact the Maker for next steps.
+
+# Maker Updates
+
+- Adds Dragino Hotspot
+
+# Chores
+
+## Removes HNTenna from available list of Antennas
+
+Users should use the Custom Antenna dropdown to enter the dbi of custom antennas that did not come
+from approved HIP-19 Hotspots. All approved Maker antennas are still selectable from the dropdown
+based on name.

@@ -1,0 +1,45 @@
+---
+layout: post
+title: App Version 3.4.0
+date: 2021-07-14
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+&nbsp;
+
+# App Release 3.4.0
+
+## New Features
+
+3.4.0 Includes a small facelift to our Wallet and Hotspot tabs!
+
+<!--truncate-->
+
+Hotspot Tab
+
+- We have introduced a new shortcut navigation menu that allows you to quickly swipe through all the
+  Hotspots you own and follow
+
+Wallet Tab
+
+- Updated UI layout on Wallet tab with new send and receive icons, easier QR code discoverability,
+  and a filter for transaction types
+- If you’ve staked Validators, we now show the staked amount
+
+## Improvements
+
+- Improve how we calculate a Hotspot’s sync status by using the last gossiped timestamp to API
+  instead of gossiped block through the p2p network
+- Inform users that Discovery Mode results may be inconsistent
+- Update hexagon colors for accessibility
+
+## Bug Fixes
+
+- When asserting a location, check that the location actually changed
+- Fix a bug when scanning QR code for payments with varying formats
+- Fix a bug with the default email address when sharing from Diagnostic Reports
+
+## Known Issue
+
+- Hotspot Checklist > Sync Status is showing incorrect data. We’ll be fixing this in 3.4.1.

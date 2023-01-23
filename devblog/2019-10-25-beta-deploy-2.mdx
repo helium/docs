@@ -1,0 +1,35 @@
+---
+layout: post
+title: Beta Deploy 2
+date: 2019-10-25 09:47 -0700
+hide_table_of_contents: true
+authors: [madninja, vagabond]
+---
+
+As more and more hotspots ship out, we are encountering some blockchain syncing problems. A number
+of the shipped hotspots were assembled over a month ago but had older firmwware that did not include
+some important bugfixes.
+
+<!--truncate-->
+
+In some cases the older firmware absorbs blocks in their ledger that they don't properly understand
+causing ledger corruption issues that prevent further syncing.
+
+To mitigate this problem we have decided to deploy an intentionally backwards incompatible change to
+the blockchain sync protocol. The goal here is two fold; to correct some deficiencies in the
+original sync protocol and to force hotspots running an older firmware to upgrade before starting to
+sync the chain.
+
+In addition a small change to peerbook metadata has been made to allow hotspots to advertise the
+last time they wrote a block to their local blockchain. This is intended to help spotting and
+diagnosing hotspots experiencing syncing problems.
+
+## Content
+
+- Roll the blockcain sync protocol version
+
+## Deployment Plan
+
+As this is a network-wide breaking change we plan to roll it out as quickly a possible to everyone
+to avoid partitioning the network. A small controlled smoke test OTA will be done followed shortly
+by a release to general availability.

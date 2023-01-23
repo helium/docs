@@ -1,0 +1,57 @@
+---
+layout: post
+title: Console Updates- Google Sheets and other Integration Updates
+date: 2021-05-06 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+This sprint the team focused on Integration updates including building a Google Sheets prebuilt
+Integration, adding dynamic query parameters, and including a hold_time field to increase accuracy
+of timestamps.
+
+<!--truncate-->
+
+### Features and updates
+
+- Added a prebuilt integration for Google Sheets. This requires: setting up a public Google form,
+  preparing a script to decode the payload, and setting up integration on Console. See
+  [here](https://docs.helium.com/use-the-network/console/integrations/google-sheets) for
+  instructions.
+- Enhanced HTTP Integration with dynamic query parameters allowed in endpoint.
+- Increase accuracy of timestamps, we’ve included hold_time (default 0) which represents the time
+  that a Hotspot was holding on to a packet (in milliseconds). The holding time can be due to
+  multiple reasons such as: time between offer and acceptance of packet or if communication between
+  Console/Router and Hotspots is slow then Hotspots would hold on to packets until communication is
+  restored. This feature will be activated when Hotspots have been updated.
+- Functions page includes an Integrations column that lists Integrations.
+- Downlink queued item no longer appears after downlink has been sent, and only displays a single
+  item even if multiple integrations.
+- Added a legend to real time packets view.
+
+### Fixes
+
+- Backend work to accelerate packet ingestion from Hotspots.
+- Payment options for Automatic Renewals no longer appear if a payment method hasn’t been defined.
+- Spaces in custom scripts no longer cause Functions Decoder to fail.
+- Updated real time packets to align with legend.
+
+### Open source users
+
+- New users use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations. To update, check the
+  newest instructions, rebuild, and restart. The database is not affected.
+
+Documentation [here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Include downlink MAC command info
+- Discovery mode support for Hotspot new feature
+- Provide docs to help monitor open source Console
+- Create a module to integrate with other LoRaWAN network servers, initially ChirpStack.
+- Update Console core design based on Flows (beta) feedback

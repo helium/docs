@@ -1,0 +1,19 @@
+---
+layout: post
+title: Chain Variable 21
+date: 2020-04-19 13:30 -0800
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+### Summary
+
+We identified a flaw where we did not check for 0 amount transactions in some cases. While largely
+harmless, it can lead to transaction spam. Additionally, after doing some load testing, we've
+lowered the maximum block size (measured in number of transactions) while we continue to work on
+improving block propogation times.
+
+### Audit
+
+You can find the chain variable transaction details
+[here](https://github.com/helium/miner/blob/master/audit/var-21.md).

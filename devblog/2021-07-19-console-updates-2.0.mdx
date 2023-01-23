@@ -1,0 +1,58 @@
+---
+layout: post
+title: Console 2.0 Upcoming Release
+date: 2021-07-19 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+After many months of work and testing based on community feedback, the team plans to release Console
+2.0 on Thursday 7/29.
+
+<!--truncate-->
+
+There will be two major changes to Console with the release of 2.0:
+
+- The new Flows feature which you can read about more
+  [here](https://blog.helium.com/console-2-0-beta-test-and-earn-swag-ee366734779).
+
+- Using the xor filter to add devices to the blockchain.
+
+During the release of Console 2.0 to production on 7/29, there’s a planned maintenance period from
+10 am to 12 pm PDT. Despite the Console interface being inaccessible during this time, devices will
+continue to send data.
+
+**XOR filter = improved performance**
+
+As network usage increases, the XOR filter allows the Console backend (router) to only process known
+traffic and avoid spending resources on unfamiliar packets, which significantly improves
+performance.
+
+However, the 1st time a device joins the network its keys need to be added to the blockchain and the
+updated block propagated to the miners (Hotspots).
+
+This initial join process could take up to 15 mins depending on:
+
+- when this transaction (batched with others) gets added to the blockchain
+- the overall performance of the blockchain
+
+**What do I need to do?**
+
+There’s no action required. Your devices and configurations will be preserved and you won’t need to
+take any action. In addition, your Data Credit balances will remain unchanged.
+
+Before release, you can test devices and integrations at Console 2.0 beta
+[here](https://staging-console.helium.wtf/).
+
+1. Devices can only be in one Console organization. In other words, you can't use the same device
+   that's currently in another Organization.
+
+2. Make sure you're only logged into one Console instance at a time (for example, if you’re testing
+   on Console 2.0 beta, don’t also have a production Console instance open).
+
+3. Console 2.0 beta uses the xor filter, so devices added for the 1st time could take up to 15
+   minutes.
+
+Thanks again for your support.
+
+The Console team

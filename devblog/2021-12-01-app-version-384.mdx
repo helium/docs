@@ -1,0 +1,30 @@
+---
+layout: post
+title: App Version 3.8.4
+date: 2021-12-01
+hide_table_of_contents: true
+authors: [cokes518]
+---
+
+&nbsp;
+
+# Improvements
+
+Updates Hotspot Earnings chart to show UTC days (7D, 14D, 30D).
+
+<!--truncate-->
+
+- 24h earnings chart removed because the API reports reward earnings for the last completed UTC day
+  and thus will show 0 until the day is over. This can cause unnecessary concern as these 24h
+  earnings chart will effectively flatline.
+
+Updates 24h Earnings on Home screen to say last completed UTC day. Hotspot rewards below on that
+Home screen also reflects last completed UTC day.
+
+Updates Validators earnings to align on UTC days.
+
+## Bug Fix
+
+- Fixes QR scan on second attempt
+- Fixes Android keyboard display
+- Fixes Transfer Hotspot check so no transactions are stuck pending even when cleared

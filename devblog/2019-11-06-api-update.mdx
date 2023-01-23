@@ -1,0 +1,39 @@
+---
+layout: post
+title: Blockchain API Update
+date: 2019-11-06 14:28 -0800
+hide_table_of_contents: true
+authors: [vihu, evanmcc]
+---
+
+As part of updating the blockchain-api to support newer routes and squash some critical api bugs,
+the team has pushed out a new release of the production blockchain-api.
+
+<!--truncate-->
+
+## Content
+
+The new release contains the following updates:
+
+- Fix a google maps reverse api lookup crash, which would previously cause the whole application to
+  shut down.
+- Add hotspot name to `/api/accounts/<account_address>/gateways` route for easy cross-checking of
+  account holder hotspots.
+- Rounded off block sync percent to be in line with the current state of the hotspot.
+- Enable `/api/hotspots/<address>/challenges` route which shows a list of poc challenges a hotspot
+  has done so far.
+- Enable `/api/hotspots/timeline` route to check newly added hotspots.
+- Enable `/api/accounts/<account_addres>/rewards` route to check account rewards.
+- Add support for `oui_v1` transaction posting and querying.
+- Add support for `security_exchange_v1` transaction posting and querying.
+
+## Related PRs
+
+- [blockchain-api#194](https://github.com/helium/blockchain-api/pull/194)
+- [blockchain-api#205](https://github.com/helium/blockchain-api/pull/205)
+- [blockchain-api#209](https://github.com/helium/blockchain-api/pull/209)
+- [blockchain-api#210](https://github.com/helium/blockchain-api/pull/210)
+- [blockchain-api#211](https://github.com/helium/blockchain-api/pull/211)
+- [blockchain-api#212](https://github.com/helium/blockchain-api/pull/212)
+- [blockchain-api#213](https://github.com/helium/blockchain-api/pull/213)
+- [blockchain-api#214](https://github.com/helium/blockchain-api/pull/214)

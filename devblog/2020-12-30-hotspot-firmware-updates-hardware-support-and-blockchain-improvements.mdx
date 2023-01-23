@@ -1,0 +1,29 @@
+---
+layout: post
+title: 'Hotspot Firmware Updates: Hardware Support and Blockchain Improvements'
+date: 2020-12-30 12:32 -0800
+hide_table_of_contents: true
+authors: [abhay, vagabond]
+---
+
+The team has a new release tagged `2020.12.30.0` with improved hardware support for the RAK Hotspot
+Miner updates (ECC chip support), new region configs for future hotspots in China, Japan, Malaysia,
+Singapore and Australia, minor adjustments to challenge targeting jitter, and a snapshot bump.
+Please read on for more details and plan for GA.
+
+<!--truncate-->
+
+### [miner#597](https://github.com/helium/miner/pull/587): Adjust the POC challenge jitter factor
+
+Adjust the PoC interval jitter to behave better with larger PoC interval values. This should result
+in slightly increased challenge rates.
+
+### [miner#589](https://github.com/helium/miner/pull/589): Snapshot bump to 653041
+
+We have updated the snapshot block to `653041` to allow newly onboarded hotspots to sync faster to
+the current blockchain head block.
+
+### Plan
+
+We have been beta testing `2020.12.30.0` since December 30th, 2020 2:00PM PT. Current ETA for GA is
+12:00 PM PT, December 31st, 2020.

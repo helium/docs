@@ -1,0 +1,39 @@
+---
+layout: post
+title: New Chain Variable Release
+date: 2020-06-24 17:00 -0700
+hide_table_of_contents: true
+authors: [evanmcc, fvasquez]
+---
+
+Much of the trouble that we've been having lately with maintaining consistent block times has been a
+result of Hotspot clusters, some of them quite large. These clusters, often hosted in the same
+place, lead to an abnormally high number of witnesses and a large disk representation. Since they're
+colocated and witness each other, our Proof of Coverage (PoC) pathing code has some pathological
+behavior when they're challenged, since it must consider sometimes hundreds of Hotspots to generate
+the path. This can lead to single transactions that take the Hotspot hardware multiple seconds to
+validate, which can cause a lot of problems for protocol completion and steady block times as the
+validation and the Honeybadger runners compete for the disk.
+
+<!--truncate-->
+
+This release introduces a new chain variable that will allow us to restrict the number of Hotspots
+that will be considered per target and pathing transaction step. This should more tightly bound the
+amount of time that a single transaction can take and should make block times more predictable. This
+new chain variable will cause applications using our `blockchain-core` library to halt when it is
+activated sometime next week, so please, if you're running something that uses core, upgrade to or
+past the `2020.06.24.0` tag by Tuesday June 30.
+
+### Contents
+
+- _Allow Restriction of Considered Hotspots_: PR:
+  - [core/504](https://github.com/helium/blockchain-core/pull/504)
+- _Update Transaction Fee Code and Tests_: PR:
+  - [core/514](https://github.com/helium/blockchain-core/pull/514)
+
+### Plan
+
+A `2020.06.24.0` release was deployed to the beta group on the afternoon of Wednesday June 24th at
+around 5:30PM PDT. After testing we expect to release this to GA around 9:30 AM PDT the next
+morning. The chain variable transaction activating it will be issued some time in the coming week,
+no earlier than Wednesday July 1.

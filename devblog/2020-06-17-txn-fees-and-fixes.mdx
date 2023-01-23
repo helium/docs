@@ -1,0 +1,34 @@
+---
+layout: post
+title: Consensus Group Stall Fixes and Landing Transaction Fees
+date: 2020-06-17 17:50 -0700
+hide_table_of_contents: true
+authors: [vagabond, evanmcc]
+---
+
+We've identified some more failures that have been leading to long block times and included fixes
+for them in this release. In addition, now we have the price oracle running, we've landed the code
+for real transaction fees and staking fees. These fees won't be active until we've made sure all the
+wallets have been updated and everyone has had appropriate warning. Finally we've bumped the blessed
+snapshot to 376561.
+
+<!--truncate-->
+
+### Contents
+
+- _Consensus and Out of Memory fixes_: PRs:
+  [core/506](https://github.com/helium/blockchain-core/pull/506),
+  [miner/427](https://github.com/helium/miner/pull/427),
+  [miner/425](https://github.com/helium/miner/pull/425),
+  [miner/430](https://github.com/helium/miner/pull/430),
+  [miner/429](https://github.com/helium/miner/pull/429)
+- _Transaction fee support_: PRs: [core/492](https://github.com/helium/blockchain-core/pull/492),
+  [core/507](https://github.com/helium/blockchain-core/pull/507),
+  [miner/422](https://github.com/helium/miner/pull/422),
+  [miner/424](https://github.com/helium/miner/pull/424),
+  [miner/426](https://github.com/helium/miner/pull/426)
+
+### Plan
+
+A `2020.06.17.0` release was deployed to the beta group on the afternoon of Wednesday June 17th at
+around 3:45 PDT. After testing we expect to release this to GA around 6:30PM PDT.

@@ -1,0 +1,66 @@
+---
+layout: post
+title: Console Updates- ver. 2.0.1
+date: 2021-08-26 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+While the team focused on the Gateway Monitoring feature, this sprint they also knocked off a number
+of frontend and backend issues reported by the community. In addition, an out-of-band update was
+released last week to address a number of issues.
+
+<!--truncate-->
+
+### Features and fixes
+
+- Multi-packet issues: late packets: [396](https://github.com/helium/router/issues/396)
+- Console UI updates: editing Device and Function names
+- Enabled AWS downlinks: [790](https://github.com/helium/console/issues/790)
+- Provided Pending indicator on individual device page upon initial join
+- Minor system email content inconsistency issues fixed
+- Resolved a search issue when using Safari
+- Users able to unenroll from 2-factor authentication
+- Fixed an issue that prevented users from deleting organizations
+- Label metadata for devices included in uplink integration requests
+- Fixed issue with `nginx-default.conf` template where the `X-Forwarded-For` header was not being
+  passed to the docker container
+- Added additional mandatory and optional environment variables to open source `.env` template
+
+Out-of-band update released last week:
+
+- In certain situations Console UI was not kept updated with actual DC count.
+- Frame counter management causing "Uplink dropped: Late" packets over AU915:
+  https://github.com/helium/router/issues/379
+- State channel optimization work
+- Addressed GRPC server restart issue that was impacting light Hotspots
+- Self-hosted router repeats error bad argument: https://github.com/helium/router/issues/407
+- Multi-purchase packet not working in certain congested situations:
+  https://github.com/helium/router/issues/343
+
+### Open source users
+
+- New users should use the latest master version.
+
+- Existing users are highly recommended to quickly update Console/Router to the newest version which
+  includes the latest blockchain core update to ensure smooth operations.
+
+Check the readme for upgrading instructions
+[here](https://github.com/helium/console#upgrading-your-open-source-consolerouter).
+
+Additional technical documentation
+[here](https://docs.helium.com/use-the-network/run-console/#console-setup).
+
+This release includes changes in `nginx-default.conf` and `.env` open source template files. Please
+review the updated files and make changes to your local files as you see fit.
+
+### Upcoming
+
+The team’s focus in the coming weeks (usual disclaimers apply):
+
+- Gateway monitoring feature
+- Microsoft Azure IoT Hub pre-built Integration
+- Implement decision for Australia frequency based on Decentralized Wireless Alliance and community
+  decision
+- Packet purchaser: provide capability to only receive single copy of packets
+- Packet purchaser: integrate with ChirpStack LoRaWAN Network Server

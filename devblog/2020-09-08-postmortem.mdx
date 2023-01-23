@@ -1,0 +1,110 @@
+---
+layout: post
+title: Console Post Mortem
+date: 2020-09-08 14:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+On 8/12 the system changed the token allocation providing rewards for Hotspots that transferred data
+and required devices to pay for network traffic with Data Credits.
+
+<!--truncate-->
+
+An arbitrage situation was created that allowed users to earn a disproportionately high amount of
+HNT for sending packets and the network experienced a significant spike in both number of devices
+(>3x), and amount of traffic (>10x).
+
+This caused a number of Console and Router issues. The main challenge wasn’t the amount of traffic
+hitting the system. Rather the complexity involved in the interaction among devices, Hotspots, and
+Router and the synchronization required for state channels to maintain an accurate accounting of
+traffic sent across a decentralized network.
+
+This level of stress testing allowed us to identify and fix issues that would have been impossible
+to simulate in a lab/staging environment. Here’s a breakdown of the main categories of issues and
+their fixes.
+
+### Console
+
+Console is the front end interface between the backend (Router) and the blockchain. The additional
+traffic from Router to Console caused performance issues including ‘Data Failed to Load” messages.
+
+#### Issues and fixes
+
+Issue: Delays viewing device pages, Device index, sometimes resulting in the Data Failed to Load
+message.
+
+Fix: The database was updated to handle the additional communication between Router and Console.
+
+Issue: Burn HNT transaction was successful, but the Data Credit balance did not update.
+
+Fix: The memo field changed to dynamically update, and communication between Router and Console for
+HNT burn transactions was fixed.
+
+### Router
+
+Router is the workhorse behind the scenes, transferring packets, accepting offers from Hotspots to
+send packets, communicating with Console to ensure Data Credit balances are correct, and many other
+functions.
+
+In the LoRaWAN world, Router provides the equivalent functions as Network Server, Join Server, and
+Application Server, while also communicating with the Helium Blockchain.
+
+The HNT and DC arbitrage situation inspired users to send as much data as possible, and Router took
+the brunt of those packet requests.
+
+#### Issues and fixes
+
+Issue: Devices trouble joining or issues with downlinks.
+
+Fix: For initial join or when downlink is queued provided an update that allows the system to choose
+among several packets and pick the best one to downlink through based on signal strength.
+
+Issue: Accepting incorrect offers of packets from Hotspots.
+
+Fix: Router validation of packet offers was moved upfront.
+
+Issue: Router performance struggled to keep up with the number of requests while synchronizing with
+state channels.
+
+Fix: Optimization and performance patches deployed to reduce disk writes and decrease response
+times; in addition dropped redundant load from Router.
+
+### State Channels
+
+State channels are side chains used to handle the accounting and verification for Data Credit
+transactions and ensure these transactions are added to the main blockchain in an efficient manner.
+
+The volume of micro-transactions between devices, Hotspots, and the blockchain makes account
+handling and verification impossible to scale on the main blockchain. Active open state channels are
+necessary for data to transfer.
+
+State channels necessary for packets to transfer as these microtransactions involving Data Credits
+are accounted for on these state channels.
+
+#### Issues and fixes
+
+Issue: State channels not opening and closing in sync with each other.
+
+Fix: The number of state channels was increased from 2 to 5 to help ensure an active state channel
+will be open at all times.
+
+Issue: State channel timing misaligned with epoch reward blocks; state channels remained open too
+long.
+
+Fix: State channels were updated to open and close faster: the number of blocks that a state channel
+remains open was also reduced, currently 40 blocks.
+
+The Garbage Collector (GC) is used to perform cleanup of the ledger and free up memory.
+
+Issue: GC was out of sync with the state channels open and close cycle preventing new state channels
+opening.
+
+Fix: Garbage Collector was initially set to perform cleanup every 100 blocks, but clean up was made
+dynamic using a chain variable, and set to 10 to align the closing of state channels.
+
+Issue: Packet loss and devices trouble rejoining.
+
+Fix: An incorrect causality check in the state channel client that caused packet loss was addressed.
+A function to only add a causally newer version of the state channel to the local state channel
+database was added.

@@ -1,0 +1,133 @@
+---
+layout: post
+title: 'Network Disruption Postmortem: 2022-11-16'
+date: 2022-11-21 17:00 -0700
+hide_table_of_contents: true
+authors: [jdgemm]
+---
+
+&nbsp;
+
+# What happened
+
+On Wednesday, 2022-11-16, at approximately 22:06 UTC, Validators stopped producing blocks at block
+`1,619,546`, and a chain halt occurred. Normal chain operations resumed 18 hours on 2022-11-17 at
+approximately 15:57 UTC.
+
+<!--truncate-->
+
+Throughout the disruption, Hotspots were not able to fully participate in Proof-of-Coverage. All
+funds were safe, and data transfer for sensors and devices on the network continued uninterrupted.
+
+However, pending transactions were delayed until the halt was resolved. Validator Operators we’re
+asked to restart their nodes to kickstart consensus and produce blocks again.
+
+At the same time, the API was down during maintenance, and a database became corrupted. This led to
+a backup of 170TB of data before the main database could be restored.
+
+# Cause
+
+The chain halt was triggered as a result of a corrupted region cache issue for some validators with
+the release of the latest chain variable.
+
+Because the region was marked as “unknown” to some of the members an election block was produced
+that could not be absorbed by many nodes, including most of the new consensus group.
+
+This led to a halt until enough nodes had been restarted to clear the cache and absorb the block.
+After enough of the group had restarted the cache issue was fixed and progress was possible.
+
+Several hours later a second manifestation of the bug occurred. The cache was corrupted again but on
+fewer nodes, so the chain was able to make partial progress via “skipping” the block proposals where
+there was disagreement. These skip blocks were the blocks that would show up every half hour to an
+hour.
+
+New consensus group elections and reward transactions happen together, so the chain was unable to
+make progress electing a new group. Therefore another restart was needed to repair the issue again.
+This restart was more difficult because it was harder to reach some operators at that point.
+
+# Recovery
+
+Validators were identified and notified to run commands in an effort to resolve the cache issue.
+Because of the decentralized nature of Validator operations, this message took some time to
+distribute and for the call to be acted upon.
+
+Initially, to hasten recovery, the team created a rescue block at 5:10 AM UTC.
+
+# Resolution
+
+Validator Operators were instructed to perform several actions during the chain halt:
+
+Restart their node, regardless of if they are in consensus or not. After restarting, run the skip
+command: `miner hbbft skip`.
+
+Test if your Validator was one with a corrupted region cache by running:
+
+`miner eval 'blockchain_region_v1:h3_to_region(611338192892723199,blockchain:ledger()).'`
+
+If corrupted, Validators we’re instructed to clear the cache and run two commands:
+`miner ledger cache clear` followed by `miner ledger cache prewarm`
+
+All other Validators were asked to refresh the cache, regardless of whether they were in the
+Consensus Group or not. Some Validators remained behind on block production, and they were again
+asked to restart.
+
+18 hours on 2022-11-17 at approximately 15:57 UTC, all Validators were functioning as normal and
+block production resumed. Validators were notified to take action through Discord and
+validators-status.helium.com.
+
+# Power of Community
+
+Big thanks to the Validator community and those members who acted swiftly to help resolve this issue
+and provide feedback during the halt.
+
+During the chain halt and resolution, Validators we’re asked to restart, and run commands during
+late hours.
+
+The entire Helium Community deeply appreciates your continued dedication and support of the Helium
+Network.
+
+# Timeline of Key Announcements
+
+Throughout the disruption, the team worked to keep users up to date on the status and required
+actions. All below times in UTC.
+
+**2022-11-16**
+
+**00:32** Validator Operators were asked to restart their nodes to kickstart consensus and start
+producing blocks again.
+
+**2:17** The API remained down after scheduled maintenance. The chain remained halted at this time.
+Both were being fixed in parallel.
+
+**4:16** API and chain remained halted.
+
+**6:24** The Core Developers issued a rescue block, and it was accepted by the chain. Validator
+Operators were instructed to monitor block production. The chain was not fully cleared.
+
+**12:04** The Core Developers identified the root cause of the chain halt. It was identified that
+some Validators had a corrupt region cache and were preventing block production. A fix had been
+issued to them. No updates were required for the entire Validator group, but operators needed to run
+commands on their affected Validators. The chain remained halted.
+
+**14:54** The chain remained halted. The Core Developers were still working with validators to
+resolve the corrupted region cache issue.
+
+**15:23** The API remained down. The Core Developers identified the root cause of this. The API had
+a database that became corrupted during maintenance. This affected how all services could be brought
+back up. As a result, over 170TB of data had to be rebuilt from scratch. At this time, the main
+database was up and running, but in order to service all users and services, The Core Developers
+needed to create several more instances.
+
+**15:51** The chain remained halted. The Core Developers were still working with validators to
+resolve the corrupted region cache issue.
+
+**15:57** Block production resumed, and the chain halt was resolved. The Validator Operator
+community responded to the call to run commands. The Core Developers continued to monitor the status
+of block production.
+
+**16:49** At this time, the chain was producing blocks, but the API remained down. This meant that
+there was no way for the App and Explorer UI to display block information, including rewards. Links
+to community data sources were provided.
+
+**19:10** The API was back up and running. At this time, the Explorer and App were about 200 blocks
+behind and were catching back up to real-time data streams.

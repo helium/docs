@@ -1,0 +1,38 @@
+---
+layout: post
+title: PoC Rate Reduction
+date: 2020-01-08 17:00 -0800
+hide_table_of_contents: true
+authors: [evanmcc]
+---
+
+## Plan
+
+Shortly, we are going to issue a chain variable which will increase the Proof of Coverage (PoC)
+interval from 30 blocks to 60 blocks. This will have the effect of reducing the rate of PoC requests
+sharply, which should decrease long blocks going forward.
+
+<!--truncate-->
+
+Note that this may increase the number of low-reward epochs for some users, but it should average
+out to the same rate of rewards in the longer run.
+
+## Rationale
+
+We initially picked the PoC interval of 30 blocks essentially because it was similar to our election
+interval of 30 blocks. It meant that most Hotspots would challenge each election period. However,
+validating PoC receipts remains challenging and computationally expensive. While this is something
+that we're working to ameliorate (see PR
+[core/318](https://github.com/helium/blockchain-core/pull/318)), it doesn't really get to the core
+of the issue, which is that we are only beginning to understand the _quality_ of the results from
+the PoC system. It's quite likely that even an interval of 60 is still far too often than is needed
+for good quality results, and since the PoC system represents (necessary) overhead on the
+functioning of the rest of the system, we hope to engage it as seldom as is possible while still
+getting good results. As such, we intend to spend more time in the near future attempting to
+understand system quality and to develop a metric that will allow us to understand how things like
+the challenge interval affect the quality of the results that the PoC system delivers. Our PoC
+system is quite novel, and we often make mistakes in its implementation. We appreciate your patience
+as we work towards making this system deliver high-quality results for all of our stakeholders.
+
+Watch this space for more on the quality metric and potential future changes to the challenge
+interval in the future.

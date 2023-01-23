@@ -1,0 +1,110 @@
+---
+layout: post
+title: 'Blockchain Release: Snapshot Fixes and Implicit Burn Support'
+date: 2021-06-04 14:33 -0700
+hide_table_of_contents: true
+authors: [vihu, abhay]
+---
+
+The core developers have tagged a new `2021.06.08.0` Hotspot firmware release which fixes Snapshot
+creation and ingestion. It also adds support for storing transaction with implicit burns. This is a
+_required_ upgrade for all miners and will be automatic for all Hotspots using the Helium firmware
+when we release to General Availability.
+
+<!--truncate-->
+
+### Community Contribution!!!
+
+The core developers would like to thank [@syuan100](https://github.com/syuan100) for implementing
+support for storing "Implicit Burn" events on the blockchain. This is a substantial contribution
+made by a community member on `blockchain-core` and we are very excited that it's packed in the new
+release. Storing "Implicit Burn" events essentially allow consumers of blockchain-core to store
+those transactions where the fee has been paid for by burning HNT on behalf of the user by the
+network. Please feel free to read the
+[blockchain-core#771](https://github.com/helium/blockchain-core/pull/771) for more details.
+
+### Snapshot updates for reliable generation and ingestion
+
+As some of the community members have noticed, the blockchain is not constructing new snapshots
+reliably, this release aims to fix that.
+
+**IMPORTANT! This release is _not_ forwards compatible, i.e. if a Hotspot is on an older firmware
+than this one, they will fail to retrieve and ingest newly generated snapshots, therefore it's
+imperative to update to `2021.06.08.0`.**
+
+Below are the snapshot fix related PRs:
+
+- #### [blockchain-core#786](https://github.com/helium/blockchain-core/pull/786): Incremental snapshot [de]serialization
+
+  This change fixes the [de]serialization of snapshot to not cause huge memory spikes the team
+  observed on some of the hotspots.
+
+- #### [blockchain-core#857](https://github.com/helium/blockchain-core/pull/857): More fixes for atomic checkpoint cleanup
+
+  The team noticed that the checkpoint directories were not being cleaned properly, this change
+  fixes that and adds a unit test for it.
+
+- #### [blockchain-core#856](https://github.com/helium/blockchain-core/pull/856): Make ledger checkpoints more atomic
+
+  This change enforces that we don't accidentally take a ledger checkpoint and omit writing the
+  delayed file or the updates because of a crash or a restart by utilizing a temporary directory and
+  atomic renaming.
+
+- #### [blockchain-core#854](https://github.com/helium/blockchain-core/pull/854): Store completed ledger upgrades in snapshot
+
+  This adds support for storing completed ledger upgrades in the snapshots, this ensures that
+  snapshots contain all the necessary information required to continue resyncing.
+
+- #### [blockchain-core#851](https://github.com/helium/blockchain-core/pull/851): Keysort before snapshot serialization
+
+  This change ensures that snapshots are serialized and subsequently hashed in a deterministic
+  order.
+
+- #### [blockchain-core#850](https://github.com/helium/blockchain-core/pull/850): Fix outdated snapshot API
+
+  This change updates the tests to use the updated snapshot API.
+
+- #### [blockchain-core#846](https://github.com/helium/blockchain-core/pull/846): Re-add snapshot backward compatibility
+
+  This change enables storing S3 downloads and cross-checking before doing another download.
+  Furthermore it updates snapshot initialization to use the already downloaded S3 snapshot.
+
+### Core enhancements for blockchain-etl
+
+The following additions allow blockchain-etl to expose a better API:
+
+- #### [blockchain-core#840](https://github.com/helium/blockchain-core/pull/840): Expose fee_payer function for transactions
+
+  As a helper to blockchain-etl, each transaction now exposes a `fee_payer/2` function from each
+  transaction. This helps in reconciling the actual fee payer of all transactions.
+
+- #### [blockchain-core#839](https://github.com/helium/blockchain-core/pull/839): Expose blockchain_txn:fee function
+
+  Add support to expose `blockchain_txn:fee/1` for each transaction on chain.
+
+### Transaction manager and other enhancements for blockchain-core
+
+The following fixes aim to address transaction processing and gossip issues observed on the network:
+
+- #### [blockchain-core#843](https://github.com/helium/blockchain-core/pull/843): Update condition for next plausible block
+
+  This change fixes a long standing bug in ingesting potentially plausible blocks. Please read the
+  PR for further details.
+
+- #### [blockchain-core#836](https://github.com/helium/blockchain-core/pull/836): Route depdendent transactions to dialed members
+
+  This fix ensures that a potentially dependent transaction gets an opportunity to be processed by
+  atleast some consensus group members given that it was never accepted before. Please read the PR
+  for further details.
+
+- #### [blockchain-core#825](https://github.com/helium/blockchain-core/pull/825): Get transaction submission paramaters from num_consensus_members chain variable
+
+  This change updates the transaction submission parameters to use `num_consensus_members` chain
+  variable instead of being set at initialization. This ensures that the testnet continues to
+  process transactions at a steady rate while also future proofing if the variable eventually
+  chages.
+
+### Plan
+
+We have been beta testing `2021.06.08.0` since June 8th, 2021 12:30 PM PT. Several release
+candidates have been tested since late last week. Current ETA for GA is 4:00 PM PT, June 8th, 2021.
