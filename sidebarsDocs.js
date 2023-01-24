@@ -19,6 +19,12 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Manufacturer Central',
+      items: ['manufacturer-central/manufacturer-central'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Mine HNT',
       items: [
         'mine-hnt/mine-hnt',
