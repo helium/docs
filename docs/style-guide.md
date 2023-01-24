@@ -209,3 +209,11 @@ This is a caution
 This is a warning
 
 :::
+
+---
+
+## Prettier Formatting
+
+The docs repo includes a github action to automatically apply formatting to `.md` and `.mdx` files, but it is more ideal to configure your text editor to use the `.prettierrc` file that is included in the repo.
+
+As an example, the lines in this section were written to exceed the `printwidth` specified in the `.prettierrc` file, but will be wrapped by the github action.
