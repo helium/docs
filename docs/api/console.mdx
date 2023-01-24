@@ -373,11 +373,12 @@ Device {
 
 ---
 
-### Create Device 
+### Create Device
 
 ```
 POST https://console.helium.com/api/v1/devices
 ```
+
 :::info
 
 This endpoint is disabled for Helium Foundation Console.
@@ -439,10 +440,10 @@ _Headers_
 
 _Body Parameters_
 
-| Parameter Name               | Type             | Description                                          |
-| ---------------------------- | ---------------- | ---------------------------------------------------- |
-| devices (required)           | Array of objects | Array of up to 1,000 device objects as defined below |
-    
+| Parameter Name     | Type             | Description                                          |
+| ------------------ | ---------------- | ---------------------------------------------------- |
+| devices (required) | Array of objects | Array of up to 1,000 device objects as defined below |
+
 _Device Object_
 
 | Key                          | Value Type       | Description                              |
@@ -458,30 +459,30 @@ _Device Object_
 <TabItem value="response">
 
 200: ok
-    
+
 ```json
 {
-    "failure": [
-        {
-            "app_eui": "2111111111111111",
-            "app_key": "21111111111111111111111111111111",
-            "dev_eui": "2111111111111111",
-            "error": "name: Name cannot be blank",
-            "organization_id": "b31295c0-7164-4f45-b634-d21d498737cd",
-            "oui": 1
-        }
-    ],
-    "success": [
-        {
-            "app_eui": "1111111111111111",
-            "app_key": "11111111111111111111111111111111",
-            "config_profile_id": null,
-            "dev_eui": "1111111111111111",
-            "id": "c13e435e-a122-44c1-8ebb-882d5cf84e8c",
-            "labels": [],
-            "name": "Test 1"
-        }
-    ]
+  "failure": [
+    {
+      "app_eui": "2111111111111111",
+      "app_key": "21111111111111111111111111111111",
+      "dev_eui": "2111111111111111",
+      "error": "name: Name cannot be blank",
+      "organization_id": "b31295c0-7164-4f45-b634-d21d498737cd",
+      "oui": 1
+    }
+  ],
+  "success": [
+    {
+      "app_eui": "1111111111111111",
+      "app_key": "11111111111111111111111111111111",
+      "config_profile_id": null,
+      "dev_eui": "1111111111111111",
+      "id": "c13e435e-a122-44c1-8ebb-882d5cf84e8c",
+      "labels": [],
+      "name": "Test 1"
+    }
+  ]
 }
 ```
 
