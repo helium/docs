@@ -19,6 +19,16 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Solana',
+      items: [
+        'solana/solana',
+        'solana/primer',
+        'solana/rewardable-entities',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Mine HNT',
       items: [
         'mine-hnt/mine-hnt',

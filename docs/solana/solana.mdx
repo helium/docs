@@ -1,0 +1,51 @@
+---
+id: solana
+hide_title: true
+sidebar_label: Introduction
+slug: /solana
+hide_table_of_contents: true
+---
+
+# Introduction
+
+As of [HIP-70, Scaling the Helium Network](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md)
+helium is moving to the Solana blockchain. These docs are for anyone developing directly against
+the Helium programs on the Solana Blockchain
+
+## Programs
+
+The code for all of these programs is open source, and available in [helium-program-library](https://github.com/helium/helium-program-library)
+
+These contracts (TODO: Not yet, when it's done link to audit report) have been audited by Sec3.
+
+| Name | Program ID | Description |
+-------|-------------|----------------
+| lazy_distributor | 1azyuavdMyvsivtNxPoz6SucD18eDHeXzFCUPq5XU7w | Allows off-chain oracles to distribute PoC rewards to rewardable assets (like hotspots) that are represented as NFTs. |
+| helium_sub_daos | hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR | Manages the DAO/SubDAO structure proposed in HIP-51, including the minting of tokens to subdaos, HST holders, and the `lazy_distributor` for PoC earnings. |
+| data_credits | credMBJhYFzfn7NxBMdU4aUqFggAjgztaCcv2Fo6fPT | Manages the purchase, delegation, and burning of data credits. |
+| helium_entity_manager | hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8 | Handles the issuance of NFTs representing entities that are rewardable on the Helium network, like hotspots and mappers. |
+| circuit_breaker | circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g | Generic program wrapping sensitive mint authorities and token accounts in the Helium system to prevent large movements in the case of an exploit or bug. |
+| treasury_management | treaf4wWBBty3fHdyBpo35Mz84M8k3heKXmjmi9vFt5 | Mangages the treasury of each SubDAO as proposed in HIP-51, allowing DNT tokens to be swapped for HNT according to a formula. |
+| voter_stake_registry | hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8 | Handles voting power via veHNT in Helium Governance.
+| lazy_transactions | 1atrmQs3eq1N2FEYWu6tyTXbCjP4uQwExpjtnhXtS8h | Used in the initial migration to Solana, this program allows compressing many transactions into a merkle root to be executed lazily. This guarentees all txs are executed exactly once. |
+
+
+## Packages (JS/Typescript)
+
+| Name | Description |
+|------|-------------|
+| @helium/lazy-distributor-sdk | Sdk to the lazy distributor program |
+| @helium/helium-sub-daos-sdk | Sdk to helium sub daos program |
+| @helium/data-credits-sdk | Sdk to the data credits program |
+| @helium/helium-entity-manager-sdk | Sdk to the helium entity manager program |
+| @helium/circuit-breaker-sdk | Sdk to circuit breaker program |
+| @helium/treasury-management-sdk | Sdk to the treasury management program |
+| @helium/voter-stake-registry-sdk | Sdk to the voter stake registry program |
+| @helium/lazy-transactions-sdk | Sdk to lazy transactions program |
+| @helium/idls | IDLs containing the typescript definitions for the raw anchor SDKs of our programs |
+| @helium/spl-utils | General utils for interacting with Solana, tokens, etc |
+| @helium/distributor-oracle | Sdk for interacting with the lazy-distributor oracles to claim rewards |
+
+## Important Addresses and Links
+
+// TODO: Get final mint addresses of hnt, mobile, etc. Links to realms.
