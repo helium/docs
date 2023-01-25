@@ -12,21 +12,21 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 # HNT Price Oracles
 
 HNT converts to Data Credits at a rate pegged to `$.00001` , and so the blockchain requires a
-canonical HNT/$USD price for this conversion. Beginning in June 2020, the Helium blockchain
+canonical `HNT/$USD` price for this conversion. Beginning in June 2020, the Helium blockchain
 [started using a system](https://docs.helium.com/devblog/2020/05/29/HNT-Price-Oracles.html) of
 decentralized price oracles to supply the $USD to HNT price used for on-chain for burn transactions.
 (This system is inspired by
 [the Maker Foundation's Oracle usage.](https://blog.makerdao.com/introducing-oracles-v2-and-defi-feeds/))
 
 To find this price, nine oracles (this number may change in the future) periodically submit
-HNT/$USD prices. Once the blockchain has enough new price data, it will calculate a new HNT/$USD
+`HNT/$USD` prices. Once the blockchain has enough new price data, it will calculate a new `HNT/$USD`
 price that will remain valid until enough new, valid oracle inputs are submitted, triggering a new
 price revision.
 
 ### Calculating the HNT Price
 
-Every `10` blocks (roughly every 10 minutes) the blockchain will attempt to establish a new HNT/$USD
-price. To do this:
+Every `10` blocks (roughly every 10 minutes) the blockchain will attempt to establish a new
+`HNT/$USD` price. To do this:
 
 1. The blockchain looks for recent price submissions from valid Oracles (submitted using a
    transaction called `price_oracle_submission`). A valid price submission is anything that was
