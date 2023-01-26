@@ -23,7 +23,7 @@ module.exports = {
       items: [
         'mine-hnt/mine-hnt',
         'mine-hnt/full-hotspots/full-hotspots',
-        'mine-hnt/light-hotspots',
+
         'mine-hnt/data-only-hotspots',
         'mine-hnt/validators/validators',
         'mine-hnt/validators/validators-and-voting-power',
@@ -81,6 +81,7 @@ module.exports = {
         'hotspot-makers/hotspot-manufacturers',
         'hotspot-makers/maker-ethics',
         'hotspot-makers/maker-apps',
+        'hotspot-makers/light-hotspots',
         'hotspot-makers/original-helium-hotspot',
       ],
     },
@@ -1264,7 +1265,7 @@ module.exports = {
     {
       type: 'link',
       label: '<- Light Hotspot',
-      href: '/mine-hnt/light-hotspots',
+      href: '/hotspot-makers/light-hotspots',
     },
     {
       type: 'category',
