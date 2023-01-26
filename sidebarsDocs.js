@@ -81,6 +81,7 @@ module.exports = {
         'hotspot-makers/hotspot-manufacturers',
         'hotspot-makers/maker-ethics',
         'hotspot-makers/maker-apps',
+        'hotspot-makers/original-helium-hotspot',
       ],
     },
     {
