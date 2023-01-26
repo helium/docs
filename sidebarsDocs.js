@@ -106,14 +106,15 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Open Source',
-      items: ['open-source/open-source'],
-      collapsed: true,
-    },
-    {
-      type: 'category',
       label: 'FAQ',
-      items: ['faq/helium-network', 'faq/security', 'faq/build-on-network', 'faq/data-credits'],
+      items: [
+        'faq/helium-network',
+        'faq/security',
+        'faq/build-on-network',
+        'faq/data-credits',
+        'faq/open-source',
+        'faq/docs-installation',
+      ],
       collapsed: true,
     },
     {
@@ -210,19 +211,6 @@ module.exports = {
         'use-the-network/console/troubleshooting',
         'use-the-network/console/hosting-providers',
       ],
-      collapsed: false,
-    },
-  ],
-  opensourcedocs: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/open-source',
-    },
-    {
-      type: 'category',
-      label: 'Docs',
-      items: ['open-source/docs/installation'],
       collapsed: false,
     },
   ],
