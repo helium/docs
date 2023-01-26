@@ -27,7 +27,6 @@ module.exports = {
         'mine-hnt/data-only-hotspots',
         'mine-hnt/validators/validators',
         'mine-hnt/validators/validators-and-voting-power',
-        'mine-hnt/maker-apps',
         'mine-hnt/understanding-hotspot-status',
         'mine-hnt/helium-hotspot-app',
         'mine-hnt/denylist',
@@ -78,7 +77,11 @@ module.exports = {
     {
       type: 'category',
       label: 'Hotspot Makers',
-      items: ['hotspot-makers/hotspot-manufacturers', 'hotspot-makers/maker-ethics'],
+      items: [
+        'hotspot-makers/hotspot-manufacturers',
+        'hotspot-makers/maker-ethics',
+        'hotspot-makers/maker-apps',
+      ],
     },
     {
       type: 'category',
