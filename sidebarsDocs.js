@@ -77,6 +77,11 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Hotspot Makers',
+      items: ['hotspot-makers/hotspot-manufacturers', 'hotspot-makers/maker-ethics'],
+    },
+    {
+      type: 'category',
       label: 'Helium Wallets',
       items: [
         'wallets/wallets',
@@ -103,13 +108,7 @@ module.exports = {
     {
       type: 'category',
       label: 'FAQ',
-      items: [
-        'faq/helium-network',
-        'faq/security',
-        'faq/hotspot-manufacturers',
-        'faq/build-on-network',
-        'faq/data-credits',
-      ],
+      items: ['faq/helium-network', 'faq/security', 'faq/build-on-network', 'faq/data-credits'],
       collapsed: true,
     },
     {
