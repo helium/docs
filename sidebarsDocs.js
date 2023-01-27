@@ -22,8 +22,22 @@ module.exports = {
       label: 'Solana',
       items: [
         'solana/solana',
+        {
+          type: 'category',
+          label: 'Migration',
+          items: [
+            'solana/migration/hotspot-owner',
+            'solana/migration/maker',
+            'solana/migration/exchange',
+            'solana/migration/network-user',
+            'solana/migration/application-builder',
+            'solana/migration/governance',
+            'solana/migration/ledger',
+          ],
+        },
         'solana/primer',
         'solana/rewardable-entities',
+        'solana/oracle-data',
       ],
       collapsed: true,
     },
