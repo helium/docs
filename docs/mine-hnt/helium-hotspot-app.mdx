@@ -1,0 +1,162 @@
+---
+id: helium-hotspot-app
+title: Helium Hotspot App (is Being Depreciated)
+sidebar_label: 🚫 Helium Hotspot App 🚫
+slug: /mine-hnt/helium-hotspot-app
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+:::warning Sunsetting Features
+
+Wallet-related functionality in the Helium Hotspot app has been migrated to the new
+[Helium Wallet App](/wallets/helium-wallet-app).
+
+Hotspot management of non Helium Branded Hotspots in the Helium Hotspot app has been migrated to the
+vendors created apps at [Maker Apps](/mine-hnt/maker-apps).
+
+:::
+
+## Sunsetting the Helium App
+
+> Some users may know the [Helium app](/mine-hnt/helium-hotspot-app) as the "Helium Hotspot App" or
+> "the blue app."
+
+The existing [Helium Hotspot app](/mine-hnt/helium-hotspot-app) will be restricted to only the
+management of Original Helium Hotspots in two phases.
+
+**Phase 1:**
+
+> ETA December 19, 2022
+
+- Hotspot App users will be migrated to use the Helium Wallet app for Helium Wallet management.
+- Users can no longer onboard new Hotspots using the Helium App. All new Hotspots will be directed
+  to use the Hotspot's Maker app, web dashboard, or contact email support (in the event that a Maker
+  app is not available).
+
+:::info Maker app Availability
+
+All Makers had a deadline to launch their Maker app by March of 2022. Makers without an app or web
+dashboard either have an app in development or have not responded to requests for additional
+updates.
+
+:::
+
+- Hotspot management for _existing_ Hotspots still available in the Hotspot App.
+- The `transfer_hotspot` and `assert_location` will use the Helium Wallet app for signatures.
+
+**Phase 2:**
+
+> ETA January 2023
+
+- Hotspot management will be handled by Maker apps.
+- Original Helium Hotspots will be managed by the Helium App.
+- All remaining Wallet functionality will use the Helium Wallet app.
+
+:::note What If I Miss The Wallet Migration Deadline?
+
+Users that do not transition to the Helium Wallet app prior to the Solana blockchain migration will
+still be able to access their seed phrase and transition to the Helium Wallet app but will not be
+able to submit transactions in the Helium app. Seed phrase export functionality will remain in the
+app for at least 1 year post blockchain migration.
+
+:::
+
+### Maker Apps
+
+Makers will need to update their [Maker Apps](/mine-hnt/maker-apps#known-maker-apps) to use the new
+Solana transaction type to add Hotspots to the network, assert location, and transfer Hotspots.
+
+The core team will make this update available to Makers in an SDK update weeks before the chain halt
+to allow Makers time to make the update, release the app to the app store, and available to Hotspot
+owners.
+
+The minimum app version will change with each Maker - please check with them for exact details.
+
+:::note Maker Updates
+
+Note that Makers that do not update their Maker apps will mean their customers will not be able to
+add new Hotspots to the network, transfer existing Hotspots, or assert locations.
+
+:::
+
+---
+
+<details>
+  <summary>Have an "OG" Hotspot? Click here.</summary>
+
+## Helium Hotspot App Overview
+
+The Helium Hotspot App previously focused on people who want to send or receive HNT or manage
+Hotspots. other activities, such as managing end-devices and OUIs (i.e. users of the network) are
+generally best suited for the command line wallet.
+
+It currently is specifically for managing **only Helium Branded Hotspots**.
+
+The Helium app (available for [iOS](https://apps.apple.com/us/app/helium-hotspot/id1450463605) and
+[Android](https://play.google.com/store/apps/details?id=com.helium.wallet)) included everything you
+need to on-board and maintain your Hotspot and view its activity. With the app, which was also your
+Helium wallet, you were able to do things like:
+
+- Add your Hotspot to the network and set your location
+- Configure your Wi-Fi
+- View your Hotspot's activity
+- See where other Hotspots are located
+
+[Check out the latest app release notes](https://docs.helium.com/devblog)
+
+## Guides
+
+- [Twelve Word Seed Phrase](/wallets/twelve-words)
+- [Twenty Four Word Seed Phrase](/wallets/twenty-four-words)
+- [Transfer Hotspot](/wallets/app-wallet/transfer-hotspot)
+- [Understanding Hexagons](/wallets/app-wallet/hexagons)
+- [Transaction Failures](/wallets/app-wallet/transaction-failures)
+- [Fleet Mode](/wallets/app-wallet/fleet-mode)
+- [Deep Links and QR Codes](/wallets/app-wallet/deep-links-and-qr-codes)
+
+---
+
+## App Tabs
+
+<Tabs block={true}>
+
+<TabItem  value="hotspot_tab" label="Hotspot Tab" default>
+
+<img src={useBaseUrl('img/wallets/helium-app/hotspots-nav.png')} />
+The Hotspot tab shows your Hotspot(s). There's a location map, the Hotspots Settings section (gear icon),
+as well as a general health status (Online or Needs Attention). The settings provide access to updating
+the location and WiFi network, as well as running the Hotspots diagnostic report if needed.
+
+</TabItem>
+
+<TabItem  value="account_tab" label="Account Tab" default>
+<img src={useBaseUrl('img/wallets/helium-app/account-nav.png')} />
+
+The Account tab shows your wallet and account balance, Notifications, the Send and Receive options,
+and recent transactions.
+
+</TabItem>
+
+<TabItem  value="notifications_tab" label="Notifications Tab" default>
+<img src={useBaseUrl('img/wallets/helium-app/notifications-nav.png')} />
+
+This sections gives you a timeline view of all notifications relevant to your Hotspots and wallet
+transcations.
+
+</TabItem>
+
+<TabItem  value="settings_tab" label="Settings Tab" default>
+<img src={useBaseUrl('img/wallets/helium-app/settings-nav.png')} />
+
+In this section, you can configure your apps PIN settings, set the app Language, reveal the 12
+security words (your private key) for your wallet, and view your current app version. There are also
+access to some help articles and the community Discord channel.
+
+</TabItem>
+
+</Tabs>
+
+</details>

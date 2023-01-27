@@ -53,7 +53,7 @@ module.exports = {
         'mine-hnt/validators/validators-and-voting-power',
         'mine-hnt/maker-apps',
         'mine-hnt/understanding-hotspot-status',
-        'wallets/app-wallet/app-wallet',
+        'mine-hnt/helium-hotspot-app',
         'mine-hnt/denylist',
         'mine-hnt/denylist-removals',
         'mine-hnt/crowdspot',
@@ -184,11 +184,11 @@ module.exports = {
     {
       type: 'link',
       label: '<- Back',
-      href: '/wallets/app-wallet',
+      href: '/mine-hnt/helium-hotspot-app',
     },
     {
       type: 'category',
-      label: 'Helium App',
+      label: 'Helium Hotspot App',
       items: [
         'wallets/app-wallet/transfer-hotspot',
         'wallets/app-wallet/hexagons',
