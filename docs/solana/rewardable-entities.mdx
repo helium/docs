@@ -2,7 +2,7 @@
 id: rewardable-entities
 hide_title: true
 sidebar_label: Rewardable Entities (Hotspots, Mappers, and more)
-slug: /rewardable-entites
+slug: /solana/rewardable-entites
 hide_table_of_contents: true
 ---
 
@@ -89,10 +89,11 @@ all helium entities for a given wallet is to filter by the `helium-entity-manage
 
 We can get this address by running
 
+<!-- prettier-ignore -->
 ```js
 import { entityCreatorKey } from "@helium/helium-entity-manager-sdk";
 
-const hntMint = new PublicKey("...hnt mint...")
+const hntMint = new PublicKey('...hnt mint...')
 const creator = entityCreatorKey(hntMint)[0]
 ```
 
@@ -130,6 +131,7 @@ If you have an asset id of an NFT on Solana, you can get the ECC Compact Key by 
 
 For example:
 
+<!-- prettier-ignore -->
 ```js
 const asset = await getAsset(rpcUrl, new PublicKey("...asset id..."));
 
@@ -138,7 +140,7 @@ const eccCompactKey = asset.content.json_uri.split("/").slice(-1)[0];
 
 If you have only an ECC Compact key and would like to find the NFT, you can use the `KeyToAssetV0` struct that is stored on chain:
 
-
+<!-- prettier-ignore -->
 ```js
 import { daoKey } from "@helium/helium-sub-daos-sdk"
 import { keyToAssetKey, init } from "@helium/helium-entity-manager-sdk"
@@ -187,7 +189,7 @@ this process.
 
 // TODO: Add examples for the maker SDK (really, throughout this doc)
 
-
+<!-- prettier-ignore -->
 ```js
 import Address from "@helium/address";
 import { Keypair } from "@helium/crypto";
@@ -375,6 +377,7 @@ If you have interst in using the REST api, you can see the relatively simple cli
 
 To fetch rewards across all oracles for a given asset id:
 
+<!-- prettier-ignore -->
 ```js
 import { init, lazyDistributorKey } from "@helium/lazy-distributor-sdk";
 import { getCurrentRewards } from "@helium/distributor-oracle";
@@ -396,9 +399,9 @@ rewards.map(reward => {
 
 ### Claiming rewards
 
-
 You can then get a transaction to submit to the solana blockchain using those rewards:
 
+<!-- prettier-ignore -->
 ```js
 
 import { formTransaction } from "@helium/distributor-oracle";
@@ -411,6 +414,6 @@ const tx = await formTransaction({
   lazyDistributor: lazyDistributorPkey,
 })
 
-await provider.send(tx);
+await provider.send(tx)
 ```
 
