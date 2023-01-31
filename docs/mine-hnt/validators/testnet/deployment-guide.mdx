@@ -10,8 +10,9 @@ slug: /mine-hnt/validators/testnet/deployment-guide
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-This guide will cover the end-to-end process of deploying a Helium Validator on the Testnet. It assumes
-you're starting from scratch. At the end, you'll have a Helium Validator deployed on the Test Network.
+This guide will cover the end-to-end process of deploying a Helium Validator on the Testnet. It
+assumes you're starting from scratch. At the end, you'll have a Helium Validator deployed on the
+Test Network.
 
 :::info
 
@@ -184,7 +185,7 @@ Now that docker is installed and ready, let's run the Validator.
 #### Run the Docker Container
 
 Before running the container for the first time, it is mandatory to pick a "system mount point".
-This allows you to easily maintain your Validator's blockchain identity - specifically its 
+This allows you to easily maintain your Validator's blockchain identity - specifically its
 `swarm keys` - and blockchain state through image updates. Without doing this, you will lose these
 items when upgrading docker images.
 
@@ -391,8 +392,8 @@ Next, let's install all the things. Start by cloning the miner repo.
 git clone https://github.com/helium/miner.git
 ```
 
-And checkout the latest Testnet Validator tag. Consult GitHub https://github.com/helium/miner/tags for the current version and replace it into
-this command:
+And checkout the latest Testnet Validator tag. Consult GitHub https://github.com/helium/miner/tags
+for the current version and replace it into this command:
 
 ```
 git checkout tags/val0.1.134
@@ -526,8 +527,8 @@ things are hunky dory.
 
 The blockchain takes time. The distributed nature of verifying transactions into the blockchain
 takes time. The validator information gossiped on the blockchain takes time. APIs that run to update
-the [Testnet Explorer](https://testnet-explorer.helium.com/) are scheduled and have intervals. Basically, you won't
-be able to run the validator and instantly see that everything is "good".
+the [Testnet Explorer](https://testnet-explorer.helium.com/) are scheduled and have intervals.
+Basically, you won't be able to run the validator and instantly see that everything is "good".
 
 After the validator has been up and running for 15 minutes, proceed with some of the steps below.
 
@@ -622,8 +623,8 @@ miner peer book -s
 ```
 
 You're looking for `listen_addrs`. If you don't have at least one, your validator hasn't settled on
-how to tell other peers to reach it. Often this can take 15-30min, sometimes longer.
-The result of `docker exec validator miner info p2p_status` command can look like:
+how to tell other peers to reach it. Often this can take 15-30min, sometimes longer. The result of
+`docker exec validator miner info p2p_status` command can look like:
 
 ```
 +---------+------+
@@ -637,8 +638,9 @@ The result of `docker exec validator miner info p2p_status` command can look lik
 ```
 
 If the issue is persistent, try to establish outgoing connection to another Validator:
-  
-- find address of the Validator elected into the Consensus Group on the [Testnet Explorer](https://testnet-explorer.helium.com/validators/consensus)
+
+- find address of the Validator elected into the Consensus Group on the
+  [Testnet Explorer](https://testnet-explorer.helium.com/validators/consensus)
 - get `listen_addrs` from the [testnet API]:
   ```
   https://testnet-api.helium.wtf/v1/validators/<validator_address>
@@ -651,9 +653,10 @@ If the issue is persistent, try to establish outgoing connection to another Vali
 
 ### Check the Explorer
 
-Head over to the [Helium Testnet Explorer's Validators Page](https://testnet-explorer.helium.com/validators)
-and search for your validator. This may take 10 to 15 minutes from the time that your Validator is
-both online and staked. You should see your 3-word validators name (short-umber-bull in the example
+Head over to the
+[Helium Testnet Explorer's Validators Page](https://testnet-explorer.helium.com/validators) and
+search for your validator. This may take 10 to 15 minutes from the time that your Validator is both
+online and staked. You should see your 3-word validators name (short-umber-bull in the example
 above) listed. It may be easier to sort by #, decending, as your new Validator will be near the top
 of the list. Remember you can view the name of your validator through `miner info summary` or just
 `miner info name`.
