@@ -436,7 +436,7 @@ This state indicates that the submission request has been declined.
 > This may happen when Hotspots requested to be added are found to be legitimate or when Hotspots
 > that have been requested to be removed cannot be proven to be legitimate.
 
-### Trust Score
+### Trust Scores and Legitimacy
 
 Crowdspot will leverage algorithms to increase efficiency and accurately detect gaming Hotspots.
 Trust Scores will be assigned to every submitted Hotspot to assist in the evaluation.
@@ -448,6 +448,19 @@ Witness graph, the Witness SNR vs. RSSI graph, and the Witness RSSI vs. Distance
 The Trust Score compares these graph metrics to a sample of known gaming Hotspots from the Denylist,
 as well as a sample of known legitimate Hotspots, to determine the relative legitimacy of the
 Hotspot.
+
+Legitimacy categorizes the Trust Score based on the following ranges:
+
+<div className="img-center">
+  <img className="appscreenbanner" src={useBaseUrl('img/crowdspot/trust-score-bar.png')} />
+</div>
+
+| Range Lower | Range Upper |               Legitimacy Label                |
+| :---------: | :---------: | :-------------------------------------------: |
+|     90%     |    100%     |                  Legitimate                   |
+|     70%     |     90%     |               Likely Legitimate               |
+|     30%     |     70%     | Inconclusive (further evaluation is required) |
+|     0%      |     30%     |              Unlikely Legitimate              |
 
 ---
 
