@@ -30,16 +30,17 @@ Marketplace participants:
   Console UI.
 - Console users: decide which Console components to use.
 
-Follow the instructions to submit a Marketplace Integration or Decoder pull request to the Helium Console github [repository](https://github.com/helium/console) for consideration by the Helium Foundation.
+Follow the instructions to submit a Marketplace Integration or Decoder pull request to the Helium
+Console github [repository](https://github.com/helium/console) for consideration by the Helium
+Foundation.
 
-## Create a Marketplace Integration 
+## Create a Marketplace Integration
 
 - Add image assets for icons. Icons should be square and in png or svg format. Place image assets in
   `/assets/img/channels` folder and follow naming conventions.
 
 - Add new integration type to `/lib/console/channels/channel.ex` and indicate if new integration is
   in `@http_types` and `@long_type_names`.
-
 - Import image assets and add new integration info to `integrationImgMap`, add an entry to
   `COMMUNITY_INTEGRATION_TYPES`, and indicate if new integration is `http_integrations` or
   `mqtt_integrations`. All in `/assets/js/util/integrationInfo.js`.

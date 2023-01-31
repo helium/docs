@@ -58,7 +58,6 @@ actually happen.
 
 PoC Challenges involve three distinct roles:
 
-
 1. **Challenger** - The Validator that constructs and issues the PoC Challenge. See
    [HIP 55](https://github.com/helium/HIP/blob/main/0055-validator-challenges.md) for further
    information about this change.
@@ -68,11 +67,9 @@ PoC Challenges involve three distinct roles:
 3. **Witness** - Hotspots that are geographically proximate to the Transmitter and report the
    existence of the challenge packet after it has been transmitted.
 
-
 (Note: The goal is to reduce the PoC Interval to 200 blocks or lower)
 
 ### Challenge Proof Construction and Target Selection
-
 
 Validators can create a challenge request every block, but a chain variable `poc_challenge_rate`
 determines how many Challenge requests are allowed in a block. As this number increases, more
@@ -122,7 +119,6 @@ As of [HIP 15](https://github.com/helium/HIP/blob/master/0015-beaconing-rewards.
 Coverage relies entirely on beaconing. A beacon is a single transmission witnessed by any Hotspot.
 Previous versions used multi-hop challenge paths that didn't accurately test Hotspots on what they
 are built to do: capture RF packets.
-
 
 ### PoC Reward Scaling
 
