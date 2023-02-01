@@ -16,7 +16,127 @@ The documentation on Solana and the upcoming Migration is under development and 
 
 # Maker Migration
 
-// TODO: Nova labs, maker sdk update
+# Maker App 2.0 Upgrade Guide
+
+## Update and add new dependencies
+
+```json
+"@helium/address": "^4.8.1",
+"@helium/currency-utils": "^0.0.26",
+"@helium/react-native-sdk": "2.0.0",
+"@helium/wallet-link": "^4.8.3",
+"@metaplex-foundation/mpl-bubblegum": "^0.6.2",
+"@pythnetwork/client": "^2.11.0",
+"@solana/web3.js": "^1.73.0",
+"axios-retry": "^3.3.1",
+"cipher-base": "^1.0.4",
+"react-native-quick-crypto": "^0.5.0",
+"stream": "^0.0.2"
+```
+
+## Update Babel Config to alias crypto library
+
+```jsx
+// babel.config.js
+function getAliasesFromTsConfig() {
+  const tsConfig = require('./tsconfig.json')
+  const paths = tsConfig.compilerOptions.paths
+  let alias = {}
+  Object.keys(paths).forEach((key) => {
+    alias[key] = `./${paths[key][0]}`
+  })
+
+  return alias
+}
+
+const baseConfig = {
+  presets: ['module:metro-react-native-babel-preset'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        alias: {
+          ...getAliasesFromTsConfig(),
+          crypto: 'react-native-quick-crypto', // <--- This
+        },
+        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
+        root: ['./src'],
+      },
+    ],
+  ],
+}
+
+module.exports = (api) => {
+  api.cache(true)
+
+  return {
+    ...baseConfig,
+    plugins: [...baseConfig.plugins, 'react-native-reanimated/plugin'],
+  }
+}
+```
+
+## Apply relevant changes
+
+### Full diff can be found here
+
+[Feature/solana by matthewcarlreetz · Pull Request #52 · helium/maker-starter-app](https://github.com/helium/maker-starter-app/pull/52/files?diff=split&w=1)
+
+## Notable Changes
+
+### Onboarding a hotspot
+
+When onboarding or updating a hotspot you must specify which `hotspotTypes` it supports (eg `iot` ,
+`mobile`)
+
+```tsx
+// src/features/hotspots/setup/HotspotSetupConfirmLocationScreen.tsx
+const { getAssertData, getOnboardingRecord, getOnboardTransactions } = useOnboarding()
+
+let hotspotTypes = [] as HotspotType[]
+const onboardingRecord = await getOnboardingRecord(params.hotspotAddress)
+/*
+         TODO: Determine which network types this hotspot supports
+         Could possibly use your maker address
+      */
+if (Config.MAKER_ADDRESS_5G === onboardingRecord?.maker.address) {
+  hotspotTypes = ['iot', 'mobile']
+} else {
+  hotspotTypes = ['iot']
+}
+
+const isAddingGateway = !!params.addGatewayTxn
+
+if (isAddingGateway) {
+  const onboardData = await getOnboardTransactions({
+    txn: params.addGatewayTxn,
+    hotspotAddress: params.hotspotAddress,
+    hotspotTypes,
+    elevation,
+    decimalGain: gain,
+    lat,
+    lng,
+  })
+
+  setAddGatewayTxn(onboardData.addGatewayTxn)
+  setSolanaTransactions(onboardData.solanaTransactions?.map((tx) => tx.toString('base64')))
+} else {
+  const data = await getAssertData({
+    decimalGain: gain,
+    elevation,
+    gateway: params.hotspotAddress,
+    lat,
+    lng,
+    owner: userAddress,
+    onboardingRecord,
+    hotspotTypes,
+  })
+
+  setAssertData(data)
+  setAssertLocationTxn(data.assertLocationTxn)
+  setSolanaTransactions(data.solanaTransactions?.map((tx) => tx.toString('base64')))
+}
+```
 
 ## Data Credits and Sol for Onboarding
 
