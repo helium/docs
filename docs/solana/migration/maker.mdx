@@ -262,9 +262,41 @@ TODO: Show how this is done
 
 # Update wallet link
 
-Helium Hotspot App is deprecated, you should link your app to the new black wallet app
+Helium Hotspot App is deprecated, you should link your app to the new black wallet app Add the hook
+`useCheckWalletLink()` to `src/App.tsx` It will check to see if the user is linked to the Hotspot
+app and prompt them to update their link
 
-TODO: Show how this is done
+```tsx
+// src/App.tsx
+import useCheckWalletLink from './utils/useCheckWalletLink'
+const App = () => {
+  useCheckWalletLink()
+}
+```
+
+Remove the ability for a new user to link to the hotspot app. On the Welcome Screen you can now just
+link directly to the wallet app
+
+```tsx
+// src/features/onboarding/welcome/WelcomeScreen.tsx
+const { walletApp } = useDelegateApps()
+
+const importAccount = useCallback(() => {
+  try {
+    const url = createWalletLinkUrl({
+      universalLink: walletApp?.universalLink,
+      requestAppId: getBundleId(),
+      callbackUrl: 'makerappscheme://',
+      appName: 'Maker App',
+    })
+
+    Linking.openURL(url)
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error)
+  }
+}, [walletApp?.universalLink])
+```
 
 ---
 
@@ -272,6 +304,12 @@ TODO: Show how this is done
 
 [Feature/solana by matthewcarlreetz · Pull Request #52 · helium/maker-starter-app](https://github.com/helium/maker-starter-app/pull/52/files?diff=split&w=1)
 
+---
+
 ## Data Credits and Sol for Onboarding
 
 // TODO: We need to create an easy way for makers to get sol and data credits into their accounts
+
+```
+
+```
