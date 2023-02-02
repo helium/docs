@@ -14,11 +14,9 @@ The documentation on Solana and the upcoming Migration is under development and 
 
 :::
 
-# Maker Migration
-
 # Maker App 2.0 Upgrade Guide
 
-## Update and add new dependencies
+# Update and add new dependencies
 
 ```json
 "@helium/address": "^4.8.1",
@@ -34,7 +32,7 @@ The documentation on Solana and the upcoming Migration is under development and 
 "stream": "^0.0.2"
 ```
 
-## Update Babel Config to alias crypto library
+# Update Babel Config to alias crypto library
 
 ```jsx
 // babel.config.js
@@ -76,10 +74,57 @@ module.exports = (api) => {
 }
 ```
 
-## Update App Providers
+# Update App Providers
+
+Your app must now be wrapped in a `<SolanaProvider>` and the `baseUrl` for `<OnboardingProvider>`
+has changed
 
 ```tsx
-// TODO:
+// src/App.tsx
+const { walletLinkToken } = useSelector((state: RootState) => state.app)
+const [heliumWallet, setHeliumWallet] = useState<string>()
+
+useEffect(() => {
+  if (!walletLinkToken) {
+    if (heliumWallet) {
+      setHeliumWallet('')
+    }
+    return
+  }
+
+  getAddress().then(setHeliumWallet)
+}, [heliumWallet, walletLinkToken])
+
+////////////////////////////////////////////////////
+//👇👇👇 new provider 👇👇👇 /////////////////////////
+<SolanaProvider
+   heliumWallet={heliumWallet}
+   cluster="mainnet-beta"
+>
+  {/* //////////////////////////////////////////////////////////////
+  Remove the /v2 from your onboarding url 👉👉👉👉👉👉👉👉👇
+  ///////////////////////////////////////////////////////////👇 */}
+  <OnboardingProvider baseUrl="https://onboarding.dewi.org/api">
+    <HotspotBleProvider>
+{/* The Rest of your app... */}
+```
+
+# Testing Solana pre-transition
+
+Before the migration to Solana has completed the v2 onboarding server will be used and transactions
+will still be submitted to the helium blockchain. To test Solana before transition use these
+variables.
+
+**_IT IS CRITICALLY IMPORTANT THAT YOU ONLY USE THESE FOR TESTING._**
+
+```tsx
+// src/App.tsx
+<SolanaProvider
+  heliumWallet={heliumWallet}
+  cluster="devnet"
+  solanaStatusOverride="complete"
+>
+  <OnboardingProvider baseUrl="https://onboarding.oracle.test-helium.com/api">
 ```
 
 ---
@@ -127,7 +172,51 @@ setAddGatewayTxn(onboardData.addGatewayTxn)
 setSolanaTransactions(onboardData.solanaTransactions)
 ```
 
-## Linking to Helium Wallet App for signing
+---
+
+# Updating a hotspot
+
+When updating a hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
+
+## Create transactions
+
+```tsx
+// src/features/hotspots/setup/HotspotSetupConfirmLocationScreen.tsx
+const { getAssertData, getOnboardingRecord } = useOnboarding()
+const data = await getAssertData({
+  decimalGain: gain,
+  elevation,
+  gateway: params.hotspotAddress,
+  lat,
+  lng,
+  owner: userAddress,
+  onboardingRecord,
+  hotspotTypes,
+})
+
+setAssertData(data)
+setAssertLocationTxn(data.assertLocationTxn)
+setSolanaTransactions(data.solanaTransactions)
+```
+
+---
+
+# Transferring a hotspot
+
+```tsx
+// src/features/transferHotspot/TransferHotspot.tsx
+const { createTransferTransaction } = useOnboarding()
+
+const { solanaTransactions, transferHotspotTxn } = await createTransferTransaction({
+  hotspotAddress,
+  userAddress,
+  newOwnerAddress,
+})
+```
+
+---
+
+# Linking to Helium Wallet App for signing
 
 You must add `solanaTransactions` to the signature request
 
@@ -146,7 +235,9 @@ const url = createUpdateHotspotUrl(updateParams)
 Linking.openURL(url)
 ```
 
-## Submit signed transaction(s)
+---
+
+# Submit signed transaction(s)
 
 ```tsx
 // src/features/hotspots/setup/HotspotTxnsSubmitScreen.tsx
@@ -162,16 +253,6 @@ const { pendingAssertTxn, pendingGatewayTxn, pendingTransferTxn, solanaTxnIds } 
 ```
 
 ---
-
-# Updating a hotspot
-
-TODO: Show how this is done
-
----
-
-# Transferring a hotspot
-
-TODO: Show how this is done
 
 ---
 
