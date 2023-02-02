@@ -76,67 +76,120 @@ module.exports = (api) => {
 }
 ```
 
-## Apply relevant changes
-
-### Full diff can be found here
-
-[Feature/solana by matthewcarlreetz · Pull Request #52 · helium/maker-starter-app](https://github.com/helium/maker-starter-app/pull/52/files?diff=split&w=1)
-
-## Notable Changes
-
-### Onboarding a hotspot
-
-When onboarding or updating a hotspot you must specify which `hotspotTypes` it supports (eg `iot` ,
-`mobile`)
+## Update App Providers
 
 ```tsx
-// src/features/hotspots/setup/HotspotSetupConfirmLocationScreen.tsx
-const { getAssertData, getOnboardingRecord, getOnboardTransactions } = useOnboarding()
+// TODO:
+```
+
+---
+
+# Onboarding a hotspot
+
+When onboarding a hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
+
+You can optionally set `elevation`, `gain`, `lat`, and `lng` to avoid having to create a second
+transaction
+
+### Create Onboard Transactions
+
+`src/features/hotspots/setup/HotspotSetupConfirmLocationScreen.tsx`
+
+```tsx
+const { getOnboardingRecord, getOnboardTransactions } = useOnboarding()
 
 let hotspotTypes = [] as HotspotType[]
 const onboardingRecord = await getOnboardingRecord(params.hotspotAddress)
 /*
-         TODO: Determine which network types this hotspot supports
-         Could possibly use your maker address
-      */
+   TODO: Determine which network types this hotspot supports
+   Could possibly use your maker address
+*/
 if (Config.MAKER_ADDRESS_5G === onboardingRecord?.maker.address) {
   hotspotTypes = ['iot', 'mobile']
 } else {
   hotspotTypes = ['iot']
 }
 
-const isAddingGateway = !!params.addGatewayTxn
+const onboardData = await getOnboardTransactions({
+  txn: params.addGatewayTxn,
+  hotspotAddress: params.hotspotAddress,
+  hotspotTypes,
+  elevation,
+  decimalGain: gain,
+  lat,
+  lng,
+})
 
-if (isAddingGateway) {
-  const onboardData = await getOnboardTransactions({
-    txn: params.addGatewayTxn,
-    hotspotAddress: params.hotspotAddress,
-    hotspotTypes,
-    elevation,
-    decimalGain: gain,
-    lat,
-    lng,
-  })
+// pre-solana this txn will exist
+setAddGatewayTxn(onboardData.addGatewayTxn)
 
-  setAddGatewayTxn(onboardData.addGatewayTxn)
-  setSolanaTransactions(onboardData.solanaTransactions?.map((tx) => tx.toString('base64')))
-} else {
-  const data = await getAssertData({
-    decimalGain: gain,
-    elevation,
-    gateway: params.hotspotAddress,
-    lat,
-    lng,
-    owner: userAddress,
-    onboardingRecord,
-    hotspotTypes,
-  })
-
-  setAssertData(data)
-  setAssertLocationTxn(data.assertLocationTxn)
-  setSolanaTransactions(data.solanaTransactions?.map((tx) => tx.toString('base64')))
-}
+// post-solana these txn(s) will exist
+setSolanaTransactions(onboardData.solanaTransactions)
 ```
+
+## Linking to Helium Wallet App for signing
+
+You must add `solanaTransactions` to the signature request
+
+`src/features/hotspots/setup/HotspotTxnsProgressScreen.tsx`
+
+```tsx
+const updateParams = {
+  token,
+  platform: Platform.OS,
+  addGatewayTxn,
+  assertLocationTxn,
+  transferHotspotTxn,
+  solanaTransactions, // <---- !important!
+} as SignHotspotRequest
+const url = createUpdateHotspotUrl(updateParams)
+Linking.openURL(url)
+```
+
+## Submit signed transaction(s)
+
+```tsx
+// src/features/hotspots/setup/HotspotTxnsSubmitScreen.tsx
+const { submitTransactions } = useOnboarding()
+const { pendingAssertTxn, pendingGatewayTxn, pendingTransferTxn, solanaTxnIds } =
+  await submitTransactions({
+    addGatewayTxn: params.gatewayTxn,
+    assertLocationTxn: params.assertTxn,
+    hotspotAddress: params.gatewayAddress,
+    solanaTransactions,
+    transferHotspotTxn: params.transferTxn,
+  })
+```
+
+---
+
+# Updating a hotspot
+
+TODO: Show how this is done
+
+---
+
+# Transferring a hotspot
+
+TODO: Show how this is done
+
+---
+
+# Fetching Hotspots
+
+TODO: Show how this is done
+
+# Update wallet link
+
+Helium Hotspot App is deprecated, you should link your app to the new black wallet app
+
+TODO: Show how this is done
+
+---
+
+## Full diff can be found here
+
+[Feature/solana by matthewcarlreetz · Pull Request #52 · helium/maker-starter-app](https://github.com/helium/maker-starter-app/pull/52/files?diff=split&w=1)
 
 ## Data Credits and Sol for Onboarding
 
