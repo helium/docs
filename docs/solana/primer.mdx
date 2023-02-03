@@ -61,19 +61,21 @@ If you imagine the world of Helium Data on Solana as a Graph, PDAs let us hook i
 A great example of this is the relationship between the helium `dao` and the `hnt` mint address. The
 `DaoV0` definition from earlier exists at address:
 
+<!-- prettier-ignore -->
 ```
 import { daoKey } from "@helium/helium-sub-daos-sdk"
 
 const daoAddr = daoKey(new PublicKey("...hnt mint..."))[0];
 ```
 
-
 :::note Helium PDAs and Mints
+
 You'll notice that if you trace the graph of helium PDAs, they always lead back to the address of either the HNT token mint, or the subdao token mint.
 
 This design is intentional. Rather than making daos, subdaos, etc global, we opted to make them dependent on the specific mints being used. This allows
 us to set up testing scenarios in which we use a testing token alongside the real tokens. This design also allows for easier reuse of our contracts
-throughout the Solana community. 
+throughout the Solana community.
+
 :::
 
 ### Aside - Tokens
@@ -102,6 +104,7 @@ Given the above model, it is possible for a given wallet to have multiple token 
 hard to index. Early in the days of solana, a program called `associated-token` emerged. Associated token says that the account for a given 
 wallet and mint can be derived by:
 
+<!-- prettier-ignore -->
 ```js
  PublicKey.findProgramAddress(
     [wallet.toBuffer(), TOKEN_PROGRAM_ID.toBuffer(), mint.toBuffer()],
@@ -117,6 +120,7 @@ be guarenteed to be accessed at an easy-to-find address.
 
 The classic way of fetching data on Solana is to use @solana/web3.js connection object.
 
+<!-- prettier-ignore -->
 ```js
 import { PublicKey, Connection } from "@solana/web3.js"
 
@@ -130,7 +134,7 @@ This will get you the binary data of any account stored on chain, however you wi
 the data your self. Most programs come with their own sdks for reading and deserializing data. For
 example, Spl Token (the token program), comes with @solana/spl-token
 
-
+<!-- prettier-ignore -->
 ```js
 import { PublicKey } from "@solana/web3.js"
 import { getAccount, getAssociatedTokenAddressSync } from "@solana/spl-token"
@@ -148,7 +152,7 @@ which amongst other things generate SDKs for us.
 
 You can use the SDKs as follows:
 
-
+<!-- prettier-ignore -->
 ```js
 import { init } from "@helium/helium-sub-daos-sdk";
 import * as anchor from "@coral-xyz/anchor";
@@ -174,6 +178,7 @@ The best way to understand how to take certain actions against Helium on Solana 
 
 For example, to submit a data credits delegation, the code may look something like this:
 
+<!-- prettier-ignore -->
 ```js
 import { subDaoKey } from "@helium/helium-sub-daos-sdk";
 import { init as initDc } from "@helium/data-credits-sdk";
