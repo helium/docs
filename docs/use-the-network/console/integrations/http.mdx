@@ -1,6 +1,10 @@
 ---
 id: http
+title: Http
+pagination_label: HTTP
 sidebar_label: HTTP
+description: Helium Documentation
+image: https://i.imgur.com/bWAbESE.png
 slug: /use-the-network/console/integrations/http
 ---
 
@@ -184,18 +188,22 @@ Flows Workspace. More information about Flows
 ## Advanced - JSON Message Template
 
 :::important
- 
- This is an optional, advanced feature and should only be used by users familiar with logic-less templates.
+
+This is an optional, advanced feature and should only be used by users familiar with logic-less
+templates.
 
 :::
 
-Users can customize the JSON Message structure sent to Integrations. Includes the ability to write custom JSON Messages and use supplied predefined JSON templates for Cayenne, and Browan. 
+Users can customize the JSON Message structure sent to Integrations. Includes the ability to write
+custom JSON Messages and use supplied predefined JSON templates for Cayenne, and Browan.
 
-### Decoding base64 payloads 
+### Decoding base64 payloads
 
-Users can send decoded base64 payloads (to hex or bytes) from device to desired integration without creating a decoder function for brevity. 
+Users can send decoded base64 payloads (to hex or bytes) from device to desired integration without
+creating a decoder function for brevity.
 
-To decode the base64 payload simply use `base64_to_hex()` or `base64_to_bytes()` in your integration JSON like the following (other keys are optional):
+To decode the base64 payload simply use `base64_to_hex()` or `base64_to_bytes()` in your integration
+JSON like the following (other keys are optional):
 
 ```
 {
