@@ -1,7 +1,10 @@
 ---
 id: validators-mainnet-wallet
-title: Configure a Wallet
-sidebar_label: Configure a Wallet
+title: Configure A Wallet
+pagination_label: Validators Mainnet Wallet
+sidebar_label: Configure A Wallet
+description: Helium Documentation
+image: https://i.imgur.com/bWAbESE.png
 slug: /mine-hnt/validators/mainnet/wallet
 ---
 
@@ -156,19 +159,19 @@ period, and 5-10 blocks to allow for chain processing delays.
 
 :::tip
 
-The number 1537797 shown below is only an example. You must look up the current [block height in 
-explorer](https://explorer.helium.com/blocks) and use the current block height in your calculation
-of the `stake-release-height`.
+The number 1537797 shown below is only an example. You must look up the current
+[block height in explorer](https://explorer.helium.com/blocks) and use the current block height in
+your calculation of the `stake-release-height`.
 
 :::
 
 For example, if the current block height was 1,537,797, you'd add 125,000 for the stake withdrawl
 cooldown period, plus an additional 30 blocks to allow for chain processing delays. Therefore the
-`stake-release-height` = `1537797 (current block height) + 125000 (cool down period) + 30 (grace
-period)` = `1662827`. 
+`stake-release-height` =
+`1537797 (current block height) + 125000 (cool down period) + 30 (grace period)` = `1662827`.
 
 The cooldown length, in blocks, is called `stake_withdrawal_cooldown` and is a chain variable. This
-variable is viewable by running `miner ledger variables stake_withdrawal_cooldown`, and was changed 
+variable is viewable by running `miner ledger variables stake_withdrawal_cooldown`, and was changed
 from `250,000` to `125,000` on September 9, 2022, in accordance with the passing of HIP70.
 
 #### To unstake tokens from a validator node perform the following:
