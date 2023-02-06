@@ -44,19 +44,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: '5G on Helium',
-      items: [
-        '5g-on-helium/5g-on-helium',
-        '5g-on-helium/cbrs-radios',
-        '5g-on-helium/mobile-poc',
-        '5g-on-helium/mobile-mappers',
-        '5g-on-helium/service-providers',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Use The Network',
+      label: 'Use The IOT Network',
       items: [
         'use-the-network/use-the-network',
         'use-the-network/devices/devices',
@@ -67,8 +55,19 @@ module.exports = {
         'use-the-network/setup-a-packet-forwarder',
         'use-the-network/community-projects',
         'use-the-network/coverage-mapping/coverage-mapping',
-        'use-the-network/policies/policies',
       ],
+    },
+    {
+      type: 'category',
+      label: '5G on Helium',
+      items: [
+        '5g-on-helium/5g-on-helium',
+        '5g-on-helium/cbrs-radios',
+        '5g-on-helium/mobile-poc',
+        '5g-on-helium/mobile-mappers',
+        '5g-on-helium/service-providers',
+      ],
+      collapsed: true,
     },
     {
       type: 'category',
@@ -112,6 +111,8 @@ module.exports = {
         'faq/data-credits',
         'faq/open-source',
         'faq/docs-installation',
+        'faq/privacy',
+        'faq/terms',
       ],
       collapsed: true,
     },
@@ -309,19 +310,6 @@ module.exports = {
         'use-the-network/coverage-mapping/adeunis-mapper',
         'use-the-network/coverage-mapping/mappers-roadmap',
       ],
-      collapsed: false,
-    },
-  ],
-  policies: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/policies',
-    },
-    {
-      type: 'category',
-      label: 'Policies',
-      items: ['use-the-network/policies/privacy', 'use-the-network/policies/terms'],
       collapsed: false,
     },
   ],
