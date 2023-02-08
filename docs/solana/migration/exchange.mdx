@@ -45,18 +45,18 @@ Since exchange wallets may not use the wallet app, you can use the service direc
 
 For devnet:
 
-https://migration.web.test-helium.com/migrate/<solana-wallet-address>?limit=1000&offset=0
+`https://migration.web.test-helium.com/migrate/*solana-wallet-address*?limit=1000&offset=0`
 
 This will get the list of serialized transactions, which should be sent to Solana.
 
 To get the Solana wallet address from a helium wallet address, call:
 
-https://migration.web.test-helium.com/helium/<helium-wallet-address>
+`https://migration.web.test-helium.com/helium/*helium-wallet-address*`
 
 You can also use our command line utility from [here](https://github.com/helium/helium-program-library/releases/tag/v0.0.27-migration-cli)
 
 ```
-$ env MIGRATION_SERVICE_URL=https://migration.web.test-helium.com env SOLANA_URL=https://api.devnet.solana.com env SOLANA_WSS_URL=wss://api.devnet.solana.com ./migration-tx-executor --wallet <your-solana-wallet>
+$ env MIGRATION_SERVICE_URL=https://migration.web.test-helium.com env SOLANA_URL=https://api.devnet.solana.com env SOLANA_WSS_URL=wss://api.devnet.solana.com ./migration-tx-executor --wallet *your-solana-wallet*
 ```
 
 You can see typescript code demonstrating how to use this [here](https://github.com/helium/helium-program-library/blob/master/packages/migration-service/src/test-submit.ts#L37)
