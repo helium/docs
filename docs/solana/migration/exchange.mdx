@@ -27,10 +27,10 @@ The mint IDs are as follows:
 
 | Name | ID |
 |------|----|
-| HNT | hntv1Vf5ZBG777xAHqHUTFS8UZBTNUN22MBnYramPFk |
-| MOBILE | mb1eaxqRn3VMUuA9MC1hXiNFG7hnJHfF8Cvq7vfYH4y |
-| IOT | iotfeTXUVZKZvmFCTTHrgmep94seQJurjvMgKuqpHyx |
-| DC | dc5Zu977Zan2BFt7iLxCCUoyPvxpxZGYK23d6GYZXq7 |
+| HNT | hntyVP6YFm1Hg25TN9WGLqM12b8TQmcknKrdu1oxWux |
+| MOBILE | mb1eu7TzEc71KxDpsmsKoucSSuuoGLv1drys1oP2jh6 |
+| IOT | iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns |
+| DC | dcuc8Amr83Wz27ZkQ2K9NS6r8zRpf1J6cvArEBDZDmm |
 
 These mint IDs exist both on `mainnet-beta` and `devnet`, so you can test.
 
@@ -60,3 +60,18 @@ $ env MIGRATION_SERVICE_URL=https://migration.web.test-helium.com env SOLANA_URL
 ```
 
 You can see typescript code demonstrating how to use this [here](https://github.com/helium/helium-program-library/blob/master/packages/migration-service/src/test-submit.ts#L37)
+
+## Trustless Wallet Migration
+
+While the above tools are convenient, they rely on our migration service. Luckily, the on-chain
+implementation of the migration is trustless. The full state of the helium chain was converted
+to a list of Solana transactions and then compressed into a merkle root on Solana. This means
+that anyone can execute the transactions to inflate a wallet so long as they provide a proper proof
+that the provided transactions are valid. Each transaction is only allowed to be executed once.
+
+We can see one such transaction here:
+
+https://explorer.solana.com/tx/5Y8vfMAfhyqgXsp1YnvPVHMdK4PUryLqMCgGynQXg9tPkUVehK438XviXz3ciSkg4PhqMZ8UyrSSVj7pgY8uq1xr?cluster=devnet
+
+If you would like a copy of the database serving the proofs for the migration service, please contact
+the helium foundation. You can then run your own instance of the [migration service](https://github.com/helium/helium-program-library/tree/master/packages/migration-service)
