@@ -1,0 +1,101 @@
+---
+id: data-transfer-oracles
+title: Data Transfer Oracles
+pagination_label: Data Transfer Oracles
+sidebar_label: Data Transfer Oracles
+description: Helium Data Transfer Oracles Documentation
+image: https://i.imgur.com/bWAbESE.png
+slug: /oracles/data-transfer-oracles
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning 🚧 This document is a work in progress. 🚧
+
+The documentation on Solana and the upcoming Migration is under development and subject to change.
+
+:::
+
+Moving the entire data transfer logic off-chain will increase scalability and reduce points of
+failure.
+
+## Lorawan Network Server Streamlining
+
+On the Helium L1, being a LoRaWAN Network Server (LNS) on the Helium Network requires running the
+router, [state channels](/blockchain/packet-purchasing/#state-channels), and the Helium chain, a
+significant hurdle for non-blockchain native LNS configurations.
+
+On the Solana L1, the LNS will have a much-reduced role. After purchasing their Organizationally
+Unique Identifier (OUI) and slabs, they must inform the Config Service of the routing for the
+devices under their network. The LNS can optionally curate an allow-list to, for example, not accept
+packets from disabled devices or tenants/devices with a depleted Data Credit (DC) balance. The LNS
+will directly transmit these routes and their allow-list to the Config Service.
+
+The updated and reduced role brings the responsibilities of a Helium LNS much more in line with a
+generic LNS while also easing the integrations of existing LNS systems, further helping the
+expansion of the Helium Network.
+
+## Config Service
+
+The Config Service will keep track of all the routing rules for all the devices connected to the
+Helium Network, aggregating from the LNSs into a database of routes that will propagate to each
+Packet Router. The Config Service will immediately update the Packet Routers whenever it receives an
+update.
+
+The Packet Verifier also uses the Config Service to fetch the list of OUIs, wallet addresses per
+gateway, and wallet addresses per OUI.
+
+## Packet Router Service
+
+The Packet Routers are responsible for routing the packets it receives from Hotspots to the
+appropriate LNS. This streamlined service follows the routing rules given to it by the Config
+Service.
+
+If a Packet Router can match a received packet to a defined route, it will forward that message to
+the appropriate LNS and submit a packet report to the Packet Reports Database.
+
+Each packet report includes OUI, network ID, region, gateway, and payload hash metadata. The full
+definition can be found
+[here](https://github.com/helium/proto/blob/master/src/service/packet_router.proto#L8).
+
+## Load Balancing Service
+
+Hotspots will interface directly with Load Balancers, helping the Helium Network scale horizontally
+when needed.
+
+## Packet Verifier Service
+
+The Packet Verifier verifies the submitted packets. Its primary responsibilities are to:
+
+- Confirm that each OUI and the associated LNS have enough DC to pay for the packets received. If a
+  given OUI does not, the packet verifier will inform the config service that it should disable the
+  associated routes. Once a disabled OUI has a positive DC balance, it will re-enable the associated
+  routes.
+- Confirms that the Message Integrity Code (MIC) check passes.
+- Processes these reports into a separate database of verified and denied reports (denied reports
+  include the cause of denial).
+- Based on data transfer, calculate Rewards and the amount of DC to debit from each wallet
+  associated with an OUI.
+
+```mermaid
+flowchart TB;
+    subgraph hotspots[Hotspots]
+      direction TB
+      hotspot1[Hotspot 1] & hotspot2[Hotspot 2] & hotspot3[Hotspot 3]
+    end
+
+    hotspots -->|Send Packets| loadBalancer(Load Balancer);
+    loadBalancer --> packerRouters(Packet Routers);
+
+    configService(Config Service) -->|Routes| packerRouters;
+    packerRouters --> rawReportsDB[(Raw Packet Reports)];
+
+    packerRouters -->|Forward packets to appropriate LNS| lns[LoRaWAN Network Servers];
+    lns --->|Routes for a given LNS| configService;
+
+    rawReportsDB ---> packetVerfier(Packet Verfier);
+    packetVerfier --> verfiedDataTransferReportsDB[(Verfied Data Transfer Reports)];
+    verfiedDataTransferReportsDB --> iotRewardsService(IOT Rewards Service);
+
+    packetVerfier -->|Disables/Enables LNS Routes based on DC balance| configService;
+```
