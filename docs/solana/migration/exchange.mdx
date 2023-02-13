@@ -58,8 +58,7 @@ To get a Solana equivalent `Keypair` from a helium `Keypair`:
 import { Keypair } from "@helium/crypto";
 import { Keypair as SolanaKeypair } from "@solana/web3.js"
 
-
-const solanaKeypair = SolanaKeypair.fromSecretKey(me.privateKey);
+const solanaKeypair = SolanaKeypair.fromSecretKey(heliumKeypair.privateKey);
 ```
 
 In rust, to get a pubkey:
