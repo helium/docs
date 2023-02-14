@@ -5,37 +5,36 @@
  * work well for content-centric websites.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 /* You can override the default Infima variables here. */
 :root {
+  --ifm-color-primary-lightest: #a8aaff;
+  --ifm-color-primary-lighter: #777bfe;
+  --ifm-color-primary-light: #676bfe;
   --ifm-color-primary: #474cfe;
   --ifm-color-primary-dark: #272dfe;
   --ifm-color-primary-darker: #171dfe;
   --ifm-color-primary-darkest: #0107e2;
-  --ifm-color-primary-light: #676bfe;
-  --ifm-color-primary-lighter: #777bfe;
-  --ifm-color-primary-lightest: #a8aaff;
   --ifm-code-font-size: 95%;
-  --ifm-toc-border-color: #ffffff;
-  --ifm-menu-color-active: #a334fb;
-  --ifm-menu-color-background-active: #fcf9ff;
-  --ifm-menu-color: #1c1e21;
-  --ifm-navbar-link-hover-color: #333;
-  --ifm-color-info: #a334fb;
-  --ifm-tabs-padding-horizontal: 20px;
-  --ifm-tabs-padding-vertical: 10px;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'Inter';
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary-lightest: #cbccff;
+  --ifm-color-primary-lighter: #afb1ff;
+  --ifm-color-primary-light: #a0a3ff;
+  --ifm-color-primary: #9195fe;
+  --ifm-color-primary-dark: #7b7ff6;
+  --ifm-color-primary-darker: #6f73f3;
+  --ifm-color-primary-darkest: #585dfe;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
 .container {
   max-width: 1920px;
-}
-
-.admonition pre,
-.admonition code {
-  background-color: rgba(0, 0, 0, 0.15);
-}
-
-.admonition pre code {
-  background: none;
 }
 
 .react-toggle-track {
@@ -44,7 +43,7 @@
 
 .navbar {
   box-shadow: none;
-  background: rgba(255, 255, 255, 0.7);
+  /* background: rgba(255, 255, 255, 0.7); */
   backdrop-filter: blur(10px);
 }
 
@@ -146,6 +145,8 @@ a:hover {
 a:hover img.docicon {
   padding-right: 3px;
   padding-left: 3px;
+  height: 16px;
+  width: 16px;
 }
 
 .badge--secondary {
@@ -222,6 +223,8 @@ img.crowdspot-vote-button {
 
 img.docicon {
   padding-right: 6px;
+  height: 16px;
+  width: 16px;
 }
 
 h1 {
@@ -293,9 +296,19 @@ a.quicklink:hover {
   transition: all 0.2s ease;
 }
 
+html[data-theme='dark'] a.quicklink {
+  background: #3e3f3f;
+}
+
+html[data-theme='dark'] a.quicklink:hover {
+  background: #313232;
+}
+
 img.quicklinkarrow {
   opacity: 0.5;
   transition: all 0.2s ease;
+  height: 13px;
+  width: 13px;
 }
 
 a.quicklink:hover img.quicklinkarrow {
@@ -385,23 +398,9 @@ a.block {
   padding-top: 5rem !important;
 }
 
-html[data-theme='light'] {
-  --ifm-background-color: #fff;
-  --ifm-table-stripe-background: #f6f7fe;
-  --ifm-menu-color-background-active: #f6f7fe;
-  --ifm-menu-color-background-hover: #f6f7fe;
-  --ifm-navbar-link-hover-color: #333;
-
-  --docsearch-highlight-color: #a334fb;
-  --docsearch-logo-color: #a334fb;
-}
 .react-toggle .react-toggle-thumb,
 .react-toggle--checked .react-toggle-thumb {
   border-color: #fff !important;
-}
-
-html[data-theme='dark'] {
-  --ifm-background-color: #13162e;
 }
 
 .navbar__link:hover,
@@ -467,7 +466,7 @@ img.explorerSidebar {
 @media only screen and (max-width: 996px) {
   .navbar {
     box-shadow: none;
-    background: rgba(255, 255, 255, 0.7);
+    /* background: rgba(255, 255, 255, 0.7); */
     backdrop-filter: none;
   }
 
@@ -502,14 +501,14 @@ img.explorerSidebar {
 
 .maps_iframe {
   width: 100%;
-  max-height: 540px;
+  height: 540px;
   overflow: hidden;
   border: 0;
 }
 
 .maps_iframe iframe {
   width: 100%;
-  max-height: 640px;
+  height: 640px;
   overflow: hidden;
   border: 0;
   margin-top: -150px;
@@ -537,13 +536,13 @@ img.app-mockup {
 }
 
 /* bring 'read more' link closer to post summary */
-.blog-list-page footer{
+.blog-list-page footer {
   margin-top: 1.5rem;
 }
 
 /* using :root to jack up specificity 💩 */
-:root.blog-list-page article :not(header) h1, 
-:root.blog-list-page article :not(header) h2, 
+:root.blog-list-page article :not(header) h1,
+:root.blog-list-page article :not(header) h2,
 :root.blog-list-page article :not(header) h3 {
   font-size: inherit;
   margin-top: 0;
