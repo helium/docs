@@ -16,17 +16,17 @@ The documentation on Solana and the upcoming Migration is under development and 
 
 :::
 
-There will initially be three Rewards Oracles, one for each subDAO (MOBILE and IOT) and one for HNT,
+There are initially three Rewards Oracles, one for each subDAO (MOBILE and IOT) and one for HNT,
 which ingest the work of all of the above Oracles to determine the appropriate emissions for each
 subDAO.
 
 Epochs will increase from around 30 blocks (or about 30 minutes) to 24 hours, with rewards issued
-every 24 hours.
+every 24 hours by each Reward Oracle.
 
-### Lazy Distribution of Rewards
+## Lazy Distribution of Rewards
 
-With the migration to Solana, Rewards will now be "lazily distributed" to each Hotspot, meaning that
-instead of passively receiving tokens, Hotspot Owners will redeem them.
+On the Solana L1, Rewards will now be "lazily distributed" to each Hotspot, meaning that instead of
+passively receiving tokens, Hotspot Owners will _redeem_ them.
 
 When a Hotspot Owner makes a redemption request, the Rewards Oracle will compute the difference
 between the `lifetime` and `claimed` token Rewards to determine the amount of unclaimed tokens per
@@ -34,7 +34,7 @@ Hotspot. It will then pre-sign a transaction which the Hotspot Owner will submit
 It is only at this point that Rewards will be registered on-chain and associated with the owning
 Helium Wallet.
 
-### IOT Rewards Oracle
+## IOT Rewards Oracle
 
 The IOT Rewards Oracle combines the Verified PoC Receipts, the Verified IOT Data Transfer Receipts,
 and the veHNT backing the IOT Network and emits rewards to each Hotspot.
@@ -42,12 +42,12 @@ and the veHNT backing the IOT Network and emits rewards to each Hotspot.
 As a reminder, the Data Transfer Verifier and the PoC Verifier already do much of the heavy lifting
 by including the shares each Hotspot should receive.
 
-### Mobile Rewards Oracle
+## Mobile Rewards Oracle
 
 The MOBILE Rewards Oracle combines the Verified MOBILE Receipts, the Verified MOBILE Data Transfer
 Receipts, and the veHNT backing the MOBILE Network and emits rewards to each Hotspot.
 
-### HNT Rewards Oracle
+## HNT Rewards Oracle
 
 As defined in [HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md), the HNT Rewards
 Oracle will issue HNT Reward emissions to each subDAOs treasury using each subDAOs Utility Score to
@@ -124,7 +124,7 @@ flowchart LR
 
 ```
 
-### SubDAO to HNT Conversion
+## SubDAO to HNT Conversion
 
 Each subDAO is responsible for defining its Treasury Reserve Decentralized Network Token (DNT)
 Market Making Curve.

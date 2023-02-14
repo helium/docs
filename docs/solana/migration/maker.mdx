@@ -76,8 +76,8 @@ module.exports = (api) => {
 
 # Update App Providers
 
-Your app must now be wrapped in a `<SolanaProvider>` and the `baseUrl` for `<OnboardingProvider>`
-has changed
+Apps must now be wrapped in a `<SolanaProvider>` and the `baseUrl` for `<OnboardingProvider>` has
+changed
 
 ```tsx
 // src/App.tsx
@@ -112,7 +112,7 @@ useEffect(() => {
 # Testing Solana pre-transition
 
 Before the migration to Solana has completed the v2 onboarding server will be used and transactions
-will still be submitted to the helium blockchain. To test Solana before transition use these
+will still be submitted to the Helium blockchain. To test Solana before transition use these
 variables.
 
 **_IT IS CRITICALLY IMPORTANT THAT YOU ONLY USE THESE FOR TESTING._**
@@ -131,10 +131,10 @@ variables.
 
 # Onboarding a hotspot
 
-When onboarding a hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
+When onboarding a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
 
 You can optionally set `elevation`, `gain`, `lat`, and `lng` to avoid having to create a second
-transaction
+transaction.
 
 ### Create Onboard Transactions
 
@@ -146,7 +146,7 @@ const { getOnboardingRecord, getOnboardTransactions } = useOnboarding()
 let hotspotTypes = [] as HotspotType[]
 const onboardingRecord = await getOnboardingRecord(params.hotspotAddress)
 /*
-   TODO: Determine which network types this hotspot supports
+   TODO: Determine which network types this Hotspot supports
    Could possibly use your maker address
 */
 if (Config.MAKER_ADDRESS_5G === onboardingRecord?.maker.address) {
@@ -176,7 +176,7 @@ setSolanaTransactions(onboardData.solanaTransactions)
 
 # Updating a hotspot
 
-When updating a hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
+When updating a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
 
 ## Create transactions
 
@@ -201,7 +201,7 @@ setSolanaTransactions(data.solanaTransactions)
 
 ---
 
-# Transferring a hotspot
+# Transferring a Hotspot
 
 ```tsx
 // src/features/transferHotspot/TransferHotspot.tsx
@@ -260,9 +260,9 @@ const { pendingAssertTxn, pendingGatewayTxn, pendingTransferTxn, solanaTxnIds } 
 
 <!-- TODO: Show how this is done -->
 
-# Update wallet link
+## Update wallet link
 
-Helium Hotspot App is deprecated, you should link your app to the new black wallet app Add the hook
+The Helium Hotspot App is deprecated, Maker Apps should link to the Helium Wallet App. Add the hook
 `useCheckWalletLink()` to `src/App.tsx` It will check to see if the user is linked to the Hotspot
 app and prompt them to update their link
 
@@ -274,8 +274,8 @@ const App = () => {
 }
 ```
 
-Remove the ability for a new user to link to the hotspot app. On the Welcome Screen you can now just
-link directly to the wallet app
+Remove the ability for a new user to link to the Hotspot app. On the Welcome Screen you can now just
+link directly to the Helium Wallet app.
 
 ```tsx
 // src/features/onboarding/welcome/WelcomeScreen.tsx

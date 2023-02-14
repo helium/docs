@@ -16,6 +16,8 @@ The documentation on Solana and the upcoming Migration is under development and 
 
 :::
 
+<!--TODO: remove all of this, as it is covered in PoC documentation already.  -->
+
 On the Helium L1, Validators constructed Challenges and perform Validation of the Proof of Coverage
 (PoC) on the Helium Network, with each Hotspot connected to a Validator.
 
@@ -38,36 +40,33 @@ resulting in uneven earnings and sub-optimal coverage.
 
 ## Post Migration Implementation
 
-On the Solana L1, all PoC activity will be off-chain, removing Validators as a potential point of
-failure and greatly simplifying the beaconing process by allowing Hotspots to self-beacon at regular
+On the Solana L1, all PoC activity is off-chain, removing Validators as a potential point of failure
+and greatly simplifying the beaconing process by allowing Hotspots to self-beacon at regular
 intervals. Additionally, off-chain PoC is much more easily scalable and will remove the limitations
 on the number of Witnesses per beacon.
 
 The main actors and their relationships with one another are as follows.
 
-## Hotspots
+### Hotspots
 
-Beaconing: Hotspots will now self-beacon at regular intervals, targeting a 6-hour interval at
-launch.
+- Hotspots will now self-beacon at regular intervals, targeting a 6-hour interval at launch.
+- To prevent premature beaconing and replay attacks, the beacon will include some entropy.
+- Hotspots beacon their Challenge and submit it to the PoC Ingest Farm through a Load Balancer
+  proxy.
+- When a Hotspot witnesses a beacon, the Hotspot directly submits the receipt to the PoC ingest
+  farm.
 
-To prevent premature beaconing and replay attacks, the beacon will include some entropy. This
-Hotspot will beacon their Challenge and submit it to the PoC Ingest Farm through a Load Balancer
-proxy.
+### PoC Ingest Farm
 
-Witnessing: When a Hotspot witnesses a beacon, the Hotspot directly submits the receipt to the PoC
-ingest farm.
+The PoC Ingest farm only performs basic validation that filters out structurally invalid data and
+then submits both the beacon receipt and the witness receipts to an S3 bucket. The limited duties of
+the PoC Ingest farms make them easily scalable as the Network grows.
 
-## PoC Ingest Farm
+### PoC Verifier Oracle
 
-The PoC Ingest farm will only perform basic validation that filters out structurally invalid data
-and will then submit both the beacon receipt and the witness receipts to an S3 bucket. The limited
-duties of the PoC Ingest farms make them easily scalable as the Network evolves.
-
-## PoC Verifier Oracle
-
-The PoC Verifier Oracle will verify all the data submitted by correlating witnesses to receipts and
-confirming the series of events, then submitting these processed rewardable and invalid receipts to
-a separate S3 bucket, including how many shares to give to each Hotspot.
+The PoC Verifier Oracle verifies all the data submitted by correlating witnesses to receipts and
+confirming the series of events, then submits these processed rewardable and invalid receipts to a
+separate S3 bucket, including how many shares to give to each Hotspot.
 
 ```mermaid
 flowchart TB;
