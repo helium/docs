@@ -165,14 +165,6 @@ a:hover img.docicon {
   transition: all 0.2s ease;
 }
 
-html[data-theme='dark'] .badge--secondary {
-  background: #3e3f3f;
-}
-
-html[data-theme='dark'] .badge--secondary:hover {
-  background: #313232;
-}
-
 a.button {
   background: #a334fb;
   color: white;
@@ -269,10 +261,6 @@ h2.subtitle {
   margin-top: 20px;
 }
 
-html[data-theme='dark'] h2.subtitle {
-  color: #acb0c5;
-}
-
 h5 {
   margin-top: 40px;
   letter-spacing: 7%;
@@ -284,19 +272,11 @@ h5 {
   font-weight: 500;
 }
 
-html[data-theme='dark'] h4 {
-  color: #acb0c5;
-}
-
 p {
   color: #626886;
   font-size: 1.125rem;
   line-height: 1.65rem;
   font-weight: 400;
-}
-
-html[data-theme='dark'] p {
-  color: #acb0c5;
 }
 
 a.quicklink {
@@ -314,14 +294,6 @@ a.quicklink {
 a.quicklink:hover {
   background: #ebeff6;
   transition: all 0.2s ease;
-}
-
-html[data-theme='dark'] a.quicklink {
-  background: #3e3f3f;
-}
-
-html[data-theme='dark'] a.quicklink:hover {
-  background: #313232;
 }
 
 img.quicklinkarrow {
@@ -577,4 +549,21 @@ img.app-mockup {
 /* handle second header */
 :root.blog-list-page article :not(header) h1 + h2 {
   margin-top: 0;
+}
+
+html[data-theme='dark'] h2.subtitle,
+h5,
+h4,
+p {
+  color: #acb0c5;
+}
+
+html[data-theme='dark'] a.quicklink,
+.badge--secondary {
+  background: #3e3f3f;
+}
+
+html[data-theme='dark'] a.quicklink:hover,
+.badge--secondary:hover {
+  background: #313232;
 }
