@@ -1,0 +1,315 @@
+---
+id: maker
+title: Maker App 2.0 Upgrade Guide
+pagination_label: Maker Migration
+sidebar_label: Maker Migration
+description: Helium Maker Migration Documentation
+image: https://i.imgur.com/bWAbESE.png
+slug: /solana/migration/maker
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning 🚧 This document is a work in progress. 🚧
+
+The documentation on Solana and the upcoming Migration is under development and subject to change.
+
+:::
+
+## Update and add new dependencies
+
+```json
+"@helium/address": "^4.8.1",
+"@helium/currency-utils": "^0.0.26",
+"@helium/react-native-sdk": "2.0.0",
+"@helium/wallet-link": "^4.8.3",
+"@metaplex-foundation/mpl-bubblegum": "^0.6.2",
+"@pythnetwork/client": "^2.11.0",
+"@solana/web3.js": "^1.73.0",
+"axios-retry": "^3.3.1",
+"cipher-base": "^1.0.4",
+"react-native-quick-crypto": "^0.5.0",
+"stream": "^0.0.2"
+```
+
+# Update Babel Config to alias crypto library
+
+```jsx
+// babel.config.js
+function getAliasesFromTsConfig() {
+  const tsConfig = require('./tsconfig.json')
+  const paths = tsConfig.compilerOptions.paths
+  let alias = {}
+  Object.keys(paths).forEach((key) => {
+    alias[key] = `./${paths[key][0]}`
+  })
+
+  return alias
+}
+
+const baseConfig = {
+  presets: ['module:metro-react-native-babel-preset'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        alias: {
+          ...getAliasesFromTsConfig(),
+          crypto: 'react-native-quick-crypto', // <--- This
+        },
+        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
+        root: ['./src'],
+      },
+    ],
+  ],
+}
+
+module.exports = (api) => {
+  api.cache(true)
+
+  return {
+    ...baseConfig,
+    plugins: [...baseConfig.plugins, 'react-native-reanimated/plugin'],
+  }
+}
+```
+
+# Update App Providers
+
+Apps must now be wrapped in a `<SolanaProvider>` and the `baseUrl` for `<OnboardingProvider>` has
+changed
+
+```tsx
+// src/App.tsx
+const { walletLinkToken } = useSelector((state: RootState) => state.app)
+const [heliumWallet, setHeliumWallet] = useState<string>()
+
+useEffect(() => {
+  if (!walletLinkToken) {
+    if (heliumWallet) {
+      setHeliumWallet('')
+    }
+    return
+  }
+
+  getAddress().then(setHeliumWallet)
+}, [heliumWallet, walletLinkToken])
+
+////////////////////////////////////////////////////
+//👇👇👇 new provider 👇👇👇 /////////////////////////
+<SolanaProvider
+   heliumWallet={heliumWallet}
+   cluster="mainnet-beta"
+>
+  {/* //////////////////////////////////////////////////////////////
+  Remove the /v2 from your onboarding url 👉👉👉👉👉👉👉👉👇
+  ///////////////////////////////////////////////////////////👇 */}
+  <OnboardingProvider baseUrl="https://onboarding.dewi.org/api">
+    <HotspotBleProvider>
+{/* The Rest of your app... */}
+```
+
+# Testing Solana pre-transition
+
+Before the migration to Solana has completed the v2 onboarding server will be used and transactions
+will still be submitted to the Helium blockchain. To test Solana before transition use these
+variables.
+
+**_IT IS CRITICALLY IMPORTANT THAT YOU ONLY USE THESE FOR TESTING._**
+
+```tsx
+// src/App.tsx
+<SolanaProvider
+  heliumWallet={heliumWallet}
+  cluster="devnet"
+  solanaStatusOverride="complete"
+>
+  <OnboardingProvider baseUrl="https://onboarding.oracle.test-helium.com/api">
+```
+
+---
+
+# Onboarding a hotspot
+
+When onboarding a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
+
+You can optionally set `elevation`, `gain`, `lat`, and `lng` to avoid having to create a second
+transaction.
+
+### Create Onboard Transactions
+
+`src/features/hotspots/setup/HotspotSetupConfirmLocationScreen.tsx`
+
+```tsx
+const { getOnboardingRecord, getOnboardTransactions } = useOnboarding()
+
+let hotspotTypes = [] as HotspotType[]
+const onboardingRecord = await getOnboardingRecord(params.hotspotAddress)
+/*
+   TODO: Determine which network types this Hotspot supports
+   Could possibly use your maker address
+*/
+if (Config.MAKER_ADDRESS_5G === onboardingRecord?.maker.address) {
+  hotspotTypes = ['iot', 'mobile']
+} else {
+  hotspotTypes = ['iot']
+}
+
+const onboardData = await getOnboardTransactions({
+  txn: params.addGatewayTxn,
+  hotspotAddress: params.hotspotAddress,
+  hotspotTypes,
+  elevation,
+  decimalGain: gain,
+  lat,
+  lng,
+})
+
+// pre-solana this txn will exist
+setAddGatewayTxn(onboardData.addGatewayTxn)
+
+// post-solana these txn(s) will exist
+setSolanaTransactions(onboardData.solanaTransactions)
+```
+
+---
+
+# Updating a hotspot
+
+When updating a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
+
+## Create transactions
+
+```tsx
+// src/features/hotspots/setup/HotspotSetupConfirmLocationScreen.tsx
+const { getAssertData, getOnboardingRecord } = useOnboarding()
+const data = await getAssertData({
+  decimalGain: gain,
+  elevation,
+  gateway: params.hotspotAddress,
+  lat,
+  lng,
+  owner: userAddress,
+  onboardingRecord,
+  hotspotTypes,
+})
+
+setAssertData(data)
+setAssertLocationTxn(data.assertLocationTxn)
+setSolanaTransactions(data.solanaTransactions)
+```
+
+---
+
+# Transferring a Hotspot
+
+```tsx
+// src/features/transferHotspot/TransferHotspot.tsx
+const { createTransferTransaction } = useOnboarding()
+
+const { solanaTransactions, transferHotspotTxn } = await createTransferTransaction({
+  hotspotAddress,
+  userAddress,
+  newOwnerAddress,
+})
+```
+
+---
+
+# Linking to Helium Wallet App for signing
+
+You must add `solanaTransactions` to the signature request
+
+`src/features/hotspots/setup/HotspotTxnsProgressScreen.tsx`
+
+```tsx
+const updateParams = {
+  token,
+  platform: Platform.OS,
+  addGatewayTxn,
+  assertLocationTxn,
+  transferHotspotTxn,
+  solanaTransactions, // <---- !important!
+} as SignHotspotRequest
+const url = createUpdateHotspotUrl(updateParams)
+Linking.openURL(url)
+```
+
+---
+
+# Submit signed transaction(s)
+
+```tsx
+// src/features/hotspots/setup/HotspotTxnsSubmitScreen.tsx
+const { submitTransactions } = useOnboarding()
+const { pendingAssertTxn, pendingGatewayTxn, pendingTransferTxn, solanaTxnIds } =
+  await submitTransactions({
+    addGatewayTxn: params.gatewayTxn,
+    assertLocationTxn: params.assertTxn,
+    hotspotAddress: params.gatewayAddress,
+    solanaTransactions,
+    transferHotspotTxn: params.transferTxn,
+  })
+```
+
+---
+
+---
+
+# Fetching Hotspots
+
+<!-- TODO: Show how this is done -->
+
+## Update wallet link
+
+The Helium Hotspot App is deprecated, Maker Apps should link to the Helium Wallet App. Add the hook
+`useCheckWalletLink()` to `src/App.tsx` It will check to see if the user is linked to the Hotspot
+app and prompt them to update their link
+
+```tsx
+// src/App.tsx
+import useCheckWalletLink from './utils/useCheckWalletLink'
+const App = () => {
+  useCheckWalletLink()
+}
+```
+
+Remove the ability for a new user to link to the Hotspot app. On the Welcome Screen you can now just
+link directly to the Helium Wallet app.
+
+```tsx
+// src/features/onboarding/welcome/WelcomeScreen.tsx
+const { walletApp } = useDelegateApps()
+
+const importAccount = useCallback(() => {
+  try {
+    const url = createWalletLinkUrl({
+      universalLink: walletApp?.universalLink,
+      requestAppId: getBundleId(),
+      callbackUrl: 'makerappscheme://',
+      appName: 'Maker App',
+    })
+
+    Linking.openURL(url)
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error)
+  }
+}, [walletApp?.universalLink])
+```
+
+---
+
+## Full diff can be found here
+
+[Feature/solana by matthewcarlreetz · Pull Request #52 · helium/maker-starter-app](https://github.com/helium/maker-starter-app/pull/52/files?diff=split&w=1)
+
+---
+
+## Data Credits and Sol for Onboarding
+
+<!-- TODO: We need to create an easy way for makers to get sol and data credits into their accounts -->
+
+```
+
+```
