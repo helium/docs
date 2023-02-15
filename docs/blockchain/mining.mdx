@@ -28,8 +28,8 @@ distribution:
 
 | Reward Type           | Chain Variable            | Description                                                                                                        |
 | :-------------------- | :------------------------ | :----------------------------------------------------------------------------------------------------------------- |
-| PoC Challengees       | `poc_challengees_percent` | Awarded to any Hotspot that transmits a PoC packet.                                                                |
-| Witnesses             | `poc_witnesses_percent`   | Distributed to selected Hotspots that witness a beacon packet.                                                     |
+| PoC Beaconers         | `poc_challengees_percent` | Awarded to any Hotspot that successfully transmits a PoC beacon packet.                                            |
+| Witnesses             | `poc_witnesses_percent`   | Distributed to selected Hotspots that witness a PoC beacon packet.                                                 |
 | Consensus Group       | `consensus_percent`       | Divided equally among the Validators that are part of the outgoing Consensus Group, responsible for mining blocks. |
 | Security              | `securities_percent`      | Awarded to Network investors who hold Security Tokens.                                                             |
 | Network Data Transfer | `dc_percent`              | Distributed each epoch to Hotspots that route LoRaWAN sensor data for sensors on the Network during that epoch.    |
@@ -76,7 +76,7 @@ types:
 
 | Reward Type           | Percentage       | HNT Earned by Reward Type |
 | :-------------------- | :--------------- | :------------------------ |
-| PoC Challengees       | 4.73% - 12.665%  | 82.1181 - 219.7049        |
+| PoC Beaconers         | 4.73% - 12.665%  | 82.1181 - 219.7049        |
 | Witnesses             | 18.92% - 49.345% | 328.4722 - 856.6840       |
 | Consensus Group       | 6%               | 104.1667                  |
 | Security Tokens       | 32%              | 555.5556                  |
@@ -114,8 +114,8 @@ Here are a few examples to illustrate how this works in practice:
 - These `10 HNT` would be split proportionally to the Hotspots that did the work routing packets at
   the 1:1 rate.
 - The remaining `641.0417` from the Network Data Transfer reward would be distributed by weight
-  among the Witnesses and Challengees.
-  - `128.2083` to the Challengee group => `4.73/(4.73+18.92) = 20%`
+  among the Witnesses and Beaconers.
+  - `128.2083` to the Beaconer group => `4.73/(4.73+18.92) = 20%`
   - `512.8333` to the Witness group => `18.92/(4.73+18.92) = 80%`
 
 **Example 2: DC Burn exceeds 37.50% HNT**
@@ -132,14 +132,14 @@ calculation is:`(800,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
 ### Additional Notes on Reward Types and Payouts
 
 - All Validators in the `Consensus Group` will earn an equal reward.
-- All Hotspots participating in PoC, including `Challengees` and `Witnesses` will earn rewards
+- All Hotspots participating in PoC, including `Beaconers` and `Witnesses` will earn rewards
   proportional to how many events they participated in out of the total number of events per epoch.
 - All Hotspots participating in `Network Data Transfer` will earn rewards proportional to their
   share of the total data transfer in that epoch, as shown above.
 - Hotspots can earn one or more reward types during any given epoch.
-- `PoC Challengee` and `Witness` reward types get distributed in the epoch that includes the
+- `PoC Beacon` and `Witness` reward types get distributed in the epoch that includes the
   corresponding PoC receipt.
-- A Hotspots can earn more than one `PoC Challengee` and `Witness` rewards per epoch.
+- A Hotspots can earn more than one `PoC Beacon` and `Witness` reward per epoch.
 
 ## HNT Proration and Slow Block Times
 
