@@ -79,6 +79,7 @@ module.exports = {
       items: [
         'lorawan-on-helium/lorawan-on-helium',
         'lorawan-on-helium/lorawan-roaming-on-helium',
+        'lorawan-on-helium/iot-proof-of-coverage',
         'lorawan-on-helium/frequency-plans/frequency-plans',
         'lorawan-on-helium/frequency-plans/region-plans',
       ],
