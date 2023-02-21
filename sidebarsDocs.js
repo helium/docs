@@ -104,6 +104,7 @@ module.exports = {
         'use-the-network/use-the-network',
         'use-the-network/devices/devices',
         'use-the-network/console/console',
+        'use-the-network/open-lns/open-lns',
         'use-the-network/console-marketplace',
         'use-the-network/roaming',
         'use-the-network/run-a-network-server/run-a-network-server',
