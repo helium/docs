@@ -34,7 +34,7 @@ module.exports = {
         'oracles/data-transfer-oracles',
         'oracles/iot-proof-of-coverage-oracles',
         'oracles/mobile-proof-of-coverage-oracles',
-        'solana/oracle-data',
+        'oracles/oracle-data',
       ],
       collapsed: true,
     },
