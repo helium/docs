@@ -65,7 +65,7 @@ calls over time - and save money - is to use the `aws s3api list-objects-v2` com
 the `--start-after` parameter with the filename of the last file you received, as indicated below:
 
 ```bash
-aws s3api list-objects-v2 --bucket foundation-poc-data-requester-pays --prefix <top-level-data-category-prefix> --start-after <filename> --request-payer
+aws s3api list-objects-v2 --bucket foundation-poc-data-requester-pays --prefix <top-level-data-category-prefix> --start-after <filename> --request-payer requester
 ```
 
 For example, if you were to execute the `aws s3api list-objects-v2` command and the last / most 
