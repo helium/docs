@@ -45,42 +45,41 @@ a requester pays bucket, refer to [Downloading objects in Requester Pays buckets
    | `foundation-mobile-ingest`       |
    | `foundation-mobile-verified`     |
 
-Under each data category prefix, the relating PoC data is segmented into `historical` and `<date>` 
-sub-prefixes, where `<date>` is in `YYYY-MM-DD` format, starting from February 19th, 2023 onward. 
-For example, PoC data produced each day is comprised within a sub-prefix of `YYYY-MM-DD` format, so 
-data produced on February 20th, 2023 will be under a `2023-02-20` sub-prefix, data produced on 
-February 21st, 2023 will be under a `2023-02-21` sub-prefix, and so on. Any data produced before 
-February 19th, 2023 is stored under the `historical` prefix. The data flowing into the buckets is 
-occurring in near-real time. 
+Under each top level data category prefix, the relating PoC data files are provided in a flattened 
+structure in the format provided below:
 
-The file structure noted above is used to provide more cost efficient access patterns 
-when retrieving raw PoC data from S3. Be mindful that AWS will charge you for:
+`s3://foundation-poc-data-requester-pays/<top-level-data-category-prefix>/<filename>.gz`
 
-1. Storage costs on any destination buckets.
-2. Egress fees if the data leaves `us-west-2`.
-3. `PUT`, `COPY`, `POST`, `LIST` requests. To that end, keeping data in `us-west-2` and using the
-   **`aws s3 cp`** (rather than `aws s3 sync` command) will save you significant money over time.
+Again, as the `foundation-poc-data-requester-pays` bucket i 'Requestor Pays', you should be mindful 
+that AWS will charge you for:
 
-Accordingly, by using any of the example `aws s3 ls`, `aws s3 cp`, or `aws s3 sync` commands listed 
-below, S3 API call cost overhead will be limited to the sub-prefix, rather than encompassing the 
-total file quanity comprised within the top level data category prefixes. 
+1. Storage costs on any destination buckets
+2. Egress fees if the data leaves `us-west-2`
+3. `PUT`, `COPY`, `POST`, `LIST` requests
 
-```bash
-aws s3 ls s3://foundation-poc-data-requester-pays/<top_level_data_category_prefix>/<historical|date>/ --request-payer
-```
+To that end, keeping data in `us-west-2` and being pragmatic about which AWS S3 access patterns you
+use will greatly reduce your cost burden for accessing the PoC data.
+
+In regard to access patterns, one approach that you can take to minimize the quantity of S3 API 
+calls over time - and save money - is to use the `aws s3api list-objects-v2` command and specify
+the `--start-after` parameter with the filename of the last file you received, as indicated below:
 
 ```bash
-aws s3 cp s3://foundation-poc-data-requester-pays/<top_level_data_category_prefix>/<historical|date>/ s3://<dest_bucket_name> --recursive --request-payer
+aws s3api list-objects-v2 --bucket foundation-poc-data-requester-pays --prefix <top-level-data-category-prefix> --start-after <filename> --request-payer
 ```
 
-```bash
-aws s3 sync s3://foundation-poc-data-requester-pays/<top_level_data_category_prefix>/<historical|date>/ s3://<dest_bucket_name> --request-payer
-```
+For example, if you were to execute the `aws s3api list-objects-v2` command and the last / most 
+recent file you received was `example.gz`, in a subsequent call to `aws s3api list-objects-v2` you 
+could add the `--start-after example.gz` flag to return a list of files subsequent to `example.gz`. 
+In doing so, your total API calls in the second invocation of `aws s3api list-objects-v2` would be 
+limited to only the files subsequent to `example.gz`, rather than for all files in the bucket. From
+there, you can iterate over the returned list of files and perform additional S3 API commands such 
+as `aws s3api copy-object` to copy files based on the file list.
 
 The raw PoC data stored in the `foundation-poc-data-requester-pays` bucket is in encoded protobuf
-format. The table below provies the top level data category prefixes, the file types comprised 
-within each data category prefix, the filename pattern for each file type, and provides a link to 
-the corresponding protobuf used to decode the data.
+format in gz compressed files. The table below provides the top level data category prefixes, the 
+file types comprised within each data category prefix, the filename pattern for each file type, and 
+provides a link to the corresponding protobuf used to decode the data.
 
 | Category | File Type | Pattern | Protobuf |
 | :--- | :--- | :-- | :-- |
