@@ -3,6 +3,43 @@ module.exports = {
     'home',
     {
       type: 'category',
+      label: '🚧 Solana 🚧',
+      items: [
+        'solana/solana',
+        {
+          type: 'category',
+          label: 'Migration',
+          items: [
+            'solana/migration/hotspot-owner',
+            'solana/migration/maker',
+            'solana/migration/exchange',
+            'solana/migration/network-user',
+            'solana/migration/application-builder',
+            'solana/migration/governance',
+            'solana/migration/ledger',
+          ],
+        },
+        'solana/primer',
+        'solana/rewardable-entities',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: '🚧 Oracles 🚧',
+      items: [
+        'oracles/oracles',
+        'oracles/price-oracles',
+        'oracles/rewards-oracles',
+        'oracles/data-transfer-oracles',
+        'oracles/iot-proof-of-coverage-oracles',
+        'oracles/mobile-proof-of-coverage-oracles',
+        'oracles/oracle-data',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Blockchain',
       items: [
         'blockchain/blockchain',
@@ -42,6 +79,7 @@ module.exports = {
       items: [
         'lorawan-on-helium/lorawan-on-helium',
         'lorawan-on-helium/lorawan-roaming-on-helium',
+        'lorawan-on-helium/iot-proof-of-coverage',
         'lorawan-on-helium/frequency-plans/frequency-plans',
         'lorawan-on-helium/frequency-plans/region-plans',
       ],
