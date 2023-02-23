@@ -32,7 +32,7 @@ module.exports = {
 
       // Hides the switch in the navbar
       // Useful if you want to support a single color mode
-      // disableSwitch: true,
+      disableSwitch: true,
 
       // Should we use the prefers-color-scheme media-query,
       // using user system preferences, instead of the hardcoded defaultMode
@@ -43,8 +43,8 @@ module.exports = {
       style: 'primary',
       logo: {
         alt: 'Helium Logo',
-        src: 'img/icons/logowhite.svg',
-        srcDark: 'img/icons/logoblack.svg',
+        src: 'img/icons/logoblack.svg',
+        srcDark: 'img/icons/logowhite.svg',
       },
       items: [
         // {
