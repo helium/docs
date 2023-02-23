@@ -34,7 +34,7 @@ module.exports = {
         'oracles/data-transfer-oracles',
         'oracles/iot-proof-of-coverage-oracles',
         'oracles/mobile-proof-of-coverage-oracles',
-        'solana/oracle-data',
+        'oracles/oracle-data',
       ],
       collapsed: true,
     },
@@ -79,6 +79,7 @@ module.exports = {
       items: [
         'lorawan-on-helium/lorawan-on-helium',
         'lorawan-on-helium/lorawan-roaming-on-helium',
+        'lorawan-on-helium/iot-proof-of-coverage',
         'lorawan-on-helium/frequency-plans/frequency-plans',
         'lorawan-on-helium/frequency-plans/region-plans',
       ],
