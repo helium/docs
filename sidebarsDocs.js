@@ -34,7 +34,7 @@ module.exports = {
         'oracles/data-transfer-oracles',
         'oracles/iot-proof-of-coverage-oracles',
         'oracles/mobile-proof-of-coverage-oracles',
-        'solana/oracle-data',
+        'oracles/oracle-data',
       ],
       collapsed: true,
     },
@@ -79,6 +79,7 @@ module.exports = {
       items: [
         'lorawan-on-helium/lorawan-on-helium',
         'lorawan-on-helium/lorawan-roaming-on-helium',
+        'lorawan-on-helium/iot-proof-of-coverage',
         'lorawan-on-helium/frequency-plans/frequency-plans',
         'lorawan-on-helium/frequency-plans/region-plans',
       ],
@@ -101,7 +102,16 @@ module.exports = {
       label: 'Use The Network',
       items: [
         'use-the-network/use-the-network',
-        'use-the-network/devices/devices',
+        {
+          type: 'category',
+          label: 'Devices',
+          items: [
+            'use-the-network/devices/devices',
+            'use-the-network/devices/ready-to-use/ready-to-use',
+            'use-the-network/devices/development/development',
+            'use-the-network/devices/development/quickstart-guides',
+          ],
+        },
         'use-the-network/console/console',
         'use-the-network/console-marketplace',
         'use-the-network/roaming',
@@ -111,6 +121,7 @@ module.exports = {
         'use-the-network/coverage-mapping/coverage-mapping',
         'use-the-network/policies/policies',
       ],
+      collapsed: true,
     },
     {
       type: 'category',
@@ -367,45 +378,6 @@ module.exports = {
       type: 'category',
       label: 'Policies',
       items: ['use-the-network/policies/privacy', 'use-the-network/policies/terms'],
-      collapsed: false,
-    },
-  ],
-  readyToUse: [
-    {
-      type: 'link',
-      label: '<- Devices',
-      href: '/use-the-network/devices',
-    },
-    {
-      type: 'category',
-      label: 'Ready To Use',
-      items: ['use-the-network/devices/ready-to-use/ready-to-use'],
-      collapsed: false,
-    },
-  ],
-  development: [
-    {
-      type: 'link',
-      label: '<- Devices',
-      href: '/use-the-network/devices',
-    },
-    {
-      type: 'category',
-      label: 'Development',
-      items: ['use-the-network/devices/development/development'],
-      collapsed: false,
-    },
-  ],
-  devquickstart: [
-    {
-      type: 'link',
-      label: '<- Devices',
-      href: '/use-the-network/devices',
-    },
-    {
-      type: 'category',
-      label: 'Development Quickstart',
-      items: ['use-the-network/devices/development/quickstart-guides'],
       collapsed: false,
     },
   ],
