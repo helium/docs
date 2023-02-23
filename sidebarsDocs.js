@@ -75,6 +75,7 @@ module.exports = {
       items: [
         'hotspot-makers/hotspot-manufacturers',
         'hotspot-makers/maker-ethics',
+        'hotspot-makers/compliance-committee',
         'hotspot-makers/maker-apps',
         'hotspot-makers/light-hotspots',
         'mine-hnt/full-hotspots/full-hotspots',
