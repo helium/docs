@@ -16,6 +16,9 @@ module.exports = {
         hideable: true,
       },
     },
+    tableOfContents: {
+      maxHeadingLevel: 2,
+    },
     // hideableSidebar: true,
     algolia: {
       appId: 'XC618T80WL',

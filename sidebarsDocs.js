@@ -266,7 +266,11 @@ module.exports = {
     {
       type: 'category',
       label: 'Docs',
-      items: ['open-source/docs-installation', 'open-source/style-guide'],
+      items: [
+        'open-source/docs-installation',
+        'open-source/style-guide-formatting',
+        'open-source/style-guide-terminology',
+      ],
       collapsed: false,
     },
   ],
