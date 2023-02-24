@@ -1,0 +1,211 @@
+---
+id: style-guide
+title: Style Guide
+pagination_label: Style Guide
+sidebar_label: Style Guide
+description: Helium Documentation
+image: https://i.imgur.com/bWAbESE.png
+slug: /open-source/style-guide
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
+
+## Markdown Syntax
+
+To serve as an example page when styling markdown based Docusaurus sites.
+
+### Headers
+
+Helium Documention useds H1, H2, and H3 tags.
+
+- H4 tags are a _rare_ exception, likely an indicator that more sections are needed
+
+```markdown
+# H1 - Create the best documentation
+
+## H2 - Create the best documentation
+
+### H3 - Create the best documentation
+```
+
+---
+
+### Emphasis
+
+- Emphasis, aka italics, with _underscores_.
+- Strong emphasis, aka bold, with **asterisks**.
+
+---
+
+### Lists
+
+- list entries end in a period.
+- Use numberd lists in the order matters.
+- Use unordered lists when the order does not matter.
+
+#### Ordered List
+
+```markdown
+1. First ordered list item
+1. Another item
+   - Unordered sub-list.
+1. Actual numbers don't matter, just that it's a number
+   1. Ordered sub-list
+1. And another item.
+```
+
+#### Unordered List
+
+```markdown
+- Unordered lists use minuses
+- the order of these items does not matter
+```
+
+---
+
+### Links
+
+Use "Reference-style" or "Inline-style" links only.
+
+- is using reference-style links, include all links at the bottom of the page only.
+
+```markdown
+- [I'm an inline-style link](https://www.google.com/)
+- [I'm an inline-style link with title](https://www.google.com/ "Google's Homepage")
+- [I'm a reference-style link][arbitrary case-insensitive reference text]
+
+[arbitrary case-insensitive reference text]: https://www.mozilla.org/
+```
+
+---
+
+### Images
+
+- below page front-matter include `import useBaseUrl from '@docusaurus/useBaseUrl'` to shorted image
+  reference paths.
+- Use "Inline-style" iamge links only.
+
+```diff
+- before: ![helium-icon](img/icons/logowhite.svg)
++  after: ![helium-icon](img/icons/logowhite.svg)
+```
+
+Images from any folder can be used by providing path to file. Path should be relative to markdown
+file.
+
+#### Inline Style
+
+<img className="docsheader" src={useBaseUrl('img/icons/logoblack.svg')} />
+
+---
+
+### Code
+
+- Define code language in header.
+- prefix `<!-- prettier-ignore -->` to stop prettier from formatting when needed.
+  - mostly rust and javascript are formatted too aggresively.
+
+```javascript
+var s = 'JavaScript syntax highlighting'
+alert(s)
+```
+
+```rust
+fn main() {
+    // Print text to the console
+    println!("Hello World!");
+}
+```
+
+#### Code Highlighting
+
+You can use comments with comments to select which lines are highlighted. [Read More
+here][docusaurus-code-highlighting].
+
+- `highlight-next-line`
+- `highlight-start`, and `highlight-end`
+
+```rust
+fn main() {
+    // Print text to the console
+    // highlight-next-line
+    println!("Hello World!");
+}
+```
+
+---
+
+### Tables
+
+Colons can be used to align columns.
+
+| Tables        |      Are      |   Cool |
+| ------------- | :-----------: | -----: |
+| col 3 is      | right-aligned | \$1600 |
+| col 2 is      |   centered    |   \$12 |
+| zebra stripes |   are neat    |    \$1 |
+
+---
+
+### Blockquotes
+
+> Blockquotes are very handy in email to emulate reply text. This line is part of the same quote.
+
+Quote break.
+
+> This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep
+> writing to make sure this is long enough to actually wrap for everyone. Oh, you can _put_ >
+> **Markdown** into a blockquote.
+
+---
+
+### Inline HTML
+
+<dl>
+  <dt>Definition list</dt>
+  <dd>Is something people use sometimes.</dd>
+
+  <dt>Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
+
+---
+
+### Admonitions
+
+:::info A Info Admonition
+
+This is a piece of information. The most commonly used admonition. Use this and not the `note`
+style.
+
+:::
+
+:::tip A Tip Admonition
+
+This is a tip or trick that is helpful, but may not be necessary.
+
+:::
+
+:::important A Important Admonition
+
+This is important information that is critical or required.
+
+:::
+
+:::caution A Caution Admonition
+
+This is a caution. Use this **BEFORE** extra caution is required.
+
+:::
+
+:::warning A Warning Admonition
+
+This is a warning. Use sparingly, this admonition should really stand out at point of no return
+moments.
+
+:::
+
+[docusaurus-code-highlighting]:
+  https://docusaurus.io/docs/markdown-features/code-blocks#highlighting-with-comments
