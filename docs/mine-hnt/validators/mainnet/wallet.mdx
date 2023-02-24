@@ -23,7 +23,7 @@ stake a validator.
 
 :::
 
-:::warning
+:::caution
 
 Do NOT run or store the helium-wallet or wallet.key file on your validator. Backup the wallet.key
 file and protect the password used to create the wallet.
@@ -66,7 +66,7 @@ HELIUM_WALLET_PASSWORD=p4ssw0rd ./helium-wallet create basic
 
 `./helium-wallet info` view public key and HNT balance.
 
-:::warning
+:::tip
 
 Always make sure to inspect the transaction _before_ adding the **--commit** option to sign and
 submit it to the api. There is no undo.
@@ -122,7 +122,7 @@ amount to stake them with. Here is an example of the JSON format:
 
 The transaction is not submitted to the system unless the `--commit` option is given.
 
-:::warning
+:::info
 
 This command sequentially walks through the JSON and stakes one validator at a time. If this command
 errors out all further staking transactions will abort.

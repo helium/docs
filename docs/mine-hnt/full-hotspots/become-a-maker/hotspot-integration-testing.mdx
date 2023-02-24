@@ -188,7 +188,7 @@ The output is a JSON object:
 The `txn` output is then passed onto the Helium App over BLE, in QR code format, or through a deep
 link in this format: `helium://add_gateway/<txnoutput>?mac=<macaddress>`
 
-:::warning
+:::info
 
 By design, this transaction will fail, as this is a test account.
 
@@ -301,7 +301,7 @@ The final steps and flow for production onboarding are as follows:
 6. The transaction will go through and Data Credits will be deducted from the Maker account.
 7. The Pending transaction in the Hotspot app will update to **Confirmed**.
 
-:::warning
+:::tip
 
 - If the Hotspot `mac`, `serial`, or `Maker` does not match, the transaction will silently fail.
 - If there are insufficient Data Credits in the maker account, the transaction will silently fail.
