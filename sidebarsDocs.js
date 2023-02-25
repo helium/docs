@@ -6,9 +6,11 @@ module.exports = {
       label: '🚧 Solana 🚧',
       items: [
         'solana/solana',
+        'solana/primer',
+        'solana/rewardable-entities',
         {
           type: 'category',
-          label: 'Migration',
+          label: 'Migration Guides',
           items: [
             'solana/migration/hotspot-owner',
             'solana/migration/maker',
@@ -19,8 +21,6 @@ module.exports = {
             'solana/migration/ledger',
           ],
         },
-        'solana/primer',
-        'solana/rewardable-entities',
       ],
       collapsed: true,
     },
