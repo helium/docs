@@ -1,6 +1,6 @@
 ---
 id: open-lns
-title: Open LoRaWAN Network Servers
+title: Open LNS Overview
 pagination_label: Open LNS
 sidebar_label: Open LNS
 description: Helium Open LNS Documentation
@@ -10,10 +10,10 @@ slug: /use-the-network/open-lns
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-Open LNS allows devices on the Helium Network to use any LoRaWAN Network server ("LNS") that
+Open LNS allows devices on the Helium Network to use any LoRaWAN Network Server ("LNS") that
 complies with the LoRaWAN specification.
 
-<!--TODO: what is an LNS  -->
+<!-- TODO: what is an LNS -->
 <!-- - The LoRaWAN Network Server is the brain and the controller of a LoRaWAN network. -->
 <!-- - connection from hotspot to the internet -->
 <!-- - respnsible for data routing -->
@@ -21,33 +21,27 @@ complies with the LoRaWAN specification.
 
 ## Network Improvements
 
-Open LNS alleviates the usage and accessibility bottlenecks that stem from the Helium Console as the
-primary LoRaWAN Network Server option and scales through a large and diverse set of LNS providers.
+Prior to Open LNS, Helium LoRaWAN Network Servers ran on bespoke software especially suited to the 
+Helium Blockchain. Through Helium HIP-70, these constraints were removed, allowing for a multitude 
+of simplifications and improvements.
 
-### Increased Accessibility
+**Increased Accessibility:** <br/>
+Open LNS alleviates the usage and access bottlenecks that stem from "Helium Console" as the only LNS
+option and instead scales network access through a large and diverse set of LNS providers and 
+software suites.
 
-This new specification removes the bottlenecks created by the Helium Console as the sole LNS option.
-It enables Network Users to utilize the LNS that best suits their needs while maintaining access to
-the coverage provided by the Helium Network.
+**Accelerated Device Joins:** <br/>
+The re-engineered backend architecture removes the need to store device routing information on the 
+Helium blockchain, dramatically reducing device join time.
 
-### Accelerated Device Joins
-
-The re-engineered backend architecture removes the need to store device information on the Helium
-blockchain, dramatically reducing device join time.
-
-### Increased Reliability
-
+**Increased Reliability:** <br/>
 By colocating in the same global regions as deployed Hotspots, additional Oracles can support future
 demand, reduce latency, and increase redundancy.
 
-### Enable Massive Scalability
-
+**Enable Massive Scalability:** <br/>
 The upgraded architecture allows for new device classes and innovative use cases, with new LoRaWAN
 infrastructure allowing IoT providers to utilize whichever LNS they prefer based on features and
 capabilities.
-
-While the standard LoRaWAN Class A devices are versatile, adding ABP activation and Class C device
-support is essential for the Network infrastructure.
 
 ---
 
@@ -55,29 +49,22 @@ support is essential for the Network infrastructure.
 
 ### Why Are These Changes Necessary?
 
-In the current architecture, Helium Console is a full blockchain-following node. This blockchain
+In the current architecture, Helium Console is a blockchain-following node. This blockchain
 dependency adds cost and complexity and can cause speed and efficiency issues, including device
 joins delays and slow, delayed, or dropped packet communications. In addition, the current
 architecture limits the scalability to handle future network growth. IoT solution providers can only
 access part of the catalog of LoRaWAN-capable devices, and there are limited options regarding how
 these devices onboard to the Helium Network.
 
-Moving data transfer to Oracles will eliminate the need for data transfer accounting dependent on
-the blockchain and other chain-following entities, eliminates the issues noted above while enabling
-data transfer to massively scale, and removes the fear of chain halts affecting the underlying
-Network.
+Moving data transfer to [Oracles][oracles] will eliminate the need for data transfer accounting 
+dependent on the blockchain and other chain-following entities, eliminates the issues noted above 
+while enabling data transfer to massively scale, and removes the fear of chain halts affecting the 
+underlying Network.
 
+<figure>
 <img src={useBaseUrl('img/open-lns/open-lns-architecture.png')} />
-
-> Simplified block diagram of Data Transfer Accounting.
-
-### What Is An Oracle?
-
-Oracles are servers that provide blockchains with off-chain data. For Helium, Oracles (“Packet
-Router” in the above diagram) will provide data transfer information to the Solana blockchain to
-accurately distribute token rewards.
-
-Read more about the roles of Oracles on the Helium Netork [here][oracles].
+<figcaption>Simplified block diagram of Data Transfer Accounting.</figcaption>
+</figure>
 
 ### How Would Open LNS Provide More Access To The Network?
 
@@ -102,7 +89,7 @@ that ABP and Class C devices will be fully functional on the Helium Network.
 
 Testing will continue through the start of 2023.
 
-### Which Open Lns Providers Can I Use?
+### Which Open LNS Providers Can I Use?
 
 The first batch of providers within the Open LNS initiative utilizes [Chirpstack][chirpstack] and
 offers multi-tenant and private instances to businesses and individuals.
@@ -119,7 +106,6 @@ offers multi-tenant and private instances to businesses and individuals.
   and assisting clients in bringing their solutions to market. Parley Labs' services include
   sourcing, procurement, provisioning, logistics, integrations, and engineering.
 
-[console]: http://console.helium.com/
 [chirpstack]: https://www.chirpstack.io/
 [ingeniousthings]: https://www.ingeniousthings.fr/
 [helium-iot]: https://www.helium-iot.eu/
