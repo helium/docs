@@ -1,0 +1,93 @@
+The Hardware Audit will require 2 hardware samples, if you are shipping both indoor and outdoor models, please include 2 of each.
+The samples should be close to identical to the ones you intend to sell with the final enclosure (no prototypes or 3D printed enclosures). 
+We are accepting Light Hotspots and 5G/ Mobile hotspots only at this time.
+
+We expect the Hardware Audit to take a minimum of 7 weeks from the time that we receive your hardware and payment. 
+Thank you for your patience, we are working through everything as quickly as possible.
+
+---
+*Each Hardware Audit requires a PDF copy of the responses to the following questions. 
+Please organize your answers in order, and send the document electronically in one PDF (please do not send *docs, *Excel) 
+with a response to all questions. 
+**Missing information will result in significant delays.***
+
+### IDENTIFYING THE HOTSPOT
+
+1. Label the hardware clearly with the company name.
+2. What is the model name of your Hotspot?
+3. Include a link to your HIP19 application in your document.
+4. Confirm that your HIP19 application matches the hardware and related documentation that you sent for audit.
+5. In the document, specify if this is a Light, or Mobile/5G Hotspot we are auditing. 
+6. If this is a Mobile/5G, does it have LoRaWAN capability? **Y/N**
+7. In the document, specify if this is an indoor or outdoor Hotspot we are auditing.
+    1. If you have sent only an indoor hotspot, do you expect to make an outdoor hotspot later?
+    2. If you have sent only an outdoor hotspot, do you expect to make an indoor hotspot later?
+8. Provide a block diagram (see example) and clearly label the location of the security implementation (ECC chip or TrustZone etc). A block diagram is a diagram of your system with CPU/ MCU, memory, ECC/ other security etc. All the parts in your circuit should be clearly labeled with part numbers.
+(@Sam: how to add an image here?)
+    
+9. Provide a sketch or photo indicating the location of the security module on the PCB.
+
+### **AUDITOR ACCESS TO YOUR HOTSPOT**
+
+1. The Hotspot should arrive running as it would be at a customer’s location. Is it running? **Y/N**
+2. (**Light Hotspots/ LoRaWAN capable only**) Provide the path to the gateway-rs executable (ie: helium_gateway)
+3. (**Light Hotspots/ LoRaWAN capable only**) Provide the architecture/distribution that your CPU is using. Please match it here: [https://github.com/helium/gateway-mfr-rs/releases/tag/v0.2.2](https://github.com/helium/gateway-mfr-rs/releases/tag/v0.2.2)
+    1. This is so the auditor can install Helium's gateway_mfr_rs on your hardware and check your ECC configuration
+4. (**Light Hotspots/ LoRaWAN capable only**) Provide the commands to start and stop the gateway-rs executable (ie: helium_gateway)
+5. (**Light Hotspots/ LoRaWAN capable only**) If using the ECC608 as security element, provide the key slot and bus address
+6. (**Light Hotspots/ LoRaWAN capable only**) gateway-rs must automatically update; the auditor shall not update your firmware for you. Upon power up, is gateway-rs running and ready to audit? **Y/N**
+7. (**Light Hotspots/ LoRaWAN capable only**) Are you using Helium’s gateway-rs updater? **Y/N**
+8. (**Light Hotspots/ LoRaWAN capable only**) If you answered yes, please indicate which ****[build target](https://github.com/helium/gateway-rs/blob/main/.github/workflows/ci.yml#L42)
+ matches your hardware.
+9. (**Full Hotspots/ LoRaWAN capable only**) Provide instructions for stopping and starting Miner.
+10. (**Full Hotspots/ LoRaWAN capable only**) Provide location of miner data.
+11. (**5G or Mobile hotspots only**) Which radio brand and models are compatible with your hotspot.
+12. Provide instructions for stopping and starting Packet Forwarder.
+13. Provide location of packet forward configuration file (global_conf.json).
+
+### RADIO CERTIFICATIONS
+
+1. Which radio certifications do you intend to get?
+2. Which countries do you intend to sell into?
+    1. The MCC **will not vote** until all of the radio certifications are completed. Certifications and reports are expected at the time of voting. 
+    MCC will not vote on reports only.
+3. Are you deploying in a frequency that requires Listen Before Talk or Listen Before Transmit? Y/N
+    1. eg: Japan, South Korea
+4. Are you selling AU915 gateways? **Y/N**
+    1. If yes, can you certify that you can also operate under AS923-1?
+    2. You must check your transmit test on AS923-1 channels
+    3. AS923-1-AU
+        1. The default AS923-1 freq band ranges from 915 to 928 MHz
+        2. Verify transmit from 915 to 928 MHz at every 200 kHz interval (915.2, 915.4 ... 927.6, 927.8) (edited). At all data rates, ie: DR0-DR7 (including the FSK)
+
+### NOTES ON FCC
+
+1. For FCC please provide your FCC ID number as well as the certificate.
+2. **Have you read Helium's PoC [FCC guidelines](https://docs.google.com/document/d/1JDh1I2UyNCXgDGXq3zNH-IUj2184ApPuqT-wI-aNwZw/edit#heading=h.9peun8n5pwu5) before you sent it to the lab? Y/N**
+    1. **If your FCC certification is incorrect, you will experience significant delays, months or more.**
+
+### FINAL QUESTIONS
+
+1. Explain the OTA/firmware update process. Show the process by which firmware updates are cryptographically verified.
+2. (**5G/ Mobile Hotspots only**) Please provide a gateway_mfr utility to access the secure element.
+3. (**5G/ Mobile Hotspots only**) Show the secure boot hardware via a diagram. The diagrams should include all the hardware involved in the boot process and the security boundaries of each component. Hardware items to illustrate include (but aren’t limited to):
+    1. Cryptographic hardware accelerator
+    2. Secure storage for private/secret and public keys
+    3. Secure RAM
+    4. Boot ROM
+    5. Untrusted external RAM
+    6. Untrusted external non-volatile storage (eMMC, SATA, etc)
+    7. Communication busses
+    
+The diagram must also show the security boundaries of your design. Group each component and bus by the boundary it resides in.
+    
+4. (**5G/ Mobile Hotspots only**) Using callouts to the secure boot hardware diagram, show how the system can determine that the firmware 
+that it is booting comes directly from an authorized source and hasn’t been altered. Additionally, show how your Secure Element, which contains the private key that identifies your Hotspot on the blockchain, will **only** obey encryption, decryption and signature generation requests if they come from authorized firmware.
+    
+
+**EXAMPLE FLOW CHART**
+
+1. Is there a dashboard or other interface on the Hotspot that allows it to be controlled over the network? *If yes, this dashboard must require a password or other secure token to access. This password must be unique per device and sufficiently random so as to not be guessable*.
+2. The Hotspot should have production-ready firmware, including an over the air (OTA) update process for the miner. **Y/N**
+3. Are you aware that the Helium app will not be available for customer use after 3**/1/22**? **Y/N**
+4. Has your team created a Maker App for customers to onboard? Note: you MUST have a Maker App created and tested to continue with the hardware audit. **Y/N**
