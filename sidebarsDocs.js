@@ -19,6 +19,7 @@ module.exports = {
             'solana/migration/application-builder',
             'solana/migration/governance',
             'solana/migration/ledger',
+            'solana/migration/blockchain-node',
           ],
         },
       ],

@@ -1,6 +1,9 @@
 const math = require('remark-math')
 const katex = require('rehype-katex')
 
+const lightCodeTheme = require('prism-react-renderer/themes/github')
+const darkCodeTheme = require('prism-react-renderer/themes/dracula')
+
 module.exports = {
   title: 'Helium Documentation',
   tagline: 'Documentation for the Helium Network',
@@ -41,7 +44,7 @@ module.exports = {
       logo: {
         alt: 'Helium Logo',
         src: 'img/icons/logoblack.svg',
-        srcDark: 'img/logowhite.svg',
+        srcDark: 'img/icons/logowhite.svg',
       },
       items: [
         // {
@@ -95,6 +98,10 @@ module.exports = {
       style: 'dark',
       copyright: `Copyright © ${new Date().getFullYear()} Helium Foundation`,
     },
+    prism: {
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
+    },
   },
   presets: [
     [
@@ -119,6 +126,9 @@ module.exports = {
     ],
   ],
   stylesheets: [
+    {
+      href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300..600&display=swap',
+    },    
     {
       href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
       type: 'text/css',
