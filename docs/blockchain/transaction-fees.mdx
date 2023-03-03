@@ -9,6 +9,7 @@ slug: /blockchain/transaction-fees
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
+<!--TODO: post migration: Lupdate with Solana fees  -->
 
 <img className="docsheader" src={useBaseUrl('img/blockchain/fees.png')} />
 
@@ -38,6 +39,8 @@ as this number is variable based on the current $USD/HNT price as defined by the
 
 ### Calculating the DC cost for Sending HNT
 
+<!--TODO: swap HNT for DNT  -->
+
 As noted above, the `DC` cost of a `Send` transaction is variable. The precise cost is based on the
 size of the transaction, in bytes. Once the size is calculated, we apply a `5000x` multiplier. For a
 typical send transaction, where one wallet is sending to one wallet
@@ -60,6 +63,8 @@ the complete transaction is made up of the following:
 - This results in a `30000 Data Credit` cost for the above transaction.
 
 ### Transaction Fees and Implicit Burn
+
+<!--TODO: move to separate page?  -->
 
 The Helium blockchain uses something called `implicit burn` when paying fees.
 

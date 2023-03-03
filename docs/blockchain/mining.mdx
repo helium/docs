@@ -9,6 +9,7 @@ slug: /blockchain/mining
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
+<!--TODO: post migration: rework for mining of IOT and split HNT rewards into separate document, HIP-51  -->
 
 <img className="docsheader" src={useBaseUrl('img/blockchain/mining.png')} />
 
@@ -16,6 +17,8 @@ While there's no exact formula for calculating how much HNT you'll earn over a g
 are some higher-level concepts, design elements, and rules to keep in mind that will help better
 explain what you might earn and why. This section covers these, as well as some mining and token
 reward basics.
+
+<!--TODO: hotspots earn IOT tokens  -->
 
 ## How Do Hotspots Earn Helium Tokens?
 
@@ -40,7 +43,11 @@ No. Once your Hotspot is completely deployed and onboarded to the Helium blockch
 owner are not required to do anything else to earn HNT. Your Hotspot will perform all of the above
 activities on its own while it runs.
 
+<!--TODO: rewards must be claimed to wallet as only user action needed  -->
+
 ## Target HNT Production Per Epoch
+
+<!--TODO: DNT tokes per epoch updates  -->
 
 As of August 1, 2021 (the most recent halving), the target production rate for new HNT minted per
 month is `2,500,000`. This means that, if the blockchain performs as designed, it will produce
@@ -62,10 +69,15 @@ HNT. The math for this is as follows:
 
 ### What Are The Current Block and Epoch Times?
 
+<!--TODO: post migration point to new tools and dashboards  -->
+
 At any point, you can go to the [Helium blockchain Explorer](http://explorer.helium.com/) to view
 recent block and epoch statistics, past HNT production numbers, and much more.
 
 ## HNT Distributions Per Epoch
+
+<!--TODO: post migration update for HIP-51  -->
+<!--TODO: notes on subDAO distributions  -->
 
 As calculated above, the target HNT per epoch is approximately `1736.1111`. The next logical
 question is, "Where does all this HNT go?" Let's take a look.
@@ -92,6 +104,8 @@ currently scheduled for **August 1, 2023** and will be updated along with change
 havening to maintain max HNT supply.
 
 ## HIP-10 and Variable HNT Rewards for Network Data Transfer
+
+<!--TODO: specify this applies to IOT network  -->
 
 As noted above,
 [HIP-10 was activated on August 24th, 2020](https://github.com/helium/HIP/blob/master/0010-usage-based-data-transfer-rewards.md).
@@ -131,6 +145,8 @@ calculation is:`(800,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
 
 ### Additional Notes on Reward Types and Payouts
 
+<!--TODO: post migration remove validator content  -->
+
 - All Validators in the `Consensus Group` will earn an equal reward.
 - All Hotspots participating in PoC, including `Beaconers` and `Witnesses` will earn rewards
   proportional to how many events they participated in out of the total number of events per epoch.
@@ -143,12 +159,16 @@ calculation is:`(800,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
 
 ## HNT Proration and Slow Block Times
 
+<!--TODO: post migration: swap for IOT  -->
+
 The Helium blockchain is still new and growing quickly, so there are bugs to be squashed and
 optimizations to be made. Target block and epoch times can be difficult to attain consistently. To
 account for this, the Helium blockchain uses something called `proration` to ensure that the target
 of `2,500,000` is achieved even if block and epoch times aren't on target.
 
 **Target HNT Depends on Blocks, Not Clocks**
+
+<!--TODO: post migration: swap for IOT  -->
 
 It's easiest to think of target HNT production over one month. If the blockchain performs on target,
 resulting in roughly 1440 epochs per month, then `2,500,000` new HNT will be produced. "One month"
@@ -192,3 +212,5 @@ member might be inclined to prolong elections. This could be done, for example, 
 subsequent election, thus ensuring current membership in the Consensus Group stays intact. By
 distributing a fixed amount of HNT per `30` block epoch (as opposed to prorating payouts), we remove
 the incentive to disrupt elections.
+
+<!--TODO: add section on "what if solana goes down?"  -->
