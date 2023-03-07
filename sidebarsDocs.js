@@ -10,8 +10,8 @@ module.exports = {
           type: 'category',
           label: 'Migration Guides',
           items: [
-            'solana/migration/maker',
             'solana/migration/hotspot-operator',
+            'solana/migration/hotspot-maker',
             'solana/migration/exchange',
             'solana/migration/network-user',
             'solana/migration/application-builder',
