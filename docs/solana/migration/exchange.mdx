@@ -1,9 +1,9 @@
 ---
 id: exchange
-title: Exchange Migration
-pagination_label: Exchange Migration
-sidebar_label: Exchange Migration
-description: Helium Exchange Migration Documentation
+title: Exchange Operator Migration Guide
+pagination_label: Exchange Operator
+sidebar_label: Exchange Operator
+description: Helium Exchange Operator Migration Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /solana/migration/exchange
 ---
@@ -16,21 +16,24 @@ The documentation on Solana and the upcoming Migration is under development and 
 
 :::
 
-Helium will be transitioning from its own L1 to Solana. The proceedure for Helium should be the same
-as the proceedure for all other Solana SPL Tokens.
-
-## Blockchain Integration
+The Helium Network is migrating to the Solana blockchain, and all Helium Network Tokens, HNT, IOT,
+and MOBILE, will be SPL tokens.
 
 If an exchange already supports [Solana SPL](https://spl.solana.com/token) tokens, follow the steps
 below.
 
-Otherwise, please refer to the Solana Documentation on how to
+:::tip SPL token Support
+
+Please refer to the Solana Documentation on how to
 [Add Solana to Your Exchange](https://docs.solana.com/integrations/exchange) for details.
+
+:::
 
 ## Mint IDs
 
-All the tokens are on the
-[`TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA` program](https://explorer.solana.com/address/TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA).
+All Helium Network Tokens are available on the
+[`TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA`](https://explorer.solana.com/address/TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA)
+program, and mint IDs exist both on `mainnet-beta` and `devnet` for testing.
 
 The mint IDs are as follows:
 
@@ -41,14 +44,16 @@ The mint IDs are as follows:
 | IOT    | iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns |
 | DC     | dcuc8Amr83Wz27ZkQ2K9NS6r8zRpf1J6cvArEBDZDmm |
 
-These mint IDs exist both on `mainnet-beta` and `devnet` for testing.
+---
 
 ## Mapping Helium Wallets to Solana Wallets
 
-Helium wallets use the same ED25519 curve as Solana wallets. This means that Helium public keys and
-secret keys can be mapped directly to a Solana based wallet.
+Helium wallets use the same ED25519 curve as Solana wallets, resulting in Helium public keys and
+secret keys mapping directly to Solana wallets.
 
-To get the Solana public key equivalent of a Helium public key, in javascript you can run:
+### JavaScript
+
+To get the Solana public key equivalent of a Helium public key in javascript run:
 
 <!-- prettier-ignore -->
 ```javascript
@@ -71,6 +76,8 @@ import { Keypair as SolanaKeypair } from "@solana/web3.js"
 const solanaKeypair = SolanaKeypair.fromSecretKey(heliumKeypair.privateKey);
 ```
 
+### Rust
+
 In rust, to get a pubkey:
 
 ```rust
@@ -86,16 +93,25 @@ To map a keypair:
 solana_sdk::signature::Keypair::from_bytes(helium_keypair.secret_to_vec())
 ```
 
-You can also get the Solana wallet address from a Helium wallet address using the migration api:
+:::tip Migration API
+
+The Migration API can be used to retrieve the Solana wallet address from a Helium wallet address.
 
 `https://migration.web.test-helium.com/helium/*helium-wallet-address*`
 
-### Migration
+:::
 
-To migrate wallet(s) to Solana, you can use the migration service. Instead of sending all
-transactions to inflate Helium state on Solana during the transition period, transactions are
-instead processed as needed. When a user opens their wallet in the Helium Wallet App, it requests
-the migration service to get the needed transactions, then submits them to Solana.
+---
+
+## Wallet Migration
+
+The
+[migration-service](https://github.com/helium/helium-program-library/tree/master/packages/migration-service)
+can be used to migrate wallet(s) to Solana. Instead of sending all transactions to inflate Helium
+state on Solana during the Migration, transactions will process as needed.
+
+The Helium Wallet App requests the migration-service to get the needed transaction and submits them
+to the Solana blockchain when the app is opened for the first time after the Migration is complete.
 
 Since exchange wallets may not use the wallet app, the service can be used directly:
 
@@ -121,17 +137,22 @@ You can see typescript code demonstrating how to use this
 
 ## Trustless Wallet Migration
 
-While the above tools are convenient, they rely on our migration service. Luckily, the on-chain
-implementation of the migration is trustless. The full state of the Helium chain was converted to a
-list of Solana transactions and then compressed into a merkle root on Solana. This means that anyone
-can execute the transactions to inflate a wallet so long as they provide a proper proof that the
-provided transactions are valid. Each transaction is only allowed to be executed once.
+The tools listed above are convenient but rely on the migration service provided by the Helium
+Foundation.
 
-We can see one such transaction here:
+The on-chain implementation of the migration is trustless, and the full state of the Helium
+blockchain will be converted to a list of Solana transactions and compressed into a Merkle Tree root
+on Solana.
+
+Any entity providing the proper proof that the provided transactions are valid can execute the
+transactions to inflate a wallet. Each transaction is only allowed to execute once.
+
+An example transaction is viewable here:
 
 https://explorer.solana.com/tx/5Y8vfMAfhyqgXsp1YnvPVHMdK4PUryLqMCgGynQXg9tPkUVehK438XviXz3ciSkg4PhqMZ8UyrSSVj7pgY8uq1xr?cluster=devnet
 
 If you would like a copy of the database serving the proofs for the migration service, please
-[contact the Helium Foundation](mailto:hello@helium.foundation). You can then run your own instance
-of the
+[contact the Helium Foundation](mailto:hello@helium.foundation).
+
+This database copy can be used to run an instance of the
 [migration service](https://github.com/helium/helium-program-library/tree/master/packages/migration-service)
