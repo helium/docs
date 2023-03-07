@@ -1,0 +1,133 @@
+---
+id: hotspot-operator
+title: Hotspot Operator Migration Guide
+pagination_label: Hotspot Operator
+sidebar_label: Hotspot Operator
+description: Helium Hotspot Operator Migration Documentation
+image: https://i.imgur.com/bWAbESE.png
+slug: /solana/migration/hotspot-operator
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning 🚧 This document is a work in progress. 🚧
+
+The documentation on Solana and the upcoming Migration is under development and subject to change.
+
+:::
+
+No action is required of Hotspot Operators to prepare or partake in the Solana Migration.
+
+Some important notes:
+
+- Hotspots will stop mining HNT tokens.
+- Hotspots will begin mining IOT tokens.
+- Hotspots will become NFTs on the Solana Blockchain, visible in the Helium Wallet App.
+- IOT Rewards are earned and accumulated to the Hotspot, and must be "claimed".
+
+All existing Helium Hotspots from all Hotspot Manufacturers will become "LoRaWAN Hotspots".
+
+At the time of the Solana Migration, all existing "5G Hotspots" on the Helium Network are _also_
+LoRaWAN Hotspots.
+
+During the Solana Migration downtime, the 24-hour period in which the state of the Helium L1
+blockchain migrates to the Solana blockchain, the Helium Wallet App will present a "transitioning"
+screen and will not accept transaction requests.
+
+Once the Migration is complete, the Helium Wallet app can be relaunched and display each wallet's
+assets and Hotspots on the Solana blockchain.
+
+---
+
+## Reward Distribution and Claiming
+
+All LoRaWAN Hotspots will be rewarded in the new IOT subDAO token instead of HNT.
+
+Rewards will accumulate to each Hotspot, not directly to a wallet, and must be "claimed" before they
+will be in the owning wallet.
+
+There is no limit to how frequently nor how many times a wallet can claim rewards from a Hotspot,
+keeping in mind that every claim requires a small transaction fee in SOL.
+
+:::info claiming fees
+
+At the time of the Solana Migration, each claiming transaction will be a fraction of a cent in SOL.
+
+:::
+
+---
+
+## Wallets With 50+ Hotspots
+
+Wallets with a large number, 50 or more, of Hotspots may need to wait up to 48 hours after the
+Solana Migration completes to see all Hotspots in the Helium Wallet App.
+
+Because claiming is an explicit action, enlisting a service to claim rewards on all of associated
+Hotspots can be used.
+
+<!-- TODO: Service -->
+
+---
+
+## IOT Premine
+
+As described in [HIP-52: IOT subDAO](https://github.com/helium/HIP/blob/main/0052-iot-dao.md)the
+launch of the IoT subnetwork will include a premine of 5 billion IOT tokens to Validators and
+Hotspots on the existing IoT network.
+
+The IOT Premine will reward Hotspots contributing to the Network within the 30 days preceding the
+Solana Migration Snapshot.
+
+:::info What is a Snapshot?
+
+When the Helium L1 blockchain halts, a "snapshot" of the state of the Network occurs. The Snapshot
+is a record of the final state of the Helium L1 blockchain.
+
+The [migration-service program](TODO: add link) will use this Snapshot to map existing rewards and
+Network state to the Solana blockchain.
+
+:::
+
+The premine allocates IOT tokens in the following proportion: Validators: 2.5 billion tokens,
+distributed proportionately to the amount of HNT staked at the time of the Snapshot. Hotspots: 2.5
+billion tokens, distributed to all active Hotspots at the time of the Snapshot.
+
+### What is an "Active" Hotspot?
+
+The migration service will consider a Hotspot as "Active" if the Snapshot includes any of the
+following:
+
+- Witnessed and been valid/invalid witnesses.
+- Beaconed and had valid/invalid witnesses.
+- Transferred data.
+
+A Hotpsot is not "Active" if:
+
+- Beaconed with no valid/invalid witnesses, and
+- Has not passed data
+
+:::caution Hotspots on the Denylist
+
+Any Hotspot on the Denylist a the time of the Snapshot is not eligible for the premine regardless of
+meeting any other critera.
+
+:::
+
+### Data Only Hotspot Eligibility
+
+The migration-service program will allocate rewards to any Data Only Hotspot which has transferred
+data within the 30 days preceding the Snapshot.
+
+### 5G Hotspot Eligibility
+
+At the time of the Solana Migration, all 5G Hotspots are also LoRaWAN Hotspots and will be allocated
+Premine Rewards under the same conditions as LoRaWAN Hotspots.
+
+:::caution Unasserted 5G Hotspots.
+
+Unasserted 5G Hotspots will not be eligible for the premine as the Active criteria all require the
+Hotspot to have an asserted location recorded on the Helium L1 blockchain.
+
+:::
+
+---
