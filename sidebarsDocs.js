@@ -10,6 +10,7 @@ module.exports = {
           type: 'category',
           label: 'Migration',
           items: [
+            'solana/migration/migration-status',
             'solana/migration/hotspot-owner',
             'solana/migration/maker',
             'solana/migration/exchange',
