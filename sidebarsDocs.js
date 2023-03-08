@@ -134,7 +134,10 @@ module.exports = {
         {
           type: 'category',
           label: '5G Hotspot Makers',
-          items: ['hotspot-makers/5g-hotspot-requirements'],
+          items: [
+            'hotspot-makers/5g-hotspot-requirements',
+            'hotspot-makers/5g-hardware-specification',
+          ],
         },
         'hotspot-makers/hotspot-manufacturers',
         'hotspot-makers/maker-ethics',
