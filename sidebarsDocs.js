@@ -136,6 +136,11 @@ module.exports = {
             'hotspot-makers/original-helium-hotspot',
           ],
         },
+        {
+          type: 'category',
+          label: '5G Hotspot Makers',
+          items: ['hotspot-makers/5g-hotspot-requirements'],
+        },
       ],
       collapsed: true,
     },
