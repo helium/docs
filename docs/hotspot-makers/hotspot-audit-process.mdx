@@ -10,7 +10,7 @@ slug: /hotspot-makers/hotspot-audit-process
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The Hardware Audir will require two hardware samples of each Hotspot. For example, if the Audit
+The Hardware Audit will require two hardware samples of each Hotspot. For example, if the Audit
 includes Indoor and Outdoor Hotspots, 2 of each model are required for submission.
 
 Hardware samples submitted to Auditors should be identical to the final hardware sold to customers,
@@ -68,35 +68,40 @@ samples and payments. **Missing information will result in significant delays.**
 
 ## Auditor Access To Your Hotspot
 
+### LoRaWAN Capable Hotspots
+
 1. The Hotspot should arrive running as it would be at a customer's location.
 2. Provide instructions for stopping and starting Packet Forwarder.
 3. Provide the location of the Packet Forward configuration file `global_conf.json`.
-
-### LoRaWAN Capable Hotspots
-
-1. Provide the path to the `gateway-rs` executable (ie: `helium_gateway`)
-2. Provide the architecture/distribution used by the CPU.
+4. Provide the path to the `gateway-rs` executable (ie: `helium_gateway`)
+5. Provide the architecture/distribution used by the CPU.
    - Match it here:
      [https://github.com/helium/gateway-mfr-rs/releases/tag/v0.2.2](https://github.com/helium/gateway-mfr-rs/releases/tag/v0.2.2)
      so that auditors can install Helium's `gateway_mfr_rs` on the hardware and check the ECC
      configuration.
-3. Provide the commands to start and stop the `gateway-rs` executable (ie, `helium_gateway`)
-4. If using the ECC608 as a security element, provide the key slot and bus address
-5. Upon power up, is `gateway-rs` running and ready to audit? **Y/N**
+6. Provide the commands to start and stop the `gateway-rs` executable (ie, `helium_gateway`)
+7. If using the ECC608 as a security element, provide the key slot and bus address
+8. Upon power up, is `gateway-rs` running and ready to audit? **Y/N**
    - `gateway-rs` must automatically update; the Auditor shall not update the firmware.
-6. Is the Hotspot using Helium's `gateway-rs` updater? **Y/N**
+9. Is the Hotspot using Helium's `gateway-rs` updater? **Y/N**
    - If **Yes**, please indicate which [build target
      (https://github.com/helium/gateway-rs/blob/main/.github/workflows/ci.yml#L42) matches the
      Hardware.
 
 ### LoRaWAN Capable Full Hotspots
 
-1. Provide instructions for stopping and starting Miner.
-2. Provide location of miner data.
+1. The Hotspot should arrive running as it would be at a customer's location.
+2. Provide instructions for stopping and starting Packet Forwarder.
+3. Provide the location of the Packet Forward configuration file `global_conf.json`.
+4. Provide instructions for stopping and starting Miner.
+5. Provide location of miner data.
 
 ### 5G Only Hotspots
 
-1. Specify which CBRS radio brand and models are compatible with the 5G Hotspot.
+1. The Hotspot should arrive running as it would be at a customer's location.
+2. Provide instructions for stopping and starting Packet Forwarder.
+3. Provide the location of the Packet Forward configuration file `global_conf.json`.
+4. Specify which CBRS radio brand and models are compatible with the 5G Hotspot.
 
 ---
 
