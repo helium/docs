@@ -79,6 +79,16 @@ module.exports = (api) => {
 Apps must now be wrapped in a `<SolanaProvider>` and the `baseUrl` for `<OnboardingProvider>` has
 changed
 
+A Solana Provider must be set with a Solana RPC. Because Helium makes use of Compressed NFTs, there are
+currently 3 RPC providers with support:
+  
+  * [GenesysGo](https://genesysgo.com/)
+  * [Helius](https://helius.xyz/)
+  * [Triton](https://triton.one)
+
+You can visit their websites and get set up with an RPC url.
+
+
 ```tsx
 // src/App.tsx
 const { walletLinkToken } = useSelector((state: RootState) => state.app)
@@ -100,6 +110,7 @@ useEffect(() => {
 <SolanaProvider
    heliumWallet={heliumWallet}
    cluster="mainnet-beta"
+   rpcEndpoint="https://your-solana-rpc.com"
 >
   {/* //////////////////////////////////////////////////////////////
   Remove the /v2 from your onboarding url 👉👉👉👉👉👉👉👉👇
@@ -121,10 +132,19 @@ variables.
 // src/App.tsx
 <SolanaProvider
   heliumWallet={heliumWallet}
+  rpcEndpoint="https://your-devnet-solana-rpc.com"
   cluster="devnet"
   solanaStatusOverride="complete"
 >
-  <OnboardingProvider baseUrl="https://onboarding.oracle.test-helium.com/api">
+  <OnboardingProvider baseUrl="https://onboarding.web.test-helium.com/api">
+```
+
+For testing against devnet, you can use our testing maker:
+
+```
+ONBOARDING_MAKER_ADDRESS="14neTgRNZui1hSiHgE3LXjSfwkPU8BEB192MLXXDFnSY2xKjH51"
+ONBOARDING_AUTH_TOKEN="pk_TgclExRP7rEXAEQlSgrrDwaZUHJAPcw/nNfkEpWOPCk=:sk_E1xc9OVq1/5oKLGD4RzxST7bl+LMnJhalkQ3vZp/QbOjNltvAmHyPolzA0Pb2HyTD68mZp4lETuC19Y+vI72nA==pk_TgclExRP7rEXAEQlSgrrDwaZUHJAPcw/nNfkEpWOPCk=:sk_E1xc9OVq1/5oKLGD4RzxST7bl+LMnJhalkQ3vZp/QbOjNltvAmHyPolzA0Pb2HyTD68mZp4lETuC19Y+vI72nA=="
+ONBOARDING_MAKER_NAME="Test Maker"
 ```
 
 ---
@@ -275,7 +295,7 @@ const App = () => {
 ```
 
 Remove the ability for a new user to link to the Hotspot app. On the Welcome Screen you can now just
-link directly to the Helium Wallet app.
+link directly to the black Helium Wallet app.
 
 ```tsx
 // src/features/onboarding/welcome/WelcomeScreen.tsx
