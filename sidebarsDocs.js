@@ -125,10 +125,17 @@ module.exports = {
         'hotspot-makers/maker-ethics',
         'hotspot-makers/compliance-committee',
         'hotspot-makers/maker-apps',
-        'hotspot-makers/light-hotspots',
-        'mine-hnt/full-hotspots/full-hotspots',
-        'mine-hnt/data-only-hotspots',
-        'hotspot-makers/original-helium-hotspot',
+        'hotspot-makers/hotspot-audit-process',
+        {
+          type: 'category',
+          label: 'IOT Hotspot Makers',
+          items: [
+            'hotspot-makers/light-hotspots',
+            'mine-hnt/full-hotspots/full-hotspots',
+            'mine-hnt/data-only-hotspots',
+            'hotspot-makers/original-helium-hotspot',
+          ],
+        },
       ],
       collapsed: true,
     },
@@ -148,7 +155,10 @@ module.exports = {
     {
       type: 'category',
       label: 'Community and Governance',
-      items: ['community-governance/community-governance', 'community-governance/community-voting'],
+      items: [
+        'community-governance/community-governance',
+        'community-governance/community-voting',
+      ],
       collapsed: true,
     },
     {
@@ -548,7 +558,9 @@ module.exports = {
     {
       type: 'category',
       label: 'OpenSource Initiative',
-      items: ['use-the-network/devices/development/opensourceinitiative/paxcounter'],
+      items: [
+        'use-the-network/devices/development/opensourceinitiative/paxcounter',
+      ],
       collapsed: false,
     },
   ],
@@ -627,7 +639,9 @@ module.exports = {
     {
       type: 'category',
       label: 'Adeunis',
-      items: ['use-the-network/devices/ready-to-use/adeunis/adeunis-field-test-device'],
+      items: [
+        'use-the-network/devices/ready-to-use/adeunis/adeunis-field-test-device',
+      ],
 
       collapsed: false,
     },
@@ -686,7 +700,9 @@ module.exports = {
     {
       type: 'category',
       label: 'BoatOfficer',
-      items: ['use-the-network/devices/ready-to-use/boatofficer/boatofficerblue'],
+      items: [
+        'use-the-network/devices/ready-to-use/boatofficer/boatofficerblue',
+      ],
 
       collapsed: false,
     },
@@ -1345,13 +1361,17 @@ module.exports = {
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/arduino'],
+      items: [
+        'use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/arduino',
+      ],
       collapsed: false,
     },
     {
       type: 'category',
       label: 'Guides',
-      items: ['use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruitio'],
+      items: [
+        'use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruitio',
+      ],
       collapsed: false,
     },
   ],
@@ -1364,7 +1384,9 @@ module.exports = {
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/arduino/lora-vision-shield/arduino'],
+      items: [
+        'use-the-network/devices/development/arduino/lora-vision-shield/arduino',
+      ],
       collapsed: false,
     },
   ],
@@ -1409,7 +1431,9 @@ module.exports = {
     {
       type: 'category',
       label: 'Firmware',
-      items: ['use-the-network/devices/development/heltec/wifi-lora-32-v2/arduino'],
+      items: [
+        'use-the-network/devices/development/heltec/wifi-lora-32-v2/arduino',
+      ],
       collapsed: false,
     },
   ],
