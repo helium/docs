@@ -6,12 +6,23 @@ sidebar_label: Transactions
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/transactions
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-## Transaction for Hash
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Transaction for Hash [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/transactions/:hash
@@ -41,7 +52,7 @@ Transaction successfully retrieved.
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 

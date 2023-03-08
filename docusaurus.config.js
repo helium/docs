@@ -60,12 +60,12 @@ module.exports = {
           position: 'right',
           activeBaseRegex: `docs`,
         },
-        {
-          to: 'api',
-          label: 'API',
-          position: 'right',
-          activeBaseRegex: `api`,
-        },
+        // {
+        //   to: 'api',
+        //   label: 'API',
+        //   position: 'right',
+        //   activeBaseRegex: `api`,
+        // },
         {
           to: '/devblog',
           label: 'Dev Blog',
@@ -128,7 +128,7 @@ module.exports = {
   stylesheets: [
     {
       href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300..600&display=swap',
-    },    
+    },
     {
       href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
       type: 'text/css',

@@ -6,19 +6,30 @@ sidebar_label: Cities
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/cities
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-# Cities
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+# Cities [DEPRECATED]
 
 Hotspots are usually clustered in and around cities. The routes in this section help list all cities
 with their hotspot counts, or list all hotspots for a specific city
 
 ---
 
-## List Hotspot Cities
+## List Hotspot Cities [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/cities
@@ -69,7 +80,7 @@ Lists cities including the word houston in their city, state or country.
 
 ---
 
-## City for City ID
+## City for City ID [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/cities/:city_id
@@ -118,7 +129,7 @@ City for id `dG9yb250b29udGFyaW9jYW5hZGE`
 
 ---
 
-## List Hotspots for a City
+## List Hotspots for a City [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/cities/:city_id/hotspots
