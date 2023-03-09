@@ -16,7 +16,7 @@ The documentation on Solana and the upcoming Migration is under development and 
 
 :::
 
-## Update and add new dependencies
+## Update and Add New Dependencies
 
 ```json
 "@helium/address": "^4.8.1",
@@ -32,7 +32,9 @@ The documentation on Solana and the upcoming Migration is under development and 
 "stream": "^0.0.2"
 ```
 
-# Update Babel Config to alias crypto library
+---
+
+## Update Babel Config to Alias Crypto Library
 
 ```jsx
 // babel.config.js
@@ -74,7 +76,9 @@ module.exports = (api) => {
 }
 ```
 
-# Update App Providers
+---
+
+## Update App Providers
 
 Apps must now be wrapped in a `<SolanaProvider>` and the `baseUrl` for `<OnboardingProvider>` has
 changed
@@ -119,7 +123,9 @@ useEffect(() => {
 {/* The Rest of your app... */}
 ```
 
-# Testing Solana pre-transition
+---
+
+## Testing Solana Pre-Migration
 
 Before the migration to Solana has completed the v2 onboarding server will be used and transactions
 will still be submitted to the Helium blockchain. To test Solana before transition use these
@@ -148,7 +154,7 @@ ONBOARDING_MAKER_NAME="Test Maker"
 
 ---
 
-# Onboarding a hotspot
+## Onboarding a Hotspot
 
 When onboarding a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
 
@@ -193,11 +199,11 @@ setSolanaTransactions(onboardData.solanaTransactions)
 
 ---
 
-# Updating a hotspot
+## Updating a Hotspot
 
 When updating a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
 
-## Create transactions
+### Create transactions
 
 ```tsx
 // src/features/hotspots/setup/HotspotSetupConfirmLocationScreen.tsx
@@ -220,7 +226,7 @@ setSolanaTransactions(data.solanaTransactions)
 
 ---
 
-# Transferring a Hotspot
+## Transferring a Hotspot
 
 ```tsx
 // src/features/transferHotspot/TransferHotspot.tsx
@@ -235,7 +241,7 @@ const { solanaTransactions, transferHotspotTxn } = await createTransferTransacti
 
 ---
 
-# Linking to Helium Wallet App for signing
+## Linking to Helium Wallet App for Signing
 
 You must add `solanaTransactions` to the signature request
 
@@ -256,7 +262,7 @@ Linking.openURL(url)
 
 ---
 
-# Submit signed transaction(s)
+## Submit Signed Transaction(s)
 
 ```tsx
 // src/features/hotspots/setup/HotspotTxnsSubmitScreen.tsx
@@ -273,13 +279,17 @@ const { pendingAssertTxn, pendingGatewayTxn, pendingTransferTxn, solanaTxnIds } 
 
 ---
 
----
-
-# Fetching Hotspots
+## Fetching Hotspots
 
 <!-- TODO: Show how this is done -->
 
-## Update wallet link
+```
+
+```
+
+---
+
+## Update Wallet Link
 
 The Helium Hotspot App is deprecated, Maker Apps should link to the Helium Wallet App. Add the hook
 `useCheckWalletLink()` to `src/App.tsx` It will check to see if the user is linked to the Hotspot
