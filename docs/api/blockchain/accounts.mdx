@@ -6,12 +6,24 @@ sidebar_label: Accounts
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/accounts
+hide_table_of_contents: true
 ---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## List Accounts
+## List Accounts [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts
@@ -138,7 +150,7 @@ _Query Parameters_
 
 ---
 
-## List Richest Accounts
+## List Richest Accounts [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/rich
@@ -211,7 +223,7 @@ Result for `/v1/accounts/rich?limit=2`
 
 ---
 
-## Account for Address
+## Account for Address [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address
@@ -270,7 +282,7 @@ _Path Parameters_
 
 ---
 
-## Hotspots for Account
+## Hotspots for Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/hotspots
@@ -353,7 +365,7 @@ The hotspot list for an account
 
 ---
 
-## Validators for Account
+## Validators for Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/validators
@@ -528,7 +540,7 @@ The validator list for an account
 
 ---
 
-## OUIs for Account
+## OUIs for Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/ouis
@@ -587,7 +599,7 @@ The oui list for account `13tyMLKRFYURNBQqLSqNJg9k41maP1A7Bh8QYxR13oWv7EnFooc`
 
 ---
 
-## Activity for Account
+## Activity for Account [DEPRECATED]
 
 :::caution
 
@@ -748,7 +760,7 @@ _Query Parameters_
 
 ---
 
-## Roles for Account
+## Roles for Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/roles
@@ -825,7 +837,7 @@ _Query Parameters_
 
 ---
 
-## Roles Counts for Account
+## Roles Counts for Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/roles/count
@@ -876,7 +888,7 @@ Fetch counts with `filter_types=add_gateaway_v1,assert_location_v1` for account
 
 ---
 
-## Elections for Account
+## Elections for Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/elections
@@ -975,7 +987,7 @@ _Query Parameters_
 
 ---
 
-## Challenges for Account
+## Challenges for Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/challenges
@@ -1178,7 +1190,7 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## Pending Transactions for Account
+## Pending Transactions for Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/pending_transactions
@@ -1256,7 +1268,7 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## Rewards for an Account
+## Rewards for an Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/rewards
@@ -1329,7 +1341,7 @@ Rewards for an account with `min_time=2020-08-27&max_time=2020-08-28`
 
 ---
 
-## Rewards in a Rewards Block for an Account
+## Rewards in a Rewards Block for an Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/rewards/:block
@@ -1388,7 +1400,7 @@ Rewards for an account in block `470788`
 
 ---
 
-## Reward Totals for an Account
+## Reward Totals for an Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/rewards/sum
@@ -1450,7 +1462,7 @@ Returns the total rewards over a given time range
 
 ---
 
-## Stats for Account
+## Stats for Account [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/accounts/:address/stats

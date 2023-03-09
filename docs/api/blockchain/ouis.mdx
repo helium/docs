@@ -6,10 +6,21 @@ sidebar_label: OUIs
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/ouis
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
 
 > Organization Unique Identifiers
 
@@ -19,7 +30,7 @@ the device data to registered router.
 
 ---
 
-## List OUIs
+## List OUIs [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/ouis
@@ -149,7 +160,7 @@ _Query Parameters_
 
 ---
 
-## Get an OUI
+## Get an OUI [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/ouis/:oui
@@ -193,7 +204,7 @@ _No Parameters_
 
 ---
 
-## Get last assigned OUI
+## Get last assigned OUI [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/ouis/last
@@ -237,7 +248,7 @@ _No Parameters_
 
 ---
 
-## Get OUI Stats
+## Get OUI Stats [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/ouis/stats
