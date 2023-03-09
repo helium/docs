@@ -94,16 +94,53 @@ provided once complete.
 
 :::
 
-| Name                    | Program ID                                  | Description                                                                                                                                                                             |
-| ----------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `circuit_breaker`       | circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g | Generic program wrapping sensitive mint authorities and token accounts in the Helium system to prevent large movements in the case of an exploit or bug.                                |
-| `data_credits`          | credMBJhYFzfn7NxBMdU4aUqFggAjgztaCcv2Fo6fPT | Manages the purchase, delegation, and burning of data credits.                                                                                                                          |
-| `helium_entity_manager` | hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8 | Handles the issuance of NFTs representing entities that are rewardable on the Helium network, like hotspots and mappers.                                                                |
-| `helium_sub_daos`       | hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR | Manages the DAO/SubDAO structure proposed in HIP-51, including the minting of tokens to subdaos, HST holders, and the `lazy_distributor` for PoC earnings.                              |
-| `lazy_distributor`      | 1azyuavdMyvsivtNxPoz6SucD18eDHeXzFCUPq5XU7w | Allows off-chain oracles to distribute PoC rewards to rewardable assets (like hotspots) that are represented as NFTs.                                                                   |
-| `lazy_transactions`     | 1atrmQs3eq1N2FEYWu6tyTXbCjP4uQwExpjtnhXtS8h | Used in the initial migration to Solana, this program allows compressing many transactions into a merkle root to be executed lazily. This guarentees all txs are executed exactly once. |
-| `treasury_management`   | treaf4wWBBty3fHdyBpo35Mz84M8k3heKXmjmi9vFt5 | Mangages the treasury of each SubDAO as proposed in HIP-51, allowing DNT tokens to be swapped for HNT according to a formula.                                                           |
-| `voter_stake_registry`  | hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8 | Handles voting power via veHNT in Helium Governance.                                                                                                                                    |
+#### circuit_breaker
+
+- Program ID: `circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g`
+- Generic program wrapping sensitive mint authorities and token accounts in the Helium system to
+  prevent large movements in the case of an exploit or bug.
+
+#### data_credits
+
+- Program ID: `credMBJhYFzfn7NxBMdU4aUqFggAjgztaCcv2Fo6fPT`
+- Manages the purchase, delegation, and burning of data credits.
+
+#### helium_entity_manager
+
+- Program ID: `hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8`
+- Handles the issuance of NFTs representing entities that are rewardable on the Helium network, like
+  hotspots and mappers.
+
+#### helium_sub_daos
+
+- Program ID: `hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR`
+- Manages the DAO/SubDAO structure proposed in HIP-51, including the minting of tokens to subdaos,
+  HST holders, and the `lazy_distributor` for PoC earnings.
+
+#### lazy_distributor
+
+- Program ID: `1azyuavdMyvsivtNxPoz6SucD18eDHeXzFCUPq5XU7w`
+- Allows off-chain oracles to distribute PoC rewards to rewardable assets (like hotspots) that are
+  represented as NFTs.
+
+#### lazy_transactions
+
+- Program ID: `1atrmQs3eq1N2FEYWu6tyTXbCjP4uQwExpjtnhXtS8h`
+- Used in the initial migration to Solana, this program allows compressing many transactions into a
+  merkle root to be executed lazily. This guarentees all txs are executed exactly once.
+
+#### treasury_management
+
+- Program ID: `treaf4wWBBty3fHdyBpo35Mz84M8k3heKXmjmi9vFt5`
+- Mangages the treasury of each SubDAO as proposed in HIP-51, allowing DNT tokens to be swapped for
+  HNT according to a formula.
+
+#### voter_stake_registry
+
+- Program ID: `hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8`
+- Handles voting power via veHNT in Helium Governance.
+
+---
 
 ## Packages (JS/Typescript)
 
