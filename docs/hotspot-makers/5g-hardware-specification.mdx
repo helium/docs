@@ -10,10 +10,6 @@ slug: /hotspot-makers/5g-hardware-specification
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-Hotspots provide sensor devices access to the Helium network via radio. In addition, some Hotspots
-also participate in the Helium blockchain and earn Proof-of-Coverage (PoC) rewards. The degree of
-participation depends on the Hotspot’s processing power and storage.
-
 ## 5G Hotspot Minimum Specifications
 
 | Component      | Minimum Requirement                                                                |
@@ -84,7 +80,7 @@ A manufacturer-controlled process encompassing:
 Helium has always required a Secure Element for all Hotspots that participate in LoRaWAN (soon to be
 IOT) PoC rewards. This requirement will continue with the 5G network, however, the security
 requirements for 5G will be more strict than what is in place for LoRaWAN. To prevent confusion,
-these new requirements are known as **Enhanced Secure Element\***.\*
+these new requirements are known as **Enhanced Secure Element**.
 
 An Enhanced Secure Element is one which performs cryptographic digital signature and shared secret
 derivation (currently ECDSA & ECDH) and does so _only at the request of the verified and trusted
@@ -122,7 +118,7 @@ answer these questions about the gateway’s private key:
 8. How is the trusted code loaded?
 9. How is the code checked for authenticity when it is loaded?
 10. Who in your organization has access to the keys used for signing this code?
-11. Your implementation should have the ability to be updated. Please share the update method. \*\*
+11. Your implementation should have the ability to be updated. Please share the update method.
 12. What specific signing, encryption, decryption, or verification operations can an external entity
     ask the code to perform? (External entity means code _outside_ the secure element, such as, say,
     the Helium “miner” process).
@@ -177,8 +173,9 @@ Re-audit (such as a change in model) will be required only if any of the followi
 - CPU changes
 - RAM **decreases**
 - Storage **decreases**
-- Change in **radio or radio location. \*\***No re-audit is required if one SX130x PCIe card with
-  the same chipset is swapped for another, such as SX1302 for SX1303.\*
+- Change in **radio or radio location**
+  - No re-audit is required if one SX130x PCIe card with the same chipset is swapped for another,
+    such as SX1302 for SX1303.
 - Change in security element
 - Change in any parameter that requires regulatory recertification
 
