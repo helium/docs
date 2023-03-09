@@ -13,8 +13,8 @@ module.exports = {
           type: 'category',
           label: 'Migration Guides',
           items: [
-            'solana/migration/hotspot-owner',
-            'solana/migration/maker',
+            'solana/migration/hotspot-operator',
+            'solana/migration/hotspot-maker',
             'solana/migration/exchange',
             'solana/migration/network-user',
             'solana/migration/application-builder',
@@ -66,14 +66,9 @@ module.exports = {
       label: 'Mine HNT',
       items: [
         'mine-hnt/mine-hnt',
-        'mine-hnt/full-hotspots/full-hotspots',
-        'mine-hnt/light-hotspots',
-        'mine-hnt/data-only-hotspots',
         'mine-hnt/validators/validators',
         'mine-hnt/validators/validators-and-voting-power',
-        'mine-hnt/maker-apps',
-        'mine-hnt/understanding-hotspot-status',
-        'mine-hnt/helium-hotspot-app',
+
         'mine-hnt/denylist',
         'mine-hnt/denylist-removals',
         'mine-hnt/crowdspot',
@@ -95,19 +90,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: '5G on Helium',
-      items: [
-        '5g-on-helium/5g-on-helium',
-        '5g-on-helium/cbrs-radios',
-        '5g-on-helium/mobile-poc',
-        '5g-on-helium/mobile-mappers',
-        '5g-on-helium/service-providers',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Use The Network',
+      label: 'Use The IOT Network',
       items: [
         'use-the-network/use-the-network',
         {
@@ -127,7 +110,47 @@ module.exports = {
         'use-the-network/setup-a-packet-forwarder',
         'use-the-network/community-projects',
         'use-the-network/coverage-mapping/coverage-mapping',
-        'use-the-network/policies/policies',
+      ],
+    },
+    {
+      type: 'category',
+      label: '5G on Helium',
+      items: [
+        '5g-on-helium/5g-on-helium',
+        '5g-on-helium/cbrs-radios',
+        '5g-on-helium/mobile-poc',
+        '5g-on-helium/mobile-mappers',
+        '5g-on-helium/service-providers',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Hotspot Makers',
+      items: [
+        {
+          type: 'category',
+          label: 'IOT Hotspot Makers',
+          items: [
+            'hotspot-makers/light-hotspots',
+            'mine-hnt/full-hotspots/full-hotspots',
+            'mine-hnt/data-only-hotspots',
+            'hotspot-makers/original-helium-hotspot',
+          ],
+        },
+        {
+          type: 'category',
+          label: '5G Hotspot Makers',
+          items: [
+            'hotspot-makers/5g-hotspot-requirements',
+            'hotspot-makers/5g-hardware-specification',
+          ],
+        },
+        'hotspot-makers/hotspot-manufacturers',
+        'hotspot-makers/maker-ethics',
+        'hotspot-makers/compliance-committee',
+        'hotspot-makers/maker-apps',
+        'hotspot-makers/hotspot-audit-process',
       ],
       collapsed: true,
     },
@@ -152,19 +175,16 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Open Source',
-      items: ['open-source/open-source'],
-      collapsed: true,
-    },
-    {
-      type: 'category',
       label: 'FAQ',
       items: [
         'faq/helium-network',
         'faq/security',
-        'faq/hotspot-manufacturers',
         'faq/build-on-network',
         'faq/data-credits',
+        'faq/open-source',
+        'faq/docs-installation',
+        'faq/privacy',
+        'faq/terms',
       ],
       collapsed: true,
     },
@@ -178,6 +198,8 @@ module.exports = {
         'troubleshooting/network-troubleshooting',
         'troubleshooting/hotspot-led',
         'troubleshooting/understanding-witnesses',
+        'mine-hnt/understanding-hotspot-status',
+        'mine-hnt/helium-hotspot-app',
       ],
       collapsed: true,
     },
@@ -262,19 +284,6 @@ module.exports = {
         'use-the-network/console/troubleshooting',
         'use-the-network/console/hosting-providers',
       ],
-      collapsed: false,
-    },
-  ],
-  opensourcedocs: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/open-source',
-    },
-    {
-      type: 'category',
-      label: 'Docs',
-      items: ['open-source/docs-installation'],
       collapsed: false,
     },
   ],
@@ -376,16 +385,42 @@ module.exports = {
       collapsed: false,
     },
   ],
-  policies: [
+  readyToUse: [
     {
       type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/policies',
+      label: '<- Devices',
+      href: '/use-the-network/devices',
     },
     {
       type: 'category',
-      label: 'Policies',
-      items: ['use-the-network/policies/privacy', 'use-the-network/policies/terms'],
+      label: 'Ready To Use',
+      items: ['use-the-network/devices/ready-to-use/ready-to-use'],
+      collapsed: false,
+    },
+  ],
+  development: [
+    {
+      type: 'link',
+      label: '<- Devices',
+      href: '/use-the-network/devices',
+    },
+    {
+      type: 'category',
+      label: 'Development',
+      items: ['use-the-network/devices/development/development'],
+      collapsed: false,
+    },
+  ],
+  devquickstart: [
+    {
+      type: 'link',
+      label: '<- Devices',
+      href: '/use-the-network/devices',
+    },
+    {
+      type: 'category',
+      label: 'Development Quickstart',
+      items: ['use-the-network/devices/development/quickstart-guides'],
       collapsed: false,
     },
   ],
@@ -1278,7 +1313,7 @@ module.exports = {
     {
       type: 'link',
       label: '<- Light Hotspot',
-      href: '/mine-hnt/light-hotspots',
+      href: '/hotspot-makers/light-hotspots',
     },
     {
       type: 'category',
