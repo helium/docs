@@ -6,12 +6,23 @@ sidebar_label: Blocks
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/blocks
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-## Height
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Height [DEPRECATED]
 
 Gets the current height of the blockchainn.
 
@@ -52,7 +63,7 @@ _Query Parameters_
 
 ---
 
-## Block Stats
+## Block Stats [DEPRECATED]
 
 Get statistics on block production times.
 
@@ -103,7 +114,7 @@ No Parameters
 
 --
 
-## Block Descriptions
+## Block Descriptions [DEPRECATED]
 
 ```
 
@@ -264,7 +275,7 @@ _Query Parameters_
 
 ---
 
-## Block at Height
+## Block at Height [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/blocks/:height
@@ -307,7 +318,7 @@ _Path Parameters_
 
 ---
 
-## Block at Height Transactions
+## Block at Height Transactions [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/blocks/:height/transactions
@@ -342,7 +353,7 @@ _Query Parameters_
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 
@@ -585,7 +596,7 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## Block at Hash
+## Block at Hash [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/blocks/hash/:hash
@@ -628,7 +639,7 @@ _Path Parameters_
 
 ---
 
-## Block at Hash Transactions
+## Block at Hash Transactions [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/blocks/hash/:hash/transactions
@@ -663,7 +674,7 @@ _Query Parameters_
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 

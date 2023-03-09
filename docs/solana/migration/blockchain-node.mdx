@@ -1,0 +1,62 @@
+---
+id: blockchain-node
+title: Blockchain Node
+pagination_label: Blockchain Node
+sidebar_label: Blockchain Node
+description: Helium Blockchain Node Documentation
+image: https://i.imgur.com/bWAbESE.png
+slug: /solana/migration/blockchain-node
+---
+
+import useBayseUrl from '@docusaurus/useBaseUrl'
+
+:::warning 🚧 This document is a work in progress. 🚧
+
+The documentation on Solana and the upcoming Migration is under development and subject to change.
+
+:::
+
+## Migrating wallet to Solana
+
+As of version [1.1.88](https://github.com/helium/blockchain-node/releases/tag/1.1.88) users can test
+the migration of their `blockchain-node` wallet to a Solana Paper Compatible Wallet. Follow the
+below instructions to migrate your wallet on testnet.
+
+**Note**: Each wallet can only be migrated once.<br /> **Note**: Testnet is using a snapshot from
+January 31st. Due to this testnet and mainnet balances may not match.
+
+1. Unlock wallet.
+
+```
+% http -b :4467 jsonrpc=2.0 id=1 method=wallet_unlock params:='{"address": "13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5", "password": "[snipped]"}'
+{"id":"1","jsonrpc":"2.0","result":true}
+```
+
+2. Export secret. This exports your secret to a solana.json file.
+
+```
+$ http -b :4467 jsonrpc=2.0 id=1 method=wallet_export_secret params:='{"address": "13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5", "path": "/var/data/13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5.solana.json"}'
+{"id":"1","jsonrpc":"2.0","result":true}
+```
+
+3. Get your Solana address.
+
+```
+$ http -b https://migration.web.test-helium.com/helium/13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5
+{
+    "solanaAddress": "6ucMsEXv7KLW9V6dfGYAsx5PF4yy2hAB79nURwTuuzgN"
+}
+```
+
+4. Verify your Solana Public Key.
+
+```
+$ solana-keygen pubkey /var/data/13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5.solana.json
+6ucMsEXv7KLW9V6dfGYAsx5PF4yy2hAB79nURwTuuzgN
+```
+
+5. Verify your token balance on devnet using a public explorer. Solana Explorer listed below.
+
+```
+https://explorer.solana.com/address/$SOLANA_ADDRESS?cluster=devnet
+```

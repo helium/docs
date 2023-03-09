@@ -6,12 +6,23 @@ sidebar_label: Chain Variables
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/chain-variables
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-## Get Chain Variables
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Get Chain Variables [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/vars
@@ -140,7 +151,7 @@ Gets the current set of chain variables
 
 ---
 
-## Get the value of a chain variable
+## Get the value of a chain variable [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/vars/:name
@@ -178,7 +189,7 @@ This fetched the `block_time` chain variable
 
 ---
 
-## List chain variable activity
+## List chain variable activity [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/vars/activity
