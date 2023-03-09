@@ -14,7 +14,7 @@ module.exports = {
           label: 'Migration Guides',
           items: [
             'solana/migration/hotspot-operator',
-            'solana/migration/hotspot-maker',
+            'solana/migration/maker',
             'solana/migration/exchange',
             'solana/migration/network-user',
             'solana/migration/application-builder',
