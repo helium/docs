@@ -6,12 +6,15 @@ module.exports = {
       label: '🚧 Solana 🚧',
       items: [
         'solana/solana',
+        'solana/primer',
+        'solana/rewardable-entities',
+        'solana/compression-nfts',
         {
           type: 'category',
           label: 'Migration Guides',
           items: [
             'solana/migration/hotspot-operator',
-            'solana/migration/hotspot-maker',
+            'solana/migration/maker',
             'solana/migration/exchange',
             'solana/migration/network-user',
             'solana/migration/application-builder',
@@ -20,9 +23,6 @@ module.exports = {
             'solana/migration/blockchain-node',
           ],
         },
-        'solana/primer',
-        'solana/rewardable-entities',
-        'solana/compression-nfts',
       ],
       collapsed: true,
     },

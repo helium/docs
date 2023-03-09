@@ -1,11 +1,11 @@
 ---
-id: hotspot-maker
-title: Hotspot Maker Migration Guide
-pagination_label: Hotspot Maker
-sidebar_label: Hotspot Maker
-description: Helium Hotspot Maker Migration Documentation
+id: maker
+title: Maker App 2.0 Upgrade Guide
+pagination_label: Maker Migration
+sidebar_label: Maker Migration
+description: Helium Maker Migration Documentation
 image: https://i.imgur.com/bWAbESE.png
-slug: /solana/migration/hotspot-maker
+slug: /solana/migration/maker
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -16,16 +16,7 @@ The documentation on Solana and the upcoming Migration is under development and 
 
 :::
 
-## Maker App Updates
-
-:::info Full Diff
-
-The diff containing all of these changes can be found here:
-[Feature/solana · PR #52 · helium/maker-starter-app](https://github.com/helium/maker-starter-app/pull/52/files?diff=split&w=1)
-
-:::
-
-### Update and Add New Dependencies
+## Update and Add New Dependencies
 
 ```json
 "@helium/address": "^4.8.1",
@@ -41,7 +32,9 @@ The diff containing all of these changes can be found here:
 "stream": "^0.0.2"
 ```
 
-### Update Babel Config to Alias crypto Library
+---
+
+## Update Babel Config to Alias Crypto Library
 
 ```jsx
 // babel.config.js
@@ -83,7 +76,9 @@ module.exports = (api) => {
 }
 ```
 
-### Update App Providers
+---
+
+## Update App Providers
 
 Apps must now be wrapped in a `<SolanaProvider>` and the `baseUrl` for `<OnboardingProvider>` has
 changed
@@ -128,17 +123,15 @@ useEffect(() => {
 {/* The Rest of your app... */}
 ```
 
-### Testing Solana pre-transition
+---
 
-Before the Solana Migration has completed the v2 onboarding server will be used and transactions
-will still be submitted to the Helium blockchain. Use these variables to test Solana before the
-Migration.
+## Testing Solana Pre-Migration
 
-:::danger Testing Only
+Before the migration to Solana has completed the v2 onboarding server will be used and transactions
+will still be submitted to the Helium blockchain. To test Solana before transition use these
+variables.
 
-**IT IS CRITICALLY IMPORTANT THAT YOU ONLY USE THESE FOR TESTING.**
-
-:::
+**_IT IS CRITICALLY IMPORTANT THAT YOU ONLY USE THESE FOR TESTING._**
 
 ```tsx
 // src/App.tsx
@@ -161,7 +154,7 @@ ONBOARDING_MAKER_NAME="Test Maker"
 
 ---
 
-## Hotspot Onboarding
+## Onboarding a Hotspot
 
 When onboarding a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
 
@@ -206,11 +199,11 @@ setSolanaTransactions(onboardData.solanaTransactions)
 
 ---
 
-## Hotspot Updating
+## Updating a Hotspot
 
 When updating a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
 
-### Create Update Transactions
+### Create transactions
 
 ```tsx
 // src/features/hotspots/setup/HotspotSetupConfirmLocationScreen.tsx
@@ -233,7 +226,7 @@ setSolanaTransactions(data.solanaTransactions)
 
 ---
 
-## Hotspot Transfers
+## Transferring a Hotspot
 
 ```tsx
 // src/features/transferHotspot/TransferHotspot.tsx
@@ -248,7 +241,7 @@ const { solanaTransactions, transferHotspotTxn } = await createTransferTransacti
 
 ---
 
-## Link to Helium Wallet App for Signing
+## Linking to Helium Wallet App for Signing
 
 You must add `solanaTransactions` to the signature request
 
@@ -269,7 +262,7 @@ Linking.openURL(url)
 
 ---
 
-### Submit Signed Transaction(s)
+## Submit Signed Transaction(s)
 
 ```tsx
 // src/features/hotspots/setup/HotspotTxnsSubmitScreen.tsx
@@ -288,13 +281,11 @@ const { pendingAssertTxn, pendingGatewayTxn, pendingTransferTxn, solanaTxnIds } 
 
 ## Fetching Hotspots
 
-:::info coming soon
-
 <!-- TODO: Show how this is done -->
 
-more information coming soon.
+```
 
-:::
+```
 
 ---
 
@@ -338,12 +329,16 @@ const importAccount = useCallback(() => {
 
 ---
 
-## Data Credits and SOL for Onboarding
+## Full diff can be found here
 
-:::info coming soon
+[Feature/solana by matthewcarlreetz · Pull Request #52 · helium/maker-starter-app](https://github.com/helium/maker-starter-app/pull/52/files?diff=split&w=1)
 
-<!-- TODO: We need to create an easy way for makers to get SOL and data credits into their accounts -->
+---
 
-more information coming soon.
+## Data Credits and Sol for Onboarding
 
-:::
+<!-- TODO: We need to create an easy way for makers to get sol and data credits into their accounts -->
+
+```
+
+```
