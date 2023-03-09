@@ -6,12 +6,23 @@ sidebar_label: DC Burns
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/dc-burns
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-## DC Burn Totals
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## DC Burn Totals [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/dc_burns/sum
@@ -55,7 +66,7 @@ Return the last 3 hours of burns bucketed by hour
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 
@@ -97,7 +108,7 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## DC Burn Stats
+## DC Burn Stats [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/dc_burns/stats
@@ -123,7 +134,7 @@ Return the current DC burn stats
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 
@@ -164,7 +175,7 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## DC Burn Events
+## DC Burn Events [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/dc_burns
@@ -201,7 +212,7 @@ Return a page of DC burns. Only a segment of the returned list is shown here.
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 

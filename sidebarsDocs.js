@@ -8,6 +8,7 @@ module.exports = {
         'solana/solana',
         'solana/primer',
         'solana/rewardable-entities',
+        'solana/compression-nfts',
         {
           type: 'category',
           label: 'Migration Guides',
@@ -49,10 +50,15 @@ module.exports = {
         'blockchain/proof-of-coverage',
         'blockchain/packet-purchasing',
         'blockchain/consensus-protocol',
-        'blockchain/helium-token',
         'blockchain/oracles',
         'blockchain/transaction-fees',
       ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Helium Tokens',
+      items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
       collapsed: true,
     },
     {
@@ -80,6 +86,7 @@ module.exports = {
       items: [
         'lorawan-on-helium/lorawan-on-helium',
         'lorawan-on-helium/lorawan-roaming-on-helium',
+        'lorawan-on-helium/open-lns',
         'lorawan-on-helium/iot-proof-of-coverage',
         'lorawan-on-helium/frequency-plans/frequency-plans',
         'lorawan-on-helium/frequency-plans/region-plans',
