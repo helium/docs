@@ -1,0 +1,75 @@
+---
+id: oui-owner-instructions
+title: Config Service Instructions
+pagination_label: Config Service Instructions
+sidebar_label: Config Service Instructions
+description: Config Service Instructions
+image:
+slug: /oracles/data-transfer-oracles/oui-owner-instructions
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## COnfig Service/OUI Owner Instructions
+
+More on config service:
+Config Service is an Oracle service that stores all routing information on the Helium IoT Network. Each OUI is registered in the Config Service, and may define multiple routes. 
+Each route contains information such as:
+1. DevEUI+AppEUI pairs — so we know which join requests to send your way
+2. DevAddr ranges — so we know which uplinks to send your way
+3. Server endpoint + port — so we know where to send packets to.
+
+There are two ways of interacting with the Config Service, directly through GRPC APIs or through CLI (command-line-interface). We have developed a Console release that interacts with the Config Service automatically with the GRPC APIs. For instance, when someone created a new device on your Helium Console, the Config Service will immediately know about it because of the built-in automation.
+However, to start using the new Console release, we first need to do some setup with the CLI.
+
+1. Run this to pull & build the config service cli
+
+```bash
+git clone https://github.com/helium/helium-config-service-cli.git
+curl https://sh.rustup.rs -sSf | sh
+source "$HOME/.cargo/env"
+cd helium-config-service-cli
+cargo b --release
+```
+2. You can then find the built binary file `helium-config-service-cli` under `./target/release` inside the `helium-config-service-cli` directory. I’d rename it into
+short such as main so you can type less words ( you can rename it by running
+`mv helium-config-service-cli main` )
+
+3. Now that we have the CLI binary, let’s just put it in a separate folder. This is recommended only for simplicity sake. Just copy main into the folder you created. You can reference the following commands
+4. Next, let’s initialize some environment variables so that you don’t have to tell the
+CLI the same thing over and over again in later commands
+a. Run ./main env-init
+b. Fill in http://mainnet-config.helium.io:6080/ for Config Service Host
+c. Fill in the path to your Router Swarm Key for Keypair Location
+d. Fill in 000024 for Net ID
+e. Fill in your OUI for Assigned OUI
+f. Fill in the number of multi-buy you want for Default Max Copies as a default for your routes. Note that,
+i. before the Solana transition, the device level multi-buy setting on the Helium Console will still be respected
+ii. after the Solana transition, the multi-buy setting will become a route level setting, which means that if you set your multi-buy as 5, then all devices under the DevAddr range & EUI pairs will have a multi-buy setting of 5.
+iii. With that in mind, choose your desired multi-buy setting.
+g. Then export the environment variables. You will see something like this and just add export to each line and run it. For instance, you would run export
+HELIUM_MAX_COPIES=15 for your last environment variable. Do NOT put a space around the = sign
+             cd ..
+mkdir cli-testing
+cd cli-testing
+cp ../helium-config-service-cli/target/release/main .
+OUI Owner Instructions 2
+
+   5. Now, you are ready to generate your first route. Routes contain necessary information for us to know how to route a packet — DevEUI+AppEUI (for routing join requests), DevAddr range (for routing uplinks), Endpoint (so we know where to send the packet to), etc.
+a. Run ./main route new —commit . We will only be setting up one route to manage all routing information associated with your OUI.
+b. You can then see the empty route template. It should look like this, except that you should be seeing you own Net ID, assigned OUI, max_copies in there
+  6. Next, let’s define DevAddr range so packet router knows which uplinks to route to your endpoint. Just use your OUI’s assigned DevAddr range, which you can get by
+OUI Owner Instructions 3
+
+          ./main org get
+route-id console/env-router console/env
+    ROUTER_ICS_EUI_ENABLED=true
+    ROUTER_ICS_SKF_ENABLED=true
+    ROUTER_ICS_DEVADDR_ENABLED=true
+    ROUTER_ICS_ROUTE_ID=<route_id>
+                            2.2.32
+     router migration euis
+./main route devaddrs add -s <start> -e <end>
+ --route-id <route-id>  --commit
+ route update server --host <host> --port <port> --route-id <route-id> --commit
+./main
