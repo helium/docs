@@ -56,9 +56,14 @@ Solana apps to be composable with one another.
 
 A PDA is a Public Key that is derived from some set of seeds and a given program ID. Think of it as
 a one-way hashing to a new address. So, for example,
-`getProgramAddress([Buffer.from("helium", "utf8)], helium_sub_daos.programId)` will always return
-the same address. Better yet, the `helium_sub_daos` is able to sign transactions as if it held the
-private key to this PDA.
+
+<!-- prettier-ignore -->
+```js
+getProgramAddress([Buffer.from("helium", "utf8")], helium_sub_daos.programId)
+```
+
+will always return the same address. Better yet, the `helium_sub_daos` is able to sign transactions
+as if it held the private key to this PDA.
 
 As you will see, the Helium programming model depends heavily on PDAs as indexes into the
 blockchain.
@@ -70,7 +75,7 @@ A great example of this is the relationship between the Helium `dao` and the `hn
 `DaoV0` definition from earlier exists at address:
 
 <!-- prettier-ignore -->
-```
+```js
 import { daoKey } from "@helium/helium-sub-daos-sdk"
 
 const daoAddr = daoKey(new PublicKey("...hnt mint..."))[0];
