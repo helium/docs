@@ -20,8 +20,7 @@ module.exports = {
             'solana/migration/application-builder',
             'solana/migration/governance',
             'solana/migration/blockchain-node',
-            'solana/migration/wallet-app',
-            'solana/migration/wallet-user'
+            'solana/migration/wallet-user',
           ],
         },
       ],
