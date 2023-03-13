@@ -19,9 +19,9 @@ module.exports = {
             'solana/migration/network-user',
             'solana/migration/application-builder',
             'solana/migration/governance',
-            'solana/migration/ledger',
             'solana/migration/blockchain-node',
             'solana/migration/wallet-app',
+            'solana/migration/wallet-user'
           ],
         },
       ],
@@ -69,7 +69,6 @@ module.exports = {
         'mine-hnt/mine-hnt',
         'mine-hnt/validators/validators',
         'mine-hnt/validators/validators-and-voting-power',
-
         'mine-hnt/denylist',
         'mine-hnt/denylist-removals',
         'mine-hnt/crowdspot',
