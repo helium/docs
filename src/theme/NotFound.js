@@ -23,7 +23,7 @@ export default function NotFound() {
               <p>
                 <Translate id="theme.NotFound.p1" description="The first paragraph of the 404 page">
                   It looks like this page has moved. Head back to the home page, or try the search
-                  bar to find what you are looking for.
+                  bar to find information on other pages.
                 </Translate>
               </p>
               <p>
