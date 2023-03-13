@@ -6,12 +6,23 @@ sidebar_label: Oracle Prices
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/oracle-prices
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-## Current Oracle Price
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Current Oracle Price [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/oracle/prices/current
@@ -48,7 +59,7 @@ The current Oracle Price and at which block it took effect.
 
 ---
 
-## Current and Historical Oracle Prices
+## Current and Historical Oracle Prices [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/oracle/prices
@@ -98,7 +109,7 @@ Returns a list of recent Oracle Prices and at which block they took effect.
 
 ---
 
-## Oracle Price Stats
+## Oracle Price Stats [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/oracle/prices/stats
@@ -147,7 +158,7 @@ Returns Oracle price statistics over the last 30 days by specifying `?min_time=-
 
 ---
 
-## Oracle Price at a Specific Block
+## Oracle Price at a Specific Block [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/oracle/prices/:block
@@ -188,7 +199,7 @@ Returns a list of recent Oracle Prices and at which block they took effect..
 
 ---
 
-## List Oracle Activity
+## List Oracle Activity [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/oracle/activity
@@ -219,7 +230,7 @@ _Path Parameters_
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 
@@ -246,7 +257,7 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## List Activity for a Specific Oracle
+## List Activity for a Specific Oracle [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/oracle/:address/activity
@@ -283,7 +294,7 @@ _Query Parameters_
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 
@@ -310,7 +321,7 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## Get Predicted HNT Oracle Prices
+## Get Predicted HNT Oracle Prices [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/oracle/predictions

@@ -6,12 +6,23 @@ sidebar_label: Hotspots
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/hotspots
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-## List Hotspots
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## List Hotspots [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots
@@ -140,7 +151,7 @@ Hotspots successfully retrieved.
 
 ---
 
-## Hotspot for Address
+## Hotspot for Address [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address
@@ -202,7 +213,7 @@ _Path Parameters_
 
 ---
 
-## Hotspots for Name
+## Hotspots for Name [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/name/:name
@@ -268,7 +279,7 @@ _Path Parameters_
 
 ---
 
-## Hotspot Name Search
+## Hotspot Name Search [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/name?search=<term>
@@ -436,7 +447,7 @@ Search results for `search=clever-gray`
 
 ---
 
-## Hotspot Location Distance Search
+## Hotspot Location Distance Search [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/location/distance
@@ -538,7 +549,7 @@ Search results for `?lat=38.12129445739087&lon=-122.52885074963571&distance=1000
 </TabItem>
 </Tabs>
 
-## Hotspot Location Box Search
+## Hotspot Location Box Search [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/location/box
@@ -705,7 +716,7 @@ Search results for `?swlat=38.0795392&swlon=-122.5671627&nelat=38.1588012&nelon=
 
 ---
 
-## Hotspots for H3 Index
+## Hotspots for H3 Index [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/hex/:h3_index
@@ -776,7 +787,7 @@ Fetch all hotspots in h3 index: `882aa38c2bfffff`
 
 ---
 
-## Hotspot Activity
+## Hotspot Activity [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/activity
@@ -785,7 +796,7 @@ GET https://api.helium.io/v1/hotspots/:address/activity
 :::caution
 
 The `/activity` route will be deprecated on May 1, 2022 and will be replaced by
-[`/roles`, described below](#hotspot-roles)
+[`/roles`, described below](#hotspot-roles) [DEPRECATED]
 
 :::
 
@@ -824,7 +835,7 @@ This lists the activity for a Hotspot which only had two transactions at the tim
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 
@@ -866,7 +877,7 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## Hotspot Roles
+## Hotspot Roles [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/roles
@@ -930,7 +941,7 @@ This lists the activity for a Hotspot which only had two transactions at the tim
 
 ---
 
-## Hotspots Roles Counts
+## Hotspots Roles Counts [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/roles/count
@@ -979,7 +990,7 @@ Fetch counts with `filter_types=assert_location_v1` for hotspot
 
 ---
 
-## Hotspot Elections
+## Hotspot Elections [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/elections
@@ -1020,7 +1031,7 @@ Fetches consensus groups that the hotspot with address
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units)
+[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
 
 :::
 
@@ -1140,7 +1151,7 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## Currently Elected Hotspots
+## Currently Elected Hotspots [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/elected
@@ -1621,7 +1632,7 @@ _No Parameters_
 
 ---
 
-## Hotspot Challenges
+## Hotspot Challenges [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/challenges
@@ -1922,7 +1933,7 @@ was involved in.
 
 ---
 
-## Rewards for a Hotspot
+## Rewards for a Hotspot [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/rewards
@@ -2017,7 +2028,7 @@ Rewards for a hotspot with time range: `max_time=2020-08-29&min_time=2020-08-27`
 
 ---
 
-## Rewards in a Rewards Block for a Hotspot
+## Rewards in a Rewards Block for a Hotspot [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/rewards/:block
@@ -2076,7 +2087,7 @@ Rewards for a hotspot in block `470788`
 
 ---
 
-## Reward Total for a Hotspot
+## Reward Total for a Hotspot [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/rewards/sum
@@ -2126,7 +2137,7 @@ _Query Parameters_
 
 ---
 
-## Witnesses for a Hotspot
+## Witnesses for a Hotspot [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/witnesses
@@ -2235,7 +2246,7 @@ _Path Parameters_
 </TabItem>
 </Tabs>
 
-## Witnessed for a Hotspot
+## Witnessed for a Hotspot [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/hotspots/:address/witnessed

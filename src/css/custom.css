@@ -15,6 +15,28 @@
   --ifm-color-primary-lighter: #777bfe;
   --ifm-color-primary-lightest: #a8aaff;
   --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'Inter';
+  --ifm-toc-border-color: #ffffff;
+  --ifm-menu-color-active: #a334fb;
+  --ifm-menu-color-background-active: #fcf9ff;
+  --ifm-menu-color: #1c1e21;
+  --ifm-navbar-link-hover-color: #333;
+  --ifm-color-info: #a334fb;
+  --ifm-tabs-padding-horizontal: 20px;
+  --ifm-tabs-padding-vertical: 10px;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary-lightest: #cbccff;
+  --ifm-color-primary-lighter: #afb1ff;
+  --ifm-color-primary-light: #a0a3ff;
+  --ifm-color-primary: #686df8;
+  --ifm-color-primary-dark: #7b7ff6;
+  --ifm-color-primary-darker: #6f73f3;
+  --ifm-color-primary-darkest: #585dfe;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   --ifm-toc-border-color: #ffffff;
   --ifm-menu-color-active: #a334fb;
   --ifm-menu-color-background-active: #fcf9ff;
@@ -27,15 +49,6 @@
 
 .container {
   max-width: 1920px;
-}
-
-.admonition pre,
-.admonition code {
-  background-color: rgba(0, 0, 0, 0.15);
-}
-
-.admonition pre code {
-  background: none;
 }
 
 .react-toggle-track {
@@ -94,7 +107,7 @@ img.techicon {
 }
 
 .tech--item_text p {
-  color: #8d8e90;
+  color: #000000;
 }
 
 .tech--item_text a h4,
@@ -102,9 +115,15 @@ img.techicon {
   margin-bottom: 0;
 }
 
-.menu__list-item .menu__list .menu__list-item a.menu__link {
+.menu__list-item
+  .menu__list
+  .menu__list-item
+  a.menu__link
+  .menu__link--sublist
+  .menu__link--sublist-caret {
   font-size: 14px;
   line-height: 14px;
+  color: #000000;
 }
 
 .flex {
@@ -146,10 +165,12 @@ a:hover {
 a:hover img.docicon {
   padding-right: 3px;
   padding-left: 3px;
+  height: 16px;
+  width: 16px;
 }
 
 .badge--secondary {
-  color: #96a5ca;
+  color: #000000;
   font-weight: 500;
   margin-right: 6px;
   background: #f2f5fc;
@@ -222,6 +243,8 @@ img.crowdspot-vote-button {
 
 img.docicon {
   padding-right: 6px;
+  height: 16px;
+  width: 16px;
 }
 
 h1 {
@@ -270,7 +293,7 @@ h5 {
 }
 
 p {
-  color: #626886;
+  color: #000000;
   font-size: 1.125rem;
   line-height: 1.65rem;
   font-weight: 400;
@@ -283,7 +306,7 @@ a.quicklink {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px;
+  padding: 14px 1rem;
   border-radius: 10px;
   transition: all 0.2s ease;
 }
@@ -296,6 +319,8 @@ a.quicklink:hover {
 img.quicklinkarrow {
   opacity: 0.5;
   transition: all 0.2s ease;
+  height: 13px;
+  width: 13px;
 }
 
 a.quicklink:hover img.quicklinkarrow {
@@ -327,29 +352,29 @@ a.quicklinkred:hover {
   color: #9c3a35;
 }
 
-/* .announcementnav { */
-/* background: #474dff; */
-/* border-radius: 9999px; */
-/* padding: 4px 16px; */
-/* color: white; */
-/* display: flex; */
-/* transition: all 0.2s ease; */
-/* align-items: center; */
-/* } */
-/*  */
-/* .announcementnav:hover { */
-/* color: white; */
-/* } */
-/*  */
-/* .announcementnav:before { */
-/* content: ''; */
-/* width: 16px; */
-/* height: 16px; */
-/* display: inline-block; */
-/* padding-right: 6px; */
-/* background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16'  fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16 1.00002C15.9999 0.829624 15.9563 0.662082 15.8733 0.513287C15.7902 0.364492 15.6706 0.23938 15.5256 0.149821C15.3806 0.0602626 15.2152 0.00922872 15.045 0.00156219C14.8748 -0.00610433 14.7054 0.0298506 14.553 0.106016L6.763 4.00002H3C2.20435 4.00002 1.44129 4.31609 0.87868 4.8787C0.316071 5.4413 0 6.20437 0 7.00002C0 7.79567 0.316071 8.55873 0.87868 9.12134C1.44129 9.68394 2.20435 10 3 10H3.28L5.051 15.316C5.11735 15.5152 5.24472 15.6885 5.41505 15.8113C5.58538 15.934 5.79004 16.0001 6 16H7C7.26522 16 7.51957 15.8947 7.70711 15.7071C7.89464 15.5196 8 15.2652 8 15V10.618L14.553 13.894C14.7054 13.9702 14.8748 14.0061 15.045 13.9985C15.2152 13.9908 15.3806 13.9398 15.5256 13.8502C15.6706 13.7607 15.7902 13.6355 15.8733 13.4867C15.9563 13.3379 15.9999 13.1704 16 13V1.00002Z'/%3E%3C/svg%3E") */
-/* no-repeat; */
-/* } */
+.announcementnav {
+  background: #474dff;
+  border-radius: 9999px;
+  padding: 4px 16px;
+  color: white;
+  display: flex;
+  transition: all 0.2s ease;
+  align-items: center;
+}
+
+.announcementnav:hover {
+  color: white;
+}
+
+.announcementnav:before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  padding-right: 6px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16'  fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16 1.00002C15.9999 0.829624 15.9563 0.662082 15.8733 0.513287C15.7902 0.364492 15.6706 0.23938 15.5256 0.149821C15.3806 0.0602626 15.2152 0.00922872 15.045 0.00156219C14.8748 -0.00610433 14.7054 0.0298506 14.553 0.106016L6.763 4.00002H3C2.20435 4.00002 1.44129 4.31609 0.87868 4.8787C0.316071 5.4413 0 6.20437 0 7.00002C0 7.79567 0.316071 8.55873 0.87868 9.12134C1.44129 9.68394 2.20435 10 3 10H3.28L5.051 15.316C5.11735 15.5152 5.24472 15.6885 5.41505 15.8113C5.58538 15.934 5.79004 16.0001 6 16H7C7.26522 16 7.51957 15.8947 7.70711 15.7071C7.89464 15.5196 8 15.2652 8 15V10.618L14.553 13.894C14.7054 13.9702 14.8748 14.0061 15.045 13.9985C15.2152 13.9908 15.3806 13.9398 15.5256 13.8502C15.6706 13.7607 15.7902 13.6355 15.8733 13.4867C15.9563 13.3379 15.9999 13.1704 16 13V1.00002Z'/%3E%3C/svg%3E")
+    no-repeat;
+}
 
 .announcementnav span {
   font-weight: 300;
@@ -469,6 +494,12 @@ img.explorerSidebar {
     box-shadow: none;
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: none;
+    --ifm-navbar-background-color: rgba(255, 255, 255, 1);
+    --ifm-menu-color: #000000;
+    color: #000000;
+  }
+  .menu__link {
+    color: #000;
   }
 
   img.docsheaderhome {
@@ -502,14 +533,14 @@ img.explorerSidebar {
 
 .maps_iframe {
   width: 100%;
-  max-height: 540px;
+  height: 540px;
   overflow: hidden;
   border: 0;
 }
 
 .maps_iframe iframe {
   width: 100%;
-  max-height: 640px;
+  height: 640px;
   overflow: hidden;
   border: 0;
   margin-top: -150px;
@@ -537,13 +568,13 @@ img.app-mockup {
 }
 
 /* bring 'read more' link closer to post summary */
-.blog-list-page footer{
+.blog-list-page footer {
   margin-top: 1.5rem;
 }
 
 /* using :root to jack up specificity 💩 */
-:root.blog-list-page article :not(header) h1, 
-:root.blog-list-page article :not(header) h2, 
+:root.blog-list-page article :not(header) h1,
+:root.blog-list-page article :not(header) h2,
 :root.blog-list-page article :not(header) h3 {
   font-size: inherit;
   margin-top: 0;
@@ -558,4 +589,21 @@ img.app-mockup {
 /* handle second header */
 :root.blog-list-page article :not(header) h1 + h2 {
   margin-top: 0;
+}
+
+html[data-theme='dark'] h2.subtitle,
+html[data-theme='dark'] h5,
+html[data-theme='dark'] h4,
+html[data-theme='dark'] p {
+  color: #acb0c5;
+}
+
+html[data-theme='dark'] a.quicklink,
+html[data-theme='dark'] .badge--secondary {
+  background: #3e3f3f;
+}
+
+html[data-theme='dark'] a.quicklink:hover,
+html[data-theme='dark'] .badge--secondary:hover {
+  background: #313232;
 }

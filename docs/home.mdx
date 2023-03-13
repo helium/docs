@@ -12,46 +12,72 @@ hide_table_of_contents: true
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<div class="container" style={{padding: 0}}>
-	<div class="row">
-	<div class="col col--12">
-		<img className="docsheader" style={{marginBottom: 50}} src={useBaseUrl("img/home/docsheader.png")} />
-	</div>
-		<div class="col col--6">
-			<h1 className="bigger">Get Started <br/>with Helium</h1>
-			<h2 className="subtitle">Build amazing connected solutions on the world’s largest decentralized wireless network.</h2>
-    	</div>
-    	<div class="col col--6">
-    		<a className="quicklink" href="/blockchain">Learn about the Helium Blockchain <img className="quicklinkarrow" src={useBaseUrl("img/quicklinkarrow.svg")} /></a>
-    			<a className="quicklink quicklinkblue" href="/mine-hnt">Learn about mining HNT <img className="quicklinkarrow" src={useBaseUrl("img/quicklinkarrow.svg")} /></a>
-    							<a className="quicklink quicklinkgreen" href="/use-the-network">Build Devices to use the Network <img className="quicklinkarrow" src={useBaseUrl("img/quicklinkarrow.svg")} /></a>
-    			<a className="quicklink quicklinkred" href="/community-governance">Submit a Helium Improvement Proposal (HIP) <img className="quicklinkarrow" src={useBaseUrl("img/quicklinkarrow.svg")} /></a>
-    	</div>
-    </div>
-
-</div>
-<div class="container" style={{padding: 0}}>
-<hr />
-</div>
-
 <div class="container" style={{ padding: 0 }}>
   <div class="row">
+    <div class="col col--6" style={{ paddingTop: 60 }}>
+      <img className="homeicon" src={useBaseUrl('img/home/docs-header-narrow.png')} />
+      <h2 style={{ padding: '0 1rem' }}>Get Started with Helium</h2>
+      <p className="podtext" style={{ padding: '0 1rem' }}>
+        Build amazing connected solutions on the world’s largest decentralized wireless network.
+      </p>
+      <a className="quicklink quicklinkorange" href="/mine-hnt">
+        Learn about Mining HNT{' '}
+        <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
+      </a>
+      <a className="quicklink quicklinkgreen" href="/use-the-network">
+        Build Devices to Use the Network{' '}
+        <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
+      </a>
+      <a className="quicklink quicklinkred" href="/community-governance">
+        Submit a Helium Improvement Proposal{' '}
+        <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
+      </a>
+    </div>
+    <div class="col col--6" style={{ paddingTop: 60 }}>
+      <img className="homeicon" src={useBaseUrl('img/home/solana-migration-narrow.png')} />
+      <h2 style={{ padding: '0 1rem' }}>Helium Migration to Solana</h2>
+      <p className="podtext" style={{ padding: '0 1rem' }}>
+        The Helium Network is migrating to the Solana blockchain.
+      </p>
+      <a className="quicklink" href="/solana">
+        Learn More about Solana{' '}
+        <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
+      </a>
+      <a className="quicklink quicklinkgreen " href="/solana/primer">
+        Get a Primer on Solana Programming{' '}
+        <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
+      </a>
+      <a className="quicklink quicklinkred" href="/oracles">
+        Learn about Oracles{' '}
+        <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
+      </a>
+      <a className="quicklink quicklinkblue" href="solana/migration">
+        Read the Migration Guides{' '}
+        <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="container" style={{ paddingTop: 60 }}>
+  <div class="row">
     <div class="col col--12">
-      <img className="homeicon" src={useBaseUrl('img/5g-on-helium/5gheader.png')} />
+      <h2>Introduction</h2>
     </div>
-    <div class="col col--6">
-      <h1 className="bigger">Helium 5G</h1>
-      <h2 className="subtitle">5G comes to the People's Network.</h2>
-    </div>
-    <div class="col col--6">
-      <a className="quicklink quicklinkgreen" href="/5g-on-helium">
-        Learn about 5G on Helium
-        <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
-      </a>
-      <a className="quicklink quicklinkblue" href="/5g-on-helium/mobile-poc">
-        Learn about mining MOBILE
-        <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
-      </a>
+    <div class="col col--12">
+      <p>
+        Helium is a global, distributed network of Hotspots that create public, long-range wireless
+        coverage for LoRaWAN-enabled IoT devices and cellular devices. LoRaWAN&trade; Hotspots
+        produce and are compensated in IOT, the native cryptocurrency of the Helium blockchain. The
+        Helium blockchain is a new, open source, public blockchain created entirely to incentivize
+        the creation of physical, decentralized wireless networks. Today, the Helium IoT Network,
+        and its <a href="https://explorer.helium.com/hotspots">hundreds of thousands of Hotspots</a>
+        , provide access to the largest LoRaWAN Network in the world.
+      </p>
+      <p>
+        If, at any time, you don't find what you need, join us in{' '}
+        <a href="https://discord.gg/helium">our Discord</a>.
+      </p>
     </div>
   </div>
 </div>
@@ -60,52 +86,21 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
   <hr />
 </div>
 
-<div class="container" style={{ padding: 0 }}>
-  <div class="row">
-    <div class="col col--12">
-      <h2>Introduction</h2>
-    </div>
-    <div class="col col--6">
-      <p>
-        Helium is a global, distributed network of Hotspots that create public, long-range wireless
-        coverage for LoRaWAN-enabled IoT devices. Hotspots produce and are compensated in HNT, the
-        native cryptocurrency of the Helium blockchain. The Helium blockchain is a new, open source,
-        public blockchain created entirely to incentivize the creation of physical, decentralized
-        wireless networks. Today, the Helium blockchain, and its{' '}
-        <a href="https://explorer.helium.com/hotspots">hundreds of thousands of Hotspots</a>,
-        provide access to the largest LoRaWAN Network in the world.
-      </p>
-    </div>
-    <div class="col col--6">
-      <p>
-        This documentation provides details on the technology that underpins Helium, as well as how
-        to mine HNT, and how to deploy IoT devices that use the Helium Network. Start your journey
-        below.{' '}
-      </p>
-      <p>
-        If, at any time, you don't find what you need, join us in{' '}
-        <a href="https://discord.gg/helium">our Discord</a>.
-      </p>
-      <p style={{ fontWeight: 600 }}>Thanks for being a part of Helium.</p>
-    </div>
-  </div>
-</div>
-
 <div class="container" style={{ padding: 0, paddingTop: 100 }}>
   <div class="row">
     <div class="col col--6" style={{ marginBottom: 100 }}>
       <img className="homeicon" src={useBaseUrl('img/home/blockchainicon.png')} />
-      <h3>Helium Blockchain</h3>
+      <h3>Helium Network</h3>
       <p className="podtext">
-        The Helium Blockchain is a new blockchain built from the ground up to incentivize the
-        creation of decentralized, public wireless networks.
+        Helium is a token-incentivization model that connects devices and applications using
+        distributed nodes, including LoRaWAN&trade; and cellular networks.
       </p>
       <a href="/blockchain">
-        Learn More <img className="linkarrow" src={useBaseUrl('img/icons/linkarrow.svg')} />
+        Learn More <img className="quicklinkarrow" src={useBaseUrl('img/icons/linkarrow.svg')} />
       </a>
       <h5>Quick Links</h5>
-      <a className="block" href="/blockchain/blockchain-primitives">
-        <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Blockchain Primitives
+      <a className="block" href="/helium-tokens/hnt">
+        <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Helium Token
       </a>
       <a className="block" href="/blockchain/mining">
         <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Mining HNT
@@ -115,9 +110,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
       </a>
       <a className="block" href="/blockchain/consensus-protocol">
         <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Consensus Protocol
-      </a>
-      <a className="block" href="/blockchain/helium-token">
-        <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Helium Token
       </a>
       <a className="block" href="/blockchain/transaction-fees">
         <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Transaction Fees
@@ -131,7 +123,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
         inexpensive IoT devices and are rewarded $HNT for doing so.
       </p>
       <a href="/mine-hnt">
-        Learn More <img className="linkarrow" src={useBaseUrl('img/icons/linkarrowblue.svg')} />
+        Learn More{' '}
+        <img className="quicklinkarrow" src={useBaseUrl('img/icons/linkarrowblue.svg')} />
       </a>
       <h5>Quick Links</h5>
       <a className="block" href="/mine-hnt">
@@ -140,10 +133,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
       </a>
       <a className="block" href="https://helium.com/mine">
         <img className="docicon" src={useBaseUrl('img/icons/dociconblue.svg')} /> Approved Hotspots
-      </a>
-      <a className="block" href="/mine-hnt/validators">
-        <img className="docicon" src={useBaseUrl('img/icons/dociconblue.svg')} /> Run an HNT
-        Validator
       </a>
       <a className="block" href="/mine-hnt/full-hotspots/#becoming-a-maker">
         <img className="docicon" src={useBaseUrl('img/icons/dociconblue.svg')} /> Become a Maker
@@ -161,14 +150,15 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
         robust developer tools.
       </p>
       <a href="/use-the-network">
-        Learn More <img className="linkarrow" src={useBaseUrl('img/icons/linkarrowgreen.svg')} />
+        Learn More{' '}
+        <img className="quicklinkarrow" src={useBaseUrl('img/icons/linkarrowgreen.svg')} />
       </a>
       <h5>Quick Links</h5>
       <a className="block" href="/use-the-network/devices">
         <img className="docicon" src={useBaseUrl('img/icons/docicongreen.svg')} /> Devices
       </a>
-      <a className="block" href="/use-the-network/console">
-        <img className="docicon" src={useBaseUrl('img/icons/docicongreen.svg')} /> Helium Console
+      <a className="block" href="/lorawan-on-helium/open-lns">
+        <img className="docicon" src={useBaseUrl('img/icons/docicongreen.svg')} /> Open LNS
       </a>
       <a className="block" href="/lorawan-on-helium">
         <img className="docicon" src={useBaseUrl('img/icons/docicongreen.svg')} /> LoRaWAN on Helium
@@ -182,7 +172,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
         and advisors.
       </p>
       <a href="/community-governance">
-        Learn More <img className="linkarrow" src={useBaseUrl('img/icons/linkarrowred.svg')} />
+        Learn More <img className="quicklinkarrow" src={useBaseUrl('img/icons/linkarrowred.svg')} />
       </a>
       <h5>Quick Links</h5>
       <a className="block" href="/community-governance#discord">
@@ -193,38 +183,31 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
         <img className="docicon" src={useBaseUrl('img/icons/dociconred.svg')} /> Helium Improvement
         Proposals
       </a>
-      <a className="block" href="/open-source">
+      <a className="block" href="/faq/open-source">
         <img className="docicon" src={useBaseUrl('img/icons/dociconred.svg')} /> Open Source
         Software
       </a>
     </div>
   </div>
 </div>
+
 <div class="container" style={{ padding: 0 }}>
   <hr />
 </div>
-<div class="container" style={{ padding: 0, paddingTop: 100 }}>
+
+<div class="container" style={{ padding: 0, paddingTop: 100, paddingBottom: 100 }}>
   <div class="row">
     <div class="col col--12" style={{ marginBottom: 50 }}>
       <h2>Tools, Technologies & Initatives</h2>
     </div>
     <div class="col col--6">
       <div className="tech--item">
-        <img className="techicon" src={useBaseUrl('img/home/console.svg')} />
-        <div className="tech--item_text">
-          <a href="/use-the-network/console">
-            <h4>Console</h4>
-          </a>
-          <p>Provision and Manage Devices</p>
-        </div>
-      </div>
-      <div className="tech--item">
         <img className="techicon" src={useBaseUrl('img/home/explorer.svg')} />
         <div className="tech--item_text">
           <a href="https://explorer.helium.com">
             <h4>Explorer</h4>
           </a>
-          <p>Helium Blockchain Block Explorer</p>
+          <p>Helium Network Explorer</p>
         </div>
       </div>
       <div className="tech--item">
@@ -236,33 +219,24 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
           <p>Community-driven Coverage Mapping</p>
         </div>
       </div>
-      <div className="tech--item">
-        <img className="techicon" src={useBaseUrl('img/home/walletapp.svg')} />
-        <div className="tech--item_text">
-          <a href="https://helium.com/app">
-            <h4>Wallet App</h4>
-          </a>
-          <p>iOS & Android Helium Wallet</p>
-        </div>
-      </div>
     </div>
     <div class="col col--6">
-      <div className="tech--item">
-        <img className="techicon" src={useBaseUrl('img/home/cli.svg')} />
-        <div className="tech--item_text">
-          <a href="https://github.com/helium/helium-wallet-rs">
-            <h4>Helium Wallet CLI</h4>
-          </a>
-          <p>Interact with Blockchain via Command Line</p>
-        </div>
-      </div>
       <div className="tech--item">
         <img className="techicon" src={useBaseUrl('img/home/longfi.svg')} />
         <div className="tech--item_text">
           <a href="https://github.com/helium/gateway-rs">
-            <h4>Helium Light Hotspots</h4>
+            <h4>Helium Hotspot Software</h4>
           </a>
-          <p>Packet forwarder for the Helium-enabled Gateways.</p>
+          <p>Packet forwarder for Helium-enabled Gateways.</p>
+        </div>
+      </div>
+      <div className="tech--item">
+        <img className="techicon" src={useBaseUrl('img/home/walletapp.svg')} />
+        <div className="tech--item_text">
+          <a href="/wallets">
+            <h4>Wallet App</h4>
+          </a>
+          <p>iOS & Android Helium Wallet</p>
         </div>
       </div>
     </div>

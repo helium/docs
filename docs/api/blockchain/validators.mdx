@@ -6,10 +6,21 @@ sidebar_label: Validators
 description: Helium Documentation
 image: https://i.imgur.com/bWAbESE.png
 slug: /api/blockchain/validators
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints will no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
 
 :::warning
 
@@ -22,7 +33,7 @@ https://testnet-api.helium.wtf/v1/
 
 :::
 
-## List Validators
+## List Validators [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators
@@ -5939,7 +5950,7 @@ Validators successfully retrieved.
 
 ---
 
-## Validator for Address
+## Validator for Address [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/:address
@@ -6070,7 +6081,7 @@ _Path Parameters_
 
 ---
 
-## Validators for Name
+## Validators for Name [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/name/:name
@@ -6127,7 +6138,7 @@ _Path Parameters_
 
 ---
 
-## Validator Name Search
+## Validator Name Search [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/name?search=<term>
@@ -6325,7 +6336,7 @@ Search results for `search=skinny-iron`
 
 ---
 
-## Validator Activity
+## Validator Activity [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/:address/activity
@@ -6334,7 +6345,7 @@ GET https://api.helium.io/v1/validators/:address/activity
 :::caution
 
 The `/activity` route will be deprecated on May 1, 2022 and will be replaced by
-[`/roles`, described below](#validator-roles)
+[`/roles`, described below](#validator-roles) [DEPRECATED]
 
 :::
 
@@ -6437,7 +6448,7 @@ This lists the activity for a validator that recently came online.
 
 ---
 
-## Validator Roles
+## Validator Roles [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/:address/roles
@@ -6508,7 +6519,7 @@ This lists the activity for a validator that recently came online.
 
 ---
 
-## Validator Roles Counts
+## Validator Roles Counts [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/:address/roles/count
@@ -6586,7 +6597,7 @@ Fetch counts for validator `1Z7GHfLgGUfnKCnEfZEUUqaPSo4674XyX6SA3ZY93rkSTzm9ALK`
 
 ---
 
-## Stats for Validators
+## Stats for Validators [DEPRECATED]
 
 ```
 
@@ -6632,7 +6643,7 @@ Returns stats for validators
 
 ---
 
-## Currently Elected Validators
+## Currently Elected Validators [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/elected
@@ -6700,7 +6711,7 @@ _No Parameters_
 </TabItem>
 </Tabs>
 
-## Elected Validators at a Block
+## Elected Validators at a Block [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/elected/:height
@@ -7091,7 +7102,7 @@ _Path Parameters_
 </TabItem>
 </Tabs>
 
-## Elected Validators in an Election
+## Elected Validators in an Election [DEPRECATED]
 
 ```
 
@@ -7487,7 +7498,7 @@ _Path Parameters_
 
 ---
 
-## Rewards for a Validator
+## Rewards for a Validator [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/:address/rewards
@@ -7546,7 +7557,7 @@ Rewards for a validator in the last 3 hours: `min_time=-3%20hour`
 
 ---
 
-## Reward Total for a Validator
+## Reward Total for a Validator [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/:address/rewards/sum
@@ -7609,7 +7620,7 @@ Rewards for a validator in the last 24 hours: `min_time=-24%20hour`
 
 ---
 
-## Reward Total for all Validators
+## Reward Total for all Validators [DEPRECATED]
 
 ```
 GET https://api.helium.io/v1/validators/:rewards/sum
