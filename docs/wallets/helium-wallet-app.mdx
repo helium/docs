@@ -16,7 +16,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <div class="container">
   <div class="row">
-    <div class="col col--6" style={{padding: '1rem 0'}}>
+    <div class="col col--6" style={{ padding: '1rem 0' }}>
       <a href="https://apps.apple.com/us/app/helium-hnt-wallet/id1609525848">
         <img
           className="app-store-badge img-center"
@@ -24,7 +24,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
         />
       </a>
     </div>
-    <div class="col col--6" style={{padding: '1rem 0'}}>
+    <div class="col col--6" style={{ padding: '1rem 0' }}>
       <a href="https://play.google.com/store/apps/details?id=com.helium.wallet.app">
         <img
           className="app-store-badge img-center"
@@ -240,3 +240,49 @@ settings do, it is best to leave them `off` by default.
 |    Setting     | Description                                                                                                                                                                                                                                                  |
 | :------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Enable Testnet | Testnet is typically for developers. It allows you to create a test account and get TNT (which holds zero monetary value), which can be used to test apps and transactions without burning real HNT. When toggled on, you create a testnet specific account. |
+
+---
+
+:::warning Testing Tokens
+
+All tokens in the preview version of the Helium Wallet app are testing tokens on Solana devnet.
+These tokens have no value and should not be traded.
+
+:::
+
+The Helium Wallet App has been updated with a Solana Devnet Preview. With this, you can test the
+Solana migration for your wallet and hotspots before it happens. A snapshot was taken January 31st,
+2023 of Helium mainnet. All tokens and hotspots on Solana devnet are reflective of this snapshot.
+
+## Enable Solana Preview
+
+On the main screen of the Helium Wallet app, click the Settings icon in the upper-left corner.
+
+<div className="img-center">
+  <img className="appscreenbanner" src={useBaseUrl('img/solana/migration-settings.png')} />
+</div>
+
+Then, enable the Solana preview mode. You can always disable the Solana preview mode in the same way
+to see your real assets.
+
+<div className="img-center">
+  <img className="appscreenbanner" src={useBaseUrl('img/solana/migration-preview.png')} />
+</div>
+
+### Explore Hotspots
+
+You can now explore your hotspots by clicking the Collectibles Tab. From here, you will be able to
+test claiming rewards with testing tokens.
+
+Let us know via Discord if you experience any issues!
+
+<div className="img-center">
+  <img className="appscreenbanner" src={useBaseUrl('img/solana/migration-collectibles.png')} />
+</div>
+
+### Ledger Users
+
+Ledger is not yet supported for the Helium Wallet app migration, but it will be supported through
+the Helium Ledger CLI. More information on migrating Ledger wallets will come soon! See the
+[Ledger wallet migration guide](/solana/migration/wallet-user) for guidance on how to migrate Ledger
+wallets using the Helium Ledger CLI.
