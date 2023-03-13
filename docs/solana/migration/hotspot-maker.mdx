@@ -28,52 +28,7 @@ The documentation on Solana and the upcoming Migration is under development and 
 "@solana/web3.js": "^1.73.0",
 "axios-retry": "^3.3.1",
 "cipher-base": "^1.0.4",
-"react-native-quick-crypto": "^0.5.0",
 "stream": "^0.0.2"
-```
-
----
-
-## Update Babel Config to Alias Crypto Library
-
-```jsx
-// babel.config.js
-function getAliasesFromTsConfig() {
-  const tsConfig = require('./tsconfig.json')
-  const paths = tsConfig.compilerOptions.paths
-  let alias = {}
-  Object.keys(paths).forEach((key) => {
-    alias[key] = `./${paths[key][0]}`
-  })
-
-  return alias
-}
-
-const baseConfig = {
-  presets: ['module:metro-react-native-babel-preset'],
-  plugins: [
-    [
-      'module-resolver',
-      {
-        alias: {
-          ...getAliasesFromTsConfig(),
-          crypto: 'react-native-quick-crypto', // <--- This
-        },
-        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
-        root: ['./src'],
-      },
-    ],
-  ],
-}
-
-module.exports = (api) => {
-  api.cache(true)
-
-  return {
-    ...baseConfig,
-    plugins: [...baseConfig.plugins, 'react-native-reanimated/plugin'],
-  }
-}
 ```
 
 ---
@@ -281,10 +236,22 @@ const { pendingAssertTxn, pendingGatewayTxn, pendingTransferTxn, solanaTxnIds } 
 
 ## Fetching Hotspots
 
-<!-- TODO: Show how this is done -->
+```tsx
+const { getHotspots, getHotspotDetails } = useOnboarding()
 
-```
+useEffect(() => {
+  getHotspots({
+    heliumAddress,
+    // makerName: Config.MAKER_NAME,
+  })
+}, [])
 
+useEffect(() => {
+  getHotspotDetails({
+    address: hotspot.address,
+    type: hotspotTypes[0], // The types you support ('IOT', 'MOBILE')
+  })
+}, [])
 ```
 
 ---
@@ -329,9 +296,30 @@ const importAccount = useCallback(() => {
 
 ---
 
-## Full diff can be found here
+## New Android 13 Permissions
 
-[Feature/solana by matthewcarlreetz · Pull Request #52 · helium/maker-starter-app](https://github.com/helium/maker-starter-app/pull/52/files?diff=split&w=1)
+Bluetooth scanning requires two new permissions on Android
+
+`AndroidManifest.xml`
+
+```xml
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+```
+
+You must request these 3 permissions before scanning for bluetooth
+
+```tsx
+const permissions = [
+  PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+  PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+  PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
+]
+```
+
+The Maker Starter is now using `react-native-permissions` to request/check permissions. If you'd
+like to use the library, the setup guide can be found here
+<https://github.com/zoontek/react-native-permissions>
 
 ---
 
