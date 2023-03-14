@@ -60,6 +60,24 @@ module.exports = {
           position: 'right',
           activeBaseRegex: `docs`,
         },
+        {
+          to: '/helium-tokens/hnt',
+          label: 'Tokens',
+          position: 'right',
+          activeBaseRegex: `tokens`,
+        },
+        {
+          to: '/lorawan-on-helium',
+          label: 'IOT',
+          position: 'right',
+          activeBaseRegex: `docs`,
+        },
+        {
+          to: '/5g-on-helium',
+          label: 'MOBILE',
+          position: 'right',
+          activeBaseRegex: `docs`,
+        },
         // {
         //   to: 'api',
         //   label: 'API',
@@ -72,26 +90,31 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://github.com/helium',
+          label: 'More',
           position: 'right',
-          label: 'Github',
+          items: [
+            {
+              href: 'https://github.com/helium',
+              label: 'Github',
+            },
+            {
+              href: 'http://whitepaper.helium.com',
+              label: 'Whitepaper',
+            },
+            {
+              href: 'https://explorer.helium.com',
+              label: 'Explorer',
+            },
+            {
+              href: 'https://mappers.helium.com',
+              label: 'Coverage Mapping',
+            },
+            {
+              href: 'https://github.com/helium/HIP',
+              label: 'Helium Improvement Proposals',
+            },
+          ],
         },
-        {
-          href: 'http://whitepaper.helium.com',
-          label: 'Whitepaper',
-          position: 'right',
-        },
-
-        {
-          href: 'https://explorer.helium.com',
-          label: 'Explorer',
-          position: 'right',
-        },
-        // {
-        //   href: 'https://network.helium.com/coverage',
-        //   label: 'Coverage Map',
-        //   position: 'right',
-        // },
       ],
     },
     footer: {
