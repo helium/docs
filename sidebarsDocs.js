@@ -61,37 +61,17 @@ module.exports = {
       label: 'Mine HNT',
       items: [
         'mine-hnt/mine-hnt',
-        'mine-hnt/validators/validators',
-        'mine-hnt/validators/validators-and-voting-power',
+        // 'mine-hnt/validators/validators',
         'mine-hnt/denylist',
         'mine-hnt/denylist-removals',
         'mine-hnt/crowdspot',
       ],
       collapsed: true,
     },
-
     {
       type: 'category',
       label: 'Hotspot Makers',
       items: [
-        {
-          type: 'category',
-          label: 'IOT Hotspot Makers',
-          items: [
-            'hotspot-makers/light-hotspots',
-            'mine-hnt/full-hotspots/full-hotspots',
-            'mine-hnt/data-only-hotspots',
-            'hotspot-makers/original-helium-hotspot',
-          ],
-        },
-        {
-          type: 'category',
-          label: '5G Hotspot Makers',
-          items: [
-            'hotspot-makers/5g-hotspot-requirements',
-            'hotspot-makers/5g-hardware-specification',
-          ],
-        },
         'hotspot-makers/hotspot-manufacturers',
         'hotspot-makers/maker-ethics',
         'hotspot-makers/compliance-committee',
@@ -116,7 +96,11 @@ module.exports = {
     {
       type: 'category',
       label: 'Community and Governance',
-      items: ['community-governance/community-governance', 'community-governance/community-voting'],
+      items: [
+        'community-governance/community-governance',
+        'community-governance/community-voting',
+        'mine-hnt/validators/validators-and-voting-power',
+      ],
       collapsed: true,
     },
     {
@@ -131,28 +115,12 @@ module.exports = {
         'faq/docs-installation',
         'faq/privacy',
         'faq/terms',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Troubleshooting',
-      items: [
-        'troubleshooting/hotspot-setup-troubleshooting',
-        'troubleshooting/replace-sd-card',
-        'troubleshooting/improving-poc',
-        'troubleshooting/network-troubleshooting',
-        'troubleshooting/hotspot-led',
-        'troubleshooting/understanding-witnesses',
-        'mine-hnt/understanding-hotspot-status',
         'mine-hnt/helium-hotspot-app',
       ],
       collapsed: true,
     },
   ],
-
   tokens: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
-
   iot: [
     'lorawan-on-helium/lorawan-on-helium',
     {
@@ -191,6 +159,16 @@ module.exports = {
         'use-the-network/coverage-mapping/coverage-mapping',
       ],
     },
+    {
+      type: 'category',
+      label: 'IOT Hotspot Makers',
+      items: [
+        'hotspot-makers/light-hotspots',
+        'mine-hnt/full-hotspots/full-hotspots',
+        'mine-hnt/data-only-hotspots',
+        'hotspot-makers/original-helium-hotspot',
+      ],
+    },
   ],
 
   mobile: [
@@ -205,6 +183,11 @@ module.exports = {
         '5g-on-helium/service-providers',
       ],
       collapsed: true,
+    },
+    {
+      type: 'category',
+      label: '5G Hotspot Makers',
+      items: ['hotspot-makers/5g-hotspot-requirements', 'hotspot-makers/5g-hardware-specification'],
     },
   ],
 
@@ -1089,7 +1072,6 @@ module.exports = {
       collapsed: false,
     },
   ],
-
   rakwireless: [
     {
       type: 'link',
