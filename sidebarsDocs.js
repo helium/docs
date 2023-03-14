@@ -97,7 +97,6 @@ module.exports = {
       items: ['faq/privacy', 'faq/terms'],
       collapsed: true,
     },
-    'mine-hnt/helium-hotspot-app',
   ],
   api: [
     'api/home',
@@ -135,6 +134,7 @@ module.exports = {
       type: 'category',
       label: 'Archive',
       items: [
+        'mine-hnt/helium-hotspot-app',
         'community-governance/community-voting',
         'faq/build-on-network',
         'faq/data-credits',
