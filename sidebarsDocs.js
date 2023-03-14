@@ -3,32 +3,32 @@ module.exports = {
     'home',
     {
       type: 'category',
-      label: '🚧 Solana 🚧',
+      label: 'Migration Guides',
+      items: [
+        'solana/migration/hotspot-operator',
+        'solana/migration/maker',
+        'solana/migration/exchange',
+        'solana/migration/network-user',
+        'solana/migration/application-builder',
+        'solana/migration/governance',
+        'solana/migration/blockchain-node',
+        'solana/migration/wallet-user',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Solana',
       items: [
         'solana/solana',
         'solana/primer',
         'solana/rewardable-entities',
         'solana/compression-nfts',
-        {
-          type: 'category',
-          label: 'Migration Guides',
-          items: [
-            'solana/migration/hotspot-operator',
-            'solana/migration/maker',
-            'solana/migration/exchange',
-            'solana/migration/network-user',
-            'solana/migration/application-builder',
-            'solana/migration/governance',
-            'solana/migration/blockchain-node',
-            'solana/migration/wallet-user',
-          ],
-        },
       ],
       collapsed: true,
     },
     {
       type: 'category',
-      label: '🚧 Oracles 🚧',
+      label: 'Oracles',
       items: [
         'oracles/oracles',
         'oracles/price-oracles',
