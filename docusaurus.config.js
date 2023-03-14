@@ -72,26 +72,31 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://github.com/helium',
+          label: 'More',
           position: 'right',
-          label: 'Github',
+          items: [
+            {
+              href: 'https://github.com/helium',
+              label: 'Github',
+            },
+            {
+              href: 'http://whitepaper.helium.com',
+              label: 'Whitepaper',
+            },
+            {
+              href: 'https://explorer.helium.com',
+              label: 'Explorer',
+            },
+            {
+              href: 'https://mappers.helium.com',
+              label: 'Coverage Mapping',
+            },
+            {
+              href: 'https://github.com/helium/HIP',
+              label: 'Helium Improvement Proposals',
+            },
+          ],
         },
-        {
-          href: 'http://whitepaper.helium.com',
-          label: 'Whitepaper',
-          position: 'right',
-        },
-
-        {
-          href: 'https://explorer.helium.com',
-          label: 'Explorer',
-          position: 'right',
-        },
-        // {
-        //   href: 'https://network.helium.com/coverage',
-        //   label: 'Coverage Map',
-        //   position: 'right',
-        // },
       ],
     },
     footer: {
