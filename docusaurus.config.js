@@ -60,6 +60,24 @@ module.exports = {
           position: 'right',
           activeBaseRegex: `docs`,
         },
+        {
+          to: '/helium-tokens/hnt',
+          label: 'Tokens',
+          position: 'right',
+          activeBaseRegex: `tokens`,
+        },
+        {
+          to: '/lorawan-on-helium',
+          label: 'IOT',
+          position: 'right',
+          activeBaseRegex: `docs`,
+        },
+        {
+          to: '/5g-on-helium',
+          label: 'MOBILE',
+          position: 'right',
+          activeBaseRegex: `docs`,
+        },
         // {
         //   to: 'api',
         //   label: 'API',
