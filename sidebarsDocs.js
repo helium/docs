@@ -3,7 +3,7 @@ module.exports = {
     'home',
     {
       type: 'category',
-      label: '🚧 Solana 🚧',
+      label: 'Migration Guides',
       items: [
         'solana/solana',
         'solana/primer',
@@ -28,7 +28,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: '🚧 Oracles 🚧',
+      label: 'Oracles',
       items: [
         'oracles/oracles',
         'oracles/price-oracles',
