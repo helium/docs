@@ -5,7 +5,7 @@ module.exports = {
       type: 'category',
       label: 'Migration Guides',
       items: [
-        'solana/migration-overview',
+        'migration-overview',
         'solana/migration/hotspot-operator',
         'solana/migration/maker',
         'solana/migration/exchange',
