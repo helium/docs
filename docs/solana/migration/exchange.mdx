@@ -104,35 +104,40 @@ The Migration API can be used to retrieve the Solana wallet address from a Heliu
 
 ## Wallet Migration
 
+Wallets will need to be inflated on Solana. In essence this is recreating the wallet's Helium state
+on Solana.
+
 The
 [migration-service](https://github.com/helium/helium-program-library/tree/master/packages/migration-service)
-can be used to migrate wallet(s) to Solana. Instead of sending all transactions to inflate Helium
-state on Solana during the Migration, transactions will process as needed.
+can be used to migrate wallet(s) to Solana.
 
-The Helium Wallet App requests the migration-service to get the needed transaction and submits them
-to the Solana blockchain when the app is opened for the first time after the Migration is complete.
+For the Helium Wallet App users, the wallet requests the migration-service to get the needed
+transaction and submits them to the Solana blockchain when the app is opened for the first time
+after the Migration is complete.
 
-Since exchange wallets may not use the wallet app, the service can be used directly:
+Since exchange wallets may not use the wallet app, the migration service can instead be used
+directly by following the below steps:
 
 For devnet:
 
-`https://migration.web.test-helium.com/migrate/*solana-wallet-address*?limit=1000&offset=0`
+1. Get the Solana wallet address from a Helium wallet address:
+   `https://migration.web.test-helium.com/helium/*helium-wallet-address*`
 
-This will get the list of serialized transactions, which should be sent to Solana.
+2. Get the list of serialized transactions, which should be sent to Solana:
+   `https://migration.web.test-helium.com/migrate/*solana-wallet-address*?limit=1000&offset=0`
 
-To get the Solana wallet address from a Helium wallet address, call:
+3. Submit the transactions to Solana. You can see typescript code demonstrating how to use this
+   [here](https://github.com/helium/helium-program-library/blob/master/packages/migration-service/src/test-submit.ts#L37).
 
-`https://migration.web.test-helium.com/helium/*helium-wallet-address*`
+   Note: Each transaction is only allowed to execute once.
 
-You can also use the command line utility from
-[here](https://github.com/helium/helium-program-library/releases/tag/v0.0.27-migration-cli).
+Alternatively, you can use the
+[command line utility](https://github.com/helium/helium-program-library/releases/tag/v0.0.27-migration-cli)
+for steps 2-3.
 
 ```
 $ env MIGRATION_SERVICE_URL=https://migration.web.test-helium.com env SOLANA_URL=https://api.devnet.solana.com env SOLANA_WSS_URL=wss://api.devnet.solana.com ./migration-tx-executor --wallet *your-solana-wallet*
 ```
-
-You can see typescript code demonstrating how to use this
-[here](https://github.com/helium/helium-program-library/blob/master/packages/migration-service/src/test-submit.ts#L37).
 
 ## Trustless Wallet Migration
 
