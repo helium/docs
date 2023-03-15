@@ -13,8 +13,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 <img className="docsheader" src={useBaseUrl('img/lorawan-on-helium/lorawanheader.png')} />
 
 The LoRaWAN Network on Helium is currently **compatible with LoRaWAN class A devices**. However,
-class C support is coming in 2023 Q1 and Helium distinguishes itself in how it treats the LoRaWAN
-Network Server (LNS).
+class C support is coming in Q1 of 2023.
 
 In typical LoRaWAN Networks, a central or regional LNS is managed by a single entity. Helium’s
 design for a decentralized network, however, means not only do we want gateways (referred to as
@@ -24,9 +23,9 @@ the LNS.
 Without this, access to the network would require permission from a single central entity, the LNS
 operator of the network.
 
-Therefore, we want to enable the _multi-tenancy_ of LNS’s on the same Public LoRaWAN Network.
-Achieving this distinguishes Helium’s LoRaWAN Network from any other: public wireless infrastructure
-is now compatible with privately-run network servers.
+Therefore, we want to enable the multi-tenancy of LNSs on the same public LoRaWAN network. Achieving
+this distinguishes Helium’s LoRaWAN Network from any other: public wireless infrastructure is now
+compatible with privately-run network servers.
 
 The rest of this article will discuss the networking primitives. If you want to go ahead and run a
 network server, please checkout our article about
@@ -46,10 +45,10 @@ A device defined by (AppEui, DevEui) can be allocated any of the DevAddrs owned 
 even possible to multiplex many devices on the same DevAddr at the same time, using the Message
 Integrity Check (MIC) to disambiguate.
 
-As of 2023, Helium will be utilizing an Open LNS Initiative to allow more choice and increase
+Starting in 2023, Helium will be utilizing an Open LNS Initiative to allow more choice and increase
 usability. You can read more about the Open LNS Initiative at the [Helium Foundation
-Blog]https://medium.com/helium-foundation/scaling-iot-growth-with-heliums-open-lns-initiative-c906e6953d6d)
-or read more [here] (insert docs link).
+Blog](https://medium.com/helium-foundation/scaling-iot-growth-with-heliums-open-lns-initiative-c906e6953d6d)
+or read more [here](lorawan-on-helium/open-lns).
 
 :::info
 
