@@ -37,6 +37,7 @@ module.exports = {
         'oracles/iot-proof-of-coverage-oracles',
         'oracles/mobile-proof-of-coverage-oracles',
         'oracles/oracle-data',
+        'oracles/oui-owner-instructions',
       ],
       collapsed: true,
     },

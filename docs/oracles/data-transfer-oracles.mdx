@@ -44,21 +44,22 @@ Service immediately updates the Packet Routers whenever it receives an update.
 The Packet Verifier uses the Config Service to fetch the list of OUIs, wallet addresses per gateway,
 and wallet addresses per OUI.
 
-Config Service is an Oracle service that stores all routing information on the Helium IoT
-Network. Each OUI is registered in the Config Service, and may define multiple routes.
+Config Service is an Oracle service that stores all routing information on the Helium IoT Network.
+Each OUI is registered in the Config Service, and may define multiple routes.
 
 Each route contains information such as
+
 1. DevEUI+AppEUI pairs — so we know which join requests to send your way
 2. DevAddr ranges — so we know which uplinks to send your way
 3. Server endpoint + port — so we know where to send packets to
 
-There are two ways of interacting with the Config Service, directly through GRPC APIs
-or through CLI (command-line-interface). We have developed a Console release that
-interacts with the Config Service automatically with the GRPC APIs. For instance, when
-someone created a new device on your Helium Console, the Config Service will
-immediately know about it because of the built-in automation.
+There are two ways of interacting with the Config Service, directly through GRPC APIs or through CLI
+(command-line-interface). We have developed a Console release that interacts with the Config Service
+automatically with the GRPC APIs. For instance, when someone created a new device on your Helium
+Console, the Config Service will immediately know about it because of the built-in automation.
 
-See [these instructions] (docs/oracles/oui-owner-instructions.mdx) on how to build the Config Service for the latest Console release.
+See [these instructions] (docs/oracles/oui-owner-instructions.mdx) on how to build the Config
+Service for the latest Console release.
 
 ## Packet Router Service
 
