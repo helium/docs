@@ -13,6 +13,7 @@ module.exports = {
         'solana/migration/governance',
         'solana/migration/blockchain-node',
         'solana/migration/wallet-user',
+        'solana/migration/ledger',
       ],
     },
     {
