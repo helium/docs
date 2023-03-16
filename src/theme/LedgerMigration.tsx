@@ -338,10 +338,10 @@ export const LedgerMigration = () => {
     return heliumWallet
   })
   const {
-    result: inflateResult,
-    execute: executeInflate,
-    error: errorInflate,
-    loading: loadingInflate,
+    result: seedResult,
+    execute: executeSeed,
+    error: errorSeed,
+    loading: loadingSeed,
   } = useAsyncCallback(async (wallet: PublicKey) => {
     async function getTxs() {
       return (await axios.get(`${migrationUrl}/migrate/${wallet.toBase58()}`)).data
@@ -416,7 +416,7 @@ export const LedgerMigration = () => {
         : activeStep === 1
         ? heliumWallet.connected
         : activeStep === 2
-        ? inflateResult
+        ? seedResult
         : activeStep === 3
         ? !!heliumSignResult
         : activeStep === 4
@@ -428,7 +428,7 @@ export const LedgerMigration = () => {
       activeStep,
       heliumSignResult,
       heliumWallet.connected,
-      inflateResult,
+      seedResult,
       solanaPubkey,
       solanaSignResult,
       resultSendTransactions,
@@ -509,24 +509,24 @@ export const LedgerMigration = () => {
         ),
       },
       {
-        label: 'Inflate Wallet on Solana',
+        label: 'Seed Wallet on Solana',
         component: (
           <VStack>
-            {errorInflate && (
+            {errorSeed && (
               <Alert status="error">
                 <AlertIcon />
-                {errorInflate.message}
+                {errorSeed.message}
               </Alert>
             )}
-            Inflate the your tokens and hotspots onto Solana
+            Seed your tokens and hotspots into your Solana wallet
             <Button
               colorScheme="info"
-              isLoading={loadingInflate}
-              isDisabled={inflateResult}
-              onClick={() => executeInflate(heliumPubkey!)}
-              leftIcon={inflateResult ? <Icon as={FaCheckCircle} /> : undefined}
+              isLoading={loadingSeed}
+              isDisabled={seedResult}
+              onClick={() => executeSeed(heliumPubkey!)}
+              leftIcon={seedResult ? <Icon as={FaCheckCircle} /> : undefined}
             >
-              Inflate Wallet
+              Seed Wallet
             </Button>
           </VStack>
         ),
@@ -608,22 +608,22 @@ export const LedgerMigration = () => {
       attested,
       errorHelium,
       errorHeliumSign,
-      errorInflate,
+      errorSeed,
       errorSendTransactions,
       errorSolana,
       errorSolanaSign,
       execute,
       executeHelium,
       executeHeliumSign,
-      executeInflate,
+      executeSeed,
       executeSendTransactions,
       executeSolanaSign,
       heliumPubkey,
       heliumSignResult,
-      inflateResult,
+      seedResult,
       loadingHelium,
       loadingHeliumSign,
-      loadingInflate,
+      loadingSeed,
       loadingSendTransactions,
       loadingSolana,
       loadingSolanaSign,
