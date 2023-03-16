@@ -4,7 +4,7 @@ title: Hotspot Operator Migration Guide
 pagination_label: Hotspot Operator
 sidebar_label: Hotspot Operator
 description: Helium Hotspot Operator Migration Documentation
-image: https://i.imgur.com/bWAbESE.png
+image: https://docs.helium.com/img/link-image.png
 slug: /solana/migration/hotspot-operator
 ---
 
@@ -28,7 +28,7 @@ Some important notes:
 All existing Helium Hotspots from all Hotspot Manufacturers will become "LoRaWAN Hotspots".
 
 At the time of the Solana Migration, all existing "5G Hotspots" on the Helium Network are _also_
-LoRaWAN Hotspots.
+LoRaWAN Hotspots, but may not be enabled to operate as an active LoRaWAN hotspot.
 
 During the Solana Migration downtime, the 24-hour period in which the state of the Helium L1
 blockchain migrates to the Solana blockchain, the Helium Wallet App will present a "transitioning"
@@ -63,7 +63,8 @@ Wallets with a large number, 50 or more, of Hotspots may need to wait up to 48 h
 Solana Migration completes to see all Hotspots in the Helium Wallet App.
 
 Because claiming is an explicit action, enlisting a service to claim rewards on all of associated
-Hotspots can be used.
+Hotspots can be used. Information on these claiming services will be provided as they become
+available.
 
 <!-- TODO: Service -->
 
@@ -75,38 +76,41 @@ As described in [HIP-52: IOT subDAO](https://github.com/helium/HIP/blob/main/005
 launch of the IoT subnetwork will include a premine of 5 billion IOT tokens to Validators and
 Hotspots on the existing IoT network.
 
-The IOT Premine will reward Hotspots contributing to the Network within the 30 days preceding the
-Solana Migration Snapshot.
+The IOT Premine will reward Hotspots contributing and earning on the Network within the 30 days
+preceding the Solana Migration Snapshot.
 
 :::info What is a Snapshot?
 
 When the Helium L1 blockchain halts, a "snapshot" of the state of the Network occurs. The Snapshot
 is a record of the final state of the Helium L1 blockchain.
 
-The migration-service program will use this Snapshot to map existing rewards and Network state 
-to the Solana blockchain.
+The migration-service program will use this Snapshot to map existing rewards and Network state to
+the Solana blockchain.
 
 <!-- TODO: add link to migration-service program -->
 
 :::
 
-The premine allocates IOT tokens in the following proportion: Validators: 2.5 billion tokens,
-distributed proportionately to the amount of HNT staked at the time of the Snapshot. Hotspots: 2.5
-billion tokens, distributed to all active Hotspots at the time of the Snapshot.
+The premine allocates IOT tokens in the following proportion:
+
+- Validators: 2.5 billion tokens, distributed proportionately to the amount of HNT staked at the
+  time of the Snapshot.
+- Hotspots: 2.5 billion tokens, distributed to all active Hotspots at the time of the Snapshot.
 
 ### What is an "Active" Hotspot?
 
 The migration service will consider a Hotspot as "Active" if the Snapshot includes any of the
 following:
 
-- Witnessed and been valid/invalid witnesses.
-- Beaconed and had valid/invalid witnesses.
-- Transferred data.
+- Witnessed and was a valid witness
+- Beaconed and had valid witnesses
+- Transferred LoRaWAN data and been paid for it
 
-A Hotpsot is not "Active" if:
+A Hotspot is not "Active" if it:
 
-- Beaconed with no valid/invalid witnesses, and
-- Has not passed data
+- Has not beaconed with valid witnesses
+- Has not been a valid witness to a beacon
+- Has not passed data and been paid for it
 
 :::caution Hotspots on the Denylist
 
@@ -122,8 +126,8 @@ data within the 30 days preceding the Snapshot.
 
 ### 5G Hotspot Eligibility
 
-At the time of the Solana Migration, all 5G Hotspots are also LoRaWAN Hotspots and will be allocated
-Premine Rewards under the same conditions as LoRaWAN Hotspots.
+At the time of the Solana Migration, all asserted 5G Hotspots are also valid LoRaWAN Hotspots and
+will be allocated Premine Rewards under the same conditions as LoRaWAN Hotspots.
 
 :::caution Unasserted 5G Hotspots.
 
@@ -131,5 +135,13 @@ Unasserted 5G Hotspots will not be eligible for the premine as the Active criter
 Hotspot to have an asserted location recorded on the Helium L1 blockchain.
 
 :::
+
+### Validator Eligibility
+
+The 2.5 billion IOT Token Premine to Validators will be distributed to all Active Validators
+proportionately to the amount of HNT staked at the time of the Snapshot.
+
+The migration service will consider a Validator as "Active" if the Snapshot includes any heartbeat
+data from the Validator.
 
 ---

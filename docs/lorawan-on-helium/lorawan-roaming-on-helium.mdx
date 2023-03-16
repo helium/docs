@@ -4,7 +4,7 @@ title: LoRaWAN Roaming On Helium
 pagination_label: LoRaWAN Roaming On Helium
 sidebar_label: LoRaWAN Roaming On Helium
 description: Helium Documentation
-image: https://i.imgur.com/bWAbESE.png
+image: https://docs.helium.com/img/link-image.png
 slug: /lorawan-on-helium/lorawan-roaming-on-helium
 ---
 
@@ -12,11 +12,11 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 The Helium Network is the [world's largest LoRaWAN Network](https://explorer.helium.com) - and
 continues to grow at a staggering pace. Because of this, it becomes a very attractive network to
-other public and private LoRaWAN Network Server providers (LNSes) who want to extend their coverage
+other public and private LoRaWAN Network Server providers (LNSs) who want to extend their coverage
 without deploying their own infrastructure and capital.
 
 And thanks to the Helium blockchain, direct roaming integrations are very simple. Most importantly,
-major LNSes are roaming with the Helium Network, which means the public coverage the community is
+major LNSs are roaming with the Helium Network, which means the public coverage the community is
 building is now being used by LoRa devices onboarded to other networks, and Hotspot operators get
 compensated in $HNT for routing these packets.
 
@@ -36,13 +36,11 @@ target `NetID` packets via the Semtech GWMP UDP client.
 ## Actual Roaming Integration
 
 To ingest packets as a roaming partner, you need to accept Semtech GWMP client connections for the
-amount of Helium Hotspots that are receiving and routing your packets.
-Currently,[ this could be a lot](https://explorer.helium.com/hotspots) - assuming you are
-considering the entire global network. If we consider the United States only, for example, it's
-about 95,000 total potential gateways. In practice, only a small percentage of Helium gateways will
-be routing packets for a roaming partner NetID simultaneously.
+amount of Helium Hotspots that are receiving and routing your packets. Currently, this could be a
+lot - assuming you are considering the entire global network. In practice, only a small percentage
+of Helium gateways will be routing packets for a roaming partner NetID simultaneously.
 
-When the roaming PoC is initiated, Helium provide one or more IPs from where the connections will
+When the roaming PoC is initiated, Helium provides one or more IPs from where the connections will
 originate. You will need to supply the IP and port for the host listening for Semtech GWMP
 connections over UDP. Once provided, packets will start arriving at the specified host.
 
@@ -59,6 +57,7 @@ Helium Roaming supports the following actions for devices:
 
 - [LoRaWAN on Helium](/lorawan-on-helium) - The Helium Network's approach to LoRaWAN
 - [Helium LoRaWAN: Public Infrastructure with Private Network Servers](https://blog.helium.com/helium-lorawan-public-infrastructure-with-ultimate-privacy-9132560e4ae6)
-- [Helium Network Data Credits](/use-the-network/console/data-credits/) - The mechanism for
-  purchasing packets from the Helium Network
-- [Packet Purchasing](/blockchain/packet-purchasing) - How packet purchasing is actually implemented
+- [Helium Network Data Credits](/use-the-network/console/data-credits/) - The financial mechanism
+  for purchasing packets from the Helium Network
+- [Packet Purchasing](/blockchain/packet-purchasing) - An explanation of how packet purchasing is
+  implemented on the Helium Network
