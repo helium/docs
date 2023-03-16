@@ -405,7 +405,10 @@ export const LedgerMigration = () => {
     loading: loadingSendTransactions,
   } = useAsyncCallback(async () => {
     const txs = solanaSignResult!.map((tx) => Buffer.from(tx.serialize()))
-    await bulkSendRawTransactions(connection, txs)
+    const sent = await bulkSendRawTransactions(connection, txs)
+    if (sent.length != txs.length) {
+      throw new Error("Failed to send all transactions, please try again")
+    }
     return true
   })
 
