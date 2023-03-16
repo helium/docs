@@ -136,7 +136,26 @@ module.exports = {
       crossorigin: 'anonymous',
     },
   ],
+  customFields: {
+    MIGRATION_SERVICE_URL: process.env.MIGRATION_SERVICE_URL,
+    SOLANA_URL: process.env.SOLANA_URL,
+  },
   plugins: [
+    function (context, options) {
+      return {
+        name: 'webpack-plugin',
+        // eslint-disable-next-line
+        configureWebpack(config, isServer, utils) {
+          return {
+            resolve: {
+              fallback: {
+                assert: false,
+              },
+            },
+          }
+        },
+      }
+    },
     // uncomment and repair for multiple blogs
     // [
     //   '@docusaurus/plugin-content-blog',
