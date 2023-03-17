@@ -17,6 +17,15 @@ More information on installing and using the Solana-compatible Helium app for Le
 The following utility will migrate all tokens from the Helium derivation path `44'/904'/n'/0'` to
 the Solana derivation path `44'/501'/n'/0'`. To get started, install the:
 
+Ledger users will need to update their Helium Ledger App to a version that's pending release. This
+upcoming version will use the Solana private key derivation path that moves all your tokens and
+balances over to Solana. You may need to uninstall any Solana Ledger Apps during the Wallet
+migration process.
+
+## Migration Tool
+
+Your public key will change on Solana but the private key will remain the same.
+
 - [Helium Solana Ledger App](https://github.com/helium/app-helium-solana) from Github
 - [Solana Ledger App](https://support.ledger.com/hc/en-us/articles/360016265659-Solana-SOL-?support=true)
   using Ledger Live
@@ -27,4 +36,12 @@ import { LedgerMigration } from '@theme/LedgerMigration'
 
 ---
 
-## Helium Solana App
+## Derivation Paths and your new Public Key
+
+The Helium Ledger App uses `ED25519` keys, similarly to Solana, but at a different derivation path.
+
+This means that, while seed phrases are the same, private keys are different on Solana.
+
+In order to get around this, when you run the migration, the migration application will ask you to
+use the old derivation path to approve sending all of your Hotspots, tokens, etc to the new
+derivation path.
