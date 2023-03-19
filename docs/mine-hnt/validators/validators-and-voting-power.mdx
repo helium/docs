@@ -71,8 +71,8 @@ period in exchange for voting rights and voting power in the HeliumDAO as define
 [HIP-51](https://github.com/helium/HIP/issues/336).
 
 Additionally, this provides other benefits, such as earning MOBILE or IOT tokens, if the holder
-stakes to those subDAOs, respectively. After the lock-up period ends, the same amount of HNT is
-released back to the owner's wallet and is now transferable, if needed.
+delegates their veHNT to those subDAOs, respectively. After the lock-up period ends, the same amount 
+of HNT is released back to the owner's wallet and is now transferable, if needed.
 
 ### What Was Staked HNT?
 
@@ -206,7 +206,7 @@ exchanged for veHNT, which provides two benefits:
 - Voting in the Helium DAO on new subDAO proposals and Participating in the Governance.
 - Receiving an income if the veHNT is delegated to a subDAO.
 
-Anyone can delegate veHNT to a subDAO, it sone component of a subDAO's Utility Score. Delegating
+Anyone can delegate veHNT to a subDAO, it's one component of a subDAO's Utility Score. Delegating
 veHNT to a subDAO allows the holder to earn subDAO token rewards proportionally based on the subDAOs
 rules.
 
@@ -247,6 +247,8 @@ for new veHNT stakers. This is called the "Landrush" multiplier.
 New stakers are only eligible to receive this veHNT bonus during the initial seven-day Landrush
 period. HNT staked after this period will receive veHNT at the normal rate with no multiplier.
 
+This landrush period will end at 23:59:59 UTC time on 25th April 2023
+
 For example:
 
 > Staking 10 HNT during this Landrush period with a lock duration of six months gets 375 veHNT
@@ -282,25 +284,23 @@ delegating to that subDAO.
    decay cooldown period starts immediately or lock-up period is rolling with a decay countdown
    starting at a future date to be decided (default) The granularity of selection of lock-up period
    is in days.
-3. Using the Helium Wallet App/Realms, delegate that veHNT into one or more existing subDAOs. You
-   may have to complete several transactions depending on how many subDAOs you delegate to, or if
-   you want different amounts delegated for different lock-up periods.
+3. Using the Helium Wallet App browser (Globe icon) access /Realms, delegate that veHNT into one or 
+   more existing subDAOs. You may have to complete several transactions depending on how many subDAOs 
+   you delegate to, or if you want different amounts delegated for different lock-up periods.
 4. Your delegated HNT will count towards the subDAOs Utility Score and provide increased HNT
    deposits in the subDAO's treasury per epoch.
 
 This process should be simple in the [Helium Wallet App](/wallets/helium-wallet-app). More
 instructions will be provided on Realms usage as we get closer to the Solana migration.
 
-The Helium Wallet App will be Solana compatible. All staking and vote escrow delegation operations
-will be performed within a Solana-compatible Wallet App/Realms or a new version of the
-[Helium CLI Wallet](/wallets/cli-wallet).
+The Helium Wallet App is Solana compatible. All staking and vote escrow delegation operations
+will be performed within the Helium Wallet app browser and Realms
 
 - Staking HNT to veHNT
 - Increasing the veHNT staking period for existing veHNT
 - Delegating veHNT to a subDAO
 - Voting for HNT governance with veHNT
 - Voting for subDAO governance with veIOT or veMOBILE
-- Receiving the subDAO token that your veHNT is delegated into
 
 ### How much veHNT will I get for each lock-up period?
 
@@ -333,7 +333,8 @@ No. You can hold your veHNT as is or delegate to a subDAO at any time.
 :::note
 
 Changing delegation is allowed, but any delegation changes within a Solana Epoch will void any
-delegation rewards within that Epoch. A Solana Epoch is 24 hours long.
+delegation rewards within that Epoch.  A Solana Epoch is 24 hours long and starts and ends at 
+00:00:00 UTC time.
 
 :::
 
@@ -343,6 +344,9 @@ The veHNT decay countdown starts when initiated from the Wallet app/Realms, unti
 the wallet remains a constant.
 
 veHNT quantity decay is granulated per second even though the Epoch period is 24 hours.
+
+It is the current delegated veHNT value at the start of an Epoch that is used for calculating the 
+subDAO utility score during the Epoch.
 
 A 48-month lock-in period has approximately 1461 linear steps between 100 veHNT and 0 veHNT.
 
@@ -355,7 +359,7 @@ remaining 48 months until it hits zero.
 ### Can I Increase My Staking Lock-up Period At Any Time?
 
 Yes. You can increase your lock-up period to the maximum of 48 months at any time, and each increase
-activates at the start of thenext epoch. If the veHNT is delegated you must undelegate, change the
+activates at the start of the next epoch. If the veHNT is delegated you must undelegate, change the
 period and redelegate and lose delegation rewards within that 24 hour Epoch. If those three actions
 take longer than an epoch or are split over two epochs then delegation rewards are lost for two
 Epochs.
@@ -381,8 +385,9 @@ is not a token.
 
 ### How Do I Buy veHNT or Any of the veDNTs?
 
-You cannot buy veHNT or any of the other veDNTs. It is not a tradable token. veHNT can only be
-obtained by staking HNT with a lock-up period. Likewise, you cannot buy veIOT or veMOBILE.
+You cannot buy veHNT, veIOT or veMOBILE. They are not a tradable tokens. veHNT can only be
+obtained by staking HNT with a lock-up period. Likewise, for veIOT or veMOBILE.
+
 
 veHNT and veDNTs have no price in the larger crypto markets.
 
@@ -391,9 +396,9 @@ veHNT and veDNTs have no price in the larger crypto markets.
 The DAO Utility score is described in [HIP-51](https://github.com/helium/HIP/issues/336)
 
 Each new subDAO of HNT has a Utility Score that mathematically represents the proportion shared of
-HNT tokens distributed to them every epoch from the fixed amount allocated to all subDAOs. The
-higher the Utility Score, the more significant the ratio of HNT emitted to that subDAO's treasury
-per epoch.
+HNT tokens distributed to them every epoch from the fixed amount allocated to all subDAOs. This is 
+currently 68% until April 1st 2023. The higher the Utility Score, the more significant the proportion
+of this 68% of HNT is emitted to that subDAO's treasury per epoch.
 
 Delegating veHNT to IOT or MOBILE increases the `V` value in the
 [HIP-51 DAO Utility Score](https://github.com/helium/HIP/blob/main/0051-helium-dao.md#omni-protocol-poc-incentive-model)
@@ -408,16 +413,19 @@ The two other ways the DAO Utility score can be increased are:
 
 ### Will My subDAO Earnings Remain The Same Over The Time Period Lock-Up?
 
-No, they are calculated and paid to the hotspot per epoch - daily. They may increase when:
+No, they are calculated and paid to the lock-up position per epoch - daily. They may increase when:
 
-- More veHNT is delegated to your subDAO - your treasury gets more HNT
-- More Hotspot onboarding fees are burned in your subDAO
-- More data is transferred and burned in your subDAO
+- More veHNT is delegated in the subDAO you delegated to - your treasury gets more HNT.
+- More Hotspot onboarding fees are burned in the subDAO you delegated to.
+- More data is transferred and burned in the subDAO you delegated to.
 
 They may decrease when:
 
-- More veHNT is delegated in your subDAO - your share is reduced
-- More veHNT is delegated to other subDAOs - other treasuries get more HNT
-- Your delegated veHNT decays over time
-- More Hotspot onboarding fees are burned in other subDAOs
-- More data is transferred and burned in other subDAOs
+- More veHNT is delegated in the subDAO you delegated to - your share is reduced
+- More veHNT is delegated to other subDAOs - other treasuries get more HNT.
+- Your delegated veHNT decays over time after you entered cooldown.
+- More Hotspots are online in other subDAOs with a non zero onboarding fee.
+- More data is transferred and burned in other subDAOs.
+
+Thus it can be observed that delegating more or all of your veHNT to a specific subDAO has 
+the opportunity to both increase or decrease your subDAO earnings from delegation.
