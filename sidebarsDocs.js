@@ -1,9 +1,25 @@
 module.exports = {
-  docs: [
-    'home',
+  communitygovernance: {
+      'Community and Governance': ['community-governance/community-governance', 'community-governance/community-voting']
+  },
+
+
+  home: [
+    // 'home/home',
     {
       type: 'category',
-      label: 'Migration Guides',
+      label: 'Home',
+      link: {type: 'doc', id: 'home/home'},
+      items: [
+        'home/about-helium', 'home/helium-history',
+      ]
+    },
+  ],
+
+  solanamigration: [
+    {
+      type: 'category',
+      label: 'Solana Migration Guides',
       items: [
         'solana/migration/hotspot-operator',
         'solana/migration/maker',
@@ -16,6 +32,9 @@ module.exports = {
         'solana/migration/ledger',
       ],
     },
+  ],
+
+  architecture: [
     {
       type: 'category',
       label: 'Solana',
@@ -27,6 +46,9 @@ module.exports = {
       ],
       collapsed: true,
     },
+  ],
+
+  docs: [
     {
       type: 'category',
       label: 'Oracles',
@@ -165,12 +187,6 @@ module.exports = {
         'wallets/twelve-words',
         'wallets/twenty-four-words',
       ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Community and Governance',
-      items: ['community-governance/community-governance', 'community-governance/community-voting'],
       collapsed: true,
     },
     {
