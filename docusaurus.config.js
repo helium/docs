@@ -47,51 +47,36 @@ module.exports = {
         srcDark: 'img/icons/logowhite.svg',
       },
       items: [
-        // {
-        //   to: '/use-the-network/console',
-        //   label: 'Try the New Console Today',
-        //   position: 'right',
-        //   activeBaseRegex: `docs`,
-        //   className: 'announcementnav',
-        // },
         {
           to: '/',
-          label: 'Docs',
+          label: 'Architecture',
           position: 'right',
-          activeBaseRegex: `docs`,
         },
-        // {
-        //   to: 'api',
-        //   label: 'API',
-        //   position: 'right',
-        //   activeBaseRegex: `api`,
-        // },
+        {
+          to: '/',
+          label: 'Tokens',
+          position: 'right',
+        },
+        {
+          to: '/',
+          label: 'IoT Network',
+          position: 'right',
+        },
+        {
+          to: '/',
+          label: 'Mobile Network',
+          position: 'right',
+        },
+        {
+          to: '/',
+          label: 'Governance',
+          position: 'right',
+        },
         {
           to: '/devblog',
           label: 'Dev Blog',
           position: 'right',
         },
-        {
-          href: 'https://github.com/helium',
-          position: 'right',
-          label: 'Github',
-        },
-        {
-          href: 'http://whitepaper.helium.com',
-          label: 'Whitepaper',
-          position: 'right',
-        },
-
-        {
-          href: 'https://explorer.helium.com',
-          label: 'Explorer',
-          position: 'right',
-        },
-        // {
-        //   href: 'https://network.helium.com/coverage',
-        //   label: 'Coverage Map',
-        //   position: 'right',
-        // },
       ],
     },
     footer: {
