@@ -48,6 +48,13 @@ module.exports = {
       },
       items: [
         {
+          to: '/solana/migration/',
+          label: 'Solana Migration Guides',
+          position: 'left',
+          activeBaseRegex: `docs`,
+          className: 'announcementnav',
+        },
+        {
           to: '/',
           label: 'Architecture',
           position: 'right',
@@ -68,7 +75,7 @@ module.exports = {
           position: 'right',
         },
         {
-          to: '/',
+          to: '/community-governance',
           label: 'Governance',
           position: 'right',
         },
