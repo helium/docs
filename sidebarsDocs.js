@@ -130,6 +130,21 @@ module.exports = {
     },
   ],
 
+  mobilenetwork: [
+    {
+      type: 'category',
+      label: '5G on Helium',
+      items: [
+        '5g-on-helium/5g-on-helium',
+        '5g-on-helium/cbrs-radios',
+        '5g-on-helium/mobile-poc',
+        '5g-on-helium/mobile-mappers',
+        '5g-on-helium/service-providers',
+      ],
+      collapsed: true,
+    },
+  ],
+
   communitygovernance: {
     'Community and Governance': ['community-governance/community-governance', 'community-governance/community-voting']
   },
@@ -160,18 +175,6 @@ module.exports = {
         'mine-hnt/denylist',
         'mine-hnt/denylist-removals',
         'mine-hnt/crowdspot',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: '5G on Helium',
-      items: [
-        '5g-on-helium/5g-on-helium',
-        '5g-on-helium/cbrs-radios',
-        '5g-on-helium/mobile-poc',
-        '5g-on-helium/mobile-mappers',
-        '5g-on-helium/service-providers',
       ],
       collapsed: true,
     },
