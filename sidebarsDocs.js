@@ -120,14 +120,24 @@ module.exports = {
           ],
         },
         'use-the-network/console/console',
-        'use-the-network/console-marketplace',
         'use-the-network/roaming',
         'use-the-network/run-a-network-server/run-a-network-server',
         'use-the-network/setup-a-packet-forwarder',
-        'use-the-network/community-projects',
-        'use-the-network/coverage-mapping/coverage-mapping',
+        // 'use-the-network/console-marketplace',
+        // 'use-the-network/community-projects',
       ],
     },
+    {
+      type: 'category',
+      label: 'Coverage Mapping',
+      link: {type: 'doc', id: 'use-the-network/coverage-mapping/coverage-mapping'},
+      items: [
+        'use-the-network/coverage-mapping/mappers-api',
+        'use-the-network/coverage-mapping/mappers-quickstart',
+        'use-the-network/coverage-mapping/mappers-roadmap',
+        // 'use-the-network/coverage-mapping/adeunis-mapper',
+      ]
+    }
   ],
 
   mobilenetwork: [
@@ -145,9 +155,46 @@ module.exports = {
     },
   ],
 
-  communitygovernance: {
-    'Community and Governance': ['community-governance/community-governance', 'community-governance/community-voting']
+  communitygovernance: [
+    {
+      type: 'category',
+      label: 'Community Governance',
+      items: [
+        'community-governance/community-governance', 
+        'community-governance/community-voting'
+      ]
+    },
+    {
+    type: 'category',
+    label: 'Manufacturer Conformance Committee ',
+    items: [
+      {
+        type: 'category',
+        label: 'IOT Hotspot Makers',
+        items: [
+          'hotspot-makers/light-hotspots',
+          'mine-hnt/full-hotspots/full-hotspots',
+          'mine-hnt/data-only-hotspots',
+          'hotspot-makers/original-helium-hotspot',
+        ],
+      },
+      {
+        type: 'category',
+        label: '5G Hotspot Makers',
+        items: [
+          'hotspot-makers/5g-hotspot-requirements',
+          'hotspot-makers/5g-hardware-specification',
+        ],
+      },
+      'hotspot-makers/hotspot-manufacturers',
+      'hotspot-makers/maker-ethics',
+      'hotspot-makers/compliance-committee',
+      'hotspot-makers/maker-apps',
+      'hotspot-makers/hotspot-audit-process',
+    ],
+    collapsed: true,
   },
+  ],
 
   docs: [
     {
@@ -175,36 +222,6 @@ module.exports = {
         'mine-hnt/denylist',
         'mine-hnt/denylist-removals',
         'mine-hnt/crowdspot',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Hotspot Makers',
-      items: [
-        {
-          type: 'category',
-          label: 'IOT Hotspot Makers',
-          items: [
-            'hotspot-makers/light-hotspots',
-            'mine-hnt/full-hotspots/full-hotspots',
-            'mine-hnt/data-only-hotspots',
-            'hotspot-makers/original-helium-hotspot',
-          ],
-        },
-        {
-          type: 'category',
-          label: '5G Hotspot Makers',
-          items: [
-            'hotspot-makers/5g-hotspot-requirements',
-            'hotspot-makers/5g-hardware-specification',
-          ],
-        },
-        'hotspot-makers/hotspot-manufacturers',
-        'hotspot-makers/maker-ethics',
-        'hotspot-makers/compliance-committee',
-        'hotspot-makers/maker-apps',
-        'hotspot-makers/hotspot-audit-process',
       ],
       collapsed: true,
     },
@@ -398,24 +415,6 @@ module.exports = {
         'use-the-network/run-a-network-server/deploy-console',
         'use-the-network/run-a-network-server/debug-with-sniffer',
         'use-the-network/run-a-network-server/router-benchmarking',
-      ],
-      collapsed: false,
-    },
-  ],
-  coveragemapping: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/coverage-mapping',
-    },
-    {
-      type: 'category',
-      label: 'Coverage Mapping',
-      items: [
-        'use-the-network/coverage-mapping/mappers-quickstart',
-        'use-the-network/coverage-mapping/mappers-api',
-        'use-the-network/coverage-mapping/adeunis-mapper',
-        'use-the-network/coverage-mapping/mappers-roadmap',
       ],
       collapsed: false,
     },
