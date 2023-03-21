@@ -1,16 +1,12 @@
 module.exports = {
-  communitygovernance: {
-      'Community and Governance': ['community-governance/community-governance', 'community-governance/community-voting']
-  },
-
-
   home: [
     {
       type: 'category',
       label: 'Home',
       link: {type: 'doc', id: 'home/home'},
       items: [
-        'home/about-helium', 'home/helium-history',
+        'home/about-helium',
+        'home/helium-history',
       ]
     },
   ],
@@ -37,23 +33,9 @@ module.exports = {
   architecture: [
     {
       type: 'category',
-      label: 'Solana',
-      items: [
-        'solana/solana',
-        'solana/primer',
-        'solana/rewardable-entities',
-        'solana/compression-nfts',
-      ],
-      collapsed: true,
-    },
-  ],
-
-  docs: [
-    {
-      type: 'category',
       label: 'Oracles',
+      link: {type: 'doc', id: 'oracles/oracles'},
       items: [
-        'oracles/oracles',
         'oracles/price-oracles',
         'oracles/rewards-oracles',
         'oracles/data-transfer-oracles',
@@ -63,6 +45,24 @@ module.exports = {
       ],
       collapsed: true,
     },
+    {
+      type: 'category',
+      label: 'Solana',
+      link: {type: 'doc', id: 'solana/solana'},
+      items: [
+        'solana/primer',
+        'solana/rewardable-entities',
+        'solana/compression-nfts',
+      ],
+      collapsed: true,
+    },
+  ],
+
+  communitygovernance: {
+    'Community and Governance': ['community-governance/community-governance', 'community-governance/community-voting']
+  },
+
+  docs: [
     {
       type: 'category',
       label: 'Blockchain',
