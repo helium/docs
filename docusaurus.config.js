@@ -60,7 +60,7 @@ module.exports = {
           position: 'right',
         },
         {
-          to: '/',
+          to: 'helium-tokens/hnt',
           label: 'Tokens',
           position: 'right',
         },

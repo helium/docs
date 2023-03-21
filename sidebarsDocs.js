@@ -58,6 +58,38 @@ module.exports = {
     },
   ],
 
+  tokens: [
+    {
+      type: 'category',
+      label: 'Helium Tokens',
+      items: [
+        'helium-tokens/hnt-token',
+        'helium-tokens/iot-token',
+        'helium-tokens/mobile-token'
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Helium Wallets',
+      items: [
+        'wallets/wallets',
+        'wallets/helium-wallet-app',
+        'wallets/cli-wallet',
+        'wallets/ledger',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Accounts',
+      items: [
+        'wallets/twelve-words',
+        'wallets/twenty-four-words',
+      ]
+    }
+  ],
+
   communitygovernance: {
     'Community and Governance': ['community-governance/community-governance', 'community-governance/community-voting']
   },
@@ -76,12 +108,6 @@ module.exports = {
         'blockchain/oracles',
         'blockchain/transaction-fees',
       ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Helium Tokens',
-      items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
       collapsed: true,
     },
     {
@@ -173,19 +199,6 @@ module.exports = {
         'hotspot-makers/compliance-committee',
         'hotspot-makers/maker-apps',
         'hotspot-makers/hotspot-audit-process',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Helium Wallets',
-      items: [
-        'wallets/wallets',
-        'wallets/helium-wallet-app',
-        'wallets/cli-wallet',
-        'wallets/ledger',
-        'wallets/twelve-words',
-        'wallets/twenty-four-words',
       ],
       collapsed: true,
     },
