@@ -90,6 +90,46 @@ module.exports = {
     }
   ],
 
+  iotnetwork: [
+    {
+      type: 'category',
+      label: 'LoRaWAN on Helium',
+      link: {type: 'doc', id: 'lorawan-on-helium/lorawan-on-helium'},
+      items: [
+        'lorawan-on-helium/lorawan-roaming-on-helium',
+        'lorawan-on-helium/open-lns',
+        'lorawan-on-helium/iot-proof-of-coverage',
+        'lorawan-on-helium/frequency-plans/frequency-plans',
+        'lorawan-on-helium/frequency-plans/region-plans',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Use The IoT Network',
+      items: [
+        'use-the-network/use-the-network',
+        {
+          type: 'category',
+          label: 'Devices',
+          items: [
+            'use-the-network/devices/devices',
+            'use-the-network/devices/ready-to-use/ready-to-use',
+            'use-the-network/devices/development/development',
+            'use-the-network/devices/development/quickstart-guides',
+          ],
+        },
+        'use-the-network/console/console',
+        'use-the-network/console-marketplace',
+        'use-the-network/roaming',
+        'use-the-network/run-a-network-server/run-a-network-server',
+        'use-the-network/setup-a-packet-forwarder',
+        'use-the-network/community-projects',
+        'use-the-network/coverage-mapping/coverage-mapping',
+      ],
+    },
+  ],
+
   communitygovernance: {
     'Community and Governance': ['community-governance/community-governance', 'community-governance/community-voting']
   },
@@ -122,43 +162,6 @@ module.exports = {
         'mine-hnt/crowdspot',
       ],
       collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'LoRaWAN on Helium',
-      items: [
-        'lorawan-on-helium/lorawan-on-helium',
-        'lorawan-on-helium/lorawan-roaming-on-helium',
-        'lorawan-on-helium/open-lns',
-        'lorawan-on-helium/iot-proof-of-coverage',
-        'lorawan-on-helium/frequency-plans/frequency-plans',
-        'lorawan-on-helium/frequency-plans/region-plans',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Use The IOT Network',
-      items: [
-        'use-the-network/use-the-network',
-        {
-          type: 'category',
-          label: 'Devices',
-          items: [
-            'use-the-network/devices/devices',
-            'use-the-network/devices/ready-to-use/ready-to-use',
-            'use-the-network/devices/development/development',
-            'use-the-network/devices/development/quickstart-guides',
-          ],
-        },
-        'use-the-network/console/console',
-        'use-the-network/console-marketplace',
-        'use-the-network/roaming',
-        'use-the-network/run-a-network-server/run-a-network-server',
-        'use-the-network/setup-a-packet-forwarder',
-        'use-the-network/community-projects',
-        'use-the-network/coverage-mapping/coverage-mapping',
-      ],
     },
     {
       type: 'category',

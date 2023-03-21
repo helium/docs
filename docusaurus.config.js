@@ -65,7 +65,7 @@ module.exports = {
           position: 'right',
         },
         {
-          to: '/',
+          to: 'lorawan-on-helium',
           label: 'IoT Network',
           position: 'right',
         },
