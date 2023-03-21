@@ -77,6 +77,7 @@ module.exports = {
         'wallets/helium-wallet-app',
         'wallets/cli-wallet',
         'wallets/ledger',
+        'mine-hnt/helium-hotspot-app',
       ],
       collapsed: true,
     },
@@ -106,10 +107,10 @@ module.exports = {
     {
       type: 'category',
       label: 'Mining IOT Tokens',
-      // link: {type: 'doc', id: ''},
       items: [
         'blockchain/proof-of-coverage',
         'lorawan-on-helium/iot-proof-of-coverage',
+        'mine-hnt/crowdspot',
         'use-the-network/setup-a-packet-forwarder',
       ],
       collapsed: true,
@@ -170,7 +171,8 @@ module.exports = {
       label: 'Community Governance',
       items: [
         'community-governance/community-governance', 
-        'community-governance/community-voting'
+        'community-governance/community-voting',
+        'mine-hnt/validators/validators-and-voting-power',
       ]
     },
     {
@@ -184,7 +186,7 @@ module.exports = {
           'hotspot-makers/light-hotspots',
           'mine-hnt/full-hotspots/full-hotspots',
           'mine-hnt/data-only-hotspots',
-          'hotspot-makers/original-helium-hotspot',
+          // 'hotspot-makers/original-helium-hotspot',
         ],
       },
       {
@@ -226,10 +228,8 @@ module.exports = {
       items: [
         'mine-hnt/mine-hnt',
         'mine-hnt/validators/validators',
-        'mine-hnt/validators/validators-and-voting-power',
         'mine-hnt/denylist',
         'mine-hnt/denylist-removals',
-        'mine-hnt/crowdspot',
       ],
       collapsed: true,
     },
@@ -259,7 +259,6 @@ module.exports = {
         'troubleshooting/hotspot-led',
         'troubleshooting/understanding-witnesses',
         'mine-hnt/understanding-hotspot-status',
-        'mine-hnt/helium-hotspot-app',
       ],
       collapsed: true,
     },
