@@ -70,7 +70,7 @@ module.exports = {
           position: 'right',
         },
         {
-          to: '/',
+          to: '5g-on-helium',
           label: 'Mobile Network',
           position: 'right',
         },
