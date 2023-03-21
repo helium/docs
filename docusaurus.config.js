@@ -129,8 +129,8 @@ module.exports = {
     },
   ],
   customFields: {
-    MIGRATION_SERVICE_URL: process.env.MIGRATION_SERVICE_URL,
-    SOLANA_URL: process.env.SOLANA_URL,
+    MIGRATION_SERVICE_URL: 'https://migration.web.helium.io',
+    SOLANA_URL: 'https://api.devnet.solana.com',
   },
   plugins: [
     function (context, options) {
