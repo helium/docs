@@ -10,7 +10,7 @@ Here is a list of common items that Makers are using in sys.config and provide n
 There is no more default.toml, only a settings.toml. Settings.toml is the only configuration file that exists in Rust. This file holds all the configuration settings for the hotspot. Makers should not override any other settings other than what is listed here, use all as default. The -c flag when starting the server takes a path to the settings file, not just the folder. 
 
 
-**ECC608 configuration**
+**Keypair configuration**
 Alternate ECC608 I2C and slot addresses. Most makers have fielded board designs that place the ECC608 chip on I2C bus #1, I2C address 0x60/96. 
 Makers address ECC608 changes to I2C bus and address with a blockchain:key override in sys.config. 
 In the new gateway-rs scheme, this will be supplied as an environment variable GW_KEYPAIR.
