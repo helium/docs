@@ -11,14 +11,26 @@ draft: true
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<!--TODO: header description, 2 sentences or less  -->
+Following the community-driven proposal,
+[HIP70 - Scaling the Helium Network](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md),
+the Helium Network will migrate to the Solana blockchain on **April 18, 2023**. This strategic move,
+voted in by the community, aims to capitalize on Solana's scalability, low transaction costs, and
+high-performance capabilities, including its fast transaction throughput and energy-efficient
+consensus mechanism.
 
----
+The migration to Solana offers key benefits for the Helium Network: it enables the IoT and Mobile
+networks to support even greater scale, supports more sophisticated Proof of Coverage algorithms,
+and enhances the network's robustness, making it an even more robust solution for high-demand
+applications.
+
+<img className="docsheader" src={useBaseUrl('img/migration/migrationheader.png')} />
 
 ## Community & Discord
 
+The Helium Foundation is supported by community governance groups through the Solana Migration
+process.
+
 <!--TODO:  Efforts are underway to streamline the Discord experience for current and new members. -->
-<!--TODO:  Looking to learn more about Solana development? checkout the [Solana Discord Server](https://discord.com/invite/kBbATFA7PW) -->
 
 ---
 
@@ -27,25 +39,43 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 <!--TODO:  get help and join the conversation in discord channel -->
 <!--TODO:  check out the helium-progrma libraby on github -->
 
+Looking to learn more about Solana development? Check out the
+[Solana Discord Server](https://discord.com/invite/kBbATFA7PW) or review the
+[Solana Docs](https://docs.solana.com).
+
 ---
 
 ## Console Users
 
-<!--TODO:  chirpstack -->
-<!--TODO:  openLNS -->
+<!--TODO: Console and Console API -->
+<!--TODO: chirpstack -->
+<!--TODO: openLNS -->
 
 ---
 
 ## ETL Instance Deployers
 
-<!--TODO:  ?not sure? -->
+[Blockchain ETL](https://github.com/helium/blockchain-etl) will halt along with the blockchain
+during the migration. Hosted instances of this service may chose to continue offering historical
+data from the Helium L1 via these synced ETLs. A full snapshot of the Helium L1 will be retained and
+uploaded for public availability post-migration. 
+
+For ongoing insight into the operation of the Helium Network, please refer to the 
+[Oracle Data](/oracles/oracle-data) documentation.
 
 ---
 
-## Helium Blockchain & Console API Users (Community App Devs)
+## Helium Blockchain API Users
 
-<!--TODO:  existing api will halt with helium chain -->
-<!--TODO:  access to oracle data and link to oracle data page -->
+Along with the Blockchain ETL, the existing Helium API will serve only information up to the chain 
+halt at time of migration. Knowing that some users will continue to rely on historical data, The 
+Helium Foundation has formed an agreement with the API provider, BlockJoy to continue hosting this 
+API following the migration.
+
+For ongoing access, several organizations are already building new API services based on the 
+[Oracle Data](/oracles/oracle-data) available after the migration. These organizations include (but
+not limited to), [Hotspotty](https://hotspotty.net), [HeliumGeek](https://heliumgeek.com), 
+[Relay](https://www.relaydevice.com) and [Watchium](https://watchium.disk91.com).
 
 ---
 
