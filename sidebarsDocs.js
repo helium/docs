@@ -98,9 +98,19 @@ module.exports = {
       items: [
         'lorawan-on-helium/lorawan-roaming-on-helium',
         'lorawan-on-helium/open-lns',
-        'lorawan-on-helium/iot-proof-of-coverage',
         'lorawan-on-helium/frequency-plans/frequency-plans',
         'lorawan-on-helium/frequency-plans/region-plans',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Mining IOT Tokens',
+      // link: {type: 'doc', id: ''},
+      items: [
+        'blockchain/proof-of-coverage',
+        'lorawan-on-helium/iot-proof-of-coverage',
+        'use-the-network/setup-a-packet-forwarder',
       ],
       collapsed: true,
     },
@@ -122,7 +132,6 @@ module.exports = {
         'use-the-network/console/console',
         'use-the-network/roaming',
         'use-the-network/run-a-network-server/run-a-network-server',
-        'use-the-network/setup-a-packet-forwarder',
         // 'use-the-network/console-marketplace',
         // 'use-the-network/community-projects',
       ],
@@ -133,8 +142,8 @@ module.exports = {
       link: {type: 'doc', id: 'use-the-network/coverage-mapping/coverage-mapping'},
       items: [
         'use-the-network/coverage-mapping/mappers-api',
-        'use-the-network/coverage-mapping/mappers-quickstart',
         'use-the-network/coverage-mapping/mappers-roadmap',
+        // 'use-the-network/coverage-mapping/mappers-quickstart',
         // 'use-the-network/coverage-mapping/adeunis-mapper',
       ]
     }
@@ -204,7 +213,6 @@ module.exports = {
         'blockchain/blockchain',
         'blockchain/blockchain-primitives',
         'blockchain/mining',
-        'blockchain/proof-of-coverage',
         'blockchain/packet-purchasing',
         'blockchain/consensus-protocol',
         'blockchain/oracles',
