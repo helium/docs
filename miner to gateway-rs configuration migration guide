@@ -6,7 +6,7 @@ As the miner image transitions to being a gateway-rs-only container, it will sto
 
 Here is a list of common items that Makers are using in sys.config and provide new guidance, in the form of GW_... environment variables, that they should use instead when invoking the miner container. 
 
-**General Configuration (Settings.toml)** 
+**General Configuration (settings.toml)** 
 There is no more default.toml, only a settings.toml. Settings.toml is the only configuration file that exists in Rust. This file holds all the configuration settings for the hotspot. Makers should not override any other settings other than what is listed here, use all as default. The -c flag when starting the server takes a path to the settings file, not just the folder. 
 
 
