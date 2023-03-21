@@ -9,16 +9,19 @@ Here is a list of common items that Makers are using in sys.config and provide n
 **General Configuration (settings.toml)** 
 There is no more default.toml, only a settings.toml. Settings.toml is the only configuration file that exists in Rust. This file holds all the configuration settings for the hotspot. Makers should not override any other settings other than what is listed here, use all as default. The -c flag when starting the server takes a path to the settings file, not just the folder. 
 
-
 **Keypair configuration**
-Alternate ECC608 I2C and slot addresses. Most makers have fielded board designs that place the ECC608 chip on I2C bus #1, I2C address 0x60/96. 
-Makers address ECC608 changes to I2C bus and address with a blockchain:key override in sys.config. 
-In the new gateway-rs scheme, this will be supplied as an environment variable GW_KEYPAIR.
+Alternate ECC608 I2C and slot addresses. 
+Most makers have fielded standard board designs that place the ECC608 chip on I2C bus #1, I2C address 0x60/96. 
+Some makers have chosen a non standard I2C bus such as (I2C bus #2 or I2C bus #5), and/ or I2C address 0x53/83 or other combinations not listed.
+ECC608 changes to I2C bus and address have previously been addressed with a blockchain:key override in sys.config. 
+In the new gateway-rs scheme, this will be supplied as an environment variable GW_KEYPAIR. *See Note [1]
 
-**BLE diagnostics/ onboarding** 
-Gateway_config, an application written in Erlang to manage Bluetooth, pairing, 
-onboarding etc.. was previously handled over dbus. It is now handled with the local port over gRPC.
-* Gateway-rs local gRPC listen port (address is 127.0.0.1) 
+**Note [1] GW_KEYPAIR Discussion**
+**Erlang was:**
+{ blockchain, [ { key, { ecc, [{key_slot, 0}, {onboarding_key_slot, 15}] } } ] }
+
+**Gateway-rs is:**
+GW_KEYPAIR=ecc://i2c-1:96?slot=0&network=mainnet
 
 **Packet forwarder**
 Packet forwarder has not changed, continue to use the same port that was already being used.
@@ -36,22 +39,20 @@ The CLI has changed for a few commands, notably the helium_gateway info command 
 **System Startup**
 Since gateway-rs no longer releases as an installable package it is up to the maker to integrate with their system startup setups, (like procd or tini, systemd depending on the operating system setup)
 
+
 | ** | These are the only configuration variables of concern during migration from Miner to Gateway-rs |
 | ----------- | ----------- |
 | Erlang Source | Erlang variable |gateway-rs Environment|Default
 | sys.config | miner:radio_device | GW_LISTEN | 127.0.0.1:1680
 | sys.config | miner:jsonrpc_port | GW_API | 4467
-| sys.config | blockchain:key | GW_KEYPAIR | * See note [1]
-| Environment | REGION_OVERRIDE | GW_REGION |
+| sys.config | blockchain:key | GW_KEYPAIR | 
+| Environment | REGION_OVERRIDE | GW_REGION | * See note [2]
 
-*Note 1:
-GW_KEYPAIR Discussion
+*Note 2: 
+The region variable is the default region used when the hotspot does not have an asserted location. 
+Makers need to ensure that the region is set correctly for the region in which the hotspot is sold to ensure correct beaconing behavior.
 
-Erlang was:
-{ blockchain, [ { key, { ecc, [{key_slot, 0}, {onboarding_key_slot, 15}] } } ] }
 
-Gateway-rs is:
-GW_KEYPAIR=ecc://i2c-1:96?slot=0&network=mainnet
 
 
 
