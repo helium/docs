@@ -5,7 +5,6 @@ module.exports = {
 
 
   home: [
-    // 'home/home',
     {
       type: 'category',
       label: 'Home',
@@ -20,6 +19,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Solana Migration Guides',
+      link: {type: 'doc', id: 'solana/migration-overview'},
       items: [
         'solana/migration/hotspot-operator',
         'solana/migration/maker',
