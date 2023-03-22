@@ -349,7 +349,9 @@ export const LedgerMigration = () => {
     const txs = (await getTxs()).transactions
     const txBuffers = txs.map((tx: any) => Buffer.from(tx))
 
-    await bulkSendRawTransactions(connection, txBuffers)
+    await bulkSendRawTransactions(connection, txBuffers.slice(0, -1))
+    // Ensure the last transaction (pulling up all the sol) runs last.
+    await bulkSendRawTransactions(connection, txBuffers.slice(-1))
 
     const txs2 = (await getTxs()).transactions
     if (txs2.length !== 0) {
