@@ -55,7 +55,7 @@ module.exports = {
           className: 'announcementnav',
         },
         {
-          to: 'oracles/',
+          to: 'solana/',
           label: 'Architecture',
           position: 'right',
         },
