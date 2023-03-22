@@ -16,7 +16,7 @@ const getRemainingTime = () => {
   // const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
   // return `${days.toString().padStart(2, '0')} days, ${hours.toString().padStart(2, '0')} hours, ${minutes.toString().padStart(2, '0')} minutes, ${seconds.toString().padStart(2, '0')} seconds`;
-  return `${days.toString().padStart(2, '0')} days, ${hours.toString().padStart(2, '0')} hours`;
+  return `${days.toString()}\xa0days,\xa0${hours.toString()}\xa0hours`;
   // return `${days.toString().padStart(2, '0')} days`;
 };
 
@@ -44,13 +44,13 @@ const MigrationStatus = () => {
         switch (migrationStatus) {
           case 'not_started':
             formattedStatus = {
-              text: 'Not Started',
+              text: 'Not\xa0Started',
               className: 'migration-status-not-started',
             };
             break;
           case 'in_progress':
             formattedStatus = {
-              text: 'In Progress',
+              text: 'In\xa0Progress',
               className: 'migration-status-in-progress',
             };
             break;
@@ -62,7 +62,7 @@ const MigrationStatus = () => {
             break;
           default:
             formattedStatus = {
-              text: 'Unknown Status',
+              text: 'Unknown\xa0Status',
               className: 'migration-status-unknown',
             };
         }
@@ -86,7 +86,7 @@ const MigrationStatus = () => {
 
   return (
     <div className={`migration-status ${status.className}`}>
-      Migration Status: {status.text}
+      Migration&nbsp;Status: {status.text}
       {status.className === 'migration-status-not-started' && (
         <div className="countdown">Countdown: {status.countdown}</div>
       )}
