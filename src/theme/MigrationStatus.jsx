@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 const getRemainingTime = () => {
-  const targetDate = new Date('2023-04-18T00:00:00');
+  const targetDate = new Date('2023-04-18T16:00:00');
   const now = new Date();
   const difference = targetDate - now;
 
@@ -11,12 +11,13 @@ const getRemainingTime = () => {
   }
 
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-//   const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-//   const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  // const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  // const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-//   return `${days.toString().padStart(2, '0')} days, ${hours.toString().padStart(2, '0')} hours, ${minutes.toString().padStart(2, '0')} minutes, ${seconds.toString().padStart(2, '0')} seconds`;
-  return `${days.toString().padStart(2, '0')} days`;
+  // return `${days.toString().padStart(2, '0')} days, ${hours.toString().padStart(2, '0')} hours, ${minutes.toString().padStart(2, '0')} minutes, ${seconds.toString().padStart(2, '0')} seconds`;
+  return `${days.toString().padStart(2, '0')} days, ${hours.toString().padStart(2, '0')} hours`;
+  // return `${days.toString().padStart(2, '0')} days`;
 };
 
 const MigrationStatus = () => {
