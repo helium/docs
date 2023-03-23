@@ -1,4 +1,3 @@
-// src/components/MigrationStatus.jsx
 import React, { useState, useEffect } from 'react';
 
 const getRemainingTime = () => {
@@ -12,12 +11,8 @@ const getRemainingTime = () => {
 
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  // const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-  // const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-  // return `${days.toString().padStart(2, '0')} days, ${hours.toString().padStart(2, '0')} hours, ${minutes.toString().padStart(2, '0')} minutes, ${seconds.toString().padStart(2, '0')} seconds`;
-  return `${days.toString()}\xa0days,\xa0${hours.toString()}\xa0hours`;
-  // return `${days.toString().padStart(2, '0')} days`;
+  return `${days.toString()}\xa0days,\xa0${hours.toString()}\xa0hours`; // `\xa0` is a non-breaking space
 };
 
 const MigrationStatus = () => {
