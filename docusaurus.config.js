@@ -48,41 +48,40 @@ module.exports = {
       },
       items: [
         {
-          to: '/solana/migration/',
-          label: 'Solana Migration Guides',
-          position: 'left',
-          activeBaseRegex: `docs`,
-          className: 'announcementnav',
-        },
-        {
           to: 'oracles/',
           label: 'Architecture',
-          position: 'right',
+          position: 'left',
         },
         {
           to: 'helium-tokens/hnt',
           label: 'Tokens',
-          position: 'right',
+          position: 'left',
         },
         {
           to: 'lorawan-on-helium',
           label: 'IoT Network',
-          position: 'right',
+          position: 'left',
         },
         {
           to: '5g-on-helium',
           label: 'Mobile Network',
-          position: 'right',
+          position: 'left',
         },
         {
           to: '/community-governance',
           label: 'Governance',
-          position: 'right',
+          position: 'left',
         },
         {
           to: '/devblog',
           label: 'Dev Blog',
+          position: 'left',
+        },
+        {
+          to: '/solana/migration/',
+          label: 'Solana Migration Guides',
           position: 'right',
+          className: 'announcementnav',
         },
       ],
     },
