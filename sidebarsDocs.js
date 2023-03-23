@@ -35,6 +35,17 @@ module.exports = {
   architecture: [
     {
       type: 'category',
+      label: 'Solana',
+      link: {type: 'doc', id: 'solana/solana'},
+      items: [
+        'solana/primer',
+        'solana/rewardable-entities',
+        'solana/compression-nfts',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Oracles',
       link: {type: 'doc', id: 'oracles/oracles'},
       items: [
@@ -44,17 +55,6 @@ module.exports = {
         'oracles/iot-proof-of-coverage-oracles',
         'oracles/mobile-proof-of-coverage-oracles',
         'oracles/oracle-data',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'Solana',
-      link: {type: 'doc', id: 'solana/solana'},
-      items: [
-        'solana/primer',
-        'solana/rewardable-entities',
-        'solana/compression-nfts',
       ],
       collapsed: true,
     },
