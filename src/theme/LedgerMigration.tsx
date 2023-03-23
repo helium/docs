@@ -349,7 +349,9 @@ export const LedgerMigration = () => {
     const txs = (await getTxs()).transactions
     const txBuffers = txs.map((tx: any) => Buffer.from(tx))
 
-    await bulkSendRawTransactions(connection, txBuffers)
+    await bulkSendRawTransactions(connection, txBuffers.slice(0, -1))
+    // Ensure the last transaction (pulling up all the sol) runs last.
+    await bulkSendRawTransactions(connection, txBuffers.slice(-1))
 
     const txs2 = (await getTxs()).transactions
     if (txs2.length !== 0) {
@@ -453,9 +455,12 @@ export const LedgerMigration = () => {
               </Alert>
             )}
             <Text>
-              Open the Solana App on your ledger. Be sure to enable blind signing in the Ledger
-              Settings. Select the account number you would like to migrate. Then click the button
-              below.
+              Open the Solana App on your ledger. Be sure to{' '}
+              <a href="https://support.ledger.com/hc/en-us/articles/4499092909085-Allowing-blind-signing-in-the-Solana-SOL-app?support=true">
+                enable blind signing
+              </a>{' '}
+              in the Ledger Settings. Select the account number you would like to migrate. Then
+              click the button below.
             </Text>
             <div style={{ fontWeight: 900, marginBottom: '-18px' }}>Account Number</div>
             <Flex justify="center" mt={3}>
@@ -497,8 +502,11 @@ export const LedgerMigration = () => {
               </Alert>
             )}
             <Text>
-              Open the Helium-Solana App on your ledger. Be sure to enable blind signing in the
-              Ledger Settings. Then click the button below.
+              Open the Helium-Solana App on your ledger. Be sure to{' '}
+              <a href="https://support.ledger.com/hc/en-us/articles/4499092909085-Allowing-blind-signing-in-the-Solana-SOL-app?support=true">
+                enable blind signing
+              </a>{' '}
+              in the Ledger Settings. Then click the button below.
             </Text>
             <Button
               colorScheme="info"
