@@ -1,8 +1,7 @@
-// src/components/MigrationStatus.jsx
 import React, { useState, useEffect } from 'react';
 
 const getRemainingTime = () => {
-  const targetDate = new Date('2023-04-18T00:00:00');
+  const targetDate = new Date('2023-04-18T16:00:00');
   const now = new Date();
   const difference = targetDate - now;
 
@@ -11,12 +10,9 @@ const getRemainingTime = () => {
   }
 
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-//   const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-//   const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
-//   return `${days.toString().padStart(2, '0')} days, ${hours.toString().padStart(2, '0')} hours, ${minutes.toString().padStart(2, '0')} minutes, ${seconds.toString().padStart(2, '0')} seconds`;
-  return `${days.toString().padStart(2, '0')} days`;
+  return `${days.toString()}\xa0days,\xa0${hours.toString()}\xa0hours`; // `\xa0` is a non-breaking space
 };
 
 const MigrationStatus = () => {
@@ -43,13 +39,13 @@ const MigrationStatus = () => {
         switch (migrationStatus) {
           case 'not_started':
             formattedStatus = {
-              text: 'Not Started',
+              text: 'Not\xa0Started',
               className: 'migration-status-not-started',
             };
             break;
           case 'in_progress':
             formattedStatus = {
-              text: 'In Progress',
+              text: 'In\xa0Progress',
               className: 'migration-status-in-progress',
             };
             break;
@@ -61,7 +57,7 @@ const MigrationStatus = () => {
             break;
           default:
             formattedStatus = {
-              text: 'Unknown Status',
+              text: 'Unknown\xa0Status',
               className: 'migration-status-unknown',
             };
         }
@@ -85,7 +81,7 @@ const MigrationStatus = () => {
 
   return (
     <div className={`migration-status ${status.className}`}>
-      Migration Status: {status.text}
+      Migration&nbsp;Status: {status.text}
       {status.className === 'migration-status-not-started' && (
         <div className="countdown">Countdown: {status.countdown}</div>
       )}
