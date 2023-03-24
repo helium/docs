@@ -21,6 +21,7 @@ module.exports = {
         'solana/migration/maker',
         'solana/migration/exchange',
         'solana/migration/network-user',
+        'solana/migration/console-operator',
         'solana/migration/application-builder',
         'solana/migration/governance',
         'solana/migration/blockchain-node',
@@ -98,9 +99,7 @@ module.exports = {
       type: 'category',
       label: 'LoRaWAN on Helium',
       link: {type: 'doc', id: 'lorawan-on-helium/lorawan-on-helium'},
-      items: [
-        'lorawan-on-helium/lorawan-roaming-on-helium',
-        'lorawan-on-helium/open-lns',
+      items: [ 
         'lorawan-on-helium/frequency-plans/frequency-plans',
         'lorawan-on-helium/frequency-plans/region-plans',
       ],
@@ -119,6 +118,22 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'OpenLNS',
+      link: {type: 'doc', id: 'lorawan-on-helium/open-lns'},
+      items: [
+        'lorawan-on-helium/open-lns-configuration',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Roaming',
+      items: [
+        'use-the-network/roaming',
+        'lorawan-on-helium/lorawan-roaming-on-helium',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Use The IoT Network',
       items: [
         'use-the-network/use-the-network',
@@ -132,9 +147,8 @@ module.exports = {
             'use-the-network/devices/development/quickstart-guides',
           ],
         },
-        'use-the-network/console/console',
-        'use-the-network/roaming',
         'use-the-network/run-a-network-server/run-a-network-server',
+        // 'use-the-network/console/console',
         // 'use-the-network/console-marketplace',
         // 'use-the-network/community-projects',
       ],
