@@ -1,16 +1,17 @@
-import './bufferFill'
-import React from 'react'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { bulkSendRawTransactions } from '@helium/spl-utils'
 import { LedgerWalletAdapter } from '@solana/wallet-adapter-ledger'
-import { useAsyncCallback } from 'react-async-hook'
-import { useMemo, useState } from 'react'
-import { CgSpinner } from 'react-icons/cg'
-import { FaCheckCircle, FaCheck } from 'react-icons/fa'
 import { Connection, PublicKey, Transaction } from '@solana/web3.js'
 import axios from 'axios'
-import { FaExclamationCircle } from 'react-icons/fa'
+import React, { useMemo, useState } from 'react'
+import { useAsyncCallback } from 'react-async-hook'
+import { FaCheck, FaCheckCircle } from 'react-icons/fa'
+import './bufferFill'
+import { Alert, AlertIcon } from './components/Alert'
+import { Button } from "./components/Button"
+import { Flex } from './components/Flex'
+import { Icon } from './components/Icon'
 import './LedgerMigration.css'
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 
 const Text: React.FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
   return <p>{children}</p>
@@ -23,18 +24,6 @@ const Heading: React.FunctionComponent<{
 }> = ({ children, fontSize, textAlign }) => {
   // @ts-ignore
   return <header style={{ fontSize, textAlign }}>{children}</header>
-}
-
-const Icon: React.FunctionComponent<{ spin?: boolean; mr?: number; as: any }> = ({
-  spin,
-  as: children,
-  mr,
-}) => {
-  return (
-    <div className={spin ? 'spin' : ''} style={{ display: 'flex', marginRight: 3 * mr + 'px' }}>
-      {React.createElement(children)}
-    </div>
-  )
 }
 
 const Checkbox: React.FunctionComponent<{
@@ -99,85 +88,6 @@ const VStack: React.FunctionComponent<{
       {children}
     </div>
   )
-}
-
-const Alert: React.FunctionComponent<{
-  children: React.ReactNode
-  status: 'error' | 'warning'
-}> = ({ children }) => {
-  return (
-    <div className={`alert alert--${status == 'error' ? 'danger' : 'warning'}`} role="alert">
-      {children}
-    </div>
-  )
-}
-
-const Button: React.FunctionComponent<{
-  colorScheme?: string
-  isLoading?: boolean
-  onClick?: () => void
-  isDisabled?: boolean
-  leftIcon?: React.ReactNode
-  w?: string
-  children: React.ReactNode
-  mr?: number
-  size?: string
-  mt?: number
-}> = ({ colorScheme, isLoading, onClick, isDisabled, leftIcon, children, w, mr, mt, size }) => {
-  return (
-    <button
-      disabled={isDisabled || isLoading}
-      className={`button button--${colorScheme} button--${size}`}
-      style={{
-        width: w,
-        marginRight: mr ? mr * 3 + 'px' : undefined,
-        marginTop: mt ? mt * 3 + 'px' : undefined,
-      }}
-      onClick={onClick}
-    >
-      <Flex flexDirection="row" justify="center" align="center">
-        {leftIcon && <Flex mr={3}>{leftIcon}</Flex>}
-        {isLoading && <Icon spin mr={3} as={CgSpinner} />}
-        {children}
-      </Flex>
-    </button>
-  )
-}
-
-const Flex: React.FunctionComponent<{
-  mt?: number
-  mr?: number
-  px?: number
-  py?: number
-  align?: string
-  width?: string
-  flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse'
-  justify?: string
-  children?: React.ReactNode
-}> = ({ align, children, px, mt, mr, py, width, flexDirection, justify }) => {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        marginTop: mt * 3 + 'px',
-        marginRight: mr * 3 + 'px',
-        paddingLeft: px * 3 + 'px',
-        paddingRight: px * 3 + 'px',
-        paddingTop: py * 3 + 'px',
-        paddingBottom: py * 3 + 'px',
-        flexDirection,
-        justifyContent: justify,
-        width,
-        alignItems: align,
-      }}
-    >
-      {children}
-    </div>
-  )
-}
-
-const AlertIcon: React.FunctionComponent = () => {
-  return <FaExclamationCircle />
 }
 
 const BIP32_HARDENED_BIT = (1 << 31) >>> 0

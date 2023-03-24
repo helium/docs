@@ -1,5 +1,6 @@
 const math = require('remark-math')
 const katex = require('rehype-katex')
+const webpack = require('webpack')
 
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
@@ -138,9 +139,16 @@ module.exports = {
         // eslint-disable-next-line
         configureWebpack(config, isServer, utils) {
           return {
+            plugins: [
+              new webpack.ProvidePlugin({
+                process: 'process/browser',
+              }),
+            ],
             resolve: {
               fallback: {
                 assert: false,
+                crypto: false,
+                stream: false,
               },
             },
           }

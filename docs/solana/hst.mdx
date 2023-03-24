@@ -1,0 +1,29 @@
+---
+id: hst
+title: Helium Security Tokens on Solana
+pagination_label: HST on Solana
+sidebar_label: HST on Solana
+description: Helium Security Tokens on Solana, how to stake, unstake, and receive HNT.
+image: https://docs.helium.com/img/link-image.png
+slug: /solana/hst
+---
+
+HST on Solana is implemented via a [Metaplex Hydra](https://github.com/metaplex-foundation/metaplex-program-library/tree/master/hydra) Fanout Wallet.
+
+This technology ensures that when HNT is emitted for an epoch, the HST share is subsequently distributed to HST holders. Further,
+a [clockwork](https://www.clockwork.xyz/) job runs at 12:30am UTC daily to ensure that epoch's HNT is distributed. 
+This is entirely programmatic, meaning at no point does Helium Foundation have custody of your HNT.
+
+The architecture of the hydra wallet has a few important considerations:
+
+   1. All HST tokens **MUST** be staked at the time of epoch completion in order to receive HNT for that epoch.
+   2. HNT can be manually claimed at any time, regardless of whether the clockwork job runs. Solana going down will not affect this, though it may affect when an epoch ends. If clockwork misses a day, when it runs the next day you will receive HNT for all epochs missed. 
+   3. HST tokens must be unstaked in order to move them around. Once unstaked, you can transfer freely. While staked, they will not appear in your wallet.
+
+Knowing these considerations, if you wish to move your HST tokens, it is important that you **restake them before the epoch ends at UTC midnight**
+
+You can stake and unstake your HST below. This will automatically setup a clockwork job for distributions with enogh sol to last 50 years. You can connect any Solana compatible wallet following the Wallet Standard, including the Helium Wallet App.
+
+import { HstManager } from "@theme/HstManager"
+
+<HstManager />
