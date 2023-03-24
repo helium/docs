@@ -6,7 +6,6 @@ sidebar_label: Stats
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /api/blockchain/stats
-hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
@@ -22,7 +21,62 @@ information on accessing data.
 
 :::
 
-## Blockchain Stats [DEPRECATED]
+---
+
+## Available on the Solana API
+
+### Token Supply
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/stats/token_supply
+```
+
+Returns the circulating token supply in either JSON or raw form.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param             | Type     | Note                                                      |
+| ----------------- | -------- | --------------------------------------------------------- |
+| format (optional) | _string_ | specify `raw` to get a raw number, otherwise returns json |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+RAW form of the result when called with `/v1/stats/token_supply?format=raw`
+
+```json
+49450470.73544278
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+## Endpoint Is Deprecated
+
+### Blockchain Stats
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated.
+
+:::
 
 ```
 GET https://api.helium.io/v1/stats
@@ -102,42 +156,6 @@ _No Parameters_
     "token_supply": 66042860.58752121
   }
 }
-```
-
-</TabItem>
-</Tabs>
-
----
-
-## Token Supply [DEPRECATED]
-
-```
-GET https://api.helium.io/v1/stats/token_supply
-```
-
-Returns the circulating token supply in either JSON or raw form.
-
-<Tabs
-  block={true}
-  defaultValue="request"
-  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
-<TabItem value="request">
-
-_Query Parameters_
-
-| param             | Type     | Note                                                      |
-| ----------------- | -------- | --------------------------------------------------------- |
-| format (optional) | _string_ | specify `raw` to get a raw number, otherwise returns json |
-
-</TabItem>
-<TabItem value="response">
-
-200: OK
-
-RAW form of the result when called with `/v1/stats/token_supply?format=raw`
-
-```json
-49450470.73544278
 ```
 
 </TabItem>
