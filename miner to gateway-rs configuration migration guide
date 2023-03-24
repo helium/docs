@@ -33,8 +33,16 @@ outputs on stdout as it has before, it is up to the maker to integrate with thei
 Capturing log output and writing to disk may be handled with a log manager such as journald or syslogd.
 * Logging outputs (goes to stdout not to a file anymore)
 
+**Firewall rules and ports**
+Maker using outbound firewall rules to restrict outbound connections from a hotspot, should allow the following outbound ports:
+config: 6080
+entropy: 7080
+router: 8080
+ingest: 9080
+
 **CLI**
-The CLI has changed for a few commands, notably the helium_gateway info command that some makers may use now takes a list of info entries to return. The helium_gateway info --help output documents what keys are available (edited)
+The CLI has changed for a few commands, notably the helium_gateway info command that some makers may use now takes a list of info entries to return. 
+The helium_gateway info --help output documents what keys are available (edited)
 
 **System Startup**
 Since gateway-rs no longer releases as an installable package it is up to the maker to integrate with their system startup setups, (like procd or tini, systemd depending on the operating system setup)
