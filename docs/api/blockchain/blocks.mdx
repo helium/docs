@@ -6,7 +6,6 @@ sidebar_label: Blocks
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /api/blockchain/blocks
-hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
@@ -22,7 +21,16 @@ information on accessing data.
 
 :::
 
-## Height [DEPRECATED]
+## Available on the Solana API
+
+### Height
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
 
 Gets the current height of the blockchainn.
 
@@ -63,7 +71,14 @@ _Query Parameters_
 
 ---
 
-## Block Stats [DEPRECATED]
+### Block Stats
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
 
 Get statistics on block production times.
 
@@ -114,7 +129,14 @@ No Parameters
 
 --
 
-## Block Descriptions [DEPRECATED]
+### Block Descriptions
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
 
 ```
 
@@ -275,50 +297,14 @@ _Query Parameters_
 
 ---
 
-## Block at Height [DEPRECATED]
+### Block at Height Transactions
 
-```
-GET https://api.helium.io/v1/blocks/:height
-```
+:::info Available on the Solana API
 
-Get block descriptor for block at height
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
 
-<Tabs
-  block={true}
-  defaultValue="request"
-  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
-<TabItem value="request">
-
-_Path Parameters_
-
-| param             | Type     | Note              |
-| ----------------- | -------- | ----------------- |
-| height (required) | _number_ | Blockchain Height |
-
-</TabItem>
-<TabItem value="response">
-
-200: OK
-
-```json
-{
-  "data": {
-    "transaction_count": 37,
-    "time": 1582192928,
-    "snapshot_hash": "",
-    "prev_hash": "Xj6vrBi_IcP0vqHHawf0FFWkG1qn18I9thQKOEhblXg",
-    "height": 213787,
-    "hash": "o5o8cBL1Zvp1KmA1d8vYJ38wXXWVxf1HW2e1uZxVJYg"
-  }
-}
-```
-
-</TabItem>
-</Tabs>
-
----
-
-## Block at Height Transactions [DEPRECATED]
+:::
 
 ```
 GET https://api.helium.io/v1/blocks/:height/transactions
@@ -353,7 +339,14 @@ _Query Parameters_
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
+[here](/api/blockchain/introduction/#transaction-units)
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
 
 :::
 
@@ -596,7 +589,14 @@ Remember that transaction units are in `bones`. Read more
 
 ---
 
-## Block at Hash [DEPRECATED]
+### Block at Hash
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
 
 ```
 GET https://api.helium.io/v1/blocks/hash/:hash
@@ -639,7 +639,14 @@ _Path Parameters_
 
 ---
 
-## Block at Hash Transactions [DEPRECATED]
+### Block at Hash Transactions
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
 
 ```
 GET https://api.helium.io/v1/blocks/hash/:hash/transactions
@@ -674,7 +681,14 @@ _Query Parameters_
 :::note Transaction Units
 
 Remember that transaction units are in `bones`. Read more
-[here](/api/blockchain/introduction/#transaction-units) [DEPRECATED]
+[here](/api/blockchain/introduction/#transaction-units)
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
 
 :::
 
@@ -914,3 +928,57 @@ Remember that transaction units are in `bones`. Read more
 
 </TabItem>
 </Tabs>
+
+---
+
+## Endpoint Is Deprecated
+
+### Block at Height
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated. The data provided by this endpoint is based on blocks rather than time
+and daily epochs.
+
+:::
+
+```
+GET https://api.helium.io/v1/blocks/:height
+```
+
+Get block descriptor for block at height
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param             | Type     | Note              |
+| ----------------- | -------- | ----------------- |
+| height (required) | _number_ | Blockchain Height |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": {
+    "transaction_count": 37,
+    "time": 1582192928,
+    "snapshot_hash": "",
+    "prev_hash": "Xj6vrBi_IcP0vqHHawf0FFWkG1qn18I9thQKOEhblXg",
+    "height": 213787,
+    "hash": "o5o8cBL1Zvp1KmA1d8vYJ38wXXWVxf1HW2e1uZxVJYg"
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
