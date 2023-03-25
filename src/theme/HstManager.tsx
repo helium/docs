@@ -143,7 +143,7 @@ export const HstManagerImpl = () => {
       // Create daily trigger thread
       const trigger = {
         cron: {
-          schedule: '30 00 * * * * *',
+          schedule: '0 0 30 * * * *',
           skippable: true,
         },
       }
