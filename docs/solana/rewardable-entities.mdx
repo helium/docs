@@ -84,13 +84,15 @@ We can get this address by running
 
 <!-- prettier-ignore -->
 ```js
+import { daoKey } from "@helium/helium-sub-daos-sdk";
 import { entityCreatorKey } from "@helium/helium-entity-manager-sdk";
 
 const hntMint = new PublicKey('...hnt mint...')
-const creator = entityCreatorKey(hntMint)[0]
+const dao = daoKey(hntMint)[[0]]
+const creator = entityCreatorKey(dao)[0]
 ```
 
-This should output: `9XtEZRnuWizL8vGoNwRX636guuSXTjQvsf3wAXmH4C1b`
+This should output: `Fv5hf1Fg58htfC7YEXKNEfkpuogUUQDDTLgjGWxxv48H`
 
 Now, we can use the metaplex digital asset api to get rewardable entities my wallet
 (`BcJzP2hEYgzjUwpHEtS6RhuqGfEJVx8Rq3MejujAAWrR`) owns:
@@ -106,7 +108,7 @@ curl --request POST \
       "params": {
         "ownerAddress": "BcJzP2hEYgzjUwpHEtS6RhuqGfEJVx8Rq3MejujAAWrR",
         "page": 0,
-        "creatorAddress": "9XtEZRnuWizL8vGoNwRX636guuSXTjQvsf3wAXmH4C1b",
+        "creatorAddress": "Fv5hf1Fg58htfC7YEXKNEfkpuogUUQDDTLgjGWxxv48H",
         "creatorVerified": true,
         "sortBy": {"sortBy": "created", "sortDirection": "asc"}
       }
