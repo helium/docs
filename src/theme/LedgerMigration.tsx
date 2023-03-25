@@ -302,12 +302,16 @@ export const LedgerMigration = () => {
   } = useAsyncCallback(async () => {
     const [needSign, dontNeedSign] = partitionBy(
       heliumSignResult!,
-      (tx) => tx.signatures.length > 1,
+      (tx) => tx.signatures.some(sig => sig.publicKey.equals(solanaPubkey)),
     )
     await solanaWallet.connect()
-    const signed = await solanaWallet!.signAllTransactions(needSign)
+    if (needSign.length > 0)  {
+      console.log(needSign)
+      const signed = await solanaWallet!.signAllTransactions(needSign)
+      return [...dontNeedSign, ...signed]
+    }
 
-    return [...dontNeedSign, ...signed]
+    return dontNeedSign
   })
 
   const {
@@ -317,8 +321,10 @@ export const LedgerMigration = () => {
     loading: loadingSendTransactions,
   } = useAsyncCallback(async () => {
     const txs = solanaSignResult!.map((tx) => Buffer.from(tx.serialize()))
-    const sent = await bulkSendRawTransactions(connection, txs)
-    if (sent.length != txs.length) {
+    const sent = await bulkSendRawTransactions(connection, txs.slice(0, -1))
+    // Send the closing out of sol tx last
+    const sent2 = await bulkSendRawTransactions(connection, txs.slice(-1))
+    if ((sent.length + sent2.length) != txs.length) {
       throw new Error("Failed to send all transactions, please try again")
     }
     return true
@@ -558,7 +564,7 @@ export const LedgerMigration = () => {
     <VStack>
       <Steps activeStep={activeStep}>
         {steps.map(({ label, component }, index) => (
-          <Step label={label} key={label}>
+          <Step label={label} key={index}>
             {component}
             {
               <Flex mt={4} width="100%" justify="flex-end">
