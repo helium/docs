@@ -4,14 +4,13 @@ import { AnchorProvider, BN } from '@coral-xyz/anchor'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { AccountProvider, useIdlAccount, useTokenAccount } from '@helium/helium-react-hooks'
 import {
-  fanoutConfigForMintKey,
-  fanoutConfigKey,
+  fanoutKey,
   init,
-  membershipMintVoucherKey,
-  membershipVoucherKey,
-  Hydra,
+} from '@helium/fanout-sdk'
+import {
+  Fanout,
   IDL,
-} from '@helium/hydra-sdk'
+} from "@helium/idls/lib/esm/fanout"
 import { HNT_MINT, toNumber } from '@helium/spl-utils'
 import {
   createAssociatedTokenAccountIdempotentInstruction,
@@ -34,22 +33,25 @@ import { Flex } from './components/Flex'
 // Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css')
 
+
+
 export const HstManagerImpl = () => {
   const { publicKey, wallet } = useWallet()
-  const fanoutConfig = useMemo(() => fanoutConfigKey('HST')[0], [])
+  const fanoutK = useMemo(() => fanoutKey('HST')[0], [])
+  const creatorAddress = 
   const voucher = useMemo(
-    () => publicKey && membershipVoucherKey(fanoutConfig, publicKey)[0],
-    [fanoutConfig, publicKey],
+    () => publicKey && membershipVoucherKey(fanoutK, publicKey)[0],
+    [fanoutK, publicKey],
   )
 
   const { connection } = useConnection()
-  const { result: hydraProgram } = useAsync(async () => {
+  const { result: fanoutProgram } = useAsync(async () => {
     if (wallet && connection && wallet.adapter) {
       return await init(new AnchorProvider(connection, wallet.adapter, { commitment: 'confirmed' }))
     }
   }, [wallet, connection])
 
-  const { info: fanout } = useIdlAccount<Hydra>(fanoutConfig, IDL as Hydra, 'fanout')
+  const { info: fanout } = useIdlAccount<Fanout>(fanoutK, IDL as Fanout, 'fanout')
   const hst = useMemo(() => fanout && fanout.membershipMint, [fanout])
 
   const stakeAccountKey = useMemo(
@@ -73,17 +75,17 @@ export const HstManagerImpl = () => {
     const threadId = `${name}-${publicKey.toBase58().slice(0, 8)}`
     const [thread] = threadKey(publicKey, threadId)
 
-    if (!(publicKey && fanoutConfig && hst && currAccountKey && stakeAccountKey)) {
+    if (!(publicKey && fanoutK && hst && currAccountKey && stakeAccountKey)) {
       throw new Error('Wallet not connected')
     }
 
     async function craftDistribute(payer: PublicKey) {
-      const [fanoutConfigForMint] = fanoutConfigForMintKey(fanoutConfig, HNT_MINT)
-      return await hydraProgram.methods.processDistributeToken(true).accounts({
+      const [fanoutConfigForMint] = fanoutConfigForMintKey(fanoutK, HNT_MINT)
+      return await fanoutProgram.methods.processDistributeToken(true).accounts({
         payer: payer,
         member: publicKey,
-        fanout: fanoutConfig,
-        holdingAccount: getAssociatedTokenAddressSync(HNT_MINT, fanoutConfig, true),
+        fanout: fanoutK,
+        holdingAccount: getAssociatedTokenAddressSync(HNT_MINT, fanoutK, true),
         fanoutForMint: fanoutConfigForMint,
         fanoutMint: HNT_MINT,
         fanoutMintMemberTokenAccount: getAssociatedTokenAddressSync(HNT_MINT, publicKey),
@@ -114,12 +116,12 @@ export const HstManagerImpl = () => {
       preInstructions.push(await (await craftDistribute(publicKey)).instruction())
 
       // Unstake
-      await hydraProgram.methods
+      await fanoutProgram.methods
         .processUnstake()
         .preInstructions(preInstructions)
         .accounts({
           member: publicKey,
-          fanout: fanoutConfig,
+          fanout: fanoutK,
           membershipMint: hst,
           membershipMintTokenAccount: currAccountKey,
           memberStakeAccount: stakeAccountKey,
@@ -162,13 +164,13 @@ export const HstManagerImpl = () => {
           ),
         )
       }
-      await hydraProgram.methods
+      await fanoutProgram.methods
         .processSetForTokenMemberStake(new BN(currAccount.amount.toString()))
         .preInstructions(preInstructions)
         .accounts({
           authority: publicKey,
           member: publicKey,
-          fanout: fanoutConfig,
+          fanout: fanoutK,
           membershipMint: hst,
           membershipMintTokenAccount: currAccountKey,
           memberStakeAccount: stakeAccountKey,
