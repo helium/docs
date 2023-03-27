@@ -130,7 +130,9 @@ module.exports = {
   ],
   customFields: {
     MIGRATION_SERVICE_URL: 'https://migration.web.helium.io',
-    SOLANA_URL: 'https://api.devnet.solana.com',
+    
+    // TODO: Use real rpc, and rpc proxy
+    SOLANA_URL: 'https://rpc-devnet.helius.xyz/?api-key=4eb6e438-25d1-4dcf-89dd-f54f2b42b846',
   },
   plugins: [
     function (context, options) {
