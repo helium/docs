@@ -112,7 +112,7 @@ find the correct protobuf definition.
 
 Once uncompressed, the file is a series of 4 byte prefix length encoded binary followed by the
 associated message. More concretely, you'll need to repeatedly read the first 4 bytes and decode
-that to a u32. Then use that u32 number as the number of subsequent bytes to read. Decode those
+that as a big endian u32. Then use that u32 number as the number of subsequent bytes to read. Decode those
 subsequent bytes using the associated proto definition. Repeat this process until you've read the
 entire file.
 
