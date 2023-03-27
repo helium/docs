@@ -76,25 +76,25 @@ format in gz compressed files. The table below provides the top level data categ
 file types comprised within each data category prefix, the filename pattern for each file type, and
 provides a link to the corresponding protobuf used to decode the data.
 
-| Category                        | File Type                       | Pattern                                | Protobuf                                                                                                                 |
-| :------------------------------ | :------------------------------ | :------------------------------------- | :----------------------------------------------------------------------------------------------------------------------- |
-| foundation-iot-entropy          | Entropy                         | entropy.\*                             | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/entropy.proto#L5)              |
-| foundation-iot-ingest           | IotBeaconIngestReport           | iot_beacon_ingest_report.\*            | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L83)    |
-| foundation-iot-ingest           | IotWitnessIngestReport          | iot_witness_ingest_report.\*           | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L90)    |
-| foundation-iot-packet-ingest    | PacketReport                    | packetreport.\*                        | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/packet_router.proto#L8) 
+| Category                        | File Type                       | Pattern                                | Protobuf                                                                                                                  |
+| :------------------------------ | :------------------------------ | :------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| foundation-iot-entropy          | Entropy                         | entropy.\*                             | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/entropy.proto#L5)               |
+| foundation-iot-ingest           | IotBeaconIngestReport           | iot_beacon_ingest_report.\*            | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L83)     |
+| foundation-iot-ingest           | IotWitnessIngestReport          | iot_witness_ingest_report.\*           | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L90)     |
+| foundation-iot-packet-ingest    | PacketReport                    | packetreport.\*                        | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/packet_router.proto#L8) |
 | foundation-iot-packet-verifier  | Coming soon                     |
-| foundation-iot-verified-rewards | IotPoc                          | iot_poc.\*                             | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L162)   |
-| foundation-iot-verified-rewards | IotInvalidBeaconReport          | iot_invalid_beacon.\*                  | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L125)   |
-| foundation-iot-verified-rewards | IotInvalidWitnessReport         | iot_invalid_witness.\*                 | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L133)   |
-| foundation-iot-verified-rewards | GatewayRewardShare              | gateway_reward_share.\*                | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L171)   |
-| foundation-iot-verified-rewards | RewardManifest                  | reward_manifest.\*                     | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/reward_manifest.proto#L5)      |
-| foundation-mobile-ingest        | CellHeartbeatIngestReport       | heartbeat_report.\*                    | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L50)  |
-| foundation-mobile-ingest        | CellSpeedtestIngestReport       | speedtest_report.\*                    | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L25)  |
-| foundation-mobile-ingest        | DataTransferSessionIngestReport | data_transfer_session_ingest_report.\* | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L177) |
-| foundation-mobile-verified      | ValidatedHeartbeat              | validated_heartbeat.\*                 | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L80)  |
-| foundation-mobile-verified      | SpeedtestAvg                    | speedtest_avg.\*                       | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L97)  |
-| foundation-mobile-verified      | RadioRewardShare                | radio_reward_share.\*                  | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L118) |
-| foundation-mobile-verified      | RewardManifest                  | reward_manifest.\*                     | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/reward_manifest.proto#L5)      |
+| foundation-iot-verified-rewards | IotPoc                          | iot_poc.\*                             | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L162)    |
+| foundation-iot-verified-rewards | IotInvalidBeaconReport          | iot_invalid_beacon.\*                  | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L125)    |
+| foundation-iot-verified-rewards | IotInvalidWitnessReport         | iot_invalid_witness.\*                 | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L133)    |
+| foundation-iot-verified-rewards | GatewayRewardShare              | gateway_reward_share.\*                | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L171)    |
+| foundation-iot-verified-rewards | RewardManifest                  | reward_manifest.\*                     | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/reward_manifest.proto#L5)       |
+| foundation-mobile-ingest        | CellHeartbeatIngestReport       | heartbeat_report.\*                    | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L50)   |
+| foundation-mobile-ingest        | CellSpeedtestIngestReport       | speedtest_report.\*                    | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L25)   |
+| foundation-mobile-ingest        | DataTransferSessionIngestReport | data_transfer_session_ingest_report.\* | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L177)  |
+| foundation-mobile-verified      | ValidatedHeartbeat              | validated_heartbeat.\*                 | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L80)   |
+| foundation-mobile-verified      | SpeedtestAvg                    | speedtest_avg.\*                       | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L97)   |
+| foundation-mobile-verified      | RadioRewardShare                | radio_reward_share.\*                  | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L118)  |
+| foundation-mobile-verified      | RewardManifest                  | reward_manifest.\*                     | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/reward_manifest.proto#L5)       |
 
 ### Arweave
 
@@ -106,8 +106,19 @@ patterns.
 ## Reading Bytestream Data
 
 In order to store the massive amount of data generated by the Oracles, the output is stored as
-zipped bytestreams. In order to 'unpack' this data, you'll need the associated protobuf from
-[github.com/helium/proto](https://github.com/helium/proto).
+zipped bytestreams. In order to 'unpack' this data, you'll first need the associated protobuf from
+[github.com/helium/proto](https://github.com/helium/proto). You also can use the mappings above to
+find the correct protobuf definition.
+
+Once uncompressed, the file is a series of 4 byte prefix length encoded binary followed by the
+associated message. More concretely, you'll need to repeatedly read the first 4 bytes and decode
+that to a u32. Then use that u32 number as the number of subsequent bytes to read. Decode those
+subsequent bytes using the associated proto definition. Repeat this process until you've read the
+entire file.
+
+Alternatively you can adapt
+[this sample oracle observer repo](https://github.com/dewi-alliance/oracle-observer-sample) for your
+use-case.
 
 <!--TODO: list the specific protos used for each file type  -->
 
