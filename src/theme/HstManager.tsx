@@ -32,7 +32,7 @@ require('@solana/wallet-adapter-react-ui/styles.css')
 
 export const HstManagerImpl = () => {
   const { publicKey, wallet } = useWallet()
-  const fanoutK = useMemo(() => fanoutKey('HST Test')[0], [])
+  const fanoutK = useMemo(() => fanoutKey('HST')[0], [])
   const collectionAddress = useMemo(() => membershipCollectionKey(fanoutK)[0], [fanoutK])
   const { connection } = useConnection()
   const { result: stakedPosition, error: fetchErr } = useAsync(async () => {
