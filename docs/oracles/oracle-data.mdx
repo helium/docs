@@ -141,38 +141,34 @@ message cell_heartbeat_req_v1 {
 
   bytes signature = 10;
 }
+```
 
-===================
+```js
 // oracle-data-reader-example.js file
 
 // assumes you've downloaded and unzipped the below file
-const fileBuffer = fs.readFileSync("./cell_heartbeat.1667919103443");
+const fileBuffer = fs.readFileSync('./cell_heartbeat.1667919103443')
 
-protobuf.load("mobile.proto", function (err, root) {
-  if (err) throw err;
+protobuf.load('mobile.proto', function (err, root) {
+  if (err) throw err
 
   // Obtain a message type
-  var CellHeartbeat = root.lookupType(
-    "helium.poc_mobile.cell_heartbeat_req_v1"
-  );
+  var CellHeartbeat = root.lookupType('helium.poc_mobile.cell_heartbeat_req_v1')
 
-  let offset = 0;
+  let offset = 0
   while (offset < fileBuffer.length) {
     // the first 4 bytes tell you how long the message is
-    const messageLength = fileBuffer.readInt32BE(offset);
-    const bufferMessage = fileBuffer.subarray(
-      offset + 4,
-      offset + messageLength + 4
-    );
+    const messageLength = fileBuffer.readInt32BE(offset)
+    const bufferMessage = fileBuffer.subarray(offset + 4, offset + messageLength + 4)
     try {
-      var decodedMessage = CellHeartbeat.decode(bufferMessage);
-      console.log(decodedMessage);
+      var decodedMessage = CellHeartbeat.decode(bufferMessage)
+      console.log(decodedMessage)
     } catch (e) {
-      console.log("error", e);
+      console.log('error', e)
     }
-    offset += messageLength + 4;
+    offset += messageLength + 4
   }
-});
+})
 ```
 
 ### Rust Example
@@ -202,8 +198,9 @@ tokio = { version = "1", default-features = false, features = [
     "time"
 ] }
 tokio-util = "0"
+```
 
-===================
+```rs
 # main.rs
 use anyhow::Result;
 use file_store::{heartbeat::CellHeartbeat, traits::MsgDecode, file_source};
