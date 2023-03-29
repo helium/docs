@@ -112,13 +112,122 @@ find the correct protobuf definition.
 
 Once uncompressed, the file is a series of 4 byte prefix length encoded binary followed by the
 associated message. More concretely, you'll need to repeatedly read the first 4 bytes and decode
-that as a big endian u32. Then use that u32 number as the number of subsequent bytes to read. Decode those
-subsequent bytes using the associated proto definition. Repeat this process until you've read the
-entire file.
+that as a big endian u32. Then use that u32 number as the number of subsequent bytes to read. Decode
+those subsequent bytes using the associated proto definition. Repeat this process until you've read
+the entire file.
 
-Alternatively you can adapt
-[this sample oracle observer repo](https://github.com/dewi-alliance/oracle-observer-sample/tree/main/oracle-ingestor-lambda)
-for your use-case.
+### Javascript Example
+
+```protobuf
+// mobile.proto
+// copied from https://github.com/helium/proto/blob/master/src/service/poc_mobile.proto#L31
+
+syntax = "proto3";
+
+package helium.poc_mobile;
+
+message cell_heartbeat_req_v1 {
+  // Public key of the hotspot
+  bytes pub_key = 1;
+  string hotspot_type = 2;
+  uint32 cell_id = 3;
+  // Timestamp of heartbeat in seconds from unix epoch
+  uint64 timestamp = 4;
+  double lat = 5;
+  double lon = 6;
+  bool operation_mode = 7;
+  string cbsd_category = 8;
+  string cbsd_id = 9;
+
+  bytes signature = 10;
+}
+```
+
+```js
+// oracle-data-reader-example.js
+
+// assumes you've downloaded and unzipped the below file
+const fileBuffer = fs.readFileSync('./cell_heartbeat.1667919103443')
+
+protobuf.load('mobile.proto', function (err, root) {
+  if (err) throw err
+
+  // Obtain a message type
+  var CellHeartbeat = root.lookupType('helium.poc_mobile.cell_heartbeat_req_v1')
+
+  let offset = 0
+  while (offset < fileBuffer.length) {
+    // the first 4 bytes tell you how long the message is
+    const messageLength = fileBuffer.readInt32BE(offset)
+    const bufferMessage = fileBuffer.subarray(offset + 4, offset + messageLength + 4)
+    try {
+      var decodedMessage = CellHeartbeat.decode(bufferMessage)
+      console.log(decodedMessage)
+    } catch (e) {
+      console.log('error', e)
+    }
+    offset += messageLength + 4
+  }
+})
+```
+
+### Rust Example
+
+This leverages existing Rust dependencies used by the oracles.
+
+```toml
+# Cargo.toml
+[package]
+name = "oracle-data-reader-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = {version = "1", features = ["backtrace"]}
+file-store = {git = "https://github.com/helium/oracles", branch = "main"}
+futures = "*"
+serde =  {version = "1", features=["derive"]}
+serde_json = "1"
+tokio = { version = "1", default-features = false, features = [
+    "fs",
+    "macros",
+    "signal",
+    "rt-multi-thread",
+    "rt",
+    "process",
+    "time"
+] }
+tokio-util = "0"
+```
+
+```rust
+# main.rs
+use anyhow::Result;
+use file_store::{heartbeat::CellHeartbeat, traits::MsgDecode, file_source};
+use futures::{ StreamExt};
+use serde_json::json;
+
+fn print_json<T: ?Sized + serde::Serialize>(value: &T) -> Result<()> {
+    println!("{}", serde_json::to_string_pretty(value)?);
+    Ok(())
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    // assumes you have cell_heartbeat.1667919103443.gz in folder
+    let mut file_stream = file_source::source(["cell_heartbeat.1667919103443.gz"]);
+
+    while let Some(result) = file_stream.next().await {
+        let msg = result?;
+        let heartbeat = CellHeartbeat::decode(msg)?;
+        print_json(&json!(heartbeat))?;
+    }
+    Ok(())
+}
+```
+
+A more fleshed out example can be found in
+[this sample oracle observer repo](https://github.com/dewi-alliance/oracle-observer-sample/tree/main/oracle-ingestor-lambda).
 
 ## Service Providers
 
