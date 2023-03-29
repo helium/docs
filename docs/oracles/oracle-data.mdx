@@ -118,8 +118,8 @@ the entire file.
 
 ### Javascript Example
 
-```
-// mobile.proto file
+```protobuf
+// mobile.proto
 // copied from https://github.com/helium/proto/blob/master/src/service/poc_mobile.proto#L31
 
 syntax = "proto3";
@@ -144,7 +144,7 @@ message cell_heartbeat_req_v1 {
 ```
 
 ```js
-// oracle-data-reader-example.js file
+// oracle-data-reader-example.js
 
 // assumes you've downloaded and unzipped the below file
 const fileBuffer = fs.readFileSync('./cell_heartbeat.1667919103443')
@@ -175,7 +175,7 @@ protobuf.load('mobile.proto', function (err, root) {
 
 This leverages existing Rust dependencies used by the oracles.
 
-```
+```toml
 # Cargo.toml
 [package]
 name = "oracle-data-reader-example"
@@ -200,7 +200,7 @@ tokio = { version = "1", default-features = false, features = [
 tokio-util = "0"
 ```
 
-```rs
+```rust
 # main.rs
 use anyhow::Result;
 use file_store::{heartbeat::CellHeartbeat, traits::MsgDecode, file_source};
