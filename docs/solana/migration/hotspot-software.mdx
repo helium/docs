@@ -11,7 +11,7 @@ slug: /solana/migration/maker-hotspot-software
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 As the miner image transitions to being a gateway-rs-only container, it will stop obeying settings
-from the `sys.config` file that most Hotspot makers use to notify the miner instance of Hotspot
+from the `sys.config` file that most Hotspot Makers use to notify the miner instance of Hotspot
 settings. To help Makers with this transition, a list of common configuration items that were
 previously configured via `sys.config` are provided along with alternates that will work for
 gateway-rs. These configuration items can be set when invoking the miner container or when running
@@ -33,7 +33,7 @@ settings keyword with the characters `GW_`.
 :::note Example
 
 To override the `keypair` item in `settings.toml` with the value `example://override`, supply the
-environment variable `GW_KEYPAIR=example:://override` to gateway-rs at startup.
+environment variable `GW_KEYPAIR=example://override` to gateway-rs at startup.
 
 :::
 
@@ -44,20 +44,27 @@ configurations are now only made in `settings.toml`.
 
 These are the configuration variables to migrate from miner to gateway-rs:
 
-| Erlang Source | Erlang Variable      | gateway-rs Environment                | Default Value           |
-| ------------- | -------------------- | ------------------------------------- | ----------------------- |
-| `sys.config`  | `miner:radio_device` | `GW_LISTEN`                           | `127.0.0.1:1680`        |
-| `sys.config`  | `miner:jsonrpc_port` | `GW_API`                              | `4467`                  |
-| `sys.config`  | `blockchain:key`     | [`GW_KEYPAIR`](#ecc608-configuration) | `ecc://i2c-1:96?slot=0` |
-| Environment   | `REGION_OVERRIDE`    | [`GW_REGION`](#radio-region)          | None                    |
+| Erlang Source | Erlang Variable      | gateway-rs Environment                    | Default Value       |
+| ------------- | -------------------- | ----------------------------------------- | ------------------- |
+| `sys.config`  | `miner:radio_device` | [`GW_LISTEN`](#packet-forwarder-bind-port)| `127.0.0.1:1680`    |
+| `sys.config`  | `miner:jsonrpc_port` | `GW_API`                                  | `4467`              |
+| `sys.config`  | `blockchain:key`     | [`GW_KEYPAIR`](#key-configuration)        | None                |
+| Environment   | `REGION_OVERRIDE`    | [`GW_REGION`](#radio-region)              | None                |
 
-### ECC608 Configuration
+### Key Configuration
 
-Most makers use standard board designs that place the ECC608 chip on I2C bus #1 at I2C address
-`0x60`/96. For these makers the default settings in gateway-rs will suffice. However, some makers
-have placed the chip on a different I2C bus and/or different I2C address. While these deviations
-would have previously been addressed with a `blockchain:key` override in sys.config, in the new
-gateway-rs scheme they must be supplied as environment variable(s).
+Like the miner, gateway-rs requires a cryptographic key to identify and authenticate itself on the Helium
+Network. Most Makers have likely relied on the default miner key settings, which instructed the miner to
+use the cryptographic identity locked in slot 0 of an ECC608 chip on I2C bus #1 at I2C address `0x60`/96.
+For these Makers this old default would have sufficed.
+
+Unlike the miner, however, gateway-rs does not have any default key setting. Therefore, as a Maker you
+must specifically provide gateway-rs with an appropriate setting for your platform.
+
+If your platform deviated from the miner defaults then you are likely familiar with the settings that
+had to be adjusted in the `blockchain:key` override in sys.config. But, for the sake of completeness,
+we'll illustrate all of the settings that could have been adjusted in that scheme and show how they
+are encoded in the scheme used by gateway-rs.
 
 For example, if the Erlang miner had been configured with:
 
@@ -87,6 +94,20 @@ The region variable is the default region used when the Hotspot does not have an
 Makers need to ensure that the region is set correctly for the region in which the Hotspot is sold
 to ensure correct beaconing behavior.
 
+Under the miner regime, the default radio region was adjusted via the `REGION` environment variable. In
+gateway-rs it is specified via the `GW_REGION` environment variable.
+
+For example, if the Erlang miner had been configured to use the US915 region by default:
+```
+REGION=US915
+```
+
+Then the equivalent gateway-rs configuration would be via the environment variable:
+
+```
+GW_REGION=US915
+```
+
 ### Packet Forwarder Bind Port
 
 The default address at which gateway-rs listens for UDP packets from the packet forwarder has not
@@ -109,7 +130,7 @@ GW_LISTEN=0.0.0.0:1699
 ## Logging
 
 Before the migration, miner handled writing logs to disk. Post migration, helium_gateway  
-outputs on stdout as it has before. It is up to the maker to integrate with their system's logging
+outputs on stdout as it has before. It is up to the Maker to integrate with their system's logging
 setup. Capturing log output and writing to disk may be handled with a log manager such as `journald`
 or `syslogd`.
 
@@ -129,7 +150,10 @@ system setup)
 
 Makers using outbound firewall rules to restrict outbound connections should allow the following
 outbound ports:  
-Config Service: TCP/6080  
-Entropy Oracle: TCP/7080  
-Packet Router: TCP/8080  
-Packet Ingest: TCP/9080
+
+| Purpose                       | Outbound Port Used |
+| ----------------------------- | ------------------ |
+| Configuration Service         | TCP/6080           |
+| Entropy Oracle                | TCP/7080           |
+| Packet Router                 | TCP/8080           |
+| Packet Ingest                 | TCP/9080           |
