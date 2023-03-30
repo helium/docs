@@ -18,7 +18,14 @@ module.exports = {
       link: {type: 'doc', id: 'solana/migration-overview'},
       items: [
         'solana/migration/hotspot-operator',
-        'solana/migration/maker',
+        {
+          type: 'category',
+          label: 'Hotspot Maker',
+          items: [
+            'solana/migration/maker',
+            'solana/migration/maker-hotspot-software',
+          ],
+        },
         'solana/migration/exchange',
         'solana/migration/network-user',
         'solana/migration/application-builder',
