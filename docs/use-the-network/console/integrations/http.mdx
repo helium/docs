@@ -22,34 +22,34 @@ in this case, the **HTTP** integration.
 The next step is to paste the HTTP endpoint.
 
 If you're still testing, you can find popular sites that can create HTTP endpoints for you and
-inspect packets. [Requestbin](https://www.requestbin.com) and [Beeceptor](https://www.beeceptor.com)
+inspect packets. [Requestbin](https://requestbin.com) and [Beeceptor](https://www.beeceptor.com)
 provide tools to make an HTTP endpoint quickly and easily.
 
 ### Uplink \(Receive Data from Device\)
 
-Uplink refers to your device sending data to be received by the network. With regards to the HTTP
-integration, this will be the device data that is sent to your HTTP endpoint of choice.
+Uplinking refers to your device sending data to be received by the network. For the HTTP
+integration, this will be the data from the device that is sent to your HTTP endpoint of choice.
 
 ### RequestBin Example
 
-Create an endpoint by going to requestbin.com and click **Create a Request Bin**. Once created, copy
+Create an endpoint by going to [requestbin.com](https://requestbin.com/) and click **Create a Request Bin**. Once created, copy
 the endpoint.
 
 <img
   src={useBaseUrl('img/use-the-network/console/integrations/integrations-http-request-bin.png')}
 />
 
-... and paste it in Console.
+... and paste it in Console's **Endpoint URL** field.
 
 <img src={useBaseUrl('img/use-the-network/console/integrations/integrations-http-details.png')} />
 
-**HTTP Header** and **Value** are not required and those can be left blank.
+**HTTP Header** and **Value** are not required, and can be left blank.
 
 Lastly, provide a name for the integration. Names do not have to be unique.
 
 Click **Add Integration**.
 
-Your new integration is now ready for use! Please read about the JSON schema to understand how to
+Your new integration is now ready for use! Please read about the [JSON Schema](/use-the-network/console/integrations/json-schema) to understand how to
 parse data received.
 
 ### Integration Details
@@ -121,16 +121,16 @@ shown below, see more details on the fields
 
 The easiest way to send a downlink to your device is to use the built-in downlink tool in Console.
 You will find it on the right side of every device page, as shown below. In order to use the
-downlink tool, you must have an HTTP integration attached to the device.
+downlink tool, you must have an HTTP Integration attached to the device.
 
 <img
   src={useBaseUrl('img/use-the-network/console/integrations/integrations-http-downlink-button.png')}
 />
 
-Once you have the downlink tool open, you can input the downlink payload string in the payload
+Once you have the downlink tool open, input the downlink payload string in the payload
 field. Select _Encoded_ if you are inputting a string that is already Base64 encoded, and _Plain_ if
-it is plain text. Last, select your Fport, whether or not you want to send a confirmed downlink, and
-click the downlink send button as shown below.
+it is plain text. Last, select your FPort, whether or not you want to send a confirmed downlink, and
+then click the downlink send button, as shown below.
 
 <img
   src={useBaseUrl(
@@ -158,7 +158,7 @@ downlink message to your device.
 4. Select `raw` as your body type.
 5. Select `JSON` as the body format.
 6. Enter your JSON message with the required fields.
-7. Finally press `Send` to transmit the message.
+7. Finally, press `Send` to transmit the message.
 8. You should see a response of `Downlink scheduled` if successful.
 
 <img
@@ -166,6 +166,42 @@ downlink message to your device.
     'img/use-the-network/console/integrations/integrations-http-downlink-postman-example.png',
   )}
 />
+
+### Python Example
+
+Python is a popular programming language. The following code generates a request to the Helium 
+Network to downlink data to a device.
+
+```python
+import requests
+import base64
+
+# copy the Device ID from the Device page in the Helium Console
+device_id = '...'
+
+# copy the Downlink URL from the Helium Console (HTTP Integration), replacing "{:optional_device_id}" with "+ device_id"
+url = f'https://console.helium.com/api/v1/down/a0a0a0a0-10a0-1018-a0a0-a0a0a0a0a0a0/asdfasdfasdf_asdfasdfasdfasdf/' + device_id
+
+payload_str = 'TEST'
+payload_b64 = base64.b64encode(payload_str.encode('utf-8')).decode('ascii')
+
+print(f"Payload (base64): {payload_b64}")
+
+data = {
+	"payload_raw": payload_b64,
+	"port": 1,
+	"confirmed": True,
+}
+
+r = requests.post(url, json=data)
+
+print(f"HTTP Response: {r}. Text: {r.text}")
+
+# data appears as hex on receiver-side (on many units)
+import binascii
+print(f"Received client-side hex: {binascii.hexlify(payload_str.encode('utf-8')).decode('ascii').upper()}")
+
+```
 
 ## Connecting Integrations to Devices
 
@@ -182,8 +218,7 @@ Quick video tutorial connecting devices to an integration
 :::
 
 Node elements (devices, labels, integrations) need to be created before they're available on the
-Flows Workspace. More information about Flows
-[here](https://docs.helium.com/use-the-network/console/flows/).
+[Flows Workspace](/use-the-network/console/flows).
 
 ## Advanced - JSON Message Template
 
@@ -194,13 +229,14 @@ templates.
 
 :::
 
-Users can customize the JSON Message structure sent to Integrations. Includes the ability to write
-custom JSON Messages and use supplied predefined JSON templates for Cayenne, and Browan.
+Users can customize the JSON Message structure sent to Integrations (i.e., to the HTTP endpoint, 
+from the Helium Console). This feature includes the ability to write
+custom JSON Messages, decoder functions, and use supplied predefined JSON templates for Cayenne and Browan.
 
 ### Decoding base64 payloads
 
-Users can send decoded base64 payloads (to hex or bytes) from device to desired integration without
-creating a decoder function for brevity.
+Users can send decoded base64 payloads (to hex or bytes) from device to desired integration, without
+creating a [decoder function](/use-the-network/console/functions) for brevity.
 
 To decode the base64 payload simply use `base64_to_hex()` or `base64_to_bytes()` in your integration
 JSON like the following (other keys are optional):
