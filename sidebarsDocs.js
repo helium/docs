@@ -3,11 +3,8 @@ module.exports = {
     {
       type: 'category',
       label: 'Home',
-      link: {type: 'doc', id: 'home/home'},
-      items: [
-        'home/about-helium',
-        'home/helium-history',
-      ]
+      link: { type: 'doc', id: 'home/home' },
+      items: ['home/about-helium', 'home/helium-history'],
     },
   ],
 
@@ -15,7 +12,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Solana Migration Guides',
-      link: {type: 'doc', id: 'solana/migration-overview'},
+      link: { type: 'doc', id: 'solana/migration-overview' },
       items: [
         'solana/migration/hotspot-operator',
         {
@@ -28,6 +25,7 @@ module.exports = {
         },
         'solana/migration/exchange',
         'solana/migration/network-user',
+        'solana/migration/console-operator',
         'solana/migration/application-builder',
         'solana/migration/governance',
         'solana/migration/blockchain-node',
@@ -43,18 +41,14 @@ module.exports = {
     {
       type: 'category',
       label: 'Solana',
-      link: {type: 'doc', id: 'solana/solana'},
-      items: [
-        'solana/primer',
-        'solana/rewardable-entities',
-        'solana/compression-nfts',
-      ],
+      link: { type: 'doc', id: 'solana/solana' },
+      items: ['solana/primer', 'solana/rewardable-entities', 'solana/compression-nfts'],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'Oracles',
-      link: {type: 'doc', id: 'oracles/oracles'},
+      link: { type: 'doc', id: 'oracles/oracles' },
       items: [
         'oracles/price-oracles',
         'oracles/rewards-oracles',
@@ -71,11 +65,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Helium Tokens',
-      items: [
-        'helium-tokens/hnt-token',
-        'helium-tokens/iot-token',
-        'helium-tokens/mobile-token'
-      ],
+      items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
       collapsed: true,
     },
     {
@@ -93,21 +83,16 @@ module.exports = {
     {
       type: 'category',
       label: 'Accounts',
-      items: [
-        'wallets/twelve-words',
-        'wallets/twenty-four-words',
-      ]
-    }
+      items: ['wallets/twelve-words', 'wallets/twenty-four-words'],
+    },
   ],
 
   iotnetwork: [
     {
       type: 'category',
       label: 'LoRaWAN on Helium',
-      link: {type: 'doc', id: 'lorawan-on-helium/lorawan-on-helium'},
+      link: { type: 'doc', id: 'lorawan-on-helium/lorawan-on-helium' },
       items: [
-        'lorawan-on-helium/lorawan-roaming-on-helium',
-        'lorawan-on-helium/open-lns',
         'lorawan-on-helium/frequency-plans/frequency-plans',
         'lorawan-on-helium/frequency-plans/region-plans',
       ],
@@ -126,6 +111,17 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'OpenLNS',
+      link: { type: 'doc', id: 'lorawan-on-helium/open-lns' },
+      items: ['lorawan-on-helium/open-lns-configuration'],
+    },
+    {
+      type: 'category',
+      label: 'Roaming',
+      items: ['use-the-network/roaming', 'lorawan-on-helium/lorawan-roaming-on-helium'],
+    },
+    {
+      type: 'category',
       label: 'Use The IoT Network',
       items: [
         'use-the-network/use-the-network',
@@ -139,9 +135,8 @@ module.exports = {
             'use-the-network/devices/development/quickstart-guides',
           ],
         },
-        'use-the-network/console/console',
-        'use-the-network/roaming',
         'use-the-network/run-a-network-server/run-a-network-server',
+        // 'use-the-network/console/console',
         // 'use-the-network/console-marketplace',
         // 'use-the-network/community-projects',
       ],
@@ -149,14 +144,14 @@ module.exports = {
     {
       type: 'category',
       label: 'Coverage Mapping',
-      link: {type: 'doc', id: 'use-the-network/coverage-mapping/coverage-mapping'},
+      link: { type: 'doc', id: 'use-the-network/coverage-mapping/coverage-mapping' },
       items: [
         'use-the-network/coverage-mapping/mappers-api',
         'use-the-network/coverage-mapping/mappers-roadmap',
         // 'use-the-network/coverage-mapping/mappers-quickstart',
         // 'use-the-network/coverage-mapping/adeunis-mapper',
-      ]
-    }
+      ],
+    },
   ],
 
   mobilenetwork: [
@@ -179,41 +174,41 @@ module.exports = {
       type: 'category',
       label: 'Community Governance',
       items: [
-        'community-governance/community-governance', 
+        'community-governance/community-governance',
         'community-governance/community-voting',
         'mine-hnt/validators/validators-and-voting-power',
-      ]
+      ],
     },
     {
-    type: 'category',
-    label: 'Manufacturer Conformance Committee ',
-    items: [
-      {
-        type: 'category',
-        label: 'IOT Hotspot Makers',
-        items: [
-          'hotspot-makers/light-hotspots',
-          'mine-hnt/full-hotspots/full-hotspots',
-          'mine-hnt/data-only-hotspots',
-          // 'hotspot-makers/original-helium-hotspot',
-        ],
-      },
-      {
-        type: 'category',
-        label: '5G Hotspot Makers',
-        items: [
-          'hotspot-makers/5g-hotspot-requirements',
-          'hotspot-makers/5g-hardware-specification',
-        ],
-      },
-      'hotspot-makers/hotspot-manufacturers',
-      'hotspot-makers/maker-ethics',
-      'hotspot-makers/compliance-committee',
-      'hotspot-makers/maker-apps',
-      'hotspot-makers/hotspot-audit-process',
-    ],
-    collapsed: true,
-  },
+      type: 'category',
+      label: 'Manufacturer Conformance Committee ',
+      items: [
+        {
+          type: 'category',
+          label: 'IOT Hotspot Makers',
+          items: [
+            'hotspot-makers/light-hotspots',
+            'mine-hnt/full-hotspots/full-hotspots',
+            'mine-hnt/data-only-hotspots',
+            // 'hotspot-makers/original-helium-hotspot',
+          ],
+        },
+        {
+          type: 'category',
+          label: '5G Hotspot Makers',
+          items: [
+            'hotspot-makers/5g-hotspot-requirements',
+            'hotspot-makers/5g-hardware-specification',
+          ],
+        },
+        'hotspot-makers/hotspot-manufacturers',
+        'hotspot-makers/maker-ethics',
+        'hotspot-makers/compliance-committee',
+        'hotspot-makers/maker-apps',
+        'hotspot-makers/hotspot-audit-process',
+      ],
+      collapsed: true,
+    },
   ],
 
   docs: [
