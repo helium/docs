@@ -12,111 +12,56 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <img className="docsheader" src={useBaseUrl('img/blockchain/heliumtoken.png')} />
 
-The Helium Token is the native cryptocurrency and protocol token of the Helium blockchain. Its
-symbol is `HNT`. Prior to the launch of the Helium blockchain, there was no premine of `HNT`. The
-first `HNT` was produced on July 29th, 2019
-[as part of the block 93](https://explorer.helium.com/txns/sEP-cbb2tvSrfbBleT21yGDNM8FIjNr3UT3k3BeZELw).
+The Helium Token is the native cryptocurrency and protocol token of the Helium Network. Its symbol
+is HNT. Prior to the launch of the Helium Network, there was no premine of HNT. The first HNT was
+produced on July 29th, 2019 on
+[block 93](https://explorer.helium.com/txns/sEP-cbb2tvSrfbBleT21yGDNM8FIjNr3UT3k3BeZELw).
 
 :::info For statistics on HNT,
-[see the Market section on the Helium Explorer](https://explorer.helium.com/market).
+[See the Market section on the Helium Explorer](https://explorer.helium.com/market).
 
 :::
 
 ## Helium Token Usage
 
-The Helium Token is designed to serve the needs of the two primary parties in the Helium blockchain
-ecosystem:
+The Helium Token is designed to serve the needs of the two primary parties in the Helium ecosystem:
 
-1. **Hotspot Hosts and Network Operators**. Hosts [mine HNT](/blockchain/mining) while deploying and
-   maintaining network coverage.
+1. **Hotspot Hosts and Network Operators**. Hosts mine network tokens like [IOT](/helium-tokens/iot)
+   and [MOBILE](/helium-tokens/mobile) while deploying and maintaining network coverage. These
+   network tokens are redeemable for HNT.
 2. **Enterprises and developers using the Helium Network** to connect devices and build IoT
    applications. Data Credits, which are a $USD-pegged utility token derived from HNT in a burn
    transaction, [are used to pay transaction fees](/blockchain/transaction-fees) for wireless data
-   transmissions on the network (in addition to things like adding Hotspots and sending).
+   transmissions on the network.
 
 ## HNT Token Economic Concepts
 
-The Helium blockchain uses three distinct token economic concepts to ensure HNT supply is both
+The Helium Network uses three distinct token economic concepts to ensure HNT supply is both
 plentiful for network needs but also relatively scarce, with a known maximum. Let's take a look at
 them in some detail.
 
 ### Max Supply
 
 At launch [genesis block](https://explorer.helium.com/blocks/1), the Helium Network targeted
-`5,000,000` HNT per month. And since the
-[community approval of HIP 20](https://github.com/helium/HIP/issues/73), the Helium blockchain uses
-a two year halving schedule, with a maximum supply of `223,000,000` HNT.
+5,000,000 HNT per month. Since the community approval of
+[HIP-20](https://github.com/helium/HIP/issues/73), the Helium Network uses a two year halving
+schedule, resulting in a maximum HNT supply of 223,000,000 HNT.
 
 HNT halving happens every two years from the genesis block, on the following schedule.
 
-:::info
-
 In the below issuance schedule, year 1 starts on **August 1, 2019**. The first halving happened on
-approximately day one of the beginning of year three, **August 1, 2021**. The network is now
-producing `2,500,000` HNT until the next scheduled halving.
+approximately day one of the beginning of year three, **August 1, 2021**.
 
-:::
+| Year    | HNT at start of year | Target HNT Emission |
+| :------ | :------------------- | :------------------ |
+| 1       | 0                    | 60,000,000          |
+| 2       | 60,000,000           | 60,000,000          |
+| 3       | 120,000,000          | 30,000,000          |
+| 4**\*** | 150,000,000          | 30,000,000          |
 
-| Year | HNT at start of year | Total HNT Minted |
-| :--- | :------------------- | :--------------- |
-| 1    | 0                    | 60,000,000.0     |
-| 2    | 60,000,000           | 60,000,000.0     |
-| 3    | 120,000,000          | 30,000,000.0     |
-| 4    | 150,000,000          | 30,000,000.0     |
-| 5    | 180,000,000          | 15,000,000.0     |
-| 6    | 195,000,000          | 15,000,000.0     |
-| 7    | 210,000,000          | 7,500,000.0      |
-| 8    | 217,500,000          | 7,500,000.0      |
-| 9    | 225,000,000          | 3,750,000.0      |
-| 10   | 228,750,000          | 3,750,000.0      |
-| 11   | 232,500,000          | 1,875,000.0      |
-| 12   | 234,375,000          | 1,875,000.0      |
-| 13   | 236,250,000          | 937,500.0        |
-| 14   | 237,187,500          | 937,500.0        |
-| 15   | 238,125,000          | 468,750.0        |
-| 16   | 238,593,750          | 468,750.0        |
-| 17   | 239,062,500          | 234,375.0        |
-| 18   | 239,296,875          | 234,375.0        |
-| 19   | 239,531,250          | 117,187.5        |
-| 20   | 239,648,438          | 117,187.5        |
-| 21   | 239,765,625          | 58,593.8         |
-| 22   | 239,824,219          | 58,593.8         |
-| 23   | 239,882,813          | 29,296.9         |
-| 24   | 239,912,109          | 29,296.9         |
-| 25   | 239,941,406          | 14,648.4         |
-| 26   | 239,956,055          | 14,648.4         |
-| 27   | 239,970,703          | 7,324.2          |
-| 28   | 239,978,027          | 7,324.2          |
-| 29   | 239,985,352          | 3,662.1          |
-| 30   | 239,989,014          | 3,662.1          |
-| 31   | 239,992,676          | 1,831.1          |
-| 32   | 239,994,507          | 1,831.1          |
-| 33   | 239,996,338          | 915.5            |
-| 34   | 239,997,253          | 915.5            |
-| 35   | 239,998,169          | 457.8            |
-| 36   | 239,998,627          | 457.8            |
-| 37   | 239,999,084          | 228.9            |
-| 38   | 239,999,313          | 228.9            |
-| 39   | 239,999,542          | 114.4            |
-| 40   | 239,999,657          | 114.4            |
-| 41   | 239,999,771          | 57.2             |
-| 42   | 239,999,828          | 57.2             |
-| 43   | 239,999,886          | 28.6             |
-| 44   | 239,999,914          | 28.6             |
-| 45   | 239,999,943          | 14.3             |
-| 46   | 239,999,957          | 14.3             |
-| 47   | 239,999,971          | 7.2              |
-| 48   | 239,999,979          | 7.2              |
-| 49   | 239,999,986          | 3.6              |
-| 50   | 239,999,989          | 3.6              |
-
-:::important
-
-While the above schedule states approximately `240,000,000` HNT will be produced, year one of the
-blockchain only produced around `43,000,000` of the target `60,000,000` due to some slow block
-times. So the actual maximum supply is `223,000,000` HNT.
-
-:::
+**\*** Helium migrated to the Solana blockchain in year 4 of the network. Full token emissions can
+be viewed in the HNT section of this document:  
+[Token Emissions as of Solana Migration](https://github.com/helium/HIP/blob/main/HIP-solana-parameters/token-emissions-as-of-solana-migration.pdf)
 
 ### Data Credits and Burn-and-Mint Economics
 
@@ -126,14 +71,14 @@ Network. One Data Credit will always cost `$0.00001`. Or, `$1.00` will always bu
 Credits. But, as noted above, Data Credits are produced by burning HNT. And the market price of HNT
 will of course fluctuate.
 
-This HNT to DC relationship is based on a design commonly called a
+This HNT to DC relationship-is based on a design commonly called a
 [burn and mint equilibrium](https://multicoin.capital/2018/02/13/new-models-utility-tokens/) and is
 intended to allow for the supply of HNT to respond to network usage trends such that, when
 equilibrium is found, the amount of HNT that exists remains static month on month. (Helium borrowed
 heavily from Factom’s usage of this design though other blockchains have also used it.) The amount
 of Data Credits produced by burning HNT will move up and down based on the USD price of HNT as
-reported by the [HNT Oracles](/blockchain/oracles). Let's look at a few examples of how this works
-on-chain.
+reported by the [HNT Price Oracles](/blockchain/oracles). Let's look at a few examples of how this
+works on-chain.
 
 **Example 1**
 
@@ -149,38 +94,32 @@ Helium-connected mouse traps. (Yes, these actually exist, and they are glorious.
 
 - Again, the price of DC is `$.00001`
 - The current HNT Oracle price is `$1`
-- Burning `.5` HNT would produce the needed `50,000` DCs
+- Burning `0.5` HNT would produce the needed `50,000` DCs
 
 :::important
 
 Once burned, DCs are owned by the Helium wallet specified in the burn transaction. They are
-non-transferrable and can only be used by the wallet owner.
+non-transferrable.
 
 :::
 
 ### Net Emissions
 
-:::info
-
-Though Net Emissions was introduced as part of HIP 20, it has not yet been activated on chain.
-
-:::
-
 At this point, the astute reader might be asking themselves the following question:
 
-> If HNT supply is capped at 223,000,000 AND the Network is constantly burning HNT to mint Data
+> If HNT supply is capped at 223,000,000 AND the network is constantly burning HNT to mint Data
 > Credits to enable transactions, won't we run out of HNT?
 
 **Yes.** This is where the idea of Net Emissions comes in. Along with Max Supply,
-[HIP 20](https://github.com/helium/HIP/issues/73) also introduced the idea of Net Emissions. Net
+[HIP-20](https://github.com/helium/HIP/issues/73) also introduced the idea of Net Emissions. Net
 Emissions give the protocol enough HNT to reward consensus group members and Hotspots in perpetuity.
 
 The
 [complete Net Emissions discussion in the HIP](https://github.com/helium/HIP/blob/master/0020-hnt-max-supply.md#net-emissions)
 is the best resource on this, but we'll provide a quick summary here:
 
-- Using Net Emissions, the blockchain would monitor how many HNT were burnt for Data Credits in a
-  given epoch and add them to the number of HNT to be minted that epoch. For example, if 10 HNT were
+- Using Net Emissions, the network would monitor how many HNT were burnt for Data Credits in a given
+  epoch and add them to the number of HNT to be minted that epoch. For example, if 10 HNT were
   burned for Data Credits in an epoch, the system would mint 10 more HNT than were expected in that
   given epoch.
 - Because HNT produced via Net Emissions do not add to the total outstanding, they do not violate
