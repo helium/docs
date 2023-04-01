@@ -1,9 +1,9 @@
 ---
 id: mobile-token
-title: Helium MOBILE Network Token
+title: Helium Mobile Network Token
 pagination_label: MOBILE Token
 sidebar_label: MOBILE Token
-description: Helium MOBILE Network Token Documentation
+description: Helium Mobile Network Token Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /helium-tokens/mobile
 ---
@@ -12,12 +12,64 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <img className="docsheader" src={useBaseUrl('/img/blockchain/mobile_header.png')} />
 
+MOBILE is the protocol token of the [Helium Mobile Network](/5g-on-helium). MOBILE was introduced to
+the Helium Network through the community proposal
+[HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md) and is further defined in
+subsequent HIPs<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>,</sup>[^3]<sup>,</sup>[^4]<sup>)</sup>.
+
+[^1]:
+    [HIP-70: Scaling the Helium Network](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md)
+
+[^2]:
+    [HIP-76: Linear Lockup Curve](https://github.com/helium/HIP/blob/main/0076-linear-lockup-curve.md)
+
+[^3]: [HIP-77: Solana Parameters](https://github.com/helium/HIP/blob/main/0077-solana-parameters.md)
+[^4]:
+    [HIP-80: Simplifying DAO Utility Score](https://github.com/helium/HIP/blob/main/0080-simplifying-dao-utility-score.md)
+
+The MOBILE token is mined by 5G Hotspots through both data transfer proceeds as well as Proof of
+Coverage.
+
 The mint address for MOBILE is
 [`mb1eu7TzEc71KxDpsmsKoucSSuuoGLv1drys1oP2jh6`](https://explorer.solana.com/address/mb1eu7TzEc71KxDpsmsKoucSSuuoGLv1drys1oP2jh6)
+on the Solana blockchain.
 
-:::warning 🚧 This document is a work in progress. 🚧
+## Redemption for HNT
 
-The documentation on subDAO Tokens and the upcoming Migration is under development and subject to
-change.
+Protocol tokens like MOBILE will always be backed by HNT and will convert to HNT. To enable this,
+each network within the Helium Network is allocated a pool of HNT based on the Network Utility
+Score. The redemption ratio is set algorithmically by the treasury swap contacts based on this
+Network Utility Score.
 
-:::
+The [Helium Wallet App](/wallets/helium-wallet-app) serves as the primary platform for exchanging
+MOBILE to HNT. This transaction can also be performed directly through the Solana blockchain using
+the open source tooling found in the Helium GitHub repositories.
+
+## Token Allocation
+
+MOBILE follows a similar minting schedule to HNT, however at a max supply of 250,000,000,000 (250B).
+50B MOBILE were pre-mined at the launch of the network and distributed to the network operations
+fund administered by the Helium Foundation. A fraction of this allocation was distributed over the
+course of the genesis period to live Mobile Network Hotspots.
+
+The issuance is scheduled to have halvings every 2 years, aligning with HNT issuance halvings.
+
+The emission schedule is as follows:
+
+| Year | MOBILE at Year Start | MOBILE Minted | Proof of Coverage \* | Hotspot Data \* | Mappers | Service Providers | Oracles \*\* | veHNT Stakers |
+| ---- | -------------------- | ------------- | -------------------- | --------------- | ------- | ----------------- | ------------ | ------------- |
+| 1    | 50B                  | 116B \*\*\*   | 20%                  | 40%             | 10%     | 20%               | 4%           | 6%            |
+| 2    | 116B                 | 33B           | 20%                  | 40%             | 10%     | 20%               | 4%           | 6%            |
+| 3    | 149.5B               | 33B           | 20%                  | 40%             | 10%     | 20%               | 4%           | 6%            |
+| 4    | 182B                 | 16.5B         | 20%                  | 40%             | 10%     | 20%               | 4%           | 6%            |
+| 5    | 198.5B               | 16.5B         | 20%                  | 40%             | 10%     | 20%               | 4%           | 6%            |
+| 6    | 215B                 | 8.25B         | 20%                  | 40%             | 10%     | 20%               | 4%           | 6%            |
+| 7    | 223.25B              | 8.25B         | 20%                  | 40%             | 10%     | 20%               | 4%           | 6%            |
+
+> Full token emissions can be viewed in the MOBILE section of this document:
+> [Token Emissions as of Solana Migration](https://github.com/helium/HIP/blob/main/HIP-solana-parameters/token-emissions-as-of-solana-migration.pdf)
+
+**\*** Any MOBILE not rewarded for data transfer is rolled into Proof of Coverage.  
+**\*\*** Oracles are not rewarded until additional oracle operators deploy services. This pool is
+rolled over to Proof of Coverage.  
+**\*\*\*** 50B pre-mine, 66B emitted in year one.
