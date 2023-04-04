@@ -101,7 +101,7 @@ remain the same.
 :::caution The Helium CLI Wallet Will Be Depreciated
 
 The CLI Wallet will be completely deprecated except for exporting private seed phrases and
-displaying public Solana addresses. Accordingly, common payment and staking transactions should 
+displaying public Solana addresses. Accordingly, common payment and staking transactions should
 utilize the Solana CLI Wallet or the Helium Wallet app.
 
 Check out the [Solana Documentation](https://docs.solana.com/wallet-guide/cli) for more information
@@ -112,105 +112,107 @@ on Solana Command Line Wallets.
 In order to migrate a Helium CLI Wallet to Solana, you will need to perform the follwing steps:
 
 1. Inflate/seed your Solana-mapped Helium Wallet on Solana
-2. Export your private key from the Helium CLI Wallet 
-3. Import your private key to any of the Solana CLI Wallet, Helium Wallet App, or 
-[Phantom Wallet](https://phantom.app/).
+2. Export your private key from the Helium CLI Wallet
+3. Import your private key to any of the Solana CLI Wallet, Helium Wallet App, or
+   [Phantom Wallet](https://phantom.app/).
 
 ### Inflate/seed Solana-mapped Helium Wallet on Solana
 
-To provide high-level context, during the migration window a chain variable will be issued to cause 
+To provide high-level context, during the migration window a chain variable will be issued to cause
 the Helium L1 to cease block production after which time a snapshot of Helium Network state will be
-taken and loaded onto Solana Mainnet via a data structure (e.g., Merkle Tree). As such, all account 
-state on the Helium L1 - including that of your CLI wallet - will be available on Solana Mainnet 
-after the migration window. 
+taken and loaded onto Solana Mainnet via a data structure (e.g., Merkle Tree). As such, all account
+state on the Helium L1 - including that of your CLI wallet - will be available on Solana Mainnet
+after the migration window.
 
 Given the usage of the Merkle Tree, however, you will need to "inflate" or "seed" your Solana-mapped
-Helium Wallet on Solana. To do so, there is a **passive means** provided by the Helium Wallet App, 
-or an **active means** using the [Migration Widget](/solana/migration/exchange/#mapping-helium-wallets-to-solana-wallets) 
-provided in the documentation.
+Helium Wallet on Solana. To do so, there is a **passive means** provided by the Helium Wallet App,
+or an **active means** using the
+[Migration Widget](/solana/migration/exchange/#mapping-helium-wallets-to-solana-wallets) provided in
+the documentation.
 
-Regarding the **passive means**, you can simply export your Helium private key from the Helium CLI 
+Regarding the **passive means**, you can simply export your Helium private key from the Helium CLI
 Wallet and import the Helium private key into the Helium Wallet App in the manner described in steps
-2 and 3 below. Once the migration window is complete and Helium Network state has been loaded onto 
-Solana, you will be able to open the Helium Wallet App and behind the scenes your wallet will be 
-inflated on Solana. After that point, you can use the Helium Wallet App to to send HNT or MOBILE 
+2 and 3 below. Once the migration window is complete and Helium Network state has been loaded onto
+Solana, you will be able to open the Helium Wallet App and behind the scenes your wallet will be
+inflated on Solana. After that point, you can use the Helium Wallet App to to send HNT or MOBILE
 transactions on Solana Mainnet.
 
-Regarding the **active means**, you can use the [Migration Widget](/solana/migration/exchange/#mapping-helium-wallets-to-solana-wallets).
-With the Migration Widget, you need to provide your Helium or Solana-mapped Helium public key into
-the Widget, then click the `Seed Wallet` button. After doing so, your Solana-mapped Helium Wallet on
-Solana will be inflated. 
+Regarding the **active means**, you can use the
+[Migration Widget](/solana/migration/exchange/#mapping-helium-wallets-to-solana-wallets). With the
+Migration Widget, you need to provide your Helium or Solana-mapped Helium public key into the
+Widget, then click the `Seed Wallet` button. After doing so, your Solana-mapped Helium Wallet on
+Solana will be inflated.
 
-_Please note that the Widget as currently provided operates on the Solana Devnet environment but will
-be changed to Solana Mainnet during the migration window._ 
+_Please note that the Widget as currently provided operates on the Solana Devnet environment but
+will be changed to Solana Mainnet during the migration window._
 
 ### Export private key from the Helium CLI Wallet
 
-Starting in Helium CLI Wallet [v1.7.11](https://github.com/helium/helium-wallet-rs/releases/tag/v1.7.11),
-updates were made to the `export` command to facilitate exporting private keys in (1) password 
-encrypted QR code format for import into the Helium Wallet App, (2) raw format for import into a 
-Solana CLI Wallet, and (3) raw format for import into a Phantom wallet. For each situation, example
-Helium CLI Wallet commands are provided below:
+Starting in Helium CLI Wallet
+[v1.7.11](https://github.com/helium/helium-wallet-rs/releases/tag/v1.7.11), updates were made to the
+`export` command to facilitate exporting private keys in (1) password encrypted QR code format for
+import into the Helium Wallet App, (2) raw format for import into a Solana CLI Wallet, and (3) raw
+format for import into a Phantom wallet. For each situation, example Helium CLI Wallet commands are
+provided below:
 
 1. Export raw private key as password encrypted QR code for import into Helium Wallet App
 
-  ```
-  helium-wallet export --output qr
-  ```
+```sh
+helium-wallet export --output qr
+```
 
-  After executing the command, you will first be asked to provide the password for your wallet, then
-  will be asked to provide, and confirm, a password to encrypt the QR code of your private key. Once 
-  complete, the command will produce a QR code that can be scanned into the Helium Wallet App, as 
-  described in further detail in step 3 below.
+After executing the command, you will first be asked to provide the password for your wallet, then
+will be asked to provide, and confirm, a password to encrypt the QR code of your private key. Once
+complete, the command will produce a QR code that can be scanned into the Helium Wallet App, as
+described in further detail in step 3 below.
 
 2. Export raw, Solana-compatible private key for import into Solana CLI wallet
 
-  ```
-  helium-wallet -f helium_wallet.key export --output seed > solana_wallet.json
-  ```
+```sh
+helium-wallet -f helium_wallet.key export --output seed > solana_wallet.json
+```
 
-  Here, `helium_wallet.key` corresponds to your private key used for your CLI wallet. By default, 
-  this is usually named `wallet.key`. The result of the command is then used to create a Solana 
-  private key, which we are naming `solana_wallet.json`. 
+Here, `helium_wallet.key` corresponds to your private key used for your CLI wallet. By default, this
+is usually named `wallet.key`. The result of the command is then used to create a Solana private
+key, which we are naming `solana_wallet.json`.
 
 3. Export raw, Solana-compatible private key for import into Phantom wallet
 
-  ```
-  helium-wallet export --output seed
-  ```
+```sh
+helium-wallet export --output seed
+```
 
-  In executing this command, the Solana-compatible private key will be printed `stdout` and will be 
-  displayed in your terminal / command line window.
+In executing this command, the Solana-compatible private key will be printed `stdout` and will be
+displayed in your terminal / command line window.
 
 ### Import private key on Helium Wallet App, Solana CLI Wallet, or Phantom Wallet
 
 Depending on how you exported your private key from the Helium CLI Wallet, you will either (1)
-import your private key into the Helium Wallet App, (2) import your private key into the Solana CLI 
+import your private key into the Helium Wallet App, (2) import your private key into the Solana CLI
 Wallet, or (3) import your private key in Phantom.
 
 1. Import private key into Helium Wallet App
 
-  If you exported your private key in password encrypted QR code form, you will import the private 
-  key into the Helium Wallet App. In particular, on the Helium Wallet App, you will need to navigate 
-  to the CLI QR code reader found at `Add New Account > Import > CLI` and scan the encrypted private 
-  key produced via the Helium CLI Wallet.
+If you exported your private key in password encrypted QR code form, you will import the private key
+into the Helium Wallet App. In particular, on the Helium Wallet App, you will need to navigate to
+the CLI QR code reader found at `Add New Account > Import > CLI` and scan the encrypted private key
+produced via the Helium CLI Wallet.
 
-  Please note that after scanning the QR code in the Helium Wallet app, you will need to enter the 
-  password provided via the Helium CLI Wallet used to encrypt the QR code export. This password may 
-  be different than the one used to execute CLI wallet commands.
+Please note that after scanning the QR code in the Helium Wallet app, you will need to enter the
+password provided via the Helium CLI Wallet used to encrypt the QR code export. This password may be
+different than the one used to execute CLI wallet commands.
 
 2. Import private key into Solana CLI Wallet
 
-  If you exported your private key in a Solana-compatible form for usage with the Solana CLI Wallet,
-  you are all set as the produced `json` file (which we called `solana_wallet.json`) is a bonafide
-  private key for usage in executing Solana CLI Wallet commands.
+If you exported your private key in a Solana-compatible form for usage with the Solana CLI Wallet,
+you are all set as the produced `json` file (which we called `solana_wallet.json`) is a bonafide
+private key for usage in executing Solana CLI Wallet commands.
 
 3. Import private key into Phantom
 
-  If you exported your private key for import into Phantom, you will open your Phantom browser 
-  extension go to the settings menu, select your account, select "Add/Connect Wallet", select 
-  "Import Private Key", and copy/pasting the full output from the Helium CLI wallet command.
-
+If you exported your private key for import into Phantom, you will open your Phantom browser
+extension go to the settings menu, select your account, select "Add/Connect Wallet", select "Import
+Private Key", and copy/pasting the full output from the Helium CLI wallet command.
 
 ---
 
