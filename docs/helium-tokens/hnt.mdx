@@ -17,7 +17,8 @@ is HNT. Prior to the launch of the Helium Network, there was no premine of HNT. 
 produced on July 29th, 2019 on
 [block 93](https://explorer.helium.com/txns/sEP-cbb2tvSrfbBleT21yGDNM8FIjNr3UT3k3BeZELw).
 
-:::info For statistics on HNT,
+:::info For statistics on HNT
+
 [See the Market section on the Helium Explorer](https://explorer.helium.com/market).
 
 :::
@@ -37,8 +38,7 @@ The Helium Token is designed to serve the needs of the two primary parties in th
 ## HNT Token Economic Concepts
 
 The Helium Network uses three distinct token economic concepts to ensure HNT supply is both
-plentiful for network needs but also relatively scarce, with a known maximum. Let's take a look at
-them in some detail.
+plentiful for network needs but also relatively scarce, with a known maximum.
 
 ### Max Supply
 
@@ -46,8 +46,6 @@ At launch [genesis block](https://explorer.helium.com/blocks/1), the Helium Netw
 5,000,000 HNT per month. Since the community approval of
 [HIP-20](https://github.com/helium/HIP/issues/73), the Helium Network uses a two year halving
 schedule, resulting in a maximum HNT supply of 223,000,000 HNT.
-
-HNT halving happens every two years from the genesis block, on the following schedule.
 
 In the below issuance schedule, year 1 starts on **August 1, 2019**. The first halving happened on
 approximately day one of the beginning of year three, **August 1, 2021**.
@@ -64,20 +62,18 @@ approximately day one of the beginning of year three, **August 1, 2021**.
 
 ### Data Credits and Burn-and-Mint Economics
 
-As noted above, **Data Credits** are a $USD-pegged utility token derived from HNT in a burn
-transaction and used to pay [all transaction fees](/blockchain/transaction-fees) on the Helium
-Network. One Data Credit will always cost `$0.00001`. Or, `$1.00` will always buy you `100,000` Data
-Credits. But, as noted above, Data Credits are produced by burning HNT. And the market price of HNT
-will of course fluctuate.
+**Data Credits** are a $USD-pegged utility token derived from HNT in a burn transaction and used to
+pay [all transaction fees](/blockchain/transaction-fees) on the Helium Network. One Data Credit will
+always cost `$0.00001`. Or, `$1.00` will always buy you `100,000` Data Credits. But, as noted above,
+Data Credits are produced by burning HNT. And the market price of HNT will of course fluctuate.
 
 This HNT to DC relationship is based on a design commonly called a
 [burn and mint equilibrium](https://multicoin.capital/2018/02/13/new-models-utility-tokens/) and is
 intended to allow for the supply of HNT to respond to network usage trends such that, when
-equilibrium is found, the amount of HNT that exists remains static month on month. (Helium borrowed
-heavily from Factom’s usage of this design though other blockchains have also used it.) The amount
-of Data Credits produced by burning HNT will move up and down based on the USD price of HNT as
-reported by the [HNT Price Oracles](/blockchain/oracles). Let's look at a few examples of how this
-works on-chain.
+equilibrium is found, the amount of HNT that exists remains static month on month. The amount of
+Data Credits produced by burning HNT will move up and down based on the USD price of HNT as reported
+by the [HNT Price Oracles](/blockchain/oracles). Below are a few examples of how this works
+on-chain.
 
 **Example 1**
 
@@ -88,14 +84,14 @@ works on-chain.
 **Example 2**
 
 A Helium Network user requires `50,000` DCs per month to send data for their fleet of
-Helium-connected mouse traps. (Yes, these actually exist, and they are glorious.) To acquire these
-50,000 DCs per month, they would burn .5 HNT using the following math:
+Helium-connected mouse traps. To acquire these 50,000 DCs per month, they would burn .5 HNT using
+the following math:
 
-- Again, the price of DC is `$.00001`
+- The price of DC is `$.00001`
 - The current HNT Oracle price is `$1`
 - Burning `0.5` HNT would produce the needed `50,000` DCs
 
-:::important
+:::important Data Credits are non-transferrable
 
 Once burned, DCs are owned by the Helium wallet specified in the burn transaction. They are
 non-transferrable.
@@ -115,7 +111,7 @@ Emissions give the protocol enough HNT to reward consensus group members and Hot
 
 The
 [complete Net Emissions discussion in the HIP](https://github.com/helium/HIP/blob/master/0020-hnt-max-supply.md#net-emissions)
-is the best resource on this, but we'll provide a quick summary here:
+is the best resource on this. A quick summary here is as follows:
 
 - Using Net Emissions, the network would monitor how many HNT were burnt for Data Credits in a given
   epoch and add them to the number of HNT to be minted that epoch. For example, if 10 HNT were
