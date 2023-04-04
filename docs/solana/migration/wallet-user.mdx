@@ -101,7 +101,7 @@ remain the same.
 :::caution The Helium CLI Wallet Will Be Depreciated
 
 The CLI Wallet will be completely deprecated except for exporting private seed phrases and
-displaying public Solana addresses. Accordingly, common payment transactions and staking should 
+displaying public Solana addresses. Accordingly, common payment and staking transactions should 
 utilize the Solana CLI Wallet or the Helium Wallet app.
 
 Check out the [Solana Documentation](https://docs.solana.com/wallet-guide/cli) for more information
@@ -110,19 +110,20 @@ on Solana Command Line Wallets.
 :::
 
 Starting in Helium CLI Wallet [v1.7.11](https://github.com/helium/helium-wallet-rs/releases/tag/v1.7.11),
-the feature set was updated to include the following three functions: 
+updates were made to the `export` and `info` commands to facilitate exporting private seed phrases 
+and displaying public Solana addresses
 
-1. Export raw private key for import into a Solana CLI Wallet or Phantom wallet.
+1. Export raw Solana-compatible private key for import into a Solana CLI Wallet or Phantom wallet.
   - ```helium-wallet export --output seed```
 2. Export raw private key as a password encrypted QR code for import into the Helium Wallet app via 
 the "Add New Account > Import > CLI" QR code reader. Please note that after scanning the QR code
 in the Helium Wallet app, you will need to enter the password provided via the Helium CLI Wallet
-used to encrypt the QR code export. This password may be different tham the one used to execute CLI
+used to encrypt the QR code export. This password may be different than the one used to execute CLI
 wallet commands.
 - ```helium-wallet export --output qr```
 3. Display Solana Public Address (for a given set of private keys).
   - ```helium-wallet info```
-  
+
 ---
 
 ## For Ledger Wallet Users
