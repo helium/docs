@@ -392,8 +392,8 @@ export const LedgerMigration = () => {
   } = useAsyncCallback(async () => {
     const [needSign, dontNeedSign] = partitionBy(
       heliumSignResult!,
-      (tx) => tx.signatures.length > 1,
-    )
+      (tx) => tx.signatures.some(sig => sig.publicKey.equals(solanaPubkey!)),
+    );
     await solanaWallet.connect()
     const signed = await solanaWallet!.signAllTransactions(needSign)
 
