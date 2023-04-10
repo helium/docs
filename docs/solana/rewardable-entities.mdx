@@ -154,7 +154,7 @@ const program = await init(provider);
 
 // Get the asset id from the KeyToAssetV0 account on chain
 const keyToAssetPkey = keyToAssetKey(dao, eccKey)[0]
-const keyToAssetAcc = await program.acoount.KeyToAssetV0.fetch(keyToAssetPkey);
+const keyToAssetAcc = await program.account.keyToAssetV0.fetch(keyToAssetPkey);
 const assetId = keyToAssetAcc.asset;
 
 // Now get the asset from the metaplex asset api
