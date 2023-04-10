@@ -449,8 +449,8 @@ export const LedgerMigration = () => {
               <Alert status="error">
                 <AlertIcon />
                 <p>
-                  {errorSolana.message}. Please make sure you are connected to the correct ledger
-                  app.
+                  {errorSolana.message}. Please make sure you are connected to the Solana Ledger App
+                  and have blind signing enabled.
                 </p>
               </Alert>
             )}
@@ -496,8 +496,8 @@ export const LedgerMigration = () => {
               <Alert status="error">
                 <AlertIcon />
                 <p>
-                  {errorHelium.message}. Please make sure you are connected to the correct ledger
-                  app.
+                  {errorHelium.message}. Please make sure you are connected to the Helium-Solana
+                  Ledger App and have blind signing enabled.
                 </p>
               </Alert>
             )}
@@ -549,7 +549,8 @@ export const LedgerMigration = () => {
             {errorHeliumSign && (
               <Alert status="error">
                 <AlertIcon />
-                {errorHeliumSign.message}
+                {errorHeliumSign.message}. Please make sure you are connected to the Helium-Solana Ledger
+                App and have blind signing enabled.
               </Alert>
             )}
             Sign transactions to migrate from the Helium derivation path to the Solana derivation
@@ -572,7 +573,8 @@ export const LedgerMigration = () => {
             {errorSolanaSign && (
               <Alert status="error">
                 <AlertIcon />
-                {errorSolanaSign.message}
+                {errorSolanaSign.message}. Please make sure you are connected to the Solana Ledger
+                App and have blind signing enabled.
               </Alert>
             )}
             Open the Solana Ledger app. Sign transactions to migrate from the Helium derivation path
