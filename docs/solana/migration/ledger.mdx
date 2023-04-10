@@ -9,26 +9,37 @@ slug: /solana/migration/ledger
 
 ## Installing the Helium-Solana App
 
-As of now, we are still waiting on Ledger to release our app. Until then, to install you must follow these steps:
+As of now, we are still waiting on Ledger to release our app. Until then, to install you must follow
+these steps:
 
-1. Open Ledger Live. 
+1. Open Ledger Live.
 2. Go to Settings (top right corner)
-3. Click "Experimental Features"
-4. Enable "Developer Mode"
-5. Change "My ledger provider" to 4
 6. Install the Helium-Solana app as you normally would.
+3. Click `Experimental Features`
+4. Enable `Developer Mode`
+5. Change `My ledger provider` to `4`
 
-Note that, while using the testing provider, the icon for the app will not appear properly on your ledger. Additionally, do not install any other apps on the `4` provider as other developer teams use this release channel. 
+:::tip Ledger Icon and Providers
+
+While using the testing provider, the icon for the app will not appear properly on your Ledger.
+
+Do not install any other apps on the `4` provider as other developer teams use this release channel.
+
+:::
+
+---
 
 ## Migrating
 
 The following utility will migrate all tokens from the Helium derivation path `44'/904'/n'/0'` to
-the Solana derivation path `44'/501'/n'/0'`. To get started, install the:
+the Solana derivation path `44'/501'/n'/0'`.
 
 Ledger users will need to update their Helium Ledger App to a version that's pending release. This
 upcoming version will use the Solana private key derivation path that moves all your tokens and
 balances over to Solana. You may need to uninstall any Solana Ledger Apps during the Wallet
 migration process.
+
+---
 
 ## Migration Tool
 
