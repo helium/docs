@@ -450,7 +450,7 @@ export const LedgerMigration = () => {
                 <AlertIcon />
                 <p>
                   {errorSolana.message}. Please make sure you are connected to the Solana Ledger App
-                  and have blind signing enabled. app.
+                  and have blind signing enabled.
                 </p>
               </Alert>
             )}
@@ -497,7 +497,7 @@ export const LedgerMigration = () => {
                 <AlertIcon />
                 <p>
                   {errorHelium.message}. Please make sure you are connected to the Helium-Solana
-                  Ledger App and have blind signing enabled. app.
+                  Ledger App and have blind signing enabled.
                 </p>
               </Alert>
             )}
