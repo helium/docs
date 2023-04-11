@@ -15,13 +15,11 @@ module.exports = {
       link: { type: 'doc', id: 'solana/migration-overview' },
       items: [
         'solana/migration/hotspot-operator',
+        'solana/migration/validator-operator',
         {
           type: 'category',
           label: 'Hotspot Maker',
-          items: [
-            'solana/migration/maker',
-            'solana/migration/maker-hotspot-software',
-          ],
+          items: ['solana/migration/maker', 'solana/migration/maker-hotspot-software'],
         },
         'solana/migration/exchange',
         'solana/migration/network-user',
