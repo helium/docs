@@ -349,9 +349,7 @@ export const LedgerMigration = () => {
     const txs = (await getTxs()).transactions
     const txBuffers = txs.map((tx: any) => Buffer.from(tx))
 
-    await bulkSendRawTransactions(connection, txBuffers.slice(0, -1))
-    // Ensure the last transaction (pulling up all the sol) runs last.
-    await bulkSendRawTransactions(connection, txBuffers.slice(-1))
+    await bulkSendRawTransactions(connection, txBuffers)
 
     const txs2 = (await getTxs()).transactions
     if (txs2.length !== 0) {
@@ -407,9 +405,15 @@ export const LedgerMigration = () => {
     loading: loadingSendTransactions,
   } = useAsyncCallback(async () => {
     const txs = solanaSignResult!.map((tx) => Buffer.from(tx.serialize()))
-    const sent = await bulkSendRawTransactions(connection, txs)
+    await bulkSendRawTransactions(connection, txs)
+    let sent = [
+      ...(await bulkSendRawTransactions(connection, txs.slice(0, -1))),
+      // Ensure the last transaction (pulling up all the sol) runs last.
+      ...(await bulkSendRawTransactions(connection, txs.slice(-1))),
+    ]
+
     if (sent.length != txs.length) {
-      throw new Error("Failed to send all transactions, please try again")
+      throw new Error('Failed to send all transactions, please try again')
     }
     return true
   })
