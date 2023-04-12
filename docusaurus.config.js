@@ -130,7 +130,7 @@ module.exports = {
   ],
   customFields: {
     MIGRATION_SERVICE_URL: 'https://migration.web.helium.io',
-    SOLANA_URL: 'solana-rpc.web.helium.io/?session-key=Pluto',
+    SOLANA_URL: 'solana-rpc.web.test-helium.com/?session-key=Pluto',
   },
   plugins: [
     function (context, options) {
