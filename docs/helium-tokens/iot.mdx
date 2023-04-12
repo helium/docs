@@ -15,18 +15,15 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 IOT is the protocol token of the [Helium IoT Network](/lorawan-on-helium). IOT was introduced to the
 Helium Network through the community proposal
 [HIP-52](https://github.com/helium/HIP/blob/main/0052-iot-dao.md) and is further defined in
-subsequent HIPs<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>,</sup>[^3]<sup>)</sup>. The
+subsequent HIPs<sup>(</sup>[^1]<sup>,</sup>[^2]<sup></sup>. The
 first IOT tokens were minted following the Solana migration on April 18, 2023.
 
 [^1]:
     [HIP-70: Scaling the Helium Network](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md)
 
 [^2]:
-    [HIP-76: Linear Lockup Curve](https://github.com/helium/HIP/blob/main/0076-linear-lockup-curve.md)
+    [HIP-77: Solana Parameters](https://github.com/helium/HIP/blob/main/0077-solana-parameters.md)
 
-[^3]: [HIP-77: Solana Parameters](https://github.com/helium/HIP/blob/main/0077-solana-parameters.md)
-[^4]:
-    [HIP-80: Simplifying DAO Utility Score](https://github.com/helium/HIP/blob/main/0080-simplifying-dao-utility-score.md)
 
 The IOT token is mined by LoRaWAN Hotspots through both data transfer proceeds as well as Proof of
 Coverage.
@@ -50,9 +47,12 @@ open source tooling found in the [Helium GitHub repositories](https://github.com
 
 IOT follows a similar minting schedule to HNT, however at a max supply of 200,000,000,000 (200B).
 
+Year 1 for IOT started August 1st 2022.
+
 The issuance is scheduled to have halvings every 2 years, aligning with HNT issuance halvings.
 
-The emission schedule is as follows:
+The emission schedule was created in [HIP-52](https://github.com/helium/HIP/blob/main/0052-iot-dao.md#emissions-curve) and confirmed in [HIP-77](https://github.com/helium/HIP/blob/main/0077-solana-parameters.md#emission-schedules) and 
+is as follows:
 
 | Year | IOT at Year Start | IOT Minted | Proof of Coverage \* | Data Transfer \* | Oracles \*\* | Operations Fund | veHNT Stakes |
 | ---- | ----------------- | ---------- | -------------------- | ---------------- | ------------ | --------------- | ------------ |
@@ -68,5 +68,4 @@ The emission schedule is as follows:
 > [Token Emissions as of Solana Migration](https://github.com/helium/HIP/blob/main/HIP-solana-parameters/token-emissions-as-of-solana-migration.pdf)
 
 **\*** Any IOT not rewarded for data transfer is rolled into Proof of Coverage.  
-**\*\*** Oracles are not rewarded until additional oracle operators deploy services. This pool is
-rolled over to Proof of Coverage.
+**\*\*** Oracles are not rewarded until additional oracle operators deploy services. 
