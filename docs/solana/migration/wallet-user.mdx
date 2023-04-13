@@ -22,63 +22,96 @@ Existing HNT and MOBILE tokens in your wallets will remain unchanged by this mig
 
 ## For Helium App Users
 
-> The [Helium Hotspot App](/mine-hnt/helium-hotspot-app) will require a migration to the
-> [Helium Wallet app](/wallets/helium-wallet-app).
+:::caution
 
-To start, ensure your Helium app is updated and that you have downloaded the latest Helium Wallet
-app v2 or higher.
+The [Helium Hotspot App](/mine-hnt/helium-hotspot-app) is no longer used to manage Tokens or perform
+Wallet activities and instead is only used to manage Original Helium Hotspots and FreedomFi
+Hotspots.
+
+:::
+
+Helium Hotspot app users must migrate to the Helium Wallet App following these steps.
+
+To start, ensure your Helium Hotspot app is updated to version **5.0.0** or later and that you have
+downloaded the latest Helium Wallet app version **2.0.0** or higher.
 
 <div class="container">
   <div class="row" style={{ marginBottom: 20 }}>
     <div class="col col--12">
       <p>
-        <b>Step 1.</b> Open the Helium app (minimum v4.3.0)
+        <b>Step 1.</b> Open the Helium Hotspot app.
+      </p>
+    </div>
+  </div>
+  <div class="row" style={{ marginBottom: 20 }}>
+    <div class="col col--6">
+      <p>
+        <b>Step 2.</b>Tap <code>Migrate your Wallet</code> in the Wallet migration popup.
+      </p>
+      <p>The Helium Wallet app will automatically open and complete the Wallet migration.</p>
+    </div>
+    <div class="col col--6 img-center">
+      <img className="appscreen" src={useBaseUrl('img/hotspot-app/migration-screen-0.png')} />
+    </div>
+  </div>
+  <div class="row" style={{ marginBottom: 20 }}>
+    <div class="col col--12">
+      <p>
+        <b>Step 2.</b> If you do not see the pop up, tap the Settings menu on the bottom tab bar and
+        then <code>Export Private Key (Migrate Wallet)</code>.
+      </p>
+    </div>
+  </div>
+  <div class="row" style={{ marginBottom: 20 }}>
+    <div class="col col--6 img-center">
+      <img className="appscreen" src={useBaseUrl('img/hotspot-app/migration-app-settings.png')} />
+    </div>
+    <div class="col col--6">
+      <p>
+        <b>Step 2a.</b> Tap <code>Export Private Key</code>
+      </p>
+    </div>
+  </div>
+  <div class="row" style={{ marginBottom: 20 }}>
+    <div class="col col--6 img-center">
+      <img className="appscreen" src={useBaseUrl('img/hotspot-app/migration-hotspot-app.png')} />
+    </div>
+    <div class="col col--6">
+      <p>
+        <b>Step 2b.</b> Enter a password to secure your private key for migration to the Helium
+        Wallet app.
+      </p>
+      <p>
+        Tap <code>Export to Wallet App.</code>
+      </p>
+    </div>
+  </div>
+  <div class="row" style={{ marginBottom: 20 }}>
+    <div class="col col--6 img-center">
+      <img className="appscreen" src={useBaseUrl('img/hotspot-app/migration-wallet-app.png')} />
+    </div>
+    <div class="col col--6">
+      <p>
+        <b>Step 2c.</b> Enter the same Password and tap <code>done</code>.
       </p>
     </div>
   </div>
   <div class="row" style={{ marginBottom: 20 }}>
     <div class="col col--12">
       <p>
-        <b>Step 2 </b>Tap <code>Start Migration</code> in the Wallet migration popup.
-      </p>
-    </div>
-    <div class="col col--12 img-center">
-      <img
-        className="app-mockup"
-        src={useBaseUrl('img/wallets/helium-wallet-app/migration-required-popup.png')}
-      />
-    </div>
-  </div>
-  <div class="row" style={{ marginBottom: 20 }}>
-    <div class="col col--12">
-      <p>
-        <b>Step 3.</b> Confirm the Wallet account you want to import.{' '}
-      </p>
-      <p>
-        Tap <code>Export to Wallet App</code> and the Helium Wallet app will automatically open and
-        complete the Wallet migration.
-      </p>
-    </div>
-    <div class="col col--12 img-center">
-      <img
-        className="app-mockup"
-        src={useBaseUrl('img/wallets/helium-wallet-app/export-private-key-screen.png')}
-      />
-    </div>
-  </div>
-  <div class="row" style={{ marginBottom: 20 }}>
-    <div class="col col--12">
-      <p>
-        <b>Step 4.</b> Now your HNT, DC, MOBILE, and Hotspots have successfully moved to the Helium
-        Wallet App and are ready for the Solana migration, which will happen automatically in
-        January 2023.
+        <b>Step 3.</b> Now your HNT, DC, MOBILE, and Hotspots have successfully moved to the Helium
+        Wallet app and are ready for the Solana migration.
       </p>
     </div>
   </div>
 </div>
 
-Your public Wallet address will change post-migration, but your private key and 12-word seed phrase
-will remain the same.
+:::info Public Addresses on Solana
+
+Your **public** Wallet address will change post-migration, but your **private** key and 12-word seed
+phrase will remain the same.
+
+:::
 
 ---
 
