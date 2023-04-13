@@ -317,10 +317,55 @@ like to use the library, the setup guide can be found here
 
 ---
 
-## Data Credits and Sol for Onboarding
+## Data Credits and SOL for Onboarding
 
-<!-- TODO: We need to create an easy way for makers to get sol and data credits into their accounts -->
+:::info
 
-```
+Maker Wallets will need both `SOL` and `DC` for transactions.
 
-```
+:::
+
+### Maker Wallet SOL
+
+Maker Wallets will need `SOL` to pay transaction fees and for minting new merkle trees if creating
+double the current amount of Hotspots in their existing fleet.
+
+- For most makers, ~10 SOL is recommended.
+- Makers with large fleets (300k+ Hotspots) ~60 SOL is recommended.
+
+### Maker Wallet DC
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <p>
+        Maker Wallets will need <code>DC</code> to pay onboarding and assert fees. DC can be aquired
+        by either
+        <ul>
+          <li>Depositing DC into the Maker Wallet on the current Helium L1.</li>
+          <li>
+            Use the Helium Wallet App to swap HNT for DC, using the Maker Wallet in the{' '}
+            <code>recipient</code>
+            field.
+          </li>
+        </ul>
+      </p>
+      <p>
+        Use the Orange <code>Swap</code> button on the Helium Wallet App homescreen to swap HNT for
+        DC.
+      </p>
+      <img
+        alt="Helium Wallet app token swap screen"
+        className="appscreen"
+        src={useBaseUrl('img/wallet-app/swap-buttons.png')}
+      />
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        alt="Helium Wallet app token swap screen"
+        className="appscreen"
+        src={useBaseUrl('img/wallet-app/hnt-dc-swap.png')}
+      />
+    </div>
+  </div>
+</div>
