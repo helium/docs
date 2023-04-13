@@ -15,13 +15,11 @@ module.exports = {
       link: { type: 'doc', id: 'solana/migration-overview' },
       items: [
         'solana/migration/hotspot-operator',
+        'solana/migration/validator-operator',
         {
           type: 'category',
           label: 'Hotspot Maker',
-          items: [
-            'solana/migration/maker',
-            'solana/migration/maker-hotspot-software',
-          ],
+          items: ['solana/migration/maker', 'solana/migration/maker-hotspot-software'],
         },
         'solana/migration/exchange',
         'solana/migration/network-user',
@@ -64,8 +62,15 @@ module.exports = {
   tokens: [
     {
       type: 'category',
-      label: 'Helium Tokens',
+      label: 'Network Tokens',
       items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Vote Escrow Tokens',
+      link: { type: 'doc', id: 'vote-escrow/vehnt' },
+      items: ['vote-escrow/vehnt'],
       collapsed: true,
     },
     {
@@ -86,7 +91,6 @@ module.exports = {
       items: ['wallets/twelve-words', 'wallets/twenty-four-words'],
     },
   ],
-
   iotnetwork: [
     {
       type: 'category',
