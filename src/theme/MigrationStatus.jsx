@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const getRemainingTime = () => {
-  const targetDate = new Date('2023-04-18T16:00:00');
+  const targetDate = new Date(Date.UTC(2023, 3, 18, 16, 0, 0));
   const now = new Date();
   const difference = targetDate - now;
 
