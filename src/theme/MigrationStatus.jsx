@@ -11,8 +11,17 @@ const getRemainingTime = () => {
 
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-  return `${days.toString()}\xa0days,\xa0${hours.toString()}\xa0hours`; // `\xa0` is a non-breaking space
+  // `\xa0` is a non-breaking space
+  if (days == 1) {
+    return `${days.toString()}\xa0day, ${hours.toString()}\xa0hours, ${minutes.toString()}\xa0minutes`;
+  } else if (days == 0){
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+  } else {
+    return `${days.toString()}\xa0days, ${hours.toString()}\xa0hours, ${minutes.toString()}\xa0minutes`;
+  }
 };
 
 const MigrationStatus = () => {
