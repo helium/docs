@@ -121,7 +121,11 @@ module.exports = {
     {
       type: 'category',
       label: 'Roaming',
-      items: ['use-the-network/roaming', 'lorawan-on-helium/lorawan-roaming-on-helium'],
+      items: [
+        'use-the-network/roaming',
+        'lorawan-on-helium/lorawan-roaming-on-helium',
+        'lorawan-on-helium/roaming-getting-started',
+      ],
     },
     {
       type: 'category',
