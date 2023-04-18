@@ -70,7 +70,7 @@ module.exports = {
       type: 'category',
       label: 'Vote Escrow Tokens',
       link: { type: 'doc', id: 'vote-escrow/vehnt' },
-      items: ['vote-escrow/vehnt'],
+      items: ['vote-escrow/vehnt', 'vote-escrow/realms'],
       collapsed: true,
     },
     {
