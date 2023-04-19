@@ -31,6 +31,7 @@ module.exports = {
         'solana/migration/blockchain-etl',
         'solana/migration/wallet-user',
         'solana/migration/ledger',
+        'solana/migration/hst'
       ],
     },
   ],
