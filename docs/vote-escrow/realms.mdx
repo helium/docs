@@ -162,8 +162,8 @@ the veHNT position.
 ## Managing Stakes
 
 With Realms, it's a sizzling experience to take control of your HNT stakes, ensuring they're grilled
-to perfection. Chew through stake delegation, transfers, and cooldowns like a master chef. Just
-remember, in this well-done world, it's all about finding the perfect balance to steak your claim. <span className="🥩">🥩</span>
+to perfection. Chew through stake delegation, transfers, splitting, and cooldowns like a master chef
+. <span className="🥩">🥩</span>
 
 ### Delegating Stakes
 
@@ -221,6 +221,19 @@ duration set during the creation of the position.
   <figcaption>
     This position will unlock over the period of 2 years once the unlock has been initiated.
   </figcaption>
+</figure>
+
+## Possible Errors
+
+### Insufficient SOL Balance
+
+Creating new veHNT positions requires more SOL than standard token claims or account-to-account
+transfers. In order to stake your HNT you will need approximately 0.006 SOL in your account in order
+to create the position.
+
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('/img/realms/lowbalanceerror.png')} style={{ maxHeight: 300 }} />
+  <figcaption>This transaction failed due to an insufficient $SOL balance.</figcaption>
 </figure>
 
 <!-- Assets templates available at https://www.figma.com/file/fZ4r0rVdhSfBrR9qTpT4Qg/Realms-Documentation -->
