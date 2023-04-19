@@ -142,7 +142,7 @@ module.exports = {
           return {
             plugins: [
               new webpack.ProvidePlugin({
-                process: 'process/browser',
+                process: require.resolve('process/browser'),
               }),
             ],
             resolve: {
@@ -151,7 +151,6 @@ module.exports = {
                 crypto: false,
                 stream: false,
               },
-              fullySpecified: false,
             },
           }
         },
