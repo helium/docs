@@ -232,11 +232,13 @@ export const WrapWithAccountProvider: React.FC = ({ children }) => {
 
 export const HstManager = () => {
   return (
-    <Wallet>
-      <WrapWithAccountProvider>
-        <HstManagerImpl />
-      </WrapWithAccountProvider>
-    </Wallet>
+    <ClientOnly>
+      <Wallet>
+        <WrapWithAccountProvider>
+          <HstManagerImpl />
+        </WrapWithAccountProvider>
+      </Wallet>
+    </ClientOnly>
   )
 }
 
@@ -276,4 +278,12 @@ const Wallet: React.FC = ({ children }: { children: any }) => {
       </WalletProvider>
     </ConnectionProvider>
   )
+}
+
+function ClientOnly({ children }) {
+  if (typeof window === 'undefined') {
+    return null
+  }
+
+  return children
 }
