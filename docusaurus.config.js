@@ -151,6 +151,7 @@ module.exports = {
                 crypto: false,
                 stream: false,
               },
+              fullySpecified: false,
             },
           }
         },
