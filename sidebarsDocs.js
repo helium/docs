@@ -15,9 +15,15 @@ module.exports = {
       link: { type: 'doc', id: 'solana/migration-overview' },
       items: [
         'solana/migration/hotspot-operator',
-        'solana/migration/maker',
+        'solana/migration/validator-operator',
+        {
+          type: 'category',
+          label: 'Hotspot Maker',
+          items: ['solana/migration/maker', 'solana/migration/maker-hotspot-software'],
+        },
         'solana/migration/exchange',
         'solana/migration/network-user',
+        'solana/migration/console-operator',
         'solana/migration/application-builder',
         'solana/migration/governance',
         'solana/migration/blockchain-node',
@@ -25,6 +31,7 @@ module.exports = {
         'solana/migration/blockchain-etl',
         'solana/migration/wallet-user',
         'solana/migration/ledger',
+        'solana/migration/hst'
       ],
     },
   ],
@@ -34,12 +41,7 @@ module.exports = {
       type: 'category',
       label: 'Solana',
       link: { type: 'doc', id: 'solana/solana' },
-      items: [
-        'solana/primer',
-        'solana/rewardable-entities',
-        'solana/compression-nfts',
-        'solana/hst',
-      ],
+      items: ['solana/primer', 'solana/rewardable-entities', 'solana/compression-nfts'],
       collapsed: true,
     },
     {
@@ -61,8 +63,15 @@ module.exports = {
   tokens: [
     {
       type: 'category',
-      label: 'Helium Tokens',
+      label: 'Network Tokens',
       items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Vote Escrow Tokens',
+      link: { type: 'doc', id: 'vote-escrow/vehnt' },
+      items: ['vote-escrow/vehnt', 'vote-escrow/realms'],
       collapsed: true,
     },
     {
@@ -73,7 +82,6 @@ module.exports = {
         'wallets/helium-wallet-app',
         'wallets/cli-wallet',
         'wallets/ledger',
-        'mine-hnt/helium-hotspot-app',
       ],
       collapsed: true,
     },
@@ -83,15 +91,12 @@ module.exports = {
       items: ['wallets/twelve-words', 'wallets/twenty-four-words'],
     },
   ],
-
   iotnetwork: [
     {
       type: 'category',
       label: 'LoRaWAN on Helium',
       link: { type: 'doc', id: 'lorawan-on-helium/lorawan-on-helium' },
       items: [
-        'lorawan-on-helium/lorawan-roaming-on-helium',
-        'lorawan-on-helium/open-lns',
         'lorawan-on-helium/frequency-plans/frequency-plans',
         'lorawan-on-helium/frequency-plans/region-plans',
       ],
@@ -110,6 +115,21 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'OpenLNS',
+      link: { type: 'doc', id: 'lorawan-on-helium/open-lns' },
+      items: ['lorawan-on-helium/open-lns-configuration'],
+    },
+    {
+      type: 'category',
+      label: 'Roaming',
+      items: [
+        'use-the-network/roaming',
+        'lorawan-on-helium/lorawan-roaming-on-helium',
+        'lorawan-on-helium/roaming-getting-started',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Use The IoT Network',
       items: [
         'use-the-network/use-the-network',
@@ -123,9 +143,8 @@ module.exports = {
             'use-the-network/devices/development/quickstart-guides',
           ],
         },
-        'use-the-network/console/console',
-        'use-the-network/roaming',
         'use-the-network/run-a-network-server/run-a-network-server',
+        // 'use-the-network/console/console',
         // 'use-the-network/console-marketplace',
         // 'use-the-network/community-projects',
       ],
@@ -179,7 +198,6 @@ module.exports = {
             'hotspot-makers/light-hotspots',
             'mine-hnt/full-hotspots/full-hotspots',
             'mine-hnt/data-only-hotspots',
-            // 'hotspot-makers/original-helium-hotspot',
           ],
         },
         {
@@ -286,26 +304,26 @@ module.exports = {
     },
     'api/console',
   ],
-  appwallet: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/mine-hnt/helium-hotspot-app',
-    },
-    {
-      type: 'category',
-      label: 'Helium Hotspot App',
-      items: [
-        'wallets/app-wallet/transfer-hotspot',
-        'wallets/app-wallet/hexagons',
-        'wallets/app-wallet/discovery',
-        'wallets/app-wallet/transaction-failures',
-        'wallets/app-wallet/fleet-mode',
-        'wallets/app-wallet/deep-links-and-qr-codes',
-      ],
-      collapsed: false,
-    },
-  ],
+  // appwallet: [
+  //   {
+  //     type: 'link',
+  //     label: '<- Back',
+  //     href: '/mine-hnt/helium-hotspot-app',
+  //   },
+  //   {
+  //     type: 'category',
+  //     label: 'Helium Hotspot App',
+  //     items: [
+  //       'wallets/app-wallet/transfer-hotspot',
+  //       'wallets/app-wallet/hexagons',
+  //       'wallets/app-wallet/discovery',
+  //       'wallets/app-wallet/transaction-failures',
+  //       'wallets/app-wallet/fleet-mode',
+  //       'wallets/app-wallet/deep-links-and-qr-codes',
+  //     ],
+  //     collapsed: false,
+  //   },
+  // ],
   console: [
     {
       type: 'link',

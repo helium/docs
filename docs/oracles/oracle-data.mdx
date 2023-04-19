@@ -21,14 +21,15 @@ the [Helium Program Libraries](https://github.com/helium/helium-program-library)
 
 ## Accessing Oracle Data
 
-### AWS S3 Buckets
+### AWS S3 Bucket
 
 Data is directly accessible from the `foundation-poc-data-requester-pays` bucket in AWS `us-west-2`
 under the top level data category prefixes listed below. All data provided in the S3 bucket is made
 available on a basis of 'Requestor Pays' meaning you, the requester, will pay for the data transfer
-and API costs incurred from the data requests. For more information on accessing data from a
-requester pays bucket, refer to
-[Downloading objects in Requester Pays buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ObjectsinRequesterPaysBuckets.html).
+and API costs incurred from the data requests. 
+
+_For more information on accessing data from a requester pays bucket, refer to
+[Downloading objects in Requester Pays buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ObjectsinRequesterPaysBuckets.html)._
 
 | Top Level Data Category Prefixes  |
 | --------------------------------- |
@@ -76,25 +77,26 @@ format in gz compressed files. The table below provides the top level data categ
 file types comprised within each data category prefix, the filename pattern for each file type, and
 provides a link to the corresponding protobuf used to decode the data.
 
-| Category                        | File Type                       | Pattern                                | Protobuf                                                                                                                 |
-| :------------------------------ | :------------------------------ | :------------------------------------- | :----------------------------------------------------------------------------------------------------------------------- |
-| foundation-iot-entropy          | Entropy                         | entropy.\*                             | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/entropy.proto#L5)              |
-| foundation-iot-ingest           | IotBeaconIngestReport           | iot_beacon_ingest_report.\*            | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L83)    |
-| foundation-iot-ingest           | IotWitnessIngestReport          | iot_witness_ingest_report.\*           | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L90)    |
-| foundation-iot-packet-ingest    | PacketReport                    | packetreport.\*                        | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/packet_router.proto#L8) 
-| foundation-iot-packet-verifier  | Coming soon                     |
-| foundation-iot-verified-rewards | IotPoc                          | iot_poc.\*                             | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L162)   |
-| foundation-iot-verified-rewards | IotInvalidBeaconReport          | iot_invalid_beacon.\*                  | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L125)   |
-| foundation-iot-verified-rewards | IotInvalidWitnessReport         | iot_invalid_witness.\*                 | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L133)   |
-| foundation-iot-verified-rewards | GatewayRewardShare              | gateway_reward_share.\*                | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L171)   |
-| foundation-iot-verified-rewards | RewardManifest                  | reward_manifest.\*                     | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/reward_manifest.proto#L5)      |
-| foundation-mobile-ingest        | CellHeartbeatIngestReport       | heartbeat_report.\*                    | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L50)  |
-| foundation-mobile-ingest        | CellSpeedtestIngestReport       | speedtest_report.\*                    | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L25)  |
-| foundation-mobile-ingest        | DataTransferSessionIngestReport | data_transfer_session_ingest_report.\* | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L177) |
-| foundation-mobile-verified      | ValidatedHeartbeat              | validated_heartbeat.\*                 | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L80)  |
-| foundation-mobile-verified      | SpeedtestAvg                    | speedtest_avg.\*                       | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L97)  |
-| foundation-mobile-verified      | RadioRewardShare                | radio_reward_share.\*                  | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L118) |
-| foundation-mobile-verified      | RewardManifest                  | reward_manifest.\*                     | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/reward_manifest.proto#L5)      |
+| Category                        | File Type                       | Pattern                                | Protobuf                                                                                                                  |
+| :------------------------------ | :------------------------------ | :------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| foundation-iot-entropy          | Entropy                         | entropy.\*                             | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/entropy.proto#L5)               |
+| foundation-iot-ingest           | IotBeaconIngestReport           | iot_beacon_ingest_report.\*            | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L83)     |
+| foundation-iot-ingest           | IotWitnessIngestReport          | iot_witness_ingest_report.\*           | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L90)     |
+| foundation-iot-packet-ingest    | PacketReport                    | packetreport.\*                        | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/packet_router.proto#L8) |
+| foundation-iot-packet-verifier  | IotRewardShare(starting 4/18)   | iot_reward_share.\*                    | [Proto](https://github.com/helium/proto/blob/40388d260fd3603f453a965dbc13f79470b5adcb/src/service/poc_lora.proto#L186)
+| foundation-iot-verified-rewards | IotPoc                          | iot_poc.\*                             | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L162)    |
+| foundation-iot-verified-rewards | IotInvalidBeaconReport          | iot_invalid_beacon.\*                  | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L125)    |
+| foundation-iot-verified-rewards | IotInvalidWitnessReport         | iot_invalid_witness.\*                 | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L133)    |
+| foundation-iot-verified-rewards | GatewayRewardShare              | gateway_reward_share.\*                | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L171)    |
+| foundation-iot-verified-rewards | RewardManifest                  | reward_manifest.\*                     | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/reward_manifest.proto#L5)       |
+| foundation-mobile-ingest        | CellHeartbeatIngestReport       | heartbeat_report.\*                    | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L50)   |
+| foundation-mobile-ingest        | CellSpeedtestIngestReport       | speedtest_report.\*                    | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L25)   |
+| foundation-mobile-ingest        | DataTransferSessionIngestReport | data_transfer_session_ingest_report.\* | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L177)  |
+| foundation-mobile-verified      | ValidatedHeartbeat              | validated_heartbeat.\*                 | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L80)   |
+| foundation-mobile-verified      | SpeedtestAvg                    | speedtest_avg.\*                       | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L97)   |
+| foundation-mobile-verified      | RadioRewardShare                | radio_reward_share.\*                  | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_mobile.proto#L118)  |
+| foundation-mobile-verified      | MobileRewardShare(starting 4/18)| mobile_reward_share.\*                 | [Proto](https://github.com/helium/proto/blob/40388d260fd3603f453a965dbc13f79470b5adcb/src/service/poc_mobile.proto#L145)  |
+| foundation-mobile-verified      | RewardManifest                  | reward_manifest.\*                     | [Proto](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/reward_manifest.proto#L5)       |
 
 ### Arweave
 
@@ -106,16 +108,134 @@ patterns.
 ## Reading Bytestream Data
 
 In order to store the massive amount of data generated by the Oracles, the output is stored as
-zipped bytestreams. In order to 'unpack' this data, you'll need the associated protobuf from
-[github.com/helium/proto](https://github.com/helium/proto).
+zipped bytestreams. In order to 'unpack' this data, you'll first need the associated protobuf from
+[github.com/helium/proto](https://github.com/helium/proto). You also can use the mappings above to
+find the correct protobuf definition.
 
-<!--TODO: list the specific protos used for each file type  -->
+Once uncompressed, the file is a series of 4 byte prefix length encoded binary followed by the
+associated message. More concretely, you'll need to repeatedly read the first 4 bytes and decode
+that as a big endian u32. Then use that u32 number as the number of subsequent bytes to read. Decode
+those subsequent bytes using the associated proto definition. Repeat this process until you've read
+the entire file.
+
+### Javascript Example
+
+```protobuf
+// mobile.proto
+// copied from https://github.com/helium/proto/blob/master/src/service/poc_mobile.proto#L31
+
+syntax = "proto3";
+
+package helium.poc_mobile;
+
+message cell_heartbeat_req_v1 {
+  // Public key of the hotspot
+  bytes pub_key = 1;
+  string hotspot_type = 2;
+  uint32 cell_id = 3;
+  // Timestamp of heartbeat in seconds from unix epoch
+  uint64 timestamp = 4;
+  double lat = 5;
+  double lon = 6;
+  bool operation_mode = 7;
+  string cbsd_category = 8;
+  string cbsd_id = 9;
+
+  bytes signature = 10;
+}
+```
+
+```js
+// oracle-data-reader-example.js
+
+// assumes you've downloaded and unzipped the below file
+const fileBuffer = fs.readFileSync('./cell_heartbeat.1667919103443')
+
+protobuf.load('mobile.proto', function (err, root) {
+  if (err) throw err
+
+  // Obtain a message type
+  var CellHeartbeat = root.lookupType('helium.poc_mobile.cell_heartbeat_req_v1')
+
+  let offset = 0
+  while (offset < fileBuffer.length) {
+    // the first 4 bytes tell you how long the message is
+    const messageLength = fileBuffer.readInt32BE(offset)
+    const bufferMessage = fileBuffer.subarray(offset + 4, offset + messageLength + 4)
+    try {
+      var decodedMessage = CellHeartbeat.decode(bufferMessage)
+      console.log(decodedMessage)
+    } catch (e) {
+      console.log('error', e)
+    }
+    offset += messageLength + 4
+  }
+})
+```
+
+### Rust Example
+
+This leverages existing Rust dependencies used by the oracles.
+
+```toml
+# Cargo.toml
+[package]
+name = "oracle-data-reader-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = {version = "1", features = ["backtrace"]}
+file-store = {git = "https://github.com/helium/oracles", branch = "main"}
+futures = "*"
+serde =  {version = "1", features=["derive"]}
+serde_json = "1"
+tokio = { version = "1", default-features = false, features = [
+    "fs",
+    "macros",
+    "signal",
+    "rt-multi-thread",
+    "rt",
+    "process",
+    "time"
+] }
+tokio-util = "0"
+```
+
+```rust
+# main.rs
+use anyhow::Result;
+use file_store::{heartbeat::CellHeartbeat, traits::MsgDecode, file_source};
+use futures::{ StreamExt};
+use serde_json::json;
+
+fn print_json<T: ?Sized + serde::Serialize>(value: &T) -> Result<()> {
+    println!("{}", serde_json::to_string_pretty(value)?);
+    Ok(())
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    // assumes you have cell_heartbeat.1667919103443.gz in folder
+    let mut file_stream = file_source::source(["cell_heartbeat.1667919103443.gz"]);
+
+    while let Some(result) = file_stream.next().await {
+        let msg = result?;
+        let heartbeat = CellHeartbeat::decode(msg)?;
+        print_json(&json!(heartbeat))?;
+    }
+    Ok(())
+}
+```
+
+A more fleshed out example can be found in
+[this sample oracle observer repo](https://github.com/dewi-alliance/oracle-observer-sample/tree/main/oracle-ingestor-lambda).
 
 ## Service Providers
 
 Several Helium ecosystem companies are building interfaces around Oracle data. These services range
 from APIs to Oracle data explorers
 
-- [Hotspotty](https://hotspotty.net)
-- [HeliumGeek](https://heliumgeek.com)
+- [Hotspotty](https://hotspotty.net/api/)
+- [HeliumGeek](https://heliumgeek.com/b/helium-offchain-api.html)
 - [Helium Deploy](https://www.heliumdeploy.io)

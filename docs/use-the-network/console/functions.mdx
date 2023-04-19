@@ -15,24 +15,25 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 You can now execute functions on Console! With the Decoder Function, users can transform and/or
 parse a raw payload before it is posted to an endpoint.
 
-When a Decoder Function is applied to a device or integration the Decoder Function code is executed
-on the payload sent by the device. The Decoder Function can be written using custom JavaScript code
+When a Decoder Function is applied to a device or integration, the Decoder Function code is executed
+on the payload sent by the device, and the result is passed to the Integration. 
+The Decoder Function can be written using custom JavaScript code
 provided by the user or selected from prebuilt decoders \(currently Browan Object Locator and
 Cayenne LPP\).
 
 Console decoders are compatible with The Things Network \(TTN\) decoders, which are already
 available for a wide variety of devices.
 
-In addition, to providing a custom decoder a growing list of community-created functions can be
-found [here](https://github.com/helium/console-decoders).
+In addition to creating a custom decoder, Helium maintains a [growing list of community-created
+functions](https://github.com/helium/console-decoders).
 
-For more information on how to create and attach functions, check out our Tips and Tricks video
-[here](https://youtu.be/UNUOLbIKXww).
+For more information on how to create and attach functions, check out our
+[Tips and Tricks video](https://youtu.be/UNUOLbIKXww).
 
 ## A Primer on Encoding and Decoding
 
-LoRaWAN networks are, by design, low bandwidth. This means that we must make the very most out of
-every byte that we send over the air. This also means that we shouldn't send inefficient types like
+LoRaWAN networks are, by design, low bandwidth. Thus, developers make the most out of
+every byte sent over the air. Developers also shouldn't send inefficient types like
 characters and strings. For example, to represent a single English letter with the widely used ASCII
 encoding standard, you have to use an entire byte. This makes sense if your data can only be stored
 as English words, but in the case of IoT devices, there is often only the need to store numeric
@@ -43,16 +44,18 @@ device data such as
 
 These types of standards allow you to easily encode your data much more efficiently. Once your data
 has been received over the air by the network, there is no longer the necessity of encoding the data
-with a standard that can make it more challenging for humans to interpret. This is where Function
-Decoders come in. They allow you to decode your device data so that you can interpret it for
-debugging issues or translate it before sending it to your application or another service.
+with a standard that can make it more challenging for humans to interpret.
+
+**Function Decoders** allow you to decode your device data within the Helium Console so that you
+can interpret it for debugging issues and/or translate \(decode\) it before sending it to your
+application/service via an Integration \(e.g., HTTP\).
 
 ## Creating a Decoder Function
 
 :::info **Decoder Library on GitHub**
 
 If you have purchased an off-the-shelf device, it is likely that there already exists a decoder you
-can use! We have a [repository ](https://github.com/helium/console-decoders)that contains decoders
+can use! We have a [repository](https://github.com/helium/console-decoders) that contains decoders
 for a number of popular devices.
 
 :::
@@ -106,12 +109,11 @@ field. An example of the decoded field is shown below.
 
 You need to attach functions to:
 
-- a device or a group of devices (via a label): This results in the function only being applied to
+- a device or a group of devices (via a label): the function is only applied to
   the device payload in the Debug utility.
 
-- a device or group of devices (via a label) and an integration: This results in the function being
+- a device or group of devices (via a label) and an integration: the function is
   applied to payloads before being sent to the integration.
 
-Easily attach functions to devices, labels, and integations in the Flows Workspace. For more
-information about Flows click here
-[https://docs.helium.com/use-the-network/console/flows](/use-the-network/console/flows/)
+Easily attach functions to devices, labels, and integations in the
+[Flows Workspace](/use-the-network/console/flows).

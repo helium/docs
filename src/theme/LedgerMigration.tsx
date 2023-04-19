@@ -259,9 +259,7 @@ export const LedgerMigration = () => {
     const txs = (await getTxs()).transactions
     const txBuffers = txs.map((tx: any) => Buffer.from(tx))
 
-    await bulkSendRawTransactions(connection, txBuffers.slice(0, -1))
-    // Ensure the last transaction (pulling up all the sol) runs last.
-    await bulkSendRawTransactions(connection, txBuffers.slice(-1))
+    await bulkSendRawTransactions(connection, txBuffers)
 
     const txs2 = (await getTxs()).transactions
     if (txs2.length !== 0) {
@@ -302,8 +300,8 @@ export const LedgerMigration = () => {
   } = useAsyncCallback(async () => {
     const [needSign, dontNeedSign] = partitionBy(
       heliumSignResult!,
-      (tx) => tx.signatures.some(sig => sig.publicKey.equals(solanaPubkey)),
-    )
+      (tx) => tx.signatures.some(sig => sig.publicKey.equals(solanaPubkey!)),
+    );
     await solanaWallet.connect()
     if (needSign.length > 0)  {
       console.log(needSign)
@@ -321,11 +319,15 @@ export const LedgerMigration = () => {
     loading: loadingSendTransactions,
   } = useAsyncCallback(async () => {
     const txs = solanaSignResult!.map((tx) => Buffer.from(tx.serialize()))
-    const sent = await bulkSendRawTransactions(connection, txs.slice(0, -1))
-    // Send the closing out of sol tx last
-    const sent2 = await bulkSendRawTransactions(connection, txs.slice(-1))
-    if ((sent.length + sent2.length) != txs.length) {
-      throw new Error("Failed to send all transactions, please try again")
+    await bulkSendRawTransactions(connection, txs)
+    let sent = [
+      ...(await bulkSendRawTransactions(connection, txs.slice(0, -1))),
+      // Ensure the last transaction (pulling up all the sol) runs last.
+      ...(await bulkSendRawTransactions(connection, txs.slice(-1))),
+    ]
+
+    if (sent.length != txs.length) {
+      throw new Error('Failed to send all transactions, please try again')
     }
     return true
   })
@@ -365,8 +367,8 @@ export const LedgerMigration = () => {
               <Alert status="error">
                 <AlertIcon />
                 <p>
-                  {errorSolana.message}. Please make sure you are connected to the correct ledger
-                  app.
+                  {errorSolana.message}. Please make sure you are connected to the Solana Ledger App
+                  and have blind signing enabled.
                 </p>
               </Alert>
             )}
@@ -412,8 +414,8 @@ export const LedgerMigration = () => {
               <Alert status="error">
                 <AlertIcon />
                 <p>
-                  {errorHelium.message}. Please make sure you are connected to the correct ledger
-                  app.
+                  {errorHelium.message}. Please make sure you are connected to the Helium-Solana
+                  Ledger App and have blind signing enabled.
                 </p>
               </Alert>
             )}
@@ -465,7 +467,8 @@ export const LedgerMigration = () => {
             {errorHeliumSign && (
               <Alert status="error">
                 <AlertIcon />
-                {errorHeliumSign.message}
+                {errorHeliumSign.message}. Please make sure you are connected to the Helium-Solana Ledger
+                App and have blind signing enabled.
               </Alert>
             )}
             Sign transactions to migrate from the Helium derivation path to the Solana derivation
@@ -488,7 +491,8 @@ export const LedgerMigration = () => {
             {errorSolanaSign && (
               <Alert status="error">
                 <AlertIcon />
-                {errorSolanaSign.message}
+                {errorSolanaSign.message}. Please make sure you are connected to the Solana Ledger
+                App and have blind signing enabled.
               </Alert>
             )}
             Open the Solana Ledger app. Sign transactions to migrate from the Helium derivation path

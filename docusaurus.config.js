@@ -93,6 +93,7 @@ module.exports = {
     prism: {
       theme: lightCodeTheme,
       darkTheme: darkCodeTheme,
+      additionalLanguages: ['protobuf', 'rust', 'toml'],
     },
   },
   presets: [
@@ -130,9 +131,7 @@ module.exports = {
   ],
   customFields: {
     MIGRATION_SERVICE_URL: 'https://migration.web.helium.io',
-    
-    // TODO: Use real rpc, and rpc proxy
-    SOLANA_URL: 'https://rpc-devnet.helius.xyz/?api-key=4eb6e438-25d1-4dcf-89dd-f54f2b42b846',
+    SOLANA_URL: 'https://solana-rpc.web.helium.io/?session-key=Pluto',
   },
   plugins: [
     function (context, options) {

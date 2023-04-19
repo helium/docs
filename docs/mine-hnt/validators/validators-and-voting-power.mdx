@@ -216,12 +216,13 @@ from 0.0684462 to 100.
 > unstake immediately, after six months, my veHNT decays to 0 until my 10 HNT unlocks and is
 > available to me for use in my wallet.
 
-An amount of locked-up veHNT is a Position and it is possible to own multiple Positions in your
-wallet. Actions taken on locked-up veHNT like delegating, voting, lock-up periods are an all or
-nothing option. If a veHNT owner would like to to recieve rewards from two SubDAOs then the veHNT
-Position would need to be split into two Positions by transfering some veHNT to a send position
-within the same wallet and then each position could delegate to different Positions. Similarly
-wishing to extend the lock-up period on parts of a Position requires a similar split by transfer.
+A combination of an amount of HNT locked-up for a specified duration and the assigned veHNT is
+called a "Position". It is possible to own multiple Positions in your wallet. Actions taken on a
+Position - like e.g. on the lock-up duration, delegating the veHNT, voting with the veHNT - are all
+or nothing options. If a Position owner would like to receive rewards from two SubDAOs, then the
+HNT-veHNT Position would need to be split into two Positions - by transfering some HNT to a second
+position within the same wallet. Then each position could delegate to a different subDAO. Similarly,
+wishing to extend the lock-up duration on parts of a Position requires a similar split by transfer.
 
 ### How Can I Obtain veHNT?
 
@@ -235,13 +236,13 @@ Check out a [DAO beta view](https://dao-beta.mango.markets/dao/MNGO) on Realms t
 
 ### Is There a Staking "Genesis" Period?
 
-For the first seven days after Helium's migration onto Solana, there will be a 3x multiplier bonus
+For the first ten days after Helium's migration onto Solana, there will be a 3x multiplier bonus
 for new veHNT stakers. This is called the "Landrush" multiplier.
 
-New stakers are only eligible to receive this veHNT bonus during the initial seven-day Landrush
+New stakers are only eligible to receive this veHNT bonus during the initial ten-day Landrush
 period. HNT staked after this period will receive veHNT at the normal rate with no multiplier.
 
-This landrush period will end at 23:59:59 UTC time on 25th April 2023
+This landrush period will end at 23:59:59 UTC on April 28, 2023.
 
 For example:
 
@@ -252,10 +253,10 @@ For example:
 > Staking 20 HNT during this Landrush period with a lock duration of 24 months returns 3000 veHNT
 > (20x50x3), and at the end of the staking period, 20 HNT is returned to the wallet.
 
-Validator owners can also take advantage of the 7 day bonus period and get the 3x bonus reapplied if
+Validator owners can also take advantage of the 10 day bonus period and get the 3x bonus reapplied if
 they extend their default 6 month lock-up period. This 3x bonus will not apply to the later extended
-period if they extend the lock-up further after the initial seven days, or veHNT is transfered to
-another staking position after the 7 day period.
+period if they extend the lock-up further after the initial ten days, or veHNT is transfered to
+another staking position after the 10 day period.
 
 ### Will I Earn HNT by Staking For veHNT?
 
@@ -389,10 +390,12 @@ veHNT and veDNTs have no price in the larger crypto markets.
 
 The DAO Utility score is described in [HIP-51](https://github.com/helium/HIP/issues/336)
 
-Each new subDAO of HNT has a Utility Score that mathematically represents the proportion shared of
-HNT tokens distributed to them every epoch from the fixed amount allocated to all subDAOs. This is
-currently 68% until April 1st 2023. The higher the Utility Score, the more significant the
-proportion of this 68% of HNT is emitted to that subDAO's treasury per epoch.
+Every epoch, a fixed amount of HNT is allocated to all subDAOs. Each subDAO receives a share of this
+fixed amount. The sizes of the shares are determined by the Utility Scores of each subDAO of Helium.
+
+The higher the Utility Score of a subDAO is in relation to the Utility Scores of all other subDAOs
+combined, the higher its share of the total HNT allocated to all subDAOs. As the DAO Utility Scores
+are calculated each epoch anew, the share of HNT a subDAO receives may change from epoch to epoch.
 
 Delegating veHNT to IOT or MOBILE increases the `V` value in the
 [HIP-51 DAO Utility Score](https://github.com/helium/HIP/blob/main/0051-helium-dao.md#omni-protocol-poc-incentive-model)
@@ -400,10 +403,10 @@ calculation.
 
 The two other ways the DAO Utility score can be increased are:
 
-1. The amount of data usage on the subDAO, i.e., the Data Credits burned. This increases the `D`
-   value in the Utility Score.
-2. The Data Credits used to onboard the number of Hotspots for that subDAO. This increases the `A`
-   value in the Utility Score.
+1. Increasing the amount of data usage on the subDAO, i.e., the Data Credits burned. This increases
+   the `D` value in the Utility Score.
+2. Increasing the Data Credits used to onboard the number of Hotspots for that subDAO. This
+   increases the `A` value in the Utility Score.
 
 ### Will My subDAO Earnings Remain The Same Over The Time Period Lock-Up?
 
