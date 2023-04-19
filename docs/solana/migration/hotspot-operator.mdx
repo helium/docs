@@ -95,17 +95,17 @@ The premine allocates IOT tokens in the following proportion:
 ### What is an "Active" Hotspot?
 
 The migration service will consider a Hotspot as "Active" if the Snapshot includes any of the
-following:
+following below. Note that Data Only Hotspots will not be rewarded:
 
+- Participated in PoC activity (Witnessing & Challenges), including:
 - Witnessed and was a valid witness
 - Beaconed and had valid witnesses
-- Transferred LoRaWAN data and been rewarded for it
 
 A Hotspot is not "Active" if it:
 
 - Has not beaconed with valid witnesses
 - Has not been a valid witness to a beacon
-- Has not passed data and been rewarded for it
+- Transferred LoRaWAN data and been rewarded for it (this includes Data Only Hotspots)
 
 :::caution Hotspots on the Denylist
 
