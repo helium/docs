@@ -6,12 +6,13 @@ import axios from 'axios'
 import React, { useMemo, useState } from 'react'
 import { useAsyncCallback } from 'react-async-hook'
 import { FaCheck, FaCheckCircle } from 'react-icons/fa'
+import './LedgerMigration.css'
 import './bufferFill'
 import { Alert, AlertIcon } from './components/Alert'
 import { Button } from "./components/Button"
 import { Flex } from './components/Flex'
 import { Icon } from './components/Icon'
-import './LedgerMigration.css'
+import { Checkbox } from './components/Checkbox'
 
 const Text: React.FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
   return <p>{children}</p>
@@ -24,19 +25,6 @@ const Heading: React.FunctionComponent<{
 }> = ({ children, fontSize, textAlign }) => {
   // @ts-ignore
   return <header style={{ fontSize, textAlign }}>{children}</header>
-}
-
-const Checkbox: React.FunctionComponent<{
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-  isChecked?: boolean
-  children?: React.ReactNode
-}> = ({ isChecked, onChange, children }) => {
-  return (
-    <Flex flexDirection="row">
-      <input type="checkbox" onChange={onChange} checked={isChecked} />
-      {children}
-    </Flex>
-  )
 }
 
 const Input: React.FunctionComponent<{
