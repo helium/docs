@@ -63,28 +63,45 @@ the blockchain.
 
 ## Architecture
 
-This image shows the progression to Light Hotspots, with the role of Miner being deprecated as we
-move the blockchain off the Hotspots and Proof-of-Coverage receipts to an Oracle. At the conclusion
-of Light Hotspot development in April 2023, the entire Helium blockchain has been removed from Hotspots, Hotspots
-will Beacon on their own without external input, and all data transfer and Proof-of-Coverage
-receipts has moved to Off-Chain Oracles.
+This image shows the progression to Light Hotspots, with the role of Miner being deprecated as 
+the blockchain is moved off the Hotspots and Proof-of-Coverage receipts are moved to an Oracle. At the conclusion
+of Light Hotspot development in April 2023, the entire Helium blockchain has been removed from Hotspots. Hotspots
+now Beacon on their own without external input, and all data transfer and Proof-of-Coverage
+receipts have moved to Off-Chain Oracles.
 
 <img className="docsheader" src={useBaseUrl('img/mine-hnt/validator-hotspot-dev.jpg')} />
 
 ### HIP-70 Changes
 
+[HIP-70](https://github.com/helium/HIP/issues/471)has passed.
 HIP-70 proposes a new architecture that involves several Oracles that allow Proof-of-Coverage
 generation to be automated and its receipts to be off-chain. The most "expensive" piece of
 Proof-of-Coverage is not just Challenge creation, but Receipt validation and verification. By taking
 these tasks off-chain, PoC frequency can increase dramatically, up to several times a day. Hotspot
 owners can expect more reliable challenges and witnessing.
 
-The core team has started work on these Oracles. Roughly speaking, a Hotspot will Beacon on its own,
+The core team has completed work on these Oracles. Roughly speaking, a Hotspot will Beacon on its own,
 with neighboring Hotspots witnessing and submitting their receipts to an **Ingestor** Oracle. The
 **Ingestor\*\*** uploads receipts into a cloud store where another Oracle, called a **Verifier**
 runs through the files to filter out invalid receipts. The output of the **Verifier** is passed to a
 **Reward** Oracle that determines how much reward shares a Hotspot should earn for that period.
 Finally, Hotspots are rewarded for their work in Proof-of-Coverage.
+
+***
+The core team has completed work on these Oracles which are used for both IoT and Mobile. 
+
+Roughly speaking, a Hotspot will Beacon on its own,
+with neighboring Hotspots witnessing and submitting their receipts to an **Ingestor** Oracle. 
+The **Packet Verifier** gets its data from the packet router (IoT) or the cellular backend (Mobile).
+
+The **Ingestor** uploads receipts into a cloud store where another Oracle, called a **Verifier**
+takes input from both the **Ingestor** and the **Packet Verifier**. 
+
+The **Ingestor** and the **Packet Verifier** filter out invalid receipts and produce the reward output. 
+The output of the **Verifier** is passed to a
+**Reward** Oracle that determines how much reward shares a Hotspot should earn for that period.
+Finally, Hotspots are rewarded for their work in Proof-of-Coverage.
+***
 
 For this to happen, two blockchain-related pieces must complete:
 
@@ -141,3 +158,4 @@ Oracle work can be found at the [Oracles](https://github.com/helium/oracles) rep
   interval and send its receipts to a Devnet Oracle for further receipt processing
 - **~November 2022**: Should HIP-70 pass, the completion of Light Hotspots with the launch of PoC
   Oracles, Data Transfer Oracles, and a final `gateway-rs` build to remove the Erlang miner
+- **xxx**: HIP-70 passed and Light Hotspots are completed
