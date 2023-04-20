@@ -23,7 +23,7 @@ export const HntToFeeSolImpl = () => {
   const { connection } = useConnection()
   const { result: estimate, error: estError } = useAsync(async () => {
     const { estimate } = (
-      await axios.post(`${url}/estimate`)
+      await axios.get(`${url}/estimate`)
     ).data
 
     return toNumber(new BN(estimate), 8)
