@@ -17,12 +17,12 @@ require('@solana/wallet-adapter-react-ui/styles.css')
 
 export const HntToFeeSolImpl = () => {
   const { siteConfig } = useDocusaurusContext()
-  const migrationUrl = siteConfig.customFields.MIGRATION_SERVICE_URL
+  const url = siteConfig.customFields.HNT_TO_RENT_SERVICE_URL
   const { publicKey, wallet } = useWallet()
   const { connection } = useConnection()
   const { execute, error, loading } = useAsyncCallback(async () => {
     if (wallet && connection && wallet.adapter && wallet.adapter.connected) {
-      const txRaw = (await axios.post(`${migrationUrl}/hnt-to-fees`, {
+      const txRaw = (await axios.post(`${url}/hnt-to-fees`, {
         wallet: publicKey.toBase58()
       })).data
       const tx = Transaction.from(Buffer.from(txRaw))
