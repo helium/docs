@@ -1,7 +1,7 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAsync, useAsyncCallback } from 'react-async-hook'
 import './bufferFill'
 import { Alert, AlertIcon } from './components/Alert'
@@ -21,15 +21,19 @@ export const HntToFeeSolImpl = () => {
   const url = siteConfig.customFields.HNT_TO_RENT_SERVICE_URL
   const { publicKey, wallet } = useWallet()
   const { connection } = useConnection()
-  const { result: estimate } = useAsync(async () => {
+  const { result: estimate, error: estError } = useAsync(async () => {
     const { estimate } = (
-      await axios.post(`${url}/estimate`, {
-        wallet: publicKey.toBase58(),
-      })
+      await axios.post(`${url}/estimate`)
     ).data
 
     return toNumber(new BN(estimate), 8)
   }, [])
+
+  useEffect(() => {
+    if (estError) {
+      console.error(estError)
+    }
+  }, [estError])
 
   const { execute, error, loading } = useAsyncCallback(async () => {
     if (wallet && connection && wallet.adapter && wallet.adapter.connected) {
@@ -37,15 +41,15 @@ export const HntToFeeSolImpl = () => {
         wallet: publicKey.toBase58()
       })).data
       const tx = Transaction.from(Buffer.from(txRaw))
-      await wallet.adapter.signAndSendTransaction(tx)
-      // await sendAndConfirmWithRetry(
-      //   connection,
-      //   signed.serialize(),
-      //   {
-      //     skipPreflight: true,
-      //   },
-      //   'confirmed',
-      // )
+      const signed = await wallet.adapter.signAndSendTransaction(tx)
+      await sendAndConfirmWithRetry(
+        connection,
+        signed.serialize(),
+        {
+          skipPreflight: true,
+        },
+        'confirmed',
+      )
     }
   })
   const [isChecked, setIsChecked] = useState(false);
@@ -63,7 +67,7 @@ export const HntToFeeSolImpl = () => {
       uses of this system. I further agree that I will not use this system for any illegal purpose.
       <Checkbox onChange={() => setIsChecked((c) => !c)}>I Agree</Checkbox>
       <Button isDisabled={!isChecked} colorScheme="primary" isLoading={loading} onClick={execute}>
-        {loading ? 'Loading' : `Convert ${estimate} HNT to 0.02 SOL for tx fee`}
+        {loading ? 'Loading' : `Convert ${estimate ? estimate : ""} HNT to 0.02 SOL for tx fee`}
       </Button>
     </Flex>
   )
