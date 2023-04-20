@@ -13,11 +13,10 @@ slug: /hotspot-makers/light-hotspots
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 This document describes the architecture and technical roadmap planned for converting existing
-Approved Hotspots to Light Hotspots as a software upgrade; updated with HIP70 in mind, should it
-pass.
+Approved Hotspots to Light Hotspots as a software upgrade; updated with HIP70 in mind.
 
-The conclusion of the Light Hotspot project is in progress. **Last updated Friday September 16,
-2022**.
+The conclusion of the Light Hotspot project is in progress. **Last updated Friday April 20,
+2023**.
 
 :::info
 
@@ -28,21 +27,24 @@ on [Helium Discord](https://discord.gg/helium)
 
 :::
 
-## What is a Light Hotspot? [Updated]
+## What is a Light Hotspot? [History]
 
-Light Hotspots are the evolution of how LoRaWAN gateways will interact with the Helium blockchain.
+Light Hotspots are the evolution of how LoRaWAN gateways interact with the Helium blockchain.
 Since the genesis block, the Helium blockchain has run entirely on the physical Hotspot itself. As
 the blockchain network grows, each Hotspot running a full node undergoes increasing load and are
 starting to fall out of sync due to the higher compute requirements.
 
 Before the introduction of [HIP 70](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md),
-the goal was to move Challenge creation and Consensus work to Validators. Since HIP-70 and the
+the goal was to move Challenge creation and Consensus work to Validators. 
+
+## What is a Light Hotspot? [Now updated April 20, 2023]
+Since HIP-70 and the
 introduction of Off-Chain PoC Oracles, the definition of Light Hotspot and what it will do has
 changed. Please read on for detailed changes and timelines.
 
-## Light Hotspot Properties [Updated]
+## Light Hotspot Properties
 
-When the Light Hotspot software is fully developed and in production, they will satisfy the
+The Light Hotspot software is fully developed and in production, satisfying the
 following properties:
 
 - A Hotspot on the Helium network will Beacon (also known as emitting a challenge for
@@ -63,9 +65,9 @@ the blockchain.
 
 This image shows the progression to Light Hotspots, with the role of Miner being deprecated as we
 move the blockchain off the Hotspots and Proof-of-Coverage receipts to an Oracle. At the conclusion
-of Light Hotspot development, the entire Helium blockchain will be removed from Hotspots, Hotspots
+of Light Hotspot development in April 2023, the entire Helium blockchain has been removed from Hotspots, Hotspots
 will Beacon on their own without external input, and all data transfer and Proof-of-Coverage
-receipts will go to Off-Chain Oracles.
+receipts has moved to Off-Chain Oracles.
 
 <img className="docsheader" src={useBaseUrl('img/mine-hnt/validator-hotspot-dev.jpg')} />
 
