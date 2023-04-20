@@ -41,7 +41,7 @@ export const HntToFeeSolImpl = () => {
         wallet: publicKey.toBase58()
       })).data
       const tx = Transaction.from(Buffer.from(txRaw))
-      const signed = await wallet.adapter.signAndSendTransaction(tx)
+      const signed = await wallet.adapter.signTransaction(tx)
       await sendAndConfirmWithRetry(
         connection,
         signed.serialize(),
