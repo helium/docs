@@ -1,24 +1,19 @@
 import { ClockworkProvider } from '@clockwork-xyz/sdk'
 import { AnchorProvider, BN } from '@coral-xyz/anchor'
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { fanoutKey, init, membershipCollectionKey, membershipVoucherKey } from '@helium/fanout-sdk'
 import { AccountProvider, useIdlAccount, useTokenAccount } from '@helium/helium-react-hooks'
 import { IDL } from '@helium/idls/fanout'
 import { Fanout } from '@helium/idls/lib/types/fanout'
 import { HNT_MINT, searchAssets, sendInstructions, toNumber } from '@helium/spl-utils'
 import {
+  TOKEN_PROGRAM_ID,
   createInitializeMintInstruction,
   getAssociatedTokenAddressSync,
-  TOKEN_PROGRAM_ID,
 } from '@solana/spl-token'
-import { LedgerWalletAdapter } from '@solana/wallet-adapter-ledger'
 import {
-  ConnectionProvider,
   useConnection,
-  useWallet,
-  WalletProvider,
+  useWallet
 } from '@solana/wallet-adapter-react'
-import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import { Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram } from '@solana/web3.js'
 import React, { useEffect, useMemo } from 'react'
 import { useAsync, useAsyncCallback } from 'react-async-hook'
@@ -26,6 +21,7 @@ import './bufferFill'
 import { Alert, AlertIcon } from './components/Alert'
 import { Button } from './components/Button'
 import { Flex } from './components/Flex'
+import { Wallet, WrapWithAccountProvider } from './components/Wallet'
 
 // Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css')
@@ -211,79 +207,19 @@ export const HstManagerImpl = () => {
   )
 }
 
-function threadKey(
-  authority: PublicKey,
-  threadId: string,
-): [PublicKey, number] {
+function threadKey(authority: PublicKey, threadId: string): [PublicKey, number] {
   return PublicKey.findProgramAddressSync(
     [Buffer.from('thread', 'utf8'), authority.toBuffer(), Buffer.from(threadId, 'utf8')],
     new PublicKey('CLoCKyJ6DXBJqqu2VWx9RLbgnwwR6BMHHuyasVmfMzBh'),
   )
 }
 
-export const WrapWithAccountProvider: React.FC = ({ children }) => {
-  const { connection } = useConnection()
-  return (
-    <AccountProvider connection={connection} commitment="confirmed">
-      {children}
-    </AccountProvider>
-  )
-}
-
 export const HstManager = () => {
   return (
-    <ClientOnly>
-      <Wallet>
-        <WrapWithAccountProvider>
-          <HstManagerImpl />
-        </WrapWithAccountProvider>
-      </Wallet>
-    </ClientOnly>
+    <Wallet>
+      <WrapWithAccountProvider>
+        <HstManagerImpl />
+      </WrapWithAccountProvider>
+    </Wallet>
   )
-}
-
-const Wallet: React.FC = ({ children }: { children: any }) => {
-  const { siteConfig } = useDocusaurusContext()
-  const endpoint = siteConfig.customFields.SOLANA_URL!
-
-  const wallets = useMemo(
-    () => [
-      /**
-       * Wallets that implement either of these standards will be available automatically.
-       *
-       *   - Solana Mobile Stack Mobile Wallet Adapter Protocol
-       *     (https://github.com/solana-mobile/mobile-wallet-adapter)
-       *   - Solana Wallet Standard
-       *     (https://github.com/solana-labs/wallet-standard)
-       *
-       * If you wish to support a wallet that supports neither of those standards,
-       * instantiate its legacy wallet adapter here. Common legacy adapters can be found
-       * in the npm package `@solana/wallet-adapter-wallets`.
-       */
-      // Phantom and backpack already supported in wallet standard, so they should show up.
-      new LedgerWalletAdapter()
-    ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [endpoint],
-  )
-
-  return (
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          <WalletMultiButton style={{ marginRight: '12px' }} />
-          {/* Your app's components go here, nested within the context providers. */}
-          {children}
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
-  )
-}
-
-function ClientOnly({ children }) {
-  if (typeof window === 'undefined') {
-    return null
-  }
-
-  return children
 }
