@@ -67,7 +67,6 @@ module.exports = {
       items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
       collapsed: true,
     },
-    'helium-tokens/sol-token',
     {
       type: 'category',
       label: 'Vote Escrow Tokens',
@@ -75,6 +74,7 @@ module.exports = {
       items: ['vote-escrow/vehnt', 'vote-escrow/realms'],
       collapsed: true,
     },
+    'helium-tokens/sol-token',
     {
       type: 'category',
       label: 'Helium Wallets',
