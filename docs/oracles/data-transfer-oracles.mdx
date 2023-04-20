@@ -15,15 +15,13 @@ points of failure.
 
 ## LoRaWAN Network Server Streamlining
 
-On the Helium L1, being a LoRaWAN Network Server (LNS) on the Helium Network requires running the
-router, [state channels](/blockchain/packet-purchasing/#state-channels), and the Helium blockchain,
-a significant hurdle for non-blockchain native LNS configurations.
-
-On the Solana L1, the LNS has a more focused role. After purchasing Organizationally Unique
-Identifier (OUI) and slabs, the LNS must inform the Config Service of the routing for the devices
-under their network. The LNS can optionally curate an allow-list to, for example, not accept packets
-from disabled devices or tenants/devices with a depleted Data Credit (DC) balance. The LNS will
-directly transmit these routes and their allow-list to the Config Service.
+In comparison with its operation on the Helium L1, the LoRaWAN Network Server (LNS) has a more 
+focused role on Solana which emphasizes the execution of LoRaWAN specific functions without the
+overhead of administering blockchain-specific functionality. After purchasing Organizationally 
+Unique Identifier(OUI) and slabs, the LNS must inform the Config Service of the routing for the 
+devices under their network. The LNS can optionally curate an allow-list to, for example, not accept
+packets from disabled devices or tenants/devices with a depleted Data Credit (DC) balance. The LNS 
+will directly transmit these routes and their allow-list to the Config Service.
 
 The update brings the responsibilities of a Helium LNS much more in line with a generic LNS while
 also easing the integrations of existing LNS systems, further helping the expansion of the Helium
