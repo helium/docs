@@ -86,11 +86,7 @@ module.exports = {
       ],
       collapsed: true,
     },
-    {
-      type: 'category',
-      label: 'Accounts',
-      items: ['wallets/twelve-words', 'wallets/twenty-four-words'],
-    },
+    'wallets/wallet-seed-phrase',
   ],
   iotnetwork: [
     {
