@@ -1,0 +1,99 @@
+---
+id: dc-token
+title: The Data Credit Token
+pagination_label: DC Token
+sidebar_label: DC Token
+description: Helium Network Token Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /helium-tokens/dc
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+DC is the Data Credit Token. It is required to use the Helium Network, which includes burning DC for:
+1. Sending data,
+2. Recieving data,
+3. Roaming,
+4. Reasserting Hotspots,
+5. Antenna updates,
+and more.
+
+DC was introduced to the
+Helium Network through the community proposal
+[HIP 4](https://github.com/helium/HIP/blob/main/0004-expensing-data-credits-for-lorawan.md).
+
+If you are a onboarding and deploying devices that will be running on the Helium Network, you'll need DC to pay for using the Network.
+
+DC can be aquired through two methods:
+1. Burning HNT for DC through the Helium Wallet App 
+2. Using a Credit Card to purchase DC through the Helium Console 
+
+### Data Credits and Burn-and-Mint Economics
+
+**Data Credits** are a $USD-pegged utility token derived from HNT in a burn transaction and used to
+pay [all transaction fees](/blockchain/transaction-fees) on the Helium Network. One Data Credit will
+always cost `$0.00001`. Or, `$1.00` will always buy you `100,000` Data Credits. But, as noted above,
+Data Credits are produced by burning HNT. And the market price of HNT will of course fluctuate.
+
+This HNT to DC relationship is based on a design commonly called a
+[burn and mint equilibrium](https://multicoin.capital/2018/02/13/new-models-utility-tokens/) and is
+intended to allow for the supply of HNT to respond to network usage trends such that, when
+equilibrium is found, the amount of HNT that exists remains static month on month. The amount of
+Data Credits produced by burning HNT will move up and down based on the USD price of HNT as reported
+by the [HNT Price Oracles](/blockchain/oracles). Below are a few examples of how this works
+on-chain.
+
+**Example 1**
+
+- As always, the price of one DC is `$.00001`
+- The current HNT Oracle price is `$1`
+- Burning `1` HNT would produce `100,000` DCs
+
+**Example 2**
+
+A Helium Network user requires `50,000` DCs per month to send data for their fleet of
+Helium-connected mouse traps. To acquire these 50,000 DCs per month, they would burn .5 HNT using
+the following math:
+
+- The price of DC is `$.00001`
+- The current HNT Oracle price is `$1`
+- Burning `0.5` HNT would produce the needed `50,000` DCs
+
+:::important Data Credits are non-transferrable
+
+Once burned, DCs are owned by the Helium wallet specified in the burn transaction. They are
+non-transferrable.
+
+:::
+
+:::info
+
+You can use the [Helium Data Credit Calculator](https://www.helium.com/use) to understand exactly
+how much it will cost to send device data on the Network.
+
+:::
+
+Not only are DCs critical for asserting new Hotspots and their location on the blockchain,
+registering OUIs and devices, but they are also used to pay for every single uplink packet that is
+sent on the Helium network including inital Joins. Downlinks, and ACKS do not require Data Credits.
+
+Every 24 bytes sent in an uplink packet cost 1 DC = $.00001.
+
+Unlike traditional wireless networks, the Helium Network has no annual fee and you only pay for data
+you use. This transaction occurs between the Miner (which runs on every Helium Hotspot) and the
+Helium LoRaWAN Network Server, identified by the OUI, of the device owner.
+
+The transaction is as follows:
+
+- A Miner receives a packet and determines who it belongs to
+- The Miner dials the appropriate Helium LoRaWAN Network Server and offers the packet
+- The Helium LoRaWAN Network Server expresses interest in the packet and accepts delivery
+- The Miner provides the packet under the promise that the LoRaWAN Network Server will “burn a DC”
+  in the name of the Miner
+
+You may have noticed that the final step includes a promise from the Helium LoRaWAN Network Server.
+The principle at work here is that each packet in its own is quite insignificant in value and so the
+Miner is willing to extend this service of delivery in exchange for the promise; by doing such,
+usage experiences low latencies. Should the Helium LoRaWAN Network Server fail to fulfill its
+promise, the Miner would place the Helium LoRaWAN Network Server on a deny list and would no longer
+route packets from any devices to this Helium LoRaWAN Network Server.

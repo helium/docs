@@ -60,44 +60,6 @@ approximately day one of the beginning of year three, **August 1, 2021**.
 > Full token emissions can be viewed in the HNT section of this document:
 > [Token Emissions as of Solana Migration](https://github.com/helium/HIP/blob/main/HIP-solana-parameters/token-emissions-as-of-solana-migration.pdf)
 
-### Data Credits and Burn-and-Mint Economics
-
-**Data Credits** are a $USD-pegged utility token derived from HNT in a burn transaction and used to
-pay [all transaction fees](/blockchain/transaction-fees) on the Helium Network. One Data Credit will
-always cost `$0.00001`. Or, `$1.00` will always buy you `100,000` Data Credits. But, as noted above,
-Data Credits are produced by burning HNT. And the market price of HNT will of course fluctuate.
-
-This HNT to DC relationship is based on a design commonly called a
-[burn and mint equilibrium](https://multicoin.capital/2018/02/13/new-models-utility-tokens/) and is
-intended to allow for the supply of HNT to respond to network usage trends such that, when
-equilibrium is found, the amount of HNT that exists remains static month on month. The amount of
-Data Credits produced by burning HNT will move up and down based on the USD price of HNT as reported
-by the [HNT Price Oracles](/blockchain/oracles). Below are a few examples of how this works
-on-chain.
-
-**Example 1**
-
-- As always, the price of one DC is `$.00001`
-- The current HNT Oracle price is `$1`
-- Burning `1` HNT would produce `100,000` DCs
-
-**Example 2**
-
-A Helium Network user requires `50,000` DCs per month to send data for their fleet of
-Helium-connected mouse traps. To acquire these 50,000 DCs per month, they would burn .5 HNT using
-the following math:
-
-- The price of DC is `$.00001`
-- The current HNT Oracle price is `$1`
-- Burning `0.5` HNT would produce the needed `50,000` DCs
-
-:::important Data Credits are non-transferrable
-
-Once burned, DCs are owned by the Helium wallet specified in the burn transaction. They are
-non-transferrable.
-
-:::
-
 ### Net Emissions
 
 At this point, the astute reader might be asking themselves the following question:
