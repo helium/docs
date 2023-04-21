@@ -14,8 +14,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 In the Helium ecosystem, HNT holders can receive veHNT by locking their HNT on-chain for a specified
 period in exchange for voting power and subDAO delegation income in the Helium DAO as defined in
-HIP-51. After the lock-up period ends, the amount of HNT is released to the owner's wallet and is
-once again transferable.
+HIP-51. After the lock-up period ends, and the locked position is closed the amount of HNT is
+released to the owner's wallet and is once again transferable.
 
 veHNT, or voting-escrowed HNT, is a token introduced as part of the Helium Network's transition to
 the Solana blockchain and the new governance model. veHNT was designed to empower Helium token
@@ -30,8 +30,8 @@ participate in network governance and decision-making. veHNT is the only way to 
 Network. The primary purpose of veHNT is to incentivize long-term commitment to the network and
 align stakeholders' interests with the network's long-term success.
 
-veHNT is not a separate token but rather a derivative of HNT. The amount of veHNT received when 
-locking HNT depends on the lock-up period chosen by the user, with longer lock-up periods resulting 
+veHNT is not a separate token but rather a derivative of HNT. The amount of veHNT received when
+locking HNT depends on the lock-up period chosen by the user, with longer lock-up periods resulting
 in a higher veHNT multiplier.
 
 ## SubDAOs
@@ -40,9 +40,10 @@ The Helium Network serves as the overarching system that enables a multitude of 
 to exist via the novel incentive mechanism of HNT.
 
 Each subDAO governs a specific area of the network and receives a portion of the network's token
-emissions, distributed proportionaly among veHNT holders who have delegated their veHNT to that 
-subDAO. The distribution of tokens is determined by the amount of veHNT delegated to each subDAO 
-and the individual lock-up periods. Initially, two subDAOs are introduced: IOT and MOBILE.
+emissions, distributed proportionaly among veHNT holders who have delegated their veHNT to that
+subDAO. The distribution of tokens is determined by the amount of veHNT delegated to each subDAO and
+the individual lock-up periods. Initially, two subDAOs are introduced: IOT and MOBILE. Voting on the
+IOT and MOBILE networks will require veIOT and veMOBILE respectively.
 
 ### IOT subDAO
 
@@ -58,10 +59,10 @@ initiatives aimed at integrating Helium technology into mobile devices and netwo
 
 ## Delegating veHNT
 
-To earn rewards from the token emissions, veHNT holders must delegate their veHNT to one or more 
-subDAOs. The lock-up period can range from 1 day to 48 months, with longer lock-up periods resulting 
-in a higher veHNT multiplier. Users can also adjust their delegations at any time to optimize their 
-earnings from the subDAOs.
+To earn rewards from the token emissions, veHNT holders must delegate their veHNT to one or more
+subDAOs. The lock-up period can range from 1 day to 48 months, with the longer lock-up periods
+resulting in a higher veHNT multiplier. Users can also change their delegations at any time to
+optimize their earnings from the subDAOs.
 
 veTokens can be managed through [Realms](/vote-escrow/realms) using the in-app browser on the
 [Helium Wallet App](/wallets/helium-wallet-app):
@@ -72,9 +73,10 @@ veTokens can be managed through [Realms](/vote-escrow/realms) using the in-app b
 
 ### Impacts to subDAO Rewards
 
-SubDAO rewards are calculated and paid to the lock-up position each 24hr reward period. Currently,
-the IOT and MOBILE subDAO each have a 6% token emission pool for veHNT stakers. This 6% is shared 
-proportionaly amongst all veHNT delegated to that subDAO at the end of each epoch.
+SubDAO rewards are calculated and paid to the lock-up position each 24hr reward period. At
+approximately 00:30 UTC time. Currently, the IOT and MOBILE subDAO each have a 6% token emission
+pool for veHNT stakers. This 6% is shared proportionaly amongst all veHNT delegated to that subDAO
+at the end of each epoch.
 
 **subDAO rewards may increase when:**
 
@@ -86,6 +88,6 @@ proportionaly amongst all veHNT delegated to that subDAO at the end of each epoc
 
 - More veHNT is delegated in the subDAO you delegated to - your share is reduced
 - More veHNT is delegated to other subDAOs - other treasuries get more HNT.
-- Your delegated veHNT decays over time after you enter cooldown.
-- More Hotspots are online in other subDAOs with a non-zero onboarding fee.
+- Your delegated veHNT decays over time after you enter cooldown (cliff mode)
+- More Hotspots are online in other subDAOs that have a non-zero onboarding fee.
 - More network data is transferred in other subDAOs.
