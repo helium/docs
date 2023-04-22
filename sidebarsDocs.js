@@ -222,7 +222,6 @@ module.exports = {
         'blockchain/mining',
         'blockchain/packet-purchasing',
         'blockchain/consensus-protocol',
-        'blockchain/oracles',
         'blockchain/transaction-fees',
       ],
       collapsed: true,
