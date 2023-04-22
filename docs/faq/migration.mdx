@@ -19,11 +19,45 @@ IOT is the newest token on the Helium Network, instead of earning HNT, hotspots 
 
 ## How do I stake my tokens?
 You can stake your tokens using [Realms](https://realms.heliumvote.com/dao/hnt) to which the links can be found in the Helium Wallet app by clicking the globe icon on the bottom right and choosing one of the 3 provided Ralms links matching the token you want to stake. After this, follow the directions on how to lock the tokens and delegate them using [this doc](https://docs.helium.com/vote-escrow/realms/).
-
-You cannot delegate veIOT and veMOBILE at this time, only veHNT.
-
 :::note
-
-This is a note
-
+You cannot delegate veIOT and veMOBILE at this time, only veHNT.
 :::
+
+## How can I exchange or see the exchange rate for my tokens?
+Here are 2 ways to do this:
+1. On the home screen in the Helium Wallet app, there is an orange button for swapping, clicking this button brings you to a section in the app where you can swap your IOT or MOBILE for HNT.
+:::warning
+The current treasury sizes for the tokens are very low, therfore you may be seeing large amounts of tokens only being able to be swapped for low amounts of HNT, it is recommended to wait for the treasuries to fill up with HNT over time before using this feature.
+:::
+2. Using a DEX like [Jupiter](https://jup.ag) or [Orca](https://orca.so)
+
+## Why don’t I see my rewards after my hotspot does PoC or transfers data?
+Before the migration, epochs used to be 30 blocks (about 30 minutes) long, and at the end of each epoch rewards would be distributed.
+Now the epochs are 24 hours long, so you will get your rewards for all the activity your hotspot has within an epoch at the end of it, basically once a day.
+
+##  Is it possible to migrate the wallet without having to log into the Helium Wallet app?
+Yes!
+The Helium Foundation is providing a service that migrates the wallet for you directly from the Helium Docs website!
+Simply go to [this doc](https://docs.helium.com/solana/migration/exchange/#mapping-helium-wallets-to-solana-wallets) and paste your old Helium address into the entry box and click the “Seed Wallet” button, give it a few seconds and now your wallet should be migrated over to Solana.
+
+## Why am I getting the {"InstructionError":[0, {"Custom":1}]} error when I try to stake?
+This error is given when your wallet does not have enough SOL to proceed with the transaction.
+Unless your wallet already has at least .014 SOL, you won’t be able to stake until it does so.
+
+## How can I easily swap HNT for SOL to get extra SOL into my wallet for fees?
+There is another great service being provided in [this](https://docs.helium.com/helium-tokens/sol-token/) Helium Doc.
+You can use it to swap some HNT for .02 SOL by following the instructions provided on the page.
+
+## When do I get my first rewards for delegations?
+Let’s say you delegate your veHNT towards a subDAO during epoch N, you will get your first delegation rewards at the end of epoch N + 1.
+So if you delegate for example during epoch 2, you will get your first rewards at the end of epoch 3, and then continue to get rewards at the end of the epochs following that one.
+
+## What is the difference between the Cliff and Constant locks?
+You can find the explanation for the two in the Helium Docs:
+* [Cliff](https://docs.helium.com/vote-escrow/realms/#cliff)
+* [Constant](https://docs.helium.com/vote-escrow/realms/#constant)
+
+## How can I get the new address to my wallet?
+Here are 2 ways you can get your new Helium address:
+1. In the Helium Wallet app, Settings > Copy Address > Solana.
+2. Using another service Foundation is providing, you can go to <https://migration.web.helium.io/helium/pasteOldAddressHere> and it will return your new address.
