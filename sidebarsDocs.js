@@ -14,6 +14,7 @@ module.exports = {
       label: 'Solana Migration Guides',
       link: { type: 'doc', id: 'solana/migration-overview' },
       items: [
+        'solana/migration/faq',
         'solana/migration/hotspot-operator',
         'solana/migration/validator-operator',
         {
@@ -31,7 +32,7 @@ module.exports = {
         'solana/migration/blockchain-etl',
         'solana/migration/wallet-user',
         'solana/migration/ledger',
-        'solana/migration/hst'
+        'solana/migration/hst',
       ],
     },
   ],
