@@ -9,10 +9,10 @@ import { FaCheck, FaCheckCircle } from 'react-icons/fa'
 import './LedgerMigration.css'
 import './bufferFill'
 import { Alert, AlertIcon } from './components/Alert'
-import { Button } from "./components/Button"
+import { Button } from './components/Button'
+import { Checkbox } from './components/Checkbox'
 import { Flex } from './components/Flex'
 import { Icon } from './components/Icon'
-import { Checkbox } from './components/Checkbox'
 
 const Text: React.FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
   return <p>{children}</p>
@@ -286,12 +286,11 @@ export const LedgerMigration = () => {
     error: errorSolanaSign,
     loading: loadingSolanaSign,
   } = useAsyncCallback(async () => {
-    const [needSign, dontNeedSign] = partitionBy(
-      heliumSignResult!,
-      (tx) => tx.signatures.some(sig => sig.publicKey.equals(solanaPubkey!)),
-    );
+    const [needSign, dontNeedSign] = partitionBy(heliumSignResult!, (tx) =>
+      tx.signatures.some((sig) => sig.publicKey.equals(solanaPubkey!)),
+    )
     await solanaWallet.connect()
-    if (needSign.length > 0)  {
+    if (needSign.length > 0) {
       console.log(needSign)
       const signed = await solanaWallet!.signAllTransactions(needSign)
       return [...dontNeedSign, ...signed]
@@ -449,14 +448,14 @@ export const LedgerMigration = () => {
         ),
       },
       {
-        label: 'Sign Transactions with Helium',
+        label: 'Sign Transactions with Helium-Solana',
         component: (
           <VStack>
             {errorHeliumSign && (
               <Alert status="error">
                 <AlertIcon />
-                {errorHeliumSign.message}. Please make sure you are connected to the Helium-Solana Ledger
-                App and have blind signing enabled.
+                {errorHeliumSign.message}. Please make sure you are connected to the Helium-Solana
+                Ledger App and have blind signing enabled.
               </Alert>
             )}
             Sign transactions to migrate from the Helium derivation path to the Solana derivation
