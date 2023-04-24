@@ -31,15 +31,7 @@ The easiest way to see the blocks being mined is with the
 [Helium Mobile App](https://helium.com/app) also shows block details. Developers can also use the
 Helium blockchain API to access all blockchain transactions and metadata.
 
-### Epochs
-
-An `epoch` is the target time period for which a given group of Validators is elected to serve as
-the consensus group. The target time for an epoch is currently `30 blocks`, as defined in the
-`election_interval` chain variable. Approximately every 30 blocks mined marks the passing of an
-epoch, after which a new group of Validators is elected to form the next consensus group. Mining
-rewards are distributed per epoch (as opposed to per block in most blockchain-based systems). At the
-conclusion of each epoch, the consensus group will distribute all the $HNT produced in that block
-via the `rewards` transaction.
+<!--TODO: document epochs on soland and in helium rewards -->
 
 ### Transactions
 
@@ -71,7 +63,6 @@ submitted and confirmed. The following is a list of the supported transactions:
   next epoch.
 - `create hashed timelock` - Creates a transaction that can only be redeemed by providing the
   correct pre-image to the hashlock within the specified timelock.
-- `create proof of coverage request` - Submitted by a Validator wishing to initiate a challenge.
 - `data credits` - Burn HNT for DCs at the current oracle price and deliver them to the target
   wallet address.
 - `genesis gateway` - Used to define the initial group of Miners that bootstrapped the blockchain.
@@ -93,9 +84,6 @@ submitted and confirmed. The following is a list of the supported transactions:
 - `state channel open` - Opens a new state channel on a Helium Router.
 - `state channel close` - Closes a specific state channel on a Helium Router.
 - `token burn exchange rate` - Change the exchange rate for burning $HNT to DCs.
-- `stake validator` - Stake a new Validator on the Helium Network.
-- `transfer validator` - Transfer a staked Validator to a new owner or a new Validator.
-- `unstake validator` - Unstake a previously staked Validator.
 
 **Extended Reading on Transactions**
 

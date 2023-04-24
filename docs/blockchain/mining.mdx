@@ -29,13 +29,12 @@ Every epoch, the current consensus group mines approximately 30 blocks on the bl
 block, Hotspots perform various types of work and are awarded according to the following
 distribution:
 
-| Reward Type           | Chain Variable            | Description                                                                                                        |
-| :-------------------- | :------------------------ | :----------------------------------------------------------------------------------------------------------------- |
-| PoC Beaconers         | `poc_challengees_percent` | Awarded to any Hotspot that successfully transmits a PoC beacon packet.                                            |
-| Witnesses             | `poc_witnesses_percent`   | Distributed to selected Hotspots that witness a PoC beacon packet.                                                 |
-| Consensus Group       | `consensus_percent`       | Divided equally among the Validators that are part of the outgoing Consensus Group, responsible for mining blocks. |
-| Security              | `securities_percent`      | Awarded to Network investors who hold Security Tokens.                                                             |
-| Network Data Transfer | `dc_percent`              | Distributed each epoch to Hotspots that route LoRaWAN sensor data for sensors on the Network during that epoch.    |
+| Reward Type           | Chain Variable            | Description                                                                                                     |
+| :-------------------- | :------------------------ | :-------------------------------------------------------------------------------------------------------------- |
+| PoC Beaconers         | `poc_challengees_percent` | Awarded to any Hotspot that successfully transmits a PoC beacon packet.                                         |
+| Witnesses             | `poc_witnesses_percent`   | Distributed to selected Hotspots that witness a PoC beacon packet.                                              |
+| Security              | `securities_percent`      | Awarded to Network investors who hold Security Tokens.                                                          |
+| Network Data Transfer | `dc_percent`              | Distributed each epoch to Hotspots that route LoRaWAN sensor data for sensors on the Network during that epoch. |
 
 **_Do I Have To Actively Participate to Earn Rewards Once My Hotspot is Deployed?_**
 
@@ -134,7 +133,6 @@ calculation is:`(800,000,000 DC * $0.00001 / $8.00 HNT Oracle Price)`
 
 ### Additional Notes on Reward Types and Payouts
 
-- All Validators in the `Consensus Group` will earn an equal reward.
 - All Hotspots participating in PoC, including `Beaconers` and `Witnesses` will earn rewards
   proportional to how many events they participated in out of the total number of events per epoch.
 - All Hotspots participating in `Network Data Transfer` will earn rewards proportional to their

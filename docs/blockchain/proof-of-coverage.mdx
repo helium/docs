@@ -40,7 +40,7 @@ provided by Hotspots on the Network.
   [block 1,731,335](https://explorer.helium.com/blocks/1731335).
 - The first Oracled Proof of Coverage Reciepts were in
   [block 1,731,339](https://explorer.helium.com/blocks/1731339).
-- [Bitter Concrete Parakeet](https://explorer.helium.com/validators/12xtDibQdaAsvbPTqFbecGaA4iHd7NzRg6s7foQ2HCxouHo11TE)
+- [Bitter Concrete Parakeet](https://explorer-old.helium.com/validators/12xtDibQdaAsvbPTqFbecGaA4iHd7NzRg6s7foQ2HCxouHo11TE)
   is the animal name of the Injector Oracle for Oracled PoC.
 
 Oracled PoC moves the responsibility of validating all PoC events to dedicated Oracles, powerful
@@ -51,9 +51,9 @@ Oracles interact with data and systems outside of a native blockchain environmen
 processing can be completed much more efficiently and at scale, providing a solution to a
 fundamental limitation of smart contracts.
 
-Oracled Proof-of-Coverage allows Hotspots running miner version 2022.12.13.0 or later to
-"self-beacon," transmitting Beacons on their own to participate in Proof-of-Coverage, eliminating
-the need for Validator Challenges and ensuring more reliable Beacon events.
+Oracled Proof-of-Coverage allows Hotspots running miner version `2022.12.13.0` or later to
+"self-beacon," transmitting Beacons on their own to participate in Proof-of-Coverage, ensuring more
+reliable Beacon events.
 
 At the start, Hotspots are intended to self-beacon every 6 hours, though this time window may change
 as Oracled PoC is improved. In addition, the Beacon rate includes a "jitter" component to offset the
@@ -63,14 +63,6 @@ spikes.
 Oracled PoC is essential in implementing HIP-70 and the Helium Network's migration to the Solana
 blockchain and is a significant step forward in increasing the usability and scalability of the
 Network.
-
-:::info What happens to Challenger Rewards?
-
-Validators were previously awarded Challenger Rewards for creating Proof of Coverage challenges.
-These rewards are now redistributed to Hotspots as part of the Proof-of-Coverage pool, returning the
-0.85% of overall HNT rewards to Validators to Beaconing and Witnessing Hotspots.
-
-:::
 
 ## Proof of Coverage Roles
 
@@ -96,27 +88,6 @@ Oracles are powerful machines that ingest completed challenges, verify the chall
 validity, and then inject the results back into the Helium L1 blockchain for rewards to be issued.
 In addition, oracles interact with data and systems outside of a native blockchain environment,
 providing a solution to a fundamental limitation of smart contracts.
-
-<details>
-  <summary>History of PoC Roles</summary>
-
-The Proof of Coverage model has continued to evolve to better suit the needs and capabilities of the
-Helium Network.
-
-The Consensus Group, a group of Hotspots elected by the blockchain to progress block production,
-issued challenges in early iterations of the PoC algorithm. Eventually, as the number of active
-Hotspots grew, [HIP-55](https://github.com/helium/HIP/blob/main/0055-validator-challenges.md) was
-proposed and voted on by the community to move Consensus Groups, and the "Challenger" role to
-Validators, much more powerful machines capable of handling the ever-growing volume of data and
-connections on the Network.
-
-Even farther back in history, and before
-[HIP-15](https://github.com/helium/HIP/blob/master/0015-beaconing-rewards.md), Proof of Coverage
-relied entirely on beaconing. A beacon was a single transmission witnessed by any Hotspot. Previous
-versions used multi-hop challenge paths that didn't accurately test Hotspots' ability to capture RF
-packets.
-
-</details>
 
 ## PoC Reward Scaling
 
