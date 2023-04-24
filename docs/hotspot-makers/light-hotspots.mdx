@@ -15,7 +15,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 This document describes the architecture and technical roadmap planned for converting existing
 Approved Hotspots to Light Hotspots as a software upgrade; updated with HIP70 in mind.
 
-The conclusion of the Light Hotspot project is in progress. **Last updated Friday April 20,
+The conclusion of the Light Hotspot project has completed. **Last updated Friday April 20,
 2023**.
 
 :::info
@@ -37,7 +37,8 @@ starting to fall out of sync due to the higher compute requirements.
 Before the introduction of [HIP 70](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md),
 the goal was to move Challenge creation and Consensus work to Validators. 
 
-## What is a Light Hotspot? [Now updated April 20, 2023]
+## What is a Light Hotspot? [Now updated April 24, 2023]
+
 Since HIP-70 and the
 introduction of Off-Chain PoC Oracles, the definition of Light Hotspot and what it will do has
 changed. Please read on for detailed changes and timelines.
@@ -80,14 +81,6 @@ Proof-of-Coverage is not just Challenge creation, but Receipt validation and ver
 these tasks off-chain, PoC frequency can increase dramatically, up to several times a day. Hotspot
 owners can expect more reliable challenges and witnessing.
 
-The core team has completed work on these Oracles. Roughly speaking, a Hotspot will Beacon on its own,
-with neighboring Hotspots witnessing and submitting their receipts to an **Ingestor** Oracle. The
-**Ingestor\*\*** uploads receipts into a cloud store where another Oracle, called a **Verifier**
-runs through the files to filter out invalid receipts. The output of the **Verifier** is passed to a
-**Reward** Oracle that determines how much reward shares a Hotspot should earn for that period.
-Finally, Hotspots are rewarded for their work in Proof-of-Coverage.
-
-***
 The core team has completed work on these Oracles which are used for both IoT and Mobile. 
 
 Roughly speaking, a Hotspot will Beacon on its own,
@@ -158,4 +151,5 @@ Oracle work can be found at the [Oracles](https://github.com/helium/oracles) rep
   interval and send its receipts to a Devnet Oracle for further receipt processing
 - **~November 2022**: Should HIP-70 pass, the completion of Light Hotspots with the launch of PoC
   Oracles, Data Transfer Oracles, and a final `gateway-rs` build to remove the Erlang miner
-- **xxx**: HIP-70 passed and Light Hotspots are completed
+- **~October 2022**: HIP-70 passed
+- **~April 2023**: Light Hotspots are completed
