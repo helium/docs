@@ -1,54 +1,22 @@
 ---
-id: validators-and-voting-power
-title: Validators And Voting Power
-pagination_label: Validators And Voting Power
-sidebar_label: Validators And Voting Power
+id: voting-power
+title: Voting Power
+pagination_label: Voting Power
+sidebar_label: Voting Power
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /mine-hnt/validators/validators-and-voting-power
+slug: /vote-escrow/voting-power
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The Helium Foundation is progressing in implementing HIP-70 and migrating our L1 to Solana. This
-documentation on staking and lock-up is subject to updates and modifications before the migration
-date.
-
-:::info
-
-Check out the [Solana Transition AMAs](https://twitter.com/HeliumFndn/status/1598361332520132608)
-hosted on Twitter Spaces for the most up-to-date progress on the L1 transition.
-
-:::
-
-Validators were critical for the ongoing operation of the Helium Network and continued to earn HNT
-rewards for their role in supporting the Helium ecosystem until the L1 transition completion.
-
-Validators maintained the Network and provided vital operations, including validating transactions
-and producing blocks from which all Network participants benefit. One of the impacts of the passing
-of HIP-70 and transitioning L1 is that the role Validators play as we know it will no longer be
-required, and Validators are sunsetted by the end of Q1 2023 after the transition is complete.
-
-Validators who remained staked receive new vote escrowed tokens (veHNT) based on their staked HNT
-amount and lock-up period. Post-migration, veHNT will be the only way to vote in the Helium Network.
-Vote escrowed tokens will be used to vote in DAO and subDAO governance and open a world of
-opportunities for on-chain voting and voting power delegation.
-
-Holding veHNT means you, the wallet holder, have the opportunity to influence the future of the
-Helium Network, and the more voting weight you have, the more influence you can use.
+The Helium Foundation has implemented HIP-70 and migrated our L1 to Solana. Voting on Helium
+Improvement Proposals is performed with vote eskrowed tokens.
 
 ## Key Take Aways
 
-- Until the L1 transition is completed, staked Validators continued to earn HNT rewards for block
-  production.
 - veHNT gives holders voting rights to determine the future of the Helium Network.
 - Post migration, anyone can stake HNT to veHNT, and there will no longer be a 10,000 HNT minimum.
-- Validator operators could decide to remain staked and receive veHNT or unstake and remain in
-  cooldown until the completion of the L1 migration.
-- Validators who remain staked receive a 3x veHNT bonus for staked HNT, and their HNT remains locked
-  up for the a six-month period as defined in HIP 51.
-- veHNT holders will earn MOBILE or IOT tokens depending on which Helium subDAO they delegate their
-  veHNT.
 - After the minimum lock-up period, HNT releases to the owner's wallet after staking cooldown is
   selected.
 
@@ -68,83 +36,14 @@ Additionally, this provides other benefits, such as earning MOBILE or IOT tokens
 delegates their veHNT to those subDAOs, respectively. After the lock-up period ends, the same amount
 of HNT is released back to the owner's wallet and is now transferable, if needed.
 
-### What Was Staked HNT?
+### What Are The Benefits of Staking HNT after the subDAOs launch
 
-Following [HIP-25](https://github.com/helium/HIP/blob/main/0025-validators.md), Validator operators
-staked 10,000 HNT into a Validator Node. HNT holders could stake multiple Validators if they chose
-to do so. The work of block production moved to Validator nodes, and those elected periodically into
-the Consensus Group received 6% of HNT emissions as a reward for block production.
-
-All HNT holders, including Validator stakers, could vote on Helium HIPs as staked and unstaked HNT
-are equally weighted in voting the same. However, HNT holders who elected to join a Validator pool
-could not decide personally on voting as the pool operator controlled their voting power. In all
-known cases, pool operators did not participate in governance.
-
-### What were the Staking Rewards?
-
-Validators served two roles in the Network, block production and creating and validating
-Proof-of-Coverage challenges. Validators earned 6% of emissions for block production when elected to
-the Consensus Group and 0.85% for Proof-of-Coverage challenges.
-
-### How Will Staking Rewards Change?
-
-As of 02/02/23, the Challenger role was removed from Validators as Hotspots begin to beacon
-independently of be challenged. The PoC Challenger rewards pool has been returned to Hotspots.
-
-After HIP-70's L1 migration is implemented, the existing Validators will no longer be producing
-blocks for the Helium Network and will no longer receive HNT rewards. As their staked HNT will be
-converted to veHNT, these holders can optionally delegate to specific subDAOs.
-
-Currently, the IOT and MOBILE subDAO have a 6% token emission pool for veHNT stakers.
-
-After HIP-51, HIP-52 and HIP-53 are implemented, all the subDAOs combined will receive the non-HST
-emissions of HNT. At this time, this is 68% of emitted HNT and will increase to 69% at the next
-yearly emissions change in August 2023. This emissions curve changes annually such that the subDAOs
-eventually receive 85% of all future HNT emissions.
-
-### What Are The Benefits of Staking HNT after the subDAOs Are Launched?
-
-After the Solana migration, stakers can use their staked veHNT to vote on proposals in the HeliumDAO
-and help the DAO make collective decisions, influencing the future of the Network.
+Now the Solana migration has completed, stakers can use their staked veHNT to vote on proposals in
+the HeliumDAO and help the DAO make collective decisions, influencing the future of the Network.
 
 Stakers will additionally be able to delegate veHNT to a subDAO for token rewards. Delegating veHNT
 to a subDAO will count towards the DAO Utility Score, the `V` value referenced in
 [HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md#omni-protocol-poc-incentive-model).
-
-:::note Utitily Score impacts HNT Proportion for a subDAO
-
-The higher the DAO Utility Score in relation to the DAO Utility score of other SubDAOs, the higher
-the proportion of HNT earned by the individual subDAO treasury each epoch.
-
-:::
-
-### What Happens to HNT Previously Staked in a Pool?
-
-Check with the vendor managing your staking pool for more detailed information about your staking
-pool's decision.
-
-:::caution As a Reminder
-
-**The Helium Foundation is neither responsible for nor manages the status of Validator staking
-pools.**
-
-:::
-
-### What Happens if I Unstake Today?
-
-If a Validator unstaked on January 1st 2023, the expected release date is around March 27th, 2023.
-
-This date assumes a cooldown period of 125,000 blocks with an average block time of 60 seconds, and
-the L1 chain is still running on that date. The core developers expect that block production on the
-Helium L1 will discontinue late march 2023 when the implementation of HIP-70 is complete.
-
-Any HNT in cooldown at the time the snapshot is taken before the data migration to the new L1 will
-be converted to veHNT with a staking release date of six months,
-[as described in HIP-70](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md#reduce-the-cooldown-period-of-staked-validators).
-Any HNT still staked will automatically convert to veHNT with a six-month staking release date.
-
-All veHNT still staked at the time of the snapshot will receive a 3x Voting Weight multiplier during
-the 6-month lock-up as a reward for ongoing staking in the Network.
 
 ### Where Does My HNT Go if I Stake veHNT?
 
@@ -226,18 +125,13 @@ wishing to extend the lock-up duration on parts of a Position requires a similar
 
 ### How Can I Obtain veHNT?
 
-Staking HNT for veHNT will be done on [Realms](https://dao-beta.mango.markets/realms).
-
-:::note This is not available today.
-
-Check out a [DAO beta view](https://dao-beta.mango.markets/dao/MNGO) on Realms today.
-
-:::
+Staking HNT for veHNT will be done on [Realms](https://realms.heliumvote.com/dao/hnt) See the
+[Staking veHNT on Realms](/vote-escrow/realms) documentation
 
 ### Is There a Staking "Genesis" Period?
 
-For the first ten days after Helium's migration onto Solana, there will be a 3x multiplier bonus
-for new veHNT stakers. This is called the "Landrush" multiplier.
+For the first ten days after Helium's migration onto Solana, there will be a 3x multiplier bonus for
+new veHNT stakers. This is called the "Landrush" multiplier.
 
 New stakers are only eligible to receive this veHNT bonus during the initial ten-day Landrush
 period. HNT staked after this period will receive veHNT at the normal rate with no multiplier.
@@ -253,11 +147,6 @@ For example:
 > Staking 20 HNT during this Landrush period with a lock duration of 24 months returns 3000 veHNT
 > (20x50x3), and at the end of the staking period, 20 HNT is returned to the wallet.
 
-Validator owners can also take advantage of the 10 day bonus period and get the 3x bonus reapplied if
-they extend their default 6 month lock-up period. This 3x bonus will not apply to the later extended
-period if they extend the lock-up further after the initial ten days, or veHNT is transfered to
-another staking position after the 10 day period.
-
 ### Will I Earn HNT by Staking For veHNT?
 
 **No.** HNT staked to veHNT will not earn more HNT, it will only return what they staked at the end
@@ -271,39 +160,12 @@ delegating to that subDAO.
 > claimable in your Helium Wallet. If you choose, this IOT can then be burned at the IOT subDAO
 > treasury for HNT, or you may hold your IOT tokens, or stake them into veIOT.
 
-### How Do I Stake for veHNT After HIP-51 and HIP-70 Are Implemented?
-
-1. If you do not already have HNT in your Helium Wallet, transfer HNT into your Helium Wallet to
-   stake.
-2. Using the Helium Wallet App/Realms, stake HNT into veHNT and define the lock-up period and if the
-   decay cooldown period starts immediately or lock-up period is rolling with a decay countdown
-   starting at a future date to be decided (default) The granularity of selection of lock-up period
-   is in days.
-3. Using the Helium Wallet App browser (Globe icon) access /Realms, delegate that veHNT into one or
-   more existing subDAOs. You may have to complete several transactions depending on how many
-   subDAOs you delegate to, or if you want different amounts delegated for different lock-up
-   periods.
-4. Your delegated HNT will count towards the subDAOs Utility Score and provide increased HNT
-   deposits in the subDAO's treasury per epoch.
-
-This process should be simple in the [Helium Wallet App](/wallets/helium-wallet-app). More
-instructions will be provided on Realms usage as we get closer to the Solana migration.
-
-The Helium Wallet App is Solana compatible. All staking and vote escrow delegation operations will
-be performed within the Helium Wallet app browser and Realms
-
-- Staking HNT to veHNT
-- Increasing the veHNT staking period for existing veHNT
-- Delegating veHNT to a subDAO
-- Voting for HNT governance with veHNT
-- Voting for subDAO governance with veIOT or veMOBILE
-
 ### How much veHNT will I get for each lock-up period?
 
 The table below shows the approximate HNT to veHNT multiplier for example months of staking
 
-This value is multiplied by 3x during the first 7 days after the Solana transition and this
-multiplier lasts as long as the last lock-up period selected in the first 7 days after the solana
+This value is multiplied by 3x during the first 10 days after the Solana transition and this
+multiplier lasts as long as the last lock-up period selected in the first 10 days after the solana
 migration.
 
 | Months staked | veHNT received |     | Months staked | veHNT received |
@@ -336,8 +198,8 @@ delegation rewards within that Epoch. A Solana Epoch is 24 hours long and starts
 
 ### How Granular Is The veHNT Linear Decrease?
 
-The veHNT decay countdown starts when initiated from the Wallet app/Realms, until then the veHNT in
-the wallet remains a constant.
+The veHNT decay countdown starts when initiated from the Wallet app/Realms, either immediately in
+"cliff" mode or after a "constant lockup" is unlocked and cooldown started.
 
 veHNT quantity decay is granulated per second even though the Epoch period is 24 hours.
 
@@ -354,11 +216,11 @@ remaining 48 months until it hits zero.
 
 ### Can I Increase My Staking Lock-up Period At Any Time?
 
-Yes. You can increase your lock-up period to the maximum of 48 months at any time, and each increase
-activates at the start of the next epoch. If the veHNT is delegated you must undelegate, change the
-period and redelegate and lose delegation rewards within that 24 hour Epoch. If those three actions
-take longer than an epoch or are split over two epochs then delegation rewards are lost for two
-Epochs.
+Yes. You can increase your lock-up period by extending to the maximum of 48 months at any time, and
+the increase activates at the start of the next epoch. If the veHNT is delegated you must
+undelegate, change the period and redelegate and lose delegation rewards within that 24 hour Epoch.
+If those three actions take longer than an epoch or are split over two epochs then delegation
+rewards are lost for two Epochs.
 
 ### Can I Decrease My Staking Period For Fast Access to My HNT and Take a Penalty?
 
@@ -367,8 +229,8 @@ period for any reason.
 
 ### Can I Automate Re-Staking?
 
-Yes a constant rolling lock-up period will be the default option called Constant Lock-up. The decay
-countdown start point will be positive action needed to start the lock-up cooldown period.
+Yes a constant rolling lock-up period is available called Constant Lock-up. The decay countdown
+start point will be positive action needed to start the lock-up cooldown period.
 
 > Staking 10 HNT for 4 years will get approx 1000 veHNT and this will be a rolling 4 year period and
 > will remain at 1000 veHNT until the decay countdown is activated and this will then decrease
@@ -377,7 +239,7 @@ countdown start point will be positive action needed to start the lock-up cooldo
 ### Can I Transfer my veHNT or any of the veDNTs to Someone Else?
 
 No. veHNT and the like are fully non-transferable and represent your voting power in the Network. It
-is not a token.
+is not a token. It is represented in the wallet by a non transferable NFT.
 
 ### How Do I Buy veHNT or Any of the veDNTs?
 

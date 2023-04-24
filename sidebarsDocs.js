@@ -72,7 +72,7 @@ module.exports = {
       type: 'category',
       label: 'Vote Escrow Tokens',
       link: { type: 'doc', id: 'vote-escrow/vehnt' },
-      items: ['vote-escrow/vehnt', 'vote-escrow/realms'],
+      items: ['vote-escrow/vehnt', 'vote-escrow/realms', 'vote-escrow/voting-power'],
       collapsed: true,
     },
     'helium-tokens/sol-token',
@@ -179,11 +179,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Community Governance',
-      items: [
-        'community-governance/community-governance',
-        'community-governance/community-voting',
-        'mine-hnt/validators/validators-and-voting-power',
-      ],
+      items: ['community-governance/community-governance', 'community-governance/community-voting'],
     },
     {
       type: 'category',
