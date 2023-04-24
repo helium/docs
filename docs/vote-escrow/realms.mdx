@@ -48,8 +48,8 @@ understanding specific details for former Validator operators.
 These positions are not automatically delegated to a subDAO and are set with a constant
 [lockup period](#lockup-period) by default.
 
-As a note, Validator positions will appear in Realms as one large stake.  
-`hntyv...` is the Solana mint address for HNT.
+As a note, Validator positions will appear in Realms as one large stake. `hntyv...` is the Solana
+mint address for HNT.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/realms/validatorstake.png')} />
@@ -109,7 +109,11 @@ receive veHNT in proportion with the amount of time that the tokens are staked f
 #### Cliff
 
 Tokens are locked for a fixed duration and are released in full at the end of the defined lockup
-period. Vote weight declines linearly until release.
+period. Vote weight declines linearly until release. This is effectively starting the cooldown at
+the moment of staking.
+
+You will be required to close the position to return the staked HNT to your wallet after the
+cooldown period has ended.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -155,7 +159,7 @@ will be added.
 
 ### Stake Multiplier
 
-veHNT positions can be strengthened by increasing the duration that thet are locked for. The
+veHNT positions can be strengthened by increasing the duration that they are locked for. The
 resulting multiplier designates the amount of vote and delegation power of the position. It is not
 indicative of an investment return.
 
@@ -218,15 +222,24 @@ veHNT position to multiple networks (IOT or MOBILE) or set different lockup time
 positions.
 
 Be warned, splitting a [Landrush](#landrush) position after the initial 10 day period will result in
-losing the multiplier for the tokins being split or transfered off the position.
+losing the multiplier for the tokens being split or transfered off the position.
+
+You must undelegate before spliting a stake. You can redelegate after the split is complete.
 
 ### Transfer a Stake
 
-Stakes can be transfered from one position into another within the same account. Positions can only
-be transfered to positions with a greater or equal duration. Only undelegated positions can be
-transfered. Staked tokens cannot be moved to other accounts. Landrush positions cannot be
-transfered. This functionality is useful for consolidating positions. If no other compatible
-positions exist in an account, the "Transfer" button will be disabled for a position.
+Neither staked tokens nor the NFT representing a stake can transfer from one wallet to another.
+Stakes can only be transferred from one position to another within the same wallet. Positions can
+only transfer to positions of greater or equal duration. This functionality is useful for
+consolidating positions. Landrush positions cannot be transferred into after the landrush period.
+Any veHNT transferred out of a Landrush position will lose the 3x multiplier 3x bonus.
+
+If no other compatible positions exist in an account, the "Transfer" button will be disabled for a
+position.
+
+You must undelegate both positions before transfering a stake between postions. Transfering to a new
+position requires the original position to be undelegated. You can redelegate one or both positions
+after the split is complete.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/realms/transfer.png')} style={{ maxHeight: 300 }} />
@@ -237,9 +250,10 @@ positions exist in an account, the "Transfer" button will be disabled for a posi
 
 ### Extending a Stake
 
-As expected, extending a stake lengthens the amount of time it will take to unstake. Position
-holders may chose to extend a stake in order to gain a larger multiplier for voting power or
-delegation purposes.
+Extending a stake will lengthen the time it will take to unstake. Position holders may extend a
+stake to gain a larger multiplier for voting power or delegation purposes. Extending a staking
+period does not add additional time to the stake, instead updating the existing stake. For example,
+a 2-year stake extended to 4 years results in a 4-year stake, not a 6-year stake.
 
 ### Unlocking a Stake (Cooldown)
 
@@ -249,6 +263,9 @@ constant lockup position will first need to be unlocked before the cooldown peri
 
 Unlocking the position will begin the unlocking process. The time this takes will depend on the
 duration set during the creation of the position.
+
+You will be required to close the position to return the staked HNT to your wallet after the
+cooldown period has ended.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/realms/stakewlockup.png')} style={{ maxHeight: 300 }} />
