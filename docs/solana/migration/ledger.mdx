@@ -7,26 +7,58 @@ description: Ledger Hardware Wallet User Documentation
 slug: /solana/migration/ledger
 ---
 
-:::info Using the Helium Solana Ledger App
+:::caution Post Migration Ledger Actions
 
-More information on installing and using the Solana-compatible Helium app for Ledger Wallets in the
-[Github Repo](https://github.com/helium/app-helium-solana).
+You can test the Helium-Solana Ledger migration before Helium's migration onto Solana Mainnet on
+April 18, 2023, but doing so will use Solana Devnet, where your tokens are not real. You will not be
+able to migrate your Helium tokens to Solana Mainnet until after the Helium migration completes on
+April 19, 2023.
+
+**If you test the Ledger migration before then, you will need to re-migrate on or after April
+19, 2023.**
+
+You can migrate your tokens any time after April 19, 2023. There is no need to rush to migrate your
+tokens unless you want to lock up HNT early to receive the
+[3X veHNT landrush bonus.](/mine-hnt/validators/validators-and-voting-power/#is-there-a-staking-genesis-period)
+:::
+
+:::tip Video Walkthrough
+
+There is a [video walkthrough of the full process here](https://youtu.be/Sl7UBStRmpA).
 
 :::
 
+## Installing the Helium-Solana App
+
+As of now, we are still waiting on Ledger to release our app. Until then, to install you must follow
+these steps:
+
+1. Open Ledger Live.
+2. Go to Settings (top right corner)
+3. Click `Experimental Features`
+4. Enable `Developer Mode`
+5. Install the Helium-Solana app as you normally would.
+
+---
+
+## Migrating
+
 The following utility will migrate all tokens from the Helium derivation path `44'/904'/n'/0'` to
-the Solana derivation path `44'/501'/n'/0'`. To get started, install the:
+the Solana derivation path `44'/501'/n'/0'`.
 
 Ledger users will need to update their Helium Ledger App to a version that's pending release. This
 upcoming version will use the Solana private key derivation path that moves all your tokens and
 balances over to Solana. You may need to uninstall any Solana Ledger Apps during the Wallet
 migration process.
 
+---
+
 ## Migration Tool
 
-Your public key will change on Solana but the private key will remain the same.
+Your public key will change on Solana but the private key will remain the same. Note this app only works with Chrome, Brave, or other Chromium-based web browsers.
 
-- [Helium Solana Ledger App](https://github.com/helium/app-helium-solana) from Github
+- [Helium-Solana Ledger App](https://github.com/helium/app-helium-solana) now available from Ledger
+  Live (ensure Developer Mode is enabled)
 - [Solana Ledger App](https://support.ledger.com/hc/en-us/articles/360016265659-Solana-SOL-?support=true)
   using Ledger Live
 

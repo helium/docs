@@ -1,9 +1,9 @@
 ---
 id: maker
 title: Maker App 2.0 Upgrade Guide
-pagination_label: Maker Migration
-sidebar_label: Maker Migration
-description: Helium Maker Migration Documentation
+pagination_label: Hotspot Maker App
+sidebar_label: Hotspot Maker App
+description: Helium Hotspot Maker App Migration Docs
 image: https://docs.helium.com/img/link-image.png
 slug: /solana/migration/maker
 ---
@@ -76,9 +76,9 @@ useEffect(() => {
 
 ## Testing Solana Pre-Migration
 
-Before the migration to Solana has completed the v2 onboarding server will be used and transactions
-will still be submitted to the Helium blockchain. To test Solana before transition use these
-variables.
+Before the migration to Solana has been completed, the v2 onboarding server will be used, and
+transactions will still be submitted to the Helium blockchain. To test Solana before transition, use
+these variables:
 
 **_IT IS CRITICALLY IMPORTANT THAT YOU ONLY USE THESE FOR TESTING._**
 
@@ -317,10 +317,81 @@ like to use the library, the setup guide can be found here
 
 ---
 
-## Data Credits and Sol for Onboarding
+## Data Credits and SOL for Onboarding
 
-<!-- TODO: We need to create an easy way for makers to get sol and data credits into their accounts -->
+:::info
 
-```
+Maker Wallets will need both `SOL` for transactions on the Solana blockchain and `DC` for onboarding
+fees post Migration.
 
-```
+:::
+
+### Maker Wallet SOL
+
+Maker Wallets will need `SOL` to pay transaction fees and for minting new Hotspot NFTs. Note that
+minting is only required if Makers are attempting to mint more than 2x their existing fleet size.
+
+- For most makers, ~10 SOL is recommended.
+- Makers with large fleets (300k+ Hotspots) ~60 SOL is recommended.
+
+#### Minting Cost Examples
+
+| Hotspots to Mint | SOL Needed |
+| ---------------: | ---------: |
+|           25,000 |   ~14.8324 |
+|           50,000 |   ~29.4431 |
+|           75,000 |   ~58.6499 |
+|          100,000 |   ~58.6499 |
+
+For more insight to the amount of SOL needed, check out
+[https://compressed.app/](https://compressed.app/)
+
+- Enter the number of Hotspots to mint in the `How many compressed NFTs do you want to store?`
+  field.
+- The `Most composable, highest cost` value is a good approximation, round up when in doubt.
+
+<div className="img-center">
+  <img
+    alt="Helium Wallet app token swap screen"
+    className="appscreen"
+    src={useBaseUrl('img/solana/compressed-nft-calculator.png')}
+  />
+</div>
+
+> Minting 100,000 Hotspots would require ~58.6499 SOL in this example.
+
+### Maker Wallet DC
+
+Maker Wallets will need `DC` to pay Helium onboarding and assert fees. DC can be aquired by either
+
+- Depositing DC into the Maker Wallet on the current Helium L1.
+- Use the Helium Wallet App to swap HNT for DC.
+
+<div class="container" style={{ padding: 0, paddingTop: 0 }}>
+  <div class="row">
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        alt="Helium Wallet app token swap screen"
+        className="appscreen, img-center"
+        src={useBaseUrl('img/wallet-app/wallet-home.png')}
+      />
+      <p>
+        Use the Orange <code>Swap</code> button on the Helium Wallet App homescreen to swap HNT for
+        DC.
+      </p>
+    </div>
+    <div class="col col--6" style={{ marginBottom: 0 }}>
+      <img
+        alt="Helium Wallet app token swap screen"
+        className="appscreen, img-center"
+        src={useBaseUrl('img/wallet-app/token-swap.png')}
+      />
+      <p>
+        Select <code>HNT</code> in the first Dropdown to swap for <code>DC</code>.
+      </p>
+      <p>
+        Use the Maker Wallet in the <code>recipient</code> field.
+      </p>
+    </div>
+  </div>
+</div>
