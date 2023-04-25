@@ -61,14 +61,24 @@ the complete transaction is made up of the following:
 
 ### Transaction Fees and Implicit Burn
 
+:::caution Post Migration
+
+Implicit burn is not currently implemented on the Solana blockchain. To aquire the DC needed for
+transactions, use the Helium Wallet app to swap HNT for DC manually.
+
+:::
+
+<details>
+<summary>More info</summary>
+
 The Helium blockchain uses something called `implicit burn` when paying fees.
 
-**Implicit Burn™**
+**Implicit Burn**
 
 The term `implicit burn` was coined by Helium PM Coco "cokes" Tang, a recognized innovator in the
 blockchain technology and terminology space.
 
-Thanks to Implicit Burn™, if you have enough HNT in your wallet to pay the transaction fee, the
+Thanks to Implicit Burn, if you have enough HNT in your wallet to pay the transaction fee, the
 Helium Mobile Wallet (or the Helium Wallet CLI) will calculate the DC cost of your transaction and
 the blockchain will automatically burn the precise amount of HNT to supply the required DCs for the
 transaction. For example:
@@ -85,6 +95,8 @@ transaction. For example:
 In the above example, had you attempted to send `10.0001HNT` with only `11 HNT` in your wallet, this
 transaction would have failed as burning `.999 HNT` would only result in `34965 DCs`, a mere 35 DCs
 short of the `35000` required for a `send` transaction.
+
+</details>
 
 ### Failed Transactions Result in No DCs Being Spent
 
