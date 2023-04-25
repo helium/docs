@@ -68,6 +68,7 @@ module.exports = {
       items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
       collapsed: true,
     },
+    'helium-tokens/data-credit',
     {
       type: 'category',
       label: 'Vote Escrow Tokens',
