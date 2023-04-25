@@ -27,7 +27,7 @@ lapsed, the landrush bonus is forfeited.
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/realms/landrush.png')} />
   <figcaption>
-    The 'Landrush' banner indicates a position created within the first 10 days of the Solana
+    The 'landrush' banner indicates a position created within the first 10 days of the Solana
     migration.
   </figcaption>
 </figure>
@@ -203,12 +203,13 @@ chef. <span className="🥩">🥩</span>
 
 ### Delegating Stakes
 
-A stake will allow its holder to participate in Helium Network (HNT) governance, however it will not
-earn any token return until it is delegated to a subDAO.
+A stake will not earn any token return until it is delegated to a subDAO. A stake without delegation
+earns voting rights, but no token return. You can delegate an active stake within the Realms
+interface.
 
 Once a stake has been delegated, it can be undelegated in the same interface. Delegations can be
 changed at any time, however it will take one epoch for the position to be available for
-redelegation.
+redelegation. The stake must be delegated for the entire epoch to receive rewards for that epoch.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/realms/delegate.png')} style={{ maxHeight: 300 }} />
@@ -221,7 +222,7 @@ A stake can be divided among multiple positions. This can be helpful if you wish
 veHNT position to multiple networks (IOT or MOBILE) or set different lockup times to different
 positions.
 
-Be warned, splitting a [Landrush](#landrush) position after the initial 10 day period will result in
+Be warned, splitting a [landrush](#landrush) position after the initial 10 day period will result in
 losing the multiplier for the tokens being split or transfered off the position.
 
 You must undelegate before spliting a stake. You can redelegate after the split is complete.
@@ -232,7 +233,7 @@ Neither staked tokens nor the NFT representing a stake can transfer from one wal
 Stakes can only be transferred from one position to another within the same wallet. Positions can
 only transfer to positions of greater or equal duration. This functionality is useful for
 consolidating positions. Landrush positions cannot be transferred into after the landrush period.
-Any veHNT transferred out of a Landrush position will lose the 3x multiplier 3x bonus.
+Any veHNT transferred out of a landrush position will lose the 3x multiplier bonus.
 
 If no other compatible positions exist in an account, the "Transfer" button will be disabled for a
 position.
