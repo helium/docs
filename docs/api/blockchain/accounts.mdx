@@ -56,7 +56,6 @@ _Query Parameters_
 {
   "data": [
     {
-      "validator_count": 0,
       "staked_balance": 0,
       "speculative_sec_nonce": 0,
       "speculative_nonce": 11,
@@ -73,7 +72,6 @@ _Query Parameters_
       "address": "13etjTqyGLK7WQh8pp9VJy5ejh5MXmwFee2eAi3TfAA5kS1jEJb"
     },
     {
-      "validator_count": 0,
       "staked_balance": 0,
       "speculative_sec_nonce": 0,
       "speculative_nonce": 1,
@@ -90,7 +88,6 @@ _Query Parameters_
       "address": "14Vshtwv9RMY5GuTe1sgLDJmmF2f46EW3etEJzjDjhKJSEprtHh"
     },
     {
-      "validator_count": 0,
       "staked_balance": 0,
       "speculative_sec_nonce": 0,
       "speculative_nonce": 8,
@@ -107,7 +104,6 @@ _Query Parameters_
       "address": "14PaJeSfNp5Q3MtDw5yEsJwb2kHJqbcjjLe9aycjroqNFnL4EyS"
     },
     {
-      "validator_count": 0,
       "staked_balance": 0,
       "speculative_sec_nonce": 0,
       "speculative_nonce": 0,
@@ -124,7 +120,6 @@ _Query Parameters_
       "address": "13rUthiDQUeY9HfwoZFpkqtsbtaubzRyerCsSu1qdDXuVZGL45k"
     },
     {
-      "validator_count": 0,
       "staked_balance": 0,
       "speculative_sec_nonce": 0,
       "speculative_nonce": 2,
@@ -181,7 +176,6 @@ Result for `/v1/accounts/rich?limit=2`
 {
   "data": [
     {
-      "validator_count": 310,
       "staked_balance": 270000000000000,
       "speculative_sec_nonce": 0,
       "speculative_nonce": 428,
@@ -198,7 +192,6 @@ Result for `/v1/accounts/rich?limit=2`
       "address": "1398hLeHESZHE5jVtaLAV5fdg2vrUeZEs2B92t7TzeQTtugr8dL"
     },
     {
-      "validator_count": 0,
       "staked_balance": 0,
       "speculative_sec_nonce": 0,
       "speculative_nonce": 4,
@@ -258,7 +251,6 @@ _Path Parameters_
 ```json
 {
   "data": {
-    "validator_count": 0,
     "staked_balance": 0,
     "speculative_sec_nonce": 0,
     "speculative_nonce": 1,
@@ -357,181 +349,6 @@ The hotspot list for an account
       "address": "1182nyT3oXZPMztMSww4mzaaQXGXd5T7JwDfEth6obSCwwxxfsB"
     }
   ]
-}
-```
-
-</TabItem>
-</Tabs>
-
----
-
-## Validators for Account [DEPRECATED]
-
-```
-GET https://api.helium.io/v1/accounts/:address/validators
-```
-
-Fetches validators owned by a given account address. The list of returned validators is paged. If a
-`cursor` field is present more results are available.
-
-<Tabs
-  block={true}
-  defaultValue="request"
-  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
-<TabItem value="request">
-
-_Path Parameters_
-
-| param              | Type     | Note                                        |
-| ------------------ | -------- | ------------------------------------------- |
-| address (required) | _string_ | Account B58 address to fetch validators for |
-
-_Query Parameters_
-
-| param             | Type     | Note                                            |
-| ----------------- | -------- | ----------------------------------------------- |
-| cursor (optional) | _string_ | Cursor for the next page of validators to fetch |
-
-</TabItem>
-<TabItem value="response">
-
-200: OK
-
-The validator list for an account
-
-```json
-{
-  "data": [
-    {
-      "version_heartbeat": 10048,
-      "status": {
-        "online": "online",
-        "listen_addrs": ["/ip4/51.222.222.17/tcp/2154"],
-        "height": 57692
-      },
-      "stake_status": "staked",
-      "stake": 1000000000000,
-      "penalty": 0.99200439453125,
-      "penalties": [
-        {
-          "type": "performance",
-          "height": 57777,
-          "amount": 0
-        },
-        {
-          "type": "tenure",
-          "height": 57777,
-          "amount": 1
-        }
-      ],
-      "owner": "1aTZ28SE9BHkiLehdxaDGLVE6tyEEDvtj8YHjvYY6wmX1ANB25H",
-      "name": "shallow-butter-shark",
-      "last_heartbeat": 57777,
-      "block_added": 50636,
-      "block": 57780,
-      "address": "1Z9zkkswtjmrHsu7XK21rdxprwhNmhqpX4NirghEynauaohVjYu"
-    },
-    {
-      "version_heartbeat": 10048,
-      "status": {
-        "online": "online",
-        "listen_addrs": ["/ip4/51.222.222.16/tcp/2154"],
-        "height": 57662
-      },
-      "stake_status": "staked",
-      "stake": 1000000000000,
-      "penalty": 1.3520050048828125,
-      "penalties": [
-        {
-          "type": "performance",
-          "height": 57483,
-          "amount": 0
-        },
-        {
-          "type": "performance",
-          "height": 57498,
-          "amount": 0
-        },
-        {
-          "type": "performance",
-          "height": 57530,
-          "amount": 0
-        },
-        {
-          "type": "performance",
-          "height": 57545,
-          "amount": 0
-        },
-        {
-          "type": "performance",
-          "height": 57559,
-          "amount": 0
-        },
-        {
-          "type": "performance",
-          "height": 57573,
-          "amount": 0
-        },
-        {
-          "type": "performance",
-          "height": 57585,
-          "amount": 0
-        },
-        {
-          "type": "performance",
-          "height": 57684,
-          "amount": 0
-        },
-        {
-          "type": "tenure",
-          "height": 57483,
-          "amount": 1
-        },
-        {
-          "type": "tenure",
-          "height": 57498,
-          "amount": 1
-        },
-        {
-          "type": "tenure",
-          "height": 57530,
-          "amount": 1
-        },
-        {
-          "type": "tenure",
-          "height": 57545,
-          "amount": 1
-        },
-        {
-          "type": "tenure",
-          "height": 57559,
-          "amount": 1
-        },
-        {
-          "type": "tenure",
-          "height": 57573,
-          "amount": 1
-        },
-        {
-          "type": "tenure",
-          "height": 57585,
-          "amount": 1
-        },
-        {
-          "type": "tenure",
-          "height": 57684,
-          "amount": 1
-        }
-      ],
-      "owner": "1aTZ28SE9BHkiLehdxaDGLVE6tyEEDvtj8YHjvYY6wmX1ANB25H",
-      "name": "amusing-sepia-caterpillar",
-      "last_heartbeat": 57771,
-      "block_added": 50614,
-      "block": 57780,
-      "address": "1Y8Rr9WaEcQBWn7Jh7QnXrctZ99a15PQEpoLQHCNTeZcDY5ziA7"
-    }
-  ],
-  "cursor": "eyJoZWlnaHQiOjU3NzgwLCJiZWZvcmVfYmxvY2siOjM3ODQ4LCJiZWZvcmVfYWRkcmVzcyI6IjFiSEwxblFQNWdSSHFKRVN2VFJXWHAzZTg5RnVYNXZwWnFBdGl1NlUxaVZlSERxenU4TiJ9"
 }
 ```
 
