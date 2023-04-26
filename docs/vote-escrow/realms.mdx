@@ -48,8 +48,8 @@ understanding specific details for former Validator operators.
 These positions are not automatically delegated to a subDAO and are set with a constant
 [lockup period](#lockup-period) by default.
 
-As a note, Validator positions will appear in Realms as one large stake. `hntyv...` is the Solana
-mint address for HNT.
+As a note, these Validator positions will appear as one large stake. `hntyv...` is the Solana mint
+address for HNT.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/realms/validatorstake.png')} />
@@ -109,8 +109,8 @@ receive veHNT in proportion with the amount of time that the tokens are staked f
 #### Decaying
 
 Tokens are locked for a fixed duration and are released in full at the end of the defined lockup
-period. Vote weight declines linearly until release. This is effectively starting the cooldown at
-the moment of staking.
+period. Vote weight declines linearly until release. This effectively starts the cooldown at the
+moment of staking.
 
 You will be required to close the position to return the staked HNT to your wallet after the
 cooldown period has ended.
@@ -229,14 +229,12 @@ You must undelegate before spliting a stake. You can redelegate after the split 
 
 ### Transfer a Stake
 
-Neither staked tokens nor the NFT representing a stake can transfer from one wallet to another.
+Neither staked tokens nor the NFT representing a stake can be transfered from one wallet to another.
 Stakes can only be transferred from one position to another within the same wallet. Positions can
 only transfer to positions of greater or equal duration. This functionality is useful for
-consolidating positions. Landrush positions cannot be transferred into after the landrush period.
-Any veHNT transferred out of a landrush position will lose the 3x multiplier bonus.
-
-If no other compatible positions exist in an account, the "Transfer" button will be disabled for a
-position.
+consolidating positions. Landrush positions cannot have more locked tokens transfered into them
+after the landrush period. Any veHNT transferred out of a landrush position will lose the 3x
+multiplier bonus.
 
 You must undelegate both positions before transfering a stake between postions. Transfering to a new
 position requires the original position to be undelegated. You can redelegate one or both positions
@@ -244,16 +242,15 @@ after the split is complete.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/realms/transfer.png')} style={{ maxHeight: 300 }} />
-  <figcaption>
-    This position will unlock over the period of 2 years once the unlock has been initiated.
-  </figcaption>
+  <figcaption>A position can be transfered in full or in part.</figcaption>
 </figure>
 
 ### Extending a Stake
 
 Extending a stake will lengthen the time it will take to unstake. Position holders may extend a
 stake to gain a larger multiplier for voting power or delegation purposes. Extending a staking
-period does not add additional time to the stake, it instead updates the existing stake period to the new selection.
+period does not add additional time to the stake, it instead updates the existing stake period to
+the new selection.
 
 ### Unlocking a Stake (Cooldown)
 
