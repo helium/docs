@@ -10,76 +10,145 @@ slug: /community-voting
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-# Voting on Helium
+In order to approve or deny changes to the protocol, economics, or governance of the Helium Network;
+The Helium Network leverages on-chain voting which is open to the entire community. This on-chain
+voting is currently facilited through a Realms organization.
 
-In order to approve or deny changes to the blockchain, economics, or governance of the Helium
-Network; The Helium Network leverages on-chain voting which is open to the entire community. This
-on-chain voting is currently facilited through the website [helium.vote](https://helium.vote).
+## Key Terms
 
-For most votes, voting power is currently determined by the HNT balance of the voting wallets at a
-rate of one vote per HNT. However, voting power may change vote-to-vote, depending on what the
-community is reaching consensus on. As example, a vote on on frequency plan for a region would only
-concern Hotspots in the region and one would use number Hotspots in the region as votes. Proposals
-to implement more involved voting mechanisms have been presented, but have not been voted on or
-implemented yet. See:
-[HIP41](https://github.com/helium/HIP/blob/master/0041-governance-by-token-lock-v2.md)
+**Vote Escrowed (ve):** A position created by staking your tokens which enables DAO or subDAO
+voting.  
+**Voting Power:** Vote Escrowed grant their holder voting power. One veToken is equivalent to one
+vote on matters of community governance.  
+**Realms:** A Solana-native tool for staking, delegation, DAO, and treasury management.  
+**veHNT:** A position created by staking your HNT.  
+**veIOT:** A position created by staking your IOT. Used for IOT Network governance.  
+**veMOBILE:** A position created by staking your MOBILE. Used for MOBILE Network governance.
 
-HNT holders are able to vote by issuing a small token burn transaction from their wallet to a wallet
-associated with a particular ballot option, typically `For` or `Against`. Voting just a portion of a
-wallet's balance is not supported.
+## veTokens and Voting
 
-<!-- ## How to Vote -->
+Token holders are able to vote by 'staking' their tokens to the protocol that they are voting for.
+This mechanism helps to ensure that the voter holds a long-term interest in the success of the
+Helium Network. veTokens come in several forms with specific responsibilities to segments of the
+network.
 
-## Helium Vote Configuration
+Each subDAO governs a specific area of the network. Initially, two subDAOs are introduced: IOT and
+MOBILE. Voting on the IOT and MOBILE networks will require veIOT and veMOBILE respectively.
 
-This information is offered for the sake of transparency to the Helium Community and for the
-documentation of Helium Foundation practices. Vote configuration is handled by the Helium Foundation
-to ensure that the accrued DC from a vote are burned from existance at the end of the voting period.
+### veHNT
 
-### How a HIP Becomes a Vote
+The [Helium DAO](https://realms.heliumvote.com/dao/hnt) and the Helium Network serve as the
+overarching system that enables a multitude of networks (subDAOs) to exist. As such, veHNT's role in
+network governance is of matters affecting the entire network. For example, a proposal affecting HNT
+emissions would be voted on using veHNT.
 
-A vote can be created by opening a PR against the
-[Helium Vote repository](https://github.com/helium/helium-vote/). Templates are provided within the
-repo. Authors are encouraged to write their HIP description in a nonbiased manner, and are subject
-to review. In partnership with the Helium Foundation, a block height deadline, vote ID, and voting
-addresses will be provided.
+Additionally, veHNT can be [delegated](/vote-escrow/realms#delegating-stakes) to a subDAO in order
+to earn a portion of that network's tokens.
 
-**Create Vote ID**
+### veIOT
 
-The vote ID has no direct ties to the blockchain, but must be unique. The simplest way to generate a
-unique value is to create a quick Helium wallet.
+The [IOT subDAO](https://realms.heliumvote.com/dao/iot) focuses on the original vision of the Helium
+Network, supporting the growth and development of IoT devices and applications. Staking your IOT
+tokens to the IOT subDAO grants veIOT which can be used to vote on matters specific to the IOT
+network. For example, a proposal affecting proof of coverage behavior for IoT Hotspots.
 
-```shell
-helium-wallet create basic
-```
+### veMOBILE
 
-The returned address can be used as the vote ID.
+The [MOBILE subDAO](https://realms.heliumvote.com/dao/mobile) is dedicated to the growth and
+expansion of the Helium Network in the mobile and telecommunications sectors. Staking your IOT
+tokens to the IOT subDAO grants veIOT which can be used to vote on matters specific to the IOT
+network. For example, a proposal affecting proof of coverage behavior for IoT Hotspots.
 
-```
-+-----------------------------------------------------+---------+--------+------------+
-| Address                                             | Sharded | Verify | PwHash     |
-+-----------------------------------------------------+---------+--------+------------+
-| 13fDZC6rCtZKebjNigeJP3HNMJTBrxJVLjV8JdoPMkyNS9aCHSJ | false   | true   | Argon2id13 |
-+-----------------------------------------------------+---------+--------+------------+
-```
+:::note How to stake tokens
 
-This wallet does not need to be retained, as it will not be used for any on-chain transactions.
+For a full walkthrough on how to stake your tokens to the Helium Network or one of its subDAOs, see
+the [Realms Staking](/vote-escrow/voting-power) guide.
 
-**Create Each Vote Option**
+:::
 
-Most votes will be binary, only needing one address `for` and `against`. The wallet generation
-process is the same. A wallet is be created for each vote option. These wallet keys should be
-retained by the Helium Foundation for the sake of burning accrued DC at the end of the vote.
+## Voting with Realms
 
-**Post Vote Cleanup**
+Like many other Solana Ecosystem projects, Helium uses Realms to organize and manage governance,
+vote escrowed tokens, delegation, and more. Using the links above, you can cast your vote for the
+relevant segment of the Helium Network.
 
-In order to burn the accrued DC, we leverage a neat feature of the HNT pay transaction. We transfer
-1 HNT into a wallet needing to be cleared, then transfer it back out. On the outbound transaction we
-can specify an arbitrary DC fee. Any fee specified that is at least enough to cover the transaction
-will be accepted by the blockchain.
+<figure className="screensnippet-wrapper">
+  <div style={{ display: 'flex' }}>
+    <img
+      src={useBaseUrl('/img/realms/realmsui.png')}
+      style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
+    />
+    <img
+      src={useBaseUrl('/img/realms/realmsui_mobile.png')}
+      style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
+    />
+  </div>
+  <figcaption>
+    The <a href="https://realms.heliumvote.com/dao/hnt">Helium DAO</a> in Realms with an active test
+    vote. Shown on desktop and mobile.
+  </figcaption>
+</figure>
 
-```shell
-helium-wallet pay one <origin-wallet> <amount> --fee <fee>
-```
+### Signing Into Realms
 
-The result should be a wallet with zero HNT or DC balance.
+Use your account that holds your veHNT positions to sign in to Realms. The same account can be used
+for all platforms, but it must have veTokens for the specific DAO or subDAO hosting the vote.
+
+The links for the Realms governance portals are:
+
+- [https://realms.heliumvote.com/dao/hnt](https://realms.heliumvote.com/dao/hnt)
+- [https://realms.heliumvote.com/dao/iot](https://realms.heliumvote.com/dao/iot)
+- [https://realms.heliumvote.com/dao/mobile](https://realms.heliumvote.com/dao/mobile)
+
+Sign in to these using the in-app browser from the Helium Wallet App.
+
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('/img/realms/connectaccount.png')} />
+  <figcaption>
+    This user is logged in with their <code>4qPt5...</code> account.
+  </figcaption>
+</figure>
+
+### Casting Your Vote
+
+After you have reviewed the proposal, casting your vote is as easy as issuing a Solana transaction
+for "Yes" or "No".
+
+Note: You will need a bit of Sol in order to cast your veTokens for a vote.
+
+<figure className="screensnippet-wrapper">
+  <div style={{ display: 'flex', alignItems: 'center' }}>
+    <img
+      src={useBaseUrl('/img/realms/castvote.png')}
+      style={{ maxHeight: 250, minWidth: 0, flex: '1 1 auto' }}
+    />
+    <img
+      src={useBaseUrl('/img/realms/confirmvote.png')}
+      style={{ maxHeight: 300, minWidth: 0, flex: '1 1 auto' }}
+    />
+  </div>
+  <figcaption>After voting, you can leave a comment supporting your stance.</figcaption>
+</figure>
+
+### Understanding Vote Power
+
+When you vote your veTokens, all positions will be attributed to your vote choice. Token positions
+cannot be split within one vote on a single account.
+
+Your vote is calculated at the time your vote is submitted. If your position is in 'decay' mode,
+voting sooner means you apply greater voting power. Conversely, if a position is extended to added
+to, a vote can be relinquished and re-voted to apply the new voting power.
+
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('/img/realms/relinquishvote.png')} />
+  <figcaption>A vote can be changed by first relinquishing it.</figcaption>
+</figure>
+
+## Staying Informed
+
+The majority of HIP discussion happens on the [Helium Discord](https://discord.gg/helium). Many HIPs
+get their start in the #hip-discussion channel. Additionally, each HIP under consideration gets it's
+own channel for focused discussion.
+
+When HIPs are open for vote, notifications are sent by the Helium Foundation on Discord, Twitter,
+and push notifications in the Helium Wallet App.
