@@ -14,6 +14,7 @@ module.exports = {
       label: 'Solana Migration Guides',
       link: { type: 'doc', id: 'solana/migration-overview' },
       items: [
+        'solana/migration-faq',
         'solana/migration/hotspot-operator',
         'solana/migration/validator-operator',
         {
