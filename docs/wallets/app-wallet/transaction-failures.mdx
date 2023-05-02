@@ -16,12 +16,14 @@ The Helium app automatically notifies users whenever a transaction fails. Transa
 a number of reasons - the most common is typically insufficient funds (not enough $HNT in the
 wallet) or a nonce issue.
 
-:::note
+:::info What is a nonce?
 
-What is a nonce? Nonce is a number included in every transaction to guarantee the data is "live" and
-not replayed, preventing the blockchain from replay attacks. The Helium app uses a speculative
-nonce, which increments for every type of transaction. In some cases, the blockchain's transaction
-manager processes these transactions out of order which causes some transactions to fail.
+Nonce is a number included in every transaction to guarantee the data is "live" and not replayed,
+preventing the blockchain from replay attacks.
+
+The Helium app uses a speculative nonce, which increments for every type of transaction. In some
+cases, the blockchain's transaction manager processes these transactions out of order which causes
+some transactions to fail.
 
 :::
 
@@ -33,14 +35,13 @@ manager processes these transactions out of order which causes some transactions
 
 Transaction fees are required on the network to prevent spamming. These fees use Data Credits (DC)
 and the Helium app uses
-[implicit burn](https://docs.helium.com/blockchain/transaction-fees/#transaction-fees-and-implicit-burn)
-to determine the appropriate amount of HNT to burn to generate these DCs.
+[implicit burn](/blockchain/transaction-fees/#transaction-fees-and-implicit-burn) to determine the
+appropriate amount of HNT to burn to generate these DCs.
 
-How much HNT to burn depends on the
-[Oracle price](https://docs.helium.com/blockchain/oracles/#hnt-price-oracles). The Oracle price is
-the median $HNT price from a list of individual oracles and used to weather large swings in price.
-In special cases, the price of $HNT may shift enough in a short time period such that the amount of
-HNT burned to generate DCs _is not enough_.
+How much HNT to burn depends on the Oracle price. The Oracle price is the median HNT price from
+alist of individual oracles and used to weather large swings in price. In special cases, the price
+of HNT may shift enough in a short time period such that the amount of HNT burned to generate DCs
+_is not enough_.
 
 :::info
 
@@ -123,8 +124,8 @@ update incorrectly.
 **Recommended Fix:** We recommend checking the API to confirm that the update never made it to the
 blockchain, then trying again.
 
-To check the API, first copy your Hotspot address. You can find this on explorer.helium.com, enter
-the Hotspot name, then click on the clipboard icon next to the name.
+To check the API, first copy your Hotspot address. You can find this on explorer-old.helium.com,
+enter the Hotspot name, then click on the clipboard icon next to the name.
 
 <img src={useBaseUrl('img/wallets/helium-app/copy-icon.png')} />
 

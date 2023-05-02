@@ -19,38 +19,42 @@ blockchain are paid in Data Credits (DCs). Data Credits are produced via burning
 to submit the transaction contains enough `HNT` to burn to `DCs` to fund the transaction, the burn
 will happen implicitly, requiring no user intervention.
 
-### Transaction Fee Schedule
+---
+
+## Transaction Fee Schedule
 
 The following is a list of the current set of fees required for various transactions, along with
 their details. Transaction fees are paid in Data Credits. (Note that the cost is not shown in `HNT`
 as this number is variable based on the current $USD/HNT price as defined by the HNT Price Oracle.)
 
 | Fee Type                        | Fee Description                                                                                                 | **Cost (DC)** | Cost ($USD) |
-| :------------------------------ | :-------------------------------------------------------------------------------------------------------------- | :------------ | :---------- |
-| Send HNT                        | Transferring HNT from wallet to wallet                                                                          | `Variable`    | `Variable`  |
-| Transferring Device Packet Data | Fee paid by device owner when sending or receiving sensor data. Metered per 24 bytes.                           | `1`           | `$.00001`   |
-| Add Full Hotspot                | Fee paid to add full Hotspot to the blockchain. **Fee is generally covered by Hotspot maker**.                  | `4000000`     | `$40`       |
-| Add Data Only Hotspot           | Fee paid to add a Data Only Hotspot to the blockchain.                                                          | `1000000`     | `$10`       |
-| Assert Hotspot Location         | Required when asserting a Hotspot's location. \(The **first assertions** is generaly covered by Hotspot maker\) | `1000000`     | `$10`       |
-| Assert Data Only Location       | Required for Optionally asserting a Data Only Hotspot's Location                                                | `500000`      | `$5`        |
-| Purchasing a blockchain OUI     | Buy an OUI from the Helium blockchain                                                                           | `10000000`    | `$100`      |
-| Purchasing a blockchain Subnet  | Buy a Subnet from the Helium blockchain                                                                         | `10000000`    | `$100`      |
+| :------------------------------ | :-------------------------------------------------------------------------------------------------------------- | ------------: | ----------: |
+| Send HNT                        | Transferring HNT from wallet to wallet                                                                          |    `Variable` |  `Variable` |
+| Transferring Device Packet Data | Fee paid by device owner when sending or receiving sensor data. Metered per 24 bytes.                           |           `1` |  `$0.00001` |
+| Add Hotspot                     | Fee paid to add Hotspot to the blockchain. **Fee is generally covered by Hotspot maker**.                       |     `4000000` |    `$40.00` |
+| Add Data Only Hotspot           | Fee paid to add a Data Only Hotspot to the blockchain.                                                          |     `1000000` |    `$10.00` |
+| Assert Hotspot Location         | Required when asserting a Hotspot's location. \(The **first assertions** is generaly covered by Hotspot maker\) |     `1000000` |    `$10.00` |
+| Assert Data Only Location       | Required for Optionally asserting a Data Only Hotspot's Location                                                |      `500000` |     `$5.00` |
+| Purchasing a blockchain OUI     | Buy an OUI from the Helium blockchain                                                                           |    `10000000` |   `$100.00` |
+| Purchasing a blockchain Subnet  | Buy a Subnet from the Helium blockchain                                                                         |    `10000000` |   `$100.00` |
 
-### Calculating the DC cost for Sending HNT
+---
+
+## Calculating the DC cost for Sending HNT
 
 As noted above, the `DC` cost of a `Send` transaction is variable. The precise cost is based on the
 size of the transaction, in bytes. Once the size is calculated, we apply a `5000x` multiplier. For a
 typical send transaction, where one wallet is sending to one wallet
-([like this one here](https://explorer.helium.com/txns/RP8xdjuYsvIAaEuyNvMmlBF7Kc8ShNoURtA1ccgMGpk)),
+([like this one here](https://explorer-old.helium.com/txns/RP8xdjuYsvIAaEuyNvMmlBF7Kc8ShNoURtA1ccgMGpk)),
 the complete transaction is made up of the following:
 
-| Transaction Component | Component Size (Bytes)           |
-| :-------------------- | :------------------------------- |
-| Payer Wallet Key      | 33                               |
-| Payee Wallet Key      | 33                               |
-| Payer Signature       | 64                               |
-| Nonce                 | 3 (approximate; ranges from 2-4) |
-| Payment Amount        | 6 (approximate; ranges from 4-8) |
+| Transaction Component | Component Size (Bytes) | Note                           |
+| :-------------------- | ---------------------: | ------------------------------ |
+| Payer Wallet Key      |                     33 |
+| Payee Wallet Key      |                     33 |
+| Payer Signature       |                     64 |
+| Nonce                 |                      3 | (approximate; ranges from 2-4) |
+| Payment Amount        |                      6 | (approximate; ranges from 4-8) |
 
 - In total, this is `139` bytes.
 - Each `24` bytes requires one Data Credit (as is the case when you're transferring device packet
@@ -59,7 +63,19 @@ the complete transaction is made up of the following:
 - We then apply our 5000x multiplier, and the result is a transaction fee
 - This results in a `30000 Data Credit` cost for the above transaction.
 
-### Transaction Fees and Implicit Burn
+---
+
+## Transaction Fees and Implicit Burn
+
+:::caution Implicit Burn on Solana is Not Active
+
+Implicit burn is not currently implemented on the Solana blockchain. To aquire the DC needed for
+transactions, use the Helium Wallet app to swap HNT for DC manually.
+
+:::
+
+<details>
+<summary>More info</summary>
 
 The Helium blockchain uses something called `implicit burn` when paying fees.
 
@@ -86,7 +102,11 @@ In the above example, had you attempted to send `10.0001HNT` with only `11 HNT` 
 transaction would have failed as burning `.999 HNT` would only result in `34965 DCs`, a mere 35 DCs
 short of the `35000` required for a `send` transaction.
 
-### Failed Transactions Result in No DCs Being Spent
+</details>
+
+---
+
+## Failed Transactions Result in No DCs Being Spent
 
 Transactions in the Helium blockchain are `atomic`. In short, this means that they either succeed
 entirely or they don't. So, if you attempt to send HNT from a Helium Wallet without enough HNT to

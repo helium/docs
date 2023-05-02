@@ -182,9 +182,9 @@ Ensure those graphs exist **before** load & capacity tests begin.
 
 ## Manual Setup
 
-[Generate a Console API Key](https://docs.helium.com/use-the-network/console/my-account/#console-api-keys),
-which requires logging onto Console user interface (UI). Everything else will be done by
-command-line interface (CLI).
+[Generate a Console API Key](/use-the-network/console/my-account/#console-api-keys), which requires
+logging onto Console user interface (UI). Everything else will be done by command-line interface
+(CLI).
 
 Each organization will have its own API Key, which may be obtained via the Console UI under Account
 Settings.
@@ -246,8 +246,7 @@ echo $WALLET
 ```
 
 Ensure enough Data Credits (DC) to cover
-[cost of adding data-only hotspots and asserting location](https://docs.helium.com/mine-hnt/data-only-hotspots)
-of each.
+[cost of adding data-only hotspots and asserting location](/mine-hnt/data-only-hotspots) of each.
 
 > e.g., For 20 instances of gateway-rs: 20 x (1000000 + 500000) at HNT prices in 2022Q2, this will
 > require 15 HNT. Plus **add for uplinks** from devices if on a non developer instance of router.
@@ -329,10 +328,9 @@ echo $P2P
 
 Choose a hexagon for each gateway instance.
 
-Because this is a test router yet each gateway's location must be asserted onto
-[mainnet](https://docs.helium.com/mine-hnt/validators/#mainnet) blockchain, pick a bogus location
-such as middle of a lake or river. (While there could be legitimate _devices_ in a particular body
-of water, there is unlikely to be a hotspot there as well.)
+Because this is a test router yet each gateway's location must be asserted onto mainnet blockchain,
+pick a bogus location such as middle of a lake or river. (While there could be legitimate _devices_
+in a particular body of water, there is unlikely to be a hotspot there as well.)
 
 > The importance of asserting a location for each hotspot:
 >
@@ -351,7 +349,7 @@ A dedicated and isolated router and console pair may disregard concerns about Pr
 hierarchical geospatial indexing system for computing distance, so dig there for any unique criteria
 or constraints. For previewing the hex for each pair of coordinates, use the live JavaScript feature
 of the underlying [API's documentation](https://h3geo.org/docs/api/indexing#geotoh3) with resolution
-of 8, and append the resulting value to: `https://explorer.helium.com/hotspots/hex/`.)
+of 8, and append the resulting value to: `https://explorer-old.helium.com/hotspots/hex/`.)
 
 Select latitude and longitude:
 
@@ -721,8 +719,7 @@ done
 ## Confirm Locations
 
 Allow time-- approximately 5-20 minutes-- for those transactions to be recorded onto the blockchain,
-and then confirm asserted locations via
-[blockchain API](https://docs.helium.com/api/blockchain/introduction/):
+and then confirm asserted locations via [blockchain API](/api/blockchain/introduction/):
 
 ```bash
 curl --user-agent "$UA" \
@@ -743,8 +740,8 @@ With that, your gateways are ready for Load & Capacity runs.
 
 Benchmarking on an **isolated server instance of router** (e.g., `router-dev`) affords the option of
 resetting DC balance of an organization. Otherwise, benchmarking will make a measurable impact to
-your wallet; see [Data Credits](https://docs.helium.com/use-the-network/console/data-credits/)
-within Console documentation.
+your wallet; see [Data Credits](/use-the-network/console/data-credits/) within Console
+documentation.
 
 First, find your `organization_id` which may be obtained via Console UI. From the Organizations
 page, there is an export widget associated with each organization listed.
