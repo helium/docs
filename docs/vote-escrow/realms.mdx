@@ -273,11 +273,13 @@ If a stake was created with a 'constant' [lockup period](#lockup-period), the ab
 the position will be visible in the position as long as the unlock has not yet been initiated. A
 constant lockup position will first need to be unlocked before the cooldown period begins.
 
-Unlocking the position will begin the unlocking process. The time this takes will depend on the
-duration set during the creation of the position.
+Unlocking the position will begin the cooldown decay process. The time this takes is the lockup
+duration set during the creation of the position. And your veHNT value will decay to 0 veHNT during
+this cooldown period.
 
 You will be required to close the position to return the staked HNT to your wallet after the
-cooldown period has ended.
+cooldown period has ended. You must claim all tokens from the position and undelegate the position
+before the Close Position button is available as an option.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/realms/stakewlockup.png')} style={{ maxHeight: 300 }} />
