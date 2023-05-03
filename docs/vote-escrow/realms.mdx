@@ -16,52 +16,14 @@ Like many other Solana Ecosystem projects, Helium utilizes [Realms](https://real
 organize and manage vote escrow tokens, delegation, and more. Stakes can be created and later
 managed within Realms at any time.
 
-## Landrush
-
-For the first 10 days following the Solana migration, HNT holders are eligible to stake their HNT
-for a 'landrush' bonus of 3x the locked amount.<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>)</sup>
-
-If a landrush stake is moved or split out of its original position after the first 10 days have
-lapsed, the landrush bonus is forfeited.
-
-<figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/realms/landrush.png')} />
-  <figcaption>
-    The 'landrush' banner indicates a position created within the first 10 days of the Solana
-    migration.
-  </figcaption>
-</figure>
-
-[^1]:
-    [HIP 70: Scaling the Helium Network](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md)
-
-[^2]:
-    [HIP 77: Launch Parameters for Solana Migration](https://github.com/helium/HIP/blob/main/0077-solana-parameters.md)
-
-## Automatically Created Validator Stakes
-
-For existing validators, a veHNT position is automatically created based on the existing staked
-position previously tied to Validators. The
-[Validator migration guide](/solana/migration/validator-operator) is a valuable reference in
-understanding specific details for former Validator operators.
-
-These positions are not automatically delegated to a subDAO and are set with a constant
-[lockup period](#lockup-period) by default.
-
-As a note, these Validator positions will appear as one large stake. `hntyv...` is the Solana mint
-address for HNT.
-
-<figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/realms/validatorstake.png')} />
-  <figcaption>
-    A veHNT position representing two migrated validators (20,000 HNT) under one account.
-  </figcaption>
-</figure>
-
 ## Creating a Stake
 
 Anyone with HNT in a wallet can create a stake using Realms either using an in-wallet browser or a
 browser-connected wallet.
+
+While staking IOT or MOBILE tokens is possible through their respective subDAOs, those positions are
+only eligible for voting power and cannot currently be delegated for the purposes of earning
+rewards.
 
 This guide outlines using Realms with the [Helium Wallet App](/wallets/helium-wallet-app). To use
 Realms on a desktop browser, a Solana-compatible browser wallet can be used (such as Phantom or
@@ -195,7 +157,7 @@ the overall lockup multiplier.
 
 ### Confirming your Stake
 
-Once parameters are settled in the realms UI, you are now ready to create your veHNT position.
+Once parameters are settled in the Realms UI, you are now ready to create your veHNT position.
 
 The Helium Wallet App will ask for confirmation before issuing the Solana transaction that creates
 the veHNT position.
@@ -235,7 +197,7 @@ veHNT position to multiple networks (IOT or MOBILE) or set different lockup time
 positions.
 
 Be warned, splitting a [landrush](#landrush) position after the initial 10 day period will result in
-losing the multiplier for the tokens being split or transferred off the position.
+losing the multiplier for the position being split or transferred off the position.
 
 You must undelegate before splitting a stake. You can redelegate after the split is complete.
 
@@ -244,12 +206,11 @@ be relinquished from the active vote.
 
 ### Transfer a Stake
 
-Neither staked tokens nor the NFT representing a stake can be transferred from one wallet to
-another. Stakes can only be transferred from one position to another within the same wallet.
-Positions can only transfer to positions of greater or equal duration. This functionality is useful
-for consolidating positions. Landrush positions cannot have more locked tokens transferred into them
-after the landrush period. Any veHNT transferred out of a landrush position will lose the 3x
-multiplier bonus.
+Staked positions cannot be transferred from one account to another. Stakes can only be transferred
+from one position to another within the same account. Positions can only transfer to positions of
+greater or equal duration. This functionality is useful for consolidating positions. Landrush
+positions cannot have more locked tokens transferred into them after the landrush period. Any veHNT
+transferred out of a landrush position will lose the 3x multiplier bonus.
 
 You must undelegate both positions before transferring a stake between positions. Transferring to a
 new position requires the original position to be undelegated. You can redelegate one or both
@@ -285,6 +246,48 @@ before the Close Position button is available as an option.
   <img src={useBaseUrl('/img/realms/stakewlockup.png')} style={{ maxHeight: 300 }} />
   <figcaption>
     This position will unlock over the period of 2 years once the unlock has been initiated.
+  </figcaption>
+</figure>
+
+## Landrush
+
+For the first 10 days following the Solana migration, HNT holders were eligible to stake their HNT
+for a 'landrush' bonus of 3x the locked amount.<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>)</sup>
+
+If a landrush stake is moved or split out of its original position after the first 10 days have
+lapsed, the landrush bonus is forfeited.
+
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('/img/realms/landrush.png')} />
+  <figcaption>
+    The 'landrush' banner indicates a position created within the first 10 days of the Solana
+    migration.
+  </figcaption>
+</figure>
+
+[^1]:
+    [HIP 70: Scaling the Helium Network](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md)
+
+[^2]:
+    [HIP 77: Launch Parameters for Solana Migration](https://github.com/helium/HIP/blob/main/0077-solana-parameters.md)
+
+## Automatically Created Validator Stakes
+
+For existing validators, a veHNT position is automatically created based on the existing staked
+position previously tied to Validators. The
+[Validator migration guide](/solana/migration/validator-operator) is a valuable reference in
+understanding specific details for former Validator operators.
+
+These positions are not automatically delegated to a subDAO and are set with a constant
+[lockup period](#lockup-period) by default.
+
+As a note, these Validator positions will appear as one large stake. `hntyv...` is the Solana mint
+address for HNT.
+
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('/img/realms/validatorstake.png')} />
+  <figcaption>
+    A veHNT position representing two migrated validators (20,000 HNT) under one account.
   </figcaption>
 </figure>
 

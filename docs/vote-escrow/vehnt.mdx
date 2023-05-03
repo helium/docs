@@ -12,38 +12,39 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <img className="docsheader" src={useBaseUrl('/img/blockchain/veHNT.png')} />
 
-In the Helium ecosystem, HNT holders can receive veHNT by locking their HNT on-chain for a specified
-period in exchange for voting power and subDAO delegation income in the Helium DAO as defined in
-HIP-51. After the lock-up period ends, and the locked position is closed the amount of HNT is
-released to the owner's wallet and is once again transferable.
+In the Helium ecosystem, HNT holders can receive veHNT positions by locking their HNT on-chain for a
+specified period in exchange for voting power and subDAO delegation income in the Helium DAO. After
+the lock-up period ends, and the locked position is closed the amount of HNT is released to the
+owner's wallet and is once again transferable.
 
-veHNT, or voting-escrowed HNT, is a token introduced as part of the Helium Network's transition to
-the Solana blockchain and the new governance model. veHNT was designed to empower Helium token
-holders by allowing them to participate in the governance of the network and benefit from its
-growth. By understanding the veHNT token and the governance model, Helium stakeholders can make
-informed decisions and actively participate in shaping the network's future.
+veHNT, or voting-escrowed HNT, is a position introduced as part of
+[HIP 51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md). veHNT was designed to empower
+Helium token holders by allowing them to participate in the governance of the network and benefit
+from its growth. By understanding the veHNT token and the governance model, Helium stakeholders can
+make informed decisions and actively participate in shaping the network's future.
 
 ## How veHNT Works
 
-When HNT is locked into the voting escrow, it is converted to veHNT, which can be used to
+When HNT is locked into the voting escrow, it is converted to a veHNT position, which can be used to
 participate in network governance and decision-making. veHNT is the only way to vote in the Helium
 Network. The primary purpose of veHNT is to incentivize long-term commitment to the network and
 align stakeholders' interests with the network's long-term success.
 
-veHNT is not a separate token but rather a derivative of HNT. The amount of veHNT received when
-locking HNT depends on the lock-up period chosen by the user, with longer lock-up periods resulting
-in a higher veHNT multiplier.
+The amount of veHNT received when locking HNT depends on the lock-up period chosen by the user, with
+longer lock-up periods resulting in a higher veHNT multiplier.
 
 ## SubDAOs
 
 The Helium Network serves as the overarching system that enables a multitude of networks (subDAOs)
-to exist via the novel incentive mechanism of HNT.
+to exist via the HNT token.
 
-Each subDAO governs a specific area of the network and receives a portion of the network's token
-emissions, distributed proportionately among veHNT holders who have delegated their veHNT to that
-subDAO. The distribution of tokens is determined by the amount of veHNT delegated to each subDAO and
-the individual lock-up periods. Initially, two subDAOs are introduced: IOT and MOBILE. Voting on the
-IOT and MOBILE networks will require veIOT and veMOBILE respectively.
+Those who delegate their veHNT position to a subDAO are eligible to receive a portion of that
+network's token emissions.
+
+Each subDAO governs a specific area of the network. The distribution of HNT tokens available to the
+subDAO is determined by the amount of veHNT delegated to each subDAO. HNT is minted in proportion to
+the veHNT staked to each. Initially, two subDAOs are introduced: IOT and MOBILE. Voting on matters
+specific to the IOT and MOBILE networks will require veIOT and veMOBILE respectively.
 
 ### IOT subDAO
 
@@ -53,13 +54,13 @@ projects and initiatives that further the IoT ecosystem on the Helium Network.
 
 ### MOBILE subDAO
 
-The MOBILE subDAO is dedicated to the growth and expansion of the Helium Network in the mobile and
-telecommunications sectors. Delegating veHNT to the MOBILE subDAO will help finance projects and
-initiatives aimed at integrating Helium technology into mobile devices and networks.
+The MOBILE subDAO is dedicated to the growth and expansion of the Helium Network in the cellular
+communications sector of the network. Delegating veHNT to the MOBILE subDAO will help finance
+projects and initiatives aimed at integrating Helium technology into mobile devices and networks.
 
 ## Delegating veHNT
 
-To earn rewards from the token emissions, veHNT holders must delegate their veHNT to one or more
+To earn rewards from the token emissions, veHNT holders must delegate their position to one or more
 subDAOs. The lock-up period can range from 1 day to 48 months, with the longer lock-up periods
 resulting in a higher veHNT multiplier. Users can also change their delegations at any time to
 optimize their earnings from the subDAOs.
@@ -73,10 +74,10 @@ veTokens can be managed through [Realms](/vote-escrow/realms) using the in-app b
 
 ### Impacts to subDAO Rewards
 
-SubDAO rewards are calculated and paid to the lock-up position each 24hr reward period. At
-approximately 00:30 UTC time. Currently, the IOT and MOBILE subDAO each have a 6% token emission
-pool for veHNT stakers. This 6% is shared proportionately amongst all veHNT delegated to that subDAO
-at the end of each epoch.
+SubDAO rewards are calculated and paid to the lock-up position each 24hr reward period, at
+approximately 00:30 UTC. Currently, the IOT and MOBILE subDAO each have a 6% token emission pool for
+veHNT stakers. This 6% is shared proportionately amongst all veHNT delegated to that subDAO at the
+end of each epoch.
 
 **subDAO rewards may increase when:**
 
