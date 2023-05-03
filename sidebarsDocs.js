@@ -14,6 +14,7 @@ module.exports = {
       label: 'Solana Migration Guides',
       link: { type: 'doc', id: 'solana/migration-overview' },
       items: [
+        'solana/migration-faq',
         'solana/migration/hotspot-operator',
         'solana/migration/validator-operator',
         {
@@ -31,6 +32,7 @@ module.exports = {
         'solana/migration/blockchain-etl',
         'solana/migration/wallet-user',
         'solana/migration/ledger',
+        'solana/migration/hst',
       ],
     },
   ],
@@ -70,9 +72,10 @@ module.exports = {
       type: 'category',
       label: 'Vote Escrow Tokens',
       link: { type: 'doc', id: 'vote-escrow/vehnt' },
-      items: ['vote-escrow/vehnt', 'vote-escrow/realms'],
+      items: ['vote-escrow/vehnt', 'vote-escrow/realms', 'vote-escrow/voting-power'],
       collapsed: true,
     },
+    'helium-tokens/sol-token',
     {
       type: 'category',
       label: 'Helium Wallets',
@@ -84,11 +87,7 @@ module.exports = {
       ],
       collapsed: true,
     },
-    {
-      type: 'category',
-      label: 'Accounts',
-      items: ['wallets/twelve-words', 'wallets/twenty-four-words'],
-    },
+    'wallets/wallet-seed-phrase',
   ],
   iotnetwork: [
     {
@@ -180,11 +179,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Community Governance',
-      items: [
-        'community-governance/community-governance',
-        'community-governance/community-voting',
-        'mine-hnt/validators/validators-and-voting-power',
-      ],
+      items: ['community-governance/community-governance', 'community-governance/community-voting'],
     },
     {
       type: 'category',
@@ -226,8 +221,6 @@ module.exports = {
         'blockchain/blockchain-primitives',
         'blockchain/mining',
         'blockchain/packet-purchasing',
-        'blockchain/consensus-protocol',
-        'blockchain/oracles',
         'blockchain/transaction-fees',
       ],
       collapsed: true,
@@ -235,12 +228,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: [
-        'mine-hnt/mine-hnt',
-        'mine-hnt/validators/validators',
-        'mine-hnt/denylist',
-        'mine-hnt/denylist-removals',
-      ],
+      items: ['mine-hnt/mine-hnt', 'mine-hnt/denylist', 'mine-hnt/denylist-removals'],
       collapsed: true,
     },
     {
@@ -283,7 +271,6 @@ module.exports = {
         'api/blockchain/stats',
         'api/blockchain/blocks',
         'api/blockchain/accounts',
-        'api/blockchain/validators',
         'api/blockchain/hotspots',
         'api/blockchain/cities',
         'api/blockchain/locations',
@@ -1301,61 +1288,6 @@ module.exports = {
         'mine-hnt/full-hotspots/become-a-maker/hotspot-ble-services',
         'mine-hnt/full-hotspots/become-a-maker/hotspot-wifi-configuration',
         'mine-hnt/full-hotspots/become-a-maker/burn-hnt-to-maker-wallet',
-      ],
-      collapsed: false,
-    },
-  ],
-  validators: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/mine-hnt/validators',
-    },
-    {
-      type: 'category',
-      label: 'Validators',
-      items: [
-        'mine-hnt/validators/validators-requirements',
-        'mine-hnt/validators/validators-monitoring',
-        'mine-hnt/validators/validators-troubleshooting',
-        'mine-hnt/validators/validators-penalties',
-        'mine-hnt/validators/validators-faqs-resources-providers',
-      ],
-      collapsed: false,
-    },
-  ],
-  validators_testnet: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/mine-hnt/validators',
-    },
-    {
-      type: 'category',
-      label: 'Validators (Testnet)',
-      items: [
-        'mine-hnt/validators/testnet/validators-testnet-expectations',
-        'mine-hnt/validators/testnet/validators-testnet-design',
-        'mine-hnt/validators/testnet/validators-testnet-deployment-guide',
-        'mine-hnt/validators/testnet/validators-testnet-wallet',
-        'mine-hnt/validators/testnet/validators-testnet-test-cases',
-      ],
-      collapsed: false,
-    },
-  ],
-  validators_mainnet: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/mine-hnt/validators',
-    },
-    {
-      type: 'category',
-      label: 'Validators (Mainnet)',
-      items: [
-        'mine-hnt/validators/mainnet/validators-mainnet-deployment-guide',
-        'mine-hnt/validators/mainnet/validators-mainnet-release',
-        'mine-hnt/validators/mainnet/validators-mainnet-wallet',
       ],
       collapsed: false,
     },
