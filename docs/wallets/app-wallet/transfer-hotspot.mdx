@@ -16,12 +16,15 @@ As requested by the Community via HIP13, the Transfer Hotspot feature is availab
 owners of the Network to transfer their Hotspots to another owner.
 
 This feature enables Hotspot owners to transfer ownership of a Hotspot to another user. Once
-transferred, the new owner will receive all future Hotspot mining rewards. The
-[Helium Wallet app](/wallets/helium-wallet-app) cannot be used to transfer Hotspots between wallets.
+transferred, the new owner will receive all future Hotspot mining rewards.
 
-Do not transfer Hotspots to wallets created with 24-word seed phrases unless the Hotspot Management
-App supports 24-word seed phrases. If a Hotspot is transferred to a 24-word wallet, you can use the
-[Wallet CLI](/wallets/cli-wallet) to transfer the Hotspot to a 12-word wallet.
+:::info
+
+It is now recommended to use version 2.0.0 or higher of the
+[Helium Wallet app](/wallets/helium-wallet-app) to perform hotspot transfers between wallets. This
+app has no restrictions on the transfer
+
+:::
 
 ### Requirements
 
@@ -85,11 +88,6 @@ Hotspot will then show up in the Buyers wallet. Tap on the notification to view 
 
 ## Common Questions
 
-### Can I transfer a Hotspot from a 24-word wallet to a 12-word wallet?
-
-Yes. Hotspots can be transferred from a 24-word wallet to a 12-word wallet using the
-[CLI](/wallets/cli-wallet#transfer-hotspot-from-24-word-wallet).
-
 ### Can I undo the transaction?
 
 No. Once transferred, the Hotspot and its mining rewards moving forward belong to the Buyer.
@@ -98,18 +96,9 @@ No. Once transferred, the Hotspot and its mining rewards moving forward belong t
 
 The Seller pays for the transaction fee.
 
-### Is this available on the CLI?
-
-Yes. Wallet CLI is available for this feature.
-[Helium CLI Wallet Documentation](/wallets/cli-wallet)
-
 ### Will this be recorded in the blockchain?
 
 Yes. Transfer Hotspot transactions are on-chain and visible in Explorer.
-
-### What if the activity check reveals the Hotspot hasn’t done anything recently?
-
-You won’t be able to transfer the Hotspot.
 
 ### How do I make sure the Hotspot physically changes hands?
 

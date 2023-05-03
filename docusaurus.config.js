@@ -1,5 +1,6 @@
 const math = require('remark-math')
 const katex = require('rehype-katex')
+const webpack = require('webpack')
 
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
@@ -131,6 +132,7 @@ module.exports = {
   customFields: {
     MIGRATION_SERVICE_URL: 'https://migration.web.helium.io',
     SOLANA_URL: 'https://solana-rpc.web.helium.io/?session-key=Pluto',
+    HNT_TO_RENT_SERVICE_URL: 'https://hnt-to-rent.web.helium.io',
   },
   plugins: [
     function (context, options) {
@@ -139,9 +141,16 @@ module.exports = {
         // eslint-disable-next-line
         configureWebpack(config, isServer, utils) {
           return {
+            plugins: [
+              new webpack.ProvidePlugin({
+                process: require.resolve('process/browser'),
+              }),
+            ],
             resolve: {
               fallback: {
                 assert: false,
+                crypto: false,
+                stream: false,
               },
             },
           }

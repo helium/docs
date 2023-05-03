@@ -12,17 +12,8 @@ slug: /hotspot-makers/maker-apps
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-This document describes what Maker apps are and how users interact with them on the Helium Network.
-
-Followed by a listing of the available Maker Apps.
-
-Beginning March 2022, all [HIP-19](https://github.com/dewi-alliance/hotspot-manufacturers#readme)
-Hotspot Manufacturers (aka Makers) are required to support their customers with a bespoke Mobile App
-to onboard their Hotspots, maintain their Hotspots with diagnostic tools, and various basic
-troubleshooting tools.
-
-Maker Apps can also include extra enhancements such as Proof-of-Coverage analysis, earnings tools,
-and more.
+This document describes what Maker apps are and how users interact with them on the Helium Network
+as well as a list of the available Maker Apps.
 
 For more information,
 [read our blog post announcing this change](https://blog.helium.com/the-future-of-hotspot-apps-and-wallets-in-the-helium-ecosystem-a5b904b01d62).
@@ -46,9 +37,9 @@ Typescript.
 
 The [Maker Starter App](https://github.com/helium/maker-starter-app) includes support for
 deeplinking to the Helium Wallet App to sign transactions, removing any requirements for users to
-enter their 12-word seed phrase into the Maker App. **This is a security precaution and prevents
-potential lost of funds and Hotspots, as the seed phrase acts as a user's private key on the
-blockchain.** If you find a Maker app that asks for your seed phrase, do not trust it.
+enter their 12 or 24 word seed phrase into the Maker App. **This is a security precaution and
+prevents potential lost of funds and Hotspots, as the seed phrase acts as a user's private key on
+the blockchain.** If you find a Maker app that asks for your seed phrase, do not trust it.
 
 #### Features
 
@@ -56,9 +47,13 @@ The following features are supported in the Maker Starter App:
 
 - Add a Hotspot
 - Set a Location (including gain and elevation)
-- Transfer a Hotspot
+- Transfer a Hotspot (optional), Function is now available by transfering an NFT in the
+  [Helium Wallet](/wallets/helium-wallet-app)
 - Settings with PIN Code and language selection
 - Deeplinking to [Helium Wallet](/wallets/helium-wallet-app) to sign transactions
+
+Maker Apps can also include extra enhancements such as Proof-of-Coverage analysis, earnings tools,
+and more.
 
 ---
 
@@ -78,7 +73,7 @@ vendor at the current time.
 
 - Hotspotty Connect documentation: https://docs.hotspotty.net/hotspotty-connect/
 
-This app requires connection to the new [Helium Wallet](/wallets/helium-wallet-app) and HNT funds in
+This app requires connection to the [Helium Wallet App](/wallets/helium-wallet-app) and HNT funds in
 the Maker Wallet or your Wallet to perform onboarding, location asserts, antenna, or height updates.
 
 When there is a need to change a Hotspot's Wifi connection without needing to connect to a Wallet,
@@ -109,7 +104,7 @@ New makers are required to have a Maker App available before HIP 19 maker approv
 
 ---
 
-### Bobcat
+### Bobcat (Bobber)
 
 - Discord : https://discord.gg/2Barf528uj
 - iOS App: https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1595267515
@@ -127,8 +122,8 @@ New makers are required to have a Maker App available before HIP 19 maker approv
 
 ### Controllino/Conelcom
 
-The [Nebra app](https://docs.helium.com/mine-hnt/maker-apps#nebra) will be used to manage
-Controllino/Conelcom hotspots in the near future. Please see the update annoucement:
+The Nebra app will be used to manage Controllino/Conelcom hotspots in the near future. Please see
+the update annoucement:
 
 https://www.nebra.com/blogs/news/nebra-ltd-providing-updates-for-controllino-conelcom-hotspots
 
@@ -188,12 +183,14 @@ As of March 2023 apps are
 
 ### FreedomFi
 
+FreedomFi Hotspots can now use the Helium Hotspot App to onboard and manage
+
 - iOS App: https://apps.ios.com/us/app/freedomfi/id1608377889
 - Android App: https://play.google.com/store/apps/details?id=com.freedomfi.FreedomFiApp
 
 ---
 
-### Helium
+### Helium Hotspot - for OG and FreedomFI
 
 - Discord : https://discord.gg/helium
 - iOS App: https://apps.apple.com/us/app/helium-hotspot/id1450463605
@@ -207,7 +204,7 @@ As of March 2023 apps are
 
 - Discord : https://discord.gg/Pt85TrZfxZ
 - iOS App: https://apps.apple.com/app/heltec-hotspot/id6444391876
-- Android App: Download from Maker-Apps page
+- Android App: https://heltec.org/maker-app/
 
 ---
 
@@ -215,7 +212,7 @@ As of March 2023 apps are
 
 - Discord : https://discord.gg/wUk9nfFGZW
 - iOS App: https://apps.apple.com/app/hummingbird-hotspot/id1612429261
-- Android App: Download from Maker-Apps page
+- Android App: https://www.xdt.com/app.html
 
 ---
 
@@ -246,11 +243,12 @@ As of March 2023 apps are
 
 - Discord : https://discord.gg/n3E3gvZr6b
 - Local Dashboard: http://dashboard.longap.com/
-- Maker apps: The LongAP recommendation is to use the Linxdot Maker App
+- App : LongAp will not be releasing their own App at present but have confirmed the Helium Hotspot
+  app can be used for location asserting.
 
 ---
 
-### MerryIoT
+### MerryIoT (Browan)
 
 - iOS App: https://apps.ios.com/us/app/merryiot-hotspot/id1615538142
 - Android App: https://play.google.com/store/apps/details?id=com.merryiot.makerapp
@@ -274,9 +272,16 @@ As of March 2023 apps are
 
 ### MNTD / RAK Wireless
 
+:::note Use Hotspotty Connect
+
+Hotspotty Connect has taken over management of the MNTD/RAK maker app. The links below are accurate
+for the Hotspotty Connect apps which should be used with all MNTD and RAK Wireless Hotspots.
+
+:::
+
 - Discord : https://discord.gg/j92Nu5nmP9
-- iOS App: https://apps.apple.com/ch/app/mntd-helium-hotspot-manager/id1595569593
-- Android App: https://play.google.com/store/apps/details?id=com.getmntd.wallet
+- iOS App: https://apps.apple.com/app/hotspotty-connect/id1622212036
+- Android App: https://play.google.com/store/apps/details?id=com.hotspottyconnect
 
 ---
 
@@ -284,18 +289,6 @@ As of March 2023 apps are
 
 - iOS App: https://apps.apple.com/gb/app/nebra-hotspot/id1617299471
 - Android App: https://play.google.com/store/apps/details?id=com.nebra.helium.maker
-
----
-
-### omSquare
-
-- Discord : https://discord.gg/BZPShbNXYb
-
-:::note This Maker has not yet submitted an App for inclusion on this page.
-
-Use the "Edit this Page" link at the bottom of this page to submit corrections.
-
-:::
 
 ---
 
@@ -314,16 +307,6 @@ Use the "Edit this Page" link at the bottom of this page to submit corrections.
 - Discord : https://discord.gg/dyJf8DD
 - Android App: https://play.google.com/store/apps/details?id=com.osprey.electronics
 - iOS App: https://apps.apple.com/us/app/osprey-electronics-hotspot/id1616301064
-
-:::note This Maker has not yet submitted an App for inclusion on this page.
-
-Use the "Edit this Page" link at the bottom of this page to submit corrections.
-
-:::
-
----
-
-### OXIT
 
 :::note This Maker has not yet submitted an App for inclusion on this page.
 
@@ -371,8 +354,8 @@ Use the "Edit this Page" link at the bottom of this page to submit corrections.
 
 ### Pycom
 
-The [Nebra app](https://docs.helium.com/mine-hnt/maker-apps#nebra) will be used to manage Pycom
-hotspots in the near future. Please see the update annoucement:
+The Nebra app will be used to manage Pycom hotspots in the near future. Please see the update
+annoucement:
 
 https://www.nebra.com/blogs/news/nebra-providing-updates-for-pycom-hotspots
 
@@ -394,7 +377,7 @@ https://www.nebra.com/blogs/news/nebra-providing-updates-for-pycom-hotspots
 
 ---
 
-### SenseCAP
+### SenseCAP (Seeed)
 
 - Discord : https://discord.gg/QqMgVwHT3X
 - iOS App: https://apps.apple.com/us/app/sensecap-hotspot/id1600051150
@@ -405,33 +388,8 @@ https://www.nebra.com/blogs/news/nebra-providing-updates-for-pycom-hotspots
 
 ### SyncroB.it
 
-- Discord : https://discord.gg/45dhnE3bdd
-
-:::caution This Maker is in liquidation and unlikely to release an App.
-
-Check the Helium Discord for support by other vendors.
-
-:::
-
----
-
-### Tektelic
-
-:::note This Maker has not yet submitted an App for inclusion on this page.
-
-Use the "Edit this Page" link at the bottom of this page to submit corrections.
-
-:::
-
----
-
-### TMG
-
-:::note This Maker has not yet submitted an App for inclusion on this page.
-
-Use the "Edit this Page" link at the bottom of this page to submit corrections.
-
-:::
+Nebra have taken over support for SyncroB.it hotspots Please read the annoucement.
+https://www.nebra.com/blogs/news/syncrobit-hotspots-join-nebra-family
 
 ---
 
