@@ -8,145 +8,69 @@ image: https://docs.helium.com/img/link-image.png
 slug: /hotspot-makers/light-hotspots
 ---
 
-# Light Hotspots Software Upgrade [Updated]
-
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-This document describes the architecture and technical roadmap planned for converting existing
-Approved Hotspots to formerly called "Light Hotspots", now just called "Hotspots" as a software upgrade; updated with HIP70 in mind.
+## IOT Hotspot Properties
 
-The conclusion of the ~~Light~~ Hotspot project has completed. **Last updated Friday April 20,
-2023**.
+The IOT Hotspot software [gateway-rs](https://github.com/helium/gateway-rs) is in production,
+satisfying the following properties:
 
-:::info
+- A Hotspot on the Helium network will Beacon automatically on a pre-determined time interval.
+- A Hotspot will submit PoC receipts directly to an Off-Chain PoC Oracle.
+- A Hotspot will transmit packets on behalf of IoT devices on the Network to an Off-Chain Data
+  Oracle.
+- A Hotspot will no longer depend on libp2p or "gossip", and instead use [gRPC](https://grpc.io/), a
+  new framework to communicate between distributed systems
+- A Hotspot will be eligible to earn IOT token rewards.
 
-For real-time development and community support of Data Only Hotspots and ~~Light~~ Hotspots, please
-join the
-[#gateway-development](discord://discord.com/channels/404106811252408320/784462269072277576) channel
-on [Helium Discord](https://discord.gg/helium)
+:::info Naming
+
+All IOT Hotspots are referred to as "Hotspots," discarding the previous distinctions of "Full
+Hotspot" and "Light Hotspot."
+
+With the switch to `gateway-rs,` all IOT Hotspots are "Light Hotspots," so the prefix is no longer
+needed.
 
 :::
 
-## What is a ~~Light~~ Hotspot? [History]
+---
 
-Light Hotspots are the evolution of how LoRaWAN gateways interact with the Helium blockchain.
-Since the genesis block, the Helium blockchain has run entirely on the physical Hotspot itself. As
-the blockchain network grows, each Hotspot running a full node undergoes increasing load and are
-starting to fall out of sync due to the higher compute requirements.
+## HIP-70 Changes
 
-Before the introduction of [HIP 70](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md),
-the goal was to move Challenge creation and Consensus work to Validators. 
+[HIP-70](https://github.com/helium/HIP/issues/471)has passed. HIP-70 proposes a new architecture
+involving several Oracles, allowing Proof of Coverage ("PoC") generation to be automated and its
+receipts to be off-chain.
 
-## What is a ~~Light~~ Hotspot? [Now updated April 24, 2023]
+The most taxing piece of PoC is not just Challenge creation but Receipt validation and verification.
+By taking these tasks off-chain, PoC event frequency can increase to several times daily. As a
+result, Hotspot operators can expect more reliable challenges and witness events.
 
-Since HIP-70 and the
-introduction of Off-Chain PoC Oracles, the definition of ~~Light~~ Hotspot and what it will do has
-changed. Please read on for detailed changes and timelines.
+## IOT Proof of Coverage Architecture Overview
 
-## ~~Light~~ Hotspot Properties
-
-The ~~Light~~ Hotspot software is fully developed and in production, satisfying the
-following properties:
-
-- A Hotspot on the Helium network will Beacon (also known as emitting a challenge for
-  Proof-of-Coverage) automatically on a pre-determined time interval (up to several times a day);
-- Will submit PoC receipts directly to an Off-Chain PoC Oracle;
-- Does not store a copy of the Blockchain, eliminating synchronization;
-- Will transmit packets on behalf of IoT devices on the network to an Off-Chain Data Oracle;
-- Does not participate in Consensus Groups;
-- Will no longer depend on libp2p or "gossip", and instead use [gRPC](https://grpc.io/), a new
-  framework to communicate between distributed systems;
-- Will be eligible to earn $HNT (see table below)
-
-In other words, Hotspot software will allow the Hotspot to participate as a
-[Full Hotspot](/mine-hnt/full-hotspots), without the extra overhead of maintaining a local copy of
-the blockchain.
-
-## Architecture
-
-This image shows the progression to ~~Light~~ Hotspots, with the role of Miner being deprecated as 
-the blockchain is moved off the Hotspots and Proof-of-Coverage receipts are moved to an Oracle. At the conclusion
-of ~~Light~~ Hotspot development in April 2023, the entire Helium blockchain has been removed from Hotspots. Hotspots
-now Beacon on their own without external input, and all data transfer and Proof-of-Coverage
-receipts have moved to Off-Chain Oracles.
-
-### HIP-70 Changes
-
-[HIP-70](https://github.com/helium/HIP/issues/471)has passed.
-HIP-70 proposes a new architecture that involves several Oracles that allow Proof-of-Coverage
-generation to be automated and its receipts to be off-chain. The most "expensive" piece of
-Proof-of-Coverage is not just Challenge creation, but Receipt validation and verification. By taking
-these tasks off-chain, PoC frequency can increase dramatically, up to several times a day. Hotspot
-owners can expect more reliable challenges and witnessing.
-
-The core team has completed work on these Oracles which are used for both IoT and Mobile. 
-
-Roughly speaking, a Hotspot will Beacon on its own,
-with neighboring Hotspots witnessing and submitting their receipts to an **Ingestor** Oracle. 
-The **Packet Verifier** gets its data from the packet router (IoT) or the cellular backend (Mobile).
-
-The **Ingestor** uploads receipts into a cloud store where another Oracle, called a **Verifier**
-takes input from both the **Ingestor** and the **Packet Verifier**. 
-
-The **Ingestor** and the **Packet Verifier** filter out invalid receipts and produce the reward output. 
-The output of the **Verifier** is passed to a
-**Reward** Oracle that determines how much reward shares a Hotspot should earn for that period.
-Finally, Hotspots are rewarded for their work in Proof-of-Coverage.
-***
-
-For this to happen, two blockchain-related pieces must complete:
-
-1. The launch of the IOT Subnetwork as described in
-   [HIP-52](https://github.com/helium/HIP/blob/main/0052-iot-dao.md)
-2. The passing of HIP-70 and the completed transition to a new L1
-
-To avoid further delays, the core team believes the work for Off-Chain PoC has progressed enough to
-allow an intermediate step that allows Hotspots to remove the Erlang miner, have Hotspots beacon at
-a more frequent interval, and remove PoC off chain.
-
-Hotspot completion is at the **Reward** Oracle step. Instead of the
-**Verifier** submitting its Proof-of-Coverage results to the Reward Oracle, all Proof-of-Coverage
-receipts will be signed and submitted to the Helium L1 Blockchain where rewards will be paid out in
-HNT (as they are today) by a new Oracle called the Injector. This removes the need for the IOT
-Subnetwork to exist and removes the dependency of the L1 switchover.
+1. A Hotspot broadcasts a Beacon.
+2. Nearby Hotspot(s) witness the Beacon.
+3. Witness Hotpot(s) submit a receipt to an Ingestor Oracle.
+4. The Packet Verifier gets data from the Packet Router.
+5. The Ingestor Oracle uploads the receipts to a cloud store.
+6. A Verifier Oracle takes this input from the Ingestor Oracle and the Packet Verifier to filter out
+   invalid receipts and produce a Reward output.
+7. The Reward output passes to the Reward Oracle, determining how many reward shares a Hotspot
+   should earn for the epoch.
+8. Finally, the Injector Oracle distributes Hotspots rewards.
 
 <img className="docsheader" src={useBaseUrl('img/mine-hnt/light-hotspot-hip70.png')} />
 
+---
+
 ## Code and Development
 
-The bulk of the code that enables Hotspots on actual LoRaWAN gateways is called
-[gateway-rs](https://github.com/helium/gateway-rs). It's easiest to think of this as Helium's
-next-generation packet forwarder.
+The bulk of the code that enables Hotspots on actual LoRaWAN gateways is Helium's next-generation
+packet forwarder called [gateway-rs](https://github.com/helium/gateway-rs).
 
-Development of this code takes place in the above GitHub repo, as well at the
-`#gateway-developement` channel on the [Helium Discord Server](https://discord.gg/helium).
+:::info Join The Conversation
 
-Oracle work can be found at the [Oracles](https://github.com/helium/oracles) repository.
+For real-time development and community support of Data Only Hotspots and IOT Hotspots, please join
+the [#gateway-development](discord://discord.com/channels/404106811252408320/784462269072277576)
+channel on [Helium Discord](https://discord.gg/helium)
 
-# Development Timelines
-
-- **March 18 2021**: Data Only Hotspots routes free packets
-- **July 20 2021**: Data Only Hotspots activated on Helium Network (appears on chain)
-- **October 11 2021**: Data Only Hotspots mine HNT
-- **January 2022**: Hardware Audit starts for Light Hotspot manufacturers
-- **February 2022**: Introduce hardware-based Hotspots on Testnet (Full Hotspots running Light
-  Hotspot firmware).
-- **February 22 2022**:
-  [HIP 54](https://heliumvote.com/14me3X7jpEmn3eeFfnAkMvUoFU3cN6GAS3CDomqCikr7VQfHWrU) and
-  [HIP 55](https://heliumvote.com/14Rjhhz1DXLVmSRdzappqWgD6rfgu6XYxmdaSCvWLyLH8ZWbciK) passes
-- **February 2022**: HIP-19 Approved Makers participating in Testnet
-- **~~April 6 2022~~** **April 13**: Code related to Light Hotspot merged to production, in an
-  inactive state. Light Hotspot software update tagged for Makers to upgrade their fleet.
-- **~~April 19 2022~~** **May 11**: Activate set of chain variables to enable Light Hotspots on
-  Mainnet
-- **September 2022**:
-- Introduction of HIP-70, Off-Chain Oracles, and Hotspots transferring data, and Challenging more
-  reliably
-- Continuing Oracle Work and beta `gateway-rs` builds to allow Hotspots to Beacon on a regular
-  interval and send its receipts to a Devnet Oracle for further receipt processing
-- **~November 2022**: Should HIP-70 pass, the completion of Light Hotspots with the launch of PoC
-  Oracles, Data Transfer Oracles, and a final `gateway-rs` build to remove the Erlang miner
-- **~October 2022**: HIP-70 passed
-- **~April 2023**: Light Hotspots are completed and the decision is made to call Light Hotspots simply Hotspots.*
-
-*With the completion of moving from Miner to Gateway-rs, we've simplified hotspots by removing the terms “Full” and “Light”. All hotspots will be called “hotspots” and "data only hotspots". MOBILE network has one or more "radios" which is attached to a "hotspot", or (future) a single "radio" which is attached to a "Mobile WiFi hotspot" 
+:::
