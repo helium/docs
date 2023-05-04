@@ -246,20 +246,6 @@ module.exports = {
       ],
       collapsed: true,
     },
-    {
-      type: 'category',
-      label: 'Troubleshooting',
-      items: [
-        'troubleshooting/hotspot-setup-troubleshooting',
-        'troubleshooting/replace-sd-card',
-        'troubleshooting/improving-poc',
-        'troubleshooting/network-troubleshooting',
-        'troubleshooting/hotspot-led',
-        'troubleshooting/understanding-witnesses',
-        'mine-hnt/understanding-hotspot-status',
-      ],
-      collapsed: true,
-    },
   ],
   api: [
     'api/home',
