@@ -190,8 +190,19 @@ module.exports = {
           label: 'IOT Hotspot Makers',
           items: [
             'hotspot-makers/iot/light-hotspots',
-            'hotspot-makers/iot/full-hotspots',
-            'hotspot-makers/iot/data-only-hotspots',
+            // 'hotspot-makers/iot/full-hotspots',
+            {
+              type: 'category',
+              label: 'Data Only Hotspots',
+              link: { type: 'doc', id: 'hotspot-makers/iot/data-only-hotspots' },
+              items: [
+                'hotspot-makers/iot/data-only/dragino',
+                'hotspot-makers/iot/data-only/dragino-pg1301',
+                'hotspot-makers/iot/data-only/kerlink',
+                'hotspot-makers/iot/data-only/rak-concentrators',
+                'hotspot-makers/iot/data-only/balena-data-only-hotspot',
+              ],
+            },
           ],
         },
         {
@@ -205,6 +216,21 @@ module.exports = {
         'hotspot-makers/hotspot-makers',
         'hotspot-makers/mcc/maker-ethics',
         'hotspot-makers/mcc/compliance-committee',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Become a Maker',
+      items: [
+        'hotspot-makers/become-a-maker/maker-approval-auditing',
+        'hotspot-makers/become-a-maker/hotspot-integration-testing',
+        'hotspot-makers/become-a-maker/basic-miner-operation',
+        'hotspot-makers/become-a-maker/docker-integration',
+        'hotspot-makers/become-a-maker/security-requirements',
+        'hotspot-makers/become-a-maker/hotspot-ble-services',
+        'hotspot-makers/become-a-maker/hotspot-wifi-configuration',
+        'hotspot-makers/become-a-maker/burn-hnt-to-maker-wallet',
         'hotspot-makers/become-a-maker/maker-app-requirements',
         'hotspot-makers/mcc/hotspot-audit-process',
       ],
@@ -1236,33 +1262,33 @@ module.exports = {
       collapsed: false,
     },
   ],
-  become_a_maker: [
-    {
-      type: 'link',
-      label: '<- Full Hotspots',
-      href: '/hotspot-makers/iot/full-hotspots',
-    },
-    {
-      type: 'category',
-      label: 'Become a Maker',
-      items: [
-        'hotspot-makers/become-a-maker/maker-approval-auditing',
-        'hotspot-makers/become-a-maker/hotspot-integration-testing',
-        'hotspot-makers/become-a-maker/basic-miner-operation',
-        'hotspot-makers/become-a-maker/docker-integration',
-        'hotspot-makers/become-a-maker/security-requirements',
-        'hotspot-makers/become-a-maker/hotspot-ble-services',
-        'hotspot-makers/become-a-maker/hotspot-wifi-configuration',
-        'hotspot-makers/become-a-maker/burn-hnt-to-maker-wallet',
-      ],
-      collapsed: false,
-    },
-  ],
+  // become_a_maker: [
+  //   {
+  //     type: 'link',
+  //     label: '<- Full Hotspots',
+  //     href: '/hotspot-makers/iot/full-hotspots',
+  //   },
+  //   {
+  //     type: 'category',
+  //     label: 'Become a Maker',
+  //     items: [
+  //       'hotspot-makers/become-a-maker/maker-approval-auditing',
+  //       'hotspot-makers/become-a-maker/hotspot-integration-testing',
+  //       'hotspot-makers/become-a-maker/basic-miner-operation',
+  //       'hotspot-makers/become-a-maker/docker-integration',
+  //       'hotspot-makers/become-a-maker/security-requirements',
+  //       'hotspot-makers/become-a-maker/hotspot-ble-services',
+  //       'hotspot-makers/become-a-maker/hotspot-wifi-configuration',
+  //       'hotspot-makers/become-a-maker/burn-hnt-to-maker-wallet',
+  //     ],
+  //     collapsed: false,
+  //   },
+  // ],
   lightHotspots: [
     {
       type: 'link',
       label: '<- Light Hotspot',
-      href: '/hotspot-makers/light-hotspots',
+      href: '/hotspot-makers/iot/light-hotspots',
     },
     {
       type: 'category',
@@ -1274,7 +1300,6 @@ module.exports = {
         'hotspot-makers/iot/data-only/rak-concentrators',
         'hotspot-makers/iot/data-only/balena-data-only-hotspot',
       ],
-
       collapsed: false,
     },
   ],
