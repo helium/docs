@@ -36,14 +36,18 @@ const OperationCostEstimator = () => {
     const dailyCost = numberOfDevices * uplinksPerDay * dataTransferCost;
 
     if (isNaN(dailyCost)) {
-        return 0;
+      return {
+        day:    ' —',
+        month:  ' —',
+        year:   ' —',
+      }
+    } else {
+      return {
+        day:    dailyCost.toFixed(5),
+        month:  (dailyCost * 30).toFixed(2),
+        year:   (dailyCost * 365).toFixed(2),
+      };
     }
-
-    return {
-      day: dailyCost,
-      month: dailyCost * 30,
-      year: dailyCost * 365,
-    };
   };
 
   const cost = calculateCost();
@@ -57,6 +61,7 @@ const OperationCostEstimator = () => {
           id="numberOfDevices"
           value={numberOfDevices}
           onChange={handleNumberOfDevicesChange}
+          min={0}
         />
       </div>
       <div className='dc-calc-input-group'>
@@ -67,6 +72,7 @@ const OperationCostEstimator = () => {
             id="uplinkFrequency"
             value={uplinkFrequency}
             onChange={handleUplinkFrequencyChange}
+            min={0}
             />
             <select id="frequencyUnit" value={frequencyUnit} onChange={handleFrequencyUnitChange}>
             <option value="timesPerMinute">Times per Minute</option>
@@ -87,9 +93,9 @@ const OperationCostEstimator = () => {
           </thead>
           <tbody>
             <tr>
-              <td>${cost.day.toFixed(5)}</td>
-              <td>${cost.month.toFixed(2)}</td>
-              <td>${cost.year.toFixed(2)}</td>
+              <td>${cost.day}</td>
+              <td>${cost.month}</td>
+              <td>${cost.year}</td>
             </tr>
           </tbody>
         </table>
