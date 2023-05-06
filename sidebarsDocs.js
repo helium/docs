@@ -315,7 +315,6 @@ module.exports = {
       items: [
         'use-the-network/console/quickstart',
         'use-the-network/console/users',
-        'use-the-network/console/data-credits',
         'use-the-network/console/adding-devices',
         'use-the-network/console/migrating-devices/migrating-devices',
         'use-the-network/console/labels',
