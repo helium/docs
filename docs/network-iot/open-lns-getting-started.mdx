@@ -103,8 +103,8 @@ seeing you own assigned OUI, max_copies, and other environment variables.
 }
 ```
 
-Define DevAddr range so packet router knows which uplinks to route to your endpoint. Use your OUI's
-assigned DevAddr range, which you can get by running `./helium-config-service-cli org get`
+Define DevAddr range so the packet router knows which uplinks to route to your endpoint. Use your
+OUI's assigned DevAddr range, which you can get by running `./helium-config-service-cli org get`
 
 To add your DevAddr range run
 
@@ -112,7 +112,7 @@ To add your DevAddr range run
 ./helium-config-service-cli route devaddrs add -s <start> -e <end> --route-id <route-id> --commit
 ```
 
-Next, define EUI pairs so packet router knows which join requests to route to your endpoint.
+Next, define EUI pairs so the packet router knows which join requests to route to your endpoint.
 
 ```
 ./helium-config-service-cli route euis add --route-id <route-id> -d <dev-eui> -a <app-eui> --commit
