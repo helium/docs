@@ -68,6 +68,7 @@ module.exports = {
       items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
       collapsed: true,
     },
+    'helium-tokens/data-credit',
     {
       type: 'category',
       label: 'Vote Escrow Tokens',
@@ -314,7 +315,6 @@ module.exports = {
       items: [
         'use-the-network/console/quickstart',
         'use-the-network/console/users',
-        'use-the-network/console/data-credits',
         'use-the-network/console/adding-devices',
         'use-the-network/console/migrating-devices/migrating-devices',
         'use-the-network/console/labels',
