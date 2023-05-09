@@ -417,6 +417,7 @@ You can then get a transaction to submit to the solana blockchain using those re
 ```js
 
 import { formTransaction } from "@helium/distributor-oracle";
+import { sendAndConfirmWithRetry } from "@helium/spl-utils";
 
 const tx = await formTransaction({
   program,
@@ -426,5 +427,12 @@ const tx = await formTransaction({
   lazyDistributor: lazyDistributorPkey,
 })
 
-await provider.sendAndConfirm(tx)
+const signed = await provider.wallet.signTransaction(tx);
+
+await sendAndConfirmWithRetry(
+  provider.connection,
+  Buffer.from(signed.serialize()),
+  { skipPreflight: true },
+  'confirmed',
+);
 ```
