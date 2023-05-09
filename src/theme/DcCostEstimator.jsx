@@ -58,6 +58,7 @@ const OperationCostEstimator = () => {
         <label htmlFor="numberOfDevices">Number of Devices:</label>
         <input
           type="number"
+          pattern="[0-9]*"
           id="numberOfDevices"
           value={numberOfDevices}
           onChange={handleNumberOfDevicesChange}
@@ -69,6 +70,7 @@ const OperationCostEstimator = () => {
         <div className='dc-calc-frequency-wrapper'>
             <input
             type="number"
+            pattern="[0-9]*"
             id="uplinkFrequency"
             value={uplinkFrequency}
             onChange={handleUplinkFrequencyChange}
