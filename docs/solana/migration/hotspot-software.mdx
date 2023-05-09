@@ -44,27 +44,27 @@ configurations are now only made in `settings.toml`.
 
 These are the configuration variables to migrate from miner to gateway-rs:
 
-| Erlang Source | Erlang Variable      | gateway-rs Environment                    | Default Value       |
-| ------------- | -------------------- | ----------------------------------------- | ------------------- |
-| `sys.config`  | `miner:radio_device` | [`GW_LISTEN`](#packet-forwarder-bind-port)| `127.0.0.1:1680`    |
-| `sys.config`  | `miner:jsonrpc_port` | `GW_API`                                  | `127.0.0.1:4467`    |
-| `sys.config`  | `blockchain:key`     | [`GW_KEYPAIR`](#key-configuration)        | None                |
-| Environment   | `REGION_OVERRIDE`    | [`GW_REGION`](#radio-region)              | None                |
+| Erlang Source | Erlang Variable      | gateway-rs Environment                     | Default Value    |
+| ------------- | -------------------- | ------------------------------------------ | ---------------- |
+| `sys.config`  | `miner:radio_device` | [`GW_LISTEN`](#packet-forwarder-bind-port) | `127.0.0.1:1680` |
+| `sys.config`  | `miner:jsonrpc_port` | `GW_API`                                   | `127.0.0.1:4467` |
+| `sys.config`  | `blockchain:key`     | [`GW_KEYPAIR`](#key-configuration)         | None             |
+| Environment   | `REGION_OVERRIDE`    | [`GW_REGION`](#radio-region)               | None             |
 
 ### Key Configuration
 
-Like the miner, gateway-rs requires a cryptographic key to identify and authenticate itself on the Helium
-Network. Most Makers have likely relied on the default miner key settings, which instructed the miner to
-use the cryptographic identity locked in slot 0 of an ECC608 chip on I2C bus #1 at I2C address `0x60`/96.
-For these Makers this old default would have sufficed.
+Like the miner, gateway-rs requires a cryptographic key to identify and authenticate itself on the
+Helium Network. Most Makers have likely relied on the default miner key settings, which instructed
+the miner to use the cryptographic identity locked in slot 0 of an ECC608 chip on I2C bus #1 at I2C
+address `0x60`/96. For these Makers this old default would have sufficed.
 
-Unlike the miner, however, gateway-rs does not have any default key setting. Therefore, as a Maker you
-must specifically provide gateway-rs with an appropriate setting for your platform.
+Unlike the miner, however, gateway-rs does not have any default key setting. Therefore, as a Maker
+you must specifically provide gateway-rs with an appropriate setting for your platform.
 
-If your platform deviated from the miner defaults then you are likely familiar with the settings that
-had to be adjusted in the `blockchain:key` override in sys.config. But, for the sake of completeness,
-we'll illustrate all of the settings that could have been adjusted in that scheme and show how they
-are encoded in the scheme used by gateway-rs.
+If your platform deviated from the miner defaults then you are likely familiar with the settings
+that had to be adjusted in the `blockchain:key` override in sys.config. But, for the sake of
+completeness, we'll illustrate all of the settings that could have been adjusted in that scheme and
+show how they are encoded in the scheme used by gateway-rs.
 
 For example, if the Erlang miner had been configured with:
 
@@ -149,11 +149,11 @@ system setup)
 ## Firewall Configurations
 
 Makers using outbound firewall rules to restrict outbound connections should allow the following
-outbound ports:  
+outbound ports:
 
-| Purpose                       | Outbound Port Used |
-| ----------------------------- | ------------------ |
-| Configuration Service         | TCP/6080           |
-| Entropy Oracle                | TCP/7080           |
-| Packet Router                 | TCP/8080           |
-| Packet Ingest                 | TCP/9080           |
+| Purpose               | Outbound Port Used |
+| --------------------- | ------------------ |
+| Configuration Service | TCP/6080           |
+| Entropy Oracle        | TCP/7080           |
+| Packet Router         | TCP/8080           |
+| Packet Ingest         | TCP/9080           |
