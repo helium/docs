@@ -1,7 +1,11 @@
 ---
 id: style-guide
-title: Style Guide
-sidebar_label: Style Guide
+title: Docs Style Guide
+pagination_label: Docs Style Guide
+sidebar_label: Docs Style Guide
+description: Helium Documentation <!-- do not change -->
+image: https://docs.helium.com/img/link-image.png <!-- do not change -->
+slug: /style-guide
 ---
 
 You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
@@ -18,17 +22,11 @@ To serve as an example page when styling markdown based Docusaurus sites.
 
 ### H3 - Create the best documentation
 
-#### H4 - Create the best documentation
-
-##### H5 - Create the best documentation
-
-###### H6 - Create the best documentation
-
 ---
 
 ## Emphasis
 
-Emphasis, aka italics, with _asterisks_ or _underscores_.
+Emphasis, aka italics, with _underscores_.
 
 Strong emphasis, aka bold, with **asterisks** or **underscores**.
 
@@ -209,3 +207,86 @@ This is a caution
 This is a warning
 
 :::
+
+## Linking to Other Docs
+
+When linking to other docs always use full path links or abbreviated links to full path links at the
+bottom of the doc. Abbreviated links help improve the readability of the raw markdown and makes
+common links reusable in the same doc.
+
+**Abbreviated Links Example:**
+
+**Good Example**
+
+```markdown
+Read more information on developing IOT devices on the [device development](device.development)
+page.
+
+...
+
+[device.development]: /use-the-network/devices/development/development
+```
+
+**Not So Good Example**
+
+```markdown
+Read more information on developing IOT devices on the
+[device development](/use-the-network/devices/development/development) page.
+```
+
+---
+
+## Adding Images
+
+When adding images, use the method shown below.
+
+```
+---
+id: page-topic
+title: Page Topic
+slug: /page-topic
+---
+
+// Add to the top of the file below the front matter and title.
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+...
+
+<img alt="Image Description" src={useBaseUrl('img/image.svg')} />
+```
+
+### Image Naming
+
+When naming images with multiple words, use `-` to separate the words only.
+
+## Adding a New Doc
+
+Create a new \*.mdx extension file following the existing naming conventions.
+
+### Doc Front Matter
+
+When creating a new doc, use the following front matter at the very top of the doc with the
+following fields:
+
+`id: ` This should match the filename without the extension. `title: ` The title of your document.
+If this field is not present, the document's title will default to its id. `description: ` The
+description of your document. `sidebar_label: ` This should match id name but with spaces and
+capitalized first letters.
+
+```
+---
+id: devices
+title: Devices
+description: Learn about Helium Devices
+sidebar_label: Devices
+---
+```
+
+`slug: ` If the doc id path has repeated sections like the following doc path
+`use-the-network/devices/devices`, define a `slug:` field in the front matter to make it pretty as
+shown below. This way when this doc is navigated to, the URL shown will not have repeating sections
+names in it.
+
+```
+slug: use-the-network/devices
+```
