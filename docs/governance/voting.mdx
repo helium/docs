@@ -1,27 +1,27 @@
 ---
-id: community-voting
-title: Community Voting
-pagination_label: Community Voting
-sidebar_label: Community Voting
+id: voting
+title: Voting
+pagination_label: Voting
+sidebar_label: Voting
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /community-voting
+slug: /voting
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-In order to approve or deny changes to the protocol, economics, or governance of the Helium Network;
-The Helium Network leverages on-chain voting which is open to the entire community. This on-chain
-voting is currently facilitated through a Realms organization.
+To approve or deny changes to the blockchain, economics, or governance of the Helium Network; The
+Helium Network leverages on-chain voting which is open to the entire community. This on-chain voting
+is currently facilitated through [Realms](https://www.realms.today).
 
 ## Key Terms
 
-- **Vote Escrowed (ve):** A position created by staking your tokens which enables DAO or subDAO
-  voting.
-- **Voting Power:** Vote Escrowed grant their holder voting power. One veToken is equivalent to one
-  vote on matters of community governance.
-- **Realms:** A Solana-native tool for staking, delegation, DAO, and treasury management.
-- **veHNT:** A position created by staking your HNT.
+- **Vote Escrowed ("ve")**: A position created by staking your tokens which only functions for DAO
+  or subDAO voting.
+- **Voting Power**: 100 veHNT is more than 10 veHNT. The higher amount would mean you have more
+  weight in deciding vote outcomes. The more HNT you stake for veHNT the more voting power you have.
+- **Realms**: A Solana native tool for DAO and Treasury management.
+- **veHNT**: A position created by staking your HNT.
 - **veIOT:** A position created by staking your IOT. Used for IOT Network governance.
 - **veMOBILE:** A position created by staking your MOBILE. Used for MOBILE Network governance.
 
@@ -66,94 +66,3 @@ For a full walkthrough on how to stake your tokens to the Helium Network or one 
 the [Realms Staking](/vote-escrow/voting-power) guide.
 
 :::
-
----
-
-## Voting with Realms
-
-Like many other Solana Ecosystem projects, Helium uses Realms to organize and manage governance,
-vote escrowed tokens, delegation, and more. Using the links above, you can cast your vote for the
-relevant segment of the Helium Network.
-
-<figure className="screensnippet-wrapper">
-  <div style={{ display: 'flex' }}>
-    <img
-      src={useBaseUrl('/img/realms/realmsui.png')}
-      style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
-    />
-    <img
-      src={useBaseUrl('/img/realms/realmsui_mobile.png')}
-      style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
-    />
-  </div>
-  <figcaption>
-    The <a href="https://realms.heliumvote.com/dao/hnt">Helium DAO</a> in Realms with an active test
-    vote. Shown on desktop and mobile.
-  </figcaption>
-</figure>
-
-### Signing Into Realms
-
-Use your account that holds your veHNT positions to sign in to Realms. The same account can be used
-for all platforms, but it must have veTokens for the specific DAO or subDAO hosting the vote.
-
-The links for the Realms governance portals are:
-
-- [https://realms.heliumvote.com/dao/hnt](https://realms.heliumvote.com/dao/hnt)
-- [https://realms.heliumvote.com/dao/iot](https://realms.heliumvote.com/dao/iot)
-- [https://realms.heliumvote.com/dao/mobile](https://realms.heliumvote.com/dao/mobile)
-
-Sign in to these using the in-app browser from the Helium Wallet App.
-
-<figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/realms/connectaccount.png')} />
-  <figcaption>
-    This user is logged in with their <code>4qPt5...</code> account.
-  </figcaption>
-</figure>
-
-### Casting Your Vote
-
-After you have reviewed the proposal, casting your vote is as easy as issuing a Solana transaction
-for "Yes" or "No".
-
-Note: You will need a bit of Sol to cast your veTokens for a vote.
-
-<figure className="screensnippet-wrapper">
-  <div style={{ display: 'flex', alignItems: 'center' }}>
-    <img
-      src={useBaseUrl('/img/realms/castvote.png')}
-      style={{ maxHeight: 250, minWidth: 0, flex: '1 1 auto' }}
-    />
-    <img
-      src={useBaseUrl('/img/realms/confirmvote.png')}
-      style={{ maxHeight: 300, minWidth: 0, flex: '1 1 auto' }}
-    />
-  </div>
-  <figcaption>After voting, you can leave a comment supporting your stance.</figcaption>
-</figure>
-
-### Understanding Vote Power
-
-When you vote your veTokens, all positions will be attributed to your vote choice. Token positions
-cannot be split within one vote on a single account.
-
-Your vote is calculated at the time your vote is submitted. If your position is in 'decay' mode,
-voting sooner means you apply greater voting power. Conversely, if a position is extended to added
-to, a vote can be relinquished and re-voted to apply the new voting power.
-
-<figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/realms/relinquishvote.png')} />
-  <figcaption>A vote can be changed by first relinquishing it.</figcaption>
-</figure>
-
----
-
-## Staying Informed
-
-The majority of HIP discussion happens on the [Helium Discord](https://discord.gg/helium). Many HIPs
-get their start in the #hip-discussion channel. Additionally, each HIP under consideration gets its
-own channel for focused discussion.
-
-When HIPs are open for vote, notifications are sent by the Helium Foundation on Discord, Twitter,
-and push notifications in the Helium Wallet App.

@@ -42,3 +42,94 @@ The first thing you need to do is ensure that you have a Solana-ready wallet tha
 some SOL and one of the network tokes: HNT, IOT, or MOBILE. Once you have that ready navigate to the
 Helium DAO, IOT subDAO, or MOBILE subDAO at https://app.realms.today/. There you should be met with
 a screen that looks similar to this one:
+
+---
+
+## Voting with Realms
+
+Like many other Solana Ecosystem projects, Helium uses Realms to organize and manage governance,
+vote escrowed tokens, delegation, and more. Using the links above, you can cast your vote for the
+relevant segment of the Helium Network.
+
+<figure className="screensnippet-wrapper">
+  <div style={{ display: 'flex' }}>
+    <img
+      src={useBaseUrl('/img/realms/realmsui.png')}
+      style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
+    />
+    <img
+      src={useBaseUrl('/img/realms/realmsui_mobile.png')}
+      style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
+    />
+  </div>
+  <figcaption>
+    The <a href="https://realms.heliumvote.com/dao/hnt">Helium DAO</a> in Realms with an active test
+    vote. Shown on desktop and mobile.
+  </figcaption>
+</figure>
+
+### Signing Into Realms
+
+Use your account that holds your veHNT positions to sign in to Realms. The same account can be used
+for all platforms, but it must have veTokens for the specific DAO or subDAO hosting the vote.
+
+The links for the Realms governance portals are:
+
+- [https://realms.heliumvote.com/dao/hnt](https://realms.heliumvote.com/dao/hnt)
+- [https://realms.heliumvote.com/dao/iot](https://realms.heliumvote.com/dao/iot)
+- [https://realms.heliumvote.com/dao/mobile](https://realms.heliumvote.com/dao/mobile)
+
+Sign in to these using the in-app browser from the Helium Wallet App.
+
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('/img/realms/connectaccount.png')} />
+  <figcaption>
+    This user is logged in with their <code>4qPt5...</code> account.
+  </figcaption>
+</figure>
+
+### Casting Your Vote
+
+After you have reviewed the proposal, casting your vote is as easy as issuing a Solana transaction
+for "Yes" or "No".
+
+Note: You will need a bit of Sol to cast your veTokens for a vote.
+
+<figure className="screensnippet-wrapper">
+  <div style={{ display: 'flex', alignItems: 'center' }}>
+    <img
+      src={useBaseUrl('/img/realms/castvote.png')}
+      style={{ maxHeight: 250, minWidth: 0, flex: '1 1 auto' }}
+    />
+    <img
+      src={useBaseUrl('/img/realms/confirmvote.png')}
+      style={{ maxHeight: 300, minWidth: 0, flex: '1 1 auto' }}
+    />
+  </div>
+  <figcaption>After voting, you can leave a comment supporting your stance.</figcaption>
+</figure>
+
+### Understanding Vote Power
+
+When you vote your veTokens, all positions will be attributed to your vote choice. Token positions
+cannot be split within one vote on a single account.
+
+Your vote is calculated at the time your vote is submitted. If your position is in 'decay' mode,
+voting sooner means you apply greater voting power. Conversely, if a position is extended to added
+to, a vote can be relinquished and re-voted to apply the new voting power.
+
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('/img/realms/relinquishvote.png')} />
+  <figcaption>A vote can be changed by first relinquishing it.</figcaption>
+</figure>
+
+---
+
+## Staying Informed
+
+The majority of HIP discussion happens on the [Helium Discord](https://discord.gg/helium). Many HIPs
+get their start in the #hip-discussion channel. Additionally, each HIP under consideration gets its
+own channel for focused discussion.
+
+When HIPs are open for vote, notifications are sent by the Helium Foundation on Discord, Twitter,
+and push notifications in the Helium Wallet App.
