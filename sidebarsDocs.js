@@ -180,7 +180,11 @@ module.exports = {
     {
       type: 'category',
       label: 'Community Governance',
-      items: ['community-governance/community-governance', 'community-governance/community-voting'],
+      items: [
+        'community-governance/community-governance',
+        'community-governance/community-voting',
+        'faq/edit-a-hip',
+      ],
     },
     {
       type: 'category',

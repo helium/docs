@@ -1,0 +1,125 @@
+---
+id: edit-a-hip
+title: Propose Changes to Existing HIP in GitHub
+pagination_label: Edit an Existing HIP
+sidebar_label: Edit an Existing HIP
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /edit-a-hip
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+While HIPs are in discussion, the actual text is included in the
+[Helium HIP Repository on GitHub](https://github.com/helium/hip).
+
+Before a HIP goes to a vote, it is likely that changes and revisions will need to be made to an
+existing proposal.
+
+:::tip Key Take Aways
+
+This page will walk users through the process of:
+
+- Creating a personal copy, or "fork", of the Helium HIP repository.
+- Making edits using the in-browser text editor.
+- Submitting these changes for review.
+
+:::
+
+---
+
+## Fork the Repo
+
+:::info What the Fork
+
+Rather than making edits to the main repository, create a personal copy by "forking" the repository
+to your GitHub account.
+
+:::
+
+1. Log in to an existing account or create a new account on [GitHub](www.github.com).
+2. Open the Helium HIP Repository at [https://github.com/helium/hip](https://github.com/helium/hip)
+3. Click the `Fork` button in the upper right-hand corner.
+4. Leave all settings default and confirm using the green `Create Fork` button at the bottom
+   left-hand corner.
+   - A copy of the Helium HIP repository will be made in the user's GitHub account and should open
+     automatically.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/hip/create-fork.gif')}
+    style={{ maxHeight: 400, borderRadius: '40px', padding: '14px 16px 20px' }}
+  />
+  <figcaption>Create a Fork of the Helium HIP repository in GitHub.</figcaption>
+</figure>
+
+---
+
+## Edit an Existing HIP
+
+1. Begin inside the forked copy at `https://github.com/<githubUsername>/HIP`
+2. Open the HIP to edit, this example uses HIP 83, by clicking on the file.
+3. Click the `Pencil Icon` in the upper right-hand corner to make edits.
+4. Make edits or changes to the HIP.
+5. Click the green `Commit changes...` button in the upper right-hand corner.
+6. In the pop-up window, use all default settings and click the green `Commit changes` button to
+   save the edits.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/hip/make-edit-commit.gif')}
+    style={{ maxHeight: 400, borderRadius: '40px', padding: '14px 16px 20px' }}
+  />
+  <figcaption>Make an edit to an existing HIP and commit changes to the Fork.</figcaption>
+</figure>
+
+:::info HIPs are Written in Markdown
+
+All HIPs in the Helium GitHub repository are written in **Markdown** an easy-to-read, easy-to-write
+syntax for formatting plain text.
+
+You can read more about basic writing and formatting syntax
+[here.](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+
+:::
+
+---
+
+## Make a Pull Request
+
+:::info What is a Pull Request?
+
+A Pull Request, or "PR", is the action taken to submit changes to a GitHub repository.
+
+:::
+
+1. Committed edits will display a "This branch is 1 comit ahead of helium:main" banner at the top of
+   the `Code` tab in the forked repository.
+   - the number may be more than 1, depending on how many edits ahead the forked repository from the
+     main HIP repository.
+2. Click the grey `Contribute` dropdown.
+3. Click the green "Open pull request" button.
+4. Edit the `Title` and `Description` to inform other readers and maintainers what changes were
+   made.
+5. Click the green `Create pull request` button.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/hip/make-pr.gif')}
+    style={{ maxHeight: 400, borderRadius: '40px', padding: '14px 16px 20px' }}
+  />
+  <figcaption>Make a Pull Request to the main repository from a personal fork.</figcaption>
+</figure>
+
+All PR's are reviewed by repository maintainers and "merged" into the main repository when any
+issues are resolved and the edits are ready for the general audience.
+
+---
+
+## Stay involved.
+
+Once a PR is submitted, authors are asked to keep a watch on them for comments or change requests.
+By default, the user to submit a PR will be subscribed via email to receive notifications on PR
+activity.
+
+Timely responses in GitHub keep the process moving!
