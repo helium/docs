@@ -187,6 +187,7 @@ module.exports = {
         'governance/realms',
         'governance/working-groups',
         'governance/committees',
+        'faq/edit-a-hip',
       ],
     },
     {
