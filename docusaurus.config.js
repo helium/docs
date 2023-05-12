@@ -69,7 +69,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: '/community-governance',
+          to: '/governance',
           label: 'Governance',
           position: 'left',
         },

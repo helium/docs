@@ -179,10 +179,14 @@ module.exports = {
   communitygovernance: [
     {
       type: 'category',
-      label: 'Community Governance',
+      label: 'Governance',
+      link: { type: 'doc', id: 'governance/governance' },
       items: [
-        'community-governance/community-governance',
-        'community-governance/community-voting',
+        'governance/voting',
+        'governance/hip',
+        'governance/realms',
+        'governance/working-groups',
+        'governance/committees',
         'faq/edit-a-hip',
       ],
     },
