@@ -13,8 +13,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 While HIPs are in discussion, the actual text is included in the
 [Helium HIP Repository on GitHub](https://github.com/helium/hip).
 
-Before a HIP goes to a vote, it is likely that changes and revisions will need to be made to an
-existing proposal.
+Before a HIP goes to a vote, changes and revisions will likely need to be made to an existing
+proposal.
 
 :::tip Key Take Aways
 
@@ -39,7 +39,7 @@ This page will walk users through the process of:
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-00.png')}
+    src={useBaseUrl('/img/hip/fork-step-0.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
@@ -49,7 +49,7 @@ bottom left-hand corner.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-01.png')}
+    src={useBaseUrl('/img/hip/fork-step-1.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
   <figcaption>
@@ -70,7 +70,7 @@ syntax for formatting plain text. Read more about basic writing and formatting s
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-02.png')}
+    src={useBaseUrl('/img/hip/edit-step-0.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
   <figcaption>Your username will be visible here.</figcaption>
@@ -80,7 +80,7 @@ syntax for formatting plain text. Read more about basic writing and formatting s
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-03.png')}
+    src={useBaseUrl('/img/hip/edit-step-1.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
   <figcaption>Click on the HIP to edit.</figcaption>
@@ -90,7 +90,7 @@ syntax for formatting plain text. Read more about basic writing and formatting s
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-04.png')}
+    src={useBaseUrl('/img/hip/edit-step-2.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
@@ -99,7 +99,7 @@ syntax for formatting plain text. Read more about basic writing and formatting s
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-05.png')}
+    src={useBaseUrl('/img/hip/edit-step-3.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
@@ -108,17 +108,36 @@ syntax for formatting plain text. Read more about basic writing and formatting s
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-05b.png')}
+    src={useBaseUrl('/img/hip/edit-step-4.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
 
-**Step 6.** In the pop-up window, use all default settings and click the green `Commit changes`
-button to save the edits.
+**Step 6.** In the pop-up window, select the
+`Create a new branch for this commit and start a pull request` option.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-06.png')}
+    src={useBaseUrl('/img/hip/edit-step-5.png')}
+    style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
+  />
+</figure>
+
+**Step 7.** Click the Green `Propose changes` button.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/hip/edit-step-6.png')}
+    style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
+  />
+</figure>
+
+**Step 8.** Do not click the green `Create pull request` button on this page. Click the grey `Code`
+tab.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/hip/edit-step-7.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
@@ -130,12 +149,12 @@ button to save the edits.
 A Pull Request, or "PR", is quite literally an ask to the repository maintainers to "pull in"
 proposed changes.
 
-**Step 1.** Committed edits will display a "This branch is 1 commit ahead of helium:main" banner at
-the top of the `Code` tab in the forked repository.
+**Step 1.** A new banner will be presented with a green `Compare & pull request` button. Click the
+button to start a Pull Request
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-07.png')}
+    src={useBaseUrl('/img/hip/pull-request-step-0.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
   <figcaption>
@@ -144,49 +163,41 @@ the top of the `Code` tab in the forked repository.
   </figcaption>
 </figure>
 
-**Step 2.** Click the grey `Contribute` dropdown.
+**Step 2.** Confirm the Pull Request is to the `helium/HIP` base `main` and the correct changes are
+being proposed.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-07b.png')}
+    src={useBaseUrl('/img/hip/pull-request-step-1.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
 
-**Step 3.** Click the green `Open pull request` button.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/hip/edit-hip-08.png')}
-    style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
-  />
-</figure>
-
-**Step 4.** Edit the `Title` and `Description` to inform other readers and maintainers what changes
+**Step 3.** Edit the `Title` and `Description` to inform other readers and maintainers what changes
 were made.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-09.png')}
+    src={useBaseUrl('/img/hip/pull-request-step-2.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
   <figcaption>Good pull requests are detailed in their explanation of changes.</figcaption>
 </figure>
 
-**Step 5.** Click the green `Create pull request` button.
+**Step 4.** Click the green `Create pull request` button.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-09b.png')}
+    src={useBaseUrl('/img/hip/pull-request-step-3.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
 
-**Step 6.** View the newly created Pull Request in the main Helium HIP repository.
+**Step 5.** View the newly created Pull Request in the main Helium HIP repository.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-hip-10.png')}
+    src={useBaseUrl('/img/hip/pull-request-step-4.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
@@ -196,10 +207,10 @@ repository maintainers where the edits are visible to the Helium community.
 
 ---
 
-## Stay involved.
+## Stay Involved.
 
 Once a PR is submitted, authors are asked to keep a watch on them for comments or change requests.
 By default, the user to submit a PR will be subscribed via email to receive notifications on PR
 activity.
 
-Timely responses in GitHub keep the process moving!
+Timely responses in GitHub and Discord keep the process moving!
