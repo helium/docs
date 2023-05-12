@@ -1,16 +1,16 @@
 ---
-id: edit-a-hip
-title: Propose Changes To An Existing HIP
-pagination_label: Edit an Existing HIP
-sidebar_label: Edit an Existing HIP
+id: write-a-hip
+title: Propose a New HIP
+pagination_label: Propose a New HIP
+sidebar_label: Propose a New HIP
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /edit-a-hip
+slug: /write-a-hip
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-While HIPs are in discussion, the actual text is included in the
+While HIPs are in discussion the actual text is included in the
 [Helium HIP Repository on GitHub](https://github.com/helium/hip).
 
 Before a HIP goes to a vote, changes and revisions will likely need to be made to an existing
@@ -21,8 +21,9 @@ proposal.
 This page will walk users through the process of:
 
 - Creating a personal copy, or "fork", of the Helium HIP repository.
-- Making edits using the in-browser text editor.
-- Submitting these changes for review.
+- Copying the HIP template.
+- Writing a new proposal using the in-browser text editor.
+- Submitting the proposal for review.
 
 :::
 
@@ -73,54 +74,65 @@ bottom left-hand corner.
 
 ---
 
-## Edit an Existing HIP
+## Write a New HIP
 
-All HIPs in the Helium GitHub repository are written in Markdown an easy-to-read, easy-to-write
-syntax for formatting plain text. Read more about basic writing and formatting syntax
-[here.](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+All HIPs follow a consistent format as closely as possible for their content. To get authors
+started, a [template](https://github.com/helium/HIP/blob/main/0000-template.md) has been provided in
+the HIP repository under the filename `0000-template.md`.
 
-**Step 1.** Begin inside the forked copy at `https://github.com/<githubUsername>/HIP`
+**Step 1.** Open the HIP template in a second window with this link:
+
+[https://raw.githubusercontent.com/demogutentag/HIP/main/0000-template.md](https://raw.githubusercontent.com/demogutentag/HIP/main/0000-template.md)
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-step-0.png')}
+    src={useBaseUrl('/img/hip/write-step-0.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
-  <figcaption>Your username will be visible here.</figcaption>
+  <figcaption>Keep this window open, or open the URL in an additional tab.</figcaption>
 </figure>
 
 <br />
 
-**Step 2.** Open the HIP to be edited by clicking on the file. This example uses 'HIP 83'.
+**Step 2.** In the primary window, click the `Add file` button in the upper right-hand corner and
+select `Create new file` from the dropdown.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-step-1.png')}
-    style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
-  />
-  <figcaption>Click on the HIP to edit.</figcaption>
-</figure>
-
-<br />
-
-**Step 3.** Click the `Pencil Icon` in the upper right-hand corner to make edits.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/hip/edit-step-2.png')}
+    src={useBaseUrl('/img/hip/write-step-1.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
 
 <br />
 
-**Step 4.** Make edits or changes to the HIP.
+**Step 3.** Give your file a name, the recommended format is `0000-my-new-proposal.md` replacing the
+`my-new-proposal` with a relevant title to the proposal itself.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-step-3.png')}
+    src={useBaseUrl('/img/hip/write-step-2.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
+  <figcaption>
+    This example creates a proposal to never give up on the Helium Network and never let it down and
+    is named `0000-astley-incentive.md`
+  </figcaption>
+</figure>
+
+<br />
+
+**Step 4.** Copy and paste the contents of the page from Step 2 to start.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/hip/write-step-3.png')}
+    style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
+  />
+  <figcaption>
+    If you have been authoring a proposal in another location, copy and paste it here, adjusting to
+    fit the template structure.
+  </figcaption>
 </figure>
 
 <br />
@@ -129,7 +141,7 @@ syntax for formatting plain text. Read more about basic writing and formatting s
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-step-4.png')}
+    src={useBaseUrl('/img/hip/write-step-3b.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
@@ -141,7 +153,7 @@ syntax for formatting plain text. Read more about basic writing and formatting s
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-step-5.png')}
+    src={useBaseUrl('/img/hip/write-step-4.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
@@ -152,7 +164,7 @@ syntax for formatting plain text. Read more about basic writing and formatting s
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-step-6.png')}
+    src={useBaseUrl('/img/hip/write-step-5.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
@@ -164,10 +176,12 @@ tab.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/edit-step-7.png')}
+    src={useBaseUrl('/img/hip/write-step-6.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
+
+<br />
 
 ---
 
@@ -181,13 +195,9 @@ button to start a Pull Request
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/pull-request-step-0.png')}
+    src={useBaseUrl('/img/hip/write-step-7.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
-  <figcaption>
-    The number may be more than 1, depending on how many edits ahead the forked repository is from
-    the main HIP repository.
-  </figcaption>
 </figure>
 
 <br />
@@ -197,22 +207,24 @@ being proposed.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/pull-request-step-1.png')}
+    src={useBaseUrl('/img/hip/write-step-8.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
 
 <br />
 
-**Step 3.** Edit the `Title` and `Description` to inform other readers and maintainers what changes
-were made.
+**Step 3.** Edit the `Title` and `Description` to inform other readers and maintainers what the HIP
+is about.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/pull-request-step-2.png')}
+    src={useBaseUrl('/img/hip/write-step-9.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
-  <figcaption>Good pull requests are detailed in their explanation of changes.</figcaption>
+  <figcaption>
+    Copy and pasting the Summary from the proposal itself is a good `Description` filler.
+  </figcaption>
 </figure>
 
 <br />
@@ -221,7 +233,7 @@ were made.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/pull-request-step-3.png')}
+    src={useBaseUrl('/img/hip/write-step-10.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
@@ -232,7 +244,7 @@ were made.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/hip/pull-request-step-4.png')}
+    src={useBaseUrl('/img/hip/write-step-11.png')}
     style={{ maxHeight: 800, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
 </figure>
