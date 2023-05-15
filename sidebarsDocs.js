@@ -240,6 +240,7 @@ module.exports = {
       label: 'Become a Maker',
       items: [
         'hotspot-makers/become-a-maker/maker-approval-auditing',
+        'hotspot-makers/become-a-maker/funding-a-maker-account',
         'hotspot-makers/become-a-maker/hotspot-integration-testing',
         'hotspot-makers/become-a-maker/basic-miner-operation',
         'hotspot-makers/become-a-maker/docker-integration',

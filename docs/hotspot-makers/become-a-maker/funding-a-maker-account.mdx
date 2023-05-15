@@ -1,0 +1,121 @@
+---
+id: funding-a-maker-account
+title: Funding A Maker Account
+pagination_label: Funding A Maker Account
+sidebar_label: Funding A Maker Account
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /hotspot-makers/become-a-maker/funding-a-maker-account
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+Before migrating from the Helium blockchain to Solana, Hotspot Makers had to fund Maker wallets with
+enough Data Credits to facilitate two separate transactions: The 4,000,000 DC cost of onboarding
+each Hotspot, and The 1,000,000 DC cost of the first location assertion for each Hotspot. Onboarding
+fees are paid once. Location assertion fees are paid each time the Hotspot location is updated.
+
+This funding of the Data Credits was done by burning HNT from the Makers wallet to Data Credits in
+the Makers wallet using a CLI tool which is no longer supported. Transaction costs were charged in
+DC and paid for by DC or implicitly burning HNT to DC in the Makers' wallets.
+
+---
+
+## Funding Maker Account on Solana
+
+Funding a Maker wallet with Data Credits from HNT tokens is now performed in the Helium Wallet App.
+The transaction costs for onboarding and location assertion are paid in SOL to the Solana
+Blockchain. Maker wallets must now maintain token balances of both Data Credits and SOL for
+onboarding and location assertion fees which the Maker supplies to customers.
+
+### Data Credit Fees
+
+- Onboarding = 4,000,000 DC
+- Location Assertion = 1,000,000 DC<sup>(</sup>[^1]<sup>)</sup>
+
+[^1]:
+    Currently 500,000 due to
+    [HIP 69](https://github.com/helium/HIP/blob/main/0069-reassertion-fee-reduction.md).
+
+### SOL Fees
+
+- Create the Hotspot NFT on the blockchain = 0.00001 SOL
+- Onboard only or Onboard and Location Assertion = 0.00175696
+- SOL Location Assertion only = 0.00001 SOL
+
+---
+
+## Funding Maker Wallets with SOL
+
+Funding a Maker wallet with SOL is performed the same way as sending tokens to any crypto wallet.
+Send from an exchange, another wallet, or swap from another cryptocurrency within the Helium Wallet
+using the inbuilt browser and a swap aggregator such as [Jupiter](https://jup.ag/swap).
+
+---
+
+## Funding Maker Wallets with Data Credits
+
+Funding a wallet with Data Credits requires HNT, as Data Credits can only be obtained using HNT. The
+exchange rate for DC is $1 worth of HNT = 100,000 DC.
+
+- If HNT is $2 then 0.5 HNT = 100,000 DC
+- If HNT is $10 then 0.1 HNT = 100,000 DC
+
+The USD/HNT exchange rate within the Helium Wallet App is used for the conversion and appears in the
+Helium Wallet app before committing the transaction.
+
+:::warning HNT to DC swaps are irreversible
+
+Data Credits cannot be refunded, exchanged for other tokens, or transferred between wallets.
+
+:::
+
+### Method 1: Use the Helium Wallet app
+
+Makers can use the Helium Wallet app to swap HNT directly to DC.
+
+This method requires that the Maker Wallet is already funded with HNT to swap and SOL for
+transaction fees.
+
+Swap HNT to DC within a Maker Wallet:
+
+1. Select the Maker Wallet in the Helium Wallet app.
+1. Tap the `$` icon on the bottom tab bar.
+1. Tap the `Swap` icon in the middle of the screen.
+1. Select `HNT` in the top drop-down and enter an amount of HNT to swap.
+1. The lower drop-down will be filled with the resulting DC amount.
+1. Tap the `Swap Tokens` button and confirm the swap transaction.
+1. HNT is burned for DC within the same Wallet.
+
+The new DC balance amount can be verified in the app tokens list on the `$` tab within the Helium
+Wallet app.
+
+---
+
+### Method 2 : Use the Helium Wallet app to Fund a Different Wallet
+
+Any Wallet owner can send DC to a Maker wallet using the Helium Wallet app to swap HNT directly to
+DC.
+
+This method requires that the sending Wallet is already funded with HNT to swap and SOL for
+transaction fees.
+
+Add the Maker Wallet address to the Address Book:
+
+1. Tap the `Address Book` icon in the top right corner of the Helium Wallet app.
+1. Add new contact with the Maker's Solana wallet address.
+
+Swap HNT to DC to a Maker Wallet:
+
+1. Select any Wallet in the Helium Wallet app.
+1. Tap the `$` icon on the bottom tab bar.
+1. Tap the `Swap` icon in the middle of the screen.
+1. Select `HNT` in the top drop-down and enter an amount of HNT to swap.
+1. The lower drop-down will be filled with the resulting DC amount.
+1. Tap the grey `Add Recipient +` text to enter the receiving Solana wallet address.
+1. Tap the `...` to the right of Solana Address and select the contact for the Maker Wallet.
+1. Tap the `Swap Tokens` button and confirm the swap transaction.
+1. HNT is burned for DC within the same Wallet.
+
+The new DC balance amount in the recipient Maker Wallet can be verified by looking at the Helium
+Data Credit token balance of the maker wallet on https://explorer.solana.com/
