@@ -74,6 +74,11 @@ module.exports = {
           position: 'left',
         },
         {
+          to: '/hotspot-makers',
+          label: 'Hospot Makers',
+          position: 'left',
+        },
+        {
           to: '/devblog',
           label: 'Dev Blog',
           position: 'left',

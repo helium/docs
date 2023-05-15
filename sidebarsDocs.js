@@ -183,13 +183,20 @@ module.exports = {
       link: { type: 'doc', id: 'governance/governance' },
       items: [
         'governance/voting',
-        'governance/hip',
         'governance/realms',
         'governance/working-groups',
         'governance/committees',
-        'faq/edit-a-hip',
       ],
     },
+    {
+      type: 'category',
+      label: 'Improvement Proposals',
+      link: { type: 'doc', id: 'governance/hip' },
+      items: ['faq/write-a-hip', 'faq/edit-a-hip'],
+    },
+  ],
+
+  hotspotmakers: [
     {
       type: 'category',
       label: 'Manufacturer Conformance Committee ',
