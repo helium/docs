@@ -313,6 +313,7 @@ module.exports = {
         'api/blockchain/elections',
         'api/blockchain/state-channels',
         'api/blockchain/assert-locations',
+        'api/blockchain/validators',
       ],
       collapsed: true,
     },
