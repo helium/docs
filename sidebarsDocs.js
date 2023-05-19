@@ -65,14 +65,14 @@ module.exports = {
     {
       type: 'category',
       label: 'Network Tokens',
-      items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
+      items: ['hnt-token', 'iot-token', 'mobile-token'],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'Data Credit Tokens',
       link: { type: 'doc', id: 'helium-tokens/data-credit' },
-      items: ['helium-tokens/data-credit', 'helium-tokens/data-credit-portal'],
+      items: ['data-credit', 'data-credit-portal'],
       collapsed: true,
     },
     {
