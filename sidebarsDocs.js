@@ -62,12 +62,9 @@ module.exports = {
   ],
 
   tokens: [
-    {
-      type: 'category',
-      label: 'Network Tokens',
-      items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
-      collapsed: true,
-    },
+    'helium-tokens/hnt-token',
+    'helium-tokens/iot-token',
+    'helium-tokens/mobile-token',
     'helium-tokens/data-credit',
     {
       type: 'category',
