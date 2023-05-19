@@ -62,12 +62,9 @@ module.exports = {
   ],
 
   tokens: [
-    {
-      type: 'category',
-      label: 'Network Tokens',
-      items: ['hnt-token', 'iot-token', 'mobile-token'],
-      collapsed: true,
-    },
+    'hnt-token',
+    'iot-token',
+    'mobile-token',
     {
       type: 'category',
       label: 'Data Credit Tokens',
