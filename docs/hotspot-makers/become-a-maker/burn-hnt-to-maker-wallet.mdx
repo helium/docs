@@ -73,36 +73,15 @@ fail but it allows you to smoke test the onboarding steps. Here is that address:
 :::warning
 
 Once you burn HNT to a specified wallet address, they are lost and gone forever. The resulting DCs
-are non-transferable. Please double-check any wallet address before executing any HNT burn.
+are non-transferable. Please double-check any wallet address before executing any HNT burn. Test large transactions with a small trial amount beforehand.
 
 :::
 
 The actual mechanism for burning HNT to DCs is via an on-chain burn transaction
-[using the Helium Blockchain Wallet CLI](https://github.com/helium/helium-wallet-rs). Follow the
-instructions to download and install the CLI Wallet on your local machine. Once installed, you'll
-use the `burn` command to supply data credits to your specified maker wallet.
-
-You can run `$ helium-wallet burn -h` for a full print-out of what options are available, but here's
-the basic command structure:
-
-```shell
-$ helium-wallet burn --amount <amount> --payee <payee> --commit
-```
-
-- `amount` is the amount of HNT you wish to burn to DCs
-- `payee` is the target wallet address to which you wish to burn DCs
-
-You can also supply a `memo` input but it's not required.
-
-So, for example, if you want to burn `10,000` HNT to the Maker Test Integration address, the full
-command would look like this:
-
-```shell
-$ helium-wallet burn --amount 10,000 --payee 138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr --commit
-```
-
-When this runs, you'll be asked to supply the passphrase for your HNT wallet. If this is correct,
-and you have enough HNT to pay for the specified burn amount, it will succeed.
+[using the Helium Wallet app](/wallets/helium-wallet-app). Follow the
+instructions to download and install the Helium Wallet on your device. Once installed, you'll
+[use the `Swap` tool to supply data credits to your specified maker wallet, which should be 
+specified as the Recipient wallet.](/hotspot-makers/become-a-maker/funding-a-maker-account)
 
 :::warning
 
