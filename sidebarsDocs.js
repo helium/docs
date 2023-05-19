@@ -287,7 +287,7 @@ module.exports = {
         'faq/helium-network',
         'faq/security',
         'faq/build-on-network',
-        'faq/data-credits',
+        // 'faq/data-credits',
         'faq/open-source',
         'faq/docs-installation',
         'faq/privacy',

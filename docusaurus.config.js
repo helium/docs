@@ -49,12 +49,12 @@ module.exports = {
       },
       items: [
         {
-          to: 'solana/',
+          to: 'solana',
           label: 'Architecture',
           position: 'left',
         },
         {
-          to: 'helium-tokens/hnt',
+          to: 'hnt-token',
           label: 'Tokens',
           position: 'left',
         },
@@ -69,22 +69,22 @@ module.exports = {
           position: 'left',
         },
         {
-          to: '/governance',
+          to: 'governance',
           label: 'Governance',
           position: 'left',
         },
         {
-          to: '/hotspot-makers',
+          to: 'hotspot-makers',
           label: 'Hospot Makers',
           position: 'left',
         },
         {
-          to: '/devblog',
+          to: 'devblog',
           label: 'Dev Blog',
           position: 'left',
         },
         {
-          to: '/solana/migration/',
+          to: 'solana/migration',
           label: 'Solana Migration Guides',
           position: 'right',
           className: 'announcementnav',
