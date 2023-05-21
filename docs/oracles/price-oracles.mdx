@@ -10,16 +10,21 @@ slug: /oracles/price-oracles
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The price oracle is one of many oracles on the Helium Network. The market value of tokens are
-required on-chain as the price is needed to calculate everything from HNT burning for Data Credits
-(DC) to treasury allocations for the Mobile and IoT networks.
+The price oracle is one of many oracles on the Helium Network. The market value of the Helium tokens
+are required on-chain as the price is needed to calculate everything from burning HNT for Data
+Credits (DC) to treasury allocations for the Mobile and IoT networks.
 
-## Post-Migration Implementation
+:::note Migrating Price Oracles
 
-:::note The Next Step
+On the day of the chain migration, price feeds were not available for all tokens. In this time, the
+existing Helium L1 price oracles continue to contribute market data.
 
-On the day of the chain migration, price feeds were not available for all tokens. Once a stable
-price feed is available, community-sourced price feeds can be removed in favor of Pyth.
+Once a stable price feed is available, community-sourced price feeds can be removed in favor of
+Pyth.
+
+✅ [HNT/USD](https://pyth.network/price-feeds/crypto-hnt-usd) Integrated May 11, 2023  
+🔜 [IOT/USD](https://pyth.network/price-feeds/crypto-iot-usd)  
+🔜 [MOBILE/USD](https://pyth.network/price-feeds/crypto-mobile-usd)
 
 :::
 
@@ -37,19 +42,20 @@ Network. The oracle pool is comprised of:
 The names of the individual feed contributors are kept anonymous as it's essential to prevent any
 external attempts at collusion.
 
-You can see the current oracle prices here:
+The current oracle prices can be viewed here:
 
-- [HNT Price Oracle](https://explorer.solana.com/address/horUtvuHQFWxPFrZ35YZUmXUZ2TSQdSXhcD4kkCVNKi/anchor-account)
+- ~~[HNT Price Oracle](https://explorer.solana.com/address/horUtvuHQFWxPFrZ35YZUmXUZ2TSQdSXhcD4kkCVNKi/anchor-account)~~
+  Handled by [Pyth HNT-USD](https://pyth.network/price-feeds/crypto-hnt-usd) as of May 11, 2023.
 - [IOT Price Oracle](https://explorer.solana.com/address/iortGU2NMgWc256XDBz2mQnmjPfKUMezJ4BWfayEZY3/anchor-account)
 - [MOBILE Price Oracle](https://explorer.solana.com/address/moraMdsjyPFz8Lp1RJGoW4bQriSF5mHE7Evxt7hytSF/anchor-account)
 
 <!-- TODO: After oracle functionality is migrated to Pyth, delete 'Post-Migration' above and change below to 'Pyth Price Oracle'. -->
 
-## 🔜 Full Solana Implementation
+## Pyth Price Oracle
 
 The Helium Network uses the tried and tested [Pyth Network](https://pyth.network/), which publishes
-financial market data. As an overview, Pyth works by having publishers (exchanges and market makings
-firms) submit price points for given coin pair values and then aggregates this data, making it
+financial market data. As an overview, Pyth works by having publishers (exchanges and market-making
+firms) submit price points for given token pair values and then aggregates this data, making it
 available on-chain.
 
 Pyth's
