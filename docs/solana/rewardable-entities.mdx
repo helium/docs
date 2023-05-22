@@ -131,6 +131,8 @@ For example:
 
 <!-- prettier-ignore -->
 ```js
+import { getAsset } from "@helium/spl-utils";
+
 const asset = await getAsset(rpcUrl, new PublicKey("...asset id..."));
 
 const eccCompactKey = asset.content.json_uri.split("/").slice(-1)[0];
