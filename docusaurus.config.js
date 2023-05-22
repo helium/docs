@@ -75,7 +75,7 @@ module.exports = {
         },
         {
           to: '/hotspot-makers',
-          label: 'Hospot Makers',
+          label: 'Hotspot Makers',
           position: 'left',
         },
         {
