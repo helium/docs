@@ -3,11 +3,8 @@ module.exports = {
     {
       type: 'category',
       label: 'Home',
-      link: {type: 'doc', id: 'home/home'},
-      items: [
-        'home/about-helium',
-        'home/helium-history',
-      ]
+      link: { type: 'doc', id: 'home/home' },
+      items: ['home/about-helium', 'home/helium-history'],
     },
   ],
 
@@ -15,12 +12,19 @@ module.exports = {
     {
       type: 'category',
       label: 'Solana Migration Guides',
-      link: {type: 'doc', id: 'solana/migration-overview'},
+      link: { type: 'doc', id: 'solana/migration-overview' },
       items: [
+        'solana/migration-faq',
         'solana/migration/hotspot-operator',
-        'solana/migration/maker',
+        'solana/migration/validator-operator',
+        {
+          type: 'category',
+          label: 'Hotspot Maker',
+          items: ['solana/migration/maker', 'solana/migration/maker-hotspot-software'],
+        },
         'solana/migration/exchange',
         'solana/migration/network-user',
+        'solana/migration/console-operator',
         'solana/migration/application-builder',
         'solana/migration/governance',
         'solana/migration/blockchain-node',
@@ -28,6 +32,7 @@ module.exports = {
         'solana/migration/blockchain-etl',
         'solana/migration/wallet-user',
         'solana/migration/ledger',
+        'solana/migration/hst',
       ],
     },
   ],
@@ -36,18 +41,14 @@ module.exports = {
     {
       type: 'category',
       label: 'Solana',
-      link: {type: 'doc', id: 'solana/solana'},
-      items: [
-        'solana/primer',
-        'solana/rewardable-entities',
-        'solana/compression-nfts',
-      ],
+      link: { type: 'doc', id: 'solana/solana' },
+      items: ['solana/primer', 'solana/rewardable-entities', 'solana/compression-nfts'],
       collapsed: true,
     },
     {
       type: 'category',
       label: 'Oracles',
-      link: {type: 'doc', id: 'oracles/oracles'},
+      link: { type: 'doc', id: 'oracles/oracles' },
       items: [
         'oracles/price-oracles',
         'oracles/rewards-oracles',
@@ -63,14 +64,19 @@ module.exports = {
   tokens: [
     {
       type: 'category',
-      label: 'Helium Tokens',
-      items: [
-        'helium-tokens/hnt-token',
-        'helium-tokens/iot-token',
-        'helium-tokens/mobile-token'
-      ],
+      label: 'Network Tokens',
+      items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
       collapsed: true,
     },
+    'helium-tokens/data-credit',
+    {
+      type: 'category',
+      label: 'Vote Escrow Tokens',
+      link: { type: 'doc', id: 'vote-escrow/vehnt' },
+      items: ['vote-escrow/vehnt', 'vote-escrow/realms', 'vote-escrow/voting-power'],
+      collapsed: true,
+    },
+    'helium-tokens/sol-token',
     {
       type: 'category',
       label: 'Helium Wallets',
@@ -79,30 +85,19 @@ module.exports = {
         'wallets/helium-wallet-app',
         'wallets/cli-wallet',
         'wallets/ledger',
-        'mine-hnt/helium-hotspot-app',
       ],
       collapsed: true,
     },
-    {
-      type: 'category',
-      label: 'Accounts',
-      items: [
-        'wallets/twelve-words',
-        'wallets/twenty-four-words',
-      ]
-    }
+    'wallets/wallet-seed-phrase',
   ],
-
   iotnetwork: [
     {
       type: 'category',
       label: 'LoRaWAN on Helium',
-      link: {type: 'doc', id: 'lorawan-on-helium/lorawan-on-helium'},
+      link: { type: 'doc', id: 'network-iot/lorawan-on-helium' },
       items: [
-        'lorawan-on-helium/lorawan-roaming-on-helium',
-        'lorawan-on-helium/open-lns',
-        'lorawan-on-helium/frequency-plans/frequency-plans',
-        'lorawan-on-helium/frequency-plans/region-plans',
+        'network-iot/frequency-plans/frequency-plans',
+        'network-iot/frequency-plans/region-plans',
       ],
       collapsed: true,
     },
@@ -111,11 +106,26 @@ module.exports = {
       label: 'Mining IOT Tokens',
       items: [
         'blockchain/proof-of-coverage',
-        'lorawan-on-helium/iot-proof-of-coverage',
-        'mine-hnt/crowdspot',
+        'network-iot/iot-poc',
+        'network-iot/crowdspot',
         'use-the-network/setup-a-packet-forwarder',
       ],
       collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'OpenLNS',
+      link: { type: 'doc', id: 'network-iot/open-lns' },
+      items: ['network-iot/open-lns-quickstart'],
+    },
+    {
+      type: 'category',
+      label: 'Roaming',
+      items: [
+        'use-the-network/roaming',
+        'network-iot/lorawan-roaming',
+        'network-iot/lorawan-roaming-quickstart',
+      ],
     },
     {
       type: 'category',
@@ -132,9 +142,8 @@ module.exports = {
             'use-the-network/devices/development/quickstart-guides',
           ],
         },
-        'use-the-network/console/console',
-        'use-the-network/roaming',
         'use-the-network/run-a-network-server/run-a-network-server',
+        // 'use-the-network/console/console',
         // 'use-the-network/console-marketplace',
         // 'use-the-network/community-projects',
       ],
@@ -142,14 +151,14 @@ module.exports = {
     {
       type: 'category',
       label: 'Coverage Mapping',
-      link: {type: 'doc', id: 'use-the-network/coverage-mapping/coverage-mapping'},
+      link: { type: 'doc', id: 'network-iot/coverage-mapping/coverage-mapping' },
       items: [
-        'use-the-network/coverage-mapping/mappers-api',
-        'use-the-network/coverage-mapping/mappers-roadmap',
+        'network-iot/coverage-mapping/mappers-api',
+        'network-iot/coverage-mapping/mappers-roadmap',
         // 'use-the-network/coverage-mapping/mappers-quickstart',
         // 'use-the-network/coverage-mapping/adeunis-mapper',
-      ]
-    }
+      ],
+    },
   ],
 
   mobilenetwork: [
@@ -157,11 +166,11 @@ module.exports = {
       type: 'category',
       label: '5G on Helium',
       items: [
-        '5g-on-helium/5g-on-helium',
-        '5g-on-helium/cbrs-radios',
-        '5g-on-helium/mobile-poc',
-        '5g-on-helium/mobile-mappers',
-        '5g-on-helium/service-providers',
+        'network-mobile/cbrs/5g-on-helium',
+        'network-mobile/cbrs/cbrs-radios',
+        'network-mobile/mobile-poc',
+        'network-mobile/mobile-mappers',
+        'network-mobile/service-providers',
       ],
       collapsed: true,
     },
@@ -170,43 +179,80 @@ module.exports = {
   communitygovernance: [
     {
       type: 'category',
-      label: 'Community Governance',
+      label: 'Governance',
+      link: { type: 'doc', id: 'governance/governance' },
       items: [
-        'community-governance/community-governance', 
-        'community-governance/community-voting',
-        'mine-hnt/validators/validators-and-voting-power',
-      ]
+        'governance/voting',
+        'governance/realms',
+        'governance/working-groups',
+        'governance/committees',
+      ],
     },
     {
-    type: 'category',
-    label: 'Manufacturer Conformance Committee ',
-    items: [
-      {
-        type: 'category',
-        label: 'IOT Hotspot Makers',
-        items: [
-          'hotspot-makers/light-hotspots',
-          'mine-hnt/full-hotspots/full-hotspots',
-          'mine-hnt/data-only-hotspots',
-          // 'hotspot-makers/original-helium-hotspot',
-        ],
-      },
-      {
-        type: 'category',
-        label: '5G Hotspot Makers',
-        items: [
-          'hotspot-makers/5g-hotspot-requirements',
-          'hotspot-makers/5g-hardware-specification',
-        ],
-      },
-      'hotspot-makers/hotspot-manufacturers',
-      'hotspot-makers/maker-ethics',
-      'hotspot-makers/compliance-committee',
-      'hotspot-makers/maker-apps',
-      'hotspot-makers/hotspot-audit-process',
-    ],
-    collapsed: true,
-  },
+      type: 'category',
+      label: 'Improvement Proposals',
+      link: { type: 'doc', id: 'governance/hip' },
+      items: ['faq/write-a-hip', 'faq/edit-a-hip'],
+    },
+  ],
+
+  hotspotmakers: [
+    {
+      type: 'category',
+      label: 'Manufacturer Conformance Committee ',
+      items: [
+        {
+          type: 'category',
+          label: 'IOT Hotspot Makers',
+          items: [
+            'hotspot-makers/iot/light-hotspots',
+            // 'hotspot-makers/iot/full-hotspots',
+            {
+              type: 'category',
+              label: 'Data Only Hotspots',
+              link: { type: 'doc', id: 'hotspot-makers/iot/data-only-hotspots' },
+              items: [
+                'hotspot-makers/iot/data-only/dragino',
+                'hotspot-makers/iot/data-only/dragino-pg1301',
+                'hotspot-makers/iot/data-only/kerlink',
+                'hotspot-makers/iot/data-only/rak-concentrators',
+                'hotspot-makers/iot/data-only/balena-data-only-hotspot',
+              ],
+            },
+          ],
+        },
+        {
+          type: 'category',
+          label: '5G Hotspot Makers',
+          items: [
+            'hotspot-makers/mobile-cbrs/5g-hardware-specification',
+            'hotspot-makers/mobile-cbrs/5g-hardware-specification',
+          ],
+        },
+        'hotspot-makers/hotspot-makers',
+        'hotspot-makers/mcc/maker-ethics',
+        'hotspot-makers/mcc/compliance-committee',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Become a Maker',
+      items: [
+        'hotspot-makers/become-a-maker/maker-approval-auditing',
+        'hotspot-makers/become-a-maker/funding-a-maker-account',
+        'hotspot-makers/become-a-maker/hotspot-integration-testing',
+        'hotspot-makers/become-a-maker/basic-miner-operation',
+        'hotspot-makers/become-a-maker/docker-integration',
+        'hotspot-makers/become-a-maker/security-requirements',
+        'hotspot-makers/become-a-maker/hotspot-ble-services',
+        'hotspot-makers/become-a-maker/hotspot-wifi-configuration',
+        'hotspot-makers/become-a-maker/burn-hnt-to-maker-wallet',
+        'hotspot-makers/become-a-maker/maker-app-requirements',
+        'hotspot-makers/mcc/hotspot-audit-process',
+      ],
+      collapsed: true,
+    },
   ],
 
   docs: [
@@ -218,8 +264,6 @@ module.exports = {
         'blockchain/blockchain-primitives',
         'blockchain/mining',
         'blockchain/packet-purchasing',
-        'blockchain/consensus-protocol',
-        'blockchain/oracles',
         'blockchain/transaction-fees',
       ],
       collapsed: true,
@@ -227,12 +271,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: [
-        'mine-hnt/mine-hnt',
-        'mine-hnt/validators/validators',
-        'mine-hnt/denylist',
-        'mine-hnt/denylist-removals',
-      ],
+      items: ['archive/mine-hnt', 'network-iot/denylist', 'network-iot/denylist-removals'],
       collapsed: true,
     },
     {
@@ -250,20 +289,6 @@ module.exports = {
       ],
       collapsed: true,
     },
-    {
-      type: 'category',
-      label: 'Troubleshooting',
-      items: [
-        'troubleshooting/hotspot-setup-troubleshooting',
-        'troubleshooting/replace-sd-card',
-        'troubleshooting/improving-poc',
-        'troubleshooting/network-troubleshooting',
-        'troubleshooting/hotspot-led',
-        'troubleshooting/understanding-witnesses',
-        'mine-hnt/understanding-hotspot-status',
-      ],
-      collapsed: true,
-    },
   ],
   api: [
     'api/home',
@@ -275,7 +300,6 @@ module.exports = {
         'api/blockchain/stats',
         'api/blockchain/blocks',
         'api/blockchain/accounts',
-        'api/blockchain/validators',
         'api/blockchain/hotspots',
         'api/blockchain/cities',
         'api/blockchain/locations',
@@ -290,30 +314,11 @@ module.exports = {
         'api/blockchain/elections',
         'api/blockchain/state-channels',
         'api/blockchain/assert-locations',
+        'api/blockchain/validators',
       ],
       collapsed: true,
     },
     'api/console',
-  ],
-  appwallet: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/mine-hnt/helium-hotspot-app',
-    },
-    {
-      type: 'category',
-      label: 'Helium Hotspot App',
-      items: [
-        'wallets/app-wallet/transfer-hotspot',
-        'wallets/app-wallet/hexagons',
-        'wallets/app-wallet/discovery',
-        'wallets/app-wallet/transaction-failures',
-        'wallets/app-wallet/fleet-mode',
-        'wallets/app-wallet/deep-links-and-qr-codes',
-      ],
-      collapsed: false,
-    },
   ],
   console: [
     {
@@ -327,7 +332,6 @@ module.exports = {
       items: [
         'use-the-network/console/quickstart',
         'use-the-network/console/users',
-        'use-the-network/console/data-credits',
         'use-the-network/console/adding-devices',
         'use-the-network/console/migrating-devices/migrating-devices',
         'use-the-network/console/labels',
@@ -1275,100 +1279,44 @@ module.exports = {
       collapsed: false,
     },
   ],
-  become_a_maker: [
-    {
-      type: 'link',
-      label: '<- Full Hotspots',
-      href: '/mine-hnt/full-hotspots',
-    },
-    {
-      type: 'category',
-      label: 'Become a Maker',
-      items: [
-        'mine-hnt/full-hotspots/become-a-maker/maker-approval-auditing',
-        'mine-hnt/full-hotspots/become-a-maker/hotspot-integration-testing',
-        'mine-hnt/full-hotspots/become-a-maker/basic-miner-operation',
-        'mine-hnt/full-hotspots/become-a-maker/docker-integration',
-        'mine-hnt/full-hotspots/become-a-maker/security-requirements',
-        'mine-hnt/full-hotspots/become-a-maker/hotspot-ble-services',
-        'mine-hnt/full-hotspots/become-a-maker/hotspot-wifi-configuration',
-        'mine-hnt/full-hotspots/become-a-maker/burn-hnt-to-maker-wallet',
-      ],
-      collapsed: false,
-    },
-  ],
-  validators: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/mine-hnt/validators',
-    },
-    {
-      type: 'category',
-      label: 'Validators',
-      items: [
-        'mine-hnt/validators/validators-requirements',
-        'mine-hnt/validators/validators-monitoring',
-        'mine-hnt/validators/validators-troubleshooting',
-        'mine-hnt/validators/validators-penalties',
-        'mine-hnt/validators/validators-faqs-resources-providers',
-      ],
-      collapsed: false,
-    },
-  ],
-  validators_testnet: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/mine-hnt/validators',
-    },
-    {
-      type: 'category',
-      label: 'Validators (Testnet)',
-      items: [
-        'mine-hnt/validators/testnet/validators-testnet-expectations',
-        'mine-hnt/validators/testnet/validators-testnet-design',
-        'mine-hnt/validators/testnet/validators-testnet-deployment-guide',
-        'mine-hnt/validators/testnet/validators-testnet-wallet',
-        'mine-hnt/validators/testnet/validators-testnet-test-cases',
-      ],
-      collapsed: false,
-    },
-  ],
-  validators_mainnet: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/mine-hnt/validators',
-    },
-    {
-      type: 'category',
-      label: 'Validators (Mainnet)',
-      items: [
-        'mine-hnt/validators/mainnet/validators-mainnet-deployment-guide',
-        'mine-hnt/validators/mainnet/validators-mainnet-release',
-        'mine-hnt/validators/mainnet/validators-mainnet-wallet',
-      ],
-      collapsed: false,
-    },
-  ],
+  // become_a_maker: [
+  //   {
+  //     type: 'link',
+  //     label: '<- Full Hotspots',
+  //     href: '/hotspot-makers/iot/full-hotspots',
+  //   },
+  //   {
+  //     type: 'category',
+  //     label: 'Become a Maker',
+  //     items: [
+  //       'hotspot-makers/become-a-maker/maker-approval-auditing',
+  //       'hotspot-makers/become-a-maker/hotspot-integration-testing',
+  //       'hotspot-makers/become-a-maker/basic-miner-operation',
+  //       'hotspot-makers/become-a-maker/docker-integration',
+  //       'hotspot-makers/become-a-maker/security-requirements',
+  //       'hotspot-makers/become-a-maker/hotspot-ble-services',
+  //       'hotspot-makers/become-a-maker/hotspot-wifi-configuration',
+  //       'hotspot-makers/become-a-maker/burn-hnt-to-maker-wallet',
+  //     ],
+  //     collapsed: false,
+  //   },
+  // ],
   lightHotspots: [
     {
       type: 'link',
       label: '<- Light Hotspot',
-      href: '/hotspot-makers/light-hotspots',
+      href: '/hotspot-makers/iot/light-hotspots',
     },
     {
       type: 'category',
       label: 'Data Only Hotspot Guides',
       items: [
-        'mine-hnt/data-only-guides/dragino',
-        'mine-hnt/data-only-guides/dragino-pg1301',
-        'mine-hnt/data-only-guides/kerlink',
-        'mine-hnt/data-only-guides/rak-concentrators',
-        'mine-hnt/data-only-guides/balena-data-only-hotspot',
+        'hotspot-makers/iot/data-only/dragino',
+        'hotspot-makers/iot/data-only/dragino-pg1301',
+        'hotspot-makers/iot/data-only/kerlink',
+        'hotspot-makers/iot/data-only/rak-concentrators',
+        'hotspot-makers/iot/data-only/balena-data-only-hotspot',
       ],
-
       collapsed: false,
     },
   ],

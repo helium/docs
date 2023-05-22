@@ -225,7 +225,7 @@ docker exec helium_router router info height
 
 You are likely quite a ways from the tip of the blockchain, but you can load a snapshot from an
 active miner (or ETL instance or blockchain-node). Details about how to do this are
-[here](/mine-hnt/full-hotspots/become-a-maker/basic-miner-operation/#snapshots).
+[here](/hotspot-makers/become-a-maker/basic-miner-operation#snapshots).
 
 Simply replace `miner` with `docker exec helium_router router` for most of the commands to work.
 
@@ -282,7 +282,7 @@ minutes, but once the transaction clears, your OUI will be able to open and clos
 update your device table on the blockchain.
 
 Monitor the account in explorer to verify that Router is doing this appropriately. eg:
-`https://explorer.helium.com/accounts/11xHXS5AgLyjYRCJ4ctcWcsMRULS8jro9Pb1GPaTG1neGk1dNcf`
+`https://explorer-old.helium.com/accounts/11xHXS5AgLyjYRCJ4ctcWcsMRULS8jro9Pb1GPaTG1neGk1dNcf`
 
 ### Create Data Credits
 
@@ -336,6 +336,6 @@ manager. An alternative is to copy the file somewhere safe.
 
 #### A Note on the Purpose of a `swarm_key`
 
-The `swarm_key` equates to your validator's unique identity on the Helium blockchain. Backing up the
-`swarm_key` enables you to maintain your router's identity in the event that your node becomes
-compromised in some way, or needs to be rebuilt on another server for any reason.
+The `swarm_key` equates to your unique identity on the Helium blockchain. Backing up the `swarm_key`
+enables you to maintain your router's identity in the event that your node becomes compromised in
+some way, or needs to be rebuilt on another server for any reason.

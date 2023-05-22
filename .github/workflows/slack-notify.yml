@@ -1,0 +1,13 @@
+name: Docs PR Bot
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: craftech-io/slack-action@v1
+        with:
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()

@@ -18,8 +18,7 @@ requires more caution on behalf of its users.
 
 Once you've covered the basics here, you can explore more specific use-cases for the wallet:
 
-- [add and assert data only hotspot](/mine-hnt/data-only-hotspots)
-- [add validator](/mine-hnt/validators/mainnet/deployment-guide#stake-hnt-to-your-validator)
+- [add and assert data only hotspot](/hotspot-makers/iot/data-only-hotspots)
 
 ## Installing CLI Wallet
 
@@ -78,7 +77,6 @@ SUBCOMMANDS:
     sign          Commands for signing or verifying data
     upgrade       Upgrade a wallet to the latest supported version of the given format. The same password is used to
                   decrypt the old and encrypt the new wallet
-    validators    Commands for validators
     vars          Commands for chain variables
     verify        Verify an encypted wallet
 
@@ -143,7 +141,7 @@ OPTIONS:
         --key-type <key-type>    The type of key to generate (ecc_compact/ed25519) [default: ed25519]
         --network <network>      The network to generate the wallet (testnet/mainnet) [default: mainnet]
     -o, --output <output>        Output file to store the key in [default: wallet.key]
-        --swarm <swarm>          Import a swarm_key file from a miner, gateway, validator, or other blockchain actor
+        --swarm <swarm>          Import a swarm_key file from a miner, gateway, or other blockchain actor
 ```
 
 We'll go through a few examples next.
@@ -196,7 +194,7 @@ iteration count and the AES-GCM authentication tag.
 
 The `--seed` flag enables you to import a wallet generated elsewhere. For example, you may want to
 import your key from the mobile wallet, so that you can submit transactions that may not be
-supported in the mobile wallet. The `--seed` command supports both 12-word and 24-word imports.
+supported in the mobile wallet. The `--seed` command supports seed phrase imports.
 
 Enter the command:
 
@@ -242,8 +240,8 @@ run:
 $ helium-wallet export
 ```
 
-You will be prompted for the Wallet Password, (this is _not_ your 12-word or 24-word seed phrase,
-this password was input when the wallet was created.)
+You will be prompted for the Wallet Password, (this is _not_ your seed phrase, this password was
+input when the wallet was created.)
 
 Next, you will be prompted to enter an `Export Password` twice. This password will be used in the
 Helium Wallet App.

@@ -1,0 +1,108 @@
+---
+id: lorawan-on-helium
+title: LoRaWAN On Helium
+pagination_label: LoRaWAN On Helium
+sidebar_label: Introduction
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /lorawan-on-helium
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+<img className="docsheader" src={useBaseUrl('img/lorawan-on-helium/lorawanheader.png')} />
+
+In typical LoRaWAN Networks, a central or regional LNS is managed by a single entity. Helium’s
+design for a decentralized network, however, means not only do we want gateways (referred to as
+Hotspots) to be independently owned and operated, but we want to enable the independent operation of
+the LNS.
+
+Without this, access to the network would require permission from a single central entity, the LNS
+operator of the network.
+
+Therefore, we want to enable the multi-tenancy of LNSs on the same public LoRaWAN network. Achieving
+this distinguishes Helium’s LoRaWAN Network from any other: public wireless infrastructure is now
+compatible with privately-run network servers.
+
+The rest of this article will discuss the networking primitives. If you want to go ahead and run a
+network server, please check out our article about
+[running a network server](/use-the-network/run-a-network-server).
+
+## The OUI
+
+Each LoRaWAN Network Server (LNS) on the Helium Network acquires an Organizationally Unique
+Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
+routing objects owned and maintained by the OUI operator:
+
+- one or more **slabs** of DevAddrs, reserving NwkAddr space for the OUI's devices on the Helium
+  Network
+
+A device defined by (AppEui, DevEui) can be allocated to any of the DevAddrs owned by the OUI. It is
+even possible to multiplex many devices on the same DevAddr at the same time, using the Message
+Integrity Check (MIC) to disambiguate.
+
+Starting in 2023, Helium will be utilizing an Open LNS Initiative to allow more choice and increase
+usability. You can read more about the Open LNS Initiative at the
+[Helium Foundation Blog](https://medium.com/helium-foundation/scaling-iot-growth-with-heliums-open-lns-initiative-c906e6953d6d)
+or read more [here](/iot/open-lns).
+
+:::info
+
+Based on the latest benchmarking tests the upper limit for a Devaddr `1024` slab is approximately
+5800 devices, but results still need to be replicated and bracketed. Community members are
+encouraged to run their own benchmarking tests. Instructions
+[here](/use-the-network/run-a-network-server/router-benchmarking). Requires basic familiarity with
+Linux and Bash command line.
+
+:::
+
+### Join Request Frames and Filters
+
+A Join Request frame has the following unencrypted header:
+
+```bash
++---------------------------------------------------------+
+|   Size (octets)  |      8     |      8     |      8     |
++------------------+------------+------------+------------+
+|   Join Request   |   AppEUI   |   DevEUI   |  DevNonce  |
++---------------------------------------------------------+
+```
+
+From the gateway's perspective, the (AppEUI, DevEUI) may be used to figure out if one or more OUI's
+are interested in the Join Request.
+
+This is done by querying every filter maintained and written to the blockchain by every OUI. The
+filters themselves are _xorhash_ tables, thus the AppEui and DevEui cannot be extracted. Only with
+the AppEui and DevEui in hand can the gateway run it through the table to see if it's there.
+
+In response to the Join Request, a Join Accept is sent down, assigning the NwkAddr. Due to the
+multi-tenancy on the Helium Network, the LNS may only assign NwkAddrs within its DevAddr slab(s).
+
+### Data Frames and DevAddr Slabs
+
+Data packets have the following unencrypted header (FHDR):
+
+```bash
++----------------------------------------------------------------------+
+|   Size (octets)  |     4      |      1     |      2     |    0..15   |
++------------------+------------+------------+------------+------------+
+|   FHDR           |  DevAddr   |    FCtrl   |     FCnt   |    FOpts   |
++----------------------------------------------------------------------+
+```
+
+Within DevAddr, there is the NwkAddr of a device:
+
+```bash
++------------------------------------------------+
+|                     DevAddr                    |
++------------------------+-----------------------+
+|   NwkID (bits 31–25)   |  NwkAddr (bits 24–0)  |
++-----------+--------------------+---------------+
+|     Helium Network     |   allocated by slab   |
+|(‘H’ / 0b1001000 / 0x48)|      to OUIs          |
++-----------+--------------------+---------------+
+```
+
+From the gateway's perspective, it is able to use DevAddr to determine the OUI of Data frames. A
+quick query can say which OUI owns this DevAddr slab. This look-up and routing by DevAddr instead of
+by \(AppEUI, DevEUI\) via _xorhash_ filters is generally much quicker.

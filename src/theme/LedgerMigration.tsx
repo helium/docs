@@ -1,16 +1,18 @@
-import './bufferFill'
-import React from 'react'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { bulkSendRawTransactions } from '@helium/spl-utils'
 import { LedgerWalletAdapter } from '@solana/wallet-adapter-ledger'
-import { useAsyncCallback } from 'react-async-hook'
-import { useMemo, useState } from 'react'
-import { CgSpinner } from 'react-icons/cg'
-import { FaCheckCircle, FaCheck } from 'react-icons/fa'
 import { Connection, PublicKey, Transaction } from '@solana/web3.js'
 import axios from 'axios'
-import { FaExclamationCircle } from 'react-icons/fa'
+import React, { useMemo, useState } from 'react'
+import { useAsyncCallback } from 'react-async-hook'
+import { FaCheck, FaCheckCircle } from 'react-icons/fa'
 import './LedgerMigration.css'
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import './bufferFill'
+import { Alert, AlertIcon } from './components/Alert'
+import { Button } from './components/Button'
+import { Checkbox } from './components/Checkbox'
+import { Flex } from './components/Flex'
+import { Icon } from './components/Icon'
 
 const Text: React.FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
   return <p>{children}</p>
@@ -23,31 +25,6 @@ const Heading: React.FunctionComponent<{
 }> = ({ children, fontSize, textAlign }) => {
   // @ts-ignore
   return <header style={{ fontSize, textAlign }}>{children}</header>
-}
-
-const Icon: React.FunctionComponent<{ spin?: boolean; mr?: number; as: any }> = ({
-  spin,
-  as: children,
-  mr,
-}) => {
-  return (
-    <div className={spin ? 'spin' : ''} style={{ display: 'flex', marginRight: 3 * mr + 'px' }}>
-      {React.createElement(children)}
-    </div>
-  )
-}
-
-const Checkbox: React.FunctionComponent<{
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-  isChecked?: boolean
-  children?: React.ReactNode
-}> = ({ isChecked, onChange, children }) => {
-  return (
-    <Flex flexDirection="row">
-      <input type="checkbox" onChange={onChange} checked={isChecked} />
-      {children}
-    </Flex>
-  )
 }
 
 const Input: React.FunctionComponent<{
@@ -99,85 +76,6 @@ const VStack: React.FunctionComponent<{
       {children}
     </div>
   )
-}
-
-const Alert: React.FunctionComponent<{
-  children: React.ReactNode
-  status: 'error' | 'warning'
-}> = ({ children }) => {
-  return (
-    <div className={`alert alert--${status == 'error' ? 'danger' : 'warning'}`} role="alert">
-      {children}
-    </div>
-  )
-}
-
-const Button: React.FunctionComponent<{
-  colorScheme?: string
-  isLoading?: boolean
-  onClick?: () => void
-  isDisabled?: boolean
-  leftIcon?: React.ReactNode
-  w?: string
-  children: React.ReactNode
-  mr?: number
-  size?: string
-  mt?: number
-}> = ({ colorScheme, isLoading, onClick, isDisabled, leftIcon, children, w, mr, mt, size }) => {
-  return (
-    <button
-      disabled={isDisabled || isLoading}
-      className={`button button--${colorScheme} button--${size}`}
-      style={{
-        width: w,
-        marginRight: mr ? mr * 3 + 'px' : undefined,
-        marginTop: mt ? mt * 3 + 'px' : undefined,
-      }}
-      onClick={onClick}
-    >
-      <Flex flexDirection="row" justify="center" align="center">
-        {leftIcon && <Flex mr={3}>{leftIcon}</Flex>}
-        {isLoading && <Icon spin mr={3} as={CgSpinner} />}
-        {children}
-      </Flex>
-    </button>
-  )
-}
-
-const Flex: React.FunctionComponent<{
-  mt?: number
-  mr?: number
-  px?: number
-  py?: number
-  align?: string
-  width?: string
-  flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse'
-  justify?: string
-  children?: React.ReactNode
-}> = ({ align, children, px, mt, mr, py, width, flexDirection, justify }) => {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        marginTop: mt * 3 + 'px',
-        marginRight: mr * 3 + 'px',
-        paddingLeft: px * 3 + 'px',
-        paddingRight: px * 3 + 'px',
-        paddingTop: py * 3 + 'px',
-        paddingBottom: py * 3 + 'px',
-        flexDirection,
-        justifyContent: justify,
-        width,
-        alignItems: align,
-      }}
-    >
-      {children}
-    </div>
-  )
-}
-
-const AlertIcon: React.FunctionComponent = () => {
-  return <FaExclamationCircle />
 }
 
 const BIP32_HARDENED_BIT = (1 << 31) >>> 0
@@ -349,9 +247,7 @@ export const LedgerMigration = () => {
     const txs = (await getTxs()).transactions
     const txBuffers = txs.map((tx: any) => Buffer.from(tx))
 
-    await bulkSendRawTransactions(connection, txBuffers.slice(0, -1))
-    // Ensure the last transaction (pulling up all the sol) runs last.
-    await bulkSendRawTransactions(connection, txBuffers.slice(-1))
+    await bulkSendRawTransactions(connection, txBuffers)
 
     const txs2 = (await getTxs()).transactions
     if (txs2.length !== 0) {
@@ -390,14 +286,17 @@ export const LedgerMigration = () => {
     error: errorSolanaSign,
     loading: loadingSolanaSign,
   } = useAsyncCallback(async () => {
-    const [needSign, dontNeedSign] = partitionBy(
-      heliumSignResult!,
-      (tx) => tx.signatures.length > 1,
+    const [needSign, dontNeedSign] = partitionBy(heliumSignResult!, (tx) =>
+      tx.signatures.some((sig) => sig.publicKey.equals(solanaPubkey!)),
     )
     await solanaWallet.connect()
-    const signed = await solanaWallet!.signAllTransactions(needSign)
+    if (needSign.length > 0) {
+      console.log(needSign)
+      const signed = await solanaWallet!.signAllTransactions(needSign)
+      return [...dontNeedSign, ...signed]
+    }
 
-    return [...dontNeedSign, ...signed]
+    return dontNeedSign
   })
 
   const {
@@ -407,9 +306,15 @@ export const LedgerMigration = () => {
     loading: loadingSendTransactions,
   } = useAsyncCallback(async () => {
     const txs = solanaSignResult!.map((tx) => Buffer.from(tx.serialize()))
-    const sent = await bulkSendRawTransactions(connection, txs)
+    await bulkSendRawTransactions(connection, txs)
+    let sent = [
+      ...(await bulkSendRawTransactions(connection, txs.slice(0, -1))),
+      // Ensure the last transaction (pulling up all the sol) runs last.
+      ...(await bulkSendRawTransactions(connection, txs.slice(-1))),
+    ]
+
     if (sent.length != txs.length) {
-      throw new Error("Failed to send all transactions, please try again")
+      throw new Error('Failed to send all transactions, please try again')
     }
     return true
   })
@@ -449,8 +354,8 @@ export const LedgerMigration = () => {
               <Alert status="error">
                 <AlertIcon />
                 <p>
-                  {errorSolana.message}. Please make sure you are connected to the correct ledger
-                  app.
+                  {errorSolana.message}. Please make sure you are connected to the Solana Ledger App
+                  and have blind signing enabled.
                 </p>
               </Alert>
             )}
@@ -496,8 +401,8 @@ export const LedgerMigration = () => {
               <Alert status="error">
                 <AlertIcon />
                 <p>
-                  {errorHelium.message}. Please make sure you are connected to the correct ledger
-                  app.
+                  {errorHelium.message}. Please make sure you are connected to the Helium-Solana
+                  Ledger App and have blind signing enabled.
                 </p>
               </Alert>
             )}
@@ -543,13 +448,14 @@ export const LedgerMigration = () => {
         ),
       },
       {
-        label: 'Sign Transactions with Helium',
+        label: 'Sign Transactions with Helium-Solana',
         component: (
           <VStack>
             {errorHeliumSign && (
               <Alert status="error">
                 <AlertIcon />
-                {errorHeliumSign.message}
+                {errorHeliumSign.message}. Please make sure you are connected to the Helium-Solana
+                Ledger App and have blind signing enabled.
               </Alert>
             )}
             Sign transactions to migrate from the Helium derivation path to the Solana derivation
@@ -572,7 +478,8 @@ export const LedgerMigration = () => {
             {errorSolanaSign && (
               <Alert status="error">
                 <AlertIcon />
-                {errorSolanaSign.message}
+                {errorSolanaSign.message}. Please make sure you are connected to the Solana Ledger
+                App and have blind signing enabled.
               </Alert>
             )}
             Open the Solana Ledger app. Sign transactions to migrate from the Helium derivation path
@@ -648,7 +555,7 @@ export const LedgerMigration = () => {
     <VStack>
       <Steps activeStep={activeStep}>
         {steps.map(({ label, component }, index) => (
-          <Step label={label} key={label}>
+          <Step label={label} key={index}>
             {component}
             {
               <Flex mt={4} width="100%" justify="flex-end">

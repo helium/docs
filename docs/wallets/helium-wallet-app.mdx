@@ -51,7 +51,7 @@ Some notable features:
 - Exchange one Helium token for another or SOL
 
 All Hotspot Management (diagnostics, asserting location, adding Hotspots, etc) should be done via
-the [Maker Apps](/hotspot-makers/maker-apps) available from the manufacturer.
+the [Maker Apps](/hotspot-makers) available from the manufacturer.
 
 ## Wallets and Accounts
 
@@ -81,21 +81,11 @@ you can import it into the Wallet app.
 Wallets created with the Helium Wallet app are generated with a 24-word seed phrase. These 24 words
 in correct order are the only way to access the wallet, and can never be recovered if lost. **They
 should never be shared**, as whoever has them is considered the owner of all Tokens, Hotspots, or
-Validators. Anyone asking for them is guaranteed to be a scammer.
+NFTs. Anyone asking for them is guaranteed to be a scammer.
 
 **Taking and storing screenshots of the seed words is not recommended, as it is not a** secure way
 to store them. Screenshots and photos stored or backed up in the cloud can easily be hacked and
 funds stolen.
-
-### Ledger Wallet
-
-<img
-  className="appscreenbanner"
-  src={useBaseUrl('img/wallets/helium-wallet-app/pair-ledger-banner.png')}
-/>
-
-Import your Ledger account by pairing with it over Bluetooth. Payment and other transaction support
-will be coming soon, after the Solana Migration date.
 
 ## Working With Multiple Wallets
 
@@ -108,6 +98,15 @@ tap on Settings, they will be for the selected wallet.
 There is a limit of 10 wallet accounts (testnet + mainnet combined) per install.
 
 :::
+
+## Tokens Supported
+
+The Helium wallet will display the quantity in your wallet and price for:
+
+HNT - in USD or your defined currency MOBILE - in USD or your defined currency IOT- in USD or your
+defined currency DC- in USD (Not transferable) SOL- in USD or your defined currency
+
+No other tokens held in your wallet will be displayed, the value of other tokens will not be shown.
 
 ## Send And Request Tokens
 
@@ -161,14 +160,14 @@ the Helium blockchain.
 
 <img src={useBaseUrl('img/wallets/helium-wallet-app/filters.png')} />
 
-|        Filter         | Description                                                                                                                                                                                                                                                                                |
-| :-------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   All Transactions    | Shows all interactions with the blockchain.                                                                                                                                                                                                                                                |
-|    Mining Rewards     | Shows the mining rewards the wallet has earned from any included Hotspot or Validator.                                                                                                                                                                                                     |
-|       Payments        | Lists all payments that were either sent or received.                                                                                                                                                                                                                                      |
-| Hotspots & Validators | Lists the Hotspots/Validators associated with the wallet. Note that any interactions with the Hotspots, such as diagnostics and asserting location, etc, will need to be done from the Maker app. This list is for reference only as Hotspot actions are not available in this wallet app. |
-|   Burn Transactions   | Lists Token Burn Transactions. (i.e. Data Credits burned to vote on a HIP)                                                                                                                                                                                                                 |
-| Pending Transactions  | Lists any transactions that have been submitted, but have not yet been validated/cleared on the blockchain.                                                                                                                                                                                |
+|        Filter        | Description                                                                                                                                                                                                                                                                     |
+| :------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|   All Transactions   | Shows all interactions with the blockchain.                                                                                                                                                                                                                                     |
+|    Mining Rewards    | Shows the mining rewards the wallet has earned from any included Hotspot.                                                                                                                                                                                                       |
+|       Payments       | Lists all payments that were either sent or received.                                                                                                                                                                                                                           |
+|       Hotspots       | Lists the Hotspots associated with the wallet. Note that any interactions with the Hotspots, such as diagnostics and asserting location, etc, will need to be done from the Maker app. This list is for reference only as Hotspot actions are not available in this wallet app. |
+|  Burn Transactions   | Lists Token Burn Transactions. (i.e. Data Credits burned to vote on a HIP)                                                                                                                                                                                                      |
+| Pending Transactions | Lists any transactions that have been submitted, but have not yet been validated/cleared on the blockchain.                                                                                                                                                                     |
 
 ## Address Book And Contacts
 
@@ -247,36 +246,9 @@ settings do, it is best to leave them `off` by default.
 
 ---
 
-:::warning Testing Tokens
+### Examine Hotspots
 
-All tokens in the preview version of the Helium Wallet app are testing tokens on Solana devnet.
-These tokens have no value and should not be traded.
-
-:::
-
-The Helium Wallet App has been updated with a Solana Devnet Preview. With this, you can test the
-Solana migration for your wallet and hotspots before it happens. A snapshot was taken January 31st,
-2023 of Helium mainnet. All tokens and hotspots on Solana devnet are reflective of this snapshot.
-
-## Enable Solana Preview
-
-On the main screen of the Helium Wallet app, click the Settings icon in the upper-left corner.
-
-<div className="img-center">
-  <img className="appscreenbanner" src={useBaseUrl('img/solana/migration-settings.png')} />
-</div>
-
-Then, enable the Solana preview mode. You can always disable the Solana preview mode in the same way
-to see your real assets.
-
-<div className="img-center">
-  <img className="appscreenbanner" src={useBaseUrl('img/solana/migration-preview.png')} />
-</div>
-
-### Explore Hotspots
-
-You can now explore your hotspots by clicking the Collectibles Tab. From here, you will be able to
-test claiming rewards with testing tokens.
+You can now examine your hotspots by clicking the Collectables Tab.
 
 Let us know via Discord if you experience any issues!
 
@@ -284,8 +256,14 @@ Let us know via Discord if you experience any issues!
   <img className="appscreenbanner" src={useBaseUrl('img/solana/migration-collectibles.png')} />
 </div>
 
-### Ledger Users
+### Ledger Wallet
 
-See [Ledger wallet migration guide](/solana/migration/wallet-user) for guidance on how to migrate
-Ledger wallets to Solana. See [Legger Wallet Hardware](https://docs.helium.com/wallets/ledger/) for
-how a Leger wallet was configured for HNT.
+Hardware ledgers are not yet compatible with the Helium Wallet App on the Solana blockchain. Current
+advice is to migrate using the tool mentioned below and switch to using
+[Solflare](https://solflare.com/).
+
+See [Ledger wallet migration guide](/solana/migration/ledger) for guidance on how to migrate Ledger
+wallets to Solana.
+
+See [Ledger Wallet Hardware](/wallets/ledger/) for how a Leger wallet was configured for HNT on the
+Helium Blockchain.

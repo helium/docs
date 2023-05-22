@@ -82,8 +82,6 @@ is a record of the final state of the Helium L1 blockchain.
 The migration-service program will use this Snapshot to map existing rewards and Network state to
 the Solana blockchain.
 
-<!-- TODO: add link to migration-service program -->
-
 :::
 
 The premine allocates IOT tokens in the following proportion:
@@ -99,13 +97,13 @@ following:
 
 - Witnessed and was a valid witness
 - Beaconed and had valid witnesses
-- Transferred LoRaWAN data and been paid for it
+- Transferred LoRaWAN data and been rewarded for it
 
 A Hotspot is not "Active" if it:
 
 - Has not beaconed with valid witnesses
 - Has not been a valid witness to a beacon
-- Has not passed data and been paid for it
+- Has not passed data and been rewarded for it
 
 :::caution Hotspots on the Denylist
 
@@ -115,6 +113,15 @@ meeting any other critera.
 :::
 
 ### Data Only Hotspot Eligibility
+
+:::warning Migration Errors
+
+A bug in the migration snapshot resulted in Data Only Hotspots not being considered nor rewarded as
+part of the IOT Premine.
+
+Hotspots rewarded for `poc_witness` or `poc_challengee` activity were included in the Premine.
+
+:::
 
 The migration-service program will allocate rewards to any Data Only Hotspot which has transferred
 data within the 30 days preceding the Snapshot.
