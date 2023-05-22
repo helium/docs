@@ -5,39 +5,57 @@ pagination_label: SOL Token
 sidebar_label: SOL Token
 description: Solana Token Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /helium-tokens/sol-token
+slug: /sol-token
 ---
 
-The Helium Network now utilizes the Solana blockchain, which is extremely fast, scalable, and
-low-cost. Solana has a separate token, which is called SOL. You can understand SOL as the fee to use
-the Solana Network.
+The Helium Network runs on the Solana blockchain, an extremely fast, scalable, and low-cost
+blockchain.
 
-1. Any time you interact with the Solana blockchain, it will charge a small fee in SOL. This
-   includes sending tokens, making payments, swapping tokens, minting NFTs, claiming rewards from
-   your Hotspots, and all on-chain Helium transactions. Solana’s average transaction fee is 0.000014
-   SOL. This is massively cheaper than the Helium L1 blockchain’s fee of $0.35 worth of DC.
-2. Solana stores information, including info about your token balances, NFTs, and anything else,
-   on-chain as special "accounts". Storing this information takes up valuable space, so Solana
-   charges a fee called “rent” on these accounts. Each account has a rent fee, so the more accounts
-   you have, the more rent is required. There is typically one account for each token type that you
-   have or want. Closing accounts can return rent to your wallet. Rent for one account is ~0.002
-   SOL, so it’s also pretty cheap, but more expensive than the transaction fee. In most cases, you
-   get this fee back once you close the corresponding account. (Note: this fee may vary and is more
-   complicated, but has a current max of ~0.002 SOL.)
+Interacting with the Solana blockchain requires a small fee (average transaction fee is 0.000014
+SOL) paid in SOL tokens, which is massively cheaper than the original Helium blockchain transaction
+fee of $0.35 in DC.
 
-If you don’t have enough SOL in your wallet, you will not be able to make transactions or make new
-accounts to hold tokens. Performing more complex transactions where accounts need to be created may
-require more SOL in rent than you have. This includes reasserting your Hotspot’s location, locking
-HNT to gain veHNT, and potentially more complex DeFi actions where multiple accounts need to be
-created (even if only temporarily). If you do not have enough SOL, you can use this tool to swap HNT
-for 0.02 SOL.
+All interactions with the Solana blockchain require fees, including sending tokens, making payments,
+swapping tokens, minting NFTs, claiming rewards from your Hotspots, and all on-chain Helium
+transactions.
+
+## Solana Accounts and Rent
+
+Information is stored on the Solana blockchain, such as token balances, NFTs, or other data, in
+"accounts." Keeping this data on-chain takes up space, so Solana charges a "rent" fee of ~0.002 SOL
+on accounts.
+
+Rent Facts:
+
+- Each account has an individual rent fee.
+- Having more accounts requires more rent fees.
+- There is typically one account for each token type.
+- Closing accounts can return rent to your wallet.
+
+Performing more complex transactions, which include creating accounts, may require more SOL. For
+example, if a wallet does not have enough SOL for rent fees, the wallet can not create new accounts
+to hold tokens, and transactions will fail.
+
+This includes reasserting your Hotspot's location, locking HNT to gain veHNT, and potentially more
+complex DeFi actions where multiple accounts must be created (even temporarily).
+
+Locking up HNT to gain [veHNT][vehnt] creates new accounts and requires ~0.014 SOL. It is best
+practice to hold more than the minumum amount of SOL in a wallet to fund additional accounts in the
+future.
+
+:::note Foundation Funding
+
+As part of the migration to Solana, the Helium Foundation provided every Helium Wallet with 0.00139
+SOL (enough for 100 standard transfers).
+
+:::
 
 ---
 
 ## Swap Utility
 
-Open this page from within the browser of the Helium Wallet App (Click on the Globe icon) to add the
-SOL to your wallet app.
+If you do not have enough SOL, you can use this tool to swap HNT for 0.02 SOL. Open this page from
+within the browser of the [Helium Wallet App][wallet-app] to swap a small amount of HNT for SOL.
 
 import { HntToFeeSol } from '@theme/HntToFeeSol'
 
@@ -45,15 +63,6 @@ import { HntToFeeSol } from '@theme/HntToFeeSol'
   <HntToFeeSol />
 </figure>
 <br />
-
-For example, locking up HNT to gain veHNT creates new accounts and requires around 0.014 SOL. The
-Helium Foundation has provided every single Helium wallet with 0.00139 SOL (enough for 100 standard
-transfers). You may need to acquire more SOL to enable HNT lockup. We recommend having more than the
-minimum amount of SOL in case you need to fund additional accounts in the future.
-
----
-
-## Video Walk Through
 
 <figure className="screensnippet-wrapper">
   <iframe
@@ -71,3 +80,6 @@ minimum amount of SOL in case you need to fund additional accounts in the future
     <a href="https://www.youtube.com/watch?v=maxW3cjCrcQ">Click here to watch on YouTube</a>.
   </figcaption>
 </figure>
+
+[wallet-app]: /wallets/helium-wallet-app
+[vehnt]: /vote-escrow/vehnt
