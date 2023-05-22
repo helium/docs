@@ -62,9 +62,6 @@ module.exports = {
   ],
 
   tokens: [
-    'hnt-token',
-    'iot-token',
-    'mobile-token',
     {
       type: 'category',
       label: 'Network Tokens',
