@@ -117,6 +117,9 @@ that as a big-endian u32. Then use that u32 number as the number of subsequent b
 those subsequent bytes using the associated proto definition. Repeat this process until you've read
 the entire file.
 
+**Important Note:** Simply trying to pass the contents of the uncompressed files into the protobuf
+decoder will fail.
+
 ### Javascript Example
 
 ```protobuf
