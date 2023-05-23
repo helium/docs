@@ -68,7 +68,13 @@ module.exports = {
       items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
       collapsed: true,
     },
-    'helium-tokens/data-credit',
+    {
+      type: 'category',
+      label: 'Data Credit Tokens',
+      link: { type: 'doc', id: 'helium-tokens/data-credit' },
+      items: ['helium-tokens/data-credit', 'helium-tokens/data-credit-portal'],
+      collapsed: true,
+    },
     {
       type: 'category',
       label: 'Vote Escrow Tokens',
@@ -281,7 +287,7 @@ module.exports = {
         'faq/helium-network',
         'faq/security',
         'faq/build-on-network',
-        'faq/data-credits',
+        // 'faq/data-credits',
         'faq/open-source',
         'faq/docs-installation',
         'faq/privacy',

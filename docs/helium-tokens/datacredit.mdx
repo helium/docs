@@ -1,11 +1,11 @@
 ---
 id: data-credit
-title: Helium Data Credits
-pagination_label: Data Credit Token
-sidebar_label: Data Credit Tokens
+title: Data Credit
+pagination_label: Data Credit
+sidebar_label: Data Credit
 description: Helium Data Credit Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /helium-tokens/data-credit
+slug: /data-credit
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -18,9 +18,8 @@ Data Credits have been delegated they cannot be redelegated. Data Credits are no
 created.
 
 For further reading on Data Credits and their place in the overall token mechanics of the Helium
-network, refer to the
-[burn and mint economics](/helium-tokens/hnt/#data-credits-and-burn-and-mint-economics) in the HNT
-token documentation.
+network, refer to the [burn and mint economics][bme] in the HNT token documentation. network, refer
+to the [burn and mint economics][bme] in the HNT token documentation.
 
 ## Data Credit Usage
 
@@ -88,16 +87,30 @@ import OperationCostEstimator from '@site/src/theme/DcCostEstimator'
 In addition to network data transfer, Data Credits are also utilized for certain network-related
 fees.
 
-| Action            | Fee              |
-| ----------------- | ---------------- |
-| Device Onboarding | $40              |
-| Assert Location   | $10 \*           |
-| OUI               | $100             |
-| DevAddr           | $100 ($800) \*\* |
+| Action            | Fee                                     |
+| ----------------- | --------------------------------------- |
+| Device Onboarding | $40                                     |
+| Assert Location   | $10<sup>(</sup>[^1]<sup>)</sup>         |
+| OUI               | $100                                    |
+| DevAddr           | $100 ($800)<sup>(</sup>[^2]<sup>)</sup> |
 
-\* [HIP 69](https://github.com/helium/HIP/blob/main/0069-reassertion-fee-reduction.md) sets the
-assert location fee to $5 for three months following the Solana migration.  
-\*\* DevAddrs must be purchased in slabs of 8.
+[^1]:
+    [HIP 69][hip-69] sets the assert location fee to $5 for three months following the Solana
+    migration.
+
+| Action            | Fee                                     |
+| ----------------- | --------------------------------------- |
+| Device Onboarding | $40                                     |
+| Assert Location   | $10<sup>(</sup>[^1]<sup>)</sup>         |
+| OUI               | $100                                    |
+| DevAddr           | $100 ($800)<sup>(</sup>[^2]<sup>)</sup> |
+
+[^1]:
+    [HIP 69][hip-69] sets the assert location fee to $5 for three months following the Solana
+    migration.
+
+[^2]: DevAddrs must be purchased in slabs of 8.
+[^2]: DevAddrs must be purchased in slabs of 8.
 
 ### Data Credits and Mobile
 
@@ -130,8 +143,14 @@ acquiring Data Credits.
 
 ### Sphere Data Credit Portal
 
-The Data Credit Portal built by [Sphere](https://helium.sphere.engineer) allows network users to acquire
-Data Credits without directly holding cryptocurrency. The tool is designed for allocating Data
-Credits for network users like [LNS operators](/iot/open-lns) or mobile
-[service providers](/mobile/service-providers). The tool provides a clear invoice once transactions
-are complete to simplify accounting.
+The [Data Credit Portal][dc-portal] built by [Sphere][sphere] allows network users to acquire Data
+Credits without directly holding cryptocurrency. The tool is designed for allocating Data Credits
+for network users like [LNS operators][open-lns] or mobile [service providers][service-providers].
+The tool provides a clear invoice once transactions are complete to simplify accounting.
+
+[bme]: /hnt-token/#data-credits-and-burn-and-mint-economics
+[sphere]: https://sphere.engineer
+[open-lns]: /iot/open-lns
+[service-providers]: /mobile/service-providers
+[hip-69]: https://github.com/helium/HIP/blob/main/0069-reassertion-fee-reduction.md
+[dc-portal]: /data-credit-portal

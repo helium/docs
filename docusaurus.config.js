@@ -54,7 +54,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'helium-tokens/hnt',
+          to: 'hnt-token',
           label: 'Tokens',
           position: 'left',
         },
@@ -114,8 +114,8 @@ module.exports = {
           remarkPlugins: [math],
           rehypePlugins: [katex],
         },
-        googleAnalytics: {
-          trackingID: 'UA-52432858-10',
+        gtag: {
+          trackingID: 'G-85D2WJWZNL',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
