@@ -54,7 +54,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'helium-tokens/hnt',
+          to: 'hnt-token',
           label: 'Tokens',
           position: 'left',
         },
