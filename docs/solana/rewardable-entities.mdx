@@ -19,7 +19,7 @@ the addition of mappers and other rewardable categories.
 A rewardable entity on the Helium Network is represented on Solana as an NFT (Non-Fungible Token).
 
 NFTs are ideal for this job as the represent ownership in a way that is easily transferrable and
-recognized by all major wallets. Open your wallet, and see all of your hotspots inside.
+recognized by all major wallets. Open your wallet and see all of your hotspots inside.
 
 ## Compression NFTs
 
@@ -33,7 +33,7 @@ account representing the ownership of the token. In total this leads to 4 accoun
 also a large usage of storage space on the blockchain.
 
 Enter: Compression NFTs. Compression NFTs use a Concurrent Merkle Tree to compress millions of NFTs
-into one 32 byte hash. Clients executing transactions on compressed NFTs are able to send a
+into one 32-byte hash. Clients executing transactions on compressed NFTs are able to send a
 cryptograpic proof to the blockchain that verifies the NFT and ownership. In other words, instead of
 sending a transaction with:
 
@@ -71,13 +71,13 @@ pub merkle_tree: UncheckedAccount<'info>,
 
 While this can make the transaction size larger, the amount of data stored on chain is tiny. While
 this may look difficult, this is all neatly packed in the Metaplex Digital Asset API. This API runs
-on multiple RPC providers, and allows you to hit convenient functions like `get_assets_by_owner` and
+on multiple RPC providers and allows you to hit convenient functions like `get_assets_by_owner` and
 `get_asset_proof` so that you never have to worry about the underlying concurrent merkle algorithm.
 
 ## Fetching Rewardable Entities.
 
 All rewardable entities are created by the `helium-entity-manager` program. Further, they exist
-under a collection that is managed by the Maker of that entity. The easiest way to fetch all helium
+under a collection that is managed by the Maker of that entity. The easiest way to fetch all Helium
 entities for a given wallet is to filter by the `helium-entity-manager-creator`
 
 We can get this address by running
@@ -117,7 +117,7 @@ curl --request POST \
 
 ### Hotspots and ECC Compact Keys
 
-Hotspots on the Helium network currently are uniquely identified by their ECC Compact Public Keys
+Hotspots on the Helium Network currently are uniquely identified by their ECC Compact Public Keys
 
 At onboarding time, hotspots are able to sign an onboard transaction proving physical ownership of
 the device.
@@ -169,18 +169,18 @@ const asset = await getAsset(rpcUrl, assetId)
 
 ## Onboarding Rewardable Entities
 
-The onboarding flow for an entity is general that a customer purchases the hardware from a maker,
-and then self-onboards to the network. Because all hardware are created by approved makers, the
-onboard transaction must be approved by the maker. This uses a similar flow to the legacy
+The onboarding flow for an entity is general that a customer purchases the hardware from a Maker,
+and then self-onboards to the network. Because all hardware is created by approved Makers, the
+onboard transaction must be approved by the Maker. This uses a similar flow to the legacy
 onboarding-server of the Helium blockchain.
 
-The main difference between the Solana version of Helium, and the legacy version on the helium
+The main difference between the Solana version of Helium, and the legacy version on the Helium
 chain, is that onboarding is on a per-network basis. A Hotspot can be an IOT hotspot, a MOBILE
 hotspot, or both. If the Hotspot wants to earn both MOBILE and IOT rewards, it must onboard to the
-IOT network AND the MOBILE network. It must also assert location in both.
+IOT network AND the MOBILE network. It must also assert location on both subnetworks.
 
-Similarly, makers are approved for specific subnetworks. A maker that creates IOT hotspots can not
-necessarily onboard MOBILE hotspots. Each network subdao must approve makers to issue rewardable
+Similarly, makers are approved for specific subnetworks. A maker that creates IOT hotspots cannot
+necessarily onboard MOBILE hotspots. Each network subDAO must approve makers to issue rewardable
 entities.
 
 The following test shows the full flow of onboarding a Hotspot using the onboarding server.
@@ -359,7 +359,7 @@ the issuance or movement of tokens.
 The `lazy-distributor` program keeps track of, for each hotspot, how much of the total lifetime
 rewards have been claimed. Claiming rewards, then, consists of two steps:
 
-1. Ask oracles to update the on-chain state to reflect the latest lifetime rewards for this hotspot
+1. Ask oracles to update the on-chain state to reflect the latest lifetime rewards for this hotspot.
 2. Issue the difference between the total lifetime rewards and total claimed rewards to the hotspot
    owner.
 
@@ -367,10 +367,10 @@ In practice, we have made it so that this can all happen in a singular transacti
 
 ### Finding current rewards
 
-Oracles work off of a restful API that involves
+Oracles work off of a restful API that involves:
 
-1. Grabbing lifetime rewards for all oracles
-2. Constructing a transaction to set the rewards, and passing the transaction to each oracle to
+1. Grabbing lifetime rewards for all oracles.
+2. Constructing a transaction to set the rewards and passing the transaction to each oracle to
    partially sign.
 3. Submitting the fully signed transaction to Solana.
 
@@ -413,7 +413,7 @@ servers.
 
 :::
 
-You can then get a transaction to submit to the solana blockchain using those rewards:
+You can then get a transaction to submit to the Solana blockchain using those rewards:
 
 <!-- prettier-ignore -->
 ```js
