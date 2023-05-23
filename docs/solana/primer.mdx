@@ -32,14 +32,14 @@ Scrolling up we can see that it is, in fact, owned by the Helium subDAO's progra
 
 ![Program Owner](/img/solana/program-owner.png)
 
-This means that only the ``helium-sub-daos`` program can make changes to this account. On other chains,
-a Program may be called a Smart Contract. Accounts are either owned by a program or owned by the
-system program. An account owned by the System Program is generally either a Wallet (holding
-someone's SOL), or an account that has yet to be initialized.
+This means that only the `helium-sub-daos` program can make changes to this account. On other
+chains, a Program may be called a Smart Contract. Accounts are either owned by a program or owned by
+the system program. An account owned by the System Program is generally either a Wallet (holding
+SOL), or an account that has yet to be initialized.
 
-On Solana, a Wallet is just an account with some SOL-token in it, owned by the system program. The owner of
-that Wallet controls the private key to that account, and so can sign transactions as that public
-key.
+On Solana, a Wallet is just an account with some amount of SOL tokens in it, owned by the system
+program. The owner of that Wallet controls the private key to that account, and so can sign
+transactions as that public key.
 
 ### PDAs
 
@@ -114,7 +114,7 @@ owners.
 Associated token accounts are often the first use of PDAs you will see as a developer on Solana.
 
 Given the above model, it is possible for a given wallet to have multiple token accounts for the
-same token. That is both messy, and hard to index. Early in the days of Solana, a program called
+same token. That is both messy and hard to index. Early in the days of Solana, a program called
 `associated-token` emerged. `Associated-token` says that the account for a given Wallet and mint can
 be derived by:
 
@@ -143,7 +143,7 @@ const account = await connection.getAccountInfo(new PublicKey("..."))
 console.log(account.data)
 ```
 
-This will get you the binary data of any account stored on chain; however you will need to decode
+This will get you the binary data of any account stored on chain; however, you will need to decode
 the data yourself. Most programs come with their own SDKs for reading and deserializing data. For
 example, SPL Token (the token program), comes with @solana/spl-token
 
@@ -189,7 +189,7 @@ instructions.
 The best way to understand how to take certain actions against Helium on Solana is to look at
 [our tests](https://github.com/helium/helium-program-library/tree/master/tests).
 
-For example, to submit a Data Credits delegation, the code may look something like this:
+For example, to submit a Data Credit delegation, the code may look something like this:
 
 <!-- prettier-ignore -->
 ```js
@@ -221,9 +221,9 @@ await program.methods
 An RPC is an application's gateway to the Solana cluster. RPC Nodes do not participate in consensus
 and instead are dedicated to data requests.
 
-All the RPCs used in the Solana Migration follow the Solana chain and will index the NFT data
-that Core Developers created in Compression NFTs. This is one reason the Helium Network is able to
-mint a million or more NFTs on Solana.
+All the RPCs used in the Solana Migration follow the Solana chain and will index the NFT data that
+Core Developers created in Compression NFTs. This is one reason the Helium Network can mint a
+million or more NFTs on Solana.
 
 You may need to run an RPC service to access public Solana clusters. Many services are free, and
 others are paid. The Foundation uses Helius as their RPC Provider, and it’s useful to use a PRC
