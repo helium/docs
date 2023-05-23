@@ -17,23 +17,23 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - Available on Solana devnet for testing [Complete]
 - sec3 Smart Contract Audit
   [[Complete](https://github.com/sec3-service/reports/blob/master/reports/sec3_helium_program_library_report.pdf)]
-- Mainnet Launch [Soon™]
+- Mainnet Launch [Complete]
 
 ### Migration Process Steps
 
-The migration to Solana will take place on April 18, 2023 beginning at 9am PST. The team is holding
-a 48 hour window to complete the migration. Hotspots and LoRaWAN devices will continue to operate
+The migration to Solana took place on April 18, 2023, beginning at 9am PST. The team held
+a 48-hour window to complete the migration. Hotspots and LoRaWAN devices continued to operate
 throughout the migration window.
 
-1. The Helium blockchain will officially halt.
-2. A snapshot will be taken of Helium chain state.
-3. Existing $HNT and $MOBILE will be mapped to Solana. Hotspots will be minted as NFTs.
-4. During the Migration, PoC and Data Transfer will continue to function through the offchain
-   Oracle, rewards will be claimable after the transition phase (estimated 24-48 hours) is complete.
+1. The Helium blockchain officially halt.
+2. A snapshot was taken of Helium chain state.
+3. Existing $HNT and $MOBILE were mapped to Solana. Hotspots were minted as NFTs.
+4. During the Migration, PoC and Data Transfer continued to function through the off-chain
+   Oracle, rewards were claimable after the transition phase (estimated 24-48 hours) was complete.
 5. Users and Exchanges can access their assets using the same private key on Solana (Solana and
    Helium blockchain use the same [ed25519 encryption](https://en.wikipedia.org/wiki/EdDSA)
    algorithm.)
-6. Programmatic Treasury is planned to be activated in 2023 Q2, users will be able to convert
+6. Programmatic Treasury has been activated in 2023 Q2, users will be able to convert
    $MOBILE and $IOT into $HNT on chain at that time.
 
 ---
@@ -62,7 +62,7 @@ The code for all of these Programs is open source, and available in the
 
 :::info Program Audits
 
-The Helium Programs have been audited by [Sec3](https://www.sec3.dev/). The audit report was
+The Helium Programs have been audited by [sec3](https://www.sec3.dev/). The audit report was
 published March 20, 2023. The audit report is available from sec3 on their
 [GitHub reports repo](https://github.com/sec3-service/reports/blob/master/reports/sec3_helium_program_library_report.pdf).
 
@@ -82,31 +82,31 @@ published March 20, 2023. The audit report is available from sec3 on their
 #### helium_entity_manager
 
 - Program ID: `hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8`
-- Handles the issuance of NFTs representing entities that are rewardable on the Helium network, like
+- Handles the issuance of NFTs representing entities that are rewardable on the Helium network, such as
   hotspots and mappers.
 
 #### helium_sub_daos
 
 - Program ID: `hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR`
-- Manages the DAO/SubDAO structure proposed in HIP-51, including the minting of tokens to subdaos,
+- Manages the DAO/SubDAO structure proposed in HIP-51, including the minting of tokens to subDAOs,
   HST holders, and the `lazy_distributor` for PoC earnings.
 
 #### lazy_distributor
 
 - Program ID: `1azyuavdMyvsivtNxPoz6SucD18eDHeXzFCUPq5XU7w`
-- Allows off-chain oracles to distribute PoC rewards to rewardable assets (like hotspots) that are
+- Allows off-chain Oracles to distribute PoC rewards to rewardable assets (such as hotspots) that are
   represented as NFTs.
 
 #### lazy_transactions
 
 - Program ID: `1atrmQs3eq1N2FEYWu6tyTXbCjP4uQwExpjtnhXtS8h`
 - Used in the initial migration to Solana, this program allows compressing many transactions into a
-  merkle root to be executed lazily. This guarentees all txs are executed exactly once.
+  merkle root to be executed lazily. This guarantees all transactions are executed exactly once.
 
 #### treasury_management
 
 - Program ID: `treaf4wWBBty3fHdyBpo35Mz84M8k3heKXmjmi9vFt5`
-- Mangages the treasury of each SubDAO as proposed in HIP-51, allowing DNT tokens to be swapped for
+- Manages the treasury of each subDAO as proposed in HIP-51, allowing DNT tokens to be swapped for
   HNT according to a formula.
 
 #### voter_stake_registry
