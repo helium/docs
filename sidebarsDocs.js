@@ -62,12 +62,9 @@ module.exports = {
   ],
 
   tokens: [
-    {
-      type: 'category',
-      label: 'Network Tokens',
-      items: ['helium-tokens/hnt-token', 'helium-tokens/iot-token', 'helium-tokens/mobile-token'],
-      collapsed: true,
-    },
+    'helium-tokens/hnt-token',
+    'helium-tokens/iot-token',
+    'helium-tokens/mobile-token',
     {
       type: 'category',
       label: 'Data Credit Tokens',
@@ -75,13 +72,7 @@ module.exports = {
       items: ['helium-tokens/data-credit', 'helium-tokens/data-credit-portal'],
       collapsed: true,
     },
-    {
-      type: 'category',
-      label: 'Vote Escrow Tokens',
-      link: { type: 'doc', id: 'vote-escrow/vehnt' },
-      items: ['vote-escrow/vehnt', 'vote-escrow/realms', 'vote-escrow/voting-power'],
-      collapsed: true,
-    },
+    'vote-escrow/vehnt',
     'helium-tokens/sol-token',
     {
       type: 'category',
@@ -183,17 +174,13 @@ module.exports = {
   ],
 
   communitygovernance: [
-    {
-      type: 'category',
-      label: 'Governance',
-      link: { type: 'doc', id: 'governance/governance' },
-      items: [
-        'governance/voting',
-        'governance/realms',
-        'governance/working-groups',
-        'governance/committees',
-      ],
-    },
+    'governance/governance',
+    'governance/voting',
+    'vote-escrow/voting-power',
+    'governance/realms',
+    'vote-escrow/realms',
+    'governance/working-groups',
+    'governance/committees',
     {
       type: 'category',
       label: 'Improvement Proposals',
