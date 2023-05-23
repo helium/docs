@@ -19,29 +19,65 @@ This funding of the Data Credits was done by burning HNT from the Makers wallet 
 the Makers wallet using a CLI tool which is no longer supported. Transaction costs were charged in
 DC and paid for by DC or implicitly burning HNT to DC in the Makers' wallets.
 
+Hotspot Makers now need to fund their operations with Solana SOL and Helium HNT tokens and then to 
+swap HNT tokens to create Data Credit tokens. The Maker Wallet on the blockchain that funds the 
+onboarding of makers hotspots needs to have SOL and DC as tokens present in that wallet. The HNT 
+needed to create DC can be held in the same wallet (Method 1 below) or can be held in another wallet 
+and burned to the Maker Wallet if requried (Method 2 below).
+
 ---
 
-## Funding Maker Account on Solana
+## Funding the Maker Account on the Solana Blockchain
+
+Maker wallets must now maintain token balances of both Data Credits and SOL for
+onboarding and location assertion fees for all the hotspos that the Maker supplies to customers.
 
 Funding a Maker wallet with Data Credits from HNT tokens is now performed in the Helium Wallet App.
 The transaction costs for onboarding and location assertion are paid in SOL to the Solana
-Blockchain. Maker wallets must now maintain token balances of both Data Credits and SOL for
-onboarding and location assertion fees which the Maker supplies to customers.
+Blockchain. 
 
-### Data Credit Fees
+A current public view on the funding status of maker wallets is available at:
 
-- Onboarding = 4,000,000 DC
-- Location Assertion = 1,000,000 DC<sup>(</sup>[^1]<sup>)</sup>
+https://dune.com/helium-foundation/helium-makers
+
+See "Data Credits By Hotspot ManufacturerH. Helium Maker DC Balances"
+
+### Current Data Credit Fees
+
+These tokens are "burned".
+
+- IOT Onboarding = 4,000,000 DC ($40 USD)
+- IOT Location Assertion = 1,000,000 DC ($10 USD)<sup>(</sup>[^1]<sup>)</sup>
+
+- MOBILE Onboarding = 0 DC
+- MOBILE Location Assertion = 0 DC
 
 [^1]:
     Currently 500,000 due to
     [HIP 69](https://github.com/helium/HIP/blob/main/0069-reassertion-fee-reduction.md).
 
-### SOL Fees
+### Current SOL Fees
 
-- Create the Hotspot NFT on the blockchain = 0.00001 SOL
-- Onboard only or Onboard and Location Assertion = 0.00175696
-- SOL Location Assertion only = 0.00001 SOL
+These tokens are transfered.
+
+- Create the Hotspot NFT on the blockchain = 0.00189616 SOL, this is "Issue Entity V0" and 
+  "Set Compute Unit Limit"
+
+
+- IOT Onboard only or Onboard and Location Assertion =  0.00175696 SOL, this is "OnboardIotHotspotV0"
+- IOT Location Assertion only = 0.00001 SOL, this is "UpdateIotInfoV0"
+
+
+- MOBILE Onboard only or Onboard and Location Assertion =  0.00168736 SOL, this is "OnboardMobileHotspotV0"
+- MOBILE Location Assertion only = 0.00001 SOL, this is "UpdateMobileInfoV0"
+
+
+LoRaWAN hotspots require the NFT created and the IOT Onboard and IOT Locaton asserted.
+
+
+5G hotspots require the NFT created and the MOBILE Onboard and MOBILE Locaton asserted. 5G hotspots 
+are currently also being onboarded and location asserted for IOT Network first, within the [Maker Apps.])(https://docs.helium.com/hotspot-makers) 
+The Maker App can be configured to do both, either or just one of these network onboards.
 
 ---
 
@@ -72,9 +108,9 @@ Always double-check the addresses before performing essential operations.
 
 :::
 
-### Method 1: Use the Helium Wallet app
+### Method 1: Use the Helium Wallet app to fund the same wallet
 
-Makers can use the Helium Wallet app to swap HNT directly to DC.
+Makers can use the Helium Wallet app swap HNT directly to DC.
 
 This method requires that the Maker Wallet is already funded with HNT to swap and SOL for
 transaction fees.
@@ -99,15 +135,15 @@ Wallet app.
 
 ---
 
-### Method 2 : Use the Helium Wallet app to Fund a Different Wallet
+### Method 2 : Use the Helium Wallet app to Fund a different wallet
 
-Any Wallet owner can send DC to a Maker wallet using the Helium Wallet app to swap HNT directly to
-DC.
+Any Solana Wallet owner can send DC to a Maker wallet using the Helium Wallet app to swap HNT 
+directly to DC in the Makers wallet.
 
 This method requires that the sending Wallet is already funded with HNT to swap and SOL for
 transaction fees.
 
-Add the Maker Wallet address to the Address Book as a contact. This is the destination wallet 
+Firstly add the Maker Wallet address to the Address Book as a contact. This is the destination wallet 
 that you will send the DC to:
 
 1. Tap the `Address Book` icon in the top right corner of the Helium Wallet app.
