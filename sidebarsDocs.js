@@ -87,7 +87,47 @@ module.exports = {
     },
     'wallets/wallet-seed-phrase',
   ],
+
   iotnetwork: [
+    {
+      type: 'category',
+      label: 'Use the Helium IoT Network',
+      link: { type: 'doc', id: 'use-the-network/use-the-network' },
+      items: [
+        {
+          type: 'category',
+          label: 'Devices',
+          link: { type: 'doc', id: 'use-the-network/devices/devices' },
+          items: [
+            'use-the-network/devices/ready-to-use/ready-to-use',
+            'use-the-network/devices/development/development',
+            'use-the-network/devices/development/quickstart-guides',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'LoRaWAN Network Servers',
+          link: { type: 'doc', id: 'use-the-network/lorawan-network-servers' },
+          items: [
+            'network-iot/open-lns',
+            'use-the-network/find-a-lns-provider',
+            'use-the-network/lorawan-network-servers',
+          ],
+        },
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Proof of Coverage',
+      link: { type: 'doc', id: 'blockchain/proof-of-coverage' },
+      items: [
+        'network-iot/iot-poc',
+        'network-iot/coverage-mapping/coverage-mapping',
+        'network-iot/coverage-mapping/mappers-api',
+        'network-iot/coverage-mapping/mappers-roadmap',
+      ],
+    },
     {
       type: 'category',
       label: 'LoRaWAN on Helium',
@@ -96,64 +136,18 @@ module.exports = {
         'network-iot/frequency-plans/frequency-plans',
         'network-iot/frequency-plans/region-plans',
       ],
-      collapsed: true,
     },
     {
       type: 'category',
-      label: 'Mining IOT Tokens',
+      label: 'More Info',
       items: [
-        'blockchain/proof-of-coverage',
-        'network-iot/iot-poc',
-        'network-iot/crowdspot',
-        'use-the-network/setup-a-packet-forwarder',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
-      label: 'OpenLNS',
-      link: { type: 'doc', id: 'network-iot/open-lns' },
-      items: ['network-iot/open-lns-quickstart'],
-    },
-    {
-      type: 'category',
-      label: 'Roaming',
-      items: [
-        'use-the-network/roaming',
         'network-iot/lorawan-roaming',
         'network-iot/lorawan-roaming-quickstart',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Use The IoT Network',
-      items: [
-        'use-the-network/use-the-network',
-        {
-          type: 'category',
-          label: 'Devices',
-          items: [
-            'use-the-network/devices/devices',
-            'use-the-network/devices/ready-to-use/ready-to-use',
-            'use-the-network/devices/development/development',
-            'use-the-network/devices/development/quickstart-guides',
-          ],
-        },
+        'network-iot/open-lns-quickstart',
+        'use-the-network/roaming',
+        'use-the-network/run-a-network-server/buy-an-oui',
         'use-the-network/run-a-network-server/run-a-network-server',
-        // 'use-the-network/console/console',
-        // 'use-the-network/console-marketplace',
-        // 'use-the-network/community-projects',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Coverage Mapping',
-      link: { type: 'doc', id: 'network-iot/coverage-mapping/coverage-mapping' },
-      items: [
-        'network-iot/coverage-mapping/mappers-api',
-        'network-iot/coverage-mapping/mappers-roadmap',
-        // 'use-the-network/coverage-mapping/mappers-quickstart',
-        // 'use-the-network/coverage-mapping/adeunis-mapper',
+        'blockchain/packet-purchasing',
       ],
     },
   ],
@@ -248,7 +242,27 @@ module.exports = {
     },
   ],
 
-  docs: [
+  lightHotspots: [
+    {
+      type: 'link',
+      label: '<- Light Hotspot',
+      href: '/hotspot-makers/iot/light-hotspots',
+    },
+    {
+      type: 'category',
+      label: 'Data Only Hotspot Guides',
+      items: [
+        'hotspot-makers/iot/data-only/dragino',
+        'hotspot-makers/iot/data-only/dragino-pg1301',
+        'hotspot-makers/iot/data-only/kerlink',
+        'hotspot-makers/iot/data-only/rak-concentrators',
+        'hotspot-makers/iot/data-only/balena-data-only-hotspot',
+      ],
+      collapsed: false,
+    },
+  ],
+
+  archive: [
     {
       type: 'category',
       label: 'Blockchain',
@@ -256,7 +270,6 @@ module.exports = {
         'blockchain/blockchain',
         'blockchain/blockchain-primitives',
         'blockchain/mining',
-        'blockchain/packet-purchasing',
         'blockchain/transaction-fees',
       ],
       collapsed: true,
@@ -264,7 +277,12 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['archive/mine-hnt', 'network-iot/denylist', 'network-iot/denylist-removals'],
+      items: [
+        'archive/mine-hnt',
+        'network-iot/crowdspot',
+        'network-iot/denylist',
+        'network-iot/denylist-removals',
+      ],
       collapsed: true,
     },
     {
@@ -283,6 +301,7 @@ module.exports = {
       collapsed: true,
     },
   ],
+
   api: [
     'api/home',
     {
@@ -313,6 +332,7 @@ module.exports = {
     },
     'api/console',
   ],
+
   console: [
     {
       type: 'link',
@@ -345,6 +365,7 @@ module.exports = {
       collapsed: false,
     },
   ],
+
   flows: [
     {
       type: 'link',
@@ -362,6 +383,7 @@ module.exports = {
       collapsed: false,
     },
   ],
+
   integrations: [
     {
       type: 'link',
@@ -390,6 +412,7 @@ module.exports = {
       collapsed: false,
     },
   ],
+
   migratingdevices: [
     {
       type: 'link',
@@ -406,266 +429,15 @@ module.exports = {
       collapsed: false,
     },
   ],
-  runanetworkserver: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/run-a-network-server',
-    },
-    {
-      type: 'category',
-      label: 'Run a Network Server',
-      items: [
-        'use-the-network/run-a-network-server/buy-an-oui',
-        'use-the-network/run-a-network-server/run-console',
-        'use-the-network/run-a-network-server/deploy-console',
-        'use-the-network/run-a-network-server/debug-with-sniffer',
-        'use-the-network/run-a-network-server/router-benchmarking',
-      ],
-      collapsed: false,
-    },
-  ],
-  readyToUse: [
+
+  iot-device-readyToUse: [
     {
       type: 'link',
       label: '<- Devices',
       href: '/use-the-network/devices',
     },
-    {
-      type: 'category',
-      label: 'Ready To Use',
-      items: ['use-the-network/devices/ready-to-use/ready-to-use'],
-      collapsed: false,
-    },
-  ],
-  development: [
-    {
-      type: 'link',
-      label: '<- Devices',
-      href: '/use-the-network/devices',
-    },
-    {
-      type: 'category',
-      label: 'Development',
-      items: ['use-the-network/devices/development/development'],
-      collapsed: false,
-    },
-  ],
-  devquickstart: [
-    {
-      type: 'link',
-      label: '<- Devices',
-      href: '/use-the-network/devices',
-    },
-    {
-      type: 'category',
-      label: 'Development Quickstart',
-      items: ['use-the-network/devices/development/quickstart-guides'],
-      collapsed: false,
-    },
-  ],
-  adafruit: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'Arduino',
-      items: [
-        'use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95',
-      ],
-      collapsed: false,
-    },
-  ],
-  arduino: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'Arduino',
-      items: [
-        'use-the-network/devices/development/arduino/mkr-wan-1310',
-        'use-the-network/devices/development/arduino/lora-vision-shield/lora-vision-shield',
-      ],
-      collapsed: false,
-    },
-  ],
-  embit: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'Embit',
-      items: [
-        'use-the-network/devices/development/embit/emb-lr1280s',
-        'use-the-network/devices/development/embit/emb-lrwl55',
-      ],
-      collapsed: false,
-    },
-  ],
-  heltec: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'Heltec',
-      items: [
-        'use-the-network/devices/development/heltec/cubecell-gps-6502',
-        'use-the-network/devices/development/heltec/cubecell-dev-board/cubecell-dev-board',
-        'use-the-network/devices/development/heltec/cubecell-dev-board-plus',
-        'use-the-network/devices/development/heltec/cubecell-1-2-aa-node',
-        'use-the-network/devices/development/heltec/cubecell-capsule-sensor',
-        'use-the-network/devices/development/heltec/cubecell-solar-sensor',
-        'use-the-network/devices/development/heltec/cubecell-module',
-        'use-the-network/devices/development/heltec/cubecell-module-plus',
-        'use-the-network/devices/development/heltec/wifi-lora-32-v2/wifi-lora-32-v2',
-        'use-the-network/devices/development/heltec/wireless-stick',
-        'use-the-network/devices/development/heltec/wireless-stick-lite',
-        'use-the-network/devices/development/heltec/wireless-shell',
-        'use-the-network/devices/development/heltec/lora-kit-151',
-        'use-the-network/devices/development/heltec/lora-node-151',
-        'use-the-network/devices/development/heltec/turtle-board',
-      ],
-      collapsed: false,
-    },
-  ],
-  mcci: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'MCCI',
-      items: [
-        'use-the-network/devices/development/mcci/catena4430',
-        'use-the-network/devices/development/mcci/catena4450',
-        'use-the-network/devices/development/mcci/catena4460',
-        'use-the-network/devices/development/mcci/catena4470',
-        'use-the-network/devices/development/mcci/catena4610',
-        'use-the-network/devices/development/mcci/catena4612',
-        'use-the-network/devices/development/mcci/catena4618',
-        'use-the-network/devices/development/mcci/catena4618m201',
-        'use-the-network/devices/development/mcci/catena4801',
-        'use-the-network/devices/development/mcci/catena4802',
-        'use-the-network/devices/development/mcci/model4811',
-        'use-the-network/devices/development/mcci/model4821',
-        'use-the-network/devices/development/mcci/model4822',
-        'use-the-network/devices/development/mcci/model4823',
-        'use-the-network/devices/development/mcci/model4831',
-        'use-the-network/devices/development/mcci/model4832',
-        'use-the-network/devices/development/mcci/model4841',
-      ],
-      collapsed: false,
-    },
-  ],
-  midatronics: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'Midatronics',
-      items: [
-        'use-the-network/devices/development/midatronics/windy-module',
-        'use-the-network/devices/development/midatronics/windy-mkr',
-        'use-the-network/devices/development/midatronics/sharky-module',
-      ],
-      collapsed: false,
-    },
-  ],
-  multitech: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'Multi-Tech',
-      items: ['use-the-network/devices/development/multi-tech/multi-tech-xdot'],
-      collapsed: false,
-    },
-  ],
-  opensourceinitiative: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'OpenSource Initiative',
-      items: ['use-the-network/devices/development/opensourceinitiative/paxcounter'],
-      collapsed: false,
-    },
-  ],
-  rakwireless_dev: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'RAK Wireless',
-      items: [
-        'use-the-network/devices/development/rakwireless/wisblock-4631/wisblock-4631',
-        'use-the-network/devices/development/rakwireless/rak7431',
-      ],
-      collapsed: false,
-    },
-  ],
-  sparkfun: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'Sparkfun',
-      items: ['use-the-network/devices/development/sparkfun/pro-rf/pro-rf'],
-      collapsed: false,
-    },
-  ],
-  stmicroelectronics: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
-    },
-    {
-      type: 'category',
-      label: 'STMicroelectronics',
-      items: [
-        'use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/st-b-l072z-lrwan1',
-        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc1',
-        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc2',
-      ],
-      collapsed: false,
-    },
-  ],
-  abeeway: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
-    },
+    'use-the-network/devices/ready-to-use/ready-to-use',
+
     {
       type: 'category',
       label: 'Abeeway',
@@ -676,29 +448,13 @@ module.exports = {
         'use-the-network/devices/ready-to-use/abeeway/abeeway-micro-tracker',
         'use-the-network/devices/ready-to-use/abeeway/abeeway-smart-badge',
       ],
-
-      collapsed: false,
-    },
-  ],
-  adeunis: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
       label: 'Adeunis',
       items: ['use-the-network/devices/ready-to-use/adeunis/adeunis-field-test-device'],
-
-      collapsed: false,
-    },
-  ],
-  aquascope: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -707,57 +463,25 @@ module.exports = {
         'use-the-network/devices/ready-to-use/aquascope/bvs',
         'use-the-network/devices/ready-to-use/aquascope/wwd',
       ],
-
-      collapsed: false,
-    },
-  ],
-  beiselen: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
       label: 'Beiselen',
       items: ['use-the-network/devices/ready-to-use/beiselen/radar'],
-
-      collapsed: false,
-    },
-  ],
-  bosch: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
-    },
-    {
-      type: 'category',
-      label: 'Bosch',
-      items: ['use-the-network/devices/ready-to-use/bosch/tps110'],
-
-      collapsed: false,
-    },
-  ],
-  boatofficer: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
       label: 'BoatOfficer',
       items: ['use-the-network/devices/ready-to-use/boatofficer/boatofficerblue'],
-
-      collapsed: false,
+      collapsed: true,
     },
-  ],
-  comtac: [
     {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      type: 'category',
+      label: 'Bosch',
+      items: ['use-the-network/devices/ready-to-use/bosch/tps110'],
+      collapsed: true,
     },
     {
       type: 'category',
@@ -767,15 +491,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/comtac/lpn-km',
         'use-the-network/devices/ready-to-use/comtac/lpn-tsm',
       ],
-
-      collapsed: false,
-    },
-  ],
-  decentlab: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -821,15 +537,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/decentlab/dl-zn1',
         'use-the-network/devices/ready-to-use/decentlab/dl-zn2',
       ],
-
-      collapsed: false,
-    },
-  ],
-  develiot: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -838,15 +546,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/develiot/rwmr',
         'use-the-network/devices/ready-to-use/develiot/uaqms',
       ],
-
-      collapsed: false,
-    },
-  ],
-  digitalmatter: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -856,15 +556,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/digital-matter/yabby-edge',
         'use-the-network/devices/ready-to-use/digital-matter/digital-matter-lorawan-gps',
       ],
-
-      collapsed: false,
-    },
-  ],
-  dragino: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -887,15 +579,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/dragino/lht65',
         'use-the-network/devices/ready-to-use/dragino/lsn50-v2',
       ],
-
-      collapsed: false,
-    },
-  ],
-  enthutech: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -912,15 +596,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/enthutech/lwl01',
         'use-the-network/devices/ready-to-use/enthutech/lds01',
       ],
-
-      collapsed: false,
-    },
-  ],
-  imst: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -929,15 +605,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/imst/range-extender',
         'use-the-network/devices/ready-to-use/imst/ioke868',
       ],
-
-      collapsed: false,
-    },
-  ],
-  iotsens: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -947,29 +615,13 @@ module.exports = {
         'use-the-network/devices/ready-to-use/iotsens/airquality-device',
         'use-the-network/devices/ready-to-use/iotsens/lidar-device',
       ],
-
-      collapsed: false,
-    },
-  ],
-  izinto: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
       label: 'izinto',
       items: ['use-the-network/devices/ready-to-use/izinto/izi-io-4840'],
-
-      collapsed: false,
-    },
-  ],
-  laird: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -980,15 +632,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/laird/rs1xx-ext-multi-sensor',
         'use-the-network/devices/ready-to-use/laird/rs1xx-ext-temp-rtd-sensor',
       ],
-
-      collapsed: false,
-    },
-  ],
-  mcf88: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -1010,15 +654,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/mcf88/mcf-lwws02',
         'use-the-network/devices/ready-to-use/mcf88/mcf-lwws03',
       ],
-
-      collapsed: false,
-    },
-  ],
-  mclimate: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -1030,15 +666,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/mclimate/ht-sensor',
         'use-the-network/devices/ready-to-use/mclimate/aqi-sensor',
       ],
-
-      collapsed: false,
-    },
-  ],
-  milesightiot: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -1049,15 +677,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/milesight-iot/em500-co2',
         'use-the-network/devices/ready-to-use/milesight-iot/em500-udl',
       ],
-
-      collapsed: false,
-    },
-  ],
-  moko: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -1068,15 +688,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/moko/lw004',
         'use-the-network/devices/ready-to-use/moko/lw005-mp',
       ],
-
-      collapsed: false,
-    },
-  ],
-  netvox: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -1107,30 +719,23 @@ module.exports = {
         'use-the-network/devices/ready-to-use/netvox/rb02i',
         'use-the-network/devices/ready-to-use/netvox/rb11e',
       ],
-
-      collapsed: false,
-    },
-  ],
-  nwave: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
       label: 'Nwave',
       items: ['use-the-network/devices/ready-to-use/nwave/nps310sm'],
-
-      collapsed: false,
+      collapsed: true,
     },
-  ],
-
-  rakwireless: [
     {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      type: 'category',
+      label: 'Origo',
+      items: [
+        'use-the-network/devices/ready-to-use/origo/lorawan-watch',
+        'use-the-network/devices/ready-to-use/origo/smart-badges',
+      ],
+
+      collapsed: true,
     },
     {
       type: 'category',
@@ -1143,15 +748,7 @@ module.exports = {
         'use-the-network/devices/ready-to-use/rakwireless/rak7431',
         'use-the-network/devices/ready-to-use/rakwireless/rak10700',
       ],
-
-      collapsed: false,
-    },
-  ],
-  seeedstudiortu: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
@@ -1169,15 +766,202 @@ module.exports = {
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-co2',
         'use-the-network/devices/ready-to-use/seeed-studio/sensecap-pressure',
       ],
-
-      collapsed: false,
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Sensedge',
+      items: [
+        'use-the-network/devices/ready-to-use/sensedge/senstick-pro',
+        'use-the-network/devices/ready-to-use/sensedge/senstick-pure',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Tektelic',
+      items: [
+        'use-the-network/devices/ready-to-use/tektelic/t000489x-smart-room-base',
+        'use-the-network/devices/ready-to-use/tektelic/t00048xx-smart-room-pir',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Tekzitel',
+      items: ['use-the-network/devices/ready-to-use/tekzitel/tekzipark'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'The Things Products',
+      items: [
+        'use-the-network/devices/ready-to-use/the-things-products/the-things-node',
+        'use-the-network/devices/ready-to-use/the-things-products/the-things-uno',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Victor',
+      items: ['use-the-network/devices/ready-to-use/victor/victor-trap-v4xx'],
+      collapsed: true,
     },
   ],
-  seeedstudiodev: [
+
+  iot-device-development: [
     {
       type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/development',
+      label: '<- Devices',
+      href: '/use-the-network/devices',
+    },
+    'use-the-network/devices/development/development',
+    {
+      type: 'category',
+      label: 'Adafruit',
+      items: [
+        'use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruit-feather-m0-rfm95',
+        'use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/arduino',
+        'use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruitio',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Arduino',
+      items: [
+        'use-the-network/devices/development/arduino/mkr-wan-1310',
+        {
+          type: 'category',
+          label: 'Portenta Vision Shield',
+          link: {
+            type: 'doc',
+            id: 'use-the-network/devices/development/arduino/lora-vision-shield/lora-vision-shield',
+          },
+          items: ['use-the-network/devices/development/arduino/lora-vision-shield/arduino'],
+          collapsed: true,
+        },
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Embit',
+      items: [
+        'use-the-network/devices/development/embit/emb-lr1280s',
+        'use-the-network/devices/development/embit/emb-lrwl55',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Heltec',
+      items: [
+        'use-the-network/devices/development/heltec/cubecell-gps-6502',
+        {
+          type: 'category',
+          label: 'HTCC-AB01',
+          link: {
+            type: 'doc',
+            id: 'use-the-network/devices/development/heltec/cubecell-dev-board/cubecell-dev-board',
+          },
+          items: [
+            'use-the-network/devices/development/heltec/cubecell-dev-board/arduino',
+            'use-the-network/devices/development/heltec/cubecell-dev-board/platformio',
+          ],
+          collapsed: true,
+        },
+        'use-the-network/devices/development/heltec/cubecell-dev-board-plus',
+        'use-the-network/devices/development/heltec/cubecell-1-2-aa-node',
+        'use-the-network/devices/development/heltec/cubecell-capsule-sensor',
+        'use-the-network/devices/development/heltec/cubecell-solar-sensor',
+        'use-the-network/devices/development/heltec/cubecell-module',
+        'use-the-network/devices/development/heltec/cubecell-module-plus',
+        {
+          type: 'category',
+          label: 'Wifi Lora 32 V2',
+          link: {
+            type: 'doc',
+            id: 'use-the-network/devices/development/heltec/wifi-lora-32-v2/wifi-lora-32-v2',
+          },
+          items: ['use-the-network/devices/development/heltec/wifi-lora-32-v2/arduino'],
+          collapsed: true,
+        },
+        'use-the-network/devices/development/heltec/wireless-stick',
+        'use-the-network/devices/development/heltec/wireless-stick-lite',
+        'use-the-network/devices/development/heltec/wireless-shell',
+        'use-the-network/devices/development/heltec/lora-kit-151',
+        'use-the-network/devices/development/heltec/lora-node-151',
+        'use-the-network/devices/development/heltec/turtle-board',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'MCCI',
+      items: [
+        'use-the-network/devices/development/mcci/catena4430',
+        'use-the-network/devices/development/mcci/catena4450',
+        'use-the-network/devices/development/mcci/catena4460',
+        'use-the-network/devices/development/mcci/catena4470',
+        'use-the-network/devices/development/mcci/catena4610',
+        'use-the-network/devices/development/mcci/catena4612',
+        'use-the-network/devices/development/mcci/catena4618',
+        'use-the-network/devices/development/mcci/catena4618m201',
+        'use-the-network/devices/development/mcci/catena4801',
+        'use-the-network/devices/development/mcci/catena4802',
+        'use-the-network/devices/development/mcci/model4811',
+        'use-the-network/devices/development/mcci/model4821',
+        'use-the-network/devices/development/mcci/model4822',
+        'use-the-network/devices/development/mcci/model4823',
+        'use-the-network/devices/development/mcci/model4831',
+        'use-the-network/devices/development/mcci/model4832',
+        'use-the-network/devices/development/mcci/model4841',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Midatronics',
+      items: [
+        'use-the-network/devices/development/midatronics/windy-module',
+        'use-the-network/devices/development/midatronics/windy-mkr',
+        'use-the-network/devices/development/midatronics/sharky-module',
+      ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'Multi-Tech',
+      items: ['use-the-network/devices/development/multi-tech/multi-tech-xdot'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'OpenSource Initiative',
+      items: ['use-the-network/devices/development/opensourceinitiative/paxcounter'],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'RAK Wireless',
+      items: [
+        {
+          type: 'category',
+          label: 'Wisblock Starter Kit Rak4631',
+          link: {
+            type: 'doc',
+            id: 'use-the-network/devices/development/rakwireless/wisblock-4631/wisblock-4631',
+          },
+          items: [
+            'use-the-network/devices/development/rakwireless/wisblock-4631/arduino',
+            'use-the-network/devices/development/rakwireless/wisblock-4631/platformio',
+          ],
+          collapsed: true,
+        },
+        'use-the-network/devices/development/rakwireless/rak7431',
+      ],
+      collapsed: true,
     },
     {
       type: 'category',
@@ -1190,248 +974,51 @@ module.exports = {
         'use-the-network/devices/development/seeed-studio/seeed-studio-lorawan-dev-kit',
       ],
 
-      collapsed: false,
-    },
-  ],
-  sensedge: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      collapsed: true,
     },
     {
       type: 'category',
-      label: 'Sensedge',
+      label: 'Sparkfun',
       items: [
-        'use-the-network/devices/ready-to-use/sensedge/senstick-pro',
-        'use-the-network/devices/ready-to-use/sensedge/senstick-pure',
+        'use-the-network/devices/development/sparkfun/pro-rf/pro-rf',
+        'use-the-network/devices/development/sparkfun/pro-rf/arduino',
       ],
+      collapsed: true,
+    },
+    {
+      type: 'category',
+      label: 'STMicroelectronics',
+      items: [
+        {
+          type: 'category',
+          label: 'ST B-L072Z-LRWAN1',
+          link: {
+            type: 'doc',
+            id: 'use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/st-b-l072z-lrwan1',
+          },
+          items: [
+            'use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/arduino',
+            'use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/platformio',
+          ],
+          collapsed: true,
+        },
+        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc1',
+        'use-the-network/devices/development/stmicroelectronics/nucleo-wl55jc2',
+      ],
+      collapsed: true,
+    },
+  ],
 
-      collapsed: false,
-    },
-  ],
-  tektelic: [
+  iot-device-devquickstart: [
     {
       type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
+      label: '<- Devices',
+      href: '/use-the-network/devices',
     },
     {
       type: 'category',
-      label: 'Tektelic',
-      items: [
-        'use-the-network/devices/ready-to-use/tektelic/t000489x-smart-room-base',
-        'use-the-network/devices/ready-to-use/tektelic/t00048xx-smart-room-pir',
-      ],
-
-      collapsed: false,
-    },
-  ],
-  tekzitel: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
-    },
-    {
-      type: 'category',
-      label: 'Tekzitel',
-      items: ['use-the-network/devices/ready-to-use/tekzitel/tekzipark'],
-
-      collapsed: false,
-    },
-  ],
-  thethingsproducts: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
-    },
-    {
-      type: 'category',
-      label: 'The Things Products',
-      items: [
-        'use-the-network/devices/ready-to-use/the-things-products/the-things-node',
-        'use-the-network/devices/ready-to-use/the-things-products/the-things-uno',
-      ],
-
-      collapsed: false,
-    },
-  ],
-  victor: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
-    },
-    {
-      type: 'category',
-      label: 'Victor',
-      items: ['use-the-network/devices/ready-to-use/victor/victor-trap-v4xx'],
-
-      collapsed: false,
-    },
-  ],
-  // become_a_maker: [
-  //   {
-  //     type: 'link',
-  //     label: '<- Full Hotspots',
-  //     href: '/hotspot-makers/iot/full-hotspots',
-  //   },
-  //   {
-  //     type: 'category',
-  //     label: 'Become a Maker',
-  //     items: [
-  //       'hotspot-makers/become-a-maker/maker-approval-auditing',
-  //       'hotspot-makers/become-a-maker/hotspot-integration-testing',
-  //       'hotspot-makers/become-a-maker/basic-miner-operation',
-  //       'hotspot-makers/become-a-maker/docker-integration',
-  //       'hotspot-makers/become-a-maker/security-requirements',
-  //       'hotspot-makers/become-a-maker/hotspot-ble-services',
-  //       'hotspot-makers/become-a-maker/hotspot-wifi-configuration',
-  //       'hotspot-makers/become-a-maker/burn-hnt-to-maker-wallet',
-  //     ],
-  //     collapsed: false,
-  //   },
-  // ],
-  lightHotspots: [
-    {
-      type: 'link',
-      label: '<- Light Hotspot',
-      href: '/hotspot-makers/iot/light-hotspots',
-    },
-    {
-      type: 'category',
-      label: 'Data Only Hotspot Guides',
-      items: [
-        'hotspot-makers/iot/data-only/dragino',
-        'hotspot-makers/iot/data-only/dragino-pg1301',
-        'hotspot-makers/iot/data-only/kerlink',
-        'hotspot-makers/iot/data-only/rak-concentrators',
-        'hotspot-makers/iot/data-only/balena-data-only-hotspot',
-      ],
-      collapsed: false,
-    },
-  ],
-  bL072zLrwan1: [
-    {
-      type: 'link',
-      label: '<- ST B-L072Z-LRWAN1',
-      href: '/use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1',
-    },
-    {
-      type: 'category',
-      label: 'Firmware',
-      items: [
-        'use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/arduino',
-        'use-the-network/devices/development/stmicroelectronics/st-b-l072z-lrwan1/platformio',
-      ],
-      collapsed: false,
-    },
-  ],
-  sparkfunprorf: [
-    {
-      type: 'link',
-      label: '<- Sparkfun Pro RF',
-      href: '/use-the-network/devices/development/sparkfun/pro-rf',
-    },
-    {
-      type: 'category',
-      label: 'Firmware',
-      items: ['use-the-network/devices/development/sparkfun/pro-rf/arduino'],
-      collapsed: false,
-    },
-  ],
-  adafruitfeatherm0rfm95: [
-    {
-      type: 'link',
-      label: '<- Adafruit Feather M0 RFM95',
-      href: '/use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95',
-    },
-    {
-      type: 'category',
-      label: 'Firmware',
-      items: ['use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/arduino'],
-      collapsed: false,
-    },
-    {
-      type: 'category',
-      label: 'Guides',
-      items: ['use-the-network/devices/development/adafruit/adafruit-feather-m0-rfm95/adafruitio'],
-      collapsed: false,
-    },
-  ],
-  loravisionshieldv2: [
-    {
-      type: 'link',
-      label: '<- Arduino LoRa Vision Shield',
-      href: '/use-the-network/devices/development/arduino/lora-vision-shield',
-    },
-    {
-      type: 'category',
-      label: 'Firmware',
-      items: ['use-the-network/devices/development/arduino/lora-vision-shield/arduino'],
-      collapsed: false,
-    },
-  ],
-  helteccubecelhtccab01: [
-    {
-      type: 'link',
-      label: '<- HTCC-AB01',
-      href: '/use-the-network/devices/development/heltec/cubecell-dev-board',
-    },
-    {
-      type: 'category',
-      label: 'Firmware',
-      items: [
-        'use-the-network/devices/development/heltec/cubecell-dev-board/arduino',
-        'use-the-network/devices/development/heltec/cubecell-dev-board/platformio',
-      ],
-      collapsed: false,
-    },
-  ],
-  rakwisblock4631: [
-    {
-      type: 'link',
-      label: '<- RAK-Wireless WisBlock Starter Kit',
-      href: '/use-the-network/devices/development/rakwireless/wisblock-4631',
-    },
-    {
-      type: 'category',
-      label: 'Firmware',
-      items: [
-        'use-the-network/devices/development/rakwireless/wisblock-4631/arduino',
-        'use-the-network/devices/development/rakwireless/wisblock-4631/platformio',
-      ],
-      collapsed: false,
-    },
-  ],
-  heltecwifilora32v2: [
-    {
-      type: 'link',
-      label: '<- WiFi LoRa 32 V2',
-      href: '/use-the-network/devices/development/heltec/wifi-lora-32-v2',
-    },
-    {
-      type: 'category',
-      label: 'Firmware',
-      items: ['use-the-network/devices/development/heltec/wifi-lora-32-v2/arduino'],
-      collapsed: false,
-    },
-  ],
-  origo: [
-    {
-      type: 'link',
-      label: '<- Back',
-      href: '/use-the-network/devices/ready-to-use',
-    },
-    {
-      type: 'category',
-      label: 'Origo',
-      items: [
-        'use-the-network/devices/ready-to-use/origo/lorawan-watch',
-        'use-the-network/devices/ready-to-use/origo/smart-badges',
-      ],
+      label: 'Development Quickstart',
+      items: ['use-the-network/devices/development/quickstart-guides'],
       collapsed: false,
     },
   ],
