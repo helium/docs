@@ -112,6 +112,7 @@ module.exports = {
             'network-iot/open-lns',
             'use-the-network/find-a-lns-provider',
             'network-iot/open-lns-quickstart',
+            'use-the-network/run-a-network-server/buy-an-oui',
           ],
         },
       ],
@@ -135,20 +136,15 @@ module.exports = {
       items: [
         'network-iot/frequency-plans/frequency-plans',
         'network-iot/frequency-plans/region-plans',
+        {
+          type: 'category',
+          label: 'Roaming',
+          link: { type: 'doc', id: 'network-iot/lorawan-roaming' },
+          items: ['network-iot/lorawan-roaming-quickstart', 'use-the-network/roaming'],
+        },
       ],
     },
-    {
-      type: 'category',
-      label: 'More Info',
-      items: [
-        'network-iot/lorawan-roaming',
-        'network-iot/lorawan-roaming-quickstart',
-        'use-the-network/roaming',
-        'use-the-network/run-a-network-server/buy-an-oui',
-        'use-the-network/run-a-network-server/run-a-network-server',
-        'blockchain/packet-purchasing',
-      ],
-    },
+    ,
   ],
 
   mobile_network: [
@@ -345,7 +341,19 @@ module.exports = {
         'use-the-network/console/quickstart',
         'use-the-network/console/users',
         'use-the-network/console/adding-devices',
-        'use-the-network/console/migrating-devices/migrating-devices',
+        {
+          type: 'category',
+          label: 'Migrating Devices',
+          link: {
+            type: 'doc',
+            id: 'use-the-network/console/migrating-devices/migrating-devices',
+          },
+          items: [
+            'use-the-network/console/migrating-devices/ttn-import',
+            'use-the-network/console/migrating-devices/ttn-manual',
+          ],
+          collapsed: true,
+        },
         'use-the-network/console/labels',
         'use-the-network/console/debug',
         'use-the-network/console/alerts',
@@ -360,6 +368,8 @@ module.exports = {
         'use-the-network/console/my-account',
         'use-the-network/console/troubleshooting',
         'use-the-network/console/hosting-providers',
+        'use-the-network/run-a-network-server/run-a-network-server',
+        'blockchain/packet-purchasing',
       ],
       collapsed: false,
     },
@@ -412,23 +422,6 @@ module.exports = {
     },
   ],
 
-  migrating_devices: [
-    {
-      type: 'link',
-      label: '<- Console',
-      href: '/use-the-network/console/migrating-devices',
-    },
-    {
-      type: 'category',
-      label: 'Migrating Devices',
-      items: [
-        'use-the-network/console/migrating-devices/ttn-import',
-        'use-the-network/console/migrating-devices/ttn-manual',
-      ],
-      collapsed: false,
-    },
-  ],
-
   iot_device_ready_to_use: [
     {
       type: 'link',
@@ -436,7 +429,6 @@ module.exports = {
       href: '/use-the-network/devices',
     },
     'use-the-network/devices/ready-to-use/ready-to-use',
-
     {
       type: 'category',
       label: 'Abeeway',
