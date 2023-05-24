@@ -8,7 +8,7 @@ module.exports = {
     },
   ],
 
-  solanamigration: [
+  solana_migration: [
     {
       type: 'category',
       label: 'Solana Migration Guides',
@@ -88,7 +88,7 @@ module.exports = {
     'wallets/wallet-seed-phrase',
   ],
 
-  iotnetwork: [
+  iot_network: [
     {
       type: 'category',
       label: 'Use the Helium IoT Network',
@@ -152,7 +152,7 @@ module.exports = {
     },
   ],
 
-  mobilenetwork: [
+  mobile_network: [
     {
       type: 'category',
       label: '5G on Helium',
@@ -167,7 +167,7 @@ module.exports = {
     },
   ],
 
-  communitygovernance: [
+  community_governance: [
     'governance/governance',
     'governance/voting',
     'vote-escrow/voting-power',
@@ -183,7 +183,7 @@ module.exports = {
     },
   ],
 
-  hotspotmakers: [
+  hotspot_makers: [
     {
       type: 'category',
       label: 'Manufacturer Conformance Committee ',
@@ -242,7 +242,7 @@ module.exports = {
     },
   ],
 
-  lightHotspots: [
+  ligh_thotspots: [
     {
       type: 'link',
       label: '<- Light Hotspot',
@@ -413,7 +413,7 @@ module.exports = {
     },
   ],
 
-  migratingdevices: [
+  migrating_devices: [
     {
       type: 'link',
       label: '<- Console',
@@ -430,7 +430,7 @@ module.exports = {
     },
   ],
 
-  iot-device-readyToUse: [
+  iot_device_ready_to_use: [
     {
       type: 'link',
       label: '<- Devices',
@@ -809,7 +809,7 @@ module.exports = {
     },
   ],
 
-  iot-device-development: [
+  iot_device_development: [
     {
       type: 'link',
       label: '<- Devices',
@@ -1009,7 +1009,7 @@ module.exports = {
     },
   ],
 
-  iot-device-devquickstart: [
+  iot_device_dev_quickstart: [
     {
       type: 'link',
       label: '<- Devices',
