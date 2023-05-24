@@ -111,7 +111,7 @@ module.exports = {
           items: [
             'network-iot/open-lns',
             'use-the-network/find-a-lns-provider',
-            'use-the-network/lorawan-network-servers',
+            'network-iot/open-lns-quickstart',
           ],
         },
       ],
@@ -143,7 +143,6 @@ module.exports = {
       items: [
         'network-iot/lorawan-roaming',
         'network-iot/lorawan-roaming-quickstart',
-        'network-iot/open-lns-quickstart',
         'use-the-network/roaming',
         'use-the-network/run-a-network-server/buy-an-oui',
         'use-the-network/run-a-network-server/run-a-network-server',
@@ -242,7 +241,7 @@ module.exports = {
     },
   ],
 
-  ligh_thotspots: [
+  light_thotspots: [
     {
       type: 'link',
       label: '<- Light Hotspot',
