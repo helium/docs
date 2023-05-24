@@ -48,8 +48,8 @@ The mint IDs are as follows:
 
 ## Mapping Helium Wallets to Solana Wallets
 
-Helium wallets use the same ED25519 curve as Solana wallets, resulting in Helium public keys and
-secret keys mapping directly to Solana wallets.
+Helium Wallets use the same ED25519 curve as Solana Wallets, resulting in Helium public keys and
+secret keys mapping directly to Solana Wallets.
 
 You can either migrate your wallet using this widget:
 
@@ -103,7 +103,7 @@ solana_sdk::signature::Keypair::from_bytes(helium_keypair.secret_to_vec())
 
 :::tip Migration API
 
-The Migration API can be used to retrieve the Solana wallet address from a Helium wallet address.
+The Migration API can be used to retrieve the Solana Wallet address from a Helium Wallet address.
 
 `https://migration.web.helium.io/helium/*helium-wallet-address*`
 
@@ -113,23 +113,23 @@ The Migration API can be used to retrieve the Solana wallet address from a Heliu
 
 ## Wallet Migration
 
-Wallets will need to be inflated on Solana. In essence this is recreating the wallet's Helium state
+Wallets will need to be inflated on Solana. In essence this is recreating the Wallet's Helium state
 on Solana.
 
 The
 [migration-service](https://github.com/helium/helium-program-library/tree/master/packages/migration-service)
-can be used to migrate wallet(s) to Solana.
+can be used to migrate Wallet(s) to Solana.
 
-For the Helium Wallet App users, the wallet requests the migration-service to get the needed
+For the Helium Wallet App users, the Wallet requests the migration-service to get the needed
 transaction and submits them to the Solana blockchain when the app is opened for the first time
 after the Migration is complete.
 
-Since exchange wallets may not use the wallet app, the migration service can instead be used
+Since exchange Wallets may not use the Wallet App, the migration service can instead be used
 directly by following the below steps:
 
 For mainnet:
 
-1. Get the Solana wallet address from a Helium wallet address:
+1. Get the Solana Wallet address from a Helium Wallet address:
    `https://migration.web.helium.io/helium/*helium-wallet-address*`
 
 2. Get the list of serialized transactions, which should be sent to Solana:
@@ -158,7 +158,7 @@ blockchain will be converted to a list of Solana transactions and compressed int
 on Solana.
 
 Any entity providing the proper proof that the provided transactions are valid can execute the
-transactions to inflate a wallet. Each transaction is only allowed to execute once.
+transactions to inflate a wallet. Each transaction is only allowed to be executed once.
 
 If you would like a copy of the database serving the proofs for the migration service, please
 [contact the Helium Foundation](mailto:hello@helium.foundation).
