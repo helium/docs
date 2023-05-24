@@ -120,17 +120,6 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Proof of Coverage',
-      link: { type: 'doc', id: 'blockchain/proof-of-coverage' },
-      items: [
-        'network-iot/iot-poc',
-        'network-iot/coverage-mapping/coverage-mapping',
-        'network-iot/coverage-mapping/mappers-api',
-        'network-iot/coverage-mapping/mappers-roadmap',
-      ],
-    },
-    {
-      type: 'category',
       label: 'LoRaWAN on Helium',
       link: { type: 'doc', id: 'network-iot/lorawan-on-helium' },
       items: [
@@ -142,6 +131,17 @@ module.exports = {
           link: { type: 'doc', id: 'network-iot/lorawan-roaming' },
           items: ['network-iot/lorawan-roaming-quickstart', 'use-the-network/roaming'],
         },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Proof of Coverage',
+      link: { type: 'doc', id: 'blockchain/proof-of-coverage' },
+      items: [
+        'network-iot/iot-poc',
+        'network-iot/coverage-mapping/coverage-mapping',
+        'network-iot/coverage-mapping/mappers-api',
+        'network-iot/coverage-mapping/mappers-roadmap',
       ],
     },
     ,
