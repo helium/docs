@@ -20,13 +20,13 @@ gateway-rs as a stand-alone executable.
 ## Gateway-rs Configuration
 
 At startup, gateway-rs configures itself via two methods: from environment variables and from a
-`settings.toml` file. By default the settings file will be expected in the location
-`/etc/helium_gateway/settings.toml`, but this can be overriden with the `-c` flag. However, it is
+`settings.toml` file. By default, the settings file will be expected in the location
+`/etc/helium_gateway/settings.toml`, but this can be overridden with the `-c` flag. However, it is
 not recommended that Makers replace the default `settings.toml` file as it contains other important
 key items that may change from time to time. Instead, we recommend that Makers supply any necessary
 override items via _environment variables_.
 
-In general, any item in the `settings.toml` file can be overriden by supplying an environment
+In general, any item in the `settings.toml` file can be overridden by supplying an environment
 variable to gateway-rs with a name that is similar to the setting being overridden by prefixing the
 settings keyword with the characters `GW_`.
 
@@ -61,9 +61,9 @@ address `0x60`/96. For these Makers this old default would have sufficed.
 Unlike the miner, however, gateway-rs does not have any default key setting. Therefore, as a Maker
 you must specifically provide gateway-rs with an appropriate setting for your platform.
 
-If your platform deviated from the miner defaults then you are likely familiar with the settings
+If your platform deviated from the miner defaults, then you are likely familiar with the settings
 that had to be adjusted in the `blockchain:key` override in sys.config. But, for the sake of
-completeness, we'll illustrate all of the settings that could have been adjusted in that scheme and
+completeness, we'll illustrate all the settings that could have been adjusted in that scheme and
 show how they are encoded in the scheme used by gateway-rs.
 
 For example, if the Erlang miner had been configured with:
