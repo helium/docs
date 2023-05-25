@@ -12,26 +12,26 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Command Line Interface Wallet
 
-The Helium Command Line Interface (CLI) wallet is the most flexible of the wallet options but it
+The Helium Command Line Interface (CLI) Wallet is the most flexible of the Wallet options but it
 also requires more technical knowledge. As such, it is suitable for all types of transactions, but
 requires more caution on behalf of its users.
 
-Once you've covered the basics here, you can explore more specific use-cases for the wallet:
+Once you've covered the basics here, you can explore more specific use-cases for the Wallet:
 
 - [add and assert data only hotspot](/hotspot-makers/iot/data-only-hotspots)
 
 ## Installing CLI Wallet
 
-Releases of the CLI wallet are
-[tagged and hosted on Github](https://github.com/helium/helium-wallet-rs/tags). Click on "Downloads"
+Releases of the CLI Wallet are
+[tagged and hosted on GitHub](https://github.com/helium/helium-wallet-rs/tags). Click on "Downloads"
 for the most recent release and select the appropriate package for your operating system.
 
 Unpack the zip file and place the helium-wallet binary in your `$PATH` somewhere. This operation
-differs depending on your operating system, but is a common task and easily searchable.
+differs depending on your operating system but is a common task and easily searchable.
 
 ## Usage
 
-At any time, use `--help` to see the most recent documentation and help for the CLI wallet.
+At any time, use `--help` to see the most recent documentation and help for the CLI Wallet.
 
 At time of this writing, version 1.7.7 looks like this:
 
@@ -83,7 +83,7 @@ SUBCOMMANDS:
 ```
 
 Exploring the help menu is always a good way to orient yourself. To learn more about a certain
-transaction (or subcommand), simply append `--help`. eg:
+transaction (or subcommand), simply append `--help`. e.g.:
 
 ```bash
 helium-wallet pay --help
@@ -96,7 +96,7 @@ help you get familiar.
 
 `helium-wallet create basic`
 
-This command will create a wallet as a single key, stored in `wallet.key` which gets output in
+This command will create a Wallet as a single key, stored in `wallet.key` which gets output in
 whatever directory you ran this command.
 
 Upon creation, the CLI will prompt you for a password which encrypts the file. A strong password
@@ -104,23 +104,23 @@ will make it difficult for someone to brute force the file should the file be co
 
 ### Display Wallet
 
-Displaying information for one or more wallets without needing its password can be done using;
+Displaying information for one or more Wallets without needing its password can be done using:
 
 ```bash
 $ helium-wallet info
 ```
 
-To display a QR code for the public key of the given wallet use:
+To display a QR code for the public key of the given Wallet use:
 
 ```bash
 $ helium-wallet info --qr
 ```
 
-This is useful for sending tokens to the wallet from the mobile wallet.
+This is useful for sending tokens to the Wallet from the mobile Wallet.
 
 ### Wallet Creation Features
 
-Creating a wallet above is easy, but there's a lot more flexibility you might not know about. It's
+Creating a Wallet above is easy, but there's a lot more flexibility you might not know about. It's
 always recommended to explore the help menu to learn more:
 
 ```bash
@@ -149,14 +149,14 @@ We'll go through a few examples next.
 ### Managing Multiple Wallets
 
 You can specify a more precise location or filename when _creating a wallet_ by using the `--output`
-flag. eg:
+flag. e.g.:
 
 ```bash
 $ helium-wallet create basic --output ~/my-wallets/wallet-5.key
 ```
 
-When _using a wallet_, you can specify a file other than the default `./wallet.key` by using the the
-global option `--file`. eg:
+When _using a wallet_, you can specify a file other than the default `./wallet.key` by using the
+global option `--file`. e.g.:
 
 ```bash
 $ helium-wallet -f ~/my-wallets/wallet-5.key pay <AMOUNT> <ADDRESS>
@@ -164,7 +164,7 @@ $ helium-wallet -f ~/my-wallets/wallet-5.key pay <AMOUNT> <ADDRESS>
 
 ### Sharded Wallet
 
-Sharding wallet keys is supported via Shamir's Secret Sharing. A key can be broken into N shards
+Sharding Wallet keys is supported via Shamir's Secret Sharing. A key can be broken into N shards
 such that recovering the original key needs K distinct shards. This can be done by passing options
 to create:
 
@@ -172,18 +172,18 @@ to create:
 $ helium-wallet create sharded -n 5 -k 3
 ```
 
-This will create wallet.key.1 through wallet.key.5 (the base name of the wallet file can be supplied
+This will create wallet.key.1 through wallet.key.5 (the base name of the Wallet file can be supplied
 with the `--output` parameter).
 
 When keys are sharded using verify will require at least K distinct keys.
 
-The `--seed` option described above can also be used to construct a sharded wallet.
+The `--seed` option described above can also be used to construct a sharded Wallet.
 
 #### Implementation details
 
 A ed25519 key is generated via libsodium. The provided password is run through PBKDF2, with a
 configurable number of iterations and a random salt, and the resulting value is used as an AES key.
-When sharding is enabled, an additional AES key is randomly generated and the 2 keys are combined
+When sharding is enabled, an additional AES key is randomly generated, and the 2 keys are combined
 using a sha256 HMAC into the final AES key.
 
 The private key is then encrypted with AES256-GCM and stored in the file along with the sharding
@@ -192,9 +192,9 @@ iteration count and the AES-GCM authentication tag.
 
 ### Import Seed
 
-The `--seed` flag enables you to import a wallet generated elsewhere. For example, you may want to
-import your key from the mobile wallet, so that you can submit transactions that may not be
-supported in the mobile wallet. The `--seed` command supports seed phrase imports.
+The `--seed` flag enables you to import a Wallet generated elsewhere. For example, you may want to
+import your key from the mobile Wallet, so that you can submit transactions that may not be
+supported in the mobile Wallet. The `--seed` command supports seed phrase imports.
 
 Enter the command:
 
@@ -207,8 +207,8 @@ After you press enter, you will be prompted for your seed words.
 :::tip
 
 Remember, your seed is your private key. Keep it safe and **private**. When you import the seed as a
-CLI wallet, you do not "log yourself out" of your mobile wallet; you've only copied the private key
-from your mobile wallet into the CLI. Mobile wallet and CLI wallet both have a local copies of the
+CLI Wallet, you do not "log yourself out" of your mobile Wallet; you've only copied the private key
+from your mobile Wallet into the CLI. Mobile wallet and CLI Wallet both have a local copies of the
 key and can submit transactions to the blockchain API.
 
 :::
@@ -224,7 +224,7 @@ Helium Wallets created using the CLI can be exported to the Helium Wallet App.
 The `export` feature requires:
 
 - `helium-wallet-rs version 1.7.7` or later, available
-  [on Github](https://github.com/helium/helium-wallet-rs/tags)
+  [on GitHub](https://github.com/helium/helium-wallet-rs/tags)
 - [Helium Wallet App](/wallets/helium-wallet-app) version `1.3.0` or later, available for
   [iOS](https://apps.apple.com/us/app/helium-hnt-wallet/id1609525848) and
   [Android](https://play.google.com/store/apps/details?id=com.helium.wallet.app)
@@ -233,7 +233,7 @@ The `export` feature requires:
 
 ### Export from CLI
 
-Assuming you have already created a CLI Wallet, exporting the wallet is straight forward. Simply
+Assuming you have already created a CLI Wallet, exporting the Wallet is straight forward. Simply
 run:
 
 ```bash
@@ -241,7 +241,7 @@ $ helium-wallet export
 ```
 
 You will be prompted for the Wallet Password, (this is _not_ your seed phrase, this password was
-input when the wallet was created.)
+input when the Wallet was created.)
 
 Next, you will be prompted to enter an `Export Password` twice. This password will be used in the
 Helium Wallet App.
@@ -312,7 +312,7 @@ and swipe to the `Import` Screen.
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <b>Step 4. Decrypt and Naming</b>
       <p>
-        Tap the <b>Decrypt and Import</b> button, and give the newly imported wallet an identifiable
+        Tap the <b>Decrypt and Import</b> button, and give the newly imported Wallet an identifiable
         name.
       </p>
     </div>
@@ -373,10 +373,10 @@ ARGS:
     <token>     Type of token to send (hnt, iot, mobile, hst) [default: hnt]
 ```
 
-The `USAGE` section is is very helpful: `helium-wallet pay one [OPTIONS] <address> <amount>`.
+The `USAGE` section is very helpful: `helium-wallet pay one [OPTIONS] <address> <amount>`.
 
 For example, if I want to send 5.0 HNT to `14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz5S`, it
-would look like this:
+will look like this:
 
 ```bash
 $ helium-wallet pay one 14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz5S 5 --commit
@@ -387,7 +387,7 @@ scope of `helium-wallet pay --help`. It's critical for **all transactions** to c
 the transaction to be submitted to the blockchain API.
 
 When you commit a transaction to the API, you will be provided with a **transaction hash**. This is
-a unique identifier for your transaction on the blockchain and you can track your transcation status
+a unique identifier for your transaction on the blockchain and you can track your transaction status
 using the API endpoint:
 
 ```bash
@@ -398,12 +398,12 @@ https://api.helium.io/v1/pending_transactions/YOUR_HASH_HERE
 
 ## Transfer Hotspot from 24-word Wallet
 
-If a Hotspot is transferred to a 24-word wallet, that is ok! However, most Maker Hotspot Management
-Apps do not currently support 24-word wallets.
+If a Hotspot is transferred to a 24-word Wallet, that is ok! However, most Maker Hotspot Management
+Apps do not currently support 24-word Wallets.
 
-To transfer a Hotspot from a 24-word wallet to a 12-word wallet, follow the steps below.
+To transfer a Hotspot from a 24-word Wallet to a 12-word Wallet, follow the steps below.
 
-1. Create a 12-word wallet to receive the Hotspot using the
+1. Create a 12-word Wallet to receive the Hotspot using the
    [Helium Wallet App](/wallets/helium-wallet-app) and record the Public Key.
 
 2. Download and install the [Helium Command Line Wallet](/wallets/cli-wallet#installing-cli-wallet)
@@ -416,9 +416,9 @@ $ helium-wallet create basic --seed --output my-24-word-wallet.key
 
 | argument                         | description                                                                                                      |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `create basic`                   | create a wallet with a single key, as opposed to a [sharded wallet](/wallets/cli-wallet#sharded-wallet)          |
+| `create basic`                   | create a Wallet with a single key, as opposed to a [sharded wallet](/wallets/cli-wallet#sharded-wallet)          |
 | `--seed`.                        | import with an existing seed phrase using the 24-word list.                                                      |
-| `--output my-24-word-wallet.key` | output the wallet key file to a location of your choosing, in this case to a file called `my-24-word-wallet.key` |
+| `--output my-24-word-wallet.key` | output the Wallet key file to a location of your choosing, in this case to a file called `my-24-word-wallet.key` |
 
 4. Find the Gateway ID of the Hotspot to be transferred by running
 
@@ -434,7 +434,7 @@ $ helium-wallet -f my-24-word-wallet.key hotspots transfer <gateway> <new-owner>
 
 | argument                   | description                                                             |
 | -------------------------- | ----------------------------------------------------------------------- |
-| `-f my-24-word-wallet.key` | use a file for the Hotspot wallet, in this case `my-24-word-wallet.key` |
+| `-f my-24-word-wallet.key` | use a file for the Hotspot Wallet, in this case `my-24-word-wallet.key` |
 | `hotspots transfer`        | run a Hotspot transfer                                                  |
 | `<gateway>`                | the gateway id you collected from Step 4 above                          |
 | `<new-owner>`              | the public Wallet Address to receive the Hotspot                        |
@@ -456,4 +456,4 @@ $ helium-wallet -f my-24-word-wallet.key hotspots transfer <gateway> <new-owner>
 ```
 
 8. Once the transfer transaction is validated by the blockchain, your Hotspot will appear in the new
-   12-word wallet.
+   12-word Wallet.
