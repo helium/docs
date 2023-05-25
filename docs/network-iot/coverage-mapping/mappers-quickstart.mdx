@@ -45,7 +45,11 @@ Next we'll fill in the details, see instructions and image below.
 2. Enter the name for this Integration: _Mappers Integration_
 3. Finally, click _Add Integration_ to complete.
 
-<img src={useBaseUrl('img/iot/coverage-mapping/quickstart-create-http-integration.png')} />
+<img
+  src={useBaseUrl(
+    'img/use-the-network/coverage-mapping/mappers-quickstart-create-http-integration.png',
+  )}
+/>
 
 ### 3. Create Function Decoder
 
@@ -120,25 +124,31 @@ To start, navigate to the Functions page using the left navigation and then clic
 
 3. Finally, save your function.
 
-<img src={useBaseUrl('img/iot/coverage-mapping/quickstart-create-decoder.png')} />
+<img
+  src={useBaseUrl('img/use-the-network/coverage-mapping/mappers-quickstart-create-decoder.png')}
+/>
 
 ### 4. Create a Flow
 
 Next we will create a [_Flow_](/use-the-network/console/flows/orientation). Navigate to the Flows
 page and click the + sign next to Nodes.
 
-<img src={useBaseUrl('img/iot/coverage-mapping/quickstart-create-flow-nodes.png')} />
+<img
+  src={useBaseUrl('img/use-the-network/coverage-mapping/mappers-quickstart-create-flow-nodes.png')}
+/>
 
 Drag and drop your device, function and integration on the workspace. Link them by drawing lines
 with your mouse between the connection points. Link device -> decoder -> integration.
 
-<img src={useBaseUrl('img/iot/coverage-mapping/quickstart-create-flow-basic.png')} />
+<img
+  src={useBaseUrl('img/use-the-network/coverage-mapping/mappers-quickstart-create-flow-basic.png')}
+/>
 
 You are now ready to power on your device and verify that data is being sent correctly to the Mapper
 API. To do this just expand an uplink event in the event log and verify that you are getting a
 _"Success"_ message for the integration as shown below.
 
-<img src={useBaseUrl('img/iot/coverage-mapping/quickstart-device-event.png')} />
+<img src={useBaseUrl('img/use-the-network/coverage-mapping/mappers-quickstart-device-event.png')} />
 
 That's all! You can now expect to see your data show up on
 [mappers.helium.com](https://mappers.helium.com) in a few minutes. If you want to see where your
@@ -146,4 +156,8 @@ mapper is on the map, you could use [Cargo](https://cargo.helium.com). You will 
 [integration](/use-the-network/console/integrations/cargo/#add-a-cargo-integration) and link it to
 the decoder in your flow.
 
-<img src={useBaseUrl('img/iot/coverage-mapping/quickstart-create-flow-with-cargo.png')} />
+<img
+  src={useBaseUrl(
+    'img/use-the-network/coverage-mapping/mappers-quickstart-create-flow-with-cargo.png',
+  )}
+/>
