@@ -101,6 +101,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mining IOT Tokens',
+      link: { type: 'doc', id: 'helium-tokens/mine-iot' },
       items: [
         'blockchain/proof-of-coverage',
         'network-iot/iot-poc',
@@ -264,7 +265,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Mine HNT',
-      items: ['archive/mine-hnt', 'network-iot/denylist', 'network-iot/denylist-removals'],
+      items: ['network-iot/denylist', 'network-iot/denylist-removals'],
       collapsed: true,
     },
     {
