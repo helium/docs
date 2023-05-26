@@ -220,7 +220,6 @@ module.exports = {
           label: '5G Hotspot Makers',
           items: [
             'hotspot-makers/mobile-cbrs/5g-hardware-specification',
-            'hotspot-makers/mobile-cbrs/5g-hardware-specification',
           ],
         },
         'hotspot-makers/hotspot-makers',
