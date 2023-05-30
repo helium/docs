@@ -23,14 +23,14 @@ file a Removal Request using [Crowdspot](https://crowdspot.io/).
 :::
 
 [Crowdspot](https://crowdspot.io/) is an unmonitored, self-service tool built by Nova Labs for the
-community. This tool allows anyone to explore Helium Network Hotspot data to understand atypical
+Helium Community. This tool allows anyone to explore Helium Network Hotspot Data to understand atypical
 Hotspot behavior and identify anomalies.
 
-Similar to Voting, submitting Denylist additions, removals requests, or casting a vote on the status
+Similar to Voting, submitting Denylist additions, removal requests, or casting a vote on the status
 of a Hotspot requires a Crowdspot account associated with a unique Helium Wallet address.
 
-If you do not have the [Helium Wallet app](/wallets/helium-wallet-app), you'll need to download the
-app and create a new wallet or import an existing wallet before proceeding.
+If you do not have the [Helium Wallet App](/wallets/helium-wallet-app), you'll need to download the
+App and create a new Wallet or import an existing Wallet before proceeding.
 
 :::note Crowdspot Connections are Free
 
@@ -54,7 +54,7 @@ scan the QR code with your phone.
   <img className="appscreenbanner" src={useBaseUrl('img/crowdspot/login-popover.png')} />
 </div>
 
-Once you have scanned the QR Code, the Helium Wallet app will open and prompt you to authenticate
+Once you have scanned the QR Code, the Helium Wallet App will open and prompt you to authenticate
 Crowdspot.
 
 1. **Confirm Connection Start**: Confirm that you _do_ want to connect a Helium Wallet to Crowdspot.
@@ -94,8 +94,8 @@ Crowdspot.
 
 <br></br>
 
-If you are already logged in, you will see a Profile Badge and a portion of the connected wallet
-address. The Profile badge will match in the Helium Wallet app and on Crowdspot.
+If you are already logged in, you will see a Profile Badge and a portion of the connected Wallet
+address. The Profile badge will match in the Helium Wallet App and on Crowdspot.
 
 Otherwise, if no account is logged in, no Profile Badge is visible, and the `Login` menu bar item is
 shown.
@@ -119,7 +119,7 @@ shown.
 
 #### How to Log Out
 
-You can Log out of Crowdspot by clicking your profile badge in the upper right corner and selecting
+You can log out of Crowdspot by clicking your profile badge in the upper right corner and selecting
 `Log Me Out` from the pop-up menu.
 
 <div className="img-center">
@@ -141,7 +141,7 @@ On the Submission form, select the `Addition` radio button under `Submission Typ
 #### Enter Hotspot Address
 
 Copy and paste the `b58` address of the Hotspot into the `Enter Hotspot b58 Address` field. The
-`b58` address for a Hotspot is the 52-character address of the Hotspot **NOT THE ANIMAL NAME**. The
+`b58` address for a Hotspot is the 52-character address of the Hotspot, **NOT THE ANIMAL NAME**. The
 `b58` address for a given Hotspot is the end of the URL for the Hotspot on the Helium Explorer or
 the value next to `Address` on the Hotspot's page on Crowdspot.
 
@@ -150,8 +150,8 @@ and inputting more Hotspot `b58` addresses.
 
 #### Reporting Clusters
 
-Some Abnormal Hotspots are part of a "Cluster," a group of Hotspots that only witness each other.
-Clusters are often asserted in a roughly circular formation and may be nestled among Legitimate
+Some abnormal Hotspots are part of a "Cluster," a group of Hotspots that only witness each other.
+Clusters are often asserted in a roughly circular formation and may be nestled among legitimate
 Hotspots.
 
 When reporting a Cluster of Hotspots, include all `b58` addresses **and** toggle on the
@@ -163,7 +163,7 @@ the Hotspots in the request.
 Submitting a written description to support the Denylist submission provides valuable insight for
 evaluation. A minimum of 150 characters is required.
 
-#### Create the Submittion
+#### Create the Submission
 
 Once you have added all the required and optional information, click the `Create Submission` button.
 
@@ -178,7 +178,7 @@ You can view the status of your submission on the
 
 ### Submitting Hotspots as a Batch
 
-Investigation of Abnormal Hotspots can be a lot of work, and many workflows exist, especially for
+Investigation of abnormal Hotspots can be a lot of work, and many workflows exist, especially for
 the submission of large Clusters. To make the process easier for extensive submissions, Hotspot
 `b58` addresses can be added in a batch (of up to 100 addresses) rather than one at a time.
 
@@ -273,7 +273,7 @@ is -not- present for Hotspots -not- currently on the Denylist.
     <div class="col col--6" style={{ marginBottom: 0 }}>
       <p>
         This example badge includes <b>"+ 54 other appearances,"</b> which indicates that this
-        particular Hotspot appears on the latest Denylist and <b>54</b> Denylists.
+        particular Hotspot appears on the latest Denylist and in <b>54</b> previous updates of the Denylist.
       </p>
     </div>
   </div>
@@ -295,15 +295,14 @@ that Hotspot as abnormal.
 ### Witness Maker Diversity
 
 The Witness Maker Diversity metric gives the percentage of Hotspots witnessed by the original
-Hotspot that are produced by different makers.
+Hotspot that are produced by different Makers.
 
-When under 15% of the Hotspots being witnesses are made by different makers, then we would describe
+When under 15% of the Hotspots being witnessed are made by different Makers, then we would describe
 that Hotspot as abnormal.
 
-### Witness SNR Vs RSSI Plot
+### Witness SNR versus RSSI Plot
 
-This graph compares a Hotspot's Signal-to-Noise ratio (SNR) against its Relative Signal Strength
-(RSSI). In general, small RSSI values correlate to a low SNR and vice versa.
+This graph compares a Hotspot's Signal-to-Noise ratio (SNR) against its Received Signal Strength Indicator (RSSI). In general, small RSSI values correlate to a low SNR and vice versa.
 
 <div class="container" style={{ padding: 0, paddingTop: 0 }}>
   <div class="row">
@@ -334,9 +333,9 @@ This graph compares a Hotspot's Signal-to-Noise ratio (SNR) against its Relative
 
 ### Hotspot Witness Graph
 
-The graph shows a central Hotspot, the Hotspot’s immediate witnesses, and other witnesses
+The graph shows a central Hotspot, the Hotspot’s immediate witnesses, and other witnesses'
 connections within a 10 km range. Each line indicates a witness connection between two Hotspots.
-Hotspot owners are represented by unique colors, where Hotspots owned by the same wallet address
+Hotspot owners are represented by unique colors, where Hotspots owned by the same Wallet address
 will be displayed in the same color.
 
 <div class="container" style={{ padding: 0, paddingTop: 0 }}>
@@ -360,7 +359,7 @@ will be displayed in the same color.
       />
       <p>
         The central Hotspot can only see a specific subset of Hotspots. This is illustrated by a
-        sphere-like containment of Hotspots witnessing only each other, but failing to connect
+        sphere-like containment of Hotspots witnessing only each other but failing to connect
         outside the containment. There may be less variation of Hotspot owners in an abnormal
         cluster.
       </p>
@@ -368,9 +367,9 @@ will be displayed in the same color.
   </div>
 </div>
 
-### Witness RSSI Vs Distance
+### Witness RSSI versus Distance
 
-As the distance between Hotspots increases, the signal strength (RSSI) decreases due to
+As the distance between Hotspots increases, the received signal strength (RSSI) decreases due to
 environmental factors. Signal strength ranges between -136 to -80 dBm, with -90 to -110 dBm is a
 very strong RSSI (unlikely in real life), while -130 dBm is very weak. Similarly, a high R² value
 indicates strong correlation and goodness of fit.
@@ -395,7 +394,7 @@ indicates strong correlation and goodness of fit.
         src={useBaseUrl('img/crowdspot/witness-rssi-distance-sus-example.png')}
       />
       <p>
-        A Hotspot's Witness compared to distance has a predictable, strong “fit” with minimal
+        A Hotspot's Witness RSSI compared to distance has a predictable, strong “fit” with minimal
         deviations from the curve. This results in a high R² value close to 1, suggesting few
         effects from environmental factors.
       </p>
@@ -408,7 +407,7 @@ indicates strong correlation and goodness of fit.
 ## Evaluation Process
 
 Hotspots in a submission are evaluated on a variety of factors. These factors include, but are not
-limited to Trust Scores, community provided text reasoning, and data found on
+limited to Trust Scores, community provided text reasoning, and Data found on
 [Crowdspot.io](http://Crowdspot.io), including graph metrics, Witness Maker Diversity, and Location
 Confidence.
 
@@ -420,7 +419,7 @@ A submission is given a status to update the community on it’s evaluation prog
 
 This is the default state of a submission.
 
-> In this state, the Denylist Maintainers are working on evaluating the Submission.
+> In this state, the Denylist Maintainers are working on evaluating the submission.
 
 #### Accepted
 
@@ -450,17 +449,17 @@ Hotspot.
 
 ---
 
-## Issues Currently on Github
+## Issues Currently on GitHub
 
-Current issues on Github will continue to be evaluated. Therefore, if you currently have an issue on
-Github, there is no need to re-submit your request on Crowdspot.io.
+Current issues on GitHub will continue to be evaluated. Therefore, if you currently have an issue on
+GitHub, there is no need to re-submit your request on Crowdspot.io.
 
-:::info What will happen to the Denylist repository on Github?
+:::info What will happen to the Denylist repository on GitHub?
 
 While the community will no longer be able to open an issue, Pull Requests will remain on Github
 with multi-signature verification for the time being.
 
-Hotspots submitted on Crowdspot will be pushed to the Denylist via Github.
+Hotspots submitted on Crowdspot will be pushed to the Denylist via GitHub.
 
 :::
 
