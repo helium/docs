@@ -58,24 +58,31 @@ You should find a file called keypair.bin. Print out the public key of your key 
 CLI can be initialized with environment variables so common variables don't have to be reiterated in
 subsequent commands.
 
-```
+```sh
 ./helium-config-service-cli env init
 ```
 
-- Fill in [`http://mainnet-config.helium.io:6080/`](http://mainnet-config.helium.io:6080/) for
-  `Config Service Host`
+- Fill in `http://mainnet-config.helium.io:6080/` for `Config Service Host`
 - Fill in the path `./keypair.bin` for `Keypair Location`
-- Fill in the Helium NetID <!-- TODO: get new NetID -->
+- Fill in the Helium NetID, `0x00003C`
 - Fill in your OUI for `Assigned OUI`
 - Fill in the number of multi-buy you want for `Default Max Copies` as a default for your routes.
 
-Then export the environment variables. <!-- TODO: could use a little more detail -->
+Then export the environment variables.
+
+```sh
+export HELIUM_CONFIG_HOST=http://mainnet-config.helium.io:6080/
+export HELIUM_KEYPAIR_BIN=./keypair.bin
+export HELIUM_NET_ID=00003C
+export HELIUM_OUI=1
+export HELIUM_MAX_COPIES=10
+```
 
 ### Managing Routes
 
-You are now ready to generate your first route. Routes contain necessary information to let the IoT
-network know how to route a packet; DevEUI+AppEUI (for routing join requests), DevAddr range (for
-routing uplinks), endpoint (where to send the packet to), etc.
+You are now ready to generate your first route. Routes contain the necessary information to let the
+IoT network know how to route a packet; DevEUI+AppEUI (for routing join requests), DevAddr range
+(for routing uplinks), endpoint (where to send the packet to), etc.
 
 ```sh
 ./helium-config-service-cli route new --commit
