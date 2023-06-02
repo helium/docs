@@ -1,6 +1,6 @@
 ---
 id: lorawan-roaming
-title: LoRaWAN Roaming On Helium
+title: LoRaWAN Roaming on Helium
 pagination_label: Roaming
 sidebar_label: Roaming
 description: Helium Documentation
@@ -11,13 +11,13 @@ slug: /iot/lorawan-roaming
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 The Helium Network is the world's largest LoRaWAN Network - and continues to grow at a staggering
-pace. Because of this, it becomes a very attractive network to other public and private LoRaWAN
+pace. Because of this, it becomes a very attractive Network to other public and private LoRaWAN
 Network Server providers (LNSs) who want to extend their coverage without deploying their own
 infrastructure and capital.
 
 And thanks to the Helium blockchain, direct roaming integrations are very simple. Most importantly,
-major LNSs are roaming with the Helium Network, which means the public coverage the community is
-building is now being used by LoRa devices onboarded to other networks, and Hotspot operators get
+major LNSs are roaming with the Helium Network, which means the public coverage the Helium Community is
+building is now being used by LoRaWAN devices onboarded to other Networks, and Hotspot Operators get
 compensated in $HNT for routing these packets.
 
 For more information about the roaming services offering go [here](/use-the-network/roaming).
@@ -25,10 +25,10 @@ For more information about the roaming services offering go [here](/use-the-netw
 ## Helium Roaming Architecture
 
 Helium Network roaming most closely resembles the LoRa Alliance's idea of "Passive Roaming". The
-Helium community operates a dedicated Roaming Server (the "Helium Roaming Server") that is distinct
+Helium Community operates a dedicated Roaming Server (the "Helium Roaming Server") that is distinct
 from our core LNS for native Helium Devices. The Helium Roaming Server purchases all packets for a
 target LoRaWAN `NetID` and forwards them to an endpoint ready to accept them on behalf of a Roaming
-Partner's LNS. Specifically the Helium Roaming Server connects any Helium gateway that captures
+Partner's LNS. Specifically, the Helium Roaming Server connects any Helium Gateway that captures
 target `NetID` packets via the Semtech GWMP UDP client.
 
 <img src={useBaseUrl('img/lorawan-on-helium/roaming-arch.png')} />
@@ -38,7 +38,7 @@ target `NetID` packets via the Semtech GWMP UDP client.
 To ingest packets as a roaming partner, you need to accept Semtech GWMP client connections for the
 amount of Helium Hotspots that are receiving and routing your packets. Currently, this could be a
 lot - assuming you are considering the entire global network. In practice, only a small percentage
-of Helium gateways will be routing packets for a roaming partner NetID simultaneously.
+of Helium Gateways will be routing packets for a roaming partner NetID simultaneously.
 
 When the roaming PoC is initiated, Helium provides one or more IPs from where the connections will
 originate. You will need to supply the IP and port for the host listening for Semtech GWMP
