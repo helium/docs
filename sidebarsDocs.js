@@ -175,7 +175,12 @@ module.exports = {
   ],
 
   communitygovernance: [
-    'governance/governance',
+    {
+      type: 'category',
+      label: 'Governance',
+      link: { type: 'doc', id: 'governance/governance' },
+      items: [`governance/phase-1`, `governance/phase-2`, `governance/phase-3`],
+    },
     'governance/voting',
     'vote-escrow/voting-power',
     'governance/realms',
@@ -218,9 +223,7 @@ module.exports = {
         {
           type: 'category',
           label: '5G Hotspot Makers',
-          items: [
-            'hotspot-makers/mobile-cbrs/5g-hardware-specification',
-          ],
+          items: ['hotspot-makers/mobile-cbrs/5g-hardware-specification'],
         },
         'hotspot-makers/hotspot-makers',
         'hotspot-makers/mcc/maker-ethics',

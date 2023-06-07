@@ -10,62 +10,145 @@ slug: /voting
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-To approve or deny changes to the blockchain, economics, or governance of the Helium Network; The
-Helium Network leverages on-chain voting which is open to the entire community. This on-chain voting
-is currently facilitated through [Realms][realms].
+To go from a proposed HIP to a vote, the Helium Community follows the process initially laid out in
+HIP 7. Rough consensus and running code are critical factors for achieving approval. Rough consensus
+is achieved In partnership with HIP Authors, as well as non-binding Temperature Checks in the Helium
+Discord. Temperature Checks allow the community and all stakeholders discussing the HIP to signal
+readiness or suggest more time for discussion. HIPs progress through different stages, including
+Draft, In Discussion, Approved, Deployed, or Rejected.
 
-## Key Terms
+Read the HIP 7 Process here: https://github.com/helium/HIP/blob/main/0007-managing-hip-process.md
 
-- **Vote Escrowed ("ve")**: A position created by staking your tokens which only functions for DAO
-  or subDAO voting.
-- **Voting Power**: 100 veHNT is more than 10 veHNT. The higher amount would mean you have more
-  weight in deciding vote outcomes. The more HNT you stake for veHNT the more voting power you have.
-- **Realms**: A Solana native tool for DAO and Treasury management.
-- **veHNT**: A position created by staking your HNT.
-- **veIOT:** A position created by staking your IOT. Used for IOT Network governance.
-- **veMOBILE:** A position created by staking your MOBILE. Used for MOBILE Network governance.
+## Blockchains + On-Chain Voting,
+
+The Helium Network, uses on-chain voting to maximize inclusive participation and maintain a publicly
+auditable voting record. On-chain voting means storing a piece of data on a Blockchain. The
+Blockchain acts as an immutable ledger. To store data on a Blockchain, users must pay a small
+transaction fee, which covers the data storage cost permanently. The Helium Network utilizes the
+Solana Blockchain for blockchain-based data storage. The Solana Blockchain has fast processing times
+and low fees, keeping costs accessible to all participants for small transactions like voting and
+governance. Storing voting data on a Blockchain ensures transparency and immutability of the voting
+process.
+
+Today, the Helium Network utilizes the tool Realms for on-chain voting. Since the passage of HIP 51-
+53, the Helium Network established the distinction between Networks and subNetworks, currently
+represented by a token for each. HIP 51 - 53 also established the Vote Escrowed Model of token
+Staking for Voting Power.
+
+## The veToken model
+
+The veToken model originated from Curve (veCRV) as a native token initiating a lockup and creating
+voting rights. Curve’s native token is CRV and has three functions: voting, staking, and boosting
+yield. To perform any of those functions, CRV is required to be locked in the form of veCRV. The
+"ve" in veToken stands for "Voter/vote escrowed." Today, this model has been emulated by various
+DeFi protocols within many Layer 1 ecosystems. The Helium Network has adopted the model originally
+introduced and passed by the community in HIP 51.
+
+The veToken initiatives within the Helium Network serve two primary purposes: maximizing rewards,
+specifically for protocol emission earnings and governance. Governance seeks to establish the best
+outcomes for new projects, new initiatives, and for the future of decentralized wireless.
+
+## The Value of veTokens for Governance
+
+In the context of the Helium Network, the veToken model’s primary use is to establish voting
+strength and governance rights. The additional on-chain object (the veToken) represents that
+wallet’s voting strength.
+
+The veToken model requires users to stake the underlying token, locking the tokens up for a period
+of up to four years. The longer the staking period, the greater the voting strength. By locking up
+tokens, economic interests and voting rights are effectively aligned. The native token holders
+retain the tokens' economic value and utility, while the veToken assumes the voting rights. All
+Helium veTokens are non-transferable, ‘soulbound,’ and have zero intrinsic economic value. They are
+represented by an NFT in your Helium Wallet App.
+
+Visit Realms, the Helium Network, and subNetworks at: realms.heliumvote.com/dao/hnt
+realms.heliumvote.com/dao/iot realms.heliumvote.com/dao/mobile
+
+## Staking
+
+To vote in the Helium Network for changes to either the Network at large, the IoT (LoRaWAN)
+subNetwork, or the Mobile (5G) subNetwork, a participant must stake tokens: HNT, IOT, or MOBILE
+tokens.
+
+Staking is a process of locking up a token amount (as little as one token) for a specific period of
+time in an on-chain program on the Solana Blockchain. This program defines the parameters for
+lockup. In the Helium Network and subNetworks, users can stake tokens for up to 4 years. Staking
+allows users to make a commitment to the future, creating long-term alignment to increase the value
+of the Network.
+
+::: note
+
+How to stake tokens
+
+For a full walkthrough on how to stake your tokens to the Helium Network or one of its subNetworks,
+see the [Realms Staking][voting-power] guide.
+
+:::
+
+## Voting Power
+
+Specific network tokens will give you Voting Power in the designated Network or subNetworks. Voting
+Power is your token amount multiplied by the duration of a lock-up period. Voting Power creates a
+weight of your vote against others. This Voting Power enables those with strong incentive alignment
+with the network to have greater influence over governance decisions. The function of staking and
+Voting Power applies to any new subNetworks in the future, as per the community-passed and approved
+HIP 51.
 
 ---
 
-## veTokens and Voting
+## Vote Escrowed Positions as NFTs
 
-Token holders can vote by 'staking' their tokens to the protocol that they are voting for. This
-mechanism helps to ensure that the voter holds a long-term interest in the success of the Helium
-Network. veTokens come in several forms with specific responsibilities to segments of the network.
-
-Each subDAO governs a specific area of the network. Initially, two subDAOs are introduced: IOT and
-MOBILE. Voting on the IOT and MOBILE networks will require veIOT and veMOBILE respectively.
+When you stake a token, you'll receive a veToken position in your wallet. ‘ve’ represents the Vote
+Escrowed position created by staking your tokens for a voting power multiplier. For all users, the
+veToken positions will be shown in a web3 wallet as Non-Fungible Tokens (NFTs). They are not
+tradable or transferable and are considered ‘soulbound’ to your wallet. Vote Escrowed simply means
+the tokens sit in an escrow period until the staking, or locking, position is over and is only to be
+used for voting and governance while in escrow.
 
 ### veHNT
 
-The [Helium DAO][realms-helium] and the Helium Network serve as the overarching system that enables
-a multitude of networks (subDAOs) to exist. As such, veHNT's role in network governance is in
-matters affecting the entire network. For example, a proposal affecting HNT emissions would be voted
-on using veHNT.
+The [Helium Network][realms-helium] and the Helium Network serve as the overarching system that
+enables a multitude of networks (subNetworks) to exist. As such, veHNT's role in network governance
+is in matters affecting the entire network. For example, a proposal affecting HNT emissions would be
+voted on using veHNT.
 
-Additionally, veHNT can be [delegated][delegate] to a subDAO in order to earn a portion of that
+Additionally, veHNT can be [delegated][delegate] to a subNetwork in order to earn a portion of that
 network's tokens.
 
 ### veIOT
 
-The [IOT subDAO][realms-iot] focuses on the original vision of the Helium Network, supporting the
-growth and development of IoT devices and applications. Staking your IOT tokens to the IOT subDAO
-grants veIOT which can be used to vote on matters specific to the IOT network. For example, a
-proposal affecting proof of coverage behavior for IoT Hotspots.
+The [IOT subNetwork][realms-iot] focuses on the original vision of the Helium Network, supporting
+the growth and development of IoT devices and applications. Staking your IOT tokens to the IOT
+subNetwork grants veIOT which can be used to vote on matters specific to the IOT network. For
+example, a proposal affecting proof of coverage behavior for IoT Hotspots.
 
 ### veMOBILE
 
-The [MOBILE subDAO][realms-mobile] is dedicated to the growth and expansion of the Helium Network in
-the mobile and telecommunications sectors. Staking your IOT tokens to the IOT subDAO grants veIOT
-which can be used to vote on matters specific to the IOT network. For example, a proposal affecting
-proof of coverage behavior for IoT Hotspots.
+The [MOBILE subNetwork][realms-mobile] is dedicated to the growth and expansion of the Helium
+Network in the mobile and telecommunications sectors. Staking your IOT tokens to the IOT subNetwork
+grants veIOT which can be used to vote on matters specific to the IOT network. For example, a
+proposal affecting proof of coverage behavior for IoT Hotspots.
 
-:::note How to stake tokens
+---
 
-For a full walkthrough on how to stake your tokens to the Helium Network or one of its subDAOs, see
-the [Realms Staking][voting-power] guide.
+## Supermajority
 
-:::
+A proposition is deemed 'Approved' and accepted by the community if it achieves a super-majority of
+66% of the Voting Power. This is not a new rule for the Helium Community and was first established
+in Phase 2 of Governance.
+
+The duration for which a proposal must be made available for voting is not predetermined. Generally,
+voting occurs within seven days.
+
+## Quorum
+
+A quorum of tokens represented must be met to certify the proposal as a valid outcome. The quorum is
+100,000,000 tokens represented at the time of the vote in the vote results. This quorum is equal
+across the Network and all subNetworks. If a proposal does not reach this quorum, the proposal will
+automatically fail. Even if the proposal received a 66% super majority of Voting Power, the proposal
+did not reach quorum and therefore is invalidated.
+
+---
 
 [realms]: https://www.realms.today
 [realms-helium]: https://realms.heliumvote.com/dao/hnt
