@@ -182,7 +182,7 @@ module.exports = {
       items: [`governance/phase-1`, `governance/phase-2`, `governance/phase-3`],
     },
     'governance/voting',
-    'vote-escrow/voting-power',
+    'governance/faq',
     'governance/realms',
     'vote-escrow/realms',
     'governance/working-groups',
