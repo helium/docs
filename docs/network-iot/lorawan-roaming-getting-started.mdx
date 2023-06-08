@@ -25,13 +25,13 @@ Let’s do some setup with the CLI.
 
 1. Run this to pull & build the config service cli:
 
-```bash
-git clone https://github.com/helium/helium-config-service-cli.git
-curl https://sh.rustup.rs -sSf | sh
-source "$HOME/.cargo/env"
-cd helium-config-service-cli
-cargo b --release
-```
+   ```bash
+   $ git clone https://github.com/helium/helium-config-service-cli.git
+   $ curl https://sh.rustup.rs -sSf | sh
+   $ source "$HOME/.cargo/env"
+   $ cd helium-config-service-cli
+   $ cargo b --release
+   ```
 
 2. You can then find the built binary file `helium-config-service.cli` under `./target/release`
    inside the `helium-config-service-cli` directory. I’d rename it into short such as `main` so you
@@ -41,12 +41,12 @@ cargo b --release
    for simplicity's sake. Just copy `main` into the folder you created. You can reference the
    following commands:
 
-```bash
-cd ..
-mkdir cli-testing
-cd cli-testing
-cp ../helium-config-service-cli/target/release/main .
-```
+   ```bash
+   $ cd ..
+   $ mkdir cli-testing
+   $ cd cli-testing
+   $ cp ../helium-config-service-cli/target/release/main .
+   ```
 
 4. Let’s generate the keypair you’ll be using to authenticate your interactions with the config
    service, so only you can create/modify/delete routes. Run `./main env generate-keypair --commit`
@@ -54,7 +54,7 @@ cp ../helium-config-service-cli/target/release/main .
    running:
 
    ```bash
-   ./main env info --keypair keypair.bin
+   $ ./main env info --keypair keypair.bin
    ```
 
 5. Next, make sure you have a Helium Wallet.
@@ -95,23 +95,23 @@ cp ../helium-config-service-cli/target/release/main .
    Afterwards, run:
 
    ```bash
-   ./main route devaddrs add -s <start> -e <end> --route-id <route-id> -- commit
+   $ ./main route devaddrs add -s <start> -e <end> --route-id <route-id> -- commit
    ```
 
 10. Next, let’s define EUI pairs so packet router knows which join requests to route to your
     endpoint. You can run:
 
     ```bash
-    ./main route euis add --route-id <route-id> -d <dev-eui> -a <app-eui> --commit
+    $ ./main route euis add --route-id <route-id> -d <dev-eui> -a <app-eui> --commit
     ```
 
 11. Next, let’s define the endpoint that you use for ingesting traffic. You can run:
 
     ```bash
-    ./main route update server --host <host> --port <port> --route-id <route-id> --commit
+    $ ./main route update server --host <host> --port <port> --route-id <route-id> --commit
     ```
 
 12. Lastly, define other relevant parameters for HTTP roaming. You can run:
     ```bash
-    ./main route update http --dedupe-timeout <dedupe-timeout> --path <url path> --auth-header <auth-header> --route-id <route-id> --commit
+    $ ./main route update http --dedupe-timeout <dedupe-timeout> --path <url path> --auth-header <auth-header> --route-id <route-id> --commit
     ```
