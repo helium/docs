@@ -139,9 +139,15 @@ module.exports = {
       link: { type: 'doc', id: 'blockchain/proof-of-coverage' },
       items: [
         'network-iot/iot-poc',
-        'network-iot/coverage-mapping/coverage-mapping',
-        'network-iot/coverage-mapping/mappers-api',
-        'network-iot/coverage-mapping/mappers-roadmap',
+        {
+          type: 'category',
+          label: 'Coverage Mapping',
+          link: { type: 'doc', id: 'network-iot/coverage-mapping/coverage-mapping' },
+          items: [
+            'network-iot/coverage-mapping/mappers-api',
+            'network-iot/coverage-mapping/mappers-roadmap',
+          ],
+        },
       ],
     },
     ,

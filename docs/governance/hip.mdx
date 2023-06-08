@@ -10,45 +10,147 @@ slug: /hip
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-Helium Improvement Proposals ("HIPs") are the core unit of change in the Helium Network and for the
-Helium Community.
+---
 
-Best practice for new HIPs is to vet an idea with the Helium community [via Discord][discord] in the
-[hip-discussion][discord-hip] channel.
+## Purpose and Scope
 
-Discussion with other Community members is a great place to gather initial feedback for an idea and
-learn from previous discussions.
+Helium Improvement Proposals (HIPs) define modifications to the open-source Helium protocol and
+Network itself. Proposals can modify economics and incentives, technical properties, or
+meta-governance, including the governance process or changes to the rules controlling how HIPs are
+managed. Anyone in the Helium ecosystem can introduce a HIP. All HIPs are publicly available in the
+open HIP Repository, managed by the Helium Foundation on behalf of the community.
 
-All HIPs are managed entirely from the [HIP GitHub repository][github-hip] and are discussed in the
-`Helium Improvement Proposal` channels of [Helium Discord][discord]. All members of the Helium
-Community are encouraged to create HIPs and participate in the governance process.
+Users participate in network-wide token holder voting. You must have tokens to vote on Helium
+Improvement Proposals. The Helium Network and subNetworks vote with three tokens: HNT, IOT, and
+MOBILE. These tokens do not inherently provide governance rights and privileges and must be locked,
+in a method called Staking, to create a user's voting power. Voting power is a multiplication of
+tokens staked and the time duration of staking. Staking aligns a user with the long-term success of
+building a decentralized wireless network.
+
+- Holders of HNT vote on proposals that concern meta governance, economic, or technical changes to
+  the entire protocol. Proposals that exclusively affect a subNetwork do not fall into HNT voting.
+
+- Holders of IOT tokens vote on proposals concerning the IoT (LoRaWAN) subNetwork. These proposals
+  include economic, technical, or governance changes to the IoT subNetwork.
+
+- Holders of MOBILE tokens vote on proposals concerning the Mobile (5G) subNetwork. These proposals
+  include economic, technical, or governance changes to the Mobile subNetwork.
+
+## Proposing a HIP
+
+Anyone can create a HIP by submitting a Pull Request in the HIP Github Repository.
+
+Ideas often are sparked through community discussion in the Official Helium Discord, which is
+managed and owned by the Helium Foundation. The appropriate channel for new HIP ideas is
+#hip-discussion. After an initial discussion to vet an idea, HIP Authors make a copy (“fork”) of the
+HIP Repository and create a new one, titled with a name and '.md' to designate a Markdown file. All
+instructions are provided in the format from the HIP Template within the repository. This new file
+will be the basis of their Helium Improvement Proposal.
+
+After a HIP Author creates a Pull Request, the HIP is submitted for review by the Helium Foundation.
+It will be reviewed for editing by the community and designated Helium Foundation HIP Editors. The
+Helium Foundation acts as a steward in the HIP Editing Process, ensuring HIPs are clear, concise,
+informed on the nuances of the network, and able to be read and interpreted by a typical reader with
+the fundamental familiarity of the Helium Network.
+
+During the HIP Editing Process, a HIP Editor defines the scope of the HIP and determines the Voting
+Requirements for the community. Voting Requirements comprise which token should be used to cast a
+vote and which subnetwork this Proposal affects. Token holders are eligible to vote based on the
+subNetwork that the HIP impacts. After HIP Editing, the HIP is merged into the public repository of
+all documented Helium Improvement Proposals. The Helium Foundation creates the status of the HIP,
+and a new HIP-specific channel in Discord is opened for community discussion.
+
+HIPs are managed entirely from the HIP GitHub repository, which is public and fully transparent.
+Read the Steps to Create a HIP to understand how to bring an idea into a proposal.
+
+Discussion on HIPs occurs on both the Official Helium Discord and within the GitHub repository as
+comments. All community members are able to participate in the governance process at any stage.
+
+View, create, or comment on a HIP at: www.github.com/helium/hip
 
 ---
 
-## How an Idea Becomes a HIP
+## HIP Editors
 
-1. **Idea Stage:** HIPs start as ideas for improving an aspect of economic, technical, or
-   meta-governance.
-2. **Drafting Stage:** Generally, when enough community members believe the idea is worth
-   formulating into a HIP, they do so and submit that HIP as a draft to the Helium [HIP
-   Repository][hip-repo].
-3. **Editing Stage:** HIP Editors assist HIP Authors in clarity, consistency, and completeness. HIP
-   Editors work directly with authors, but everyone is able to provide feedback before the HIP moves
-   forward. Sometimes, a HIP is never fully complete and in that case, does not move beyond the
-   draft stage.
-4. **Discussion Stage:** A HIP becomes a full-fledged proposal and is made available for the
-   community to discuss. HIPs last in the Discussion Stage for at least 2 weeks, but often more
-   depending on the type of discussion and how critical the change is. Moderators help manage HIP
-   discussions to keep them on topic.
-5. **Rough Consensus Stage:** After deliberate discussion, a HIP Editor seeks a point in time for
-   Consensus, which is typically done through a Temperature Check vote in Discord. This vote is
-   non-binding and gives HIP Editors a sense of HIP readiness.
-6. **Voting Stage:** After the community has come to a consensus on if a HIP is ready to go to a
-   network-wide vote, the HIP Editor and Helium Foundation will execute the voting contract and
-   communicate the vote out. All token holders are eligible to vote on the HIP at this time.
-7. **Implementation Stage:** After the HIP receives a vote, if it passes 2/3 majority vote, then the
-   HIP is Approved and Helium Core Developers will go to work on implementing it. If the HIP is
-   rejected, the Proposal is effectively closed.
+HIP Editors support the governance process by moving HIPs through each stage of their lifecycle.
+They review new HIPs, flag formatting and structural issues, and keep the GitHub Repository current.
+Today, there is one full-time HIP Editor on the Helium Foundation team who is supported by
+additional subject matter experts.
+
+---
+
+## Steps to Create a HIP:
+
+1. **Idea Generation:** Stakeholders propose ideas for improving the Helium Network, including
+   technical, economic, and meta/process-related changes.
+2. **Vetting:** The idea is shared and discussed within the Helium community, typically via Discord,
+   to assess initial support and identify previous discussions.
+3. **Proposal Writing:** The author of the idea prepares a Helium Improvement Proposal (HIP) using
+   the provided markdown template. The template can be adapted to suit the information required to
+   illustrate an idea.
+
+<!-- TODO: stylize indent blocks -->
+
+- Author is ready to draft a HIP.
+- Author seeks out the HIP Template in HIP 7 (also located in the Discussion tab of the HIP
+  Repository).
+- Author drafts a HIP within the template.
+- Author makes changes to the template as needed to craft their argument.
+- During drafting, Author may seek other information and knowledge to craft their proposal.
+- Author may seek feedback or input from collaborators.
+- Author may seek feedback or input from Helium Foundation
+
+4. **Pull Request Submission:** The Author forks the Helium GitHub repository, adds the HIP file
+   with a title (without allocating a number), commits the changes, and submits a pull request. –
+   see step-by-step guide to using Github [here](/write-a-hip).
+
+- Author navigates to Github in the web or desktop application.
+- Author forks the Helium HIP Repository.
+- Author creates a new branch to submit changes to.
+- Author inputs their HIP as a new file within the branch.
+- Author submits a branch as a pull request to the helium/hip repository.
+
+5. **HIP Review:** A HIP Editor reviews the submitted pull request. They check for adherence to the
+   outlined standards, focusing on formatting and structure rather than the proposal's substance.
+
+- HIP Editor received GitHub notification of new PR.
+- HIP Editor reads the draft HIP.
+- HIP Editor adds edits and comments for clarity, consistency, grammar, punctuation, formatting and
+  viability.
+- HIP Editor submits edits to Author for revision.
+- HIP Editor requests changes.
+- At the same time, the HIP Editor begins a conversation with the HIP Author on Discord or Github to
+  make sure they are available for questions and engage the Author if more clarity or revision is
+  needed.
+- HIP Editors define the Voting Requirements for the HIP.
+- If all Edits are made and accepted, the HIP will be merged.
+- If all Edits are not made and accepted, the HIP will remain in Draft as a PR.
+- Once merged into the main HIP Repository, a HIP Editor creates an issue ticket, adds basic
+  information about the HIP, tags, and updates the README file with status.
+
+6. **Discussion and Approval:** The HIP enters the discussion phase, during which comments and
+   feedback are provided on the associated GitHub issue or Helium Discord Community. Community calls
+   are scheduled to discuss the HIP. Rough consensus and motivation towards making timely changes
+   are used to achieve approval to move towards proposal voting.
+
+- HIP Editors have finished merging the file into the main Repo and move on to opening discussion.
+- HIP Editors create a new channel in Discord HIP Editors title the channel, add essential
+  information, and begin the discussion.
+- HIP Editors or Community Managers make an announcement letting the community know the HIP is live
+  and open for discussion.
+- From here on, HIP Editors monitors discussion.
+- HIP Editors engage Authors to present HIPs at the following upcoming Community Call.
+- HIP Editors monitor discussions for rough consensus.
+- HIP Editors may use non-binding Temperature Check votes to determine if rough consensus is
+  achieved to move the HIP to a vote.
+- If rough consensus is achieved, HIP Editors inform Helium Core Devs of a proposal that requires
+  voting in Realms.
+- HIP Editors prepare the vote, including proposal descriptions, announcements to the community, and
+  informing the Author.
+- Helium Core Devs make the proposal available for the community to vote on in Realms.
+
+Vet an idea in the community by joining the #hip-discussion channel on Discord:
+www.discord.com/invite/helium/gg
 
 ---
 
