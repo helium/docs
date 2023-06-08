@@ -767,7 +767,7 @@ module.exports = {
       label: 'Comtac',
       items: [
         'use-the-network/devices/ready-to-use/comtac/lpn-td1',
-        'use-the-network/devices/ready-to-use/comtac/lpn-km',
+        'use-the-network/devices/ready-to-use/comtac/cluey-km',
         'use-the-network/devices/ready-to-use/comtac/lpn-tsm',
       ],
 
