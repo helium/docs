@@ -171,7 +171,7 @@ module.exports = {
   community_governance: [
     'governance/governance',
     'governance/voting',
-    'vote-escrow/voting-power',
+    'governance/faq',
     'governance/realms',
     'vote-escrow/realms',
     'governance/working-groups',
@@ -279,7 +279,7 @@ module.exports = {
       type: 'category',
       label: 'Mine HNT',
       items: [
-        'archive/mine-hnt',
+        'helium-tokens/mine-iot',
         'network-iot/crowdspot',
         'network-iot/denylist',
         'network-iot/denylist-removals',
@@ -485,7 +485,7 @@ module.exports = {
       label: 'Comtac',
       items: [
         'use-the-network/devices/ready-to-use/comtac/lpn-td1',
-        'use-the-network/devices/ready-to-use/comtac/lpn-km',
+        'use-the-network/devices/ready-to-use/comtac/cluey-km',
         'use-the-network/devices/ready-to-use/comtac/lpn-tsm',
       ],
       collapsed: true,
