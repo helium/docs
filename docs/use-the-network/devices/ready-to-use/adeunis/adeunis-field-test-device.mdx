@@ -16,17 +16,17 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ### Introduction
 
-The Adeunis Field Test Device \(ARF8124A\) is a great tool for network testing. It allows you to
-rapidly test network coverage at specific geographical positions to verify that devices will have
-coverage.
+The Adeunis Field Test Device (ARF8124A LoRaWAN US902-928) is a great tool for network testing. It
+allows you to rapidly test network coverage at specific geographical positions to verify that
+devices will have coverage.
 
 ### Resources
 
 [Product Page](https://www.adeunis.com/en/produit/ftd-iot-lorawan-network-tester-915-923/)
 
-[Datasheet](https://www.adeunis.com/wp-content/uploads/2020/02/Data_Sheet_FTD_915-923_EN.pdf)
+[Datasheet](https://www.adeunis.com/wp-content/uploads/2020/03/Datasheet_Field_Test_Device_AS923-US915-RC4-en.pdf)
 
-[Manual](https://www.adeunis.com/wp-content/uploads/2020/03/FTD_LoRaWAN_US902-928_UG_GB_V1.0.1.pdf)
+[Manual](https://adeunis.notion.site/User-Guide-FIELD-TEST-DEVICE-LoRaWAN-US-902-928-00d3edb05f5c4423b3cc03454e4f0d08)
 
 ### Add Device to Console
 
@@ -66,7 +66,7 @@ Enter Command Mode Command: `0xFF 0xFF 0xFF 0x2B 0x2B 0x2B`
 
 Command: `ATT63 PROVIDER`
 
-This command and all that follow should be sent using the ASCII format with a carriage return\(CR\)
+This command and all that follow should be sent using the ASCII format with a carriage return \(CR\)
 at the end.
 
 <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/send-ascii.png')} />
@@ -79,7 +79,7 @@ Read Value Command: `ATS259?`
 
 #### Uplink Unconfirmed
 
-Set Value Command:`ATS382=0`
+Set Value Command: `ATS382=0`
 
 Read Value Command: `ATS382?`
 
@@ -110,7 +110,7 @@ You should see the following responses below from the device after entering the 
 ### Sending Packets
 
 After exiting command mode and on every power on, the device will immediately attempt to join the
-network. You will the status of the join attempt on the Uplink/Downlink screen, please see the
+network. You will see the status of the join attempt on the Uplink/Downlink screen, please see the
 manual for more details on this screen. Once the device has joined press the large push button in
 the center of the device to send the uplink payload.
 
