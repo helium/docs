@@ -1,16 +1,16 @@
 ---
 id: open-lns-quickstart
-title: Getting started with Open LNS
-pagination_label: Run and LNS
+title: Getting Started with OpenLNS
+pagination_label: Run an LNS
 sidebar_label: Run an LNS
-description: Helium Open LNS Documentation
+description: Helium OpenLNS Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/open-lns-quickstart
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-OpenLNS is the platform that enables any LoRaWAN network to use Helium's IoT Network. In this guide,
+OpenLNS is the platform that enables any LoRaWAN Network to use Helium's IoT Network. In this guide,
 we'll walk you through the process of setting up and configuring OpenLNS.
 
 ## Prerequisites
@@ -30,7 +30,7 @@ cost $100 each.
 
 ## Managing Your OUI with the Config Service
 
-After your OUI and devAddr are added, you can now manage your OUI through the Config Service. You
+After your OUI and devAddrs are added, you can now manage your OUI through the Config Service. You
 can interact with the Config Service in two ways:
 
 1. Directly through
@@ -55,8 +55,8 @@ You should find a file called keypair.bin. Print out the public key of your key 
 
 ### Initialize CLI
 
-CLI can be initialized with environment variables so common variables don't have to be reiterated in
-subsequent commands.
+CLI can be initialized with environment variables, so common variables don't have to be reiterated
+in subsequent commands.
 
 ```
 ./helium-config-service-cli env init
@@ -74,7 +74,7 @@ Then export the environment variables. <!-- TODO: could use a little more detail
 ### Managing Routes
 
 You are now ready to generate your first route. Routes contain necessary information to let the IoT
-network know how to route a packet; DevEUI+AppEUI (for routing join requests), DevAddr range (for
+Network know how to route a packet; DevEUI+AppEUI (for routing join requests), DevAddr range (for
 routing uplinks), endpoint (where to send the packet to), etc.
 
 ```sh
@@ -82,7 +82,7 @@ routing uplinks), endpoint (where to send the packet to), etc.
 ```
 
 You can then see the empty route template. It should look like this, except that you should be
-seeing you own assigned OUI, max_copies, and other environment variables.
+seeing your own assigned OUI, max_copies, and other environment variables.
 
 ```json
 ✔️ created route 7a5560e8-b722-11ed-bbe8-c3404da5a84d
@@ -91,10 +91,10 @@ seeing you own assigned OUI, max_copies, and other environment variables.
   "net_id": "C00053",
   "oui": 3,
   "server": {
-    "host" : "",
+    "host": "",
     "port": 0,
     "protocol": {
-      "type" : "packet_router"
+      "type": "packet_router"
     }
   },
   "max copies": 15,
