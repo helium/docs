@@ -10,13 +10,13 @@ slug: /iot/open-lns
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The OpenLNS Initiative allows anyone looking to deploy devices on the Helium Network to use any
+The OpenLNS initiative allows anyone looking to deploy devices on the Helium Network to use any
 LoRaWAN Network Server (LNS). The LNS you choose must comply with the LoRaWAN specification to
 access the Helium Network.
 
 ## Why OpenLNS?
 
-OpenLNS will deliver the following Network improvements:
+OpenLNS will deliver the following network improvements:
 
 1. Increased accessibility
 2. Accelerated device joins and a focus on increased speed
@@ -30,7 +30,7 @@ OpenLNS will deliver the following Network improvements:
 The OpenLNS Initiative is unaffected by the migration to Solana. LNS Operators and Console Users
 will have months to migrate their LNS services.
 
-OpenLNS allows devices on the Helium Network to use any LoRaWAN Network Server (LNS) that complies
+OpenLNS allows devices on the Helium Network to use any LoRaWAN Network Server ("LNS") that complies
 with the LoRaWAN specification.
 
 <!-- TODO: what is an LNS -->
@@ -42,22 +42,22 @@ with the LoRaWAN specification.
 ## Network Improvements
 
 Before OpenLNS, Helium LoRaWAN Network Servers ran on bespoke software especially suited to the
-Helium blockchain. Through [HIP-70](https://github.com/helium/HIP/issues/471), these constraints
-were removed, allowing for a multitude of simplifications and improvements.
+Helium Blockchain. Through Helium HIP-70, these constraints were removed, allowing for a multitude
+of simplifications and improvements.
 
 **Increased Accessibility:** <br/> OpenLNS alleviates the usage and access bottlenecks that stem
-from "Helium Console" as the only LNS option and instead scales Network access through a large and
+from "Helium Console" as the only LNS option and instead scales network access through a large and
 diverse set of LNS providers and software suites.
 
-**Accelerated Device Joins:** <br/> The re-engineered back-end architecture removes the need to
-store device routing information on the Helium blockchain, dramatically reducing device join time.
+**Accelerated Device Joins:** <br/> The re-engineered backend architecture removes the need to store
+device routing information on the Helium blockchain, dramatically reducing device join time.
 
-**Increased Reliability:** <br/> By collocating in the same global regions as deployed Hotspots,
+**Increased Reliability:** <br/> By colocating in the same global regions as deployed Hotspots,
 additional Oracles can support future demand, reduce latency, and increase redundancy.
 
 **Enable Massive Scalability:** <br/> The upgraded architecture allows for new device classes and
-innovative use cases, with new LoRaWAN infrastructure allowing IoT solution providers to utilize
-whichever LNS they prefer based on features and capabilities.
+innovative use cases, with new LoRaWAN infrastructure allowing IoT providers to utilize whichever
+LNS they prefer based on features and capabilities.
 
 ---
 
@@ -68,13 +68,13 @@ whichever LNS they prefer based on features and capabilities.
 In the current architecture, Helium Console is a blockchain-following node. This blockchain
 dependency adds cost and complexity and can cause speed and efficiency issues, including device
 joins delays and slow, delayed, or dropped packet communications. In addition, the current
-architecture limits the scalability to handle future Network growth. IoT solution providers can only
+architecture limits the scalability to handle future network growth. IoT solution providers can only
 access part of the catalog of LoRaWAN-capable devices, and there are limited options regarding how
 these devices onboard to the Helium Network.
 
-Moving Data transfer to [Oracles][oracles] will eliminate the need for Data Transfer Accounting
+Moving data transfer to [Oracles][oracles] will eliminate the need for data transfer accounting
 dependent on the blockchain and other chain-following entities, eliminates the issues noted above
-while enabling Data transfer to massively scale, and removes the fear of chain halts affecting the
+while enabling data transfer to massively scale, and removes the fear of chain halts affecting the
 underlying Network.
 
 <figure>
@@ -84,13 +84,13 @@ underlying Network.
 
 ### How Would OpenLNS Provide More Access To The Network?
 
-OpenLNS allows partners in the Ecosystem to use any LNS that complies with the LoRaWAN specification
+OpenLNS allows partners in the ecosystem to use any LNS that complies with the LoRaWAN specification
 to access the Helium Network.
 
 :::note New Capabilities.
 
-The Helium Console does not support standard LoRaWAN features such as ABP activation or Class C end
-devices. OpenLNS allows users to choose a different LNS, such as ChirpStack to address these
+The Helium Console does not support standard LoRaWAN features such as ABP activation or Class C
+devices. OpenLNS allows users to choose a different LNS, such as Chirpstack to address these
 limitations.
 
 :::
@@ -100,37 +100,9 @@ Reimagining this landscape of LNS providers offers users a new level of freedom 
 ### What Is The Current Progress And Future Timeline?
 
 Alpha testing began in October 2022. After a successful initial alpha period, a larger group of
-partners in the Ecosystem are participating in the ongoing beta test and are seeing positive
-evidence that ABP and Class C end devices will be fully functional on the Helium Network.
+partners in the ecosystem are participating in the ongoing beta test and are seeing positive
+evidence that ABP and Class C devices will be fully functional on the Helium Network.
 
 Testing will continue through the start of 2023.
 
-### Which OpenLNS Providers Can I Use?
-
-The first batch of providers within the OpenLNS Initiative utilizes [ChirpStack][ChirpStack] and
-offers multi-tenant and private instances to businesses and individuals.
-
-- [IngeniousThings][ingeniousthings] provides LNS services, including public device hosting using a
-  pay-per-message model and private LNS instances using a pay-per-month model. IngeniousThings has
-  been involved in LoRaWAN since 2016 and was an early contributor to the Helium Ecosystem as one of
-  the first public Helium Console hosts. IngeniousThings currently supports over 7,000 devices on
-  its [Helium IoT][helium-iot] Console and will offer a variety of features and services to help
-  Helium users.
-- [Parley Labs][parley-labs] provides Helium products and services and supports growth. Parley Labs
-  plans to offer both public and private LNS hosting services. Parley Labs was a pioneer in the
-  Helium Ecosystem, providing pre-provisioned products, demonstrating Class C end device
-  functionality, and assisting clients in bringing their solutions to market. Parley Labs' services
-  include sourcing, procurement, provisioning, logistics, integrations, and engineering.
-- [Brdot][brdot] emerged in 2021 as the ultimate solution provider for Helium across Latin America
-  and has since then been offering comprehensive services and coverage as a reseller for the finest
-  Helium gateways available, certified by Anatel. Our expertise brings users an extensive range of
-  offerings, including LNS services, device hosting options, and unparalleled support. Whether you
-  require private or public LNS service utilizing a pay-per-message or pay-per-month basis, BrDot
-  has you covered.
-
-[ChirpStack]: https://www.chirpstack.io/
-[ingeniousthings]: https://www.ingeniousthings.fr/
-[helium-iot]: https://www.helium-iot.eu/
-[parley-labs]: https://parleylabs.com/
-[Brdot]: https://brdot.com.br/
 [oracles]: /oracles
