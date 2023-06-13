@@ -1,5 +1,5 @@
 ---
-id: tutorial-dm-lorawan-gps
+id: digital-matter-lorawan-gps
 title: Tutorial DM LoRaWAN GPS
 pagination_label: Tutorial DM LoRaWAN GPS
 sidebar_label: Tutorial DM LoRaWAN GPS
@@ -23,12 +23,13 @@ Step-by-step tutorial guide on configuring and onboarding Digital Matter LoRaWAN
 
 ### Introduction
 
-The
-[Digital Matter Oyster3](https://www.digitalmatter.com/devices/oyster-lorawan/) / [Yabby Edge](https://www.digitalmatter.com/our-devices/yabby-edge/)
-are rugged IP68 rated battery powered GPS tracking devices. This guide will show you the hardware
-and software setup steps required to provision and onboard these devices on the Helium Network.
+The [Digital Matter Oyster3](https://www.digitalmatter.com/devices/oyster-lorawan/) /
+[Yabby Edge](https://www.digitalmatter.com/our-devices/yabby-edge/) are rugged IP68 rated battery
+powered GPS tracking devices. This guide will show you the hardware and software setup steps
+required to provision and onboard these devices on the Helium Network.
 
-Functionally, the Oyster3 and Yabby Edge are both battery powered GPS tracking devices. Their main differences lie in form factor and battery life.
+Functionally, the Oyster3 and Yabby Edge are both battery powered GPS tracking devices. Their main
+differences lie in form factor and battery life.
 
 ### Resources
 
@@ -48,18 +49,25 @@ Functionally, the Oyster3 and Yabby Edge are both battery powered GPS tracking d
 ### Software
 
 - [Helium Console](https://console.helium.com/)
-- [LoRaWAN Provisioning Tool](https://www.oemserver.com/tools/LoRaWANProvisioningTool/setup.exe) \(Windows\)
+- [LoRaWAN Provisioning Tool](https://www.oemserver.com/tools/LoRaWANProvisioningTool/setup.exe)
+  \(Windows\)
 
 ### Hardware Setup
 
 The Oyster3 takes 3 cells of AA battery; the Yabby Edge takes 2 cells of AAA battery.
 
-The Oyster3 and the Yabby Edge both use the [DM-Link Wired Provisioning Cable for LoRaWAN decives](https://www.digitalmatter.com/dmlink/).
+The Oyster3 and the Yabby Edge both use the
+[DM-Link Wired Provisioning Cable for LoRaWAN decives](https://www.digitalmatter.com/dmlink/).
 
-Compatibility with the DM-Link Wired Provisioning Cable for older Digital Matter LoRaWAN devices can be found at [Wired Provisioning Tool](https://support.digitalmatter.com/support/solutions/articles/16000104317-wired-provisioning-tool).
-On LoRaWAN devices, DM-Link is used to configure the region and JoinEUI to connect to a network. A DM-Link can also be used to configure device parameters prior to deployment, and update firmware and Almanac data where applicable.
+Compatibility with the DM-Link Wired Provisioning Cable for older Digital Matter LoRaWAN devices can
+be found at
+[Wired Provisioning Tool](https://support.digitalmatter.com/support/solutions/articles/16000104317-wired-provisioning-tool).
+On LoRaWAN devices, DM-Link is used to configure the region and JoinEUI to connect to a network. A
+DM-Link can also be used to configure device parameters prior to deployment, and update firmware and
+Almanac data where applicable.
 
-Once the devices have been provisioned and the batteries are populated, the enclosure can be sealed by using the included screws.
+Once the devices have been provisioned and the batteries are populated, the enclosure can be sealed
+by using the included screws.
 
 ---
 
@@ -70,9 +78,9 @@ That’s it for the hardware setup!
 ### Software Setup
 
 The Oyster3 / Yabby Edge ship with a pre-provisioned AppEUI and AppKey. If you choose to use these
-credentials, you can leave the AppEUI and AppKey fields blank in the Windows utility. If you would like
-to provision the device with new credentials, you must copy the AppEUI and AppKey from the device
-[created in Console](/use-the-network/console/adding-devices).
+credentials, you can leave the AppEUI and AppKey fields blank in the Windows utility. If you would
+like to provision the device with new credentials, you must copy the AppEUI and AppKey from the
+device [created in Console](/use-the-network/console/adding-devices).
 
 The basic parameters of interest are as follows:
 
@@ -153,22 +161,26 @@ When decoded becomes:
 ```
 
 To learn more about decoding this payload, you may use this
-[utility](https://www.oemserver.com/tools/Oyster3LoRaWAN/oyster3-lr-html-decoder.html). To view the JavaScript
-sample code, you can view source.
+[utility](https://www.oemserver.com/tools/Oyster3LoRaWAN/oyster3-lr-html-decoder.html). To view the
+JavaScript sample code, you can view source.
 
 ### Battery Life Estimate Calculator
 
-Download [Oyster3 LoRaWAN Battery Life Estimate Calculator](https://support.digitalmatter.com/helpdesk/attachments/16084686136)
+Download
+[Oyster3 LoRaWAN Battery Life Estimate Calculator](https://support.digitalmatter.com/helpdesk/attachments/16084686136)
 
-This spreadsheet will help estimate the approximate battery life of the Digital Matter Oyster3 LoRaWAN. Simply
-modify the fields to represent the desired number of transmissions within a day.
+This spreadsheet will help estimate the approximate battery life of the Digital Matter Oyster3
+LoRaWAN. Simply modify the fields to represent the desired number of transmissions within a day.
 
 ### myDevices/Cayenne Integration
 
-Helium now supports myDevices and the Cayenne LPP \(Low Power Payload\) format. Cayenne is a drag-and-drop IoT platform developed by myDevices, allowing developers, designers and engineers to quickly prototype and
-share their connected device projects.
+Helium now supports myDevices and the Cayenne LPP \(Low Power Payload\) format. Cayenne is a
+drag-and-drop IoT platform developed by myDevices, allowing developers, designers and engineers to
+quickly prototype and share their connected device projects.
 
-To learn more about myDevices Cayenne integration, visit [myDevices Cayenne](https://developers.mydevices.com/cayenne/features/) and their [documentation](https://developers.mydevices.com/cayenne/docs/intro/).
+To learn more about myDevices Cayenne integration, visit
+[myDevices Cayenne](https://developers.mydevices.com/cayenne/features/) and their
+[documentation](https://developers.mydevices.com/cayenne/docs/intro/).
 
 :::info
 
