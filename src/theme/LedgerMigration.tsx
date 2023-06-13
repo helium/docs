@@ -425,7 +425,7 @@ export const LedgerMigration = () => {
         ),
       },
       {
-        label: 'Seed Wallet on Solana',
+        label: 'Keep Helium-Solana Ledger Connected and Seed Wallet on Solana',
         component: (
           <VStack>
             {errorSeed && (
