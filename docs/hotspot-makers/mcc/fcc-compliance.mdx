@@ -1,0 +1,337 @@
+---
+id: fcc-compliance
+title: FCC Testing and Certification of Helium Compatible Gateways
+pagination_label: FCC Testing and Certification
+sidebar_label: FCC Testing and Certification
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /hotspot-makers/fcc-compliance
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Introduction
+
+Helium hotspots (miners) operate in the US915, also known as the US902-928 MHz unlicensed band, as
+modified LoRaWAN compatible gateways. Currently the Helium system operates on 8 channels in sub-band
+2 of the US915 band as defined by LoRaWAN Regional Parameters document.
+
+Standard LoRaWAN gateways downstream transmissions are in the upper frequency range (923.3 – 927.5
+MHz) using 500 kHz modulation in digital DTS mode. In addition, Helium compatible gateways transmit
+in the lower frequency range (903.9 to 905.3 MHz) using 125 kHz channel modulation to support
+proof-of-coverage (PoC) functions. The PoC transmissions are similar in format and requirements to
+LoRaWAN endpoint devices. This PoC operation falls under a different FCC classification known as a
+DSS Hybrid system and specific testing is required for certification.
+
+Using FCC pre-certified LoRaWAN gateway modules based on Semtech Corcell LoRaWAN concentrator card
+designs from marketplace suppliers are not likely to have been tested and certified to support
+Helium’s PoC 125 kHz hybrid transmissions. In this case, the FCC requires full recertification with
+a new FCC product identification (FCC ID) number. It is the responsibility of manufacturers
+providing Helium compatible network products to ensure that proper testing and certification or
+recertification is obtained.
+
+This application note helps the reader understand the FCC certification testing needed to support a
+Helium gateway with standard LoRaWAN DTS functions and additional DSS Hybrid mode requirements to
+support PoC.
+
+---
+
+## Glossary
+
+- **ANSI**: American National Standards Institute
+- **BW**: Bandwidth
+- **CFR**: Code of Federal Regulations (US)
+- **DSS**: Digital Spread Spectrum
+- **DTS**: Digital Modulation Mode
+- **FCC**: Federal Communications Commission
+- **FHSS**: Frequency Hopping Spread Spectrum
+- **Hybrid**: System employing both frequency hopping and digital modulation
+- **KDB**: FCC Knowledge Database
+- **LoRa**: Long Range radio modulation technique
+- **LoRaWAN™**: LoRa low power Wide Area Network protocol
+- **PoC**: Helium Proof of Coverage function
+- **RX**: Receive / Receiver
+- **SF**: Spreading Factor
+- **TX**: Transmit / Transmitter
+
+---
+
+## References
+
+- [Code of Federal Regulations, Title 47, Part 15.247 Operation within the bands 902 – 928
+  MHz][code-of-regulations]
+- [FCC KDB publication 550874 Guidance for Compliance Measurements...][fcc-kdb]
+- [IEEE/ANSI C63.10-2020 American National Standard Of Procedures For Compliance Testing Of
+  Unlicensed Wireless Devices][ieee-ansi-c63]
+- [Semtech AN1200.62 Best Practices for FCC Pre-Compliance Testing of LoRaWAN™
+  Modules][semtech-an1200]
+- [LoRa Alliance TS001-1.0.4 LoRaWAN® L2 1.0.4 Specification][lora-ts001]
+- [LoRa Alliance RP002-1.0.3 LoRaWAN® Regional Parameters][lora-rp002]
+- [Semetch Corcell Gateway Reference design US version Performance Report][semtech-corcell]
+
+[code-of-regulations]:
+  https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-C/subject-group-ECFR2f2e5828339709e/section-15.247
+[fcc-kdb]:
+  https://apps.fcc.gov/kdb/GetAttachment.html?id=tylb5MMggvhIlVMK75RrRQ%3D%3D&desc=558074%20D01%2015.247%20Meas%20Guidance%20v05r02&tracking_number=21124
+[ieee-ansi-c63]:
+  https://webstore.ansi.org/Standards/IEEE/IEEEANSIC63102020?source=blog&_ga=2.34908257.1568056374.1665406651-91269165.1664804467
+[semtech-an1200]:
+  https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000Utfm/3nixYcPzYVle2Ov3YlCd6PD0o3umgTeP9lBkwgiuoN0
+[lora-ts001]:
+  https://resources.lora-alliance.org/technical-specifications/ts001-1-0-4-lorawan-l2-1-0-4-specification
+[lora-rp002]:
+  https://resources.lora-alliance.org/technical-specifications/rp2-1-0-3-lorawan-regional-parameters
+[semtech-corcell]:
+  https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000HUdh/9kR4.s9sZG5.CVW2ZrQOxjKl1FjKzwfh5k547K.M5Uc
+
+---
+
+## FCC Certification Requirements
+
+As stated in the introduction, a Helium gateway must support 2 different modes of operation and
+therefore requires multiple (DTS and DSS Hybrid) FCC certification testing. The test descriptions
+below are grouped by these modes, DTS digital modulation and DSS Hybrid operation which employs a
+combination of frequency hopping and digital modulation techniques.
+
+According to FCC KDB 550874 section 1, the 2 modes of operation in the same gateway require two,
+Form 731 applications and the unit is considered a composite system. However, only a single product
+identifier (FCC ID) is needed.
+
+Frequency charts and modulation types for Helium network operation are shown below for reference.
+Normal LoRa gateway uplink frequencies (endpoint transmissions received by the gateway) occur in the
+902 to 915 portion of the US915 band and downlink frequencies (transmissions from the gateway) occur
+in the 923 to 928 MHz portion of the band. The uplink channels can be 125 kHz (64 total channels)
+and 500 kHz (8 total channels) wide bandwidth. The operation for Helium gateway uplink PoC
+transmissions is in sub-band 2 as defined by LoRa Alliance RP002-1.0.3 Regional Parameters
+specification. These are 8 channels, 200 kHz spaced, from 903.9 to 905.3 MHz. While sub-band 2 is
+the minimum requirement for Helium network gateway support, developers may want to test and certify
+their gateways for all possible PoC channels in the entire range of 902.3 to 914.9 MHz. Future
+network enhancements may include additional sub-bands support.
+
+### Helium Gateway Uplink and PoC Transmission Frequencies (BW125 channels)
+
+| Frequency (MHZ) | Spreading Factor      |
+| --------------- | --------------------- |
+| 903.9           | SF7BW125 to SF10BW125 |
+| 904.1           | SF7BW125 to SF10BW125 |
+| 904.3           | SF7BW125 to SF10BW125 |
+| 904.5           | SF7BW125 to SF10BW125 |
+| 904.7           | SF7BW125 to SF10BW125 |
+| 904.9           | SF7BW125 to SF10BW125 |
+| 905.1           | SF7BW125 to SF10BW125 |
+| 905.3           | SF7BW125 to SF10BW125 |
+| 904.6           | SF8BW500              |
+
+### Helium Gateway Downlink Frequencies
+
+| Frequency (MHZ) | Spreading Factor            |
+| --------------- | --------------------------- |
+| 923.3           | SF7BW500 to SF12BW500 (RX1) |
+| 923.9           | SF7BW500 to SF12BW500 (RX1) |
+| 924.5           | SF7BW500 to SF12BW500 (RX1) |
+| 925.1           | SF7BW500 to SF12BW500 (RX1) |
+| 925.7           | SF7BW500 to SF12BW500 (RX1) |
+| 926.3           | SF7BW500 to SF12BW500 (RX1) |
+| 926.9           | SF7BW500 to SF12BW500 (RX1) |
+| 927.5           | SF7BW500 to SF12BW500 (RX1) |
+| 923.3           | SF12BW500 (RX2)             |
+
+---
+
+## LoRaWAN Digital Modulation DTS Operation
+
+Standard LoRaWAN digital operation mode referred to as “DTS” mode is defined by the FCC as having a
+minimum 6 dB bandwidth of 500 kHz and a maximum spectral power density of +8 dBm in any 3 kHz
+segment and a +30 dBm (1 Watt) maximum output. Spurious emissions are also regulated according to
+different frequency ranges which are considered restricted and non-restricted. Helium only gateways
+only transmit in the 500 kHz DTS mode in the upper frequency range of 923.3 to 927.5 MHz. The
+following are the descriptions of the tests required for FCC certification.
+
+To demonstrate compliance, the device under test is normally measured at maximum power output on 3
+frequencies that are at the low, middle, and high end of the frequency range.
+
+### FCC CFR 15.247 (a)(2) 6 dB Transmit Bandwidth
+
+The FCC requirement has a 6 dB minimum bandwidth of 500 kHz to be considered as DTS operation. The
+measurement guidance for certification testing is contained in the FCC Guidance for Compliance
+document KDB 558074. The KDB 558074 also refers to the acceptable test methodologies contained in
+ANSI document C63.10 section 11.8. Different test methods for measuring the 6 dB bandwidth are given
+in C63.10 depending on the capabilities of the test equipment.
+
+### FCC CFR 15.247 (b)(3) Output Power
+
+The maximum permissible output power for DTS operation is 30 dBm (1 Watt). While this is a
+straightforward specification the FCC does permit 2 different measurements of measuring power: 1)
+Maximum peak conducted output power method or 2) Maximum conducted (average) output power. The key
+to understanding this measurement guidance is given in KDB 558074 section 8.3. This also refers the
+reader to ANSI C63.10 sections 11.9.1 and 11.9.2 for specific test procedures. The recommended test
+method is to use the average power output procedure. The reason for this is the next test
+requirement listed below for power spectral density requires the same test method be used for both
+measurements. There is a power advantage realized by using an average measurement for power spectral
+density due to the nature of the chirp spread spectrum modulation on LoRa designs.
+
+### FCC CFR 15.247 (e) Power Spectral Density
+
+The FCC also places a power spectral density limit on all transmissions of 8 dBm maximum in any 3
+kHz segment of the transmission band. KDB 558074 8.4 lists this requirement and refers to ANSI
+C63.10 section 10.11. Note that the test setups for this parameter is identical to the Output Power
+(15.247 (b)(3)) above and 15.247 (e) mandates that the same method for determining the output power
+shall be used to determine the power spectral density. As stated above for the output power
+requirement, the average power test method is recommended.
+
+### FCC CFR 15.247 (d) Out of Band Emissions
+
+Out of band emissions, also known as spurious emissions, are transmitter power that is present out
+of the current operating band. There are several parameters to note from 15.247 (d). First, the
+limit does depend on how the transmitter power was measured in 15.247 (b)(3). Second, spurious
+emissions will fall into “restricted” and “non-restricted” frequency bands that are defined in FCC
+CFR 15.205 (a). Emissions that fall into restricted frequency bands must have radiated levels lower
+than limits defined in FCC CFR 15.209 (a).
+
+FCC KBD 558074 section 8.5 refers to the test methodology given in ANSI C63.10 section 11.11 for
+non-restricted measurements. FCC KBD 558074 section 8.6 points to ANSI C63.10 section 11.12 for
+testing in restricted frequency bands.
+
+---
+
+## Helium PoC DSS Hybrid operation
+
+Operation in the lower portion of the US915 frequency band using 125 kHz modulation bandwidth for
+Helium’s PoC transmissions falls under the FCC classification of a Hybrid system and test
+requirements for certification differ from standard digital modulation modes. A Hybrid system is
+defined by the FCC as employing both frequency hopping and digital modulation techniques at the same
+time on the same carrier. A Hybrid system must also meet the definition of true frequency hopping
+systems. See FCC KDB 558074 section 1 and 10 for the definition of a Hybrid system. The Helium
+network in the US currently uses 8 channels in sub-band 2 in the lower end of the US915 frequency
+band. The channel bandwidth for PoC transmissions is 125 kHz and a LoRa coding rate of 4/5. The
+packet transmission time is approximately 329 ms with spreading factors of 7 to 10. The channel
+hopping is random. Power output in hybrid mode is also limited by regulations compared to the DTS
+mode. Below are listed the specific requirements for certification and how these apply to the Hybrid
+transmission mode.
+
+### FCC CFR 15.247 (a)(1) Channel Separation, Random Channels
+
+This paragraph of the FCC regulations defines the minimum channel separation dependent on modulation
+bandwidth and the randomness of the frequency hopping. FCC KDB 558074 10 (b)(6)(iii) points to ANSI
+C63.10 section 7.8.2 for testing carrier separation. A description from the applicant of the
+pseudorandom hopping sequence and equal hopping frequency use is also needed for the filing. See FCC
+KDB 558074 section 9 (c)(1) for the requirement.
+
+### FCC 15.247 (d) Out of Band Emissions
+
+This requirement for Hybrid mode is identical to the DTS mode operation that is described in section
+4.1.4 above.
+
+### FCC 15.247 (f) Dwell Time and Power Spectral Density
+
+This paragraph describes the maximum time spent on any single channel (0.4 seconds) when frequency
+hopping and also the maximum power output permitted. The maximum power is specified as +8 dBm in any
+3 kHz band of the channel. For LoRaWAN 125 kHz modulation, and by using the test methods in the ANSI
+C63.10 document, this results in approximately +21 dBm maximum power output on any channel, also see
+LoRa Alliance RP002-1.0.3 2.5.2. Note that frequency hopping is typically turned off with special
+test code for this test. FCC KDB 558074 refers to ANSI C63.10 sections 7.8 and 11 for test methods.
+
+### FCC 15.247 (g) Channel Distribution
+
+The language of this paragraph ensures that the equipment under test is capable of operation as a
+true frequency hopping system. The device must demonstrate pseudorandom hopping and equal channel
+usage with short data bursts or continuous (long) data streams. See FCC KDB 558047 9 (c)(2) for a
+description of this requirement.
+
+---
+
+## Antenna Requirements
+
+There are several important factors to consider with the antenna that will be included with a
+gateway. The antenna parameters are included in the FCC filing and directly affects certification.
+
+### Fixed or Integrated Antenna
+
+A fixed antenna or one that is integrated into the design and cannot be removed from the device
+requires radiative test methods since there are no conductive test capabilities. The FCC does allow
+certification if there is no antenna test port available by only using radiation measurements. This
+is described in FCC KDB 558074 section 3. An integrated antenna more frequently applies to LoRaWAN
+endpoint devices while gateways usually have a removable antenna or a test port.
+
+### FCC CFR 15.247 (b)(4) Antenna Gain
+
+FCC regulations allows normal output power for devices up to and including an antenna with 6 dBi
+(over an isotropic radiator) gain. If the antenna included with the gateway is over 6 dBi gain, the
+power output must be reduced in an equal amount that the antenna is over 6 dBi. Also see FCC KDB
+558074 section 7 for further clarification of antenna gain requirements.
+
+### FCC CFR 15.203 Antenna Connection
+
+Another requirement specifies that other antennas not specified by the manufacturer cannot be
+attached to the unit. Permanently attached or the use of unique coupling (connector) for the antenna
+will meet this requirement. Note that using industry standard antenna jacks and electrical
+connectors is prohibited. The intent of this regulation is to prevent the end user from changing the
+antenna and modifying the peak radiated power from the device.
+
+---
+
+## AC Power Line Conducted Emissions
+
+The assumption is the majority of Helium gateway designs will be powered from the AC power line. FCC
+CFR 15.207 specifies the maximum RF voltage in the 150 kHz to 30 MHz range that can be conducted
+back to the utility power line. The test facility will normally perform this test during the
+certification process.
+
+---
+
+## Frequency Stability
+
+While FCC CFR 15.247 does not explicitly specify frequency stability of the transmitter there are
+other CFR sections which are applicable to ensure operation within the frequency band over
+temperature and voltage variations. See FCC CFR 15.215 (c) for keeping transmissions within
+designated frequency bands and FCC CFR 2.1055 (d) for the requirements of voltage variation.
+
+---
+
+## Summary of Certification Testing Requirements
+
+### DTS Digital Modulation Requirements
+
+| FCC Rule      | Tests                | Limits                                     | Results |
+| ------------- | -------------------- | ------------------------------------------ | ------- |
+| 15.247 (a)(2) | 6 dB Bandwidth       | 500 kHz min                                |
+| 15.257 (b)(3) | Output Power         | +30 dBm max                                |
+| 15.247 (e)    | Spectral Density     | +8 dBm / 3 kHz max                         |
+| 15.247 (d)    | Radiated Emissions   | See rules for limits                       |
+| 15.209 (a)    | Radiated Emissions   | See rules for limits                       |
+| 15247 (b)(4)  | Antenna Requirements | 6 dBi antenna gain Connection requirements |
+| 15.203        | Antenna Requirements | 6 dBi antenna gain Connection requirements |
+| 15.207        | Conducted Emissions  | 150 kHz – 30 MHz see rules for limits      |
+| 15.215 (c)    | Frequency Stability  | TX within band                             |
+
+### DSS Hybrid Modulation Requirements
+
+| FCC Rule      | Tests                | Limits                                     | Results |
+| ------------- | -------------------- | ------------------------------------------ | ------- |
+| 15.247 (a)(1) | Channel Requirements | See rules                                  |
+| 15.247 (d)    | Radiated Emissions   | See rules for limits                       |
+| 15.209 (a)    | Radiated Emissions   | See rules for limits                       |
+| 15.247 (f)    | Spectral Density     | +8 dBm / 3 kHz max                         |
+| 15.247 (g)    | Channel Distribution | See rules                                  |
+| 15247 (b)(4)  | Antenna Requirements | 6 dBi antenna gain Connection requirements |
+| 15.203        | Antenna Requirements | 6 dBi antenna gain Connection requirements |
+| 15.207        | Conducted Emissions  | 150 kHz – 30 MHz see rules for limits      |
+| 15.215 (c)    | Frequency Stability  | TX within bands                            |
+
+---
+
+## Helium Foundation Expected Minimum Performance
+
+While all Helium gateways for operation in the US must meet FCC standards as presented in the
+sections above, additional performance parameters not regulated by federal standards are expected to
+ensure the intended operation of the Helium network. Maximum output power for the operational modes
+is regulated by FCC rules, however, the FCC does not specify minimum power output. Likewise, there
+are no US federally regulated receiver minimum sensitivity levels.
+
+For the proper operation of the Helium network, minimum power outputs and receiver sensitivity are
+expected for Helium’s hotspot approval process (see HIP19). The minimum performance levels are based
+on Semtech Corecell reference design using the SX1302 baseband processor and SX1250 RF transceiver.
+The Semtech performance report (link in the references) shows typical power output in section 6 and
+receiver performance for various spreading factors in section 8. Helium expects power output to be
+within 1 dB of the Corcell reference design and receiver sensitivities to be no worse than 2 dB
+above the reference design levels.
