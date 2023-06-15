@@ -12,10 +12,9 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Dragino LHT65
 
-The Dragino LHT65 is a multi-sensor device with a built-in temperature and humidity sensor
-and an external sensor connector that supports temperature, soil moisture,
-tilting, and illumination sensors. The device includes a non-chargeable battery that can last for more than
-10 years.
+The Dragino LHT65 is a multi-sensor device with a built-in temperature and humidity sensor and an
+external sensor connector that supports temperature, soil moisture, tilting, and illumination
+sensors. The device includes a non-chargeable battery that can last for more than 10 years.
 
 <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino/lht65.jpg')} />
 
@@ -28,6 +27,7 @@ tilting, and illumination sensors. The device includes a non-chargeable battery 
 ### Specifications
 
 #### LoRaWAN device type:
+
 - Class A end-device
 
 #### Sensors:
@@ -38,6 +38,7 @@ tilting, and illumination sensors. The device includes a non-chargeable battery 
 #### Dimensions:
 
 **Device:**
+
 - width: 70 mm
 - length: 135 mm
 - height: 30 mm
@@ -49,7 +50,8 @@ tilting, and illumination sensors. The device includes a non-chargeable battery 
 #### Battery:
 
 - type: 2400 mAh non-chargeable
-- replaceable: True (Battery Replacement Kit: LHT65-BAT-CA; includes: LHT65 battery + Enclosure + Sticker without Dev EUI.)
+- replaceable: True (Battery Replacement Kit: LHT65-BAT-CA; includes: LHT65 battery + Enclosure +
+  Sticker without Dev EUI.)
 
 ### Add Device to Console
 
@@ -60,14 +62,14 @@ to Console.
 
 ### Join Device to Network
 
-Your device will be in deep sleep mode when you receive it. To activate the device and place it in
-a normal operating state, hold down the ACT button for three seconds until you see the LED blink
-green five times quickly. The operating mode table is shown below for reference.
+Your device will be in deep sleep mode when you receive it. To activate the device and place it in a
+normal operating state, hold down the ACT button for three seconds until you see the LED blink green
+five times quickly. The operating mode table is shown below for reference.
 
 <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-diagram.png')} />
 
-The device should now begin attempting to join the Network. Within a minute or two, you should see an
-activation event on the Console device page, as shown below. The device LED will also show solid
+The device should now begin attempting to join the Network. Within a minute or two, you should see
+an activation event on the Console device page, as shown below. The device LED will also show solid
 green for five seconds after it has joined.
 
 <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-activation.png')} />
@@ -78,8 +80,8 @@ changed; please refer to the manual for instructions.
 
 ### myDevices Cayenne
 
-If you would like to easily view your device's data on a web or mobile dashboard for free, this
-the device is supported out of the box by myDevices Cayenne via the integration on Console.
+If you would like to easily view your device's data on a web or mobile dashboard for free, this the
+device is supported out of the box by myDevices Cayenne via the integration on Console.
 
 To add the LHT65 to myDevices Cayenne, you do not need to set up a Decode script as described below.
 Cayenne takes the encoded payload directly and parses the temperature and other data elements from
@@ -99,16 +101,18 @@ Integration. Do not use a Decoder.
 
 ### Decode Device Payload
 
-When this device transmits its data, it does so space-efficiently by packing the bytes of
-data in a specific way so that no space is wasted; learn more about this in
-[our short primer](/use-the-network/console/functions). This device's manufacturer, Dragino, uses their own encoding scheme to define which bytes hold which piece of data.
-Below is a table taken from the manual showing the size and location of each piece of data.
+When this device transmits its data, it does so space-efficiently by packing the bytes of data in a
+specific way so that no space is wasted; learn more about this in
+[our short primer](/use-the-network/console/functions). This device's manufacturer, Dragino, uses
+their own encoding scheme to define which bytes hold which piece of data. Below is a table taken
+from the manual showing the size and location of each piece of data.
 
 <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-byte-packing.png')} />
 
 If you would like to decode the device payload to view it in Console or send it to your own
 application, this section will show you how. We'll use a Console Function Decoder to unpack the
-device payload into a human-readable form; you can learn more about Functions in general [here](/use-the-network/console/functions/).
+device payload into a human-readable form; you can learn more about Functions in general
+[here](/use-the-network/console/functions/).
 
 #### Create Function Decoder
 
@@ -132,12 +136,14 @@ shown below.
 
 #### Viewing Decoded Device Data
 
-Once you have attached the decoder, we can now open the Debug window to view the decoded device payload in the received uplink.
-You can learn more about the Debug tool [here](https://docs.helium.com/use-the-network/console/debug).
-To open the Debug window, click on the bug icon on the right side of the device page.
-Once you open the Debug window, you can wait for the next packet to transmit or force a manual transmission by holding down the ACT button for more than one second and less than three.
-You'll see the LED turn green while you hold it down, and then it should turn red briefly after release.
-You should see the uplink message with the decoded fields below.
+Once you have attached the decoder, we can now open the Debug window to view the decoded device
+payload in the received uplink. You can learn more about the Debug tool
+[here](https://docs.helium.com/use-the-network/console/debug). To open the Debug window, click on
+the bug icon on the right side of the device page. Once you open the Debug window, you can wait for
+the next packet to transmit or force a manual transmission by holding down the ACT button for more
+than one second and less than three. You'll see the LED turn green while you hold it down, and then
+it should turn red briefly after release. You should see the uplink message with the decoded fields
+below.
 
 <img
   src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-decoded-payload.png')}
@@ -145,7 +151,7 @@ You should see the uplink message with the decoded fields below.
 
 ### Sending Device Payload to Your Application
 
-To learn more about how to send the device data payload to your own application, check out the Console
-integrations [here](https://docs.helium.com/use-the-network/console/integrations).
+To learn more about how to send the device data payload to your own application, check out the
+Console integrations [here](https://docs.helium.com/use-the-network/console/integrations).
 
 ---
