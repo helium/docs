@@ -1,49 +1,72 @@
 ---
-id: lds02
-title: Lds02
-pagination_label: Lds02
-sidebar_label: Lds02
-description: Lorowan Door Sensor
+id: LDS02
+title: LDS02
+pagination_label: LDS02
+sidebar_label: LDS02
+description: LDS02 -- LoRaWAN Door Sensor
 image: https://docs.helium.com/img/link-image.png
 slug: /use-the-network/devices/ready-to-use/dragino/lds02
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-## Dragino LDS02
+## LDS02
+
+LDS02 - LoRaWAN Door Sensor
+
+The Dragino LDS02 is a LoRaWAN Door Sensor. It detects the door open/close status and uplinks these statistics to an LNS server via a LoRaWAN Network.
+The LDS02 will send periodic data every day as well as for each door open/close action.
+It also counts the door open times and calculates the last door open duration. Users can also
+disable the uplink for each open/close event, instead, the device can count each open event and uplink periodically.
 
 <img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino/LDS02_00.jpg')} />
 
-LoRaWAN Door Sensor Mk.2
-
-### Introduction
-
-The
-[Dragino LDS02](https://www.dragino.com/products/lorawan-nb-iot-door-sensor-water-leak/item/181-lds02.html)
-is a self-contained sensor with LoRaWAN, 2xAAA batteries, a magnetic reed proximity switch and
-accompanying magnet. When the magnet is aligned to the sensor and closer than a centimeter, the
-switch is closed. When the magnet is moved further, the switch is open.
-
 ### Resources
 
-[Product Page](https://www.dragino.com/products/lorawan-nb-iot-door-sensor-water-leak/item/181-lds02.html)
+- [Product Page](https://www.dragino.com/products/lorawan-nb-iot-door-sensor-water-leak/item/181-lds02.html)
+- [Datasheet](https://www.dropbox.com/sh/h194pj8r2chooe6/AABvkOGweKuPXWmq3VvKRhxQa/Datasheet_LDS02_Door_Sensor.pdf?dl=0)
+- [Manual](http://wiki.dragino.com/xwiki/bin/view/Main/User%20Manual%20for%20LoRaWAN%20End%20Nodes/LDS02%20-%20LoRaWAN%20Door%20Sensor%20User%20Manual/)
 
-[Datasheet](https://www.dragino.com/downloads/downloads/LoRa_End_Node/LDS02/Datasheet_LDS02_Door_Sensor.pdf)
+### Specifications:
 
-[Manual](https://www.dragino.com/downloads/downloads/LoRa_End_Node/LDS02/LDS02_LoRaWAN_Door_Sensor_UserManual_v1.1.pdf)
+#### LoRaWAN device type:
+- Class A end-device
+
+#### Sensors:
+
+- magnetometer
+- open door alarm
+
+#### Dimensions:
+
+**Device:**
+- width: 29.2 mm
+- length: 69.2 mm
+- height: 14.8 mm
+
+#### Weight:
+
+- 50 grams (excluding batteries)
+
+#### Battery:
+
+- type: 2x AAA (LR03)
+- replaceable: true
+
+---
 
 ### Add Device to Console
 
 To start, you'll need to add your device to the Helium Console. In the package is a sticker
 containing the Device EUI (also QR code), App EUI, and App Key. (The APSSKEY and NETSKEY are
-unused.) Follow our [quick start for instructions](/use-the-network/console/adding-devices) to add a
+unused.) Follow our [quick start guide](/use-the-network/console/adding-devices) on how to add a
 new device to Console.
 
 Open the Debug panel on the Device view to observe incoming messages for the next step.
 
 ### Install Batteries
 
-Open the LDS02 enclosure and add two AAA battery cells for power. For the best wide-range
+Open the LDS02 enclosure and add 2x AAA (LR03) battery cells for power. For the best wide-range
 temperature tolerance and longevity, consider Lithium primary cells, such as Energizer Ultimate
 Lithium L92SBP.
 
@@ -54,7 +77,7 @@ again.
 
 ### myDevices Cayenne
 
-This device is supported directly by [myDevices Cayenne](https://cayenne.mydevices.com/cayenne) via
+This device is supported directly by [myDevices Cayenne](https://developers.mydevices.com/cayenne/features/) via
 the included Integration in Helium's Console.
 
 To add the LDS02 to Cayenne, you do not need to set up a Decode script at all. Cayenne takes the
@@ -86,9 +109,9 @@ Cayenne will show:
 
 ### Decode Device Payload
 
-To decompose the packed 10-byte data Payload from the device into individual values, you may provide
+To decompose the packed 10-byte data payload from the device into individual values, you may provide
 a decode Function as explained in [our short primer](/use-the-network/console/functions). The
-manufacture of this device, Dragino, is using their own encoding scheme to define which bytes hold
+manufacturer of this device, Dragino, is using their own encoding scheme to define which bytes hold
 which piece of data. Below is a table taken from the manual showing the size and location of each
 piece of data.
 
@@ -98,9 +121,9 @@ piece of data.
   )}
 />
 
-If you would like to decode the device payload to view it in Console or send to your own
+If you would like to decode the device payload or to view it in Console or send to your own
 application, this section will show you how. We'll be using a Console Function Decoder to unpack the
-device payload into a human readable form.
+device payload into a human-readable form.
 
 #### Create Function Decoder
 
@@ -170,7 +193,7 @@ to the Function
 
 #### Viewing Decoded Device Data
 
-Once you have attached the decoder we can now open the Debug window to view the decoded device
+Once you have attached the Decoder we can now open the Debug window to view the decoded device
 payload in the received uplink. To open the Debug window just click on the bug icon on the right
 side of the device page. Once you have the Debug window open you can wait for the next packet to
 transmit or force a manual transmission by triggering the sensor with the magnet. You will see the
@@ -233,12 +256,12 @@ function Serialize(payload) {
 ```
 
 The Sheets integration will provide its own Decoder Function block. Create a new flow from the LDS02
-Device, to this Decoder, to the Sheets Integration block.
+Device to this Decoder, to the Sheets Integration block.
 
 ## Notes
 
 Note that the Door Open Duration is a count of full minutes (rounded down) that the door was last
-open. It does not show the Door Closed time, but repeats the Door Open time for the subsequent Open
+open. It does not show the Door Closed time but repeats the Door Open time for the subsequent Open
 message.
 
 If door open/close events happen faster than LoRa can send messages (about 3 seconds each), then the
@@ -248,3 +271,5 @@ regardless of previously missed messages.
 
 A heartbeat message is automatically sent every 24 hours (+ 5 seconds) when idle, restating the door
 condition.
+
+---
