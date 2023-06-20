@@ -1,0 +1,275 @@
+---
+id: ce-red-compliance
+title: CE RED Testing and Certification of Helium Compatible Gateways
+pagination_label: CE RED Testing and Certification
+sidebar_label: CE RED Testing and Certification
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /hotspot-makers/ce-red-compliance
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Introduction
+
+Helium hotspots (miners) operate in the EU868, also known as the EU863-870 MHz unlicensed band, as
+modified LoRaWAN compatible gateways. Currently the Helium system operates on 200 kHz channel
+frequencies from 868.1 to 868.8 MHz in the EU868 band.
+
+The CE Radio Equipment Directive, also known as CE RED, covers regulatory certification for all EU
+member states. Other regulatory country bodies, such as Australia, some Middle Eastern, and African
+countries also accept CE RED certification testing. CE RED is the most commonly accepted testing in
+many countries around the world.
+
+Using CE pre-certified LoRaWAN gateway concentrator modules based on Semtech Corcell card designs
+from marketplace suppliers can assist in the development of a new gateway product but these may or
+may not include all the required certifications for Helium system support. As discussed in several
+sections of this application note, not all EU member states are harmonised with their technical
+specifications. It is the ultimate responsibility of manufacturers providing Helium compatible
+network products that proper regulatory testing and certification or recertification is obtained for
+countries of intended operation.
+
+In this application note the term gateway and hotspot are used interchangeably.
+
+---
+
+## Glossary
+
+- **BW**: Bandwidth
+- **e.r.p.**: Effective Radiated Power
+- **ETSI**: European Telecommunications Standards Institute
+- **EU**: European Union
+- **EUT**: Equipment Under Test
+- **LoRa**: Long Range radio modulation technique
+- **LoRaWAN™**: LoRa low power Wide Area Network protocol
+- **mW**: milli-Watts
+- **PoC**: Helium Proof of Coverage function
+- **RED**: Radio Equipment Directive
+- **RF**: Radio Frequency
+- **RX**: Receive / Receiver
+- **SF**: Spreading Factor
+- **TX**: Transmit / Transmitter
+
+---
+
+## References
+
+- [ETSI EN 300 220-1 V3.1.1 (2017-02) Short Range Devices][etsi-220-1]
+- [ETSI EN 300 220-2 V3.1.1 (2017-02) SRD Part 2 Essential requirements][etsi-220-2]
+- [LoRa Alliance TS001-1.0.4 LoRaWAN® L2 1.0.4 Specification][lora-ts001]
+- [LoRa Alliance RP002-1.0.3 LoRaWAN® Regional Parameters][lora-rp002]
+- [Semtech TN1300.01 How to Qualify a LoRaWAN Device in Europe][semtech-tn1300]
+- [Semtech Corecell Gateway Reference Design EU Version Performance Report][semtech-corcell]
+
+[etsi-220-1]:
+  https://www.etsi.org/deliver/etsi_en/300200_300299/30022001/03.01.01_30/en_30022001v030101v.pdf
+[etsi-220-2]:
+  https://www.etsi.org/deliver/etsi_en/300200_300299/30022002/03.01.01_60/en_30022002v030101p.pdf
+[lora-ts001]:
+  https://resources.lora-alliance.org/technical-specifications/ts001-1-0-4-lorawan-l2-1-0-4-specification
+[lora-rp002]:
+  https://resources.lora-alliance.org/technical-specifications/rp2-1-0-3-lorawan-regional-parameters
+[semtech-tn1300]:
+  https://lora-developers.semtech.com/?ACT=72&fid=30&aid=48_0znCpZpvImL3agza59hG&board_id=1
+[semtech-corcell]:
+  https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000HUbM/mUMXJzdEmwrd5jfxulv1Lk7K_XiMO8DIG54TeLwnUuk
+
+---
+
+## CE RED Certification Requirements
+
+Helium gateways currently operate on 9 frequencies in the 867 to 869 MHz range and are regulated by
+ETSI standards. An additional channel at 869.525 MHz is supported by the gateway as a downlink
+receive slot 2 (RX2) frequency. The Helium gateways meet current LoRaWAN specifications TS001-1.0.4
+and RP002-1.0.3, the document links are given in the references section above. To meet ETSI
+requirements transmissions are duty cycle limited and do not use listen-before-talk protocol which
+require different testing.
+
+The Helium frequency chart for EU868 operation is shown below. Note that uplink (transmissions to
+the gateway) and downlink (transmissions from the gateway) frequencies are the same with no offsets.
+These are the minimum frequencies required for operation on the Helium network. Developers may want
+to test and certify for a wider EU868 frequency range of 863 through 870 MHz, 35 channels with
+separations of 200 kHz, for possible future frequency expansions or the use of alternate frequencies
+in some regions. It is important to note that additional frequency ranges, such as band K (863 – 865
+MHz), have lower transmit duty cycle requirements.
+
+### Helium Uplink and Downlink (RX1) Frequencies
+
+| Frequency (MHZ) | Spreading Factor                   |
+| --------------- | ---------------------------------- |
+| 868.1           | SF7BW125 to SF12BW125              |
+| 868.3           | SF7BW125 to SF12BW125 and SF7BW250 |
+| 868.5           | SF7BW125 to SF12BW125              |
+| 867.1           | SF7BW125 to SF12BW125              |
+| 867.3           | SF7BW125 to SF12BW125              |
+| 867.5           | SF7BW125 to SF12BW125              |
+| 867.7           | SF7BW125 to SF12BW125              |
+| 867.9           | SF7BW125 to SF12BW125              |
+| 868.8           | FSK                                |
+
+### Helium Downlink RX2
+
+| Frequency (MHZ) | Spreading Factor |
+| --------------- | ---------------- |
+| 869.525         | SF12BW125        |
+
+---
+
+## ETSI Testing Requirements
+
+ETSI standards define acceptable test procedures and limits. There are two applicable ETSI
+specifications, EN 300-220-1 V3.1.1 (Part 1) and EN 300-200-2 V3.1.1 (Part 2). Note that the ETSI
+specification EN 300-220-1 was split into these two parts with the latest versions V3.1.1 in 2017.
+The Part 2 specification provides a “Harmonised Standard” for short range devices in the 25 to 1000
+MHz frequency range while the Part 1 specification gives details for “Technical characteristics and
+methods of measurement”. Overall, Part 2 lists frequency bands and RF regulations for these bands
+and points the reader to the applicable sections in Part 1 for specifics of measurement methods. The
+EU868 (863 – 870 MHz) frequency range is broken up into many sub-bands with different power and duty
+cycle requirements which are defined in the Part 2 specification.
+
+Since these specifications are linked, the required test explanations below for LoRaWAN / Helium
+gateway certification will have the applicable sections of EN 300-220-2 and EN 300-220-1 listed.
+
+ETSI EN 300-220-1 4.3.3 defines normal test conditions and the following section 4.3.4 defines
+extreme test conditions. Extreme conditions require additional testing over temperature and source
+voltage variations depending on the operational profile defined by the manufacturer. Some standards
+only require testing at normal conditions while others also require testing at extreme testing
+conditions.
+
+### EN 300-220-2 4.2.1 / EN 300-220-1 5.1.1 Operating Frequency
+
+The manufacturer will declare the operating band or bands, frequencies, and operating channel widths
+in the certification filing. See EN 300-220-2, Annex B and C, for tables of allowable frequencies
+and bands of operation. Annex B lists the frequencies for EU wide national harmonised radio and
+Annex C for radio interfaces not EU wide harmonised. The Annex C (not harmonised) is for operational
+frequencies that may be allowed in some EU countries, but not all. It is up to the manufacturer to
+determine which EU countries that the gateway may operate in and the requirements of that country.
+Additional insight on this subject is given in the Semtech TN1300.01 technical note with a link in
+the References.
+
+### EN 300-220-2 4.2.2 / EN 300-220-1 5.9 Spurious Emissions
+
+Unintended spurious emissions are measured in both transmit and receive / standby modes with
+different limits for each operational mode. EN 300-220-1 5.9.1 defines a spectral mask when
+transmitting with varying spurious limits depending on the frequency spacing from the intended
+channel. Spurious emissions are measured in both conducted and radiated modes with the exception of
+devices without antenna connectors (permanent antenna) are permitted to have radiated only
+measurements. The ETSI specification covers a wide range of frequencies depending on the test mode
+from 9 kHz to 6 GHz. The equipment under test must be measured at the lowest and highest operating
+frequencies at maximum power. Normal test conditions are only required for spurious emissions
+measurements.
+
+### EN 300-220-2 4.3.1 / EN 300-220-1 5.2 Effective Radiated Power
+
+Effective radiated power is measured by direct connection to the EUT when an external antenna port
+is available. The power may be measured by radiated means when there is no external antenna
+connector available. The maximum gain of the antenna, referenced to an ideal dipole, to be used with
+the equipment is included in the test report. For conducted results of effective radiated power the
+gain of the antenna must be added to the measured conducted power. This test is measured in transmit
+mode at the lowest and highest frequencies of operation and also under normal and extreme test
+conditions.
+
+### EN 300-220-2 4.3.2 / EN 300-220-1 5.3 Maximum e.r.p. Spectral Density
+
+Effective radiated power spectral density is defined as the maximum power radiated when transmitting
+in units of power per hertz over the power envelop. Antenna gain referenced to a dipole, as in the
+effective radiated power test, must be included in the calculation. It is important to note that the
+e.r.p. spectral density test may be the limiting factor for the power setting of the gateway.
+
+Since gateways operate operate on several ETSI defined band “L” frequencies, specific limits may
+apply depending on the EU country where it is intended for operation. In EN 300-220-2 Annex C,
+certain “not EU harmonised” countries may not require the EUT to meet this regulation for spectral
+density and allow 25 mW effective radiated power. For LoRaWAN / Helium operation in regions that
+require this test the power will be limited to approximately 5 mW. The applicant should contact the
+regulatory agencies of each EU country for the current rules and work with a testing service
+facility to determine the proper limits.
+
+This test is measured in transmit mode at the lowest and highest frequencies of operation under
+normal test conditions only.
+
+### EN 300-220-2 4.3.3 / EN 300-220-1 5.4 Transmit Duty Cycle
+
+The intent of the maximum transmitter duty cycle test is to not exceed the duty cycle limits given
+in ETSI 300-220-2 Annex B and C. The EUT should be in “normal use” mode and the duty cycle
+observational period is 1 hour of normal operation.
+
+### EN 300-220-2 4.3.4 / EN 300-220-1 5.6 Transmit Occupied Bandwidth
+
+Transmit occupied bandwidth is defined as the frequency range in which 99% of the total power of an
+emission falls. This parameter is tested at the lowest and highest frequencies of operation and
+under normal and extreme test conditions.
+
+### EN 300-220-2 4.3.5 / EN 300-220-1 5.8 Transmit Out of Band Emissions
+
+Two out of band emissions requirements are defined in ETSI specifications: The operating channel and
+operational frequency band. The operating channel mask defines the emissions near the channel of
+operation while the frequency band emissions include everything out to the operating band limits.
+These spectrum masks may overlap. ETSI 300-220-1 5.8.1 defines the masks for both specifications.
+Out of band emissions are tested at the lowest and highest frequencies of operation and also under
+normal and extreme test conditions.
+
+### EN 300-220-2 4.3.6 / EN 300-220-1 5.10 Transmit Transient Power
+
+Transmit transient power is defined as the transmit power falling outside the current operating
+channel when the transmitter is switched on and off. Transient power is measured at the lowest and
+highest frequencies of operation at normal operating conditions only.
+
+### EN 300-220-2 4.4.2 / EN 300-220-1 5.18 Receiver Blocking
+
+Receiver blocking is defined as the capability of the receiver to receive a wanted modulated signal
+without exceeding a given degradation due to the presence of a stronger unwanted input signal other
+than a spurious response or an adjacent channel. The test is performed with 2 signal generators, one
+on-channel with the wanted modulated signal and an offset generator with an unmodulated carrier. EN
+300-220-2 specifies the minimum performance standard is a category 2, and EN300-220-2 5.18.3 defines
+the levels for category 2. Blocking is measured at normal test conditions only but ETSI requires at
+least 1 measurement per band that the EUT operates in.
+
+### Conducted and Radiated Tests, Antenna Requirements
+
+The effective radiated output power, EN 300-220-1 5.2, as discussed above takes into account antenna
+gain. The maximum antenna gain, with respect to a dipole reference, must be added to output power to
+determine the effective radiated output power. Gateways with antennas that have gain over a standard
+dipole will need to reduce their maximum conducted power settings to meet this specification.
+
+ETSI certification testing is mostly written around conducted methods where a cable is attached to
+the antenna port or a test port. The specifications do allow for radiated testing of most parameters
+which may be the case for EUTs that do not have readily available test connections. See EN 300-220-1
+sections 4.3.7, 4.3.8, and 4.3.9 for requirements. Spurious emissions is a notable exception to
+conducted only test procedures where a radiated measurement must be taken.
+
+While radiated testing for most parameters is allowed, it is usually not practical to attempt
+extreme test conditions with this test method especially over temperature extremes. Most gateway
+designs are stationary devices and are assumed to have access to an antenna connector or an internal
+test connector.
+
+### Summary of Certification Testing Requirements
+
+| EN 300-220-2 | EN 300-220-1 | Tests                    | Limits                       | Results |
+| ------------ | ------------ | ------------------------ | ---------------------------- | ------- |
+| 4.2.1        | 5.1.1        | Operating Frequency      | Declared                     |
+| 4.2.2        | 5.9          | Spurious Emissions       | See -1 5.9                   |
+| 4.3.1        | 5.2          | Effective Radiated Power | See -2 Annex B, C            |
+| 4.3.2        | 5.3          | e.r.p. Spectral Density  | Depends on EU country        |
+| 4.3.3        | 5.4          | TX Duty Cycle            | See -2 Annex B, C            |
+| 4.3.4        | 5.6          | TX Occupied Bandwidth    | See -2 Annex B, C            |
+| 4.3.5        | 5.8          | TX Out of Band Emissions | See -1 5.8.2 Table 15        |
+| 4.3.6        | 5.10         | TX Transient Power       | See -1 5.10.2 Table 23       |
+| 4.4.2        | 5.18         | Receiver Blocking        | See -1 5.18.3 category 2 min |
+
+---
+
+## Helium Foundation Expected Minimum Performance
+
+While all Helium gateways for operation in the EU must meet CD RED standards as presented in the
+sections above, additional performance parameters not regulated by ETSI standards are expected to
+ensure the intended operation of the Helium network. Maximum output power for the operational modes
+is regulated by ETSI regulations, however, ETSI does not specify minimum power output. Likewise, the
+EU does not regulate receiver minimum sensitivity levels for duty cycle limited devices.
+
+For the proper operation of the Helium network, minimum power outputs and receiver sensitivity are
+expected for Helium’s hotspot approval process (see HIP19). The minimum performance levels are based
+on Semtech Corecell reference design using the SX1302 baseband processor and SX1250 RF transceiver.
+The Semtech performance report (link in the references) shows typical power outputs in section 4 and
+receiver performance for various spreading factors in section 8. Helium expects power output to be
+within 1 dB of the Corcell reference design and receiver sensitivities to be no worse than 2 dB
+above the reference design levels.
