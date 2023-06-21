@@ -49,13 +49,18 @@ module.exports = {
       },
       items: [
         {
-          to: 'solana/',
+          to: 'solana',
           label: 'Architecture',
           position: 'left',
         },
         {
           to: 'hnt-token',
           label: 'Tokens',
+          position: 'left',
+        },
+        {
+          to: 'wallets',
+          label: 'Wallets',
           position: 'left',
         },
         {
@@ -69,17 +74,12 @@ module.exports = {
           position: 'left',
         },
         {
-          to: '/governance',
+          to: 'governance',
           label: 'Governance',
           position: 'left',
         },
         {
-          to: '/hotspot-makers',
-          label: 'Hotspot Makers',
-          position: 'left',
-        },
-        {
-          to: '/devblog',
+          to: 'devblog',
           label: 'Dev Blog',
           position: 'left',
         },
