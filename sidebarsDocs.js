@@ -92,6 +92,8 @@ module.exports = {
           link: { type: 'doc', id: 'hotspot-makers/mcc/hotspot-audit-process' },
           items: [
             'hotspot-makers/become-a-maker/maker-approval-auditing',
+            'hotspot-makers/mcc/fcc-compliance',
+            'hotspot-makers/mcc/ce-red-compliance',
             'hotspot-makers/become-a-maker/hotspot-integration-testing',
           ],
         },
