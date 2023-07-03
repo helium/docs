@@ -38,7 +38,9 @@ export const HstManagerImpl = () => {
         ownerAddress: publicKey?.toBase58(),
         creatorAddress: null,
       })
-      return assets[0]
+      if (assets) {
+        return assets[0]
+      }
     }
 
     return undefined
