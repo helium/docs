@@ -1,6 +1,12 @@
 import { ClockworkProvider } from '@clockwork-xyz/sdk'
 import { AnchorProvider, BN, Program } from '@coral-xyz/anchor'
-import { PROGRAM_ID, fanoutKey, init, membershipCollectionKey, membershipVoucherKey } from '@helium/fanout-sdk'
+import {
+  PROGRAM_ID,
+  fanoutKey,
+  init,
+  membershipCollectionKey,
+  membershipVoucherKey,
+} from '@helium/fanout-sdk'
 import { useIdlAccount, useTokenAccount } from '@helium/helium-react-hooks'
 import { Fanout } from '@helium/idls/lib/types/fanout'
 import { HNT_MINT, searchAssets, sendInstructions, toNumber } from '@helium/spl-utils'
@@ -9,10 +15,7 @@ import {
   createInitializeMintInstruction,
   getAssociatedTokenAddressSync,
 } from '@solana/spl-token'
-import {
-  useConnection,
-  useWallet
-} from '@solana/wallet-adapter-react'
+import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram } from '@solana/web3.js'
 import React, { useEffect, useMemo } from 'react'
 import { useAsync, useAsyncCallback } from 'react-async-hook'
@@ -25,7 +28,7 @@ import { Wallet, WrapWithAccountProvider } from './components/Wallet'
 // Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css')
 
-export const HstManagerImpl = () => {
+export const HstManagerImpl = ({ idl }: { idl: Fanout }) => {
   const { publicKey, wallet } = useWallet()
   const fanoutK = useMemo(() => fanoutKey('HST')[0], [])
   const collectionAddress = useMemo(() => membershipCollectionKey(fanoutK)[0], [fanoutK])
@@ -61,9 +64,6 @@ export const HstManagerImpl = () => {
       return await init(new AnchorProvider(connection, wallet.adapter, { commitment: 'confirmed' }))
     }
   }, [wallet, connection])
-  const { result: idl } = useAsync(async () => {
-    return await Program.fetchIdl(PROGRAM_ID, new AnchorProvider(connection, wallet.adapter, {}))
-  }, [])
   const { info: fanout } = useIdlAccount<Fanout>(fanoutK, idl as Fanout, 'fanoutV0')
   const hst = useMemo(() => fanout && fanout.membershipMint, [fanout])
   const stakeAccountKey = useMemo(
@@ -217,11 +217,25 @@ function threadKey(authority: PublicKey, threadId: string): [PublicKey, number] 
   )
 }
 
+export const WrapWithIdl = () => {
+  const { wallet } = useWallet()
+  const { connection } = useConnection()
+  const { result: idl } = useAsync(async () => {
+    return await Program.fetchIdl(PROGRAM_ID, new AnchorProvider(connection, wallet.adapter, {}))
+  }, [])
+
+  if (idl) {
+    return <HstManagerImpl idl={idl as Fanout} />
+  }
+
+  return <div />
+}
+
 export const HstManager = () => {
   return (
     <Wallet>
       <WrapWithAccountProvider>
-        <HstManagerImpl />
+        <WrapWithIdl />
       </WrapWithAccountProvider>
     </Wallet>
   )
