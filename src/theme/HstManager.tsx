@@ -1,8 +1,7 @@
 import { ClockworkProvider } from '@clockwork-xyz/sdk'
-import { AnchorProvider, BN } from '@coral-xyz/anchor'
-import { fanoutKey, init, membershipCollectionKey, membershipVoucherKey } from '@helium/fanout-sdk'
-import { AccountProvider, useIdlAccount, useTokenAccount } from '@helium/helium-react-hooks'
-import { IDL } from '@helium/idls/fanout'
+import { AnchorProvider, BN, Program } from '@coral-xyz/anchor'
+import { PROGRAM_ID, fanoutKey, init, membershipCollectionKey, membershipVoucherKey } from '@helium/fanout-sdk'
+import { useIdlAccount, useTokenAccount } from '@helium/helium-react-hooks'
 import { Fanout } from '@helium/idls/lib/types/fanout'
 import { HNT_MINT, searchAssets, sendInstructions, toNumber } from '@helium/spl-utils'
 import {
@@ -62,8 +61,10 @@ export const HstManagerImpl = () => {
       return await init(new AnchorProvider(connection, wallet.adapter, { commitment: 'confirmed' }))
     }
   }, [wallet, connection])
-
-  const { info: fanout } = useIdlAccount<Fanout>(fanoutK, IDL as Fanout, 'fanoutV0')
+  const { result: idl } = useAsync(async () => {
+    return await Program.fetchIdl(PROGRAM_ID, new AnchorProvider(connection, wallet.adapter, {}))
+  }, [])
+  const { info: fanout } = useIdlAccount<Fanout>(fanoutK, idl as Fanout, 'fanoutV0')
   const hst = useMemo(() => fanout && fanout.membershipMint, [fanout])
   const stakeAccountKey = useMemo(
     () => voucher && hst && getAssociatedTokenAddressSync(hst, voucher, true),
