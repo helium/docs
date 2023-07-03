@@ -1,6 +1,8 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-import { AccountProvider } from '@helium/helium-react-hooks'
+import { AccountProvider } from '@helium/account-fetch-cache-hooks'
 import { LedgerWalletAdapter } from '@solana/wallet-adapter-ledger'
+import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare'
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom'
 import {
   ConnectionProvider,
   WalletProvider,
@@ -29,6 +31,8 @@ const WalletImpl: React.FC = ({ children }: { children: any }) => {
        */
       // Phantom and backpack already supported in wallet standard, so they should show up.
       new LedgerWalletAdapter(),
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter(),
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [endpoint],
