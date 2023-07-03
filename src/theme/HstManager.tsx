@@ -64,7 +64,7 @@ export const HstManagerImpl = ({ idl }: { idl: Fanout }) => {
       return await init(new AnchorProvider(connection, wallet.adapter, { commitment: 'confirmed' }))
     }
   }, [wallet, connection])
-  const { info: fanout } = useIdlAccount<Fanout>(fanoutK, idl as Fanout, 'fanoutV0')
+  const { info: fanout } = useIdlAccount<Fanout>(fanoutK, idl as Fanout, 'FanoutV0')
   const hst = useMemo(() => fanout && fanout.membershipMint, [fanout])
   const stakeAccountKey = useMemo(
     () => voucher && hst && getAssociatedTokenAddressSync(hst, voucher, true),
