@@ -1,0 +1,65 @@
+---
+layout: post
+title: Foundation Console DC Usage Follow-Up
+date: 2023-07-10 17:00 -0800
+hide_table_of_contents: true
+authors: [jhiller]
+---
+
+# Foundation Console DC Usage Follow-Up (2023-07-10)
+
+## Summary
+
+Previously, the Helium Foundation Console faced an exploit that was amplifying existing network
+usage. Following the discovery of this bug in the legacy Router/Console code backing this Network
+Server, several patches were deployed to prevent the exploit. While those patches were effective in
+fixing those specific bugs, one more bug went overlooked and has now been patched.
+
+<!--truncate-->
+
+For broader context on the preceding bug fixes, see the post dated
+[June 16, 2023 - Foundation Console DC Usage](https://docs.helium.com/devblog/2023/06/16/foundation-console-dc-usage)
+
+As a result of fixing the latest bug, the network will reflect a decrease in paid DC usage. This
+brings usage on Foundation Console more in line with other LoRaWAN Network Servers on the network.
+The impact was isolated to the Data Credit balance of the Helium Foundation Console (OUI 1).
+Approximately $10,100 USD in Data Credits were ‘paid’ to the Hotspot(s) of the exploiter of this
+bug.
+
+It is important to note that this bug was specific to a legacy platform that is not actively
+maintained. The core infrastructure of Helium Packet Router continues to perform as designed.
+
+<figure style={{ margin: 0, padding: '2em', border: '1px solid lightgrey', borderRadius: '8px' }}>
+  <iframe
+    src="https://dune.com/embeds/2711789/4513800"
+    height="300"
+    width="100%"
+    title="Foundation Console DC Spend"
+  ></iframe>
+  <figcaption>
+    After the bug fix on June 13, paid traffic decreased. A remaining exploit was discovered and has
+    been patched. Network traffic is likely to normalize to a lower rate as seen following the June
+    13 fix.
+  </figcaption>
+</figure>
+
+## Cause
+
+Of the previous exploits, one fix that was deployed was specific to a state where a device on the
+user's organization would continue to have its traffic transferred to the LNS despite that user’s
+organization having a 0 credit balance. This was fixed by informing the Helium Packet Router that a
+device should not have its data routed (via removal of that device’s session key from the Session
+Key Filter).
+
+The latest bug had a similar theme. It was discovered that when a user had a small credit balance
+(for instance, 5 DCs) but tried to transfer a large packet (say, 11 DCs), the packet was transferred
+regardless of the insufficient balance. Moreover, the device was not disabled in the Session Key
+Filter as expected. This allowed for the exploitation of data transfer rewards.
+
+## Solution
+
+An update to Console has been deployed to fix this bug. Console now disables all of the devices on
+an organization once the balance of the account reaches 0. This prevents any continued packet
+transfers when the user's balance can't cover them. Impact While this fix is specific to Foundation
+Console, it further eliminates potential avenues for exploitation. The Core Developers remain
+committed to ensuring the consistent and fair operation of the Helium IoT Network.
