@@ -45,16 +45,13 @@ maintained. The core infrastructure of Helium Packet Router continues to perform
 
 ## Cause
 
-Of the previous exploits, one fix that was deployed was specific to a state where a device on the
-user's organization would continue to have its traffic transferred to the LNS despite that user’s
-organization having a 0 credit balance. This was fixed by informing the Helium Packet Router that a
-device should not have its data routed (via removal of that device’s session key from the Session
-Key Filter).
+One of the bug fixes in the prior release was to introduce a feedback mechanism for LNS's to inform
+the Helium Packet Router of a 0 Data Credit balance more accurately to stop device traffic flows.
+This was implemented through an update to the Session Key Filter.
 
-The latest bug had a similar theme. It was discovered that when a user had a small credit balance
-(for instance, 5 DCs) but tried to transfer a large packet (say, 11 DCs), the packet was transferred
-regardless of the insufficient balance. Moreover, the device was not disabled in the Session Key
-Filter as expected. This allowed for the exploitation of data transfer rewards.
+A similar bug was found where a user's organization could reach a low balance (e.g., 5 DCs) and
+still transfer larger packets (e.g., 11 DCs) for free and their devices would not be removed from
+the Session Key Filter as expected. This allowed the exploitation of data transfer rewards.
 
 ## Solution
 
