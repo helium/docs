@@ -1,0 +1,126 @@
+---
+id: hnt-token
+title: The Helium Network Token
+pagination_label: Helium Network Token
+sidebar_label: Helium Network Token
+description: Helium Network Token Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /hnt-token
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+<img className="docsheader" src={useBaseUrl('img/blockchain/heliumtoken.png')} />
+
+The Helium Network Token ("HNT") is the native cryptocurrency and protocol token of the Helium
+Network ("the Network").
+
+The original Helium blockchain produced the first HNT on July 29th, 2019, on [block 93][block-93].
+There was no pre-mine of HNT before the launch of the Network.
+
+Navigate to [https://explorer.helium.com/stats][explorer-stats] for up-to-date information on
+Network tokens.
+
+---
+
+## HNT Usage
+
+HNT serves the needs of the two primary parties in the Helium Ecosystem:
+
+1. **Hotspot Hosts and Operators**. Hosts are rewarded in network tokens like [IOT][iot] or
+   [MOBILE][mobile] while deploying and maintaining network coverage. These network tokens are
+   redeemable for HNT.
+2. **Enterprises and Developers use the Helium Network** to connect devices and build IoT
+   applications. [Data Credits][datacredit], which are a $USD-pegged utility token derived from HNT
+   in a burn transaction, [are used to pay transaction fees][txn-fees] for wireless data
+   transmissions on the Network.
+
+---
+
+## HNT Token Economic Concepts
+
+The Network uses three token economic concepts to ensure HNT supply is both plentiful for usage
+needs and relatively scarce, with a known maximum.
+
+### Max Supply
+
+The Network targeted the distribution of 5,000,000 HNT per month at launch. Following the community
+approval of HIP-20, the Network uses a two-year halving schedule, resulting in a maximum HNT supply
+of 223,000,000 HNT.
+
+| Year<sup>(</sup>[^1]<sup>)</sup> | HNT at Year Start | Target HNT Emission |
+| :------------------------------: | ----------------: | ------------------: |
+|                1                 |                 0 |          60,000,000 |
+|                2                 |        60,000,000 |          60,000,000 |
+|                3                 |       120,000,000 |          30,000,000 |
+|                4                 |       150,000,000 |          30,000,000 |
+
+> The full token emission schedule can be viewed in the HNT section of this document: [Token
+> Emissions as of Solana Migration][sol-emissions].
+
+[^1]:
+    Year 1 starts on **August 1st, 2019**. The first halving happened on day one of year three,
+    **August 1st, 2021**.
+
+### Burn and Mint Economics
+
+[Data Credits][datacredit] ("DC") are a $USD-pegged utility token derived from HNT in a burn
+transaction and used to pay [all transaction fees][txn-fees] on the Helium Network. DC is only
+produced by burning HNT.
+
+One Data Credit will always cost $0.00001. Or, $1.00 will always exchange for 100,000 DC.
+
+This HNT to DC relationship is based on a design commonly called a [burn and mint equilibrium][bme]
+("BME") and intends to allow for the supply of HNT to respond to Network usage trends such that the
+amount of HNT that exists remains static month on month. The amount of DC produced by burning HNT
+will increase and decrease based on the USD price of HNT as reported by the HNT [Price
+Oracles][price-oracles].
+
+Below are a few examples of HNT to DC conversion calculations:
+
+**Example 1: 1 HNT = $1.00**
+
+- The price of one DC is $0.00001.
+- The current HNT Oracle price is $1.
+- Burning 1 HNT would produce 100,000 DC.
+
+**Example 2: 1 HNT = $5.00**
+
+- The price of one DC is $0.00001.
+- The current HNT Oracle price is $5.
+- Burning 1 HNT would produce 500,000 DC.
+
+:::important Data Credits are non-transferable
+
+Once the burn transaction is complete, the receiving Helium Wallet owns all of the DC and **cannot**
+transfer them to any other Helium Wallet.
+
+:::
+
+### Net Emissions
+
+Net Emissions give the protocol enough HNT for rewards in perpetuity.
+
+Net Emissions enable the Network to monitor the number of HNT burned for DC in a given epoch and add
+that to the number of HNT to mint that epoch.
+
+For example, if 10 HNT burn for DC in an epoch, the system would mint 10 additional HNT than were
+expected in that given epoch.
+
+A cap on the number of HNT minted via Net Emissions per epoch ensures the desired deflationary
+effect of Burn and Mint and the resulting reduction of supply. Because HNT produced via Net
+Emissions do not add to the total outstanding, they do not violate max supply.
+
+Review the [complete Net Emissions discussion in the HIP][hip-20] for more information.
+
+[block-93]: https://explorer-old.helium.com/txns/sEP-cbb2tvSrfbBleT21yGDNM8FIjNr3UT3k3BeZELw
+[bme]: https://multicoin.capital/2018/02/13/new-models-utility-tokens/
+[datacredit]: /data-credit
+[explorer-stats]: https://explorer.helium.com/stats
+[hip-20]: https://github.com/helium/HIP/blob/master/0020-hnt-max-supply.md#net-emissions
+[iot]: /iot-token
+[mobile]: /mobile-token
+[price-oracles]: /oracles/price-oracles
+[sol-emissions]:
+  https://github.com/helium/HIP/blob/main/HIP-solana-parameters/token-emissions-as-of-solana-migration.pdf
+[txn-fees]: /network-iot/transaction-fees

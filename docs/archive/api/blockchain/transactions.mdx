@@ -1,0 +1,88 @@
+---
+id: transactions
+title: Transactions
+pagination_label: Transactions
+sidebar_label: Transactions
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /archive/api/blockchain/transactions
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints may no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Available on the Solana API
+
+### Transaction for Hash
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/transactions/:hash
+```
+
+Fetch the transaction for a given hash.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param           | Type     | Note                      |
+| --------------- | -------- | ------------------------- |
+| hash (required) | _string_ | Transaction hash to fetch |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Transaction successfully retrieved.
+
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/archive/api/blockchain/introduction/#transaction-units) [DEPRECATED]
+
+:::
+
+```json
+{
+  "data": {
+    "type": "payment_v2",
+    "time": 1595980494,
+    "payments": [
+      {
+        "payee": "13FkKYnwHPoa6F7K23jJ7j2WNg9cMPsznJ7i4c9ysCwLoS8vx3E",
+        "amount": 100000000
+      }
+    ],
+    "payer": "14h5MCATzJAB88gGBph8YtPM9539FdyBnMdTt7sYxg4Ts1D1aW3",
+    "nonce": 6,
+    "height": 435251,
+    "hash": "bUc6-LQXdR6zOBaR_8TPWlf3THCpb4wI6WPXJHJfnYw",
+    "fee": 35000
+  }
+}
+```
+
+</TabItem>
+</Tabs>

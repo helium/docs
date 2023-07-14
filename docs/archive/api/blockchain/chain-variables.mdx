@@ -1,0 +1,298 @@
+---
+id: chain-variables
+title: Chain Variables
+pagination_label: Chain Variables
+sidebar_label: Chain Variables
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /archive/api/blockchain/chain-variables
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints may no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Deprecated Endpoints
+
+### Get Chain Variables
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated.
+
+:::
+
+```
+GET https://api.helium.io/v1/vars
+```
+
+Gets the current set of chain variables
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": {
+    "allow_zero_amount": false,
+    "alpha_decay": 0.0035,
+    "batch_size": 400,
+    "beta_decay": 0.002,
+    "block_time": 60000,
+    "block_version": "v1",
+    "chain_vars_version": 2,
+    "consensus_percent": 0.1,
+    "dc_payload_size": 24,
+    "dc_percent": 0,
+    "dkg_curve": "SS512",
+    "election_bba_penalty": 0.001,
+    "election_cluster_res": 4,
+    "election_interval": 30,
+    "election_removal_pct": 40,
+    "election_replacement_factor": 4,
+    "election_replacement_slope": 20,
+    "election_restart_interval": 5,
+    "election_seen_penalty": 0.0033333,
+    "election_selection_pct": 1,
+    "election_version": 3,
+    "h3_exclusion_ring_dist": 6,
+    "h3_max_grid_distance": 120,
+    "h3_neighbor_res": 12,
+    "max_open_sc": 2,
+    "max_payments": 50,
+    "max_staleness": 100000,
+    "max_subnet_num": 5,
+    "max_subnet_size": 65536,
+    "max_xor_filter_num": 5,
+    "max_xor_filter_size": 102400,
+    "min_assert_h3_res": 12,
+    "min_expire_within": 15,
+    "min_score": 0.15,
+    "min_subnet_size": 8,
+    "monthly_reward": 500000000000000,
+    "num_consensus_members": 16,
+    "poc_centrality_wt": 0.5,
+    "poc_challenge_interval": 60,
+    "poc_challenge_sync_interval": 90,
+    "poc_challengees_percent": 0.35,
+    "poc_challengers_percent": 0.15,
+    "poc_good_bucket_high": -70,
+    "poc_good_bucket_low": -130,
+    "poc_max_hop_cells": 2000,
+    "poc_path_limit": 7,
+    "poc_target_hex_parent_res": 5,
+    "poc_typo_fixes": true,
+    "poc_v4_exclusion_cells": 8,
+    "poc_v4_parent_res": 11,
+    "poc_v4_prob_bad_rssi": 0.01,
+    "poc_v4_prob_count_wt": 0.0,
+    "poc_v4_prob_good_rssi": 1.0,
+    "poc_v4_prob_no_rssi": 0.5,
+    "poc_v4_prob_rssi_wt": 0.0,
+    "poc_v4_prob_time_wt": 0.0,
+    "poc_v4_randomness_wt": 0.5,
+    "poc_v4_target_challenge_age": 300,
+    "poc_v4_target_exclusion_cells": 6000,
+    "poc_v4_target_prob_edge_wt": 0.0,
+    "poc_v4_target_prob_score_wt": 0.0,
+    "poc_v4_target_score_curve": 5,
+    "poc_v5_target_prob_randomness_wt": 1.0,
+    "poc_version": 8,
+    "poc_witnesses_percent": 0.05,
+    "predicate_callback_fun": "version",
+    "predicate_callback_mod": "miner",
+    "predicate_threshold": 0.95,
+    "price_oracle_height_delta": 10,
+    "price_oracle_price_scan_delay": 3600,
+    "price_oracle_price_scan_max": 90000,
+    "price_oracle_public_keys": [
+      "13Btezbvbwr9LhKmDQLgBnJUgjhZighEjNPLeu79dqBbmXRwoWm",
+      "13CFFcmPtMvNQCpWQRXCTqXPnXtcsibDWVwiQRKpUCt4nqtF7RE",
+      "1431WVQvoV7RAJpoLCaBrTKner1Soed4bk69DddcrHUTCWHV6pj",
+      "136n9BEbreGUNgXJWtyzkBQcXiNzdMQ5GBoP8L2J6ZReFUAwUjy",
+      "14sqAYg1qxzjKTtyHLYZdH6yDtA3KgyoARhWN1cvLZ94dZw5vEc",
+      "145J6Aye86pKTJrUHREiXu7qqppZBcWY1bvWo8id7ZjxyuainYj",
+      "13dUGHis1PdrSwxdseoyZKzQhc8WuWcueAWdT95sDVGDNhGRWV9",
+      "14EzXp4i1xYA7SNyim6R4J5aXN1yHYKNiPrrJ2WEvoDnxmLgaCg",
+      "147yRbowD1krUCC1DhhSMhpFEqnkwb26mHBow5nk9q43AakSHNA"
+    ],
+    "price_oracle_refresh_interval": 10,
+    "reward_version": 2,
+    "sc_grace_blocks": 100,
+    "securities_percent": 0.35,
+    "snapshot_interval": 720,
+    "snapshot_version": 1,
+    "var_gw_inactivity_threshold": 600,
+    "vars_commit_delay": 1,
+    "witness_refresh_interval": 10080,
+    "witness_refresh_rand_n": 1000
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Get the value of a chain variable
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated.
+
+:::
+
+```
+GET https://api.helium.io/v1/vars/:name
+```
+
+Gets the value of the chain variable with the given name
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param           | Type     | Note                         |
+| --------------- | -------- | ---------------------------- |
+| name (optional) | _string_ | The name of a chain variable |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+This fetched the `block_time` chain variable
+
+```json
+{
+  "data": 60000
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### List chain variable activity
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated.
+
+:::
+
+```
+GET https://api.helium.io/v1/vars/activity
+```
+
+Lists all chain variable transaction activity. This route is paged using a cursor.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param             | Type     | Note                              |
+| ----------------- | -------- | --------------------------------- |
+| cursor (optional) | _string_ | Cursor for the next page to fetch |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": [
+    {
+      "cancels": [],
+      "hash": "FXLaw6csD1q_sRU9oyk6Vz6p47vBIhVPhSDcIEGXPiQ",
+      "height": 365778,
+      "key_proof": "",
+      "master_key": null,
+      "nonce": 28,
+      "proof": "MEUCIF255lwe5je1GMM5OdWAbc86sZ5xaU3-75VSjILrVZ0GAiEAjpFTh7bSvrZV4fC2vnFN7KKG3bsBUhdBDe6JRUJ-AyM",
+      "time": 1591646992,
+      "type": "vars_v1",
+      "unsets": [],
+      "vars": {
+        "price_oracle_height_delta": 10,
+        "price_oracle_price_scan_delay": 3600,
+        "price_oracle_price_scan_max": 90000,
+        "price_oracle_public_keys": "IQEgHuJGDwcAoZZsw1rNcZIpbsIrVqihXfFEKX2g5YLNjCEBIO1OyYQtE8A+UdHQnGfgiTPBoA9g7qAq665jgMcUmt4hAY+mQWlLOM6dVi7hrugbt5H4Mo3SkJv+UOHwpKTVDJJkIQEUgzPrDa98YpqHWsRTDnbfvd2atT5pt4d5aWUzo3fOhCEB/oFGezNl0OBjrD5+/DuCVF3n1vjPi1SeeOgGCHnzGc0hAZTW/LUBIchFlJIiHRZbbBASIS0A0mT907FOUnF6lS/wIQFaM7GI+z26SkZoPG510rm0As7zf9ZlGLS+o50txhXIwiEBqtvQSZyN25QHlP3RQjDaW0fo9Mb97CjJWnA97JxF620hAZrrw1ilYRXLAaFgR+zBvDK51g8OVj31g24WlggwrmhC",
+        "price_oracle_refresh_interval": 10
+      },
+      "version_predicate": 0
+    },
+    {
+      "cancels": [],
+      "hash": "J-c9UpTKIXtnDtLOJihaI7F99nrXa1IDbymVVgsugvM",
+      "height": 352052,
+      "key_proof": "",
+      "master_key": "1Wh4bh",
+      "nonce": 27,
+      "proof": "MEQCIEkPl2ekYjQRvNwp3CQ9wnu3nHvuiDHCs4bNkK7kntyUAiB_0fspgA60E6TNViasYBuTcla06__jpxFGMpsWPnJ3xA",
+      "time": 1590705257,
+      "type": "vars_v1",
+      "unsets": [],
+      "vars": {
+        "snapshot_interval": 720,
+        "snapshot_version": 1
+      },
+      "version_predicate": 0
+    },
+    {
+      "cancels": [],
+      "hash": "UI2IoTs4eXA68wKyL8059alByHjszUU3GMgj7Ef9Uc4",
+      "height": 339406,
+      "key_proof": "",
+      "master_key": "1Wh4bh",
+      "nonce": 26,
+      "proof": "MEUCIHhP-ADAk1dpz4NB1_RaHapWCBTMxRR8m0Fg4_Pq9ea-AiEAqgnPEc09kclYyv7LO3NT93fb-KbjgK4YOIQYiUm_ero",
+      "time": 1589921323,
+      "type": "vars_v1",
+      "unsets": [],
+      "vars": {
+        "witness_refresh_interval": 10080,
+        "witness_refresh_rand_n": 1000
+      },
+      "version_predicate": 0
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,431 @@
+---
+id: oracle-prices
+title: Oracle Prices
+pagination_label: Oracle Prices
+sidebar_label: Oracle Prices
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /archive/api/blockchain/oracle-prices
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints may no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Available on the Oracles API
+
+### Current Oracle Price
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/oracle/prices/current
+```
+
+The current Oracle Price and at which block it took effect.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_No Parameters_
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+The current Oracle Price and at which block it took effect.
+
+```json
+{
+  "data": {
+    "price": 167000000,
+    "block": 471570
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Current and Historical Oracle Prices
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/oracle/prices
+```
+
+The current and historical Oracle Prices and at which block they took effect. This route is paged
+using a cursor.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param                | Type      | Note                                                                  |
+| -------------------- | --------- | --------------------------------------------------------------------- |
+| max_block (optional) | _integer_ | Last block number to include in the results                           |
+| cursor (optional)    | _string_  | Returned from an initial query, allowing client to fetch more results |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Returns a list of recent Oracle Prices and at which block they took effect.
+
+```json
+{
+  "data": [
+    {
+      "price": 167000000,
+      "block": 471570
+    },
+    {
+      "price": 169630000,
+      "block": 471540
+    }
+  ],
+  "cursor": "eyJiZWZvcmUiOjQ2NjE5MH0"
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Oracle Price Stats
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/oracle/prices/stats
+```
+
+Gets statistics on Oracle prices.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param               | Type     | Note                           |
+| ------------------- | -------- | ------------------------------ |
+| min_time (required) | _string_ | First time to include in stats |
+| max_time (required) | _string_ | Last time to include in stats  |
+
+</TabItem>
+<TabItem value="response">
+
+Returns Oracle price statistics over the last 30 days by specifying `?min_time=-30%20day`
+
+200: OK
+
+```json
+{
+  "data": {
+    "avg": 12.433719079615384,
+    "max": 20.0,
+    "median": 12.53731614,
+    "min": 6.0,
+    "stddev": 3.50807814
+  },
+  "meta": {
+    "max_time": "2021-04-20T15:52:28Z",
+    "min_time": "2021-03-21T15:52:28Z"
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Oracle Price at a Specific Block
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/oracle/prices/:block
+```
+
+Provides the oracle price at a specific block and at which block it initially took effect.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param            | Type     | Note                                     |
+| ---------------- | -------- | ---------------------------------------- |
+| block (required) | _string_ | The block to get the HNT Oracle Price at |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Returns a list of recent Oracle Prices and at which block they took effect..
+
+```json
+{
+  "data": {
+    "price": 167000000,
+    "block": 471570
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### List Oracle Activity
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/oracle/activity
+```
+
+List oracle price report transactions for all oracle keys. This route is paged with a cursor.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| cursor (optional)   | _string_ | Cursor for the next page to fetch |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/archive/api/blockchain/introduction/#transaction-units)
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+:::
+
+:::
+
+```json
+{
+  "cursor": "eyJ0eXBlcyI6InByaWNlX29yYWNsZV92MSIsImJsb2NrIjozNzc5MDAsImFuY2hvcl9ibG9jayI6Mzc3OTAwfQ",
+  "data": [
+    {
+      "block_height": 377896,
+      "fee": 0,
+      "hash": "UcKE8X9UtuhOx5N3yxjyI7QcVihSoJTBq_DVQME7RWI",
+      "height": 377900,
+      "price": 35736000,
+      "public_key": "13Btezbvbwr9LhKmDQLgBnJUgjhZighEjNPLeu79dqBbmXRwoWm",
+      "time": 1592484227,
+      "type": "price_oracle_v1"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### List Activity for a Specific Oracle
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/oracle/:address/activity
+```
+
+Lists price report transactions for the given oracle key. This route is paged using a cursor.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                         |
+| ------------------ | -------- | ---------------------------- |
+| address (optional) | _string_ | The public key of the oracle |
+
+_Query Parameters_
+
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| cursor (optional)   | _string_ | Cursor for the next page to fetch |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/archive/api/blockchain/introduction/#transaction-units)
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+:::
+
+:::
+
+```json
+{
+  "cursor": "eyJ0eXBlcyI6InByaWNlX29yYWNsZV92MSIsImJsb2NrIjozNzc5MDAsImFuY2hvcl9ibG9jayI6Mzc3OTAwfQ",
+  "data": [
+    {
+      "block_height": 377896,
+      "fee": 0,
+      "hash": "UcKE8X9UtuhOx5N3yxjyI7QcVihSoJTBq_DVQME7RWI",
+      "height": 377900,
+      "price": 35736000,
+      "public_key": "13Btezbvbwr9LhKmDQLgBnJUgjhZighEjNPLeu79dqBbmXRwoWm",
+      "time": 1592484227,
+      "type": "price_oracle_v1"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Get Predicted HNT Oracle Prices
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/oracle/predictions
+```
+
+This returns a list of expected times when the Oracle Price is expected to change.The blockchain
+operates in "block-time", meaning that blocks can come out at some schedule close to 1 per minute.
+Oracles report in "wall-clock-time", meaning they report what they believe the price should be.If
+the route returns one or more prices and times, it indicates that the chain is expected to adjust
+the price (based on Oracle reports) no earlier than the indicated time to the returned price.NOTE: A
+prediction may not be seen in the blockchain if they are close together (within 10 blocks) since
+block times may cause the blockchain to skip to a next predicted price. If no predictions are
+returned the current HNT Oracle Price is valid for at least 1 hour.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_No Parameters_
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Returns a prediction that the price will change to 47000000 at the earliest at the indicated seconds
+since Unix epoch time.
+
+```json
+{
+  "data": [
+    {
+      "price": 47000000,
+      "time": 1594410146
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
