@@ -127,29 +127,19 @@ module.exports = {
   iot_network: [
     {
       type: 'category',
-      label: 'Use the Helium IoT Network',
-      link: { type: 'doc', id: 'use-the-network/use-the-network' },
+      label: 'The Helium IOT Network',
+      link: { type: 'doc', id: 'network-iot/iot-network' },
       items: [],
       collapsed: true,
     },
     {
       type: 'category',
-      label: 'Devices',
-      link: { type: 'doc', id: 'use-the-network/devices/devices' },
-      items: [
-        'use-the-network/devices/ready-to-use/ready-to-use',
-        'use-the-network/devices/development/development',
-      ],
-    },
-    {
-      type: 'category',
       label: 'LoRaWAN Network Servers',
-      link: { type: 'doc', id: 'use-the-network/lorawan-network-servers' },
+      link: { type: 'doc', id: 'network-iot/lorawan-network-servers' },
       items: [
-        'network-iot/open-lns',
-        'use-the-network/find-a-lns-provider',
+        'network-iot/find-a-lns-provider',
         'network-iot/open-lns-quickstart',
-        'use-the-network/run-a-network-server/buy-an-oui',
+        'network-iot/buy-an-oui',
       ],
     },
     {
@@ -165,6 +155,15 @@ module.exports = {
           link: { type: 'doc', id: 'network-iot/lorawan-roaming' },
           items: ['network-iot/lorawan-roaming-quickstart', 'use-the-network/roaming'],
         },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Devices',
+      link: { type: 'doc', id: 'use-the-network/devices/devices' },
+      items: [
+        'use-the-network/devices/ready-to-use/ready-to-use',
+        'use-the-network/devices/development/development',
       ],
     },
     {

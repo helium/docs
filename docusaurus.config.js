@@ -64,7 +64,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'use-the-network',
+          to: 'iot-network',
           label: 'IoT Network',
           position: 'left',
         },
@@ -83,6 +83,19 @@ module.exports = {
           label: 'Dev Blog',
           position: 'left',
         },
+        // "more" dropdown for navbar
+        // {
+        //   label: 'More',
+        //   position: 'left',
+        //   items: [
+        //     { label: 'Governance', to: 'governance' },
+        //     { label: 'Dev Blog', to: 'devblog' },
+        //     {
+        //       href: 'https://github.com/helium',
+        //       label: 'Github »',
+        //     },
+        //   ],
+        // },
         {
           to: '/solana/migration/',
           label: 'Solana Migration Guides',
