@@ -4,8 +4,8 @@ title: LHT65
 pagination_label: LHT65
 sidebar_label: LHT65
 description: LHT65 LoRaWAN Temperature & Humidity Sensor
-image: img/use-the-network/devices/ready-to-use/dragino/lht65.jpg
-slug: /use-the-network/devices/ready-to-use/dragino/lht65
+image: img/network-iot/devices/ready-to-use/dragino/lht65.jpg
+slug: /network-iot/devices/ready-to-use/dragino/lht65
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -16,7 +16,7 @@ The Dragino LHT65 is a multi-sensor device with a built-in temperature and humid
 external sensor connector that supports temperature, soil moisture, tilting, and illumination
 sensors. The device includes a non-chargeable battery that can last for more than 10 years.
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino/lht65.jpg')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino/lht65.jpg')} />
 
 ### Resources
 
@@ -57,8 +57,8 @@ sensors. The device includes a non-chargeable battery that can last for more tha
 
 To start, you'll need to add your device to Console. You should have been provided with a DevEUI,
 AppEUI, and AppKey inside the device packaging. Follow our
-[quick start for instructions](/use-the-network/console/adding-devices) on how to add a new device
-to Console.
+[quick start for instructions](/network-iot/console/adding-devices) on how to add a new device to
+Console.
 
 ### Join Device to Network
 
@@ -66,13 +66,13 @@ Your device will be in deep sleep mode when you receive it. To activate the devi
 normal operating state, hold down the ACT button for three seconds until you see the LED blink green
 five times quickly. The operating mode table is shown below for reference.
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-diagram.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino-lht65-diagram.png')} />
 
 The device should now begin attempting to join the Network. Within a minute or two, you should see
 an activation event on the Console device page, as shown below. The device LED will also show solid
 green for five seconds after it has joined.
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-activation.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino-lht65-activation.png')} />
 
 Once you have seen an event similar to above, your device is now joined to the Network and will send
 its sensor values every ten minutes by default. The transmit frequency and many more settings can be
@@ -103,16 +103,16 @@ Integration. Do not use a Decoder.
 
 When this device transmits its data, it does so space-efficiently by packing the bytes of data in a
 specific way so that no space is wasted; learn more about this in
-[our short primer](/use-the-network/console/functions). This device's manufacturer, Dragino, uses
-their own encoding scheme to define which bytes hold which piece of data. Below is a table taken
-from the manual showing the size and location of each piece of data.
+[our short primer](/network-iot/console/functions). This device's manufacturer, Dragino, uses their
+own encoding scheme to define which bytes hold which piece of data. Below is a table taken from the
+manual showing the size and location of each piece of data.
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-byte-packing.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino-lht65-byte-packing.png')} />
 
 If you would like to decode the device payload to view it in Console or send it to your own
 application, this section will show you how. We'll use a Console Function Decoder to unpack the
 device payload into a human-readable form; you can learn more about Functions in general
-[here](/use-the-network/console/functions/).
+[here](/network-iot/console/functions/).
 
 #### Create Function Decoder
 
@@ -123,35 +123,30 @@ template custom script, and copy and paste the entire script found
 into the script editor. Last, create a label that we'll use to attach this decoder to the device
 with.
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-decoder.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino-lht65-decoder.png')} />
 
 #### Attaching Function Decoder
 
 Next, navigate to the device page and attach the label we just created for the function decoder as
 shown below.
 
-<img
-  src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-attach-decoder.png')}
-/>
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino-lht65-attach-decoder.png')} />
 
 #### Viewing Decoded Device Data
 
 Once you have attached the decoder, we can now open the Debug window to view the decoded device
 payload in the received uplink. You can learn more about the Debug tool
-[here](https://docs.helium.com/use-the-network/console/debug). To open the Debug window, click on
-the bug icon on the right side of the device page. Once you open the Debug window, you can wait for
-the next packet to transmit or force a manual transmission by holding down the ACT button for more
-than one second and less than three. You'll see the LED turn green while you hold it down, and then
-it should turn red briefly after release. You should see the uplink message with the decoded fields
-below.
+[here](/network-iot/console/debug). To open the Debug window, click on the bug icon on the right
+side of the device page. Once you open the Debug window, you can wait for the next packet to
+transmit or force a manual transmission by holding down the ACT button for more than one second and
+less than three. You'll see the LED turn green while you hold it down, and then it should turn red
+briefly after release. You should see the uplink message with the decoded fields below.
 
-<img
-  src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino-lht65-decoded-payload.png')}
-/>
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino-lht65-decoded-payload.png')} />
 
 ### Sending Device Payload to Your Application
 
 To learn more about how to send the device data payload to your own application, check out the
-Console integrations [here](https://docs.helium.com/use-the-network/console/integrations).
+Console integrations [here](/network-iot/console/integrations).
 
 ---

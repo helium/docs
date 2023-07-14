@@ -5,7 +5,7 @@ pagination_label: LDS02
 sidebar_label: LDS02
 description: LDS02 -- LoRaWAN Door Sensor
 image: https://docs.helium.com/img/link-image.png
-slug: /use-the-network/devices/ready-to-use/dragino/lds02
+slug: /network-iot/devices/ready-to-use/dragino/lds02
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -20,7 +20,7 @@ well as for each door open/close action. It also counts the door open times and 
 door open duration. Users can also disable the uplink for each open/close event, instead, the device
 can count each open event and uplink periodically.
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/dragino/LDS02_00.jpg')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino/LDS02_00.jpg')} />
 
 ### Resources
 
@@ -62,7 +62,7 @@ can count each open event and uplink periodically.
 
 To start, you'll need to add your device to the Helium Console. In the package is a sticker
 containing the Device EUI (also QR code), App EUI, and App Key. (The APSSKEY and NETSKEY are
-unused.) Follow our [quick start guide](/use-the-network/console/adding-devices) on how to add a new
+unused.) Follow our [quick start guide](/network-iot/console/adding-devices) on how to add a new
 device to Console.
 
 Open the Debug panel on the Device view to observe incoming messages for the next step.
@@ -114,15 +114,13 @@ Cayenne will show:
 ### Decode Device Payload
 
 To decompose the packed 10-byte data payload from the device into individual values, you may provide
-a decode Function as explained in [our short primer](/use-the-network/console/functions). The
+a decode Function as explained in [our short primer](/network-iot/console/functions). The
 manufacturer of this device, Dragino, is using their own encoding scheme to define which bytes hold
 which piece of data. Below is a table taken from the manual showing the size and location of each
 piece of data.
 
 <img
-  src={useBaseUrl(
-    'img/use-the-network/devices/ready-to-use/dragino/dragino-lds02-byte-packing.png',
-  )}
+  src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino/dragino-lds02-byte-packing.png')}
 />
 
 If you would like to decode the device payload or to view it in Console or send to your own

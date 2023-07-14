@@ -5,7 +5,7 @@ pagination_label: HTTP
 sidebar_label: HTTP
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /use-the-network/console/integrations/http
+slug: /network-iot/console/integrations/http
 ---
 
 # HTTP
@@ -17,7 +17,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 To add a Integration, go to **Integrations** on the left-hand menu. Select the integration to add -
 in this case, the **HTTP** integration.
 
-<img src={useBaseUrl('img/use-the-network/console/integrations/integrations-select-http.png')} />
+<img src={useBaseUrl('img/network-iot/console/integrations/integrations-select-http.png')} />
 
 The next step is to paste the HTTP endpoint.
 
@@ -32,16 +32,14 @@ integration, this will be the data from the device that is sent to your HTTP end
 
 ### RequestBin Example
 
-Create an endpoint by going to [requestbin.com](https://requestbin.com/) and click **Create a Request Bin**. Once created, copy
-the endpoint.
+Create an endpoint by going to [requestbin.com](https://requestbin.com/) and click **Create a
+Request Bin**. Once created, copy the endpoint.
 
-<img
-  src={useBaseUrl('img/use-the-network/console/integrations/integrations-http-request-bin.png')}
-/>
+<img src={useBaseUrl('img/network-iot/console/integrations/integrations-http-request-bin.png')} />
 
 ... and paste it in Console's **Endpoint URL** field.
 
-<img src={useBaseUrl('img/use-the-network/console/integrations/integrations-http-details.png')} />
+<img src={useBaseUrl('img/network-iot/console/integrations/integrations-http-details.png')} />
 
 **HTTP Header** and **Value** are not required, and can be left blank.
 
@@ -49,8 +47,9 @@ Lastly, provide a name for the integration. Names do not have to be unique.
 
 Click **Add Integration**.
 
-Your new integration is now ready for use! Please read about the [JSON Schema](/use-the-network/console/integrations/json-schema) to understand how to
-parse data received.
+Your new integration is now ready for use! Please read about the
+[JSON Schema](/network-iot/console/integrations/json-schema) to understand how to parse data
+received.
 
 ### Integration Details
 
@@ -82,9 +81,7 @@ device by including the device UUID at the end. You can find this `downlink_url`
 downlink key in it on the HTTP integration page in the details section, an example is shown below.
 
 <img
-  src={useBaseUrl(
-    'img/use-the-network/console/integrations/integrations-http-downlink-details.png',
-  )}
+  src={useBaseUrl('img/network-iot/console/integrations/integrations-http-downlink-details.png')}
 />
 
 The downlink URL can also be found in the uplink JSON message for that particular device. It will
@@ -105,7 +102,7 @@ page.
 
 To send the downlink message, make a POST request including a JSON body with the following fields
 shown below, see more details on the fields
-[here](/use-the-network/console/integrations/json-schema#downlink-transmitting-data-to-a-device).
+[here](/network-iot/console/integrations/json-schema#downlink-transmitting-data-to-a-device).
 
 #### Downlink JSON Message Example
 
@@ -124,17 +121,17 @@ You will find it on the right side of every device page, as shown below. In orde
 downlink tool, you must have an HTTP Integration attached to the device.
 
 <img
-  src={useBaseUrl('img/use-the-network/console/integrations/integrations-http-downlink-button.png')}
+  src={useBaseUrl('img/network-iot/console/integrations/integrations-http-downlink-button.png')}
 />
 
-Once you have the downlink tool open, input the downlink payload string in the payload
-field. Select _Encoded_ if you are inputting a string that is already Base64 encoded, and _Plain_ if
-it is plain text. Last, select your FPort, whether or not you want to send a confirmed downlink, and
-then click the downlink send button, as shown below.
+Once you have the downlink tool open, input the downlink payload string in the payload field. Select
+_Encoded_ if you are inputting a string that is already Base64 encoded, and _Plain_ if it is plain
+text. Last, select your FPort, whether or not you want to send a confirmed downlink, and then click
+the downlink send button, as shown below.
 
 <img
   src={useBaseUrl(
-    'img/use-the-network/console/integrations/integrations-http-downlink-tool-expanded.png',
+    'img/network-iot/console/integrations/integrations-http-downlink-tool-expanded.png',
   )}
 />
 
@@ -142,7 +139,7 @@ Once you have initiated the downlink, you should see the downlink event show in 
 shown below.
 
 <img
-  src={useBaseUrl('img/use-the-network/console/integrations/integrations-http-downlink-event.png')}
+  src={useBaseUrl('img/network-iot/console/integrations/integrations-http-downlink-event.png')}
 />
 
 ### Postman Example
@@ -163,13 +160,13 @@ downlink message to your device.
 
 <img
   src={useBaseUrl(
-    'img/use-the-network/console/integrations/integrations-http-downlink-postman-example.png',
+    'img/network-iot/console/integrations/integrations-http-downlink-postman-example.png',
   )}
 />
 
 ### Python Example
 
-Python is a popular programming language. The following code generates a request to the Helium 
+Python is a popular programming language. The following code generates a request to the Helium
 Network to downlink data to a device.
 
 ```python
@@ -218,7 +215,7 @@ Quick video tutorial connecting devices to an integration
 :::
 
 Node elements (devices, labels, integrations) need to be created before they're available on the
-[Flows Workspace](/use-the-network/console/flows).
+[Flows Workspace](/network-iot/console/flows).
 
 ## Advanced - JSON Message Template
 
@@ -229,14 +226,14 @@ templates.
 
 :::
 
-Users can customize the JSON Message structure sent to Integrations (i.e., to the HTTP endpoint, 
-from the Helium Console). This feature includes the ability to write
-custom JSON Messages, decoder functions, and use supplied predefined JSON templates for Cayenne and Browan.
+Users can customize the JSON Message structure sent to Integrations (i.e., to the HTTP endpoint,
+from the Helium Console). This feature includes the ability to write custom JSON Messages, decoder
+functions, and use supplied predefined JSON templates for Cayenne and Browan.
 
 ### Decoding base64 payloads
 
 Users can send decoded base64 payloads (to hex or bytes) from device to desired integration, without
-creating a [decoder function](/use-the-network/console/functions) for brevity.
+creating a [decoder function](/network-iot/console/functions) for brevity.
 
 To decode the base64 payload simply use `base64_to_hex()` or `base64_to_bytes()` in your integration
 JSON like the following (other keys are optional):

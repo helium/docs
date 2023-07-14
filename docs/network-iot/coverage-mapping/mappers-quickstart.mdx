@@ -28,7 +28,7 @@ compatible tracker will work.
 
 To start, you'll need to add your device to Console. You should have been provided with a DevEUI,
 AppEUI, and AppKey from the seller of the device. Follow our
-[quickstart](/use-the-network/console/quickstart) for instructions on how to add a new device to
+[quickstart](/network-iot/console/quickstart) for instructions on how to add a new device to
 Console.
 
 ### 2. Create HTTP Integration
@@ -36,7 +36,7 @@ Console.
 To create a new HTTP integration in Console, navigate to the Integrations page using the left
 navigation and then select the HTTP integration.
 
-<img src={useBaseUrl('img/use-the-network/console/integrations/integrations-select-http.png')} />
+<img src={useBaseUrl('img/network-iot/console/integrations/integrations-select-http.png')} />
 
 Next we'll fill in the details, see instructions and image below.
 
@@ -47,7 +47,7 @@ Next we'll fill in the details, see instructions and image below.
 
 <img
   src={useBaseUrl(
-    'img/use-the-network/coverage-mapping/mappers-quickstart-create-http-integration.png',
+    'img/network-iot/coverage-mapping/mappers-quickstart-create-http-integration.png',
   )}
 />
 
@@ -124,40 +124,36 @@ To start, navigate to the Functions page using the left navigation and then clic
 
 3. Finally, save your function.
 
-<img
-  src={useBaseUrl('img/use-the-network/coverage-mapping/mappers-quickstart-create-decoder.png')}
-/>
+<img src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-decoder.png')} />
 
 ### 4. Create a Flow
 
-Next we will create a [_Flow_](/use-the-network/console/flows/orientation). Navigate to the Flows
-page and click the + sign next to Nodes.
+Next we will create a [_Flow_](/network-iot/console/flows/orientation). Navigate to the Flows page
+and click the + sign next to Nodes.
 
 <img
-  src={useBaseUrl('img/use-the-network/coverage-mapping/mappers-quickstart-create-flow-nodes.png')}
+  src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-flow-nodes.png')}
 />
 
 Drag and drop your device, function and integration on the workspace. Link them by drawing lines
 with your mouse between the connection points. Link device -> decoder -> integration.
 
 <img
-  src={useBaseUrl('img/use-the-network/coverage-mapping/mappers-quickstart-create-flow-basic.png')}
+  src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-flow-basic.png')}
 />
 
 You are now ready to power on your device and verify that data is being sent correctly to the Mapper
 API. To do this just expand an uplink event in the event log and verify that you are getting a
 _"Success"_ message for the integration as shown below.
 
-<img src={useBaseUrl('img/use-the-network/coverage-mapping/mappers-quickstart-device-event.png')} />
+<img src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-device-event.png')} />
 
 That's all! You can now expect to see your data show up on
 [mappers.helium.com](https://mappers.helium.com) in a few minutes. If you want to see where your
 mapper is on the map, you could use [Cargo](https://cargo.helium.com). You will have to add one more
-[integration](/use-the-network/console/integrations/cargo/#add-a-cargo-integration) and link it to
-the decoder in your flow.
+[integration](/network-iot/console/integrations/cargo/#add-a-cargo-integration) and link it to the
+decoder in your flow.
 
 <img
-  src={useBaseUrl(
-    'img/use-the-network/coverage-mapping/mappers-quickstart-create-flow-with-cargo.png',
-  )}
+  src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-flow-with-cargo.png')}
 />

@@ -5,7 +5,7 @@ pagination_label: JSON Schema
 sidebar_label: JSON Schema
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /use-the-network/console/integrations/json-schema
+slug: /network-iot/console/integrations/json-schema
 ---
 
 # JSON Schema
@@ -111,15 +111,16 @@ Here is an example of data received:
 }
 ```
 
-| Field           | Description |                                                                                                                                                                          |
-| :-------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Field           | Description |                                                                                                                                                                                                                                                 |
+| :-------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **payload_raw** | String      | Data transmitted to your device as a base64 encoded String. Most programming languages will have some built-in libraries for parsing/encoding this \(e.g., Python's `payload = base64.b64encode(payload_str.encode('utf-8')).decode('ascii')`\) |
-| **port**        | Number      | LoRaWAN FPort on which the data is to be transmitted; this can be useful for routing data within the application                                                              |
-| **confirmed**   | Bool        | Whether a device acknowledgement (ACK) is required                                                                                                                      |
+| **port**        | Number      | LoRaWAN FPort on which the data is to be transmitted; this can be useful for routing data within the application                                                                                                                                |
+| **confirmed**   | Bool        | Whether a device acknowledgement (ACK) is required                                                                                                                                                                                              |
 
-Note that many devices will show the downlinked payload (submitted as base64 in the JSON schema) as hex (base-16).
+Note that many devices will show the downlinked payload (submitted as base64 in the JSON schema) as
+hex (base-16).
 
 ### Clearing a Device Queue
 
-If the **payload_raw** field is set to the base64 encoded value 
-`'__clear_downlink_queue__'`, all downlinks queued for that device will be removed.
+If the **payload_raw** field is set to the base64 encoded value `'__clear_downlink_queue__'`, all
+downlinks queued for that device will be removed.

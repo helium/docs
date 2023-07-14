@@ -5,7 +5,7 @@ pagination_label: Run Console
 sidebar_label: Run Console
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /use-the-network/run-a-network-server/run-console
+slug: /network-iot/run-a-network-server/run-console
 ---
 
 # What is Console?
@@ -40,7 +40,7 @@ Before we begin, you should have the following:
 Optionally, you should also:
 
 - have a fully sync'ed Miner or ETL instance to extract a snapshot from. To learn how to setup a
-  Miner, [please read here](/use-the-network/setup-a-packet-forwarder).
+  Miner, [please read here](/network-iot/setup-a-packet-forwarder).
 - be able to configure ports on a firewall
 
 ### Setting up dependencies
@@ -176,7 +176,7 @@ cp templates/docker-compose-local.yaml docker-compose.yaml
 ```
 
 This template builds console locally and does not use nginx for SSL. You may want to read about
-nginx setup [here](/use-the-network/run-a-network-server/deploy-console).
+nginx setup [here](/network-iot/run-a-network-server/deploy-console).
 
 If you launch docker-compose from here, you will build from the `master` branch. You can use git to
 build and checkout alternate branches or tags.
@@ -198,7 +198,7 @@ continue enabling SSH on port 22 so that you can accept your own login and manag
 2154 for libp2p which allows you to sync the blockchain, and finally, port 8080 is for gRPC
 connections from hotspots so that you may actually purchase packets:
 
-<img src={useBaseUrl('img/use-the-network/run-a-network-server/run-console/firewall-config.png')} />
+<img src={useBaseUrl('img/network-iot/run-a-network-server/run-console/firewall-config.png')} />
 
 You might see `helium_router` crash a few times as it waits for `helium_console` to start up and
 allow the socket connection between the two.
@@ -311,8 +311,7 @@ helium-wallet burn --amount 0.49043649 --payee 11xHXS5AgLyjYRCJ4ctcWcsMRULS8jro9
 ### Test a Device
 
 Login to your local Console instance (localhost:4000) and create an organization and a device. If
-you ever need help with Console as a user,
-[much documentation exists here](/use-the-network/console).
+you ever need help with Console as a user, [much documentation exists here](/network-iot/console).
 
 Once you've created the device on console, go to a terminal window on server running Console and
 execute the following command to tell Router to update the `xor filter` on the blockchain:

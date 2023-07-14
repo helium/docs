@@ -5,14 +5,14 @@ pagination_label: Adeunis Field Test Device
 sidebar_label: Adeunis Field Test Device
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /use-the-network/devices/ready-to-use/adeunis/adeunis-field-test-device
+slug: /network-iot/devices/ready-to-use/adeunis/adeunis-field-test-device
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Adeunis Field Test Device
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/adeunis-field-test-device.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/adeunis-field-test-device.png')} />
 
 ### Introduction
 
@@ -32,7 +32,7 @@ devices will have coverage.
 
 To start, you'll need to add your device to Console. You should have been provided with a DevEUI,
 AppEUI, and AppKey from the seller of the device. Follow our
-[quickstart](/use-the-network/console/quickstart) for instructions on how to add a new device to
+[quickstart](/network-iot/console/quickstart) for instructions on how to add a new device to
 Console.
 
 ### Device Configuration
@@ -52,7 +52,7 @@ correct serial settings and send the commands in the correct format.
 - Data 8
 - Stop Bit 1
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/realterm-settings.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/realterm-settings.png')} />
 
 #### Activate Command Mode
 
@@ -60,7 +60,7 @@ Only this command requires that you send the command in number form.
 
 Enter Command Mode Command: `0xFF 0xFF 0xFF 0x2B 0x2B 0x2B`
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/send-button.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/send-button.png')} />
 
 #### Unblock Operating Range
 
@@ -69,7 +69,7 @@ Command: `ATT63 PROVIDER`
 This command and all that follow should be sent using the ASCII format with a carriage return \(CR\)
 at the end.
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/send-ascii.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/send-ascii.png')} />
 
 #### Select Sub band 2
 
@@ -105,7 +105,7 @@ Command: `ATO`
 
 You should see the following responses below from the device after entering the above commands.
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/realterm-at-commands.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/realterm-at-commands.png')} />
 
 ### Sending Packets
 
@@ -114,4 +114,4 @@ network. You will see the status of the join attempt on the Uplink/Downlink scre
 manual for more details on this screen. Once the device has joined press the large push button in
 the center of the device to send the uplink payload.
 
-<img src={useBaseUrl('img/use-the-network/devices/ready-to-use/console-output.png')} />
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/console-output.png')} />

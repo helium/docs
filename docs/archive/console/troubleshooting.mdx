@@ -5,7 +5,7 @@ pagination_label: Console Troubleshooting
 sidebar_label: Console Troubleshooting
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /use-the-network/console/troubleshooting
+slug: /network-iot/console/troubleshooting
 ---
 
 # Console Troubleshooting
@@ -32,7 +32,7 @@ Function can be written using custom JavaScript code provided by the user or sel
 decoders (currently Browan Object Locator and Cayenne LPP). Once the function has been created it
 will need to be attached to a Label or Integration. This Label that attaches to the device must also
 be applied to the device. Please see
-[complete Function documentation for more information](/use-the-network/console/functions/).
+[complete Function documentation for more information](/network-iot/console/functions/).
 
 ### How do I manage my Hotspots on Console?
 
@@ -67,9 +67,9 @@ Remember after initial joining:
 
 - It takes up to (20-30 mins) for a sensor to be added for the first time due to XOR filter adding
   sensor credentials to blockchain: for more info check
-  [here](/use-the-network/console/adding-devices/#when-adding-devices-for-the-first-time).
+  [here](/network-iot/console/adding-devices/#when-adding-devices-for-the-first-time).
 
-<img src={useBaseUrl('img/use-the-network/console/console-troubleshooting-label-greyed.png')} />
+<img src={useBaseUrl('img/network-iot/console/console-troubleshooting-label-greyed.png')} />
 
 ### Why are my downlinks not working?
 
@@ -77,7 +77,7 @@ A LoRaWAN Class A device only listens for downlinks immediately after sending an
 specification defines this as the "receive windows" (ie:`RX1`) which starts `RX_DELAY1` seconds
 after the uplink is complete.
 
-<img src={useBaseUrl('img/use-the-network/console/console-troubleshooting-rxdelay.png')} />
+<img src={useBaseUrl('img/network-iot/console/console-troubleshooting-rxdelay.png')} />
 
 If the device receives no downlinks during the first window, it will listen again one second later
 during the second receive window (ie: `RX2`).
@@ -88,4 +88,4 @@ backhauls used by the gateway (such as cellular).
 
 In these cases, it is recommended to explore increasing the `RX_DELAY1` value. More information
 about how to use LoRaWAN Profiles on Console to configure the `RX_DELAY1` value is available
-[here](/use-the-network/console/profiles/#receive-window-delay).
+[here](/network-iot/console/profiles/#receive-window-delay).
