@@ -43,36 +43,10 @@ module.exports = {
       ],
       collapsed: true,
     },
-
     {
       type: 'category',
       label: 'Hotspots',
-      link: { type: 'doc', id: 'hotspot-makers/become-a-maker/basic-miner-operation' },
       items: [
-        {
-          type: 'category',
-          label: 'IOT Hotspots',
-          link: { type: 'doc', id: 'hotspot-makers/iot/light-hotspots' },
-          items: [
-            'hotspot-makers/become-a-maker/docker-integration',
-            'hotspot-makers/become-a-maker/hotspot-ble-services',
-            'hotspot-makers/become-a-maker/hotspot-wifi-configuration',
-            'hotspot-makers/become-a-maker/maker-app-requirements',
-            'hotspot-makers/become-a-maker/security-requirements',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Data Only Hotspots',
-          link: { type: 'doc', id: 'hotspot-makers/iot/data-only-hotspots' },
-          items: [
-            'hotspot-makers/iot/data-only/balena-data-only-hotspot',
-            'hotspot-makers/iot/data-only/dragino-pg1301',
-            'hotspot-makers/iot/data-only/dragino',
-            'hotspot-makers/iot/data-only/kerlink',
-            'hotspot-makers/iot/data-only/rak-concentrators',
-          ],
-        },
         'hotspot-makers/mobile-cbrs/5g-hardware-specification',
         {
           type: 'category',
@@ -165,6 +139,38 @@ module.exports = {
         'network-iot/devices/ready-to-use/ready-to-use',
         'network-iot/devices/development/development',
       ],
+    },
+    {
+      type: 'category',
+      label: 'Hotspots',
+      link: { type: 'doc', id: 'hotspot-makers/become-a-maker/basic-miner-operation' },
+      items: [
+        {
+          type: 'category',
+          label: 'IOT Hotspots',
+          link: { type: 'doc', id: 'network-iot/hotspots-iot/light-hotspots' },
+          items: [
+            'hotspot-makers/become-a-maker/docker-integration',
+            'hotspot-makers/become-a-maker/hotspot-ble-services',
+            'hotspot-makers/become-a-maker/hotspot-wifi-configuration',
+            'hotspot-makers/become-a-maker/maker-app-requirements',
+            'hotspot-makers/become-a-maker/security-requirements',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Data Only Hotspots',
+          link: { type: 'doc', id: 'network-iot/hotspots-iot/data-only-hotspots' },
+          items: [
+            'network-iot/hotspots-iot/data-only/balena-data-only-hotspot',
+            'network-iot/hotspots-iot/data-only/dragino-pg1301',
+            'network-iot/hotspots-iot/data-only/dragino',
+            'network-iot/hotspots-iot/data-only/kerlink',
+            'network-iot/hotspots-iot/data-only/rak-concentrators',
+          ],
+        },
+      ],
+      collapsed: true,
     },
     {
       type: 'category',
