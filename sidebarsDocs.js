@@ -179,9 +179,9 @@ module.exports = {
     {
       type: 'category',
       label: 'Proof of Coverage',
-      link: { type: 'doc', id: 'archive/blockchain/proof-of-coverage' },
+      link: { type: 'doc', id: 'network-iot/iot-proof-of-coverage' },
       items: [
-        'network-iot/iot-poc',
+        'network-iot/iot-proof-of-coverage-roadmap',
         {
           type: 'category',
           label: 'Coverage Mapping',

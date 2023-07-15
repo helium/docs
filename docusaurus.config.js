@@ -96,12 +96,12 @@ module.exports = {
         //     },
         //   ],
         // },
-        {
-          to: '/solana/migration/',
-          label: 'Solana Migration Guides',
-          position: 'right',
-          className: 'announcementnav',
-        },
+        // {
+        //   to: '/solana/migration/',
+        //   label: 'Solana Migration Guides',
+        //   position: 'right',
+        //   className: 'announcementnav',
+        // },
       ],
     },
     footer: {
