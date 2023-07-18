@@ -5,7 +5,7 @@ pagination_label: CLI Wallet
 sidebar_label: CLI Wallet
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /wallets/cli-wallet
+slug: /cli-wallet
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -225,7 +225,7 @@ The `export` feature requires:
 
 - `helium-wallet-rs version 1.7.7` or later, available
   [on GitHub](https://github.com/helium/helium-wallet-rs/tags)
-- [Helium Wallet App](/wallets/helium-wallet-app) version `1.3.0` or later, available for
+- [Helium Wallet App](/helium-wallet-app) version `1.3.0` or later, available for
   [iOS](https://apps.apple.com/us/app/helium-hnt-wallet/id1609525848) and
   [Android](https://play.google.com/store/apps/details?id=com.helium.wallet.app)
 
@@ -403,11 +403,11 @@ Apps do not currently support 24-word Wallets.
 
 To transfer a Hotspot from a 24-word Wallet to a 12-word Wallet, follow the steps below.
 
-1. Create a 12-word Wallet to receive the Hotspot using the
-   [Helium Wallet App](/wallets/helium-wallet-app) and record the Public Key.
+1. Create a 12-word Wallet to receive the Hotspot using the [Helium Wallet App](/helium-wallet-app)
+   and record the Public Key.
 
-2. Download and install the [Helium Command Line Wallet](/wallets/cli-wallet#installing-cli-wallet)
-   as outlined above. and navigate to the installation directory.
+2. Download and install the [Helium Command Line Wallet](/cli-wallet#installing-cli-wallet) as
+   outlined above. and navigate to the installation directory.
 3. Import your 24-word seed phrase to the CLI Wallet.
 
 ```bash
@@ -416,7 +416,7 @@ $ helium-wallet create basic --seed --output my-24-word-wallet.key
 
 | argument                         | description                                                                                                      |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `create basic`                   | create a Wallet with a single key, as opposed to a [sharded wallet](/wallets/cli-wallet#sharded-wallet)          |
+| `create basic`                   | create a Wallet with a single key, as opposed to a [sharded wallet](/cli-wallet#sharded-wallet)                  |
 | `--seed`.                        | import with an existing seed phrase using the 24-word list.                                                      |
 | `--output my-24-word-wallet.key` | output the Wallet key file to a location of your choosing, in this case to a file called `my-24-word-wallet.key` |
 
