@@ -145,3 +145,27 @@ more information about achieving better quality coverage for subscribers.
 
 If you are interested in discussing the next steps to becoming a Service Provider on the Helium 5G
 Network, please contact the [Helium Foundation](mailto:hello@helium.foundation).
+
+## Creating a Service Provider
+
+First, install the `helium-admin-cli`
+
+```bash
+npm install -g @helium/helium-admin-cli
+```
+
+Then, in a wallet with 500m MOBILE:
+
+```bash
+ helium-admin create-carrier \
+              -u <your-mainnet-rpc-url> \
+              -k <path to keypair with 500m mobile> \
+              -n <your carrier name> \
+              --metadataUrl <json uri of the metadata for the carrier collection, all subscribers appear under this collection> \
+              --issuingAuthority <pubkey that must sign to create subscribers> \
+              --count <estimated subscriber count>
+```
+
+This will stake 500m MOBILE and create your carrier. Once this is done, you must have the carrier approved. Contact the [Helium Foundation](mailto:hello@helium.foundation).
+
+The wallet this command was run with will have an NFT deposited. DO NOT BURN THIS NFT. This NFT will allow you to claim service provider rewards.
