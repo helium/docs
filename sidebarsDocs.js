@@ -125,13 +125,13 @@ module.exports = {
       label: 'LoRaWAN on Helium',
       link: { type: 'doc', id: 'network-iot/lorawan-on-helium' },
       items: [
-        'network-iot/frequency-plans/frequency-plans',
-        'network-iot/frequency-plans/region-plans',
+        'network-iot/lorawan-frequency-plans',
+        'network-iot/lorawan-region-plans',
         {
           type: 'category',
           label: 'Roaming',
           link: { type: 'doc', id: 'network-iot/lorawan-roaming' },
-          items: ['network-iot/lorawan-roaming-quickstart', 'network-iot/roaming'],
+          items: ['network-iot/lorawan-roaming-quickstart', 'network-iot/iot-roaming'],
         },
       ],
     },
@@ -152,7 +152,7 @@ module.exports = {
         {
           type: 'category',
           label: 'IOT Hotspots',
-          link: { type: 'doc', id: 'network-iot/hotspots-iot/light-hotspots' },
+          link: { type: 'doc', id: 'network-iot/hotspots-iot/iot-hotspots' },
           items: [
             'architecture/hotspot-makers/become-a-maker/docker-integration',
             'architecture/hotspot-makers/become-a-maker/hotspot-ble-services',
@@ -168,8 +168,8 @@ module.exports = {
           items: [
             'network-iot/hotspots-iot/data-only/balena-data-only-hotspot',
             'network-iot/hotspots-iot/data-only/dragino-pg1301',
-            'network-iot/hotspots-iot/data-only/dragino',
-            'network-iot/hotspots-iot/data-only/kerlink',
+            'network-iot/hotspots-iot/data-only/dragino-data-only-hotspot',
+            'network-iot/hotspots-iot/data-only/kerlink-data-only-hotspot',
             'network-iot/hotspots-iot/data-only/rak-concentrators',
           ],
         },
@@ -185,10 +185,10 @@ module.exports = {
         {
           type: 'category',
           label: 'Coverage Mapping',
-          link: { type: 'doc', id: 'network-iot/coverage-mapping/coverage-mapping' },
+          link: { type: 'doc', id: 'network-iot/coverage-mapping/iot-coverage-mapping' },
           items: [
-            'network-iot/coverage-mapping/mappers-api',
-            'network-iot/coverage-mapping/mappers-roadmap',
+            'network-iot/coverage-mapping/iot-coverage-mapping-api',
+            'network-iot/coverage-mapping/iot-coverage-mapping-roadmap',
           ],
         },
       ],
@@ -235,7 +235,7 @@ module.exports = {
       items: [
         'archive/blockchain/blockchain-primitives',
         'archive/blockchain/mining',
-        'network-iot/transaction-fees',
+        'network-iot/iot-transaction-fees',
       ],
       collapsed: true,
     },
@@ -245,8 +245,8 @@ module.exports = {
       link: { type: 'doc', id: 'tokens/mine-iot' },
       items: [
         'network-iot/crowdspot',
-        'network-iot/denylist',
-        'network-iot/denylist-removals',
+        'network-iot/iot-denylist',
+        'network-iot/iot-denylist-removals',
         'home/faq/build-on-network',
       ],
       collapsed: true,
