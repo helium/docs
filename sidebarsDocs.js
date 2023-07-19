@@ -213,10 +213,10 @@ module.exports = {
   governance: [
     'governance/governance',
     'governance/voting',
-    'governance/faq',
+    'governance/governance-faq',
     'governance/realms',
-    'governance/vote-escrow/vehnt',
-    'governance/vote-escrow/realms',
+    'governance/vehnt',
+    'governance/staking-with-realms',
     'governance/working-groups',
     'governance/committees',
     {
