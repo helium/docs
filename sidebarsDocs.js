@@ -199,12 +199,12 @@ module.exports = {
     {
       type: 'category',
       label: '5G on Helium',
-      link: { type: 'doc', id: 'network-mobile/cbrs/5g-on-helium' },
+      link: { type: 'doc', id: 'network-mobile/5g-on-helium' },
       items: [
-        'network-mobile/cbrs/cbrs-radios',
+        'network-mobile/cbrs-radios',
         'network-mobile/mobile-mappers',
-        'network-mobile/mobile-poc',
-        'network-mobile/service-providers',
+        'network-mobile/mobile-proof-of-coverage',
+        'network-mobile/mobile-service-providers',
       ],
       collapsed: true,
     },
