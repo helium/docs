@@ -1,0 +1,36 @@
+---
+layout: post
+title: Legacy API and Explorer Shutdown
+date: 2023-07-19 17:00 -0800
+hide_table_of_contents: true
+authors: [jhiller]
+---
+
+# Legacy API and Explorer Shutdown
+
+The legacy Explorer (hosted at explorer-old.helium.com) and the legacy API are set for retirement on
+July 28. The Solana-backed Helium Explorer hosted at explorer.helium.com will continue to serve the
+community for coverage maps and high-level network stats.
+
+<!--truncate-->
+
+With Helium now operating on Solana, users can directly query Helium Network state from Solana,
+which is a more streamlined way to access up-to-date data related to Helium. Moreover, third-party
+block explorers such as Hotspotty, Moken, Relay, HeliumGeek, Dune Analytics, and others, have
+broadened the ecosystem of user interfaces delivering rich insights into Hotspots and the Helium
+Network.
+
+The Helium Explorer will continue to operate at explorer.helium.com, providing a central hub for the
+Helium Coverage Map, network stats and third-party explorers. [Oracle data](/oracles/oracle-data)
+continues to be served for public availability without change.
+
+To accommodate the need for historical data, a CSV export of the Helium L1 data will be available on
+a requestor-pays basis on AWS in the `foundation-helium-l1-archive` bucket. In total this bucket is
+1.4 TB. If demand is high, alternate delivery methods like IPFS or a torrent for this data can be
+explored to avoid AWS egress fees.
+
+As part of our commitment to open-source learning, the Explorer codebase will remain accessible at
+https://github.com/helium/explorer.
+
+We thank you for your patience and support during this transition and look forward to the exciting
+opportunities these changes will bring to the Helium ecosystem.
