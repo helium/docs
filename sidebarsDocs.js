@@ -106,7 +106,7 @@ module.exports = {
     {
       type: 'category',
       label: 'The Helium IOT Network',
-      link: { type: 'doc', id: 'network-iot/iot-network' },
+      link: { type: 'doc', id: 'network-iot/iot' },
       items: [],
       collapsed: true,
     },
@@ -138,7 +138,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Devices',
-      link: { type: 'doc', id: 'network-iot/devices/devices' },
+      link: { type: 'doc', id: 'network-iot/devices/iot-devices' },
       items: [
         'network-iot/devices/ready-to-use/ready-to-use',
         'network-iot/devices/development/development',
@@ -362,7 +362,7 @@ module.exports = {
     {
       type: 'link',
       label: '<- Devices',
-      href: '/network-iot/devices',
+      href: '/iot/devices',
     },
     'network-iot/devices/ready-to-use/ready-to-use',
     {
@@ -740,7 +740,7 @@ module.exports = {
     {
       type: 'link',
       label: '<- Devices',
-      href: '/network-iot/devices',
+      href: '/iot/devices',
     },
     'network-iot/devices/development/development',
     {

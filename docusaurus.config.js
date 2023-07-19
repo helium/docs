@@ -54,7 +54,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'hnt-token',
+          to: 'tokens/hnt-token',
           label: 'Tokens',
           position: 'left',
         },
@@ -64,12 +64,12 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'iot-network',
+          to: 'iot',
           label: 'IoT Network',
           position: 'left',
         },
         {
-          to: '5g-on-helium',
+          to: 'mobile/5g-on-helium',
           label: 'Mobile Network',
           position: 'left',
         },

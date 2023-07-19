@@ -35,7 +35,7 @@ Requires basic familiarity with Linux and Bash command-line.
 
 ## Pricing
 
-The OUI is purchased with [Data Credits (DC)](/iot-transaction-fees). Costs are subject to change,
+The OUI is purchased with [Data Credits (DC)](/iot/transaction-fees). Costs are subject to change,
 but currently the OUI itself costs US$100 worth of DC and each DevAddr cost an additional US$100 in
 DC.
 
@@ -103,7 +103,8 @@ assigned to Devices by Router.
 ### Couple things to know before
 
 First you will need a basic understanding of the location system used by the Helium Network
-[Full Description](/iot-hexagons). If you are aware of `H3 Indexes` & `Hexagons` you can skip this.
+[Full Description](/architecture/hexagons). If you are aware of `H3 Indexes` & `Hexagons` you can
+skip this.
 
 Then let's talk about the offer / purchase machanism on the Helium Network.
 
@@ -175,8 +176,8 @@ At this point 2 things can happen:
       ). This is essentially a conflict with **happy path**.
    2. If Router does not deem offers associated with `Device9` worthy of purchasing (e.g. maybe
       `Device9` was de-activated by a user in Console, or maybe `Device9`'s Console Organisation ran
-      out of [Data Credit](/data-credit)) the offer will be rejected and data never delivered. This
-      is a conflict with **non-happy path**.
+      out of [Data Credit](/tokens/data-credit)) the offer will be rejected and data never
+      delivered. This is a conflict with **non-happy path**.
 
 The non-happy path is fairly rare as Router will do its best to find out the right device but this
 is where buying extra `DeviceAddr` can help prevent bad conflicts.
