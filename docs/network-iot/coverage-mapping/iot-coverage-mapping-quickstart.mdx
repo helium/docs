@@ -1,0 +1,159 @@
+---
+id: iot-coverage-mapping-quickstart
+title: Mappers Quickstart
+pagination_label: Mappers Quickstart
+sidebar_label: Mappers Quickstart
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/coverage-mapping/quickstart
+---
+
+# Mappers Quickstart
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+This guide will show you step by step how to contribute data to the Mappers project with an
+off-the-shelf tracker. This guide will use the
+[Dragino LGT92](https://www.dragino.com/products/lora/item/142-lgt-92.html), but any LoRaWAN
+compatible tracker will work.
+
+### Steps
+
+1. Add device to Console.
+2. Create new HTTP integration with Mappers API ingest endpoint.
+3. Create Function Decoder to decode device payload.
+4. Create a Flow and verify data is being sent successfully.
+
+### 1. Add Device to Console
+
+To start, you'll need to add your device to Console. You should have been provided with a DevEUI,
+AppEUI, and AppKey from the seller of the device. Follow our
+[quickstart](/network-iot/console/quickstart) for instructions on how to add a new device to
+Console.
+
+### 2. Create HTTP Integration
+
+To create a new HTTP integration in Console, navigate to the Integrations page using the left
+navigation and then select the HTTP integration.
+
+<img src={useBaseUrl('img/network-iot/console/integrations/integrations-select-http.png')} />
+
+Next we'll fill in the details, see instructions and image below.
+
+1. Enter the Mappers API Ingest Endpoint URL (Required)
+   `https://mappers.helium.com/api/v1/ingest/uplink`
+2. Enter the name for this Integration: _Mappers Integration_
+3. Finally, click _Add Integration_ to complete.
+
+<img
+  src={useBaseUrl(
+    'img/network-iot/coverage-mapping/mappers-quickstart-create-http-integration.png',
+  )}
+/>
+
+### 3. Create Function Decoder
+
+Next, we'll be creating a Function decoder to decode the payload from the device and properly format
+it for the API endpoint. The decoder is specific to the encoding scheme used to encode the data
+before the device transmits it. For off-the-shelf devices this is usually manufacturer specific. For
+development devices,
+[CayenneLPP](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload) is
+often used. For this guide we'll be using a decoder specifically made for this tracking device. We
+have a repository with decoders for various devices
+[here](https://github.com/helium/console-decoders).
+
+To start, navigate to the Functions page using the left navigation and then click _Add Function_.
+
+1. Enter a name for the decoder (below we've used _Dragino LGT92 Decoder_), select the type of
+   Function, _Decoder_ in this case, and finally select _Custom Script_ from the drop down.
+2. Copy and paste the complete decoder function provided by the manufacturer or found
+   [here](https://github.com/helium/console-decoders/blob/master/Dragino/LGT92/decoder-v1.6.4.js).
+
+   ```javascript
+   function Decoder(bytes, port) {
+     // Decode an uplink message from a buffer
+     // (array) of bytes to an object of fields.
+     var latitude //gps latitude,units: °
+     latitude = ((bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3]) / 1000000 //gps latitude,units: °
+     var longitude
+     longitude = ((bytes[4] << 24) | (bytes[5] << 16) | (bytes[6] << 8) | bytes[7]) / 1000000 //gps longitude,units: °
+     var alarm = bytes[8] & 0x40 ? 'TRUE' : 'FALSE' //Alarm status
+     var batV = (((bytes[8] & 0x3f) << 8) | bytes[9]) / 1000 //Battery,units:V
+     if ((bytes[10] & 0xc0) == 0x40) {
+       var motion_mode = 'Move'
+     } else if ((bytes[10] & 0xc0) == 0x80) {
+       motion_mode = 'Collide'
+     } else if ((bytes[10] & 0xc0) == 0xc0) {
+       motion_mode = 'User'
+     } else {
+       motion_mode = 'Disable'
+     } //mode of motion
+
+     var led_updown = bytes[10] & 0x20 ? 'ON' : 'OFF' //LED status for position,uplink and downlink
+     var Firmware = 160 + (bytes[10] & 0x1f) // Firmware version; 5 bits
+     var roll = (((bytes[11] << 24) >> 16) | bytes[12]) / 100 //roll,units: °
+     var pitch = (((bytes[13] << 24) >> 16) | bytes[14]) / 100 //pitch,units: °
+     var hdop = 0
+     if (bytes[15] > 0) {
+       hdop = bytes[15] / 100 //hdop,units: Â°
+     } else {
+       hdop = bytes[15]
+     }
+     var altitude = (((bytes[16] << 24) >> 16) | bytes[17]) / 100 //Altitude,units: °
+     return {
+       latitude: latitude, // Note that must be lower-case
+       longitude: longitude,
+       altitude: altitude,
+       accuracy: 3,
+       Roll: roll,
+       Pitch: pitch,
+       BatV: batV,
+       ALARM_status: alarm,
+       MD: motion_mode,
+       LON: led_updown,
+       FW: Firmware,
+       HDOP: hdop,
+     }
+   }
+   ```
+
+   Next we need to verify that all required fields are present in the function. Find more details on
+   the API specification [here](/iot/coverage-mapping/api). The required fields are case-sensitive.
+   If you got your decoder from the manufacturer and one or more required fields are missing - add
+   them with hard-coded values like accuracy in the above example.
+
+3. Finally, save your function.
+
+<img src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-decoder.png')} />
+
+### 4. Create a Flow
+
+Next we will create a [_Flow_](/network-iot/console/flows/orientation). Navigate to the Flows page
+and click the + sign next to Nodes.
+
+<img
+  src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-flow-nodes.png')}
+/>
+
+Drag and drop your device, function and integration on the workspace. Link them by drawing lines
+with your mouse between the connection points. Link device -> decoder -> integration.
+
+<img
+  src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-flow-basic.png')}
+/>
+
+You are now ready to power on your device and verify that data is being sent correctly to the Mapper
+API. To do this just expand an uplink event in the event log and verify that you are getting a
+_"Success"_ message for the integration as shown below.
+
+<img src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-device-event.png')} />
+
+That's all! You can now expect to see your data show up on
+[mappers.helium.com](https://mappers.helium.com) in a few minutes. If you want to see where your
+mapper is on the map, you could use [Cargo](https://cargo.helium.com). You will have to add one more
+[integration](/network-iot/console/integrations/cargo/#add-a-cargo-integration) and link it to the
+decoder in your flow.
+
+<img
+  src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-flow-with-cargo.png')}
+/>

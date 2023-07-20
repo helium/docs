@@ -1,0 +1,138 @@
+---
+id: assert-locations
+title: Assert Locations
+pagination_label: Assert Locations
+sidebar_label: Assert Locations
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /archive/api/blockchain/assert-locations
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints may no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Available on the Oracles API
+
+### List Assert Locations
+
+:::tip Available on the Oracles API
+
+The data provided by endpoint is available using the Oracles API and requires parsing S3 data. More
+information will be made available in the future.
+
+Filter all transactions for the
+[Helium Entity Manager Program](https://github.com/helium/helium-program-library/tree/master/programs/helium-entity-manager)
+by assert location transactions.
+
+:::
+
+```
+GET https://api.helium.io/v1/assert_locations
+```
+
+Use this API to list `assert_location` transactions.
+
+This route is `cursor` paginated.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param               | Type     | Note                              |
+| ------------------- | -------- | --------------------------------- |
+| cursor (optional)   | _string_ | Cursor for page to fetch          |
+| min_time (optional) | _string_ | First time to include data for    |
+| max_time (optional) | _string_ | Last time to include data for     |
+| limit (optional)    | _number_ | Maximum number of items to return |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Return a page of `assert_location` transactions.
+
+:::note Transaction Units
+
+Remember that transaction units are in `bones`. Read more
+[here](/archive/api/blockchain/introduction/#transaction-units)
+
+:::
+
+```json
+{
+  "data": [
+    {
+      "elevation": 0,
+      "fee": 55000,
+      "gain": 23,
+      "gateway": "112tfWD6YdC6xR22VT2D5Sbi98R5ixTUtDuDAzagv4Xz8wAjCTf4",
+      "hash": "yF8KGoIs_08GvA_IGL_L9DVem0SUNehr5kFcxDkDPWc",
+      "height": 950804,
+      "lat": 38.91382465500603,
+      "lng": -77.12481928707234,
+      "location": "8c2aa84c195dbff",
+      "nonce": 1,
+      "owner": "13uBLKd9B4CppL3tQq2W7jENQVygGZg3ou7dwoDdUjTQcoNBYm4",
+      "payer": "13ENbEQPAvytjLnqavnbSAzurhGoCSNkGECMx7eHHDAfEaDirdY",
+      "staking_fee": 1000000,
+      "time": 1628021279,
+      "type": "assert_location_v2"
+    },
+    {
+      "elevation": 10,
+      "fee": 55000,
+      "gain": 28,
+      "gateway": "1123Py2LUM13aLsCtfBpxhjxrrSWFuPujr6PNdW9Ro1TE5v8YMUH",
+      "hash": "zkjMS4CCfs4w0XFmim7lNZmVESCjUsbkWB2ExzicLZ0",
+      "height": 950804,
+      "lat": 35.86088843248591,
+      "lng": 14.485309777200525,
+      "location": "8c3f304ee6cb9ff",
+      "nonce": 3,
+      "owner": "13xXTxcpkFmH2tcjZy22441tMEy5AmfNokGP4ndbFVJdeoZbdoe",
+      "payer": "13xXTxcpkFmH2tcjZy22441tMEy5AmfNokGP4ndbFVJdeoZbdoe",
+      "staking_fee": 1000000,
+      "time": 1628021279,
+      "type": "assert_location_v2"
+    },
+    {
+      "elevation": 4,
+      "fee": 55000,
+      "gain": 30,
+      "gateway": "112EywgXfCWKfygcK1zGiYbWxXKHza4DuGf8kRAdtXkXWekMN5p3",
+      "hash": "ZuhUWAgMaTuLrgI3wtKyl7pbZLDX6w9dFxI3bp0QqQI",
+      "height": 950804,
+      "lat": 51.20481267630534,
+      "lng": 3.262542526481705,
+      "location": "8c194d104cf67ff",
+      "nonce": 1,
+      "owner": "14UrMw4DcEy7TJQy53SJmjMkDLAGjTk4L5FXv7NMmfeN7vCJyME",
+      "payer": "13Zni1he7KY9pUmkXMhEhTwfUpL9AcEV1m2UbbvFsrU9QPTMgE3",
+      "staking_fee": 1000000,
+      "time": 1628021279,
+      "type": "assert_location_v2"
+    }
+  ],
+  "cursor": "eyJ0eXBlcyI6InN0YXRlX2NoYW5uZWxfY2xvc2VfdjEiLCJtaW5fYmxvY2siOjEsImJsb2NrIjo5NDM0MDAsImFuY2hvcl9ibG9jayI6OTQzNDAwfQ"
+}
+```
+
+</TabItem>
+</Tabs>
+
+---

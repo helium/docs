@@ -1,0 +1,257 @@
+---
+id: validator-operator
+title: Validator Operator Migration Guide
+pagination_label: Validator Operator
+sidebar_label: Validator Operator
+description: Helium Validator Operator Migration Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /solana/migration/validator-operator
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+For operators of Helium Validators at the time of the Solana Migration, this guide will outline the
+changes you can expect and the steps necessary to continue earning a return for your staked HNT.
+
+## Prerequisites
+
+**Before proceeding with the migration, ensure that you have:**
+
+1. Access to your validator's Wallet, either through the Helium Wallet App or a Ledger hardware
+   wallet.
+1. Familiarized yourself with the new [veHNT](/governance/vehnt) governance model and the concept
+   staking to subDAOs (IOT and MOBILE).
+
+:::tip VeHNT, a New Way to Stake:
+
+After the transition, veHNT will replace staked HNT and will be represented by a non-transferable
+Solana NFT held in your Wallet. veHNT grants holders voting rights to influence the future of the
+Helium Network and the ability to earn IOT and/or MOBILE through subDAO delegation.
+
+:::
+
+## The Landrush Period
+
+For the first ten days after Helium's transition onto Solana (ending 23:59:59 UTC on April 28,
+2023), there will be a 3x multiplier bonus for new veHNT stakers. This includes validator owners
+migrating from Staked HNT to veHNT. This is called the "Landrush" multiplier.
+
+New stakers can only receive this veHNT bonus during the initial ten-day Landrush period. HNT staked
+after this period will receive veHNT at the standard rate with no multiplier.
+
+Positions extended past the default 6-month lock-up period also receive the Landrush multiplier if
+set within the initial 10 days.
+
+For example:
+
+> Staking 10,000 HNT during this Landrush period with a lock duration of six months gets 375,000
+> veHNT (10,000x12.5x3). The position decays from 375,000 to 0 veHNT at the end of the staking
+> period, and 10,000 HNT is returned to the Wallet.
+
+> Increasing the stake to 20,000 HNT during this Landrush period with a lock duration of 24 months
+> returns 3,000,000 veHNT (20,000x50x3). At the end of the staking period, 20,000 HNT is returned to
+> the Wallet.
+
+## Migration Steps
+
+Follow these steps to migrate your validators:
+
+**Step 1: Monitor the status of the migration** Communications will be provided throughout the day
+of the migration via Twitter & Discord. The migration will begin at 16:00:00 UTC on April 18. After
+16:00:00 UTC on April 19, Helium validators can be shut down following comms from core developers.
+Validators will no longer produce blocks for the Helium Network and will not receive HNT rewards.
+
+**Step 2: Access your staked HNT** If you haven't already, move wallets holding staked validators
+into the Helium Wallet App. After the migration, your staked HNT will automatically become veHNT and
+stay entirely in your Wallet's custody. A non-transferable Solana NFT held in your Wallet represents
+veHNT ownership.
+
+If your validators are staked with HNT on a Ledger, migrate the Ledger Wallet using the
+[Ledger Migration Guide](/solana/migration/ledger).
+
+**Step 3: Automatic conversion to veHNT** On April 18, 2023, all validators still staked or in
+cooldown will automatically convert to veHNT with a six-month staking release date, as described in
+HIP-70. Each validator will receive 375,000 veHNT as a veHNT position for six months with rolling
+lock-up, called "constant lock-up."
+
+**Step 4: Delegation to subDAOs** Decide which subDAO or combination of subDAOs
+([IOT](/tokens/iot-token) and [MOBILE](/tokens/mobile-token)) you want to delegate your veHNT to.
+You can have multiple positions of veHNT delegated to different subDAOs or for different lock-up
+periods. Each position of veHNT can delegate all or nothing of the veHNT.
+
+Delegation of veHNT can be managed within the [Helium Wallet App](/wallets/helium-wallet-app) using
+Realms.
+
+- [HNT DAO on Realms](https://app.realms.today/dao/HNT)
+- [IOT subDAO on Realms](https://app.realms.today/dao/IOT)
+- [MOBILE subDAO on Realms](https://app.realms.today/dao/MOBILE)
+
+**Step 5: Managing lock-up periods**
+
+Decide if you want to lock up all or part of your veHNT for longer than six months. You can increase
+your lock-up period to a maximum of 48 months at any time. If you want to top-up your veHNT position
+with more HNT, you must add it to an existing position or transfer it from a position with a lesser
+lock-up time.
+
+**Step 6: Monitor and adjust**
+
+Monitor your subDAO earnings and adjust your delegations as desired. Remember that as more veHNT is
+delegated to a particular subDAO, individual holder earnings will be reduced due to the sharing of
+the 6% subDAO token emissions.
+
+:::important Important notes:
+
+- Validator Operators must take action to delegate veHNT to enable MOBILE Network or IOT Network
+  emissions
+- Validator Operators must take action to return from a veHNT position to HNT (unstake).
+
+:::
+
+## Key Take Aways
+
+- Until the Solana transition is completed, staked Validators continue to earn HNT rewards for block
+  production.
+- veHNT gives holders voting rights to determine the future of the Helium Network.
+- Validators who remain staked receive a 3x veHNT bonus for staked HNT, and their HNT remains locked
+  up for the six-month lock-up period as defined in HIP 51.
+- Stakers will no longer receive a reward in HNT tokens. SubDAO delegation rewards IOT and/or MOBILE
+  which are convertible to HNT.
+- HNT can be released back to the veHNT owner's Wallet after the minimum six-month lock-up period
+  after selecting the staking cooldown.
+
+---
+
+## Common Questions
+
+### How Will Staking Rewards Change with veHNT?
+
+As of February 2, 2023, Oracle Based POC removed the Challenger role from Validators as Hotspots
+began to beacon independently. As a result, the PoC Challenger rewards pool returned to Hotspots.
+
+After HIP-70 and the L1 transition are implemented, the existing Validators will no longer produce
+blocks for the Helium Network and will no longer receive HNT rewards. As their staked HNT will
+convert to veHNT, these holders can optionally delegate to specific subDAOs.
+
+Currently, the IOT and MOBILE subDAO have a 6% token emission pool for veHNT stakers.
+
+After the implementation of HIP-51, HIP-52, and HIP-53, all the subDAOs combined will receive the
+non-HST emissions of HNT. This is 68% of emitted HNT and will increase to 69% in the following
+yearly emissions change in August 2023. This emissions curve changes annually, so the subDAOs
+eventually receive 85% of all future HNT emissions.
+
+Previously Validator stakers had a Validator performance-based randomized chance at 6% of the daily
+distribution of HNT. Now they have a share of 6% of the 68% of the HNT distributed to subDAOs based
+on how much HNT for how long they are willing to lock up that HNT.
+
+### What Happens to my HNT Previously Staked in a Pool?
+
+Staking Pool providers have all made an effort to contact their customers to return the staked HNT.
+Contact the vendor managing your staking pool for more detailed information if you have yet to
+receive your HNT.
+
+### How much veHNT will validators receive?
+
+Each validator will receive 375,000 veHNT as a veHNT position for six months with rolling lock-up -
+called "constant lock-up."
+
+This amount is calculated as 10,000 HNT x 12.5 multiplier for six months lock-up x 3 for the
+Landrush bonus (for early veHNT investors).
+
+You will receive all the veHNT for each validator as a single sizeable veHNT position if you have
+multiple validators.
+
+### Can I transfer my veHNT to another wallet?
+
+No, veHNT cannot be transferred to another wallet, but you can move out of one veHNT position into
+another within the same wallet.
+
+### What Is a "Lock-Up" Period?
+
+A lock-up period is a window of time when users are not allowed to transfer their HNT.
+
+You will incur a lock-up period when you stake your HNT for veHNT. The lock-up period is between 1
+day and 48 months, selectable in days but with block granularity.
+
+Lock-up periods help incentivize long-term holders of HNT and deter short-term speculators and those
+with shorter-term interests in the governance of the Network.
+
+The amount of veHNT received for a lock-up period
+[can be seen in this table](/governance/faq/#how-much-vehnt-will-i-get-for-each-lock-up-period).
+
+### What if I do nothing about my validator stake?
+
+If a validator owner does nothing, the stake will transfer to veHNT automatically.
+
+The owner will receive 375,000 veHNT per validator in their Wallet as a single position. This
+position will not enter a cooldown period automatically. The position will only unlock once the
+cooldown option has been initiated. After selecting cooldown, they will get their 10,000 HNT per
+validator back in 183 days (6 months) after the date of the cooldown selection.
+
+Validators will no longer receive any reward in HNT from the transition date. Stakes will need to be
+delegated to either the IOT or MOBILE subDAO to get a reward in IOT or MOBILE tokens. A stake can
+also be split among subDAOs.
+
+### What if I want my HNT back?
+
+The Stake will transfer over to veHNT.
+
+The owner will receive 375,000 veHNT per validator in their wallet as a single position. The
+validator owner must select the cooldown option from within Realms on that position from within the
+Helium Wallet App.
+
+After selecting cooldown, they will get their 10,000 HNT per validator back in 183 days (6 months)
+after the date of the cooldown selection. This is like the 250,000 block cooldown period validators
+previously had.
+
+veHNT can be delegated to subDAOs to earn a linearly decreasing reward in IOT or MOBILE tokens while
+in cooldown.
+
+### "Top-up" of veHNT Positions
+
+You can "top-up" your 375,000 per validator stake with more HNT from a minimum of 1 HNT, and this
+must be added to an existing position or transferred from a position of lesser lock-up time.
+
+Positions started within the Landrush period cannot be topped up AFTER the Landrush period. However,
+they can be topped up within the Landrush period.
+
+### Why hold Multiple veHNT positions?
+
+It is highly recommended that previous validator owners and large HNT stakers split their single
+position received after the transition into several smaller positions immediately upon lock-up and,
+when applicable, within ten days after the Solana transition, before 23:59:59 UTC on April 28.
+
+This is because the subDAO delegation of veHNT is a 0 or 100% all-or-nothing action.
+
+- Splitting veHNT across multiple subDAOs requires multiple positions.
+- Splitting veHNT over different lock-up periods requires multiple positions.
+- Splitting veHNT with some in constant lock-up and some in cooldown requires multiple positions.
+
+Splitting positions after April 28 would mean that the veHNT transferred to the new part of the
+split does not inherit the 3x bonus multiplier. As this bonus multiplier only applies to positions
+created in the Landrush period.
+
+Splitting as an action transfers some of the veHNT from one position to another new or existing
+position.
+
+veHNT owners may want to frequently vary their split of subDAO delegations and lock-up periods to
+suit their situations and the variance of the HNT per subDAO emitted based on the DAO Utility
+Scores.
+
+### Can I Increase My Staking Lock-up Period At Any Time?
+
+Yes. You can increase your lock-up period to the maximum of 48 months at any time, and each increase
+activates at the start of the next epoch. If the veHNT is delegated, you must undelegate, change the
+period and redelegate and lose delegation rewards within that 24-hour epoch. If those three actions
+take longer than an epoch or are split over two epochs, then delegation rewards are lost for two
+epochs.
+
+### Can I Decrease My Staking Period For Fast Access to My HNT and Take a Penalty?
+
+No. You define your lock-up period at the time of staking and cannot unstake or decrease the lock-up
+period for any reason.
+
+### Can I Automate Re-Staking?
+
+Yes, a constant rolling lock-up period will be the default option called Constant Lock-up.
+
+Validator owners will be automatically staked for six months with a Constant lock-up.

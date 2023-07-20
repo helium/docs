@@ -1,0 +1,38 @@
+---
+id: data-credits
+title: Data Credits FAQ
+pagination_label: Data Credits FAQ
+sidebar_label: Data Credits FAQ
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /home/faqdata-credits
+---
+
+# FAQ - Data Credits
+
+### What are Data Credits? Do I need them?
+
+If you’re a Hotspot owner, you do not need to worry about holding individual
+[Data Credits](/tokens/hnt-token#data-credits-and-burn-and-mint-economics).
+
+Data Credits for Hotspot owners are created on-demand through the implicit burn mechanism and
+[used to pay all Hotspot transaction fees](/iot/transaction-fees/#transaction-fees) such as adding
+Hotspots, sending HNT, and asserting location. These Data Credits are burned automatically from the
+available HNT in your wallet or by the CLI.
+
+Device users and developers who wish to transmit data via the Helium Network, your transactions will
+require the use of discrete Data Credits held in a Helium Console account.
+
+One Data Credit pays for 24 bytes of LoRaWAN payload. Payloads exceeding 24 bytes are rounded up to
+the next 24 bytes, so a packet with a 25-byte payload would cost two Data Credits, the same as one
+with 48 bytes.
+
+Although Data Credits are produced by burning HNT, the price of a Data Credit is fixed in USD. Data
+Credits are non-transferable and are only usable by their original owner. Data Credits cannot be
+re-sold or traded.
+
+:::info
+
+Data Credits are similar to pre-paid cellphone minutes or airline miles.
+
+:::

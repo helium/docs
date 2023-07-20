@@ -1,0 +1,93 @@
+---
+id: burn-hnt-to-maker-wallet
+title: Burn HNT To Maker Wallet
+pagination_label: Burn HNT To Maker Wallet
+sidebar_label: Burning HNT To Maker Wallet
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /hotspot-makers/become-a-maker/burn-hnt-to-maker-wallet
+---
+
+# Burning HNT to Your Maker Wallet
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+Any [approved Hotspot Maker](/network-iot/hotspots-iot/full-hotspots) is responsible for supplying
+Data Credits (DCs) to the onboarding server for Hotspots they sell. They do this by burning HNT to
+their specific maker address.
+
+:::info
+
+A full list of approved maker wallet addresses
+[can be seen via this API](https://onboarding.dewi.org/api/v2/makers).
+
+:::
+
+## Maker Wallet Address Integration
+
+As an approved Maker, you will supply the Helium Foundation with the onboarding details for all the
+Hotspots you manufacture and distribute. In turn, the Helium Foundation adds them to the onboarding
+server. When a Hotspot is onboarded by your end customer, the onboarding server knows to associate
+it with your Maker ID, and associated Maker Wallet address. If, when a Hotspot is onboarded, it's
+present in the onboarding server and you have ample Data Credits to pay the onboarding fees, the
+blockchain will add the Hotspot. And if you've integrated your Hotspot in the Hotspot App
+[onboarding flow](/hotspot-makers/become-a-maker/hotspot-integration-testing), the Wallet knows to
+use your approved Maker Wallet address. At this point, the Data Credits will be used for the
+transactions with your wallet address as the payer.
+
+## Hotspot Data Credit Fees
+
+In order for any Hotspot to join the Helium Blockchain, its maker address must have sufficient Data
+Credits. A full list of
+[Helium blockchain data credit fees can be found here](/iot/transaction-fees). Hotspot Makers need
+to account for at least `5,135,000` total Data Credits per Hotspot. Specifically, for each Hotspot,
+a Maker must supply:
+
+- `4,000,000` Data Credits for the **Add Hotspot** transaction. This is a one-time fee.
+- `65,000` Data Credits for the transaction fee to execute the **Add Hotspot** transaction.
+- `1,000,000` Data Credits for the **Assert Location** transaction. Each Hotspot Maker is required
+  to supply at least one \*_Assert Location_ for their Hotspots.
+- `70,000` Data Credits for the transaction fee to execute the **Assert Location** transaction.
+
+As a Maker, if you only supply the one-time **Add Hotspot** fee and one **Assert Location** fee,
+you'll supply `5,135,000` total Data Credits per Hotspot. Add `1,070,000` Data Credits for each
+additional **Assert Location** fee you wish to supply.
+
+:::warning
+
+If your wallet address does not have enough DCs to pay the required Hotspot transaction fees, these
+transactions will fail.
+
+:::
+
+## Maker Integration Test Wallet Address
+
+During your testing, you can use the Maker Integration Test wallet address created by the Helium
+Foundation. This wallet does not contain any Data Credits so onboarding transactions will fail but
+it allows you to smoke test the onboarding steps.
+
+Maker Integration Test Wallet Address:
+
+[138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr](https://explorer-old.helium.com/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr)
+
+## Burning HNT to Supply Data Credits
+
+:::warning Double-check any wallet address before executing any HNT burn.
+
+Once you burn HNT to a specified wallet address, they are burned forever. The resulting DC are
+non-transferable.
+
+:::
+
+The actual mechanism for burning HNT to DCs is via an on-chain burn transaction using the
+[Helium Wallet app](/wallets/helium-wallet-app). Follow the instructions to download and install the
+Helium Wallet on your device. Once installed, you'll
+[use the "Swap" interface](/hotspot-makers/become-a-maker/funding-a-maker-account) to supply data
+credits to your specified Maker wallet, which should be specified as the Recipient wallet.
+
+:::warning
+
+Do not send HNT into your Maker accounts. Doing so may result in lost funds. All Makers are required
+to pay for the onboarding fees for their customers.
+
+:::

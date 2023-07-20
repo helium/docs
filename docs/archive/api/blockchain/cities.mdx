@@ -1,0 +1,279 @@
+---
+id: cities
+title: Cities
+pagination_label: Cities
+sidebar_label: Cities
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /archive/api/blockchain/cities
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+With the Solana Migration, these API endpoints may no longer be available.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Deprecated Endpoints
+
+### List Hotspot Cities
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated.
+
+:::
+
+```
+GET https://api.helium.io/v1/cities
+```
+
+List all known hotspot cities with the total hotspot count for each city. Use a search parameter to
+filter the list of cities with the given search termThis route is paged with a `cursor`.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param             | Type     | Note                                  |
+| ----------------- | -------- | ------------------------------------- |
+| search (optional) | _string_ | term to limit the list of cities with |
+| cursor (optional) | _string_ | Cursor for page to fetch              |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Lists cities including the word houston in their city, state or country.
+
+```json
+{
+  "data": [
+    {
+      "city_id": "aG91c3RvbnRleGFzdW5pdGVkIHN0YXRlcw",
+      "hotspot_count": 52,
+      "long_city": "Houston",
+      "long_country": "United States",
+      "long_state": "Texas",
+      "short_city": "Houston",
+      "short_country": "US",
+      "short_state": "TX"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### City for City ID
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated.
+
+:::
+
+```
+GET https://api.helium.io/v1/cities/:city_id
+```
+
+Fetch a city for a given city id.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                    |
+| ------------------ | -------- | ----------------------- |
+| city_id (requires) | _string_ | ID of the city to fetch |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+City for id `dG9yb250b29udGFyaW9jYW5hZGE`
+
+```json
+{
+  "data": {
+    "short_state": "ON",
+    "short_country": "CA",
+    "short_city": "Toronto",
+    "online_count": 1077,
+    "offline_count": 172,
+    "long_state": "Ontario",
+    "long_country": "Canada",
+    "long_city": "Toronto",
+    "hotspot_count": 1249,
+    "city_id": "dG9yb250b29udGFyaW9jYW5hZGE"
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### List Hotspots for a City
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated.
+
+:::
+
+```
+GET https://api.helium.io/v1/cities/:city_id/hotspots
+```
+
+Lists all known hotspots for a given `city_id`. The `city_id` captures the city, state and country
+and is included in the city list result.This route is paged with a cursor.
+
+The `filter_modes` parameter can be used to filter hotspot by how they were added to the blockchain.
+Supported values are `full`, `dataonly`, or `light`. A comma separated list (no whitespace) can be
+used to filter for multiple modes.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param              | Type     | Note                                                |
+| ------------------ | -------- | --------------------------------------------------- |
+| city_id (required) | _string_ | The id for the city are returned by the cities list |
+
+_Query Parameters_
+
+| param                   | Type     | Note                                    |
+| ----------------------- | -------- | --------------------------------------- |
+| cursor (optional)       | _string_ | Cursor for the page of results to fetch |
+| filter_modes (optional) | _string_ | Filter hotspot types                    |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+The list of hotspots for Montrose, New York, which is city_id
+`bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM`.
+
+```json
+{
+  "data": [
+    {
+      "address": "11C5PW3fe5RmBV7jvdmBJmjH7FjiZ3URAZ5oUj2V9dVsW83a5wU",
+      "block": 403147,
+      "block_added": 356922,
+      "geocode": {
+        "long_city": "Montrose",
+        "long_country": "United States",
+        "long_state": "New York",
+        "long_street": "Dutch Street",
+        "short_city": "Montrose",
+        "short_country": "US",
+        "short_state": "NY",
+        "short_street": "Dutch St",
+        "city_id": "bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM"
+      },
+      "lat": 41.24450048207128,
+      "lng": -73.93189556758152,
+      "location": "8c2a10c020007ff",
+      "name": "delightful-onyx-swan",
+      "nonce": 1,
+      "owner": "142dmsAe4qVmNxdZJuQiFmpSnB9p6wBkAX78MVza1yNrF4t5R6e",
+      "score": 0.25,
+      "score_update_height": 403138,
+      "status": {
+        "gps": "no_fix",
+        "height": 403025,
+        "online": "online"
+      }
+    },
+    {
+      "address": "112PSCgC7kXWFnKWrczNL6srYKQpg3VdA9iou6FrQW4C1aot5HPc",
+      "block": 403147,
+      "block_added": 355849,
+      "geocode": {
+        "long_city": "Montrose",
+        "long_country": "United States",
+        "long_state": "New York",
+        "long_street": "Sunset Road",
+        "short_city": "Montrose",
+        "short_country": "US",
+        "short_state": "NY",
+        "short_street": "Sunset Rd",
+        "city_id": "bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM"
+      },
+      "lat": 41.24464436633493,
+      "lng": -73.94293581685558,
+      "location": "8c2a10c024e1bff",
+      "name": "wobbly-lipstick-manatee",
+      "nonce": 1,
+      "owner": "142dmsAe4qVmNxdZJuQiFmpSnB9p6wBkAX78MVza1yNrF4t5R6e",
+      "score": 0.25,
+      "score_update_height": 403097,
+      "status": {
+        "gps": "good_fix",
+        "height": 402961,
+        "online": "online"
+      }
+    },
+    {
+      "address": "112Byc2EoL1yB7zyfC9ve2HayLoFf9WLvJdTDtevMsmkfxu9GAA1",
+      "block": 403147,
+      "block_added": 94932,
+      "geocode": {
+        "long_city": "Montrose",
+        "long_country": "United States",
+        "long_state": "New York",
+        "long_street": "Sycamore Court",
+        "short_city": "Montrose",
+        "short_country": "US",
+        "short_state": "NY",
+        "short_street": "Sycamore Ct",
+        "city_id": "bW9udHJvc2VuZXcgeW9ya3VuaXRlZCBzdGF0ZXM"
+      },
+      "lat": 41.24524348318981,
+      "lng": -73.93254191072695,
+      "location": "8c2a10c020337ff",
+      "name": "smooth-cobalt-cougar",
+      "nonce": 1,
+      "owner": "142dmsAe4qVmNxdZJuQiFmpSnB9p6wBkAX78MVza1yNrF4t5R6e",
+      "score": 0.25,
+      "score_update_height": 403117,
+      "status": {
+        "gps": "good_fix",
+        "height": 403026,
+        "online": "online"
+      }
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>

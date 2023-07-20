@@ -46,9 +46,9 @@ bottom of the doc. Abbreviated links help improve readability of the raw markdow
 links reusable in the same doc.
 
 Abbreviated Links Example: If you would like to link to the development devices introduction page
-found at `/use-the-network/devices/development`, use `[development devices][devices.development]`
-inline with your text content. Next, create the link to the full path at the very bottom of the doc
-markdown like this `[devices.development]: /use-the-network/devices/development`.
+found at `/network-iot/devices/development`, use `[development devices][devices.development]` inline
+with your text content. Next, create the link to the full path at the very bottom of the doc
+markdown like this `[devices.development]: /network-iot/devices/development`.
 
 ## Adding Images
 
@@ -98,12 +98,12 @@ sidebar_label: Devices
 ```
 
 `slug: ` If the doc id path has repeated sections like the following doc path
-`use-the-network/devices/devices`, define a `slug:` field in the front matter to make it pretty as
-shown below. This way when this doc is navigated to, the URL shown will not have repeating sections
-names in it.
+`network-iot/devices/devices`, define a `slug:` field in the front matter to make it pretty as shown
+below. This way when this doc is navigated to, the URL shown will not have repeating sections names
+in it.
 
 ```
-slug: use-the-network/devices
+slug: network-iot/devices
 ```
 
 ## Check for dead links

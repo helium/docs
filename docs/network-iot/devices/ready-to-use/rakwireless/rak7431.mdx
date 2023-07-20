@@ -1,0 +1,170 @@
+---
+id: rak7431
+title: Rak7431 Wisnode Bridge Serial
+pagination_label: Rak7431
+sidebar_label: Rak7431 Wisnode Bridge Serial
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /network-iot/devices/ready-to-use/rakwireless/rak7431
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7431/RAK7431.png')} />
+
+## Overview
+
+RAK7431 WisNode Bridge Serial is an RS485 to LoRaWAN converter designed for industrial applications.
+The device relays ModBUS data using the LoRaWAN network as means of wirelessly transmitting to and
+from the end-devices.
+
+RAK7431 can operate in all of the LoRaWAN bands within the standard parameters defined by the LoRa
+Alliance. Its open environment range is 15+ km, and in industrial cases, where there are heavy
+obstructions in the path of the RF signal performance is improved compared to conventional wireless
+systems due to the characteristics of LoRa as a modulation technique. This allows for consistently
+good signal quality within the confines of large factories, densely populated offices, storehouses,
+etc.
+
+This RS485 compatible device can address up to 16 client terminal nodes. The conversion from and to
+LoRa frames is seamless and allows for real-time control and monitoring of multiple RS485 devices,
+and bus data to access and control the RS485 terminal nodes.
+
+RAK7431 together with RAK gateway and LoRa Server products, can easily and quickly build a wireless
+industrial field control system. It adopts industrial protection design, supports a wide range
+voltage supply, supports wall mounting and DIN rail installation, and facilitates field installation
+and use.
+
+### Product Features
+
+- LoRaWAN 1.0.3 protocol stack, supports Class A, B, & C.
+- Working modes: Polling mode, Transparent mode, and Packet mode.
+- Remote cloud management of RS485 devices.
+- Can address up to **16 RS485**, a que with up to **32 instruction sets**.
+- Industrial grade STM MCU: ultra-low power (**4uA sleep**) and wide temperature range of operation.
+- Wide range of input voltages, **8-48V DC input**.
+- Can power RS485 devices via a dedicated output.
+- Mounting: Wall, DIN rail, and magnetic mounting.
+- Compliant with IEC61000-4-2, IEC61000-4-4, and 18kV HMB ESD protection.
+
+### Useful Resources
+
+- [Quick Start Guide](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7431/Quickstart/)
+- [Datasheet](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7431/Datasheet/)
+- [AT Command Manual](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7431/AT-Command-Manual/)
+- [Store: RAK7431 WisNode Bridge Serial](https://store.rakwireless.com/products/rak7431?utm_source=RAK7431WisNodeBridge&utm_medium=Document&utm_campaign=BuyFromStore)
+
+## Connecting to Helium (The People's Network)
+
+:::tip
+
+Before going through each and every step in connecting the RAK7431 to Helium, it is recommended to
+check first our
+[Quick Start Guide](https://docs.rakwireless.com/Product-Categories/WisNode/rak7431/Quickstart/).
+
+:::
+
+Helium has quickly become the most widespread LPWAN communal network with more than 27,000 devices
+deployed globally. All the RAKwireless node products are compatible with it and the process of
+adding a device to the network is intuitive and straightforward.
+
+This section will focus on giving a brief guide on how to connect the RAK7431 to the network
+console, assuming that there is a Helium Hotspot within range.
+
+Log in or create your account [here](https://www.helium.com/console).
+
+<img
+  src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7431/1.helium-console.png')}
+/>
+
+Once registered/logged in, you will end up at the home page, where you can see your function tree on
+the left and DC balance at the top, as well as a number of useful links.
+
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7431/2.home.png')} />
+
+Go to the **Devices** section in the function tree. There will be no registered devices if this is
+your first time doing this. To add a device, click the **+ Add Device** button and get started.
+
+<img
+  src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7431/3.device-section.png')}
+/>
+
+A window will pop up with a set of fields containing the device parameters required for its
+registration.
+
+<img
+  src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7431/4.add-device.png')}
+/>
+
+Fill in a name of your choosing. The **Dev EUI**, **App EUI**, and **App Key** will have random
+values generated for you by default. Press the eye icon to reveal the values. You can manually
+replace them with values of your own. For this tutorial, default values are used. Press the
+**Submit** button, and you are done.
+
+<img
+  src={useBaseUrl(
+    'img/network-iot/devices/ready-to-use/rakwireless/rak7431/5.registered-device.png',
+  )}
+/>
+
+Now, your RAK7431 is registered and is awaiting activation. For this to happen, import the **Dev
+EUI**, **App EUI**, and **App Key** in the RAK7431 using the
+[RAK Serial Port Tool](https://downloads.rakwireless.com/en/LoRa/Tools/RAK_SERIAL_PORT_TOOL_V1.2.1.zip).
+
+Open the tool, select the desired port (default baud rate) and open it. Then start importing your
+settings.
+
+Configure your LoRa band and activation mode. This tutorial will be using the EU868 band and OTAA
+(the only option available for now with Helium) with device class A (the default one does not need
+configuring).
+
+- Regional band, device class, and activation mode setting
+
+```
+at+joinmode=OTAA
+```
+
+```
+at+region=EU868
+```
+
+- Enter the Dev UI
+
+Use the command below by replacing the XXXX with your Device EUI from the Helium console:
+
+```
+at+deveui=XXXX
+```
+
+- Enter the App EUI
+
+The same as with the Device EUI, replace the XXXX with your value:
+
+```
+at+appeui=XXXX
+```
+
+- Enter App Key
+
+Finally, fill in the App key with the command:
+
+```
+at+appkey=XXXX
+```
+
+- Join Network
+
+Run the following AT command for the node to join the network. Once the procedure is initiated and
+completed, you will have a notification in the serial console.
+
+```
+at+restart
+```
+
+Your output should resemble the one in figure below:
+
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7431/6.eui-keys.png')} />
+
+If you take a look at the Helium console, you will also see the join request packets both in the
+graph and event log. Your node is now a part of the Helium Network.
+
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7431/7.live-data.png')} />

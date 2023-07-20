@@ -1,0 +1,160 @@
+---
+id: rak7200
+title: Rak7200 Wisnode Track Lite
+pagination_label: Rak7200
+sidebar_label: Rak7200 Wisnode Track Lite
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /network-iot/devices/ready-to-use/rakwireless/rak7200
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7200/RAK7200.png')} />
+
+## Overview
+
+The RAK7200 WisNode Track Lite is an LPWAN Tracker device with a 3.7V rechargeable Li-Ion battery
+and a GPS modem. It is built around low-power LPWAN Module, which integrates the ultra-low-power
+STM32L073 micro-controller, the SX1276 LoRa long-range modem, and the CXD5603GF GPS modem.
+
+This device can be used as a quick prototyping tool for LoRaWAN application development. It is
+suited for IoT applications such as asset tracking, smart vehicle management, and location-based
+services.
+
+### Product Features
+
+- Supports sleep mode and low-power consumption.
+- Built-in **LIS3DH - digital motion sensor**, which has dynamic user selectable full scales of
+  ±2g/±4g/±8g/±18g and is capable of measuring accelerations with output data rates from 1Hz to
+  5kHz.
+- Barometer: Built-in **LPS22HB - digital nano pressure sensor**.
+- Built-in **9-Axis Sensor**, which includes a triple-axis gyroscope, a triple-axis accelerometer,
+  and a triple-axis magnetometer.
+- LoRaWAN 1.0.2 Standard support - ABP or OTAA mode.
+- LoRa and GPS antenna are integrated inside the casing.
+- Micro USB for configuration and charging of the battery.
+- Supports global license-free frequency band: IN865, EU868, US915, AU915, KR920, and AS923.
+
+### Useful Resources
+
+- [Quick Start Guide](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7200/Quickstart/)
+- [Datasheet](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7200/Datasheet/)
+- [AT Command Manual](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7200/AT-Command-Manual)
+- [Store: RAK7200 WisNode Track Lite](https://store.rakwireless.com/products/rak7200-lora-tracker?utm_source=RAK7200WisNodeTrackLite&utm_medium=Document&utm_campaign=BuyFromStore)
+
+## Connecting to Helium (The People's Network)
+
+:::tip
+
+Before going through each and every step in connecting the RAK7200 to Helium, it is recommended to
+check first our
+[Quick Start Guide](https://docs.rakwireless.com/Product-Categories/WisNode/RAK7200/Quickstart/).
+
+:::
+
+Helium has quickly become the most widespread LPWAN communal network with more than 27,000 devices
+deployed globally. All the RAKwireless node products are compatible with it and the process of
+adding a device to the network is intuitive and straightforward.
+
+This section will focus on giving a brief guide on how to connect the RAK7200 to the network
+console, assuming that there is a Helium Hotspot within range.
+
+Log in or create your account [here](https://www.helium.com/console).
+
+<img
+  src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7200/1.helium-console.png')}
+/>
+
+Once registered/logged in, you will end up at the home page, where you can see your function tree on
+the left and DC balance at the top, as well as a number of useful links.
+
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7200/2.home.png')} />
+
+Go to the **Devices** section in the function tree. There will be no registered devices if this is
+your first time doing this. To add a device, click the **+ Add Device** button and get started.
+
+<img
+  src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7200/3.device-section.png')}
+/>
+
+A window will pop up with a set of fields containing the device parameters required for its
+registration.
+
+<img
+  src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7200/4.add-device.png')}
+/>
+
+Fill in a name of your choosing. The **Dev EUI**, **App EUI**, and **App Key** will have random
+values generated for you by default. Press the eye icon to reveal the values. You can manually
+replace them with values of your own. For this tutorial, default values are used. Press the
+**Submit** button, and you are done.
+
+<img
+  src={useBaseUrl(
+    'img/network-iot/devices/ready-to-use/rakwireless/rak7200/5.registered-device.png',
+  )}
+/>
+
+Now, your RAK7200 is registered and is awaiting activation. For this to happen, import the **Dev
+EUI**, **App EUI**, and **App Key** in the RAK7200 using the
+[RAK Serial Port Tool](https://downloads.rakwireless.com/en/LoRa/Tools/RAK_SERIAL_PORT_TOOL_V1.2.1.zip).
+
+Open the tool, select the desired port (default baud rate) and open it. Then start importing your
+settings.
+
+Configure your LoRa band and activation mode. This tutorial will be using the EU868 band and OTAA
+(the only option available for now with Helium) with device class A (the default one does not need
+configuring).
+
+- Regional band and activation mode setting
+
+```
+at+set_config=lora:join_mode:0
+```
+
+```
+at+set_config=lora:region:EU868
+```
+
+- Enter the Dev UI
+
+Use the command below by replacing the XXXX with your Device EUI from the Helium console:
+
+```
+at+set_config=lora:dev_eui:XXXX
+```
+
+- Enter the App EUI
+
+The same as with the Device EUI, replace the XXXX with your value:
+
+```
+at+set_config=lora:app_eui:XXXX
+```
+
+- Enter App Key
+
+Finally, fill in the App key with the command:
+
+```
+at+set_config=lora:app_key:XXXX
+```
+
+- Join Network
+
+Finish executing the join command for the node to initiate the join procedure. Once the procedure is
+initiated and completed, you will have a notification in the serial console.
+
+```
+at+join
+```
+
+Your output should resemble the one in figure below:
+
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7200/6.eui-keys.png')} />
+
+If you take a look at the Helium console, you will also see the join request packets both in the
+graph and event log. Your node is now a part of the Helium Network.
+
+<img src={useBaseUrl('img/network-iot/devices/ready-to-use/rakwireless/rak7200/7.live-data.png')} />

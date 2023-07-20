@@ -1,0 +1,134 @@
+---
+id: open-lns-quickstart
+title: Getting Started with OpenLNS
+pagination_label: Run a LNS
+sidebar_label: Run a LNS
+description: Helium OpenLNS Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/open-lns-quickstart
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+OpenLNS is the platform that enables any LoRaWAN network to use Helium's IoT Network. In this guide,
+we'll walk you through the process of setting up and configuring OpenLNS.
+
+## Prerequisites
+
+Before getting started, make sure you have the following:
+
+- Helium Network OUI (Organizationally Unique Identifier)
+- Helium LoRaWAN devAddr slab
+- LoRaWAN Network Server (LNS). A popular option is [ChirpStack][chirpstack]. Refer to the
+  ChirpStack documentation for setup and integration instructions.
+
+## Purchasing OUI and devAddr Slab
+
+To purchase an OUI and devAddr slab, you will need to use the Helium Foundation's tool. The OUI
+costs $100 paid in Data Credits (DC), while the devAddr slab mandates a minimum of 8 devAddrs that
+cost $100 each.
+
+## Managing Your OUI with the Config Service
+
+After your OUI and devAddr are added, you can now manage your OUI through the Config Service. You
+can interact with the Config Service in two ways:
+
+1. Directly through [GRPC APIs][grpc-api]
+2. Using the [Command-Line Interface (CLI)][config-cli] detailed below
+
+### Authenticating with the Config Service
+
+Before interacting with the Config Service, generate a key pair to authenticate your interactions,
+so only you can create, modify, or delete routes. Run:
+
+```sh
+./helium-config-service-cli env generate-keypair --commit
+```
+
+You should find a file called keypair.bin. Print out the public key of your key pair by running:
+
+```sh
+./helium-config-service-cli env info --keypair keypair.bin
+```
+
+### Initialize CLI
+
+CLI can be initialized with environment variables so common variables don't have to be reiterated in
+subsequent commands.
+
+```sh
+./helium-config-service-cli env init
+```
+
+- Fill in `http://mainnet-config.helium.io:6080/` for `Config Service Host`
+- Fill in the path `./keypair.bin` for `Keypair Location`
+- Fill in the Helium NetID, `0x00003C`
+- Fill in your OUI for `Assigned OUI`
+- Fill in the number of multi-buy you want for `Default Max Copies` as a default for your routes.
+
+Then export the environment variables.
+
+```sh
+export HELIUM_CONFIG_HOST=http://mainnet-config.helium.io:6080/
+export HELIUM_KEYPAIR_BIN=./keypair.bin
+export HELIUM_NET_ID=00003C
+export HELIUM_OUI=1
+export HELIUM_MAX_COPIES=10
+```
+
+### Managing Routes
+
+You are now ready to generate your first route. Routes contain the necessary information to let the
+IoT network know how to route a packet; DevEUI+AppEUI (for routing join requests), DevAddr range
+(for routing uplinks), endpoint (where to send the packet to), etc.
+
+```sh
+./helium-config-service-cli route new --commit
+```
+
+You can then see the empty route template. It should look like this, except that you should be
+seeing you own assigned OUI, max_copies, and other environment variables.
+
+```json
+✔️ created route 7a5560e8-b722-11ed-bbe8-c3404da5a84d
+{
+  "id": "7a5560e8-b722-11ed-bbe8-c3404da5a84d",
+  "net_id": "C00053",
+  "oui": 3,
+  "server": {
+    "host" : "",
+    "port": 0,
+    "protocol": {
+      "type" : "packet_router"
+    }
+  },
+  "max copies": 15,
+  "active": true,
+  "locked": false
+}
+```
+
+Define DevAddr range so the packet router knows which uplinks to route to your endpoint. Use your
+OUI's assigned DevAddr range, which you can get by running `./helium-config-service-cli org get`
+
+To add your DevAddr range run
+
+```
+./helium-config-service-cli route devaddrs add -s <start> -e <end> --route-id <route-id> --commit
+```
+
+Next, define EUI pairs so the packet router knows which join requests to route to your endpoint.
+
+```
+./helium-config-service-cli route euis add --route-id <route-id> -d <dev-eui> -a <app-eui> --commit
+```
+
+Define your endpoint by running
+
+```
+./helium-config-service-cli route update server --host <host> --port <port> --route-id <route-id> --commit
+```
+
+[grpc-api]: https://github.com/helium/proto/blob/master/src/service/iot_config.proto
+[config-cli]: https://github.com/helium/helium-config-service-cli
+[chirpstack]: https://www.chirpstack.io

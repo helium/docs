@@ -1,0 +1,197 @@
+---
+id: digital-matter-lorawan-gps
+title: Tutorial DM LoRaWAN GPS
+pagination_label: Tutorial DM LoRaWAN GPS
+sidebar_label: Tutorial DM LoRaWAN GPS
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /network-iot/devices/ready-to-use/digital-matter/tutorial-dm-lorawan-gps
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Tutorial DM LoRaWAN GPS
+
+Step-by-step tutorial guide on configuring and onboarding Digital Matter LoRaWAN GPS devices.
+
+<div style={{ textAlign: 'left' }}>
+  <img src={useBaseUrl('img/network-iot/devices/ready-to-use/digital-matter-oyster.png')} />
+</div>
+<div style={{ textAlign: 'right' }}>
+  <img src={useBaseUrl('img/network-iot/devices/ready-to-use/digital-matter-yabby.png')} />
+</div>
+
+### Introduction
+
+The [Digital Matter Oyster3](https://www.digitalmatter.com/devices/oyster-lorawan/) /
+[Yabby Edge](https://www.digitalmatter.com/our-devices/yabby-edge/) are rugged IP68-rated
+battery-powered GPS tracking devices. This guide will show you the hardware and software setup steps
+required to provision and onboard these devices on the Helium Network.
+
+Functionally, the Oyster3 and Yabby Edge are both battery-powered GPS tracking devices. Their main
+differences lie in form factor and battery life.
+
+### Resources
+
+[Oyster3 LoRaWAN Configuration and Usage Guide](https://support.digitalmatter.com/support/solutions/articles/16000133235-oyster-3-lorawan-configuration-and-usage-guide)
+[Yabby Edge LoRaWAN Configuration and Usage Guide](https://support.digitalmatter.com/support/solutions/articles/16000122827-yabby-edge-lorawan-configuration-and-usage-guide)
+[LoRaWAN Provisioning Tool](https://www.oemserver.com/tools/LoRaWANProvisioningTool/setup.exe)
+
+### Hardware
+
+- Digital Matter Oyster3 / Yabby Edge
+- 3 x AA Lithium (LiFeS2) or Lithium Thionyl Chloride (LTC) batteries \(Oyster3\)
+- 2 x AAA Lithium (LiFeS2) batteries \(Yabby Edge\)
+- DM-Link Wired Provisioning Cable for LoRaWAN devices
+
+### Software
+
+- [Helium Console](https://console.helium.com/)
+- [LoRaWAN Provisioning Tool](https://www.oemserver.com/tools/LoRaWANProvisioningTool/setup.exe)
+  \(Windows\)
+
+### Hardware Setup
+
+The Oyster3 takes 3 cells of AA battery; the Yabby Edge takes 2 cells of AAA battery.
+
+The Oyster3 and the Yabby Edge both use the
+[DM-Link Wired Provisioning Cable for LoRaWAN decives](https://www.digitalmatter.com/dmlink/).
+
+Compatibility with the DM-Link Wired Provisioning Cable for older Digital Matter LoRaWAN devices can
+be found at
+[Wired Provisioning Tool](https://support.digitalmatter.com/support/solutions/articles/16000104317-wired-provisioning-tool).
+On LoRaWAN devices, DM-Link is used to configure the region and JoinEUI to connect to a network. A
+DM-Link can also be used to configure device parameters prior to deployment and update firmware and
+Almanac data where applicable.
+
+Once the devices have been provisioned and the batteries are populated, the enclosure can be sealed
+by using the included screws.
+
+---
+
+That’s it for the hardware setup!
+
+---
+
+### Software Setup
+
+The Oyster3 / Yabby Edge ship with a pre-provisioned AppEUI and AppKey. If you choose to use these
+credentials, you can leave the AppEUI and AppKey fields blank in the Windows utility. If you would
+like to provision the device with new credentials, you must copy the AppEUI and AppKey from the
+device [created in Console](/network-iot/console/adding-devices).
+
+The basic parameters of interest are as follows:
+
+```text
+General:
+In Trip Fix : hh:mm:ss : Will determine transmission frequency
+
+Basic LoRaWAN:
+	Region : US915 [1.0.2B]
+	Sub-Band : 2 (ch. 8-15, 70)
+	Activation : OTAA
+	JoinEUI / AppEUI : [ Blank to use pre-provisioned / AppEUI from Console ]
+	NwkKey (1.1) / AppKey (1.0) : [ Blank to use pre-provisioned / AppKey from Console ]
+
+```
+
+### Connecting your device
+
+When you plug in your cable, your PC will assign it a COM port, which you can retrieve from the
+Device Manager from the _**Ports \(COM & LPT\).**_
+
+To access the device manager, press the Windows key on your keyboard and search for "Device
+Manager".
+
+##### Windows Device Manager
+
+Select the corresponding port from the drop-down list in the top right of the utility and click
+_**Start**_.
+
+If the Program Firmware and Program Parameters boxes are left unchecked, the utility will
+continuously read and display the current device settings without applying changes.
+
+##### Current Device Settings and Transaction List
+
+You can check logs by clicking the DevEUI List button on the top left, which will show a list of
+scanned DevEUIs and transactions. Each time a device is programmed, the parameter list will flash,
+and the DevEUI list will update. This list is available in CSV format, so it can be conveniently
+imported into a spreadsheet.
+
+To program the new parameters and firmware, enter the desired parameters in the right-hand column,
+and check the corresponding boxes to update _**firmware**_ and/or _**parameters**._ When you are
+finished, you may hit _**Stop**_, and disconnect your device.
+
+Once the device has been configured, it will attempt to join the Helium Network by transmitting join
+requests. If the device has been configured properly in Console and has knowledge of the device’s
+AppEUI and AppKey, the Hotspot that hears the join request will send a join-accept message and allow
+the device to join the Network and transmit data.
+
+### Usage
+
+These devices use an accelerometer to detect movement, allowing it to decide when an asset is
+in-trip and when it is stationary. This allows it to schedule battery-hungry GPS fixes when
+appropriate, to optimize battery life. Each time a status update is scheduled, the device will
+attempt a GPS fix, then transmit results \(regardless of whether a fix succeeded or not\).
+
+### Device Payload
+
+A sample device payload is as follows:
+
+```text
+DCCF3816BF5046B70000D3
+```
+
+When decoded becomes:
+
+```text
+{
+  "type": "position",
+  "latitudeDeg": 37.282198,
+  "longitudeDeg": -122.0128577,
+  "inTrip": false,
+  "fixFailed": false,
+  "headingDeg": 0,
+  "speedKmph": 0,
+  "batV": 5.275,
+  "manDown": null
+}
+```
+
+To learn more about decoding this payload, you may use this
+[utility](https://www.oemserver.com/tools/Oyster3LoRaWAN/oyster3-lr-html-decoder.html). To view the
+JavaScript sample code, you can view source.
+
+### Battery Life Estimate Calculator
+
+Download the
+[Oyster3 LoRaWAN Battery Life Estimate Calculator](https://support.digitalmatter.com/helpdesk/attachments/16084686136)
+
+This spreadsheet will help estimate the approximate battery life of the Digital Matter Oyster3
+LoRaWAN. Simply modify the fields to represent the desired number of transmissions within a day.
+
+### myDevices/Cayenne Integration
+
+Helium now supports myDevices and the Cayenne LPP \(Low Power Payload\) format. Cayenne is a
+drag-and-drop IoT platform developed by myDevices, allowing developers, designers, and engineers to
+quickly prototype and share their connected device projects.
+
+To learn more about myDevices Cayenne integration, visit
+[myDevices Cayenne](https://developers.mydevices.com/cayenne/features/) and their
+[documentation](https://developers.mydevices.com/cayenne/docs/intro/).
+
+:::info
+
+myDevices currently only includes the Digital Matter Oyster in their device library.
+
+:::
+
+When you are adding a device/widget in Cayenne, look for the **Digital Matter Oyster** under
+**Helium**.
+
+#### myDevices Cayenne - Adding a Digital Matter Oyster
+
+Copy the device's **DevEUI** into the field. This value should correspond to the associated Digital
+Matter Oyster DevEUI in **Console**. Then, click **Add device**.
+
+That's it for adding a Digital Matter Oyster in myDevices Cayenne!

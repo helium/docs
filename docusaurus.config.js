@@ -54,7 +54,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'hnt-token',
+          to: 'tokens/hnt-token',
           label: 'Tokens',
           position: 'left',
         },
@@ -64,12 +64,12 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'use-the-network',
+          to: 'iot',
           label: 'IoT Network',
           position: 'left',
         },
         {
-          to: '5g-on-helium',
+          to: 'mobile/5g-on-helium',
           label: 'Mobile Network',
           position: 'left',
         },
@@ -83,12 +83,25 @@ module.exports = {
           label: 'Dev Blog',
           position: 'left',
         },
-        {
-          to: '/solana/migration/',
-          label: 'Solana Migration Guides',
-          position: 'right',
-          className: 'announcementnav',
-        },
+        // "more" dropdown for navbar
+        // {
+        //   label: 'More',
+        //   position: 'left',
+        //   items: [
+        //     { label: 'Governance', to: 'governance' },
+        //     { label: 'Dev Blog', to: 'devblog' },
+        //     {
+        //       href: 'https://github.com/helium',
+        //       label: 'Github »',
+        //     },
+        //   ],
+        // },
+        // {
+        //   to: '/solana/migration/',
+        //   label: 'Solana Migration Guides',
+        //   position: 'right',
+        //   className: 'announcementnav',
+        // },
       ],
     },
     footer: {

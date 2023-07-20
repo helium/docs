@@ -1,0 +1,78 @@
+---
+id: iot-token
+title: Helium IoT Network Token
+pagination_label: IOT Network Token
+sidebar_label: IOT Network Token
+description: Helium IoT Network Token Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /tokens/iot-token
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+<img className="docsheader" src={useBaseUrl('/img/blockchain/iot_header.png')} />
+
+IOT is the protocol token of the [Helium IoT Network][iot-network]. IOT was introduced to the Helium
+Network through the community proposal [HIP-52][hip-52] and is further defined in subsequent
+HIPs<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>)</sup>. The first IOT tokens were minted following the
+Solana migration on April 18, 2023.
+
+[^1]: [HIP-70: Scaling the Helium Network][hip-70]
+[^2]: [HIP-77: Solana Parameters][hip-77]
+
+The IOT token is mined by LoRaWAN Hotspots through both data transfer proceeds as well as Proof of
+Coverage.
+
+The mint address for IOT is [`iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns`][iot-mint-address] on the
+Solana blockchain.
+
+## Redemption for HNT
+
+Protocol tokens like IOT will always be backed by HNT and will convert to HNT. To enable this, each
+network within the Helium Network is allocated a pool of HNT based on the Network Utility Score. The
+redemption ratio is set algorithmically by the treasury swap contacts based on this Network Utility
+Score.
+
+The [Helium Wallet App][wallet-app] serves as the primary platform for exchanging IOT to HNT. This
+transaction can also be performed directly through the Solana blockchain using the open-source
+tooling found in the [Helium GitHub repositories][github].
+
+## Token Allocation
+
+IOT follows a similar minting schedule to HNT, however at a max supply of 200,000,000,000 (200B).
+
+Year 1 for IOT started on August 1st, 2022.
+
+The issuance is scheduled to have halvings every 2 years, aligning with HNT issuance halvings.
+
+The emissions schedule was created in [HIP-52][hip-52-emisions] and confirmed in
+[HIP-77][hip-77-emisions] and is as follows:
+
+| Year | IOT at Year Start | IOT Minted | Proof of Coverage <sup>(</sup>[^3]<sup>)</sup> | Data Transfer <sup>(</sup>[^3]<sup>)</sup> | Oracles <sup>(</sup>[^4]<sup>)</sup> | Operations Fund | veHNT Stakes |
+| ---- | ----------------- | ---------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------ | --------------- | ------------ |
+| 1    | 5B                | 65B        | 30%                                            | 50%                                        | 7%                                   | 7%              | 6%           |
+| 2    | 70B               | 32.5B      | 28.5%                                          | 51.5%                                      | 7%                                   | 7%              | 6%           |
+| 3    | 102.5B            | 32.5B      | 27%                                            | 53%                                        | 7%                                   | 7%              | 6%           |
+| 4    | 135B              | 16.25B     | 25.5%                                          | 54.5%                                      | 7%                                   | 7%              | 6%           |
+| 5    | 151.25B           | 16.25B     | 24%                                            | 56%                                        | 7%                                   | 7%              | 6%           |
+| 6    | 167.5B            | 8.125B     | 22.5%                                          | 57.5%                                      | 7%                                   | 7%              | 6%           |
+| 7    | 175.625B          | 8.125B     | 21%                                            | 59%                                        | 7%                                   | 7%              | 6%           |
+
+> Full token emissions can be viewed in the IOT section of this document: [Token Emissions as of
+> Solana Migration][migration-emissions].
+
+[^3]: Any IOT not rewarded for data transfer is rolled into Proof of Coverage.
+[^4]: Oracles are not rewarded until additional Oracle operators deploy services.
+
+[github]: https://github.com/helium
+[hip-52-emisions]: https://github.com/helium/HIP/blob/main/0052-iot-dao.md#emissions-curve
+[hip-52]: https://github.com/helium/HIP/blob/main/0052-iot-dao.md
+[hip-70]: https://github.com/helium/HIP/blob/main/0070-scaling-helium.md
+[hip-77-emisions]:
+  https://github.com/helium/HIP/blob/main/0077-solana-parameters.md#emission-schedules
+[hip-77]: https://github.com/helium/HIP/blob/main/0077-solana-parameters.md
+[iot-mint-address]: https://explorer.solana.com/address/iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns
+[iot-network]: /iot/lorawan-on-helium
+[migration-emissions]:
+  https://github.com/helium/HIP/blob/main/HIP-solana-parameters/token-emissions-as-of-solana-migration.pdf
+[wallet-app]: /wallets/helium-wallet-app

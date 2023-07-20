@@ -5,7 +5,7 @@ pagination_label: LoRaWAN On Helium
 sidebar_label: LoRaWAN On Helium
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /lorawan-on-helium
+slug: /iot/lorawan-on-helium
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -24,7 +24,8 @@ Therefore, we want to enable the multi-tenancy of LNSs on the same public LoRaWA
 this distinguishes Helium’s LoRaWAN Network from any other: public wireless infrastructure is now
 compatible with privately-run Network Servers.
 
-The rest of this article will discuss the networking primitives. If you want to go ahead and run a Network Server, please check out our article about [running a network server][run-server].
+The rest of this article will discuss the networking primitives. If you want to go ahead and run a
+Network Server, please check out our article about running a network server.
 
 ## The OUI
 
@@ -41,14 +42,14 @@ Integrity Check (MIC) to disambiguate.
 
 Starting in 2023, Helium will be utilizing an OpenLNS Initiative to allow more choice and increase
 usability. You can read more about the OpenLNS Initiative at the [Helium Foundation
-Blog][foundation-blog] or read more [here](/iot/open-lns).
+Blog][foundation-blog] or read more [here](/iot/lorawan-network-servers).
 
 :::info
 
 Based on the latest benchmarking tests the upper limit for a Devaddr `1024` slab is approximately
 5800 devices, but results still need to be replicated and bracketed. Community members are
-encouraged to run their own benchmarking tests. Instructions [here][router-benchmark]. Requires
-basic familiarity with Linux and Bash command line.
+encouraged to run their own benchmarking tests. Requires basic familiarity with Linux and Bash
+command line.
 
 :::
 
@@ -105,5 +106,3 @@ query can say which OUI owns this DevAddr slab. This look-up and routing by DevA
 
 [foundation-blog]:
   https://medium.com/helium-foundation/scaling-iot-growth-with-heliums-open-lns-initiative-c906e6953d6d
-[run-server]: /use-the-network/run-a-network-server
-[router-benchmark]: /use-the-network/run-a-network-server/router-benchmarking
