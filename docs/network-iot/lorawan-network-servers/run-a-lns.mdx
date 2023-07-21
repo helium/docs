@@ -13,14 +13,16 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 OpenLNS is the platform that enables any LoRaWAN network to use Helium's IoT Network. In this guide,
 we'll walk you through the process of setting up and configuring OpenLNS.
 
+<!-- TODO: Description of necessary keys for configuration and what they do: (payer, owner, delegate) -->
+
 ## Prerequisites
 
 Before getting started, make sure you have the following:
 
 - Helium Network OUI (Organizationally Unique Identifier)
-- Helium LoRaWAN devAddr slab
-- LoRaWAN Network Server (LNS). A popular option is [ChirpStack][chirpstack]. Refer to the
-  ChirpStack documentation for setup and integration instructions.
+- Helium LoRaWAN devAddr slab **OR** LoRa Alliance NetID
+- LoRaWAN Network Server (LNS). A popular option is [ChirpStack](https://www.chirpstack.io). Refer
+  to the ChirpStack documentation for setup and integration instructions.
 
 ## Purchasing OUI and devAddr Slab
 
@@ -33,8 +35,10 @@ cost $100 each.
 After your OUI and devAddr are added, you can now manage your OUI through the Config Service. You
 can interact with the Config Service in two ways:
 
-1. Directly through [GRPC APIs][grpc-api]
-2. Using the [Command-Line Interface (CLI)][config-cli] detailed below
+1. Directly through
+   [GRPC APIs](https://github.com/helium/proto/blob/master/src/service/iot_config.proto)
+2. Using the [Command-Line Interface (CLI)](https://github.com/helium/helium-config-service-cli)
+   detailed below
 
 ### Authenticating with the Config Service
 
@@ -129,6 +133,10 @@ Define your endpoint by running
 ./helium-config-service-cli route update server --host <host> --port <port> --route-id <route-id> --commit
 ```
 
-[grpc-api]: https://github.com/helium/proto/blob/master/src/service/iot_config.proto
-[config-cli]: https://github.com/helium/helium-config-service-cli
-[chirpstack]: https://www.chirpstack.io
+<!-- TODO: Add section on building the LNS to interact with router -->
+
+<!-- ## Interact with Router -->
+
+<!-- TODO: Context on router & how it connects to chirpstack (scope of what needs to be built) -->
+
+<!-- TODO: Link to Disk91’s companion solution guide: https://www.disk91.com/2022/technology/helium/installing-chirpstack-lorawan-network-server-for-helium/ -->
