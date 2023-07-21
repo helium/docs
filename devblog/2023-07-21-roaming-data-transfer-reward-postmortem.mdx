@@ -1,0 +1,39 @@
+---
+layout: post
+title: Roaming Router DC Billing
+date: 2023-07-21 17:00 -0800
+hide_table_of_contents: true
+authors: [lytzV]
+---
+
+## Summary
+
+Starting on 07/19/2023 10:57 PT, the roaming servers (packet purchaser) in the U.S. and E.U. could
+not submit packet reports to the packet report S3 bucket due to Access Denied errors. This S3 bucket
+is what the IoT reward Oracles rely on for data transfer reward accounting. The core team became
+aware of this anomaly on 07/20/2023 15:43 PT and the incident was resolved on 07/20/2023 17:35 PT.
+
+<!--truncate-->
+
+The access denied error was caused by a misconfiguration of S3 bucket policy. The core team needed
+to add cross-account access to the bucket for the labnet Oracles. When adding the policy to allow
+for labnet to get access to that bucket, Terraform accepted the existing and new bucket policies.
+However, even though Terraform accepted two policies for the same bucket, it would randomly
+overwrite one policy with another. In this case, the existing policy was overwritten by the new one,
+causing access denied errors. The solution was to remove one policy and then update the other one
+with the permission statements for both the labnet Oracles and the roaming servers.
+
+**Data transfer was NOT impacted.** However, Hotspots were not rewarded for the traffic through
+these roaming routers during the incident period. These missing rewards cannot be recuperated
+because packet reports are only stored in the S3 buckets. The core team would like to propose the
+following next steps.
+
+## Next Steps
+
+Packet report S3 bucket is a vital component in the reward pipeline, since any failure of submission
+to the bucket means the reward Oracles will be unaware of the data transfer that should have been
+duly accounted for. The core team will:
+
+- Exercise testing and care when updating the bucket configuration in the future
+- Begin tracking failures to submit so that the response time would be much faster if a similar
+  incident were to occur again.
