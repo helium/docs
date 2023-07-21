@@ -10,37 +10,37 @@ slug: /iot/lorawan-roaming
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The Helium Network is the world's largest LoRaWAN Network - and continues to grow at a staggering
-pace. Because of this, it becomes a very attractive Network to other public and private LoRaWAN
-Network Server providers (LNSs) who want to extend their coverage without deploying their own
-infrastructure and capital.
+The Helium Network, the largest LoRaWAN Network in the world, is an attractive Network to other
+public and private LoRaWAN Network Server providers wanting to expand their coverage without
+deploying additional infrastructure.
 
-And thanks to the Helium blockchain, direct roaming integrations are very simple. Most importantly,
-major LNSs are roaming with the Helium Network, which means the public coverage the Helium Community
-is building is now being used by LoRaWAN devices onboarded to other Networks, and Hotspot Operators
-get compensated in $HNT for routing these packets.
+Devices onboarded to other LNS providers are roaming on the coverage built by the Helium Community,
+rewarding Hotspots with $IOT for routing packets.
+
+Helium Roaming Services enables public and private LoRaWAN Network providers around the world to
+leverage Helium’s ubiquitous coverage.
+
+With thousands of Hotspots in 190 countries and growing, the Network sees a massive amount of
+non-Helium packets. When Network providers enter a roaming partnership with Helium, this traffic can
+be forwarded via the Helium Network to partners, increasing their level of service and coverage.
 
 ## Helium Roaming Architecture
 
-Helium Network roaming most closely resembles the LoRa Alliance's idea of "Passive Roaming". The
-Helium Community operates a dedicated Roaming Server (the "Helium Roaming Server") that is distinct
-from our core LNS for native Helium Devices. The Helium Roaming Server purchases all packets for a
-target LoRaWAN `NetID` and forwards them to an endpoint ready to accept them on behalf of a Roaming
-Partner's LNS. Specifically, the Helium Roaming Server connects any Helium Gateway that captures
-target `NetID` packets via the Semtech GWMP UDP client.
+Helium Network roaming closely resembles the LoRa Alliance's idea of "Passive Roaming."
 
-<img src={useBaseUrl('img/lorawan-on-helium/roaming-arch.png')} />
+The Helium Roaming Server purchases all packets for a target LoRaWAN NetID and forwards them to an
+endpoint ready to accept them on behalf of a Roaming Partner's LNS. Specifically, the Helium Roaming
+Server connects any Helium Gateway that captures target NetID packets via the Semtech GWMP UDP
+client.
 
-## Actual Roaming Integration
+<!-- TODO: what is a NetID -->
 
-To ingest packets as a roaming partner, you need to accept Semtech GWMP client connections for the
-amount of Helium Hotspots that are receiving and routing your packets. Currently, this could be a
-lot - assuming you are considering the entire global network. In practice, only a small percentage
-of Helium Gateways will be routing packets for a roaming partner NetID simultaneously.
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('img/lorawan-on-helium/roaming-arch.png')} />
+  <figcaption>Simplified block diagram of Helium Roaming Architecture.</figcaption>
+</figure>
 
-When the roaming PoC is initiated, Helium provides one or more IPs from where the connections will
-originate. You will need to supply the IP and port for the host listening for Semtech GWMP
-connections over UDP. Once provided, packets will start arriving at the specified host.
+---
 
 ## Supported Device Functionality
 
@@ -48,33 +48,34 @@ Helium Roaming supports the following actions for devices:
 
 - **Joining**: a new device provisioned to a roaming partner's LNS can join via the Helium Network.
   For new devices, `join_requests` and `join_accepts` are routed via Helium Hotspots.
-- **Uplinking**: Once a device has joined, all device payloads are routed via Helium.
+- **Uplinking**: Once a device has joined, all device payloads are routed via Helium Hotspots.
 - **Downlinking**: All standard device downlinking is supported.
-
-## Extended Reading
-
-- [LoRaWAN on Helium](/iot/lorawan-on-helium) - The Helium Network's approach to LoRaWAN
-- [Helium LoRaWAN: Public Infrastructure with Private Network Servers](https://blog.helium.com/helium-lorawan-public-infrastructure-with-ultimate-privacy-9132560e4ae6)
-- [Helium Network Data Credits](/tokens/data-credit) - The financial mechanism for purchasing
-  packets from the Helium Network
-- [Packet Purchasing](/archive/blockchain/packet-purchasing) - An explanation of how packet
-  purchasing is implemented on the Helium Network
-
-Helium Roaming Services enables public and private LoRaWAN Network providers around the world to
-leverage Helium’s ubiquitous coverage.
-
-With over 993K Hotspots in 190 countries and growing, the Network sees a massive amount of
-non-Helium packets. When Network providers enter a roaming partnership with Helium, this traffic can
-be forwarded via the Helium Network to partners, increasing their level of service and coverage.
 
 Any compatible device can send data to their Home Network through Helium-compatible Hotspots without
 the need for device configurations or firmware updates.
+
+---
+
+## Roaming Integration Overview
+
+To ingest packers as a Roaming Partner, an LNS must accept Semtech GWMP client connections for the
+amount of Helium Hotspots receiving and routing a device's packets.
+
+Considering the entire global network, this can become a large number of Hotspots. In practice, only
+a small percentage of Helium Gateways will be routing packets for a roaming partner NetID
+simultaneously.
+
+Helium provides one or more IPs from where the connections will originate. Once the IP and port for
+the host listening for Semtech GWMP connections over UDP are provided, packets will start arriving
+at the specified host.
+
+---
 
 ## Getting Started
 
 - **Create an Account** - Contact a Helium Network Advisor to create the initial Helium Roaming
   Services account (sales@nova-labs.com). Initial setup requires an Organization name, and an email
-  address for the administrator. As part of the initial account creation process, Net ID ownership
+  address for the administrator. As part of the initial account creation process, NetID ownership
   must be verified for the roaming partner.
 - **Add Users** - An administrator can add other user accounts with various roles as needed.
 - **Purchase Data Credits** - Data Credits (DCs) are needed to pay for packets sent on the Helium
@@ -84,7 +85,7 @@ the need for device configurations or firmware updates.
 - **Set up Alerts** - Set up email alerts to send to different user roles based on a number of
   conditions including Data Credit balance, user management, or payment methods.
 
-## Users & Organizations
+### Users & Organizations
 
 Administrators can add invite users to Organizations via email. Users can be given different access
 levels using roles (administrators, managers, and read-only users).
@@ -117,28 +118,6 @@ is a virtual container with its own users, Data Credit balance, and configuratio
   appears.
 - Type the unique name of the Organization.
 - Hit **Submit**, the Organization appears.
-
-## Data Credits
-
-Data Credits (DCs) are needed to pay for packets sent on the Helium Network. Every 24 bytes sent in
-a packet costs 1 DC which equals $0.00001.
-
-### Purchasing Data Credits
-
-Obtaining Data Credits is the same as on the Helium Console focused on device management and
-onboarding. Users can use a credit card (recommended method) and set up a recurring payment or burn
-HNT. For a video tutorial of how to purchase Data Credits on Console, check out our Tips & Tricks
-video [here](https://youtu.be/jyMGLymuOCE).
-
-In addition to purchasing Data Credits, users can transfer Data Credits among Organizations under
-the same account.
-
-To transfer Data Credits (same account only with multiple Organizations): click **Data Credits**,
-and hit **Transfer DC to Org**. On the pop up, enter the quantity of Data Credits to transfer and
-receiving Organization. Click **Make Transfer**.
-
-Further reading: how Data Credits fit into Helium Tokenomics
-[here](/tokens/hnt-token/#data-credits-and-burn-and-mint-economics).
 
 ## Configurations
 
@@ -283,9 +262,9 @@ Let’s do some setup with the CLI.
    ```
 
 4. Let’s generate the keypair you’ll be using to authenticate your interactions with the config
-   service, so only you can create/modify/delete routes. Run `./main env generate-keypair --commit`
-   and you should find a file called `keypair.bin`. Print out the public key of your keypair by
-   running:
+   service, so only you can create/modify/delete routes. Run
+   `./main env generate-keypair <key file name>.bin.` and you should find a file called
+   `keypair.bin`. Print out the public key of your keypair by running:
 
    ```bash
    $ ./main env info --keypair keypair.bin
