@@ -650,6 +650,18 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Agriseen',
+      items: [
+        'use-the-network/devices/ready-to-use/agriseen/GA5067',
+        'use-the-network/devices/ready-to-use/agriseen/JS0050',
+        'use-the-network/devices/ready-to-use/agriseen/JS0130',
+        'use-the-network/devices/ready-to-use/agriseen/JS0140',
+      ],
+
+      collapsed: true,
+    },
+    {
+      type: 'category',
       label: 'Nwave',
       items: ['network-iot/devices/ready-to-use/nwave/nps310sm'],
       collapsed: true,
