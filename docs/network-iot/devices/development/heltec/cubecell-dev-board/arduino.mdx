@@ -49,12 +49,12 @@ For this example, you will need the following:
 
 ### Adding the Antenna <a id="adding-the-antenna"></a>
 
-Your board should have come with a U.FL antenna. All you have to do is attache it to the U.FL port
+Your board should have come with a U.FL antenna. All you have to do is attached it to the U.FL port
 as shown in the image at the top of the guide.
 
 ### Connect Board <a id="connect-board"></a>
 
-Next, lets connect our board to our computer with a USB 2.0 A-Male to Micro B cable.
+Next, let's connect our board to our computer with a USB 2.0 A-Male to Micro B cable.
 
 ## Software Setup <a id="software-setup"></a>
 
@@ -111,12 +111,12 @@ Some versions of Heltec's runtime libraries have set default configuration varia
 are incompatible with the Helium network, especially when the Heltec device is configured targeting
 the North American market.
 
-The following discusses two Heltec runtime files that must be inspected to ensure compatiblity. The
+The following discusses two Heltec runtime files that must be inspected to ensure compatibility. The
 exact location of these files will depend on which operating system you are using, Windows, Linux,
 or Mac as well as where the Arduino IDE is installed.
 
-The typical top level locations of the runtime libraries is shown below for each operating system.
-From there the following discussions will present to you the file locations within these top level
+The typical top-level locations of the runtime libraries is shown below for each operating system.
+From there the following discussions will present to you the file locations within these top-level
 directories/folders. Please note the Heltec library version numbers are expected to change as time
 goes on.
 
@@ -165,7 +165,7 @@ The defaultDrForNoAdr setting is tied directly to the maximum size of the data p
 transferring.
 
 NOTE: If you try to transfer a packet that is larger than this setting allows, your device may
-successfully join the network but the data transmit will fail silently.
+successfully join the network but the data transmitted will fail silently.
 
 | Data Rate \(DR\) | Max Application Payload |
 | :--------------- | :---------------------- |
@@ -200,11 +200,11 @@ There are some versions of the Heltec runtime libraries that may set a LoRaWAN p
 incompatible with the current LoRaWan specification. If the preamble size is not set correctly your
 device cannot join the network.
 
-This should be verified in the region specific file corresponding to the region your device is
-targeting. Be sure to prepend the above described platform specific top level directory structure.
+This should be verified in the region-specific file corresponding to the region your device is
+targeting. Be sure to prepend the above described platform-specific top-level directory structure.
 
 The following is the file that must be checked if targeting region US915. Within an editor of your
-choice open the file path formed by prepending the above described platform specific top level
+choice open the file path formed by prepending the above described platform-specific top-level
 directory structure to the following file:
 
 ```text
@@ -228,7 +228,7 @@ To:
 Radio.SetTxConfig( MODEM_LORA, phyTxPower, 0, bandwidth, phyDr, 1, 8, false, true, 0, 0, false, 3e3 );
 ```
 
-Heltec support has been notified of these issues, hopefully a future release of those libs will
+Heltec support has been notified of these issues. Hopefully, a future release of those libs will
 resolve the issues.
 
 ### Install Serial Driver
@@ -246,7 +246,7 @@ If you are using the HTCC-AB02 flavor of Heltec board
 
 - Select Tools -&gt; Board: -&gt;CubeCell-Board \(HTCC-AB02\)
 
-If you are using the HTCC-AB02S GPS enabled flavor of Heltec board
+If you are using the HTCC-AB02S GPS-enabled flavor of Heltec board
 
 - Select Tools -&gt; Board: -&gt;CubeCell-GPS \(HTCC-AB02S\)
 
