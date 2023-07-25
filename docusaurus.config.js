@@ -73,28 +73,28 @@ module.exports = {
           label: 'Mobile Network',
           position: 'left',
         },
-        {
-          to: 'governance',
-          label: 'Governance',
-          position: 'left',
-        },
-        {
-          to: 'devblog',
-          label: 'Dev Blog',
-          position: 'left',
-        },
+        // {
+        //   to: 'governance',
+        //   label: 'Governance',
+        //   position: 'left',
+        // },
+        // {
+        //   to: 'devblog',
+        //   label: 'Dev Blog',
+        //   position: 'left',
+        // },
         // "more" dropdown for navbar
         {
           label: 'More',
           position: 'left',
           items: [
-            { label: 'Console', to: '/archive/console' },
-            //     { label: 'Governance', to: 'governance' },
-            //     { label: 'Dev Blog', to: 'devblog' },
-            //     {
-            //       href: 'https://github.com/helium',
-            //       label: 'Github »',
-            //     },
+            { label: '🗄️ Console', to: '/console' },
+            { label: 'Governance', to: 'governance' },
+            { label: 'Dev Blog', to: 'devblog' },
+            {
+              href: 'https://github.com/helium',
+              label: 'Github »',
+            },
           ],
         },
         // {

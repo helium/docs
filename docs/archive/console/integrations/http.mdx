@@ -17,7 +17,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 To add a Integration, go to **Integrations** on the left-hand menu. Select the integration to add -
 in this case, the **HTTP** integration.
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-select-http.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-select-http.png')} />
 
 The next step is to paste the HTTP endpoint.
 
@@ -35,11 +35,11 @@ integration, this will be the data from the device that is sent to your HTTP end
 Create an endpoint by going to [requestbin.com](https://requestbin.com/) and click **Create a
 Request Bin**. Once created, copy the endpoint.
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-http-request-bin.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-http-request-bin.png')} />
 
 ... and paste it in Console's **Endpoint URL** field.
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-http-details.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-http-details.png')} />
 
 **HTTP Header** and **Value** are not required, and can be left blank.
 
@@ -48,7 +48,7 @@ Lastly, provide a name for the integration. Names do not have to be unique.
 Click **Add Integration**.
 
 Your new integration is now ready for use! Please read about the
-[JSON Schema](/archive/console/integrations/json-schema) to understand how to parse data received.
+[JSON Schema](/console/integrations/json-schema) to understand how to parse data received.
 
 ### Integration Details
 
@@ -79,7 +79,7 @@ You can send downlinks to every device that your HTTP integration is attached to
 device by including the device UUID at the end. You can find this `downlink_url` with the required
 downlink key in it on the HTTP integration page in the details section, an example is shown below.
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-http-downlink-details.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-http-downlink-details.png')} />
 
 The downlink URL can also be found in the uplink JSON message for that particular device. It will
 look similar to the URL shown below. You can also find it using the Debug window on your device
@@ -99,7 +99,7 @@ page.
 
 To send the downlink message, make a POST request including a JSON body with the following fields
 shown below, see more details on the fields
-[here](/archive/console/integrations/json-schema#downlink-transmitting-data-to-a-device).
+[here](/console/integrations/json-schema#downlink-transmitting-data-to-a-device).
 
 #### Downlink JSON Message Example
 
@@ -117,21 +117,19 @@ The easiest way to send a downlink to your device is to use the built-in downlin
 You will find it on the right side of every device page, as shown below. In order to use the
 downlink tool, you must have an HTTP Integration attached to the device.
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-http-downlink-button.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-http-downlink-button.png')} />
 
 Once you have the downlink tool open, input the downlink payload string in the payload field. Select
 _Encoded_ if you are inputting a string that is already Base64 encoded, and _Plain_ if it is plain
 text. Last, select your FPort, whether or not you want to send a confirmed downlink, and then click
 the downlink send button, as shown below.
 
-<img
-  src={useBaseUrl('img/network-iot/integrations/integrations-http-downlink-tool-expanded.png')}
-/>
+<img src={useBaseUrl('img/console/integrations/integrations-http-downlink-tool-expanded.png')} />
 
 Once you have initiated the downlink, you should see the downlink event show in the event log, as
 shown below.
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-http-downlink-event.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-http-downlink-event.png')} />
 
 ### Postman Example
 
@@ -149,9 +147,7 @@ downlink message to your device.
 7. Finally, press `Send` to transmit the message.
 8. You should see a response of `Downlink scheduled` if successful.
 
-<img
-  src={useBaseUrl('img/network-iot/integrations/integrations-http-downlink-postman-example.png')}
-/>
+<img src={useBaseUrl('img/console/integrations/integrations-http-downlink-postman-example.png')} />
 
 ### Python Example
 
@@ -204,7 +200,7 @@ Quick video tutorial connecting devices to an integration
 :::
 
 Node elements (devices, labels, integrations) need to be created before they're available on the
-[Flows Workspace](/archive/console/flows).
+[Flows Workspace](/console/flows).
 
 ## Advanced - JSON Message Template
 
@@ -222,7 +218,7 @@ functions, and use supplied predefined JSON templates for Cayenne and Browan.
 ### Decoding base64 payloads
 
 Users can send decoded base64 payloads (to hex or bytes) from device to desired integration, without
-creating a [decoder function](/archive/console/functions) for brevity.
+creating a [decoder function](/console/functions) for brevity.
 
 To decode the base64 payload simply use `base64_to_hex()` or `base64_to_bytes()` in your integration
 JSON like the following (other keys are optional):

@@ -57,8 +57,7 @@ sensors. The device includes a non-chargeable battery that can last for more tha
 
 To start, you'll need to add your device to Console. You should have been provided with a DevEUI,
 AppEUI, and AppKey inside the device packaging. Follow our
-[quick start for instructions](/archive/console/adding-devices) on how to add a new device to
-Console.
+[quick start for instructions](/console/adding-devices) on how to add a new device to Console.
 
 ### Join Device to Network
 
@@ -103,16 +102,16 @@ Integration. Do not use a Decoder.
 
 When this device transmits its data, it does so space-efficiently by packing the bytes of data in a
 specific way so that no space is wasted; learn more about this in
-[our short primer](/archive/console/functions). This device's manufacturer, Dragino, uses their own
-encoding scheme to define which bytes hold which piece of data. Below is a table taken from the
-manual showing the size and location of each piece of data.
+[our short primer](/console/functions). This device's manufacturer, Dragino, uses their own encoding
+scheme to define which bytes hold which piece of data. Below is a table taken from the manual
+showing the size and location of each piece of data.
 
 <img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino-lht65-byte-packing.png')} />
 
 If you would like to decode the device payload to view it in Console or send it to your own
 application, this section will show you how. We'll use a Console Function Decoder to unpack the
 device payload into a human-readable form; you can learn more about Functions in general
-[here](/archive/console/functions/).
+[here](/console/functions/).
 
 #### Create Function Decoder
 
@@ -135,18 +134,18 @@ shown below.
 #### Viewing Decoded Device Data
 
 Once you have attached the decoder, we can now open the Debug window to view the decoded device
-payload in the received uplink. You can learn more about the Debug tool
-[here](/archive/console/debug). To open the Debug window, click on the bug icon on the right side of
-the device page. Once you open the Debug window, you can wait for the next packet to transmit or
-force a manual transmission by holding down the ACT button for more than one second and less than
-three. You'll see the LED turn green while you hold it down, and then it should turn red briefly
-after release. You should see the uplink message with the decoded fields below.
+payload in the received uplink. You can learn more about the Debug tool [here](/console/debug). To
+open the Debug window, click on the bug icon on the right side of the device page. Once you open the
+Debug window, you can wait for the next packet to transmit or force a manual transmission by holding
+down the ACT button for more than one second and less than three. You'll see the LED turn green
+while you hold it down, and then it should turn red briefly after release. You should see the uplink
+message with the decoded fields below.
 
 <img src={useBaseUrl('img/network-iot/devices/ready-to-use/dragino-lht65-decoded-payload.png')} />
 
 ### Sending Device Payload to Your Application
 
 To learn more about how to send the device data payload to your own application, check out the
-Console integrations [here](/archive/console/integrations).
+Console integrations [here](/console/integrations).
 
 ---

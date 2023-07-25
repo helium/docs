@@ -21,7 +21,7 @@ automates the complexity of securely connecting your devices to AWS IoT Core.
 To add an **AWS IoT Core Integration**, go to **Integrations** on the left-hand menu. Select the
 integration to add - in this case, the **AWS IoT Core** integration:
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-select-aws-iot-core.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-select-aws-iot-core.png')} />
 
 The next step is to create a new user with limited permissions that this Integration will use.
 
@@ -29,17 +29,15 @@ Open up the [AWS Console](https://console.aws.amazon.com/)
 
 Under the Services menu in the upper-left, go to **Security, Identity, & Compliance**-&gt;**IAM**:
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-iam.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-iam.png')} />
 
 We are now going to create a new **User:**
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-new-user.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-new-user.png')} />
 
 Set the user name to "**HeliumIntegrationAccess**" and select only "**Programmatic access**"
 
-<img
-  src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-new-user-details.png')}
-/>
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-new-user-details.png')} />
 
 We now attach a policy to the newly created user that defines what permissions they hold.
 
@@ -47,14 +45,10 @@ Select "**Attach existing policies directly**" and type "**AWSIoTConfigAccess"**
 Policies**" box and check the box to the left of the row:
 
 <img
-  src={useBaseUrl(
-    'img/network-iot/integrations/integrations-aws-iot-core-new-user-attach-policy.png',
-  )}
+  src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-new-user-attach-policy.png')}
 />
 
-<img
-  src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-new-user-success.png')}
-/>
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-new-user-success.png')} />
 
 :::warning
 
@@ -66,7 +60,7 @@ to them again!
 Back in the **Helium Console**, enter the credentials we just created under **AWS Connection
 Details,** as well as the AWS region that you would like AWS IoT to run in.
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-enter-details.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-enter-details.png')} />
 
 The **Topic** field is the AWS IoT MQTT topic that this integration will publish uplink messages to,
 from devices.
@@ -89,7 +83,7 @@ Quick video tutorial connecting devices to an integration
 :::
 
 Node elements (devices, labels, integrations) need to be created before they're available on the
-Flows Workspace. More information about Flows [here](/archive/console/flows/).
+Flows Workspace. More information about Flows [here](/console/flows/).
 
 ## AWS IoT MQTT Topic composition:
 
@@ -173,31 +167,31 @@ Once our devices have been connected on the Flows Worskpace to our new Integrati
 the [AWS Console](https://console.aws.amazon.com/), and go to **IoT Core** under the **Services**
 menu:
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-find-services.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-find-services.png')} />
 
 Here you are able to monitor the connections to AWS:
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-monitor.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-monitor.png')} />
 
 When data comes in from the Helium Network Integration, Things will be automatically created within
 AWS IoT Core:
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-things.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-things.png')} />
 
 Going to **Interact** on the left while on a **Thing** takes us to a list of topics for interacting
 with the **Thing Shadows**:
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-interact.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-interact.png')} />
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-topics.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-topics.png')} />
 
 To monitor in real-time what is being sent to AWS from Helium, we can open the **MQTT monitor**, and
 subscribe to a topic with "\#" wildcard \(to catch all messages, or use the topic we set in **Helium
 Console** if just wanting to monitor those\).
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-mqtt-client.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-mqtt-client.png')} />
 
-<img src={useBaseUrl('img/network-iot/integrations/integrations-aws-iot-core-mqtt-message.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-aws-iot-core-mqtt-message.png')} />
 
 The payload field is the actual data received from the device,
 [encoded in a base64](https://www.base64decode.org/) string.
