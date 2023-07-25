@@ -88,9 +88,10 @@ module.exports = {
           label: 'More',
           position: 'left',
           items: [
-            { label: '🗄️ Console', to: '/console' },
             { label: 'Governance', to: 'governance' },
             { label: 'Dev Blog', to: 'devblog' },
+            { label: 'Console (Legacy)', to: '/console' },
+            { label: 'Blockchain API (Legacy)', to: '/blockchain/api' },
             {
               href: 'https://github.com/helium',
               label: 'Github »',
