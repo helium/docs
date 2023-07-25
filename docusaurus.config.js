@@ -84,18 +84,19 @@ module.exports = {
           position: 'left',
         },
         // "more" dropdown for navbar
-        // {
-        //   label: 'More',
-        //   position: 'left',
-        //   items: [
-        //     { label: 'Governance', to: 'governance' },
-        //     { label: 'Dev Blog', to: 'devblog' },
-        //     {
-        //       href: 'https://github.com/helium',
-        //       label: 'Github »',
-        //     },
-        //   ],
-        // },
+        {
+          label: 'More',
+          position: 'left',
+          items: [
+            { label: 'Console', to: '/archive/console' },
+            //     { label: 'Governance', to: 'governance' },
+            //     { label: 'Dev Blog', to: 'devblog' },
+            //     {
+            //       href: 'https://github.com/helium',
+            //       label: 'Github »',
+            //     },
+          ],
+        },
         // {
         //   to: '/solana/migration/',
         //   label: 'Solana Migration Guides',
