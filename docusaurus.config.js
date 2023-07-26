@@ -73,29 +73,31 @@ module.exports = {
           label: 'Mobile Network',
           position: 'left',
         },
-        {
-          to: 'governance',
-          label: 'Governance',
-          position: 'left',
-        },
-        {
-          to: 'devblog',
-          label: 'Dev Blog',
-          position: 'left',
-        },
-        // "more" dropdown for navbar
         // {
-        //   label: 'More',
+        //   to: 'governance',
+        //   label: 'Governance',
         //   position: 'left',
-        //   items: [
-        //     { label: 'Governance', to: 'governance' },
-        //     { label: 'Dev Blog', to: 'devblog' },
-        //     {
-        //       href: 'https://github.com/helium',
-        //       label: 'Github »',
-        //     },
-        //   ],
         // },
+        // {
+        //   to: 'devblog',
+        //   label: 'Dev Blog',
+        //   position: 'left',
+        // },
+        // "more" dropdown for navbar
+        {
+          label: 'More',
+          position: 'left',
+          items: [
+            { label: 'Governance', to: 'governance' },
+            { label: 'Dev Blog', to: 'devblog' },
+            { label: 'Console (Legacy)', to: '/console' },
+            { label: 'Blockchain API (Legacy)', to: '/blockchain/api' },
+            {
+              href: 'https://github.com/helium',
+              label: 'Github »',
+            },
+          ],
+        },
         // {
         //   to: '/solana/migration/',
         //   label: 'Solana Migration Guides',
