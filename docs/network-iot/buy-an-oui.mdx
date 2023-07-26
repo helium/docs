@@ -8,18 +8,18 @@ image: https://docs.helium.com/img/link-image.png
 slug: /iot/buy-an-oui
 ---
 
-## What is an OUI?
+## What is an Organizationally Unique Identifier?
 
-Each LoRaWAN Network Server (LNS) on the Helium Network acquires an Organizationally Unique
+Each LoRaWAN Network Server ("LNS") on the Helium Network acquires an Organizationally Unique
 Identifier ("OUI"). This registers the LNS with the blockchain and allocates two very important
 routing objects owned and maintained by the OUI operator:
 
-- up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the LNS
-- one or more **slabs** of DevAddrs, reserving an address space for the OUI's devices on the Helium
+- Up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the LNS
+- One or more **slabs** of DevAddrs, reserving address space for the OUI's devices on the Helium
   Network
 
-A device, defined by (AppEui, DevEui), can be allocated any of the DevAddrs owned by the OUI. It is
-even possible to multiplex many devices on the same DevAddr at the same time, using the Message
+A device, defined by `(AppEui, DevEui)`, can be allocated any of the DevAddrs owned by the OUI. It
+is even possible to multiplex many devices on the same DevAddr at the same time, using the Message
 Integrity Check (MIC) to disambiguate.
 
 :::info

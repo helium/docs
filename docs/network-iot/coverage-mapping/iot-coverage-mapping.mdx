@@ -1,6 +1,6 @@
 ---
 id: iot-coverage-mapping
-title: Coverage Mapping
+title: IOT Coverage Mapping
 pagination_label: Coverage Mapping
 sidebar_label: Coverage Mapping
 description: Helium Documentation
@@ -13,9 +13,9 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 <img className="docsheader" src={useBaseUrl('img/network-iot/coverage-mapping/header.png')} />
 
 The [Mappers Coverage map](https://mappers.helium.com) is a crowd-sourced effort to build a
-true-signal coverage map of the Helium network across the globe. By mapping real-world coverage,
-network users can understand where sensor deployments are likely to have success connecting to
-Helium.
+true-signal coverage map of the Helium IOT Network across the globe. By mapping real-world coverage,
+network users can understand where sensor deployments are likely to have success connecting to the
+Helium Network.
 
 > Coverage mapping should only be done from ground level, or slightly above it. We would like the
 > map to indicate the expected coverage a standard sensor device would experience. If you want to
@@ -23,7 +23,7 @@ Helium.
 > map.
 
 Be sure to check out the ongoing conversation in the dedicated
-[#mappers](discord://discord.com/channels/404106811252408320/730801390431240228) channel on the
+[#mappers-iot](discord://discord.com/channels/404106811252408320/730801390431240228) channel on the
 [Helium Discord Server](https://discord.gg/helium).
 
 ## Mapping Projects
@@ -31,9 +31,10 @@ Be sure to check out the ongoing conversation in the dedicated
 ### Helium Mappers
 
 Helium Mappers lets you see the areas that have been explored by participants in the coverage
-mapping project. The map also shows the Helium hotspots that have provided coverage to these areas.
-Helium Mappers uses the H3 hexagon tiles to aggregate survey results and provided statistics. View
-Mappers data at [mappers.helium.com](https://mappers.helium.com/).
+mapping project. The map also shows the Helium Hotspots that have provided coverage to these areas.
+Helium Mappers uses the H3 hexagon tiles to aggregate survey results and provided statistics.
+
+View Mappers data at [mappers.helium.com](https://mappers.helium.com/).
 
 ### Helium Cargo
 
@@ -47,20 +48,49 @@ View GPS trackers on Cargo at [cargo.helium.com](https://cargo.helium.com/).
 ### CoverageMap.net
 
 Coverage Map is a third party tool that draws heatmaps for LoRaWAN networks. This tool has the
-ability to show raw survey results for devices and hotspots. It aggregates coverage measurements
+ability to show raw survey results for devices and Hotspots. It aggregates coverage measurements
 into a heatmap, radar plots and alpha shapes. View Helium's heatmap at
 [CoverageMap.net](https://coveragemap.net/).
+
+---
+
+## Mappers Visualization
+
+From within the [Mappers tool](http://mappers.helium.com), clicking on a green hexagon will allow
+you to get more information about the coverage available in that region.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/network-iot/coverage-mapping/mappers-visualizer.png')}
+    style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
+  />
+  <figcaption>
+    The <a href="http://mappers.helium.com">Mapper Website</a> shown on desktop.
+  </figcaption>
+</figure>
+
+- **H3 Index**: The funny looking number like `89283082853ffff` is the unique h3 index of the
+  hexagon on the map. In other words, it's the hex’s name. H3 is a system of managing global
+  datasets, and is pervasive throughout different Helium protocols.
+- **RSSI**: “Received Signal Strength Indicator” is a measure of the power present in a received
+  radio signal. This number is computed by the hotspot when it hears the signal from a mapper. The
+  higher the signal (less negative), the ‘stronger’ it is considered.
+- **SNR**: “Signal to Noise” measures the ratio of received power to background power in the
+  received signal. Like the RSSI, it is also computed by the hotspot when it hears signal from the
+  mapper. A higher ratio represents a clear signal whereas a negative number in this field
+  represents a noisy signal.
+- **Redundancy**: The total count of hotspots that heard a mapper from within this hex. This metric
+  is helpful in understanding the resilience of the network in a given area.
+- **Distance**: This is the approximate distance of the mapper from the hotspot that heard it.
+
+---
 
 ## Mappers Newsletter
 
 Join the Mappers [newsletter](https://www.helium.com/mappers) to stay up to date on new and upcoming
 features.
 
-## Project Roadmap
-
-Take a look at the big picture in the [Mappers Roadmap](/iot/coverage-mapping/roadmap). The roadmap
-is a great way to understand the full scope of the project and find an area to make your own
-contributions to the project.
+---
 
 ## Frequently Asked Questions
 
@@ -78,14 +108,14 @@ the hex on the map.
 
 ### Why should I contribute to Mappers?
 
-There are a variety of ways that Mapping is valuable to both hotspot owners and network users. For
-hotspot owners, the collected data helps to visualize the coverage provided by all Helium hotspots -
-identifying areas where coverage is lacking or even where hotspot placements could be made that
-would participate in Proof of Coverage with other hotspots. A marked hex on the map indicates that
+There are a variety of ways that Mapping is valuable to both Hotspot owners and network users. For
+Hotspot owners, the collected data helps to visualize the coverage provided by all Helium Hotspots -
+identifying areas where coverage is lacking or even where Hotspot placements could be made that
+would participate in Proof of Coverage with other Hotspots. A marked hex on the map indicates that
 uplink signals from registered Helium LoRaWAN sensors have been proven to be “heard” by the Helium
 network somewhere within that hex shaped area.
 
-For network users, the map proves the real-world coverage that hotspots provide. This is like
+For network users, the map proves the real-world coverage that Hotspots provide. This is like
 looking at the Verizon or T-Mobile map when evaluating phone plans, but for business users. This
 real world evidence at the scale and resolution offered by our map gives prospective network users
 the information they need to make decisions about their deployments. As an example, this map is what
@@ -94,170 +124,31 @@ someone like Lime scooters would look to before they sign a contract.
 In short, a robust map means high priced customers, which means adoption, which means the network
 grows and the token value increases.
 
-### Do I earn HNT for contributing?
+### Do I earn rewards for contributing?
 
-No, coverage mapping is entirely voluntary. In order to participate in mapping, you will need to
-spend Data Credits to pay for the data transfer that your mapper uses. To get you started, new
-Helium Console accounts are funded with 250 DC. Beyond that, HNT can be converted to DC to fund
-device data transfer or DC can be purchased directly through Console.
+No, coverage mapping is entirely voluntary. To participate in mapping, you will need to spend Data
+Credits to pay for the data transfer that your mapper uses. HNT can be converted to DC to fund
+device data transfer or DC can be purchased directly through the
+[Data Credit](/tokens/data-credit-portal).
 
-Mapping does not make a hotspot earn more HNT through Proof of Coverage. The real value is to prove
-the network, drive adoption, and increase the purchase of data credits by commercial users.
+Mapping does not make a Hotspot earn more IOT through Proof of Coverage. The real value is to prove
+the network, drive adoption, and increase the purchase of Data Credits by commercial users.
 
-If the hotspots that you are mapping are your own, those data credits are paid back to your hotspots
+If the Hotspots that you are mapping are your own, those Data Credits are paid back to your Hotspots
 in the form of HNT. Hotspots earn HNT for data packets they transfer, for mapping or otherwise.
 
-### How can I use Mappers for my own hotspot deployments?
+### How can I use Mappers for my own Hotspot deployments?
 
-- Find new locations for hotspots.
-- Get real-world information about how far your hotspot reaches.
+- Find new locations for Hotspots.
+- Get real-world information about how far your Hotspot reaches.
 - Learn RF data analytics in an interactive way.
 
 ### How can I use Mappers for my own sensor deployments?
 
 Take a mapping device to the area where you want to deploy sensors and watch to see if it is picked
-up by a hotspot in the hex where you want to deploy a sensor. If it’s picked up by only one hotspot,
-decide if you want to deploy an additional hotspot in that area for sensor connection redundancy.
+up by a Hotspot in the hex where you want to deploy a sensor. If it’s picked up by only one Hotspot,
+decide if you want to deploy an additional Hotspot in that area for sensor connection redundancy.
 Look at existing mapped areas for confirmation that your sensors can be deployed in that area and
-how many hotspot can pick them up. It only takes one hotspot to receive and transmit data through
+how many Hotspot can pick them up. It only takes one Hotspot to receive and transmit data through
 the internet, but the redundancy offered by the Helium Network helps to ensure that your data is
 received.
-
-## Get Started with Mapping
-
-There are a wide variety of ways to get involved depending on your level of comfort with
-arduino-type devices. A few common devices are listed below, but in no way is this list exhaustive.
-
-### Fully Preconfigured
-
-Fully managed mapping devices are ready to use as soon as they arrive. These are pre-configured and
-enrolled by the seller, and not your own Helium Console. The Data Credits are provided by the
-seller, and the devices have pre-selected back-end Integrations that are not user-configurable.
-Generally, these devices are the most easy and accessible, requiring just power to start mapping.
-
-- IoWe Coverage Mapper
-  - [Product page](https://www.internetofwe.net/product-page/helium-coverage-mapper)
-- Wio Terminal LoRaWAN Field Tester
-  - [Product page](https://www.seeedstudio.com/WioField-Tester-Kit-p-5282.html)
-
-### Plug & Play
-
-Console-ready device that you onboard to spend your own Data Credits. The
-[Mappers Quickstart](/iot/coverage-mapping/quickstart) guide focuses on the the Dragino LGT-92, but
-the steps are effectively the same for any mapping device.
-
-- Adeunis Field Test Device
-  - [Product page](https://www.adeunis.com/en/produit/ftd-network-tester/)
-  - [Adeunis tutorial](/iot/coverage-mapping/adeunis-mapper)
-- Dragino LGT-92
-  - [Product page](https://www.dragino.com/products/lora-lorawan-end-node/item/142-lgt-92.html)
-  - [Dragino LGT-92 tutorial](/iot/coverage-mapping/quickstart)
-- Fiz-Tech Mapper
-  - [Product page](https://fiz-tech.net/search?type=tag&q=Mapper)
-- Glamos Walker
-  - [Product page](https://glamos.eu/product/walker/)
-  - [Glamos Walker tutorial](https://glamos.eu/manual/)
-- RAK Wireless RAK7200
-  - [Product page](https://store.rakwireless.com/products/rak7200-lpwan-tracker?variant=29669491867693)
-
-### DIY Mappers
-
-Flash your own code, add the device to your Helium Console, and spend your own Data Credits. Setting
-up a mapper from your own dev board is a great way to learn about LoRaWAN devices on the Helium
-Network.
-
-- Heltec CubeCell GPS-6502 (HTCC-AB02S)
-  - ARM Cortex M0+, AIR530Z GPS module with internal antenna, SX1262 LoRa, OLED Screen
-  - [Product page](https://heltec.org/project/htcc-ab02s/),
-    [Product page via Parley Labs](https://shop.parleylabs.com/collections/iot-developers-products/products/cubecell-gps-6502-by-heltec-htcc-ab02s),
-    [IoWE DIY Kit](https://www.internetofwe.net/product-page/diy-coverage-mapper-kit-us915)
-  - [Heltec Cubecell (jas_williams)](https://github.com/jas-williams/CubeCell-Helium-Mapper)
-  - [Heltec Cubecell (kicko)](https://github.com/hkicko/CubeCell-GPS-Helium-Mapper)
-  - [Heltec Cubecell (Max_Plastix)](https://github.com/Max-Plastix/CubeCell-GPS-Helium-Mapper)
-    Alternate UI and behavior
-- LILYGO TTGO T-Beam
-  - ESP32 with LoRa, WiFi, Neo-6M GPS, BlueTooth, SMA Antenna, 18650 Battery holder and 0.96" OLED
-    screen.
-  - There are multiple versions of the TTGO T-Beam available. Version `v1.1` is recommended, and
-    often sold with the Meshtastic software pre-loaded.
-  - [Product page](http://www.lilygo.cn/prod_view.aspx?TypeId=50060&Id=1317&FId=t3:50060:3)
-  - [TTGO T-Beam (kizniche)](https://github.com/kizniche/ttgo-tbeam-ttn-tracker)
-  - [TTGO T-Beam (khrys)](https://github.com/khrys63/helium-mapper-tbeam)
-  - [TTGO T-Beam (hekopath)](https://github.com/hekopath/ttgo-rev1-helium)
-  - [TTGO T-Beam (tmiklas)](https://github.com/tmiklas/tbeam-helium-mapper)
-  - [TTGO T-Beam (Max_Plastix)](https://github.com/Max-Plastix/tbeam-helium-mapper)
-- RAK Wireless Helium Mapper Kit
-  - [Product page](https://store.rakwireless.com/products/helium-mapper-kit?variant=41259355701446)
-  - [RAK Helium Mapper Kit tutorial](https://news.rakwireless.com/make-a-helium-mapper-with-the-wisblock/)
-- Helium Dev Kit / RAK WisBlock
-  - [Product page via RAKWireless](https://store.rakwireless.com/products/helium-developer-kit),
-    [Product page via ParleyLabs](https://shop.parleylabs.com/collections/iot-developers-products/products/helium-wisblock-connected-kit)
-  - [Helium Dev Kit tutorial (arkieguy)](https://github.com/arkieguy/RAK4631-Helium-Mapper)
-  - [Make a Helium Mapper with the WisBlock (johansmacias)](https://news.rakwireless.com/make-a-helium-mapper-with-the-wisblock/)
-- Ingenious Things Mapper (disk91)
-  - [Product page](https://shop.ingeniousthings.fr/products/helium-lorawan-field-tester-and-mapper-kit)
-  - [Disk91 Mapper tutorial](https://www.disk91.com/2021/technology/lora/low-cost-lorawan-field-tester/)
-
-### Device comparisons
-
-Which hardware platform to select for DIY? Two common and inexpensive platforms are the CubeCell
-GPS-6502 and LilyGo TTGO T-Beam v1.1. Here are some approximate comparisons:
-
-|                   | CubeCell GPS-6502                          | TTGO T-Beam                              |
-| ----------------- | ------------------------------------------ | ---------------------------------------- |
-| Cost (USD)        | $33 (Parley Labs)                          | $35 Amazon or $25 AliExpress             |
-| Size              | Smaller                                    | 2x Longer                                |
-| Battery           | Add ~1000mA LiPo plug-in                   | 18650 LiIon cell holder                  |
-| Power Switch      | None                                       | Power Button / PMU                       |
-| Battery Charger   | Hardware USB charger                       | PMU programmable charger                 |
-| GPS               | Air530Z                                    | uBlox Neo-6M                             |
-| Operating Current | TBD                                        | 110mA                                    |
-| Connector         | microUSB side                              | microUSB bottom                          |
-| Buttons           | 2: Menu, Reset                             | 3: Power/Menu, Select, Reset             |
-| GPS Antenna       | on-board ceramic + IPEX external connector | Included active antenna on IPEX          |
-| LoRa Antenna      | Wire-coil IPEX antenna                     | SMA with included stubby or 10cm antenna |
-| Display           | 0.96" OLED, installed                      | 0.96" OLED, DIY Solder 4-pin             |
-| LEDs              | Green GPS Fix, RGB LED, Red Charging       | Red GPS Fix, Blue & Red programmable     |
-| Processor         | ASR6502 / Cypress PSoC 4000                | ESP32                                    |
-| LoRa Radio        | SX1262                                     | SX1278/76                                |
-| PMIC              | -none-                                     | AXP192                                   |
-| Open Source       | parts                                      | yes                                      |
-| WiFi & Bluetooth  | no                                         | yes                                      |
-
-### Configuration Basics
-
-At its core, contributing to Helium Mappers is just a matter of delivering a specific payload
-through the console. Learn more about the [Mappers API](/iot/coverage-mapping/api).
-
-If your mapping device is delivering messages to Helium Mappers, you can also enable the
-integrations for [Cargo](/network-iot/console/integrations/cargo/) and
-[CoverageMap.net](https://docs.ttnmapper.org/integration/helium.html) to contribute to these two
-projects using the same Decoded payload.
-
-A flow that sends data to all three projects would look similar to this:
-
-<img className="docsheader" src={useBaseUrl('img/flow-mappers-cargo-coverage.png')} />
-
-## Understanding the Mappers Visualization
-
-From within the [Mappers tool](http://mappers.helium.com), clicking on a green hexagon will allow
-you to get more information about the coverage available in that region.
-
-- H3 Index
-  - The funny looking number like `89283082853ffff` is the unique h3 index of the hexagon on the
-    map. In other words, it's the hex’s name. H3 is a system of managing global datasets, and is
-    pervasive throughout different Helium protocols.
-- RSSI
-  - “Received Signal Strength Indicator” is a measure of the power present in a received radio
-    signal. This number is computed by the hotspot when it hears the signal from a mapper. The
-    higher the signal (less negative), the ‘stronger’ it is considered.
-- SNR
-  - “Signal to Noise” measures the ratio of received power to background power in the received
-    signal. Like the RSSI, it is also computed by the hotspot when it hears signal from the mapper.
-    A higher ratio represents a clear signal whereas a negative number in this field represents a
-    noisy signal.
-- Redundancy
-  - The total count of hotspots that heard a mapper from within this hex. This metric is helpful in
-    understanding the resilience of the network in a given area.
-- Distance
-  - This is the approximate distance of the mapper from the hotspot that heard it.

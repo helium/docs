@@ -14,52 +14,20 @@ The Helium Network, the largest LoRaWAN Network in the world, is an attractive N
 public and private LoRaWAN Network Server providers wanting to expand their coverage without
 deploying additional infrastructure.
 
-Devices onboarded to other LNS providers are roaming on the coverage built by the Helium Community,
-rewarding Hotspots with $IOT for routing packets.
-
 Helium Roaming Services enables public and private LoRaWAN Network providers around the world to
 leverage Helium’s ubiquitous coverage.
 
-With thousands of Hotspots in 190 countries and growing, the Network sees a massive amount of
-non-Helium packets. When Network providers enter a roaming partnership with Helium, this traffic can
-be forwarded via the Helium Network to partners, increasing their level of service and coverage.
-
 ## Helium Roaming Architecture
 
-Helium Network roaming closely resembles the LoRa Alliance's idea of "Passive Roaming."
+<!-- TODO: helium network roaming _does_ follow LoRaWAN Roaming 1.1 spec. add links and info here. --->
 
-The Helium Roaming Server purchases all packets for a target LoRaWAN NetID and forwards them to an
-endpoint ready to accept them on behalf of a Roaming Partner's LNS. Specifically, the Helium Roaming
-Server connects any Helium Gateway that captures target NetID packets via the Semtech GWMP UDP
-client.
+<!-- TODO: Helium can forward packets for a given NetID following the 1.1 spec. --->
 
 <!-- TODO: what is a NetID -->
-
-<figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('img/lorawan-on-helium/roaming-arch.png')} />
-  <figcaption>Simplified block diagram of Helium Roaming Architecture.</figcaption>
-</figure>
-
----
-
-## Supported Device Functionality
-
-Helium Roaming supports the following actions for devices:
-
-- **Joining**: a new device provisioned to a roaming partner's LNS can join via the Helium Network.
-  For new devices, `join_requests` and `join_accepts` are routed via Helium Hotspots.
-- **Uplinking**: Once a device has joined, all device payloads are routed via Helium Hotspots.
-- **Downlinking**: All standard device downlinking is supported.
-
-Any compatible device can send data to their Home Network through Helium-compatible Hotspots without
-the need for device configurations or firmware updates.
 
 ---
 
 ## Roaming Integration Overview
-
-To ingest packers as a Roaming Partner, an LNS must accept Semtech GWMP client connections for the
-amount of Helium Hotspots receiving and routing a device's packets.
 
 Considering the entire global network, this can become a large number of Hotspots. In practice, only
 a small percentage of Helium Gateways will be routing packets for a roaming partner NetID
@@ -71,157 +39,7 @@ at the specified host.
 
 ---
 
-## Getting Started
-
-- **Create an Account** - Contact a Helium Network Advisor to create the initial Helium Roaming
-  Services account (sales@nova-labs.com). Initial setup requires an Organization name, and an email
-  address for the administrator. As part of the initial account creation process, NetID ownership
-  must be verified for the roaming partner.
-- **Add Users** - An administrator can add other user accounts with various roles as needed.
-- **Purchase Data Credits** - Data Credits (DCs) are needed to pay for packets sent on the Helium
-  Network and can be purchased with a credit card or burning HNT.
-- **Configure Network Integration** - Specify the Home network Server address and port, input
-  roaming device join credentials, and define how many packets to purchase for devices.
-- **Set up Alerts** - Set up email alerts to send to different user roles based on a number of
-  conditions including Data Credit balance, user management, or payment methods.
-
-### Users & Organizations
-
-Administrators can add invite users to Organizations via email. Users can be given different access
-levels using roles (administrators, managers, and read-only users).
-
-### Adding Users
-
-User roles include:
-
-- `Administrators` can perform all actions
-- `Managers` have the same permissions as administrators, but cannot add organizations, manage
-  users, or Data Credits
-- `Read-only` users cannot take any actions
-
-**To add a new user**
-
-- On Console navigate to the **Users** page, and click **+ Add User**. A pop-up appears.
-- Type the email of the new user, and select their desired access level.
-- Hit **Submit**. An email invitation is sent that allows a user to join the organization.
-
-### Managing Organizations
-
-Organizations allow users to manage multiple roaming servers using the same account. An Organization
-is a virtual container with its own users, Data Credit balance, and configurations.
-
-**Note:** Data Credits can be transferred among Organizations, see Purchasing Data Credits.
-
-**To add a new Organization**
-
-- On Console navigate to the **Organizations** page, and click **+ Add Organizations**. A pop-up
-  appears.
-- Type the unique name of the Organization.
-- Hit **Submit**, the Organization appears.
-
-## Configurations
-
-There are a number of configurations required to successfully roam on Helium including:
-
-- Configuring the Home Network Server address and port number
-- Adding roaming device join credentials
-- Specifying how many packets to purchase for devices
-
-### Configuring Integrations
-
-To configure the Helium Roaming Service with a LoRaWAN Network Server a user needs to provide the
-address of the Home Network Server and the port number.
-
-On Console, click Configuration and enter the Address (for example yournetworkserver.com) and port
-number (for example `1700`) of the Home Network Server
-
-### Adding Device Credentials
-
-Any device that roams on the Helium Network needs to be added to the Configuration page.
-
-Join credentials can be added using multiple methods. Click **Configuration**, and to:
-
-- **Add an individual device**: choose **+Add Join Credential** and enter the device DevEUI and APP
-  EUI
-- **Import devices with a CSV file**: choose **use CSV File**. To structure the CSV file, add
-  app_eui, dev_eui in the header row, followed by rows of the corresponding values.
-- **Use a wildcard**: Rather than adding each device, DevEUI’s mapped to a single AppEUI can be
-  added using an asterisk wildcard `*`. Choose **+Add Join Credential** and enter `*` for the DevEUI
-  field along with the specific AppEUI. Each new AppEUI requires a new entry.
-
-### Purchasing Multiple Packets
-
-The Multiple Packets feature provides the ability to pay for additional packets (if available) for
-redundancy and location triangulation purposes.
-
-To enable multiple packet purchase, click **Configuration**, and enter the number of desired
-packets. Note: additional packets can only be purchased if multiple Hotspots "hear" and send the
-same packet. By default, only `1` packet is purchased.
-
-## Alerts
-
-Email alerts can be set up for a number of conditions related to Data Credit balance, user
-management, or payment methods. User types (e.g., Administrator or Managers) can be specified to
-receive alerts.
-
-### Setting Up Alerts
-
-To set up email alerts: click **Alerts**, choose alert and user role to receive alerts.
-
-## Sample JSON
-
-Here are some sample JSON payloads that roaming partners can expect to receive on their roaming
-endpoint.
-
-### Sample Uplink
-
-```json
-{
-  "MessageType": "PRStartReq",
-  "PHYPayload": "0x8041FD26E0800B0001932DE4E3AAC35CD0",
-  "ProtocolVersion": "1.1",
-  "ReceiverID": "0x000000",
-  "SenderID": "0xC00053",
-  "SenderNSID": "",
-  "TransactionID": 336746616,
-  "ULMetaData": {
-    "DataRate": 4,
-    "DevAddr": "0xAABBCCDD",
-    "FNSULToken": "0x3131334C6D4A7167434376765464585032467450564E616B5A5871576A7A6E4A6F76715863665A69664D745046796A666463623A45553836383A353838313637383235",
-    "GWCnt": 1,
-    "GWInfo": [
-      {
-        "DLAllowed": true,
-        "ID": "0xCD70F2C5E437B2BB",
-        "Lat": 44.8594,
-        "Lon": -0.586,
-        "RFRegion": "EU868",
-        "RSSI": -127,
-        "SNR": -8.5
-      }
-    ],
-    "RFRegion": "EU868",
-    "RecvTime": "2022-06-09T15:45:42Z",
-    "ULFreq": 867.7
-  }
-}
-```
-
-### Sample Downlink
-
-```json
-{
-  "DLFreq2": 869.525,
-  "MessageType": "XmitDataAns",
-  "ProtocolVersion": "1.1",
-  "ReceiverID": "0x000000",
-  "Result": {
-    "ResultCode": "Success"
-  },
-  "SenderID": "0xC00053",
-  "TransactionID": 7627
-}
-```
+## Roaming Quickstart
 
 Config Service is an Oracle service that stores all routing information on the Helium IoT Network.
 Each roaming partner is registered in the Config Service under their Net ID and may define multiple
@@ -291,7 +109,15 @@ Let’s do some setup with the CLI.
       like this and just add `export` to each line and run it. For instance, you would run export
       `HELIUM_MAX_COPIES=15` variable. Do NOT put a space around the `=` sign
 
-   <img src={useBaseUrl('img/open-lns/roaming-setup-env-variables.svg')} />
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/open-lns/roaming-setup-env-variables.png')}
+       style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
+     />
+     <figcaption>
+       <a>Setting Environment Variables shown in a Terminal window.</a>.
+     </figcaption>
+   </figure>
 
 8. Now, you are ready to generate your first route. Routes contain necessary information for us to
    know how to route a packet — DevEUI+AppEUI (for routing join requests), DevAddr range (for
@@ -301,7 +127,15 @@ Let’s do some setup with the CLI.
    1. You can then see the empty route template. It should look like this, except that you should be
       seeing your own Net ID, assigned OUI, max_copies in there:
 
-   <img src={useBaseUrl('img/open-lns/roaming-setup-generate-route.svg')} />
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/open-lns/roaming-setup-generate-route.png')}
+       style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
+     />
+     <figcaption>
+       <a>Route Creation shown in a Terminal window.</a>.
+     </figcaption>
+   </figure>
 
 9. Next, let’s define DevAddr range so packet router knows which uplinks to route to your endpoint.
    Just use your OUI’s assigned DevAddr range, which you can get by running `./main org get`.

@@ -13,54 +13,71 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 OpenLNS is the platform that enables any LoRaWAN network to use Helium's IoT Network. In this guide,
 we'll walk you through the process of setting up and configuring OpenLNS.
 
-<!-- TODO: Description of necessary keys for configuration and what they do: (payer, owner, delegate) -->
-
 ## Prerequisites
+
+<!-- TODO: Description of necessary keys for configuration and what they do: (payer, owner, delegate) -->
 
 Before getting started, make sure you have the following:
 
-- Helium Network OUI (Organizationally Unique Identifier)
+- Helium Network Organizationally Unique Identifier ("OUI")
 - Helium LoRaWAN devAddr slab **OR** LoRa Alliance NetID
-- LoRaWAN Network Server (LNS). A popular option is [ChirpStack](https://www.chirpstack.io). Refer
-  to the ChirpStack documentation for setup and integration instructions.
+- LoRaWAN Network Server ("LNS"). A popular option is [ChirpStack](https://www.chirpstack.io). Refer
+  to the [ChirpStack documentation](https://www.chirpstack.io/docs/) for setup and integration
+  instructions.
 
 ## Purchasing OUI and devAddr Slab
 
-To purchase an OUI and devAddr slab, you will need to use the Helium Foundation's tool. The OUI
-costs $100 paid in Data Credits (DC), while the devAddr slab mandates a minimum of 8 devAddrs that
-cost $100 each.
+To purchase an Organizationally Unique Identifier ("OUI") and devAddr slab, will need to use the
+Helium Foundation's tool. The OUI costs $100 paid in [Data Credits](/tokens/data-credit) ("DC"),
+while the devAddr slab mandates a minimum of 8 devAddrs that cost $100 each.
 
-## Managing Your OUI with the Config Service
+<div class="container" style={{ padding: 0 }}>
+  <div class="row">
+    <div class="col col--6">
+      <a className="block" href="/iot/buy-an-oui">
+        <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} />
+        Read more about purchasing an OUI
+      </a>
+    </div>
+  </div>
+</div>
 
-After your OUI and devAddr are added, you can now manage your OUI through the Config Service. You
-can interact with the Config Service in two ways:
+## OUI Management with the Config Service
 
-1. Directly through
+<!-- TODO: what is config service? -->
+
+The Config Service can be used to manage an OUI and devAddr. There are two ways to interact with the
+Config Service:
+
+1. Directly, through
    [GRPC APIs](https://github.com/helium/proto/blob/master/src/service/iot_config.proto)
-2. Using the [Command-Line Interface (CLI)](https://github.com/helium/helium-config-service-cli)
-   detailed below
+2. Using the [Command-Line Interface ("CLI")](https://github.com/helium/helium-config-service-cli)
+   detailed below.
+
+## Config Service on the Command Line
+
+Before interacting with the Config Service, generate a key pair to authenticate your interactions,
+so only authorized users can create, modify, or delete routes. Run:
 
 ### Authenticating with the Config Service
 
-Before interacting with the Config Service, generate a key pair to authenticate your interactions,
-so only you can create, modify, or delete routes. Run:
-
-```sh
+```bash
 ./helium-config-service-cli env generate-keypair --commit
 ```
 
-You should find a file called keypair.bin. Print out the public key of your key pair by running:
+A file called `keypair.bin` will be saved to the current working directort. Print out the public key
+of the key pair to the console by running:
 
-```sh
+```bash
 ./helium-config-service-cli env info --keypair keypair.bin
 ```
 
 ### Initialize CLI
 
-CLI can be initialized with environment variables so common variables don't have to be reiterated in
-subsequent commands.
+The CLI can be initialized with environment variables so common variables don't have to be
+reiterated in subsequent commands.
 
-```sh
+```bash
 ./helium-config-service-cli env init
 ```
 
@@ -72,7 +89,7 @@ subsequent commands.
 
 Then export the environment variables.
 
-```sh
+```bash
 export HELIUM_CONFIG_HOST=http://mainnet-config.helium.io:6080/
 export HELIUM_KEYPAIR_BIN=./keypair.bin
 export HELIUM_NET_ID=00003C
@@ -86,7 +103,7 @@ You are now ready to generate your first route. Routes contain the necessary inf
 IoT network know how to route a packet; DevEUI+AppEUI (for routing join requests), DevAddr range
 (for routing uplinks), endpoint (where to send the packet to), etc.
 
-```sh
+```bash
 ./helium-config-service-cli route new --commit
 ```
 

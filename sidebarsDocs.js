@@ -182,8 +182,9 @@ module.exports = {
           label: 'Coverage Mapping',
           link: { type: 'doc', id: 'network-iot/coverage-mapping/iot-coverage-mapping' },
           items: [
-            'network-iot/coverage-mapping/iot-coverage-mapping-api',
+            'network-iot/coverage-mapping/iot-coverage-mapping-quickstart',
             'network-iot/coverage-mapping/iot-coverage-mapping-roadmap',
+            'network-iot/coverage-mapping/iot-coverage-mapping-api',
           ],
         },
       ],
