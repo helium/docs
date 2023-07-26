@@ -10,36 +10,23 @@ slug: /iot/proof-of-coverage-roadmap
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<img className="docsheader" src={useBaseUrl('img/lorawan-on-helium/lorawanheader.png')} />
-
-The Helium “IOT” network is the original and largest subnetwork in the Helium system. It uses the
-LoRaWAN protocol to provide Internet connectivity to a class of devices that are often described as
-“the Internet of Things” (IoT).
-
-Proof of Coverage is the novel work algorithm that the Helium IOT Network uses to reward Hotspot
-owners for providing useful coverage for the Network. Proof of Coverage (PoC) is designed to
-incentivize Hotspot owners to deploy Hotspots in underserved areas and report their deployments
-accurately so that users of the Network can see where coverage is likely to be available.
-
----
-
-## The Changing Landscape
-
-Because PoC is such an important part of the Network’s success and continued growth, it must adapt
-to change. Change comes in many forms, but the key changes that have happened since the start of the
-Network are:
+Because Proof of Coverage ("PoC") is such an important part of the Network’s success and continued
+growth, it must adapt to change. Change comes in many forms, but the key changes that have happened
+since the start of the Network are:
 
 - The Network has grown exponentially
 - Newer radio hardware has been developed
 - Newer LoRaWAN features have arisen
 - Attempts to subvert PoC have grown in sophistication
-- The Network has been re-organized to be more scalable (HIP-70)
+- The Network has been re-organized to be more scalable (HIP-70 <sup>(</sup>[^1]<sup>)</sup>)
 - The Network has diversified; there are more actors and roles available
 - A talented and committed community has continued to grow as more Hotspots come online
 
+[^1]: https://github.com/helium/HIP/blob/main/0070-scaling-helium.md
+
 ---
 
-## The Plan
+## The Current Plan
 
 While some of these changes are challenges to overcome, most of them are improvements that have
 remained as untapped resources &mdash; until now. Each of the items in the roadmap that follows
@@ -92,8 +79,9 @@ been holding PoC back. In short, we will:
 
 Increasing the Beacon rate per Hotspot will provide the Network and Hotspot owners with more timely
 measurements, which in turn will allow them to make improvements with confidence and allow Network
-users to quickly see new areas of coverage. Increasing the Beacon rate will be evaluated by the IOT
-PoC Working Group as a potential upgrade to functionality on the Network.
+users to quickly see new areas of coverage. Increasing the Beacon rate will be evaluated by the
+[IOT Working Group](/governance/working-groups#iot-working-group) as a potential upgrade to
+functionality on the Network.
 
 #### Publishing the Full Witness List
 
@@ -108,23 +96,6 @@ chain, of the entire witness list to each and every Beacon on the Network.
 
 ### Step 3: Economic Scale Adjustments
 
-Rewards for Beacons and Witness events under PoC are prioritized by a scheme that was introduced
-under HIP-17, which was designed to pay higher rewards for Beacon events that are transmitted from
-less-covered areas as a way to encourage Hotspot owners to deploy Hotspots in these areas and
-discourage deployments in areas that are already densely covered. PoC currently judges an area as
-over- or under-served by consulting a table of density scale values, which dictates, somewhat
-arbitrarily, how many Hotspots are needed to effectively cover a given area.
-
-Currently there are seven “targets” in the list, each of which is a pairing of an area scale and the
-ideal number of Hotspots that should be deployed at that scale. As each Hotspot is added to or
-removed from the Network, the system examines the deployment and how it affects the Hotspot count at
-each of these scales, then it computes a new Transmit Scale for every Hotspot in the regions
-affected. If the change is an addition to the Network and that addition increases the density of
-Hotspots at a particular scale beyond the ideal density, then every Hotspot in that region has its
-Transmit Scale reduced.
-
-Since HIP-17’s adoption in late 2020, these scales and density targets have remained _unchanged_.
-
 We should reconsider each density target individually to ensure that its limit makes sense, and if
 not, change it. Additionally, we should consider shortening the list and removing area scale targets
 that aren’t helpful, such as the “Res 4” scale, which roughly covers an area of 1,770 square
@@ -132,13 +103,13 @@ kilometers (683 square miles).
 
 ---
 
-## A Collection of Next Steps
+## Future Exploration
 
 After the previously listed steps are adopted, the way forward becomes harder to predict and the
 order in which developments must be made is less certain. Nonetheless, we are certain they will
 include these “Next Steps”.
 
-### Next Steps: Algorithmic Experiments
+### Algorithmic Experiments
 
 With more rapid Beaconing and more stable reporting, we can begin performing experimental
 adjustments to PoC that will help it measure the surrounding radio environment better and make the
@@ -152,7 +123,7 @@ will be without simply testing them. Proposed ideas include:
 - The Addition and/or Removal of Error-correcting codes
 - Reintroduction of multi-hop paths, secondary Beacons
 
-### Next Steps: Modeled Coverage
+### Modeled Coverage
 
 use suspicious coverage reports as a possible indicator of a misbehaving Hotspot. The IOT Proof of
 Coverage shouldn’t reward for coverage that is physically impossible to provide and should Verifier
@@ -160,7 +131,7 @@ should incorporate basic terrain data and electromagnetic wave propagation model
 plausibility of Witness events and begin to build a trust model to identify well-behaved Hotspots
 amongst those that are untrustworthy.
 
-### Next Steps: Worldwide Reward Harmonization
+### Worldwide Reward Harmonization
 
 The IOT network uses several different “unlicensed” radio bands across the world. Each of these
 bands comes with its own regulations, some of which can change from country to country in the space
@@ -175,13 +146,13 @@ enacted, Hotspot owners should be able to expect their rewards to be based only 
 and uniqueness of their coverage and not by the particular country or region in which they are
 deployed.
 
-### Next Steps: Secured Mappers and Concentrators
+### Secured Mappers and Concentrators
 
 Introduce specially hardened hardware elements that can cryptographically attest to their locations
 and observations. Incentivize this extra expense with extra rewards but continue to let the Network
 be composed of standardized and cheaper hardware.
 
-### Next Steps: Permissionless Participation
+### Permissionless Participation
 
 Make it possible for anyone to add a Hotspot to the Network and participate in PoC, just as long as
 they provide the onboarding fee. The PoC algorithm will sort out who is providing coverage and who

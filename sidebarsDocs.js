@@ -113,10 +113,10 @@ module.exports = {
     {
       type: 'category',
       label: 'LoRaWAN Network Servers',
-      link: { type: 'doc', id: 'network-iot/lorawan-network-servers' },
+      link: { type: 'doc', id: 'network-iot/lorawan-network-servers/lorawan-network-servers' },
       items: [
-        'network-iot/find-a-lns-provider',
-        'network-iot/open-lns-quickstart',
+        'network-iot/lorawan-network-servers/find-a-lns-provider',
+        'network-iot/lorawan-network-servers/run-a-lns',
         'network-iot/buy-an-oui',
       ],
     },
@@ -127,12 +127,7 @@ module.exports = {
       items: [
         'network-iot/lorawan-frequency-plans',
         'network-iot/lorawan-region-plans',
-        {
-          type: 'category',
-          label: 'Roaming',
-          link: { type: 'doc', id: 'network-iot/lorawan-roaming' },
-          items: ['network-iot/lorawan-roaming-quickstart', 'network-iot/iot-roaming'],
-        },
+        'network-iot/lorawan-roaming',
       ],
     },
     {
@@ -187,8 +182,9 @@ module.exports = {
           label: 'Coverage Mapping',
           link: { type: 'doc', id: 'network-iot/coverage-mapping/iot-coverage-mapping' },
           items: [
-            'network-iot/coverage-mapping/iot-coverage-mapping-api',
+            'network-iot/coverage-mapping/iot-coverage-mapping-quickstart',
             'network-iot/coverage-mapping/iot-coverage-mapping-roadmap',
+            'network-iot/coverage-mapping/iot-coverage-mapping-api',
           ],
         },
       ],

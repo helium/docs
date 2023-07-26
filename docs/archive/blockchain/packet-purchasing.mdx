@@ -20,30 +20,6 @@ Packet purchasing is implemented on the Helium Blockchain with two specific prim
 - Organizationally Unique Identifiers
 - State Channels
 
-## Organizationally Unique Identifier
-
-Organizationally Unique Identifiers (OUIs) are registered identities on the Helium Blockchain. To
-send and receive packets to an end-device, a network user needs to be serviced an OUI. This can be
-their own OUI or one operated by a third party, such as [Console](/console) operated by Helium
-Foundation.
-
-An OUI has some specificities related to LoRaWAN and packet routing,
-[documented here](/iot/lorawan-on-helium#the-oui), but with respect to the blockchain, what's
-important is that
-[only libp2p addresses registered as endpoints for the OUI](https://github.com/helium/proto/blob/master/src/blockchain_txn_oui_v1.proto#L6)
-may open and close state channels on behalf of an OUI.
-
-For example,
-[this account](https://explorer-old.helium.com/accounts/13tyMLKRFYURNBQqLSqNJg9k41maP1A7Bh8QYxR13oWv7EnFooc)
-[purchased the first OUI](https://explorer-old.helium.com/txns/6ACW9A5Hj3KDnOJELWAvAVG3yM71OpNAYpdAPM3ti1A)
-on the Helium Blockchain. The address `112qB3YaH5bZkCnKA5uRH7tBtGNv2Y5B4smv1jsmvGUzgKT71QpE`
-operates the OUI on behalf of the owner. You can monitor its activity
-[here](https://explorer-old.helium.com/accounts/14oSuAgRmAFPFPZRY1MUwir5AJSLGkaXHzuSZJ92BuYCfLMN1Et).
-
-OUIs are purchased (see current [fee schedule](/iot/transaction-fees#transaction-fee-schedule)) and
-numbered in incrementing order. You can query the API for a list of existing OUIs using
-[the following endpoint](/blockchain/api/ouis#list-ouis).
-
 ## State Channels
 
 State channels are side-chains opened by OUI operators (any of the libp2p addresses registered to
