@@ -25,12 +25,23 @@ With the deprecation of the Helium L1, changes to the API and
 [ETL](https://github.com/helium/blockchain-etl) include:
 
 1. Existing ETL codebase will no longer sync blocks.
-2. Existing API codebase will no longer serve new data.
-3. api.helium.io (built on top of existing ETL and API) will stay serving old data.
-4. explorer-old.helium.com (built on top of api.helium.io and other APIs) will have data from the
-   old chain and be migrated to explorer-old.helium.com.
+2. Existing API codebase is no longer available.
+3. api.helium.io (built on top of legacy ETL and API) is no longer available.
+4. The legacy Explorer hosted at explorer-old.helium.com is no longer available, the Explorer
+   codebase will remain accessible at
+   [https://github.com/helium/explorer](https://github.com/helium/explorer).
 
-New API access options include:
+<details>
+<summary>Accessing Historical Blockchain Data</summary>
+
+The Legacy Blockchain API was retired on July 28, 2023.
+
+To accommodate the need for historical data, a CSV export of the Helium L1 data will be available on
+a requestor-pays basis on AWS in the `foundation-helium-l1-archive` bucket.
+
+</details>
+
+**New API access options include:**
 
 1. New datasets are available and will continue to be available on
    [AWS S3, via compressed Protobuf files](/oracles/oracle-data).
