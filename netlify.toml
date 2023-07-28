@@ -15,12 +15,17 @@
   force = true
 [[redirects]]
   from = "/api"
-  to = "/api/blockchain"
+  to = "/"
   status = 301
   force = true
 [[redirects]]
   from = "/api/blockchain/*"
-  to = "/blockchain/api/:splat"
+  to = "/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/api/blockchain"
+  to = "/oracles/oracle-data"
   status = 301
   force = true
 [[redirects]]

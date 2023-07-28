@@ -919,33 +919,4 @@ module.exports = {
     'archive/console/multi-packets',
     'archive/console/users',
   ],
-
-  blockchain_api: [
-    {
-      type: 'category',
-      label: 'Blockchain API',
-      link: { type: 'doc', id: 'archive/blockchain/api/api' },
-      items: [
-        'archive/blockchain/api/accounts',
-        'archive/blockchain/api/assert-locations',
-        'archive/blockchain/api/blocks',
-        'archive/blockchain/api/chain-variables',
-        'archive/blockchain/api/challenges',
-        'archive/blockchain/api/cities',
-        'archive/blockchain/api/dc-burns',
-        'archive/blockchain/api/elections',
-        'archive/blockchain/api/hotspots',
-        'archive/blockchain/api/locations',
-        'archive/blockchain/api/oracle-prices',
-        'archive/blockchain/api/ouis',
-        'archive/blockchain/api/pending-transactions',
-        'archive/blockchain/api/rewards',
-        'archive/blockchain/api/state-channels',
-        'archive/blockchain/api/stats',
-        'archive/blockchain/api/transactions',
-        'archive/blockchain/api/validators',
-      ],
-      collapsed: true,
-    },
-  ],
 }
