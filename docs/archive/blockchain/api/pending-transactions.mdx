@@ -1,0 +1,157 @@
+---
+id: pending-transactions
+title: Pending Transactions
+pagination_label: Pending Transactions
+sidebar_label: Pending Transactions
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /blockchain/api/pending-transactions
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+The Helium Blockchain API is being deprecated and should not be used for new projects.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Available on the Solana API
+
+### Pending Transaction Status
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/pending_transactions/:hash
+```
+
+Fetches the status for a given pending transaction hash. Multiple transactions for the same hash may
+be returned.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param           | Type     | Note                                      |
+| --------------- | -------- | ----------------------------------------- |
+| hash (required) | _string_ | Hash of the pending transaction to fetch. |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+A successful pending transaction status request
+
+nfo Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
+
+```json
+{
+  "data": [
+    {
+      "updated_at": "2022-11-04T14:34:28.254881Z",
+      "type": "payment_v2",
+      "txn": {
+        "type": "payment_v2",
+        "payments": [
+          {
+            "token_type": "hnt",
+            "payee": "13PqSH7f5e2sySibkxXiLRvkiYR5cBbCNo5Nf7zZwySzM4n6S5S",
+            "memo": "AAAAAAAAAAA=",
+            "max": false,
+            "amount": 654251727
+          }
+        ],
+        "payer": "147UgrcgD8qD5JNpfRvz8FBZW86jZsQdsaX2zFV8GP5aUFiiLpQ",
+        "nonce": 23,
+        "hash": "p7EypW_zdOyU8pJG1k2NWEUW-10FldH7402bigTqfzw",
+        "fee": 35000
+      },
+      "status": "pending",
+      "hash": "p7EypW_zdOyU8pJG1k2NWEUW-10FldH7402bigTqfzw",
+      "failed_reason": "",
+      "created_at": "2022-11-04T14:33:03.060952Z"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### Submit a New Transaction
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
+
+```
+POST https://api.helium.io/v1/pending_transactions/:hash
+```
+
+New transactions can be submitted to the blockchain by sending a pending transaction.The transaction
+has to be constructed using the protobuf form, encoded and then signed. The resulting signed
+transaction is then wrapped in a transaction wrapper which must be encoded and then submitted to
+this endpoint.If successful, the response will include a transaction hash that can be used to check
+for pending transaction status.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Headers_
+
+| param                   | Type     | Note             |
+| ----------------------- | -------- | ---------------- |
+| Content-Type (optional) | _string_ | application/json |
+
+_Body Parameters_
+
+| param          | Type     | Note                                                                                         |
+| -------------- | -------- | -------------------------------------------------------------------------------------------- |
+| txn (required) | _string_ | A base64 encoded transaction. An exmple of the both of a post request:{ "txn": "QoWBCIe..."} |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+A successful pending transaction status request
+
+```json
+{
+  "data": {
+    "hash": "Coy2WqcmCt6k8MgSq3hK0XW1Um5NtwHskoY1zwYADKE"
+  }
+}
+```
+
+</TabItem>
+</Tabs>

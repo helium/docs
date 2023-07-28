@@ -1,0 +1,80 @@
+---
+id: locations
+title: Locations
+pagination_label: Locations
+sidebar_label: Locations
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /blockchain/api/locations
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+The Helium Blockchain API is being deprecated and should not be used for new projects.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+Locations are used to associate human readable geographic informaion to an h3 location. This API
+exposes this geographic information.
+
+---
+
+## Deprecated Endpoints
+
+### Get Location
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated.
+
+:::
+
+```
+GET https://api.helium.io/v1/locations/:location
+```
+
+Get geographic information for a given location
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Path Parameters_
+
+| param               | Type     | Note     |
+| ------------------- | -------- | -------- |
+| location (required) | _string_ | h3 index |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": {
+    "city_id": "c2FuIGpvc2VjYWxpZm9ybmlhdW5pdGVkIHN0YXRlcw",
+    "location": "8c28347213117ff",
+    "long_city": "San Jose",
+    "long_country": "United States",
+    "long_state": "California",
+    "long_street": "Rainbow Drive",
+    "short_city": "San Jose",
+    "short_country": "US",
+    "short_state": "CA",
+    "short_street": "Rainbow Dr"
+  }
+}
+```
+
+</TabItem>
+</Tabs>

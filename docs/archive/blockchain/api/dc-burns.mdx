@@ -1,0 +1,266 @@
+---
+id: dc-burns
+title: DC Burns
+pagination_label: DC Burns
+sidebar_label: DC Burns
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /blockchain/api/dc-burns
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+The Helium Blockchain API is being deprecated and should not be used for new projects.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+## Available on the Solana API
+
+### DC Burn Totals
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/dc_burns/sum
+```
+
+Returns the total Data Credits (DC) burned for the whole network in a given timeframe. Timestamps
+can be given in ISO 8601 format (e.g. `2020-08-27T00:00:00Z`) or in relative time (e.g. `-1 week`,
+which, when url- escaped becomes `-1%20week`). When omitted the current time (UTC) is assumed.
+
+The results can also be bucketed in time by specifying a `bucket` query parameter which buckets
+information per bucket in the given timeframe. Data is bucketed by time. Valid bucket values include
+`hour`, `day` and `week`).
+
+For example to get the last 7 days of DC burns bucketed by day use the following path/parameters:
+
+`?min_time=-7%20day&bucket=day`
+
+The block that contains the `max_time` timestamp is **excluded** from the result.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param               | Type     | Note                            |
+| ------------------- | -------- | ------------------------------- |
+| min_time (required) | _string_ | First time to include burns for |
+| max_time (required) | _string_ | Last time to include burns for  |
+| bucket (optional)   | _string_ | Bucket specifier                |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Return the last 3 hours of burns bucketed by hour
+
+```json
+{
+  "data": [
+    {
+      "add_gateway": 240000000,
+      "assert_location": 71000000,
+      "fee": 12250000,
+      "state_channel": 98216,
+      "total": 323348216
+    },
+    {
+      "add_gateway": 276000000,
+      "assert_location": 107000000,
+      "fee": 14330000,
+      "state_channel": 61638,
+      "total": 397391638
+    },
+    {
+      "add_gateway": 364000000,
+      "assert_location": 118000000,
+      "fee": 16265000,
+      "state_channel": 90848,
+      "total": 498355848
+    }
+  ],
+  "meta": {
+    "bucket": "hour",
+    "max_time": "2021-06-25T21:09:43Z",
+    "min_time": "2021-06-25T18:09:43Z"
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### DC Burn Stats
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/dc_burns/stats
+```
+
+Returns current statics for for Data Credits (DC) burnt for the whole network.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_No Parameters_
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Return the current DC burn stats
+
+```json
+{
+  "data": {
+    "last_day": {
+      "add_gateway": 4660000000,
+      "assert_location": 1486000000,
+      "fee": 245860000,
+      "state_channel": 1150548,
+      "total": 6393010548
+    },
+    "last_month": {
+      "add_gateway": 100348000000,
+      "assert_location": 35019000000,
+      "fee": 5784740000,
+      "oui": 90000000,
+      "state_channel": 31932182,
+      "total": 141273672182
+    },
+    "last_week": {
+      "add_gateway": 25060000000,
+      "assert_location": 8483000000,
+      "fee": 1425110000,
+      "state_channel": 9392114,
+      "total": 34977502114
+    }
+  },
+  "meta": {
+    "timestamp": "2021-06-25T21:10:14Z"
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+### DC Burn Events
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/dc_burns
+```
+
+Use this API to list DC burn events. Events include a block, amount, type of burn, and the address
+of the account the DC were burned out of. The oracle price that was active at the point the DC burn
+happened is also listed to enable calculating how much HNT the burned DC represents.
+
+Note that this route does _not_ return the implicit HNT to DC conversion that happens when an
+account does not have enough DC available for a given transaction.
+
+This route is `cursor` paginated.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param             | Type     | Note                     |
+| ----------------- | -------- | ------------------------ |
+| cursor (optional) | _string_ | Cursor for page to fetch |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+Return a page of DC burns. Only a segment of the returned list is shown here.
+
+```json
+{
+  "cursor": "eyJmaWx0ZXJfdHlwZXMiOiJ1bmRlZmluZWQiLCJiZWZvcmVfYmxvY2siOjg5NjU5OCwiYmVmb3JlX2FkZHJlc3MiOiIxMTJhaFRTWTRIcWh4cDdhMjFhN3dKeEdUWVR0SlpvUzdpR2twakhvOG9TZHl1TlpHbnhNIn0",
+  "data": [
+    {
+      "address": "13RkeC4sk3sxun6DEyDpv2CxPigupdDtbheQAHcczNdpsnp4KZL",
+      "amount": 35000,
+      "block": 896602,
+      "oracle_price": 1132580000,
+      "type": "fee"
+    },
+    {
+      "address": "11w77YQLhgUt8HUJrMtntGGr97RyXmot1ofs5Ct2ELTmbFoYsQa",
+      "amount": 35000,
+      "block": 896601,
+      "oracle_price": 1132580000,
+      "type": "fee"
+    },
+    {
+      "address": "1121FXJk5ppcMHyXUtuZEXA9CuF5D8GSmh3h9zyqpzajmuQgLLZT",
+      "amount": 1,
+      "block": 896599,
+      "oracle_price": 1117000000,
+      "type": "state_channel"
+    },
+    {
+      "address": "1129LAbCTPjppeErYY1AbbzeAjWsjkbrk1kVtvrNztVjyW2A3CXr",
+      "amount": 9,
+      "block": 896599,
+      "oracle_price": 1117000000,
+      "type": "state_channel"
+    },
+    {
+      "address": "112i8wtfaesP1EQNYz44BbBCzTvkooC9ydVEcMKjhSPykfabYXUb",
+      "amount": 9,
+      "block": 896599,
+      "oracle_price": 1117000000,
+      "type": "state_channel"
+    }
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+---

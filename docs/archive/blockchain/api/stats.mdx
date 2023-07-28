@@ -1,0 +1,162 @@
+---
+id: stats
+title: Stats
+pagination_label: Stats
+sidebar_label: Stats
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /blockchain/api/stats
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+:::warning Deprecation Incoming
+
+The Helium Blockchain API is being deprecated and should not be used for new projects.
+
+Please refer to [Oracles](/oracles) and [Oracle Data](/oracles/oracle-data) documentation for more
+information on accessing data.
+
+:::
+
+---
+
+## Available on the Solana API
+
+### Token Supply
+
+:::info Available on the Solana API
+
+The data provided by endpoint is available using the Solana API. More information will be made
+available in the future.
+
+:::
+
+```
+GET https://api.helium.io/v1/stats/token_supply
+```
+
+Returns the circulating token supply in either JSON or raw form.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_Query Parameters_
+
+| param             | Type     | Note                                                      |
+| ----------------- | -------- | --------------------------------------------------------- |
+| format (optional) | _string_ | specify `raw` to get a raw number, otherwise returns json |
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+RAW form of the result when called with `/v1/stats/token_supply?format=raw`
+
+```json
+49450470.73544278
+```
+
+</TabItem>
+</Tabs>
+
+---
+
+## Deprecated Endpoints
+
+### Blockchain Stats
+
+:::caution This Endpoint Is Deprecated
+
+This endpoint is deprecated.
+
+:::
+
+```
+GET https://api.helium.io/v1/stats
+```
+
+Retrieve basic stats for the blockchain such as total token supply, and average block and election
+times over a number of intervals.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}>
+<TabItem value="request">
+
+_No Parameters_
+
+</TabItem>
+<TabItem value="response">
+
+200: OK
+
+```json
+{
+  "data": {
+    "block_times": {
+      "last_day": {
+        "avg": 70.45921696574226,
+        "stddev": 68.83988201467606
+      },
+      "last_hour": {
+        "avg": 66.16666666666667,
+        "stddev": 4.492131485499826
+      },
+      "last_month": {
+        "avg": 58.57145439754135,
+        "stddev": 54.42394685110655
+      },
+      "last_week": {
+        "avg": 66.77767965559113,
+        "stddev": 78.40328359329104
+      }
+    },
+    "challenge_counts": {
+      "active": 3226,
+      "last_day": 33084
+    },
+    "counts": {
+      "validators": 2145,
+      "ouis": 13,
+      "hotspots_dataonly": 64,
+      "blocks": 644074,
+      "challenges": 14189829,
+      "cities": 2458,
+      "consensus_groups": 16884,
+      "countries": 55,
+      "hotspots": 14402,
+      "transactions": 37813658
+    },
+    "election_times": {
+      "last_day": {
+        "avg": 2981.2413793103447,
+        "stddev": 1693.238289178722
+      },
+      "last_hour": {
+        "avg": 1997.0,
+        "stddev": null
+      },
+      "last_month": {
+        "avg": 2247.3307291666665,
+        "stddev": 821.206067231938
+      },
+      "last_week": {
+        "avg": 2608.6293103448274,
+        "stddev": 1048.715520504349
+      }
+    },
+    "token_supply": 66042860.58752121
+  }
+}
+```
+
+</TabItem>
+</Tabs>

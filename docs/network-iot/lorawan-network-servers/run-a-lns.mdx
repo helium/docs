@@ -1,0 +1,159 @@
+---
+id: run-a-lns
+title: Run a LoRaWAN Network Server
+pagination_label: Run Your Own LNS
+sidebar_label: Run Your Own LNS
+description: Helium OpenLNS Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/run-a-lns
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+OpenLNS is the platform that enables any LoRaWAN network to use Helium's IoT Network. In this guide,
+we'll walk you through the process of setting up and configuring OpenLNS.
+
+## Prerequisites
+
+<!-- TODO: Description of necessary keys for configuration and what they do: (payer, owner, delegate) -->
+
+Before getting started, make sure you have the following:
+
+- Helium Network Organizationally Unique Identifier ("OUI")
+- Helium LoRaWAN devAddr slab **OR** LoRa Alliance NetID
+- LoRaWAN Network Server ("LNS"). A popular option is [ChirpStack](https://www.chirpstack.io). Refer
+  to the [ChirpStack documentation](https://www.chirpstack.io/docs/) for setup and integration
+  instructions.
+
+## Purchasing OUI and devAddr Slab
+
+To purchase an Organizationally Unique Identifier ("OUI") and devAddr slab, will need to use the
+Helium Foundation's tool. The OUI costs $100 paid in [Data Credits](/tokens/data-credit) ("DC"),
+while the devAddr slab mandates a minimum of 8 devAddrs that cost $100 each.
+
+<div class="container" style={{ padding: 0 }}>
+  <div class="row">
+    <div class="col col--6">
+      <a className="block" href="/iot/buy-an-oui">
+        <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} />
+        Read more about purchasing an OUI
+      </a>
+    </div>
+  </div>
+</div>
+
+## OUI Management with the Config Service
+
+<!-- TODO: what is config service? -->
+
+The Config Service can be used to manage an OUI and devAddr. There are two ways to interact with the
+Config Service:
+
+1. Directly, through
+   [GRPC APIs](https://github.com/helium/proto/blob/master/src/service/iot_config.proto)
+2. Using the [Command-Line Interface ("CLI")](https://github.com/helium/helium-config-service-cli)
+   detailed below.
+
+## Config Service on the Command Line
+
+Before interacting with the Config Service, generate a key pair to authenticate your interactions,
+so only authorized users can create, modify, or delete routes. Run:
+
+### Authenticating with the Config Service
+
+```bash
+./helium-config-service-cli env generate-keypair --commit
+```
+
+A file called `keypair.bin` will be saved to the current working directort. Print out the public key
+of the key pair to the console by running:
+
+```bash
+./helium-config-service-cli env info --keypair keypair.bin
+```
+
+### Initialize CLI
+
+The CLI can be initialized with environment variables so common variables don't have to be
+reiterated in subsequent commands.
+
+```bash
+./helium-config-service-cli env init
+```
+
+- Fill in `http://mainnet-config.helium.io:6080/` for `Config Service Host`
+- Fill in the path `./keypair.bin` for `Keypair Location`
+- Fill in the Helium NetID, `0x00003C`
+- Fill in your OUI for `Assigned OUI`
+- Fill in the number of multi-buy you want for `Default Max Copies` as a default for your routes.
+
+Then export the environment variables.
+
+```bash
+export HELIUM_CONFIG_HOST=http://mainnet-config.helium.io:6080/
+export HELIUM_KEYPAIR_BIN=./keypair.bin
+export HELIUM_NET_ID=00003C
+export HELIUM_OUI=1
+export HELIUM_MAX_COPIES=10
+```
+
+### Managing Routes
+
+You are now ready to generate your first route. Routes contain the necessary information to let the
+IoT network know how to route a packet; DevEUI+AppEUI (for routing join requests), DevAddr range
+(for routing uplinks), endpoint (where to send the packet to), etc.
+
+```bash
+./helium-config-service-cli route new --commit
+```
+
+You can then see the empty route template. It should look like this, except that you should be
+seeing you own assigned OUI, max_copies, and other environment variables.
+
+```json
+✔️ created route 7a5560e8-b722-11ed-bbe8-c3404da5a84d
+{
+  "id": "7a5560e8-b722-11ed-bbe8-c3404da5a84d",
+  "net_id": "C00053",
+  "oui": 3,
+  "server": {
+    "host" : "",
+    "port": 0,
+    "protocol": {
+      "type" : "packet_router"
+    }
+  },
+  "max copies": 15,
+  "active": true,
+  "locked": false
+}
+```
+
+Define DevAddr range so the packet router knows which uplinks to route to your endpoint. Use your
+OUI's assigned DevAddr range, which you can get by running `./helium-config-service-cli org get`
+
+To add your DevAddr range run
+
+```
+./helium-config-service-cli route devaddrs add -s <start> -e <end> --route-id <route-id> --commit
+```
+
+Next, define EUI pairs so the packet router knows which join requests to route to your endpoint.
+
+```
+./helium-config-service-cli route euis add --route-id <route-id> -d <dev-eui> -a <app-eui> --commit
+```
+
+Define your endpoint by running
+
+```
+./helium-config-service-cli route update server --host <host> --port <port> --route-id <route-id> --commit
+```
+
+<!-- TODO: Add section on building the LNS to interact with router -->
+
+<!-- ## Interact with Router -->
+
+<!-- TODO: Context on router & how it connects to chirpstack (scope of what needs to be built) -->
+
+<!-- TODO: Link to Disk91’s companion solution guide: https://www.disk91.com/2022/technology/helium/installing-chirpstack-lorawan-network-server-for-helium/ -->

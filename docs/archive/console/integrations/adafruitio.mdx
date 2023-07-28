@@ -5,7 +5,7 @@ pagination_label: AdafruitIO
 sidebar_label: AdafruitIO
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /network-iot/console/integrations/adafruitio
+slug: /console/integrations/adafruitio
 ---
 
 # Adafruit IO
@@ -19,28 +19,22 @@ with it. You can sign up for a free account at [https://io.adafruit.com](https:/
 To add the integration in Console, go to **Integrations** on the left-hand menu. Select the
 integration to add - in this case, the **Adafruit IO** integration as shown below.
 
-<img src={useBaseUrl('img/network-iot/console/integrations/integrations-select-adafruitio.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-select-adafruitio.png')} />
 
 The next step is to enter your Adafruit IO username and key. These can be found by visiting
 [https://io.adafruit.com](https://io.adafruit.com/) and clicking _MyKey_ in the top right corner as
 shown below.
 
-<img src={useBaseUrl('img/network-iot/console/integrations/integrations-adafruitio-mykey.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-adafruitio-mykey.png')} />
 
 You will then be presented with both your username and key as shown below.
 
-<img
-  src={useBaseUrl('img/network-iot/console/integrations/integrations-adafruitio-get-user-key.png')}
-/>
+<img src={useBaseUrl('img/console/integrations/integrations-adafruitio-get-user-key.png')} />
 
 Copy these values into the username and key fields in Console for the integration configuration
 shown below.
 
-<img
-  src={useBaseUrl(
-    'img/network-iot/console/integrations/integrations-adafruitio-enter-user-key.png',
-  )}
-/>
+<img src={useBaseUrl('img/console/integrations/integrations-adafruitio-enter-user-key.png')} />
 
 Last for this step, you can optionally change the group name that is set to `{{device_id}}` by
 default. The group name is used to group one or more data values that is received from a device and
@@ -53,7 +47,7 @@ you can read more about it [here](https://io.adafruit.com/api/docs/mqtt.html#gro
 Next, let's name the integration in step 3. You will use this name to identify the integration when
 attaching it to devices.
 
-<img src={useBaseUrl('img/network-iot/console/integrations/integrations-adafruitio-label.png')} />
+<img src={useBaseUrl('img/console/integrations/integrations-adafruitio-label.png')} />
 
 The very last step is to select the decoder that will be used to decode the data payload received
 from your device. We suggest using the _CayenneLPP_ decoder as shown below and encoding your data
@@ -64,11 +58,7 @@ as find an Arduino library for it [here](https://www.arduino.cc/reference/en/lib
 If you are comfortable with writing your own decoder and template then simply select _Custom_ and
 then search for your function decoder. Last be sure to click _Create Integration_ to finish.
 
-<img
-  src={useBaseUrl(
-    'img/network-iot/console/integrations/integrations-adafruitio-choose-decoder.png',
-  )}
-/>
+<img src={useBaseUrl('img/console/integrations/integrations-adafruitio-choose-decoder.png')} />
 
 ## Connecting Integrations to Devices
 
@@ -85,4 +75,4 @@ Quick video tutorial connecting devices to an integration
 :::
 
 Node elements (devices, labels, integrations) need to be created before they're available on the
-Flows Workspace. More information about Flows [here](/network-iot/console/flows/).
+Flows Workspace. More information about Flows [here](/console/flows/).
