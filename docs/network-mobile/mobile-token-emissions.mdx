@@ -1,0 +1,174 @@
+---
+id: token-emissions
+title: Helium Mobile Token Emissions
+pagination_label: Helium Mobile Token Emissions
+sidebar_label: Token Emissions
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/token-emissions
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Emissions Curve
+
+HIP-53 defined a max supply of 250B (billion) MOBILE with issuance halvenings every two years
+aligned with the HNT issuance halvenings. The first MOBILE halving will occur on August 1, 2023, to
+align with HNT halving and will continue on a 2-year cycle afterward. Creating a "stub period" as
+defined by [HIP-53: Mobile subDAO](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md),
+which will begin when standard emissions of MOBILE tokens begin (and MOBILE can be redeemed by HNT
+in the subDAO's treasury).
+
+[HIP-75](https://github.com/helium/HIP/blob/main/0075-mobile-poc-initiate-programmatic-minting-and-updated-emissions-curve.md#economic-changes-to-emissions-curve)
+further modifiled the emission schedule and started the programatic minting of MOBILE on Feb
+1st 2023.
+
+|      | BEFORE: HIP-53 Emissions Schedule |               | AFTER: HIP-75 Emissions Schedule |
+| ---- | --------------------------------- | ------------- | -------------------------------- | ------------- |
+| Year | MOBILE at year start              | MOBILE minted | MOBILE at year start             | MOBILE minted |
+| 1    | 50B                               | 116B\*        | 50B                              | 80B\*         |
+| 2    | 116B                              | 33B           | 80B                              | 30B           |
+| 3    | 149.5B                            | 33B           | 110B                             | 30B           |
+| 4    | 182B                              | 16.5B         | 140B                             | 15B           |
+| 5    | 198.5B                            | 16.5B         | 155B                             | 15B           |
+| 6    | 215B                              | 8.25B         | 170B                             | 7.5B          |
+| 7    | 223.25B                           | 8.25B         | 177.5B                           | 7.5B          |
+
+\*50B pre-mine
+
+Full emissions schedule of HIP53 and HIP75 can be downloaded
+[here](https://github.com/helium/HIP/blob/main/0075-mobile-poc-programmatic-minting/mobile-emissions-schedule-HIP53-vs-HIP75.pdf).
+
+The date for the treasury implementation is April 18, 2023 and dependent on core developers
+implementing the HNT token treasury and redemption transactions on the Solana Blockchain as defined
+for all new subDAOs in Phase 2 of
+[HIP-51: Helium DAO](https://github.com/helium/HIP/blob/main/0051-helium-dao.md).
+
+---
+
+## Pre-Mine
+
+As defined in [HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md) and
+[HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md#economics-overview), and
+[approved by community-wide votes](https://heliumvote.com/14rifUhocpzdwsrWaG5PDbdREDkzyesKe1hXuWzibv8h9DdqKLe),
+the Helium Foundation receives an allocation of 50B (billion) of 250B MOBILE tokens in the form of a
+pre-mine.
+
+### Genesis Period Rewards
+
+The Helium Foundation will work with the core developers to initiate the Genesis period of MOBILE
+rewards. 100M (million) tokens will be programmatically issued per day to all active Helium 5G
+Hotspots during the Genesis period.
+
+Details of the proportional mining rewards for active 5G Small Cell Radios
+[can be found here.](/mobile/proof-of-coverage) Any MOBILE not mined during the Genesis period may
+be reallocated to Grants and Operations.
+
+### Grants and Operations
+
+The Helium Foundation will distribute grants to teams making core contributions to the development
+of the MOBILE subDAO. Grants will be distributed based on defined deliverables and milestones.
+
+The Nova Labs team will be the first grant recipient for work-in-progress and ongoing development
+for the MOBILE subDAO. This is spread across three deliverables with 5B MOBILE per milestone for a
+total grant of 15B MOBILE:
+
+- Milestone 1: Ability for 5G Hotspots to earn MOBILE (by August 2022)
+- Milestone 2: Development and release of programmatic treasury (by October 2022)
+  - Actual Programatic Minting started Feb 1 2023
+  - The treasury is due to start on April 19 2023
+- Milestone 3: Proof-of-Coverage based rewards (by January 2023)
+  - Actual date TBC.
+
+The remaining 15B MOBILE is reserved for other work pertaining to Oracles and Mappers development or
+other community contributions.
+
+### Growth Activities Related to the MOBILE subDAO
+
+Reserved for marketing and educational campaigns around the MOBILE subDAO.
+
+---
+
+## Reward Algorithm
+
+The proposed new algorithm for MOBILE Reward calculation in the MOBILE Rewards Oracle is as follows:
+
+1. Supply the declared transmitter power of each Radio and its location to the Obstruction Data
+   Oracle.
+2. Get all hexes that have coverage from Outdoor Radios based on the information from the
+   Obstruction Data Oracle.
+3. Based on the location of Indoor Radios, get all hexes with Indoor coverage and all adjacent
+   hexes.
+4. Use projected signal loss information from the Obstruction Data Oracle to determine the potential
+   signal strength of each Outdoor Radio in each hex.
+5. For each hex, get at most 5 Outdoor Radios with the top signal strength of the same level.
+
+- If there are more than 5 Radios with the same signal strength level, use the `coverage_claim_time`
+  value to determine the top 5 oldest installations where `coverage_claim_time` is the timestamp
+  when the Radio received the spectrum access grant for the first time.
+- To prevent rewarding "dead" Radios, we propose to reset `coverage_claim_time` if the Radio was not
+  generating a Heartbeat for more than 72 hours and use the time of the last Heartbeat as the new
+  `coverage_claim_time`.
+
+6. Get max 5 Indoor Radios using the same approach as above for Outdoor Radios.
+7. Based on [Modeled Coverage Reward Tiers](#modeled-coverage-reward-tiers), sum up all estimated
+   coverage points earned by each Radio in all hexes and multiply that by `speedtest_multiplier` for
+   each Radio.
+8. Divide the total number of MOBILE Rewards emitted during the Rewards Period by the sum of
+   multiples of [`heartbeat_multiplier`](#heartbeat-reward-tiers),
+   [`estimated_reward_points`](#modeled-coverage-reward-tiers), and
+   [`speedtest_multiplier`](#speed-test-reward-tiers) for each Radio to determine MOBILE Rewards per
+   `estimated_reward_point` for Radio with a passing Speed Test and valid Heartbeats.
+9. Multiply the MOBILE per `estimated_reward_point` by the sum of each Radio's reward points to
+   determine the MOBILE Rewards for each Radio.
+
+The new formula for Reward calculation per Radio:
+
+$$
+W = k_H \times k_S \times C_E \times W_p
+$$
+
+| Variable | Description                      |
+| -------- | -------------------------------- |
+| $W$      | Total rewards                    |
+| $k_H$    | Heartbeat multiplier             |
+| $k_S$    | Speedtest multiplier             |
+| $C_E$    | Estimated coverage points        |
+| $W_p$    | Epoch rewards per coverage point |
+
+### Calculation Example
+
+For simplicity, assume that the total MOBILE Rewards per period is 10,000.
+
+|    Radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speedtest Multiplier $k_S$ | Hex 1 - Hex 10 | Hex 11 - Hex 20 | Hex 21 - Hex 220 | Total Coverage Points | Total Reward Points |
+| :---------: | :-------: | :------------------------: | :--------: | :------------------------: | :------------: | :-------------: | :--------------: | :-------------------: | :-----------------: |
+| 1 (Outdoor) |    Ok     |             1              | Acceptable |             1              |      160       |       80        |       800        |         1,040         |        1,040        |
+| 2 (Outdoor) |    Ok     |             1              |    Poor    |            0.25            |       80       |       40        |                  |          120          |         30          |
+|             |           |                            |            |                            |                |                 |                  |      **Points**       |      **1,070**      |
+
+**Table 3.** Simplified data for two Outdoor Radios with Heartbeat, Speed Test, and Estimated
+Coverage Points for one Reward Period.
+
+|   Radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speedtest Multiplier $k_S$ | Hex 1 | Hex 2 | Hex 3 | Hex 4 | Total Coverage Points | Total Reward Points |
+| :--------: | :-------: | :------------------------: | :--------: | :------------------------: | :---: | :---: | :---: | :---: | :-------------------: | :-----------------: |
+| 3 (Indoor) |    Ok     |             1              |  Degraded  |            0.5             |  100  |  100  |  100  |  400  |          700          |         350         |
+|            |           |                            |            |                            |       |       |       |       |      **Points**       |       **350**       |
+
+**Table 4.** Simplified data for one Indoor Radio with Heartbeat, Speed Test, and Estimated Coverage
+Points for one Reward Period.
+
+$$
+R  \times (1 \times 1 \times 1040 + 1 \times 0.25 \times 120 + 1 \times 0.5 \times 700) = 10,000
+$$
+
+Where R is the reward per one estimated coverage point.
+
+$$
+R = 6.54
+$$
+
+|                   | Calcuation            | Total MOBILE Rewards |
+| ----------------- | :-------------------- | -------------------: |
+| Radio 1 (Outdoor) | 6.54 x 1 x 1 x 1040   |         **6,806.30** |
+| Radio 2 (Outdoor) | 6.54 x 1 x 0.25 x 120 |           **903.14** |
+| Radio 3 (Indoor)  | 6.54 x 1 x 0.5 x 700  |         **2,290.58** |

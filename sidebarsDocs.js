@@ -194,13 +194,16 @@ module.exports = {
   mobile_network: [
     {
       type: 'category',
-      label: '5G on Helium',
-      link: { type: 'doc', id: 'network-mobile/5g-on-helium' },
+      label: 'The Helium Mobile Network',
+      link: { type: 'doc', id: 'network-mobile/mobile' },
       items: [
+        'network-mobile/mine',
         'network-mobile/cbrs-radios',
+        'network-mobile/cbrs-troubleshooting',
         'network-mobile/mobile-mappers',
         'network-mobile/mobile-proof-of-coverage',
         'network-mobile/mobile-service-providers',
+        'network-mobile/token-emissions',
       ],
       collapsed: true,
     },

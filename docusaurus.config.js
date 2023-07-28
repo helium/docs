@@ -69,7 +69,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'mobile/5g-on-helium',
+          to: 'mobile',
           label: 'Mobile Network',
           position: 'left',
         },
