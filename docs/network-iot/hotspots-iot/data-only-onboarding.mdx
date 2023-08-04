@@ -1,0 +1,265 @@
+---
+id: data-only-hotspots-onboarding
+title: Data Only Onboarding
+pagination_label: Data Only Onboarding
+sidebar_label: Data Only Onboarding
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/data-only-hotspots-onboarding
+draft: true
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+# Data Only Hotspots Onboarding
+
+This guide walks through the process of setting up and onboarding a Data Only Hotspot ("Hotspot") to
+the Helium Network. By the end of this guide you will have:
+
+- assembled hardware
+- installed gateway-rs
+- created a cli wallet
+  - used that wallet to onboard Data Only Hotspot.
+
+<details>
+<summary>Why Would Somebody Want A Data Only Hotspot?</summary>
+
+- example: a company that has deployed a bunch of their own gateways as a private network, but now
+  are seeing the growing pains and desire to leverage helium as part of that.
+- So in front of them, they effectively have two options.
+
+  - One is they can go to the Loire Alliance and get a NetID so that they can engage with roaming on
+    the helium network.
+  - The other is just to upgrade all of their gateways so that they are helium gateways.
+  - So that's existing deployed hardware that they would load the software onto and then they would
+    migrate their devices over to Helium or a Helium operator, an LNA.
+
+- You don't, you're a company and you need coverage and you just don't care about proof of coverage.
+- You want to onboard somewhere and you need the low bandwidth opportunities.
+- no need for makers, and overhead they bring (DC, apps, support, etc)
+- basically any hardward can be used, as opposed to MCC certified hardware.
+  - dont need an ECC chip TODO: what is an ECC chip, link to maker docs
+- onboarding fees are lower
+
+</details>
+
+---
+
+## Prerequisites
+
+### Hardware
+
+- Raspberry Pi running 32-bit Raspbian OS
+- Lora piHAT
+- Lora Concentrator
+- LoRa Antenna
+- Internet Connection
+- A second computer is recommended to ssh into the Data Only Hotspot. This guide uses an M1 MacBook
+  running macOS.
+
+### Software
+
+- [Rust](https://www.rust-lang.org) v1.71.0 or later
+- ssh access to the Raspberry Pi
+
+---
+
+## Software Setup
+
+### On The Data Only Hotpot
+
+1. Install Raspbian OS by follow the instructions on the
+   [Raspberry Pi Installation Guide](https://www.raspberrypi.com/software/)
+1. Connect the Hotspot to power and connect to the internet.
+
+### From Another Computer
+
+> These steps are run via an ssh connection to the Hotspot from another Device. This will install
+> gateway-rs on the Hotspot, not the second machine.
+
+1. open a terminal window and ssh into the Hotspot.
+2. install Rust following
+   [this guide on the Official Rust Documentation](https://www.rust-lang.org/tools/install).
+3. verify rust is installed correctly
+
+```sh title="Verify Rust installation"
+❯ rustc --version
+rustc 1.71.0 (8ede3aae2 2023-07-12)
+❯ cargo --version
+cargo 1.71.0 (cfd3bbd8f 2023-06-08)
+```
+
+4. clone the `gateway-rs` repo onto the Hotspot
+
+```sh title="clone Repo"
+❯ git clone git@github.com:helium/gateway-rs.git
+```
+
+5. navigate into the `gateway-rs` directory
+
+```sh title="move into the directory"
+❯ cd gateway-rs/
+```
+
+6. build gateway-rs specifying the `release` flag with the `--release` option
+
+```sh title="create a release build"
+❯ cargo build --release
+```
+
+:::tip multitasking
+
+Building `gateway-rs` on a Raspberry Pi may take a while. Now is good time to create a CLI wallet if
+you have not done so already.
+
+:::
+
+### Verify The Installation
+
+<!-- TODO: What do on Hotspot at this stage? -->
+
+- once installed and built on the raspberry-pi
+- verify gateway-rs runs
+- when started, generates swam key for hotspot, typically want to back this up
+  - will have to re-onboard if this is lost
+
+<!-- TODO: standard user would use a `release` that avoids some of these build steps. -->
+
+---
+
+## Onboarding With The Command Line Wallet
+
+Create a Command Line Wallet ("CLI Wallet" or "Wallet") on a trusted device, it is possible, **but
+not recommended** to create the Wallet on the Hotspot itself.
+
+### General Workflow:
+
+1. Create a CLI Wallet
+2. Fund that Wallet with HNT and SOL
+3. Burn HNT to mint the required Data Credits for onboarding
+4. Onboard the Data Only Hotspot
+
+:::warning CLI Wallet Work in Progress
+
+This guide will work on Solana devnet but not Solana Mainnet.
+
+The current cli-wallet does not support Solana transactions. This guide uses a special branch
+created by MadNinja from Nova Labs that has not yet been merged for release.
+
+:::
+
+### Installing the CLI Wallet
+
+1. Clone the `helium-wallet-rs` project from the
+   [GitHub repo](https://github.com/helium/helium-wallet-rs)
+
+```sh title="clone the repo"
+❯ git clone git@github.com:helium/helium-wallet-rs.git
+```
+
+2. checkout the `madninja/solana` branch
+
+```sh title="switch branch"
+❯ git checkout madninja/solana
+```
+
+3. Create A Release Build
+
+```sh
+❯ cargo build --release
+```
+
+:::info 'Could not find protoc' error on macOS
+
+If this error causes a a build to fail, install `proto-lense` following
+[these steps](https://google.github.io/proto-lens/installing-protoc.html)
+
+```sh title="macOS proto-lens installation with homebrew"
+❯ brew install protobuf
+```
+
+Once installed, run the build command again.
+
+:::
+
+### Create A Basic Wallet
+
+Now that the ClI Wallet is installed, create a Basic Wallet with the following command. Other
+wallets can be created, this guide creates a Basic Wallet for simplicity.
+
+When prompted, give the Wallet a password. This is **NOT** a seed phrase, but a password to access
+the Wallet.
+
+```sh title="create a basic wallet"
+❯ ./target/release/helium-wallet create basic
+Wallet Password: [hidden]
+{
+  "address": "c6kJqVC3gAzojrhzh9t2b8eTUeBoe7zEWaaqdZghux7Z",
+  "pwhash": "Argon2id13",
+  "sharded": false
+}
+```
+
+### Some Helpful Commands
+
+```sh title="Print the Wallet QR code to the console"
+❯ ./target/release/helium-wallet info --qr
+```
+
+```sh title="Print the Wallet Seed Phrase to the console"
+❯ ./target/releas/helium-wallet export --output seed
+```
+
+```sh title="List a Wallet's Hotspots"
+❯ ./target/release/helium-wallet hotspots list
+{
+  "address": "c6kJqVC3gAzojrhzh9t2b8eTUeBoe7zEWaaqdZghux7Z",
+  "hotspots": []
+}
+```
+
+```sh title="List a Wallet's Token Balances"
+❯ ./target/release/helium-wallet balance
+{
+  "address": "c6kJqVC3gAzojrhzh9t2b8eTUeBoe7zEWaaqdZghux7Z",
+  "balance": {
+    "hnt": {
+      "address": "GKkG7EsWu4Va6BgYM63FaZurVGkBqCuh8bM7sHTKmZXN",
+      "amount": 15.0
+    },
+    "sol": {
+      "address": "c6kJqVC3gAzojrhzh9t2b8eTUeBoe7zEWaaqdZghux7Z",
+      "amount": 1.0
+    }
+  }
+}
+```
+
+## Onboard On Solana Devnet
+
+This guide uses the Solana Devnet, and will include the `--url d` flag in commands to specify
+Devnet.
+
+Your wallet will need Devnet HNT and Devnet SOL. Which can be aquired here:
+
+- Devnet HNT can be acquired by opening the following URL in any web browser.
+
+  - 'https://faucet.web.test-helium.com/hnt/WALLET_ADDRESS?amount=5'
+  - note there is a limit of 10 per load
+  - the HNT Devne Faucet is rate limited, but please, dont be greedy.
+
+- will also need devnet SOL for transaction fees.
+
+  - [https://solfaucet.com](https://solfaucet.com) is a good option.
+
+## Burn HNT for DC
+
+This example command will burn 10 HNT for Data Credits.
+
+**Note:** without including the `--commit` flag at the end of the command, the on-chain transaction
+will not be processed. This is an extra step to prevent accidental transactions and is ideal for
+testing.
+
+```sh title="HNT burn command"
+❯ ./target/release/helium-wallet --url d dc mint --hnt 10`
+```
