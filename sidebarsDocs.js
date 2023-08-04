@@ -756,7 +756,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'RAK Wireless',
+      label: 'RAKwireless',
       items: [
         {
           type: 'category',

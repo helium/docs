@@ -30,7 +30,7 @@ initial setup steps.
 
 This guide will walk through installing PlatformIO and deploying a Helium Arduino program on a
 target device. Here, as an example, we will detail the steps required to integrate a specific board
-type, the [RAK Wireless WisBlock](https://store.rakwireless.com/pages/wisblock) family of boards.
+type, the [RAKwireless WisBlock](https://store.rakwireless.com/pages/wisblock) family of boards.
 
 However, this guide can be also used to on-board many other types of target devices. In most cases
 one can just substitute your target device in place of the WisBlock developer board.
@@ -45,14 +45,14 @@ In this guide, you will learn:
 - Verify real-time packets sent to the Helium Console via Hotspot that's in range
 
 For this example, we are going to use the
-[RAK Wireless WisBlock Starter Kit](https://store.rakwireless.com/products/wisblock-starter-kit).
+[RAKwireless WisBlock Starter Kit](https://store.rakwireless.com/products/wisblock-starter-kit).
 This procedure should work as a starting point if your particular device contains more of the
-WisBlock components. Follow on RAK Wireless products may work but have not been tested at this
+WisBlock components. Follow on RAKwireless products may work but have not been tested at this
 point.
 
 ### Hardware
 
-- [RAK Wireless WisBlock Starter Kit](https://store.rakwireless.com/products/wisblock-starter-kit)
+- [RAKwireless WisBlock Starter Kit](https://store.rakwireless.com/products/wisblock-starter-kit)
 - Micro USB Type B Cable -
   [Example](https://www.amazon.com/AmazonBasics-Male-Micro-Cable-Black/dp/B0719H12WD/ref=sr_1_2_sspa?)
 
@@ -91,7 +91,7 @@ Some operating systems, especially Windows, may require the installation of hard
 device driver code. In general it's best to just try to upload a built application before installing
 new device drivers. If the upload fails and you believe it is a device driver issue refer to the
 WisBlock support forum for the most up to date information.
-[RAK Wireless Support Forum](https://forum.rakwireless.com/).
+[RAKwireless Support Forum](https://forum.rakwireless.com/).
 
 ### Installing PlatformIO
 
@@ -106,7 +106,7 @@ application up and running. The steps will include
 - Implement patch files for RAK WisBlock Core boards
 - Add WisBlock Core RAK4631 Variants Definition Files to PlatformIO
 - create a new PlatformIO project
-- prove out the install via a sample RAK Wireless WisBlock project
+- prove out the install via a sample RAKwireless WisBlock project
 - add a project dependency library, SX126x-Arduino
 - integrate your device specific Helium network configuration keys, Device EUI, APPEUI, APPKEY which
   you obtain from the Helium console device definition.
@@ -251,7 +251,7 @@ through what is required to:
 - At the "Project Wizard" dialog enter a name for your project in the "Name" field.
 - Within the "Board" field select the appropriate target board by entering the name of the board,
   "WisCore" for our example. The PlatformIO auto search feature should present you with a known list
-  of supported boards. In our case we should see "WisCore RAK4631 Board (RAKWireless)" presented as
+  of supported boards. In our case we should see "WisCore RAK4631 Board (RAKwireless)" presented as
   a selection.
 - For the "Framework" selection some devices will support more than one framework within PlatformIO,
   for our WisBlock example make sure "Arduino" is selected.
@@ -408,7 +408,7 @@ comm port seen in the list of devices above. Because the above sample project is
 you will not see any addition output via the terminal emulator output unless you customize the
 sample with debug output statements.
 
-Additional RAK Wireless supported WisBlock sample code can be found at
+Additional RAKwireless supported WisBlock sample code can be found at
 [https://github.com/RAKWireless/WisBlock/tree/master/examples](https://github.com/RAKWireless/WisBlock/tree/master/examples)
 
 If you have made it this far then we know your environment can build and upload a device
