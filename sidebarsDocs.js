@@ -78,7 +78,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Migration Guides',
+      label: 'Solana Migration Guides',
       link: { type: 'doc', id: 'architecture/solana/migration-overview' },
       items: [
         'architecture/solana/migration-faq',
