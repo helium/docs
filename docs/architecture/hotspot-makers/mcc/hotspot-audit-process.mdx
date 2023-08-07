@@ -73,20 +73,21 @@ samples and payments. **Missing information will result in significant delays.**
 
 ### LoRaWAN Capable Hotspots
 
-1. The Hotspot should arrive running as it would be at a customer's location.
-2. Provide instructions for stopping and starting Packet Forwarder.
-3. Provide the location of the Packet Forward configuration file `global_conf.json`.
-4. Provide the path to the `gateway-rs` executable (ie: `helium_gateway`)
-5. Provide the architecture/distribution used by the CPU.
+1. The Hotspot should arrive running as it would be at a customer's location. Y/N
+2. Provide instructions for ssh access.
+3. Provide instructions for stopping and starting Packet Forwarder.
+4. Provide the location of the Packet Forward configuration file `global_conf.json`.
+5. Provide the path to the `gateway-rs` executable (ie: `helium_gateway`)
+6. Provide the architecture/distribution used by the CPU.
    - Match it here:
      [https://github.com/helium/gateway-mfr-rs/releases/tag/v0.2.2](https://github.com/helium/gateway-mfr-rs/releases/tag/v0.2.2)
      so that auditors can install Helium's `gateway_mfr_rs` on the hardware and check the ECC
      configuration.
-6. Provide the commands to start and stop the `gateway-rs` executable (ie, `helium_gateway`)
-7. If using the ECC608 as a security element, provide the key slot and bus address
-8. Upon power up, is `gateway-rs` running and ready to audit? **Y/N**
+7. Provide the commands to start and stop the `gateway-rs` executable (ie, `helium_gateway`)
+8. If using the ECC608 as a security element, provide the key slot and bus address
+9. Upon power up, is `gateway-rs` running and ready to audit? **Y/N**
    - `gateway-rs` must automatically update; the Auditor shall not update the firmware.
-9. Is the Hotspot using Helium's `gateway-rs` updater? **Y/N**
+10. Is the Hotspot using Helium's `gateway-rs` updater? **Y/N**
    - If **Yes**, please indicate which [build target
      (https://github.com/helium/gateway-rs/blob/main/.github/workflows/ci.yml#L42) matches the
      Hardware.
