@@ -49,17 +49,17 @@ samples and payments. **Missing information will result in significant delays.**
 ## Identifying Hotspots and Components
 
 1. Clearly label the Hardware with the company name.
-2. Clearly label the Hardware with the Hotspot(s) model name(s).
-3. Include a link to the HIP-19 Application.
-4. Ensure the HIP-19 Application matches the hardware and related documentation.
-5. Specify the Hotspot for audit type, Light or Mobile/5G.
-6. If this is a Mobile/5G, specify whether the Hotspot has LoRaWAN capability.
-7. Specify if Hotspot is an Indoor or Outdoor Hotspot.
+1. Clearly label the Hardware with the Hotspot(s) model name(s).
+1. Include a link to the HIP-19 Application.
+1. Ensure the HIP-19 Application matches the hardware and related documentation.
+1. Specify the Hotspot for audit type, Light or Mobile/5G.
+1. If this is a Mobile/5G, specify whether the Hotspot has LoRaWAN capability.
+1. Specify if Hotspot is an Indoor or Outdoor Hotspot.
    - If only an Indoor Hotspot is submitted, state whether or not Auditors should expect an Outdoor
      Hotspot later.
    - If only an Outdoot Hotspot is submitted, state whether or not Auditors should expect an Indoor
      Hotspot later.
-8. Include a block diagram (see example) with clearly labeled locations of the security
+1. Include a block diagram (see example) with clearly labeled locations of the security
    implementation (ECC chip, TrustZone, etc.).
    - A block diagram is a system diagram with CPU/ MCU, memory, ECC/ other security, etc., with all
      circuits clearly labeled with part numbers.
@@ -74,50 +74,43 @@ samples and payments. **Missing information will result in significant delays.**
 ### LoRaWAN Capable Hotspots
 
 1. The Hotspot should arrive running as it would be at a customer's location.
-2. Provide instructions for stopping and starting Packet Forwarder.
-3. Provide the location of the Packet Forward configuration file `global_conf.json`.
-4. Provide the path to the `gateway-rs` executable (ie: `helium_gateway`)
-5. Provide the architecture/distribution used by the CPU.
+1. Provide instructions for ssh access.
+1. Provide instructions for stopping and starting Packet Forwarder.
+1. Provide the location of the Packet Forward configuration file `global_conf.json`.
+1. Provide the path to the `gateway-rs` executable (ie: `helium_gateway`)
+1. Provide the architecture/distribution used by the CPU.
    - Match it here:
      [https://github.com/helium/gateway-mfr-rs/releases/tag/v0.2.2](https://github.com/helium/gateway-mfr-rs/releases/tag/v0.2.2)
      so that auditors can install Helium's `gateway_mfr_rs` on the hardware and check the ECC
      configuration.
-6. Provide the commands to start and stop the `gateway-rs` executable (ie, `helium_gateway`)
-7. If using the ECC608 as a security element, provide the key slot and bus address
-8. Upon power up, is `gateway-rs` running and ready to audit? **Y/N**
+1. Provide the commands to start and stop the `gateway-rs` executable (ie, `helium_gateway`)
+1. If using the ECC608 as a security element, provide the key slot and bus address
+1. Upon power up, is `gateway-rs` running and ready to audit? **Y/N**
    - `gateway-rs` must automatically update; the Auditor shall not update the firmware.
-9. Is the Hotspot using Helium's `gateway-rs` updater? **Y/N**
+1. Is the Hotspot using Helium's `gateway-rs` updater? **Y/N**
    - If **Yes**, please indicate which [build target
      (https://github.com/helium/gateway-rs/blob/main/.github/workflows/ci.yml#L42) matches the
      Hardware.
 
-### LoRaWAN Capable Full Hotspots
-
-1. The Hotspot should arrive running as it would be at a customer's location.
-2. Provide instructions for stopping and starting Packet Forwarder.
-3. Provide the location of the Packet Forward configuration file `global_conf.json`.
-4. Provide instructions for stopping and starting Miner.
-5. Provide location of miner data.
-
 ### 5G Only Hotspots
 
 1. The Hotspot should arrive running as it would be at a customer's location.
-2. Provide instructions for stopping and starting Packet Forwarder.
-3. Provide the location of the Packet Forward configuration file `global_conf.json`.
-4. Specify which CBRS radio brand and models are compatible with the 5G Hotspot.
+1. Provide instructions for stopping and starting Packet Forwarder.
+1. Provide the location of the Packet Forward configuration file `global_conf.json`.
+1. Specify which CBRS radio brand and models are compatible with the 5G Hotspot.
 
 ---
 
 ## Radio Certifications
 
 1. Specify which radio certification intentions.
-2. Specify country/region sales intentions.
+1. Specify country/region sales intentions.
    - The MCC will only vote once all radio certifications are complete. Therefore, MCC will not vote
      on reports only as certifications and reports expected at the time of voting.
-3. Specify whether Hotspots will be sold in a frequency that requires "Listen Before Talk" or
+1. Specify whether Hotspots will be sold in a frequency that requires "Listen Before Talk" or
    "Listen Before Transmit"? **Y/N**
    - e.g., Japan, South Korea
-4. Specify whether Hotspots will be sold in the AU915 region. **Y/N**
+1. Specify whether Hotspots will be sold in the AU915 region. **Y/N**
    - If yes, certify that you can also operate under AS923-1.
    - Transmit test must be checked on AS923-1 channels
    - AS923-1-AU
@@ -146,15 +139,15 @@ Incorrect FCC Certification will experience significant delays, months or more.
 
 1. Explain the OTA/firmware update process.
    - Show the process by which firmware updates are cryptographically verified.
-2. Specify whether or not there is a dashboard or other interface on the Hotspot that allows it to
+1. Specify whether or not there is a dashboard or other interface on the Hotspot that allows it to
    be controlled over the network. **Y/N**
    - If **Yes**, this dashboard must require a password which is unique per device and sufficiently
      random so as to not be guessable or other secure token to access.
-3. Specify whether or not the Hotspot has production-ready firmware, including an over the air (OTA)
+1. Specify whether or not the Hotspot has production-ready firmware, including an over the air (OTA)
    update process for the miner. **Y/N**
-4. Confirm understanding that the Helium Hotspot app will not be available for customer use after
+1. Confirm understanding that the Helium Hotspot app will not be available for customer use after
    March 1st, 2022? **Y/N**
-5. Specify whether or not a Maker App for customers to onboard has been created. **Y/N**
+1. Specify whether or not a Maker App for customers to onboard has been created. **Y/N**
 
 :::tip Maker Apps Are Required
 
@@ -165,10 +158,10 @@ A Maker App must be created and tested to continue with the hardware audit.
 ### Additional Information for 5G Hotspots
 
 1. Provide a `gateway_mfr utility` to access the secure element.
-2. Show the secure boot hardware via a diagram.
+1. Show the secure boot hardware via a diagram.
    - The diagrams should include all the hardware involved in the boot process and the security
      boundaries of each component.
-3. Hardware items to illustrate include (but are not limited to):
+1. Hardware items to illustrate include (but are not limited to):
    - Cryptographic hardware accelerator
    - Secure storage for private/secret and public keys
    - Secure RAM
@@ -176,9 +169,9 @@ A Maker App must be created and tested to continue with the hardware audit.
    - Untrusted external RAM
    - Untrusted external non-volatile storage (eMMC, SATA, etc)
    - Communication busses
-4. Using callouts to the secure boot hardware diagram, show how the system can determine that the
+1. Using callouts to the secure boot hardware diagram, show how the system can determine that the
    firmware that it is booting comes directly from an authorized source and has not been altered.
-5. Show how the Secure Element, which contains the private key that identifies the Hotspot on the
+1. Show how the Secure Element, which contains the private key that identifies the Hotspot on the
    blockchain, will **only** obey encryption, decryption and signature generation requests if they
    come from authorized firmware.
 
