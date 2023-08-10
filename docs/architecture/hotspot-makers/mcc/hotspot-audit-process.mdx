@@ -181,3 +181,32 @@ Diagrams must also show the security boundaries of the design. Group each compon
 boundary it resides in.
 
 :::
+### Additional Information needed for TrustZone based Security Elements
+
+TrustZone is a security system available on some ARM-based System-on-a-Chip (SoC) designs. 
+When used correctly, a TrustZone-based secure element should be acceptable for use in Hotspots that participate in the PoC system.
+If you have submitted a TrustZone-based security implementation, please answer the following prior to the hardware audit:
+
+1. The code presumably performs several functions using a private key. How is the private key loaded onto the device? (Is it generated on-device or is it imported externally?)
+2. Where is the device located when this happens? (Factory? A subsidiary? When booted by the end-customer?)
+3. What kind of non-volatile memory is used to store the private key?
+4. Is the private key encrypted when it is stored in this memory?
+5. If so, where is the key necessary to decrypt the encrypted private key stored?
+6. Again, if the key is encrypted, does each device possess its own unique storage key, or is it shared across all devices?
+7. Again, if the key is encrypted, is there also a verification check to ensure that the key has decrypted properly when it is loaded?
+8. Since your implementation is mostly in software, how is the trusted code loaded?
+9. How is the code checked for authenticity when it is loaded?
+10. Who in your organization has access to the keys used for signing this code?
+11. Presumably, your implementation has the ability to be updated. Will your code update mechanism prevent “downgrading” to a previously authorized version? If so, how?
+12. What specific signing, encryption, decryption, or verification operations can an external entity ask the code to perform? (External entity means code *outside* the secure element, such as, say, the Helium “miner” process).
+13. Considering the algorithms your implementation implements, are there certain operations/messages that you are aware of that the code must never perform lest it leads to an exposure of the private key?
+14. Does the code protect against these messages/operations?
+15. What side-channel attacks does your implementation work to avoid, if any? (As a reminder, side-channel attacks extract key information from variations in timing, power, temperature, electromagnetic fields, etc).
+16. What fault-injection attacks does your implementation work to avoid, if any? (As a reminder, fault-injection attacks include power-glitching, laser pulses, strong EM fields, etc).
+17. Does the code have any entry point such that an external entity can ask for the private key directly?
+18. What steps have you taken to audit the code for quality and ensure that it performs only as designed?
+19. Do you, the developer of this code, have the ability to extract the private key of a device?
+20. Will you, the developer of this code, have the ability to extract the private key of a device in the future?
+21. Please provide an API or simple program that we can use to generate the test signatures and diffie hellman key generation.
+22. Please provide us either SDK, or the header files that we can use or can write C or an example Python program- provide a simple interface that exercises the two cryptographic functions that your engine does.
+
