@@ -82,14 +82,19 @@ Let’s do some setup with the CLI.
    $ cp ../helium-config-service-cli/target/release/main .
    ```
 
-4. Let’s generate the keypair you’ll be using to authenticate your interactions with the config
-   service, so only you can create/modify/delete routes. Run
+4. Let’s generate the keypairs you’ll be using to authenticate your interactions with the config
+   service, so only you can create/modify/delete routes. Run this command twice for 1) owner keypair and 
+   2) delegate kepair and name files accordingly. Run
    `./main env generate-keypair <key file name>.bin.` and you should find a file called
-   `keypair.bin`. Print out the public key of your keypair by running:
+   `<key file name>.bin`. Print out the public key of your keypair by running:
 
    ```bash
-   $ ./main env info --keypair keypair.bin
+   $ ./main env info --keypair <key file name>.bin
    ```
+   **Delegate Keypair**: The delegate key is actively used to create and manage routes. In case it is 
+   ever compromised, it can be updated using the owner key.
+   **Owner Keypair**: The owner key is irreplaceable and should be kept safe, secure, and private at all
+   times. If lost or compromised, you could lose your OUI.
 
 5. Next, make sure you have a Helium Wallet.
    [You can download them here](https://wallet.helium.com/).
