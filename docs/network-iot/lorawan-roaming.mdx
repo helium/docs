@@ -93,6 +93,7 @@ Let’s do some setup with the CLI.
    ```
    **Delegate Keypair**: The delegate key is actively used to create and manage routes. In case it is 
    ever compromised, it can be updated using the owner key.
+
    **Owner Keypair**: The owner key is irreplaceable and should be kept safe, secure, and private at all
    times. If lost or compromised, you could lose your OUI.
 
@@ -170,3 +171,32 @@ Let’s do some setup with the CLI.
     ```bash
     $ ./main route update http --dedupe-timeout <dedupe-timeout> --path <url path> --auth-header <auth-header> --route-id <route-id> --commit
     ```
+13. Fund your OUI
+   You will need to keep your OUI funded with a minimum of 3.5 million data credits
+   (equivalent to $35 USD) at all times to ensure data transfer. If the balance falls below  
+   3.5 million data credits your OUI may be locked.
+
+   **Payer Keypair**: The third keypair, the payer keypair, corresponds to your Helium wallet addresses. 
+   The public wallet address (payer key) is used to keep your wallet and OUI funded.
+
+   To fund your OUI, you will delegate data credits to your payer key (Helium public wallet address). 
+   Your delegated data credits will then be held in an escrow account. To delegate data credits to your 
+   OUI, you can utilize one of the following options:
+
+      - Use the Sphere tool to pay with a credit card (USA only)
+      - Use the Sphere burn HNT directly to your OUI. Select payment method, connect wallet, 
+        specify quantity, and enter your OUI.
+      - Delegate data credits directly from the Helium wallet. 
+             1. Make sure you have a data credit balance. If necessary, swap HNT for DCs using the “Swap” 
+                feature in the wallet app.
+             2. Select the DC assets in the wallet 
+             3. Click “delegate” and select the “IOT subDAO”. **Make sure to select the IoT SubDao. 
+                Data credits delegated to the MOBILE subDAO can not be used to pay for IoT traffic.** 
+                Note: You can only delegate data credits once, and if you delegate to the Mobile Subdao 
+                this cannot be undone.
+             4. Enter your payer key and the dc amount you wish to delegate.
+             5. Swipe to delegate
+             Note: you need a small amount of SOL to complete any transaction. You can fund your wallet 
+             by sending SOL to your Solana address in the Helium Wallet App.
+   To confirm you escrow account is properly fundend, you can utilize the Sphere tool by entering 
+   your OUI number and viewing the associated keys.
