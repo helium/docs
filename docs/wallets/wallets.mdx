@@ -9,62 +9,64 @@ slug: /wallets
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 <img className="docsheader" src={useBaseUrl('img/wallets/header.png')} />
 
-## Wallet Migration Guide
+As a blockchain-powered network, Helium uses on-chain
+[accounts](https://docs.solana.com/developing/programming-model/accounts) to protect Hotspots and
+Tokens. An account is an abstraction for a cryptographic key which consists of two parts — a public
+key and a private key. This approach of having two keys is known as public key cryptography which is
+a widely used cryptographic system. Users new to web3 are likely accustomed to usernames and
+passwords as authentication methods. Web3 projects like Helium replace traditional logins with
+private and public keys.
 
-All Helium Wallets will need to be migrated to the Solana blockchain. Please refer to the
-[Wallet migration guide](/solana/migration/wallet-user) about the different Wallets and what can be
-expected as part of the blockchain migration.
+## Diving into Crypto Wallets
 
----
+A crypto wallet operates as a custodian for the public and private cryptographic keys. Wallets
+enable users to transmit, obtain, and oversee cryptocurrency ownership. These wallets can be as
+varied as directories on a computer, physical paper codes, or exclusive hardware devices. A host of
+apps and software solutions also present a streamlined process for wallet creation and maintenance.
 
-## 12-Word And 24-Word Seed Phrases
+The Helium Foundation maintains the [Helium Wallet App](/wallets/helium-wallet-app), which is
+specifically catered to the needs of the Helium Network. However, as a Solana-native token, Helium
+is accessible through any Solana-enabled wallet.
 
-When a Helium Wallet is created with the Helium Wallet app a 24-word "Seed Phrase" is generated.
+## Understanding Public and Private Keys
 
-Users who created their Helium Wallet using the Helium Hotspot app will have a 12-word seed phrase,
-while the Helium Wallet app accepts 12-word seed phrases, all new Helium Wallets are created with
-24-word seed phrases.
+As the names imply, there is a distinction between the different keys that are generated when
+creating a new Helium account, or any other web3 account for that matter. The distinction between
+these keys is important to understand.
 
-Read more about Helium Wallet [seed phrases here](/wallets/wallet-seed-phrase).
+### Public Key
 
-:::note
+The public key is your 'calling card' on the blockchain. Anyone with it can view token balances,
+Hotspots, and any associated history of these entities. The public key is the address that can be
+shared.
 
-Transferring Hotspot ownership between 12-word and 24-word Wallets can only be done using the
-[Wallet CLI](/wallets/cli-wallet)
+For purposes of security, the public key cannot be used to determine the private key.
 
-:::
+For Helium and other projects on Solana, public keys are strings of letters and numbers that look
+like `dcuc8Amr83Wz27ZkQ2K9NS6r8zRpf1J6cvArEBDZDmm`.
 
----
+### Private Key
 
-## iOS and Android Wallet Applications
+The private key of your account is never to be shared and should be kept safe from potential
+thieves. If a private key is lost, there is no means of recovering it. If the _public_ key is lost
+or forgotten, the private key can be used to determine it using the derivation path leveraged by
+Helium Wallet App accounts.
 
-:::note Download the Helium Wallet Application
+Private keys can take several forms, though most will know them as
+[12-word or 24-word seed phrases](/wallets/wallet-seed-phrase). Certain tools can also manage
+private keys phrases stored in a file; something like `keyfile.bin` or as a long string of letters
+and numbers.
 
-<div class="container">
-  <div class="row">
-    <div class="col col--6">
-      <a href="https://apps.apple.com/us/app/helium-hnt-wallet/id1609525848">
-        <img
-          className="app-store-badge img-center"
-          src={useBaseUrl('img/app-store-badges/apple-app-store-badge-en.svg')}
-        />
-      </a>
-    </div>
-    <div class="col col--6">
-      <a href="https://play.google.com/store/apps/details?id=com.helium.wallet.app">
-        <img
-          className="app-store-badge img-center"
-          src={useBaseUrl('img/app-store-badges/google-play-store-badge-en.svg')}
-        />
-      </a>
-    </div>
-  </div>
-</div>
+Private keys allow for full access to an account's contents and should be protected. These keys are
+never needed to diagnose a Hotspot or on-chain transaction.
 
-:::
+## Wallet Migration
+
+If you have not accessed your wallet since the blockchain migration to Solana on April 18, 2023,
+refer to the [Wallet migration guide](/solana/migration/wallet-user).
+
+To learn about moving your account from the Helium Wallet App to another Solana-compatible wallet,
+see the guide in [Third-Party Wallets](/wallets/third-party-wallets).
