@@ -1,35 +1,37 @@
 ---
 id: data-only-hotspots-onboarding
-title: Data Only Onboarding
-pagination_label: Data Only Onboarding
-sidebar_label: Data Only Onboarding
+title: Data-Only Onboarding
+pagination_label: Data-Only Onboarding
+sidebar_label: Data-Only Onboarding
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/data-only-hotspots-onboarding
-draft: true
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-# Data Only Hotspots Onboarding
+# Data-Only Hotspot Onboarding
 
-This guide walks through the process of setting up and onboarding a Data Only Hotspot ("Hotspot") to
-the Helium Network. By the end of this guide you will have:
+In addition to the 'miner' classification of Hotspots, the Helium Network additionally enables the
+onboarding and operation of hardware to the IoT Network for data transfer. These Data-Only Hotspots
+do not earn rewards for Proof of Coverage. This guide walks through the process of setting up and
+onboarding a Data-Only Hotspot ("Hotspot") to the Helium Network. By the end of this guide, you will
+have:
 
 - assembled hardware
 - installed gateway-rs
-- created a cli wallet
-  - used that wallet to onboard Data Only Hotspot.
+- created a CLI wallet
+  - used that wallet to onboard Data-Only Hotspot.
 
 <details>
-<summary>Why Would Somebody Want A Data Only Hotspot?</summary>
+<summary>Why Would Somebody Want A Data-Only Hotspot?</summary>
 
-- example: a company that has deployed a bunch of their own gateways as a private network, but now
-  are seeing the growing pains and desire to leverage helium as part of that.
+- For example, a company that has deployed a bunch of their own gateways as a private network, but
+  now are seeing the growing pains and desire to leverage helium as part of that.
 - So in front of them, they effectively have two options.
 
-  - One is they can go to the Loire Alliance and get a NetID so that they can engage with roaming on
-    the helium network.
+  - One is they can go to the LoRa Alliance and get a NetID so that they can engage with roaming on
+    the Helium Network.
   - The other is just to upgrade all of their gateways so that they are helium gateways.
   - So that's existing deployed hardware that they would load the software onto and then they would
     migrate their devices over to Helium or a Helium operator, an LNA.
@@ -37,13 +39,11 @@ the Helium Network. By the end of this guide you will have:
 - You don't, you're a company and you need coverage and you just don't care about proof of coverage.
 - You want to onboard somewhere and you need the low bandwidth opportunities.
 - no need for makers, and overhead they bring (DC, apps, support, etc)
-- basically any hardward can be used, as opposed to MCC certified hardware.
-  - dont need an ECC chip TODO: what is an ECC chip, link to maker docs
+- Basically, any hardware can be used, as opposed to MCC-certified hardware.
+  - don't need an ECC chip TODO: what is an ECC chip, link to maker docs
 - onboarding fees are lower
 
 </details>
-
----
 
 ## Prerequisites
 
@@ -54,28 +54,26 @@ the Helium Network. By the end of this guide you will have:
 - Lora Concentrator
 - LoRa Antenna
 - Internet Connection
-- A second computer is recommended to ssh into the Data Only Hotspot. This guide uses an M1 MacBook
+- A second computer is recommended to ssh into the Data-Only Hotspot. This guide uses an M1 MacBook
   running macOS.
 
 ### Software
 
 - [Rust](https://www.rust-lang.org) v1.71.0 or later
-- ssh access to the Raspberry Pi
-
----
+- SSH access to the Raspberry Pi
 
 ## Software Setup
 
-### On The Data Only Hotpot
+### On The Data-Only Hotspot
 
-1. Install Raspbian OS by follow the instructions on the
-   [Raspberry Pi Installation Guide](https://www.raspberrypi.com/software/)
+1. Install Raspbian OS by following the instructions on the
+   [Raspberry Pi installation guide](https://www.raspberrypi.com/software/).
 1. Connect the Hotspot to power and connect to the internet.
 
 ### From Another Computer
 
-> These steps are run via an ssh connection to the Hotspot from another Device. This will install
-> gateway-rs on the Hotspot, not the second machine.
+These steps are run via an ssh connection to the Hotspot from another device. This will install
+gateway-rs on the Hotspot, not the second machine.
 
 1. open a terminal window and ssh into the Hotspot.
 2. install Rust following
@@ -109,8 +107,8 @@ cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 
 :::tip multitasking
 
-Building `gateway-rs` on a Raspberry Pi may take a while. Now is good time to create a CLI wallet if
-you have not done so already.
+Building `gateway-rs` on a Raspberry Pi may take a while. Now is a good time to create a CLI wallet
+if you have not done so already.
 
 :::
 
@@ -125,8 +123,6 @@ you have not done so already.
 
 <!-- TODO: standard user would use a `release` that avoids some of these build steps. -->
 
----
-
 ## Onboarding With The Command Line Wallet
 
 Create a Command Line Wallet ("CLI Wallet" or "Wallet") on a trusted device, it is possible, **but
@@ -137,7 +133,7 @@ not recommended** to create the Wallet on the Hotspot itself.
 1. Create a CLI Wallet
 2. Fund that Wallet with HNT and SOL
 3. Burn HNT to mint the required Data Credits for onboarding
-4. Onboard the Data Only Hotspot
+4. Onboard the Data-Only Hotspot
 
 :::warning CLI Wallet Work in Progress
 
@@ -207,7 +203,7 @@ Wallet Password: [hidden]
 ```
 
 ```sh title="Print the Wallet Seed Phrase to the console"
-❯ ./target/releas/helium-wallet export --output seed
+❯ ./target/release/helium-wallet export --output seed
 ```
 
 ```sh title="List a Wallet's Hotspots"
@@ -240,7 +236,7 @@ Wallet Password: [hidden]
 This guide uses the Solana Devnet, and will include the `--url d` flag in commands to specify
 Devnet.
 
-Your wallet will need Devnet HNT and Devnet SOL. Which can be aquired here:
+Your wallet will need Devnet HNT and Devnet SOL. Which can be acquired here:
 
 - Devnet HNT can be acquired by opening the following URL in any web browser.
 
@@ -256,7 +252,7 @@ Your wallet will need Devnet HNT and Devnet SOL. Which can be aquired here:
 
 This example command will burn 10 HNT for Data Credits.
 
-**Note:** without including the `--commit` flag at the end of the command, the on-chain transaction
+**Note:** Without including the `--commit` flag at the end of the command, the on-chain transaction
 will not be processed. This is an extra step to prevent accidental transactions and is ideal for
 testing.
 
