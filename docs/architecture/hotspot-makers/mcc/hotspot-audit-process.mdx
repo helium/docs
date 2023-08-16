@@ -9,25 +9,13 @@ slug: /hotspot-makers/hotspot-audit-process
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
-<LegacyContentBanner />
+The hardware audit will require two hardware samples of each Hotspot. For example, if the audit
+includes indoor and outdoor Hotspots, two of each model are required for submission.
 
-The Hardware Audit will require two hardware samples of each Hotspot. For example, if the Audit
-includes Indoor and Outdoor Hotspots, 2 of each model are required for submission.
-
-Hardware samples submitted to Auditors should be identical to the final hardware sold to customers,
-including the final enclosure. Prototypes or 3D-printed enclosures are not acceptable for Hardware
-Audits.
-
-:::caution
-
-The [Manufacturing Compliance Committee](/hotspot-makers/compliance-committee) ("MCC") is only
-currently accepting Light Hotspots and 5G Hotspots for audit at this time.
-
-:::
-
----
+Hardware samples submitted to auditors should be identical to the final hardware sold to customers,
+including the final enclosure. Prototypes or 3D-printed enclosures are not acceptable for hardware
+audits.
 
 ## Documentation Submission Requirements
 
@@ -38,26 +26,24 @@ non-PDF formatted documents.
 
 :::
 
-Each Hardware Audit requires a PDF copy of the responses to the following questions. Please organize
+Each hardware audit requires a PDF copy of the responses to the following questions. Please organize
 answers in order, and send the document electronically in one PDF with a response to all questions.
 
-Hardware Audits are expected to take a minimum of 7 weeks from the time Auditors receive Hardware
+Hardware audits are expected to take a minimum of 7 weeks from the time auditors receive hardware
 samples and payments. **Missing information will result in significant delays.**
-
----
 
 ## Identifying Hotspots and Components
 
-1. Clearly label the Hardware with the company name.
-1. Clearly label the Hardware with the Hotspot(s) model name(s).
+1. Clearly label the hardware with the company name.
+1. Clearly label the hardware with the Hotspot(s) model name(s).
 1. Include a link to the HIP-19 Application.
 1. Ensure the HIP-19 Application matches the hardware and related documentation.
 1. Specify the Hotspot for audit type, Light or Mobile/5G.
 1. If this is a Mobile/5G, specify whether the Hotspot has LoRaWAN capability.
-1. Specify if Hotspot is an Indoor or Outdoor Hotspot.
-   - If only an Indoor Hotspot is submitted, state whether or not Auditors should expect an Outdoor
+1. Specify if Hotspot is an indoor or outdoor Hotspot.
+   - If only an indoor Hotspot is submitted, state whether or not auditors should expect an outdoor
      Hotspot later.
-   - If only an Outdoot Hotspot is submitted, state whether or not Auditors should expect an Indoor
+   - If only an outdoor hotspot is submitted, state whether or not auditors should expect an indoor
      Hotspot later.
 1. Include a block diagram (see example) with clearly labeled locations of the security
    implementation (ECC chip, TrustZone, etc.).
@@ -66,8 +52,6 @@ samples and payments. **Missing information will result in significant delays.**
    - Include a sketch or photo indicating the location of the security module on the PCB.
 
 <!--TODO: include sample block diagram in 8a -->
-
----
 
 ## Auditor Access To Your Hotspot
 
@@ -86,20 +70,18 @@ samples and payments. **Missing information will result in significant delays.**
 1. Provide the commands to start and stop the `gateway-rs` executable (ie, `helium_gateway`)
 1. If using the ECC608 as a security element, provide the key slot and bus address
 1. Upon power up, is `gateway-rs` running and ready to audit? **Y/N**
-   - `gateway-rs` must automatically update; the Auditor shall not update the firmware.
+   - `gateway-rs` must automatically update; the auditor will not update the firmware.
 1. Is the Hotspot using Helium's `gateway-rs` updater? **Y/N**
    - If **Yes**, please indicate which [build target
      (https://github.com/helium/gateway-rs/blob/main/.github/workflows/ci.yml#L42) matches the
-     Hardware.
+     hardware.
 
 ### 5G Only Hotspots
 
 1. The Hotspot should arrive running as it would be at a customer's location.
 1. Provide instructions for stopping and starting Packet Forwarder.
-1. Provide the location of the Packet Forward configuration file `global_conf.json`.
+1. Provide the location of the Packet Forwarder configuration file `global_conf.json`.
 1. Specify which CBRS radio brand and models are compatible with the 5G Hotspot.
-
----
 
 ## Radio Certifications
 
@@ -118,22 +100,18 @@ samples and payments. **Missing information will result in significant delays.**
    - Verify transmit from 915 to 928 MHz at every 200 kHz interval (915.2, 915.4 ... 927.6, 927.8).
      At all data rates, i.e., DR0-DR7 (including the FSK)
 
----
-
 ## Notes On FCC
 
-1. Provide the FCC ID number in addition to the Certification.
+1. Provide the FCC ID number in addition to the certification.
 
 :::caution avoid delays
 
 Read the
 [Helium PoC FCC Guidelines documentation.](https://docs.google.com/document/d/1JDh1I2UyNCXgDGXq3zNH-IUj2184ApPuqT-wI-aNwZw/edit?usp=sharing)
 
-Incorrect FCC Certification will experience significant delays, months or more.
+Incorrect FCC certification will experience significant delays, months or more.
 
 :::
-
----
 
 ## Additional Information for Audits
 
@@ -141,9 +119,9 @@ Incorrect FCC Certification will experience significant delays, months or more.
    - Show the process by which firmware updates are cryptographically verified.
 1. Specify whether or not there is a dashboard or other interface on the Hotspot that allows it to
    be controlled over the network. **Y/N**
-   - If **Yes**, this dashboard must require a password which is unique per device and sufficiently
+   - If **Yes**, this dashboard must require a password that is unique per device and sufficiently
      random so as to not be guessable or other secure token to access.
-1. Specify whether or not the Hotspot has production-ready firmware, including an over the air (OTA)
+1. Specify whether or not the Hotspot has production-ready firmware, including an over-the-air (OTA)
    update process for the miner. **Y/N**
 1. Confirm understanding that the Helium Hotspot app will not be available for customer use after
    March 1st, 2022? **Y/N**
@@ -181,3 +159,51 @@ Diagrams must also show the security boundaries of the design. Group each compon
 boundary it resides in.
 
 :::
+
+### Additional Information needed for TrustZone-based Security Elements
+
+TrustZone is a security system available on some ARM-based System-on-a-Chip (SoC) designs. When used
+correctly, a TrustZone-based secure element should be acceptable for use in Hotspots that
+participate in the PoC system. If you have submitted a TrustZone-based security implementation,
+please answer the following before the hardware audit:
+
+1. The code presumably performs several functions using a private key. How is the private key loaded
+   onto the device? (Is it generated on-device or is it imported externally?)
+1. Where is the device located when this happens? (Factory? A subsidiary? When booted by the end
+   customer?)
+1. What kind of non-volatile memory is used to store the private key?
+1. Is the private key encrypted when it is stored in this memory?
+1. If so, where is the key necessary to decrypt the encrypted private key stored?
+1. Again, if the key is encrypted, does each device have its own unique storage key, or is it shared
+   across all devices?
+1. Again, if the key is encrypted, is there also a verification check to ensure that the key has
+   decrypted properly when it is loaded?
+1. Since your implementation is mostly in software, how is the trusted code loaded?
+1. How is the code checked for authenticity when it is loaded?
+1. Who in your organization has access to the keys used for signing this code?
+1. Presumably, your implementation can be updated. Will your code update mechanism prevent
+   “downgrading” to a previously authorized version? If so, how?
+1. What specific signing, encryption, decryption, or verification operations can an external entity
+   ask the code to perform? (External entity means code _outside_ the secure element, such as, say,
+   the Helium “miner” process).
+1. Considering the algorithms your implementation implements, are there certain operations/messages
+   that you are aware of that the code must never perform that would lead to an exposure of the
+   private key?
+1. Does the code protect against these messages/operations?
+1. What side-channel attacks does your implementation work to avoid, if any? (As a reminder,
+   side-channel attacks extract key information from variations in timing, power, temperature,
+   electromagnetic fields, etc).
+1. What fault-injection attacks does your implementation work to avoid, if any? (As a reminder,
+   fault-injection attacks include power-glitching, laser pulses, strong EM fields, etc).
+1. Does the code have any entry point such that an external entity can ask for the private key
+   directly?
+1. What steps have you taken to audit the code for quality and ensure that it performs only as
+   designed?
+1. Do you, the developer of this code, have the ability to extract the private key of a device?
+1. Will you, the developer of this code, have the ability to extract the private key of a device in
+   the future?
+1. Please provide an API or simple program that we can use to generate the test signatures and
+   Diffie-Hellman key generation.
+1. Please provide us either SDK or the header files that we can use or can write C or an example
+   Python program. Provide a simple interface that exercises the two cryptographic functions that
+   your engine does.
