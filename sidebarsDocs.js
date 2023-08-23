@@ -180,9 +180,10 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Data Only Hotspots',
+          label: 'Data-Only Hotspots',
           link: { type: 'doc', id: 'network-iot/hotspots-iot/data-only-hotspots' },
           items: [
+            'network-iot/hotspots-iot/data-only-hotspots-onboarding',
             'network-iot/hotspots-iot/data-only/balena-data-only-hotspot',
             'network-iot/hotspots-iot/data-only/dragino-pg1301',
             'network-iot/hotspots-iot/data-only/dragino-data-only-hotspot',
