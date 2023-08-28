@@ -9,67 +9,65 @@ slug: /iot/denylist
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
 # Denylist
 
-<LegacyContentBanner />
-
-:::warning Removing A Hotspot from the Denylist with Crowdspot
-
-If a Hotspot has been added to the Denylist in error, the **only** method to have it removed is to
-file a Removal Request using Crowdspot.
-
-**Instructions for submitting a removal request can be found on the
-[Denylist Removal Request documentation page.](/iot/denylist-removals)**
-
-:::
-
 ## What is the Denylist?
 
-The Denylist is a list of Hotspot public keys and a cryptographic signature that have been
-identified not to be accurately contributing to Network coverage or are otherwise circumventing the
-good faith of the Network in an attempt to earn Rewards. Rewards gaming by dishonest actors, even as
-a small percentage of the Network, erodes Network integrity.
+The denylist is a list of Hotspot public keys and a cryptographic signature that have been
+identified not to be accurately contributing to network coverage or are otherwise circumventing the
+good faith of the network in an attempt to earn rewards. Rewards gaming by dishonest actors, even as
+a small percentage of the network, erodes network integrity.
 
-Examples include, but are not limited to: Cluster Packet Forwarders, Misasserted Locations,
-Misasserted Antennas, Multiple or Shared Antennas, Attenuators, Amplifiers and Data Credit Farming
+Examples include, but are not limited to: cluster packet forwarders, misasserted locations,
+misasserted antennas, multiple or shared antennas, attenuators, amplifiers and Data Credit farming.
 
-The Denylist is another tool in a broader range of tools to incentivize Hotspots on the Network to
+The Denylist is another tool in a broader range of tools to incentivize Hotspots on the network to
 provide the most honest and accurate wireless coverage possible.
 
-The Denylist is sourced from the community to keep the Network decentralized. Credible
-decentralization ensures that no one entity can control the Network. Any coordinated effort to game
+The denylist is sourced from the community to keep the network decentralized. Credible
+decentralization ensures that no one entity can control the network. Any coordinated effort to game
 rewards, block data transfer, or censor information to benefit one party while harming another,
-undermines our mission of creating global, open wireless Networks.
+undermines the mission of creating global, open wireless networks.
 
 :::info
 
-The Helium Foundation has not and will never run its own Denylist out of the interest of
-decentralization.
+The Helium Foundation has not and will never run a denylist out of the interest of decentralization.
 
 :::
 
 ## Network Impact
 
-**Hotspot Owners:** For any well-asserted, appropriately compensated Hotspot, the Denylist only
-benefits you. By denying HNT to dishonest Hotspots, that HNT is shared amongst honest Hotspots.
+**Hotspot Owners:** For any well-asserted, appropriately compensated Hotspot, the denylist only
+benefits you. By denying token distribution to dishonest Hotspots, those tokens are shared amongst
+honest Hotspots.
 
-**Bad Actors:** The message is simple: Stop. If your Hotspots are earning HNT without providing
-coverage, they are likely to appear on the Denylist and will stop earning HNT Rewards.
+**Bad Actors:** If your Hotspots are earning tokens without providing coverage, they are likely to
+appear on the Denylist and will stop earning token Rewards.
 
 <!-- TODO: proof of coverage oracles use the deny list -->
 
-### Denylist Generation
+## Denylist Generation
 
-Denylist generation is handled by the open-source
-[xorf-generator library](https://github.com/helium/xorf-generator). This tool both allows for key
-signing of the Denylist as well as the construction of the binary filter used to check transactions
-against.
+The current iteration of the denylist is a step toward the long-term evolution of proof of coverage
+to dynamically evaluate network coverage. The process is fully detailed in the write-up from the
+authors of the classifier, [IoT Denylist Evolution](/devblog/2023/08/07/denylist-evolution).
 
 ## Frequently Asked Questions
 
-**What if the Denylist doesn’t have all of the gaming Hotspots?**
+**My Hotspot appears on the denylist, what can I do?**
+
+The most important step to take when evaluating whether a Hotspot should be on the denylist is to
+double-check the asserted location of the Hotspot. Hotspots that are physically placed apart from
+their asserted location are likely to be included. Reasserting a Hotspot can be accomplished in the
+[Helium Wallet App](/wallets/helium-wallet-app).
+
+If the Hotspot is operating honestly on the network, with well-attached antennas, a clear view, and
+appropriately asserted attributes, further analysis of the Hotspot can take place in the Helium
+Community Discord channel,
+[#crowdspot-denylist](https://discord.com/channels/404106811252408320/984427647977283674).
+
+**What if the Denylist doesn't include all of the gaming Hotspots?**
 
 The Denylist is one disincentive of many to keep gaming at bay. Above all, Proof of Coverage and
 more direct detection methods all work in concert to ensure the security of PoC.
@@ -77,7 +75,5 @@ more direct detection methods all work in concert to ensure the security of PoC.
 **Will the Denylist have the ability to block data transfer or rewards for data transfer?**
 
 Yes, any Hotspot considered ‘denied’ of Proof of Coverage rewards will still be able to act as a
-data-only Hotspot, providing data transfer network coverage where possible, but these hotspots will
-be blocked from data transfer rewards. Because it is generally the case that these Hotspots did not
-provide sensor coverage in the first place, hence their inclusion. Is it important to understand the
-uninterrupted data transfer ability in the case of errant inclusions.
+data-only Hotspot, providing data transfer network coverage where possible. Is it important to
+understand the uninterrupted data transfer ability in the case of errant inclusions.
