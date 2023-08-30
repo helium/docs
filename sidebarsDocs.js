@@ -910,7 +910,6 @@ module.exports = {
       ],
     },
     'archive/console/functions',
-    'archive/console/hosting-providers',
     {
       type: 'category',
       label: 'Integrations',
