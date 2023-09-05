@@ -53,11 +53,13 @@ generate the keys pairs
    $ git clone https://github.com/helium/helium-config-service-cli.git
    $ curl https://sh.rustup.rs -sSf | sh
    $ source "$HOME/.cargo/env"
+   $ brew update
+   $ brew install protobuf
    $ cd helium-config-service-cli
    $ cargo b --release
    ```
 
-2. You can then find the built binary file `helium-config-service.cli` under `./target/release`
+2. You can then find the built binary file `helium-config-service-cli` under `./target/release`
    inside the `helium-config-service-cli` directory. We would recommend renaming it into something
    short such as `main` so you can type less words (you can rename it by running
    `mv helium-config-service-cli main`)
@@ -107,10 +109,13 @@ mandates a minimum of 8 devAddrs that cost $100 each.
 
 1. git clone https://github.com/chirpstack/chirpstack-docker.git
 2. Open configuration/chirpstack/chirpstack.toml
-   1. Change `net_id` to `0x00003C`
-   2. Update the `dev_addr_prefixes` with the devAddr slab assigned to you. The format is
-      `dev_addr _prefixes` = ["`starting devAddr`/`32-log2(devAddr slab size)`"]. Let's say you
-      requested 8 devAddr slab and the starting devAddr is `00000000`, then you would input
+   1. Under `[network]` Change `net_id` to `0x00003C`
+   2. Under `[network]`, add `dev_addr_prefixes` with the devAddr slab assigned to you. First run
+      `./main org get --OUI <your OUI>` to get your OUI's DevAddr constraints. Then run
+      `./main subnet-mask <your OUI's starting DevAddr> <your OUI's ending DevAddr>` to find your
+      subnets. In the chirpstack toml file put in `dev_addr_prefixes` = [`<your subnets>`], which is
+      formatted with the following rule: `starting devAddr`/`32-log2(devAddr slab size)`. Let's say
+      you requested 8 devAddr slab and the starting devAddr is `00000000`, then you would input
       `dev_addr_prefixes` = ["00000000/29"]
    3. Under `[gateway]`, add a line `allow_unknown_gateways=true`
 
