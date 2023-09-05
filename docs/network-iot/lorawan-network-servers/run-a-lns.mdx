@@ -9,16 +9,13 @@ slug: /iot/run-a-lns
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 OpenLNS is the platform that enables any LoRaWAN Network Server (LNS) to use Helium's IoT Network.
 In this guide, we'll walk you through the process of setting up and configuring OpenLNS.
 
 ## What to Expect
 
-There are two major steps to run your own LNS.
+There are two major steps to run your LNS.
 
 1. Register as a Helium Organization
 2. Set up your LNS
@@ -45,7 +42,7 @@ Before you can purchase an OUI and devAddr Slab, you need to do the following.
 - Make sure you have a Helium Wallet
 
 You can create a Helium Wallet following the guide [here](/wallets/helium-wallet-app). Let's now
-generate the keys pairs
+generate the key pairs
 
 1. Run this to pull & build the config service cli:
 
@@ -194,13 +191,11 @@ Run `./main env init`
     src={useBaseUrl('img/open-lns/roaming-setup-env-variables.png')}
     style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
   />
-  <figcaption>
-    <a>Setting Environment Variables shown in a Terminal window.</a>.
-  </figcaption>
+  <figcaption>Setting environment variables as shown in a terminal window.</figcaption>
 </figure>
 
-Now, you are ready to generate your first route. Routes contain necessary information for us to know
-how to route a packet — DevEUI+AppEUI (for routing join requests), DevAddr range (for routing
+Now, you are ready to generate your first route. Routes contain the necessary information for us to
+know how to route a packet — DevEUI+AppEUI (for routing join requests), DevAddr range (for routing
 uplinks), Endpoint (so we know where to send the packet to), etc.
 
 1.  Run `./main route new --commit`
@@ -213,7 +208,7 @@ uplinks), Endpoint (so we know where to send the packet to), etc.
     style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
   />
   <figcaption>
-    <a>Route Creation shown in a Terminal window.</a>.
+    Route Creation as shown in a terminal window.
   </figcaption>
 </figure>
 
