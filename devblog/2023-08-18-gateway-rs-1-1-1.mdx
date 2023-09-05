@@ -1,0 +1,54 @@
+---
+layout: post
+title: Gateway-rs 1.1.1 Release
+date: 2023-08-18 17:00 -0800
+hide_table_of_contents: true
+---
+
+# Legacy API and Explorer Shutdown
+
+Gateway-rs, the software backing all IoT Hotspots on the Helium Network, has been upgraded to
+include several key performance improvements related to data delivery and Proof of Coverage response
+times.
+
+<!--truncate-->
+
+## Data Session Keys
+
+The Hotspot will negotiate a session key with the Helium Packet Router upon connection. The Hotspot
+can sign packets much faster with the session key compared to the key in the secure element because
+the session keys are kept in the Hotspot's memory. The use of session keys will decrease packet
+delivery latency by approximately 150ms. The decreased latency has the opportunity to improve
+LoRaWAN join-accept and other downlink performance in certain scenarios. The decreased latency also
+provides the opportunity for Hotspots to transfer higher volumes of data.
+
+## Parallelization of Tasks
+
+When a Hotspot receives a Proof of Coverage witness it will connect to the Helium oracles to deliver
+the signed witness report. The Hotspot will now parallelize some of the tasks associated with
+witness delivery. The Hotspot will initiate a connection to the oracles while at the same time
+signing the witness report. By doing these tasks in parallel the witness report should be delivered
+significantly faster than before.
+
+## ECC Chip Handling Improvements
+
+The drivers for the ECC608 chip were significantly improved to reduce the time required to sign a
+message. By fine-tuning the timings and sleep behavior of the chip, the Hotspot will be able to
+deliver Proof of Coverage messages to the Helium Oracles more rapidly.
+
+## Summary
+
+- Data session keys significantly reduce latency when delivering data packets. Session keys are not
+  currently applied to Proof of Coverage messages.
+- Parallelization of tasks combined with ECC608 driver improvement will significantly reduce latency
+  when delivering Proof of Coverage reports.
+
+Gateway-rs 1.1.0 was issued and mistakenly tagged as production-ready. As it was tagged as a main
+release, the Bobber (Bobcat) team sent out gateway-rs 1.1.0 to their fleet of Hotspots. No fault
+from Bobber, they were doing what was expected of them. As a result, Bobber Hotspots saw a
+significant increase in rewards vs. other manufacturers that did not update. All other manufacturers
+are currently updating to gateway-rs 1.1.1 and will now be on an “even playing field” with Hotspots
+from other manufacturers.
+
+For the full list of changes in this release and 1.1.0, see the
+[release change log](https://github.com/helium/gateway-rs/compare/v1.0.2...v1.1.1).

@@ -119,6 +119,7 @@ module.exports = {
   wallets: [
     'wallets/wallets',
     'wallets/helium-wallet-app',
+    'wallets/third-party-wallets',
     'wallets/wallet-seed-phrase',
     'wallets/ledger-wallet',
     'wallets/cli-wallet',
@@ -199,6 +200,7 @@ module.exports = {
       link: { type: 'doc', id: 'network-iot/iot-proof-of-coverage' },
       items: [
         'network-iot/iot-proof-of-coverage-roadmap',
+        'network-iot/iot-denylist',
         {
           type: 'category',
           label: 'Coverage Mapping',
@@ -262,9 +264,6 @@ module.exports = {
       label: 'Mine IOT',
       link: { type: 'doc', id: 'tokens/mine-iot' },
       items: [
-        'network-iot/crowdspot',
-        'network-iot/iot-denylist',
-        'network-iot/iot-denylist-removals',
         'home/faq/build-on-network',
       ],
       collapsed: true,
@@ -911,7 +910,6 @@ module.exports = {
       ],
     },
     'archive/console/functions',
-    'archive/console/hosting-providers',
     {
       type: 'category',
       label: 'Integrations',
