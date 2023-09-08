@@ -1,71 +1,121 @@
 ---
 id: data-only-hotspots
-title: Data Only Hotspots
-pagination_label: Data Only Hotspots
-sidebar_label: Data Only Hotspots
-description: Helium Documentation
+title: Data-Only Hotspots
+pagination_label: Data-Only Hotspots
+sidebar_label: Data-Only Hotspots
+description: Helium Data-Only Hotspot Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/data-only-hotspots
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
-# Data Only Hotspots
+<img className="docsheader" src={useBaseUrl('img/network-iot/data-only-header.png')} />
+<br />
+<br />
 
-<LegacyContentBanner />
+Any LoRaWAN gateway or gateway-capable hardware can be used to pass data through the Helium Network.
+Data-only Hotspots are eligible for **Network Data Transfer Rewards** but not **Proof of Coverage
+Rewards**. This offers a flexible path for companies and organizations looking to leverage the
+Helium Network for their IoT needs.
 
-Data Only Hotspots are eligible for **Network Data Transfer Rewards** but not **Proof of Coverage
-Rewards**.
+Since data-only Hotspots do not earn Proof-of-Coverage rewards, they may be permissionlessly added
+to the network. Once added to the blockchain and with location asserted, they will earn
+[IOT Tokens](/tokens/iot-token) when forwarding network data.
 
-Since Data Only Hotspots do not earn Proof-of-Coverage rewards, they may be permissionlessly added
-to the blockchain. Once added to the blockchain and with location asserted, they will earn $HNT when
-forwarding network data.
+## Basic Architecture
 
-| Rewards Type            | Data Only Hotspots | Full & Light Hotspots |
-| :---------------------- | :----------------- | :-------------------- |
-| Network Data Forwarding | YES                | YES                   |
-| Proof of Coverage       | NO                 | YES                   |
+The [gateway-rs](https://github.com/helium/gateway-rs) client backs both data-only Hotspots as well
+as proof-of-coverage enabled Hotspots. Gateway-rs is designed to run alongside a packet forwarder
+and handles communications with the Helium Packet Router.
 
-# Setup a Data Only Hotspot
+```mermaid
+graph LR;
+  subgraph Gateway["Helium-Enabled Gateway (Hotspot)"]
+    PacketForwarder["Packet<br>Forwarder"]
+    HeliumGateway["Helium<br>Gateway-rs"]
+
+    PacketForwarder -- "Semtech GWMP<br>over UDP" --> HeliumGateway
+  end
+
+  HeliumRouter["Helium<br>Packet Router"]
+  LNS["LoRaWAN<br>Network Server"]
+
+  HeliumGateway -- "gRPC" --> HeliumRouter
+  HeliumRouter --> LNS
+```
+
+The articles in this section will outline the 'Gateway' portion of the above diagram.
+
+### Packet Forwarder
+
+Gateway-rs is designed to interact with the
+[Semtech Packet Forwarder](https://github.com/helium/packet_forwarder). If no packet forwarder is
+installed on the target hardware, follow the manufacturer's instructions using their documentation
+or one of the full guides below.
+
+- [COTX X1 Lite](https://support.cotxnetworks.com/support/solutions/articles/73000567327-cotx-x1-lite-cli-user-guide)
+- [Dragino LPS8/DLOS8](/iot/data-only/dragino-data-only-hotspot)
+- [Dragino Concentrator PG1301 + Raspberry Pi](/iot/data-only/dragino-pg1301)
+- [Kerlink Gateways](/iot/data-only/kerlink-data-only-hotspot)
+- [RAKwireless Concentrator (RAK2245/RAK2247/RAK2287) + Raspberry Pi](/iot/data-only/rak-concentrators)
+  - [Using Balena: RAKwireless RAK2287 Concentrator + Raspberry Pi](/iot/data-only/balena-data-only-hotspot)
+- [Seeed Studio SenseCAP M2](https://wiki.seeedstudio.com/Network/SenseCAP_Network/SenseCAP_M2_Data_Only-Helium_gateway/SenseCAP_M2_Data_Only_Quick_Start/)
+
+### Gateway-rs
+
+Gateway-rs is the lightweight client that handles message signing and communications with Helium
+Packet Router, the backbone of the IoT Network.
+
+Gateway-rs is designed to be installed directly adjacent to the packet forwarder on the gateway. For
+the latest releases and build notes, refer to the repository readme on GitHub.
+
+- <https://github.com/helium/gateway-rs/>
+
+### First Run
+
+With gateway-rs installed on the gateway, initialize the key for the Hotspot.
+
+- configure settings.toml
+  - set key location. if none exists, key will be generated at this location
+  - back it up, if lost a new gateway key will need to be onboarded
+- run server to generate key `./helium_gateway -c /path/to/settings.toml server`
+
+```sh title="Generate a swarm_key by running gateway-rs."
+./helium_gateway -c /path/to/settings.toml server
+```
 
 ## Transactions & Cost
 
-Every Hotspot on the blockchain goes through two transactions:
+To enable the Helium Network to communicate with the data-only Hotspot, two criteria must be met.
 
-- **add hotspot**: links the Hotspot's key (`swarm_key`) of a Hotspot to a user's wallet
-- **assert location**: provides GPS location, elevation (in meters), and dBi antenna output for the
-  Hotspot
+1. The Hotspot must be 'onboarded' to the network.  
+   The **Add Hotspot** transaction links the Hotspot's key (`swarm_key`) to a user's
+   [account](/wallets) and makes the Hotspot known to the network.
+1. The specific location of the Hotspot must be declared.  
+   This allows the network to appropriately address regional parameters and aids in location-solving
+   for certain sensor applications. The **Assert Location** transaction provides the physical
+   location (lat/long), elevation (in meters), and antenna EIRP (in dBi) data for the Hotspot.
 
-The fee schedule is as follows:
+The network fees are as follows:
 
-- **add data only hotspot**: 1000000 DC ($10)
-- **assert location**: 500000 DC ($5)
+- **Add Data-Only Hotspot**: 1,000,000 Data Credits (USD $10)
+- **Assert Location**: 500,000 Data Credits (USD $5)
 
-:::info
+These fees are paid using [Data Credits](/tokens/data-credit). Transactions are submitted using the
+[CLI wallet](/wallets/cli-wallet). The wallet CLI should **not** be installed on the gateway.
 
-Data Credits in your Helium Console organization cannot be used to pay blockchain onboarding and
-assert location fees for Hotspots. To onboard a Hotspot, you'll need to burn HNT for Data Credits to
-the wallet that owns the Hotspot.
+Existing accounts generated using the Helium Wallet App can be
+[imported to the CLI](/wallets/cli-wallet#import-seed-phrase-account-into-cli).
 
-:::
+## Add Hotspot Transaction
 
-## Pre-requisites
+Adding a Hotspot to the blockchain happens in two steps. First, the transaction is generated using
+the key held by gateway-rs. This transaction isn't inherently submitted to the blockchain. The
+second step is to submit the transaction to the blockchain using the Helium Wallet CLI.
 
-You should [setup a packet forwarder](/iot/setup-a-packet-forwarder) with the
-[light hotspot client](/iot/hotspots).
-
-In addition, you should setup a [CLI wallet](/wallets/cli-wallet) as this is currently the only
-wallet that supports DIY Data Only Hotspots. Retail Data Only Hotspots from Hotspot Vendors can be
-onboarded using the Vendor IOS and Android apps.
-
-**Note**: you can import a mobile wallet to the CLI. **Another note**: you should **not** install
-the CLI on your gateway
-
-## Add Hotspot
-
-From a terminal on the device where the Light Hotspot client is installed, you need to generate the
-`add hotspot` transaction.
+From a terminal connected to the device where gateway-rs is installed, execute the `add`
+transaction. In most cases, the owner and payer are the same entity.
 
 ```
 ./helium_gateway add --owner WALLET_ADDRESS --payer WALLET_ADDRESS --mode dataonly
@@ -73,10 +123,9 @@ From a terminal on the device where the Light Hotspot client is installed, you n
 
 The output is a JSON object:
 
-```
+```json {7} // the {7} highlights line 7
 {
   "address": "11TL62V8NYvSTXmV5CZCjaucskvNR1Fdar1Pg4Hzmzk5tk2JBac",
-  "fee": 65000,
   "mode": "dataonly",
   "owner": "14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz6S",
   "payer": "14GWyFj9FjLHzoN3aX7Tq7PL6fEg4dfWPY8CrK8b9S5ZrcKDz6S",
@@ -134,25 +183,9 @@ HNT will be used to cover the transaction if you have insufficient DCs.
 You can track the transaction progress by using the transaction hash at the following endpoint:
 `https://api.helium.io/v1/pending_transactions/TXN_HASH`
 
-Once the transaction clears, your Data Only Hotspot is ready to start earning for data transfered!
+Once the transaction clears, your data-only Hotspot is ready to start earning for data transferred!
 
-## Data-Only Hotspot Setup Guides
+---
 
-- [Dragino LPS80/DLOS8](/iot/data-only/dragino-data-only-hotspot)
-  - Draginos will only mine IOT as a Data Only Hotspot
-- [Kerlink gateways](/iot/data-only/kerlink-data-only-hotspot)
-  - Kerlink gateways will only mine IOT as Data Only Hotspot unless it is specified as a
-    Helium-Compatible Kerlink Miner.
-- [RAK Concentrator (RAK2245/RAK2247/RAK2287) + Raspberry Pi 2, 3, or 4](/iot/data-only/rak-concentrators)
-  - This setup will only mine IOT as a Data Only Hotspot.
-- [Balena Data Only Hotspot running Raspberry Pi 0, 2, 3 or 4 with RAK Concentrator (RAK2287)](/iot/data-only/balena-data-only-hotspot)
-  - This setup based on Nebra will only mine IOT as a Data Only Hotspot, when possible.
-- [Dragino PG1301 + Raspberry Pi 4](/iot/data-only/dragino-pg1301)
-  - This setup based on the Dragino PG1301 Concentrator will only mine IOT as a Data Only Hotspot.
-
-:::info
-
-Gateways running a Packet Forwarder and Miner is not considered a Light Hotspot and will never earn
-HNT.
-
-:::
+You should [setup a packet forwarder](/iot/setup-a-packet-forwarder) with the
+[light hotspot client](/iot/hotspots).
