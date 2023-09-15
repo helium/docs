@@ -8,10 +8,11 @@ authors: [madninja]
 
 # IOT Denylist Refinement
 
-In early August Nova Labs [posted a change]() in how the denylist is operated. This change has
-resulted in several positive effects on the network in terms of the number of hotspots that were
-improved and cleared from the denylist, as well as clusters of misbehaving hotspots getting turned
-off, clearing innocent hotspots that were swept up in the analysis.
+In early August Nova Labs [posted a change](/devblog/2023/08/07/denylist-evolution/index.mdx) in how
+the denylist is operated. This change has resulted in several positive effects on the network in
+terms of the number of hotspots that were improved and cleared from the denylist, as well as
+clusters of misbehaving hotspots getting turned off, clearing innocent hotspots that were swept up
+in the analysis.
 
 The ongoing challenge with the current approach is that innocent hotspots are still being swept up
 by the classifiers if they have especially good antenna setups since they are attractive targets for
@@ -36,15 +37,15 @@ currently three metrics by which hotspots are added to the denylist:
 
 - **Terrain Intersection Margin**: A hotspot is added to the deny list when greater than 50 percent
   of its witnesses pass through significant terrain obstructions as
-  [described here](/devblog/2023/08/07/denylist-evolution/#terrain-aware-signal-verification)
+  [described here](/devblog/2023/08/07/denylist-evolution/index.mdx#terrain-aware-signal-verification)
 - **Witness Reciprocity**: A hotspot is added to the deny list when the reciprocity (ratio of the
   count of incoming to outgoing witnesses) is zero. This indicates that a hotspot is either
   exclusively receiving or transmitting beacons, which is a strong indication of either spoofing
   activity or a hardware/software malfunction of the hotspot.
 - **Distance Insensitivity**: A hotspot is added to the deny list when the distance insensitivity is
   above 50 percent, as described
-  [here](/devblog/2023/08/07/denylist-evolution/#witness-distance-sensitivity-measurement) is above
-  50 percent.
+  [here](/devblog/2023/08/07/denylist-evolution/index.mdx#witness-distance-sensitivity-measurement)
+  is above 50 percent.
 
 The above metrics were designed based on a statistical analysis of hotspot behavior on the network.
 Abnormal behavior for each metric is identified at the 90 percent confidence level by comparison
