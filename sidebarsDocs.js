@@ -139,8 +139,18 @@ module.exports = {
       link: { type: 'doc', id: 'network-iot/lorawan-network-servers/lorawan-network-servers' },
       items: [
         'network-iot/lorawan-network-servers/find-a-lns-provider',
-        'network-iot/lorawan-network-servers/run-a-lns',
-        'network-iot/buy-an-oui',
+        {
+          type: 'category',
+          label: 'Run Your Own LNS',
+          link: { type: 'doc', id: 'network-iot/run-a-lns/run-a-lns' },
+          items: [
+            'network-iot/run-a-lns/buy-an-oui',
+            'network-iot/run-a-lns/fund-an-oui',
+            'network-iot/run-a-lns/configure-chirpstack',
+            'network-iot/run-a-lns/configure-routing-rules',
+            'network-iot/run-a-lns/advanced-configuration',
+          ],
+        }
       ],
     },
     {

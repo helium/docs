@@ -1,0 +1,83 @@
+---
+id: fund-an-oui
+title: Fund An Organizationally Unique Identifier
+pagination_label: Fund An Organizationally Unique Identifier
+sidebar_label: Fund an Organizationally Unique Identifier
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/run-a-lns/fund-an-oui
+---
+
+import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
+
+<LegacyContentBanner />
+
+## Funding an Organizationally Unique Identifier
+
+Funding an OUI with Data Credits from HNT tokens can be performed int the Helium Wallet App or 
+through the [Sphere Data Credit Portal](https://docs.helium.com/tokens/data-credit-portal).
+
+---
+
+## Funding OUI with Data Credits
+
+Funding an OUT with Data Credits requires HNT, as Data Credits can only be obtained using HNT. The
+exchange rate for DC is $1 worth of HNT = 100,000 DC.
+
+- If HNT is $2 then 0.5 HNT = 100,000 DC
+- If HNT is $10 then 0.1 HNT = 100,000 DC
+
+The USD/HNT exchange rate within the Helium Wallet App is used for the conversion and appears in the
+Helium Wallet app before committing the transaction.
+
+:::warning HNT to DC swaps are irreversible
+
+Data Credits cannot be refunded, exchanged for other tokens, or transferred between wallets.
+
+Always double-check the addresses before performing essential operations.
+
+:::
+
+### Swap HNT to DC within a Maker Wallet:
+
+1. Select a Wallet in the Helium Wallet app.
+1. Tap the `$` icon on the bottom tab bar.
+1. Tap the `Swap` icon in the middle of the screen.
+1. Select `HNT` in the top drop-down and enter an amount of HNT to swap.
+1. The lower drop-down will be filled with the resulting DC amount.
+1. Tap the `Swap Tokens` button and confirm the swap transaction.
+1. HNT is burned for DC within the same Wallet.
+
+The new DC balance amount can be verified in the app tokens list on the `$` tab within the Helium
+Wallet app.
+
+---
+
+## Swap to Fund a Different Wallet
+
+The Helium Wallet app can be used to swap HNT from one wallet to DC in a wallet.
+
+This method requires that the sending Wallet is already funded with HNT to swap and SOL for
+transaction fees.
+
+Firstly add the Wallet address to the Address Book as a contact. This is the destination
+wallet that you will send the DC to:
+
+1. Tap the `Address Book` icon in the top right corner of the Helium Wallet app.
+1. Add new contact with the Solana wallet address.
+
+### Swap HNT to DC to send to a Wallet:
+
+1. Select any Wallet in the Helium Wallet app.
+1. Tap the `$` icon on the bottom tab bar.
+1. Tap the `Swap` icon in the middle of the screen.
+1. Select `HNT` in the top drop-down and enter an amount of HNT to swap.
+1. The lower drop-down will be filled with the resulting DC amount.
+1. **Tap the grey `Add Recipient +` text to enter the receiving Solana wallet address. This is the
+   wallet address to send the DC to.**
+1. Tap the `...` to the right of Solana Address and select the contact for the Maker Wallet.
+1. Tap the `Swap Tokens` button and confirm the swap transaction.
+1. HNT is burned for DC within the same Wallet.
+
+The new DC balance amount in the recipient Wallet can be verified by looking at the Helium
+Data Credit token balance of the wallet on https://explorer.solana.com/

@@ -1,27 +1,15 @@
 ---
-id: run-a-lns
-title: Run a LoRaWAN Network Server
-pagination_label: Run Your Own LNS
-sidebar_label: Run Your Own LNS
-description: Helium OpenLNS Documentation
+id: configure-chirpstack
+title: Configure Chirpstack
+pagination_label: Configure Chirpstack
+sidebar_label: Configure Chirpstack
+description: Configure Chirpstack
 image: https://docs.helium.com/img/link-image.png
-slug: /iot/run-a-lns
+slug: /iot/run-a-lns/congifure-chirpstack
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-OpenLNS is the platform that enables any LoRaWAN Network Server (LNS) to use Helium's IoT Network.
-In this guide, we'll walk you through the process of setting up and configuring OpenLNS.
-
-## What to Expect
-
-There are two major steps to run your LNS.
-
-1. Register as a Helium Organization
-2. Set up your LNS
-3. Set up your routing rules so the network infrastructure knows where to send your sensor data to.
-
-## Register as a Helium Organization
 
 <!-- TODO: Description of necessary keys for configuration and what they do: (payer, owner, delegate) -->
 
@@ -32,71 +20,6 @@ Before getting started, make sure you have the following:
   [roaming setup guide](/iot/lorawan-roaming))
 - LoRaWAN Network Server ("LNS"). A popular option is [ChirpStack](https://www.chirpstack.io). We
   will show you how to set up a Chirpstack instance on the Helium Network.
-
-### Purchasing OUI and devAddr Slab
-
-Before you can purchase an OUI and devAddr Slab, you need to do the following.
-
-- Generate an owner key pair
-- Generate a delegate key pair
-- Make sure you have a Helium Wallet
-
-You can create a Helium Wallet following the guide [here](/wallets/helium-wallet-app). Let's now
-generate the key pairs
-
-1. Run this to pull & build the config service cli:
-
-   ```bash
-   $ git clone https://github.com/helium/helium-config-service-cli.git
-   $ curl https://sh.rustup.rs -sSf | sh
-   $ source "$HOME/.cargo/env"
-   $ brew update
-   $ brew install protobuf
-   $ cd helium-config-service-cli
-   $ cargo b --release
-   ```
-
-2. You can then find the built binary file `helium-config-service-cli` under `./target/release`
-   inside the `helium-config-service-cli` directory. We would recommend renaming it into something
-   short such as `main` so you can type less words (you can rename it by running
-   `mv helium-config-service-cli main`)
-
-3. Now that we have the CLI binary, let’s just put it in a separate folder. This is recommended only
-   for simplicity's sake. Just copy `main` into the folder you created. You can reference the
-   following commands:
-
-   ```bash
-   $ cd ..
-   $ mkdir cli-testing
-   $ cd cli-testing
-   $ cp ../helium-config-service-cli/target/release/main .
-   ```
-
-4. Let’s generate the keypairs you’ll be using to authenticate your interactions with the config
-   service, so only you can create/modify/delete routes. Run this command twice for 1) owner keypair
-   and 2) delegate kepair and name files accordingly. Run
-   `./main env generate-keypair <key file name>.bin.` and you should find a file called
-   `<key file name>.bin`. Print out the public key of your keypair by running:
-
-   ```bash
-   $ ./main env info --keypair <key file name>.bin
-   ```
-
-   **Delegate Keypair**: The delegate key is actively used to create and manage routes. In case it
-   is ever compromised, it can be updated using the owner key.
-
-   **Owner Keypair**: The owner key is irreplaceable and should be kept safe, secure, and private at
-   all times. If lost or compromised, you could lose your OUI.
-
-Now, please send an email to hello@helium.foundation with
-
-- The public key of your owner key pair
-- The public key of your delegate key pair
-- The Helium Wallet address
-- The number of devAddr you want
-
-The OUI costs $100 paid in [Data Credits](/tokens/data-credit) ("DC"), while the devAddr slab
-mandates a minimum of 8 devAddrs that cost $100 each.
 
 ## Set up Your LNS
 

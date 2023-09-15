@@ -1,0 +1,112 @@
+---
+id: configure-routing-rules
+title: Configure Routing Rules
+pagination_label: Configure Routing Rules
+sidebar_label: Configure Routing Rules
+description: Configure Routing Rules
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/run-a-lns/configure-routing-rules
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Set up Routing Rules
+
+### How to Get Traffic to Your Chirpstack
+
+While Chirpstack is up and running for you, you need to let Config Service know of its existence.
+First, let’s initialize some environment variables so that you don’t have to tell the CLI the same
+thing over and over again:
+
+Run `./main env init`
+
+1.  Fill in `http://mainnet-config.helium.io:6080/` for `Config Service Host`
+1.  Fill in the relative path of your delegate key pair file for `Keypair Location`
+1.  Fill in `0x00003C` for `Net ID`
+1.  Fill in your OUI for `Assigned OUI`
+1.  Fill in the number of `multi-buy` you want for `Default Max Copies` as a default for your
+    routes.
+1.  Then export the environment variables. This needs to be done manually. You will see something
+    like this and just add `export` to each line and run it. For instance, you would run export
+    `HELIUM_MAX_COPIES=15` variable. Do NOT put a space around the `=` sign
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/open-lns/roaming-setup-env-variables.png')}
+    style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
+  />
+  <figcaption>Setting environment variables as shown in a terminal window.</figcaption>
+</figure>
+
+Now, you are ready to generate your first route. Routes contain the necessary information for us to
+know how to route a packet — DevEUI+AppEUI (for routing join requests), DevAddr range (for routing
+uplinks), Endpoint (so we know where to send the packet to), etc.
+
+1.  Run `./main route new --commit`
+1.  You can then see the empty route template. It should look like this, except that you should be
+    seeing your own Net ID, assigned OUI, max_copies in there:
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/open-lns/roaming-setup-generate-route.png')}
+    style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
+  />
+  <figcaption>
+    Route Creation as shown in a terminal window.
+  </figcaption>
+</figure>
+
+Next, let’s define the endpoint that you use for ingesting traffic. You can run:
+
+```bash
+$ ./main route update server --host <server ip> --port 1700 --route-id <route-id> --commit
+```
+
+Finally, let's make sure you specify the port for each LoRaWAN region you plan on supporting on your
+Chirpstack. In our example, run
+
+```bash
+$ ./main route update add-gwmp-region —route-id <route-id> us915 1701 eu868 1700 --commit
+```
+
+### How to Add Your First Device
+
+In this example, we will show you how to add an US915 OTAA Class A Device. On Chirpstack, navigate
+to Device Profiles, and hit `Add device profile`. Name it something descriptive like
+`US915 OTAA Class A`, and change the Region to US915 in the drop down. Leave everything else as
+default.
+
+The navigate to Applications, add an application if you don't have one yet. In that application, hit
+`Add device`. Fill in the `Name`, `Device EUI` and select the device profile you just created.
+
+Now that the device is successfully created on Chirpstack, you need to let Config Service know about
+it, you need to run
+
+```bash
+$ ./main route euis add --route-id <route-id> -d <dev-eui> -a <app-eui> --commit
+```
+
+While this allows your device to join on the Helium Network, you also need to specify a DevAddr
+range on that route so the device can also send uplink. It is recommended to set your route DevAddr
+to be the devAddr slab of your OUI. Run
+
+```bash
+$ ./main route devaddrs add -s <start devAddr> -e <end devAddr> --route-id <route-id> -- commit
+```
+
+### Upcoming Tutorials
+
+There will be an upcoming tutorial around session-key-filter (SKF).
+
+The Config Service can be used to manage an OUI and devAddr. There are two ways to interact with the
+Config Service:
+
+1. Using the [Command-Line Interface ("CLI")](https://github.com/helium/helium-config-service-cli)
+   detailed below.
+2. Alternatively, you can also write scripts to interact with the Config Service directly through
+   [GRPC APIs](https://github.com/helium/proto/blob/master/src/service/iot_config.proto) for a more
+   programmatic approach
+
+<!-- TODO: Context on router & how it connects to chirpstack (scope of what needs to be built) -->
+
+<!-- TODO: Link to Disk91’s companion solution guide: https://www.disk91.com/2022/technology/helium/installing-chirpstack-lorawan-network-server-for-helium/ -->
