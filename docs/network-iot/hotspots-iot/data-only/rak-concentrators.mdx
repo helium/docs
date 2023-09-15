@@ -1,21 +1,19 @@
 ---
 id: rak-concentrators
 title: RAK Concentrator + Raspberry Pi data-only Hotspot
-pagination_label: RAK Concentrator Data Only Hotspot
-sidebar_label: RAK Concentrator Data Only Hotspot
+pagination_label: RAK Concentrator Data-Only Hotspot
+sidebar_label: RAK Concentrator Data-Only Hotspot
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/data-only/rak-concentrators
 ---
 
-# Data Only Hotspot Setup With Rakwireless Concentrator + Raspberry Pi
+# Data-Only Hotspot Setup With RAKwireless Concentrator + Raspberry Pi
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-This guide covers all the steps needed to set up a data-only Hotspot using a WisLink RAK LPWAN
-concentrator module and a Raspberry Pi. This configuration can be achieved by installing the
-**_helium_gateway_** service available on the [gateway-rs](https://github.com/helium/gateway-rs)
-repository.
+This guide covers the steps needed to set up a data-only Hotspot using a WisLink RAK LPWAN
+concentrator module and a Raspberry Pi.
 
 ## Requirements
 
@@ -41,8 +39,12 @@ interface.
 ## Packet Forwarder Preparation
 
 To prepare the hardware to become a Helium data-only Hotspot, it first must be configured to handle
-LoRaWAN messages. To get started, set up the packet forwarder as outlined in one of the two options
-below.
+LoRaWAN messages. To get started, install an operating system and set up the packet forwarder as
+outlined in one of the two options below.
+
+LoRaWAN gateways are generally 'headless' computers. The
+[Raspberry Pi Headless](https://www.raspberrypi.com/documentation/computers/configuration.html#setting-up-a-headless-raspberry-pi)
+documentation is a helpful reference for initial setup.
 
 #### Option 1
 
@@ -68,15 +70,19 @@ sudo gateway-config
 ```
 
 Select the _Setup RAK Gateway Channel Plan_ option, then _Server is TTN_, and in the last step
-choose the proper plan according to your country. For instance, the image shows the option to select
-US915. To finish, press OK.
+choose the proper plan according to your country. To finish, press OK.
 
-<img
-  className="docsheader"
-  src={useBaseUrl(
-    'img/mine-hnt/guides/rak-concentrators-guide-gateway-config-interface-region-plan.png',
-  )}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl(
+      'img/mine-hnt/guides/rak-concentrators-guide-gateway-config-interface-region-plan.png',
+    )}
+    style={{ maxHeight: '450px' }}
+    className="add-shadow add-shadow-margin add-border-radius"
+  />
+  <figcaption>This image shows the option to select US915.</figcaption>
+</figure>
+<br />
 
 ### Verify If The Packet Forwarder Is Running
 
@@ -130,20 +136,25 @@ Select the option _Edit packet-forwarder config_ within the _gateway-config_ int
 will open the `global_conf.json` file using the nano editor. Then, set the _server_address_ to
 127.0.0.1 and the _server ports_ to 1680, as follows:
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/mine-hnt/guides/rak-concentrators-guide-packet-forwarder-settings.png')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mine-hnt/guides/rak-concentrators-guide-packet-forwarder-settings.png')}
+    style={{ maxHeight: '450px' }}
+    className="add-shadow add-shadow-margin "
+  />
+</figure>
+<br />
 
-Close the editor by pressing CTRL + X, press ENTER to save the file and restart the packet forwarder
-to apply the changes by selecting the option _Restart packet-forwarder_ within the _gateway-config_
-interface.
+Close the editor by pressing CTRL + X, press ENTER to save the file.
+
+Restart the packet forwarder to apply the changes by selecting the option _Restart packet-forwarder_
+within the _gateway-config_ interface.
 
 :::important
 
 Every time a new region is selected using the _Setup RAK Gateway Channel Plan_ option, these
-settings are replaced with the default configuration. So, make sure to keep this in mind if you
-modify the region later.
+settings are replaced with the default configuration. Make sure to keep this in mind if the region
+is changed later.
 
 :::
 
@@ -158,11 +169,17 @@ directory, for example `/tmp`.
 
 #### Option 1
 
-Getting from the repo directly to the Raspberry Pi by running the following commands.
+Get from the repo directly to the Raspberry Pi by running the following commands.
 
-```
+```sh
 cd /tmp
-wget https://github.com/helium/gateway-rs/releases/download/<version>/helium-gateway-<version>-raspi234.deb
+wget https://github.com/helium/gateway-rs/releases/download/<version>/helium-gateway-<version>-armv7-unknown-linux-musleabihf.tar.gz
+```
+
+Expand the archive.
+
+```sh
+tar -xf helium-gateway-<version>-armv7-unknown-linux-musleabihf.tar.gz
 ```
 
 #### Option 2
@@ -170,51 +187,107 @@ wget https://github.com/helium/gateway-rs/releases/download/<version>/helium-gat
 You can also download it to your computer and pass it to the Raspberry Pi through the Secure Copy
 Protocol (SCP).
 
-```
-scp helium-gateway-<version>-raspi234.deb pi@<gateway ip>:/tmp/
+```sh
+scp helium-gateway-<version>-armv7-unknown-linux-musleabihf.tar.gz pi@<gateway ip>:/tmp/
 ```
 
-### Installing The Package
+Through an SSH connection, expand the archive.
 
-Run the following command in the same directory you downloaded the package to install the
-_helium_gateway_ service in the operating system.
-
+```sh
+tar -xf helium-gateway-<version>-armv7-unknown-linux-musleabihf.tar.gz
 ```
-sudo dpkg -i helium-gateway-<version>-raspi234.deb
+
+#### Option 3
+
+Build the program from source. The build chain for gateway-rs is
+[Rust](https://www.rust-lang.org/tools/install). While build times may be slower, gateway-rs can be
+built directly on the Raspberry Pi.
+
+```sh title="Install Rust"
+curl https://sh.rustup.rs -sSf | sh
+```
+
+```sh title="Add Rust to shell"
+source "$HOME/.cargo/env"
+```
+
+```sh title="Install protobuf compiler"
+sudo apt-get update && sudo apt-get install protobuf-compiler
+```
+
+```sh title="Clone the gateway-rs repo"
+git clone https://github.com/helium/gateway-rs.git
+```
+
+```sh title="Build gateway-rs"
+cd gateway-rs/
+cargo build --release
+```
+
+### Gateway Configuration
+
+#### Gateway Settings
+
+The `settings.toml` file handles the location of the keyfile used to sign messages as well as the
+default region configuration for the Helium Network. It is recommended to make a copy of the
+settings.toml file that otherwise exists within the gateway-rs/config/ folder.
+
+For simplicity in this guide, place the settings.toml file at the home path.
+
+```sh title="Make a copy of settings.toml"
+cp gateway-rs/config/settings.toml ~/settings.toml
+```
+
+Similarly, edit settings.toml to match the intended path for `gateway_key.bin`. The gateway_key.bin
+file is created at the defined directory on the first run of the gateway-rs server.
+
+```toml title="Update the keypair path in settings.toml"
+...
+# File based:
+keypair = "<path/to/>gateway_key.bin"
+...
+```
+
+#### Create a Service
+
+Create a service to handle automatically starting gateway-rs.
+
+Update the paths in `ExecStart` for both the location of the `helium_gateway` binary and the
+`settings.toml` file (Line 6).  
+Additionally, define the system user to execute the service (Line 9).
+
+```service {6,9} showLineNumbers title="Create this service at /etc/systemd/system/gateway-rs.service"
+# /etc/systemd/system/gateway-rs.service
+[Unit]
+Description=Helium Gateway
+
+[Service]
+ExecStart=</path/to/>helium_gateway -c </path/to/>settings.toml server
+Restart=on-failure
+RestartSec=15
+User=<current user>
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```sh title="Activate the service"
+sudo systemctl enable gateway-rs.service
+```
+
+```sh title="Start the service"
+sudo systemctl start gateway-rs.service
+```
+
+```sh title="View logs for gateway-rs"
+sudo journalctl -fu gateway-rs
 ```
 
 ### Region Configuration
 
-The default region of the _helium_gateway_ service is US915, so you can continue with the next
-section if you are using this one. Otherwise, you must set your region frequency in
-`/etc/helium_gateway/settings.toml`. Add the following line at the beginning of the file:
-
-```
-region = "<region>"
-```
-
-Possible values are:
-`US915 | EU868 | EU433 | CN470 | CN779 | AU915 | AS923_1 | AS923_2 | AS923_3 | AS923_4 | KR920 | IN865`.
-
-For instance, if your region is EU868 the content in `settings.toml` must be.
-
-```
-region = "EU868"
-
-[log]
-method = "syslog"
-level = "info"
-timestamp = false
-
-[update]
-platform = "raspi234"
-```
-
-After updating the value, you need to restart the _helium_gateway_ service to apply the changes.
-
-```
-sudo systemctl restart helium_gateway
-```
+The region configuration for gateway-rs is a default. The on-chain asserted location of the gateway
+will override the definition in settings.toml. Updating the region in settings is optional as long
+as the Hotspot location is asserted..
 
 ## Verifying The Installation
 
@@ -227,51 +300,29 @@ following command.
 sudo tail -f /var/log/syslog | grep helium_gateway
 ```
 
-The first log messages should look like these ones.
-
-```
-rak-gateway helium_gateway[23658]: starting, module: gateway
-rak-gateway helium_gateway[23658]: starting, module: router
-rak-gateway helium_gateway[23658]: default router, module: router, uri: [http://54.193.165.228:8080/](http://54.193.165.228:8080/), public_key: <public key>
-rak-gateway helium_gateway[23658]: selected gateway, module: router, uri: [http://18.216.219.228:8080/](http://18.216.219.228:8080/), public_key: <public key>
-rak-gateway helium_gateway[23658]: starting, module: updater
-rak-gateway helium_gateway[23658]: updated routing to height 930678, module: router
-rak-gateway helium_gateway[23658]: no update found, module: updater
-rak-gateway helium_gateway[23658]: ignoring raw packet PushData(Packet { random_token: 25968, gateway_mac: MacAddress { bytes: [228, 95, 1, 255, 254, 3, 45, 43] }, data: Data { rxpk: None, stat: Some(Stat { time: "2021-07-21 17:23:40 GMT", lati: None, long: None, alti: None, rxnb: 0, rxok: 0, rxfw: 0, ackr: Some(0.0), dwnb: 0, txnb: 0 }) } }), module: gateway
-rak-gateway helium_gateway[23658]: ignoring raw packet PullData(Packet { random_token: 23178, gateway_mac: MacAddress { bytes: [228, 95, 1, 255, 254, 3, 45, 43] } }), module: gateway
-rak-gateway helium_gateway[23658]: new packet forwarder client: MacAddress(E4:5F:01:FF:FE:03:2B), 127.0.0.1:39196, module: gateway
-rak-gateway helium_gateway[23658]: ignoring raw packet PullData(Packet { random_token: 16226, gateway_mac: MacAddress { bytes: [228, 95, 1, 255, 254, 3, 45, 43] } }), module: gateway
-rak-gateway helium_gateway[23658]: ignoring raw packet PullData(Packet { random_token: 32809, gateway_mac: MacAddress { bytes: [228, 95, 1, 255, 254, 3, 45, 43] } }), module: gateway
-```
-
-Whenever you need to restart the service you can use the command below.
-
-```
-sudo systemctl restart helium_gateway
-```
-
 ### Getting Some Information About The Hotspot
 
 Use the following command to get the public key address and animal name of your Hotspot.
 
 ```
-helium_gateway key info
+./helium_gateway -c ~/settings.toml key info
 ```
 
 This command should give you an output like the following one.
 
-```
+```json
 {
   "address": <hotspot address>,
+  "onboarding": <hotspot address>,
   "name": <hotspot name>
 }
 ```
 
 #### Backup The gateway_key
 
-The `gateway_key.bin` file located at /etc/helium_gateway stores the information used to identify
-the Hotspot on the network. It's highly advised to backup this file, especially if you need to
-recover it later after the onboarding process.
+The `gateway_key.bin` file stores the information used to identify the Hotspot on the network. It's
+highly advised to backup this file, especially if you need to recover it later after the onboarding
+process.
 
 Using SCP could be an option to do the backup; that would be something like this.
 
@@ -279,56 +330,16 @@ Using SCP could be an option to do the backup; that would be something like this
 scp pi@<gateway ip>:/etc/helium_gateway/gateway_key.bin <destination directory>
 ```
 
-If you are using Windows, you can try a tool like [WinSCP](https://winscp.net/eng/index.php) too.
+If using Windows, a tool like [WinSCP](https://winscp.net/eng/index.php) will enable this
+functionality.
 
-### Testing The Packet Transfer With An End Device
+## Onboard the Hotspot
 
-If you have an end device (LoRaWAN node), you can check if the Hotspot can transfer packets through
-the network. In other words, you can check if the devices can send data to the Helium Console. The
-Helium Console is where you can provision and manage the end devices, so the nodes need to be
-registered to start using the network.
+Refer to the [Data-Only Onboarding Guide](/iot/data-only-hotspots-onboarding) to complete the
+onboarding of the fully-configured Hotspot.
 
-To register your end device on the console, you can follow the steps described on
-[Adding Devices](/console/adding-devices/).
+## Video Guide for Setup
 
-#### Inspecting the packet transfer behavior
-
-Make sure your device is configured or flashed with the same keys you registered on the console.
-Then, when your device is ready to transmit data, take a look at the log messages again.
-
-```
-sudo tail -f /var/log/syslog | grep helium_gateway
-```
-
-Power up or reset your device. Every time it tries to send a message, you should see the information
-related to the packet received by the hotspot and where it is being routed.
-
-```
-rak-gateway helium_gateway[23658]: ignoring raw packet PushData(Packet { random_token: 18563, gateway_mac: MacAddress { bytes: [228, 95, 1, 255, 254, 3, 45, 43] }, data: Data { rxpk: Some([V1(RxPkV1 { chan: 4, codr: _4_5, data: [64, 11, 8, 0, 72, 0, 25, 1, 2, 138, 20, 173, 187, 16, 164, 246, 161, 241, 78, 16, 36, 238, 117, 161, 188, 240], datr: DataRate(SF7, BW125), freq: 904.7, lsnr: 13.2, modu: LORA, rfch: 1, rssi: -20, rssis: Some(-20), size: 26, stat: OK, tmst: 668364099 })]), stat: None } }), module: gateway
-rak-gateway helium_gateway[23658]: routing packet to: http://54.193.165.228:8080/, module: router
-```
-
-If you can see this kind of log your hotspot is working like a charm!
-
-Now, you should start to see some events on the console. Sometimes, it could take some minutes
-before you start to see any activity; wait for a bit and reset your device if it's needed.
-
-<img
-  className="docsheader"
-  src={useBaseUrl('img/mine-hnt/guides/rak-concentrators-guide-console-events.png')}
-/>
-
-As a final check, you can compare if the Hotspot Name matches the one you obtained before. It could
-be different if there are more hotspots providing coverage around you. In that case, you can explore
-the _Multiple Packets_ configuration to purchase more packets when several hotspots hear the device.
-
-## What's next?
-
-At this point, your data-only Hotspot is ready to be added to the blockchain! You can find more
-information about that process [here](/iot/data-only-hotspots#pre-requisites).
-
-### Video Guide for Setup
-
-This Hands on with RAKstars session follows the step-by-step provided in this guide.
+This Hands on with RAKstars session follows the steps provided in this guide.
 
 [![Link to YouTube tutorial explaining packet forwarder setup.](https://img.youtube.com/vi/Eyt4bbW_9yw/0.jpg)](https://www.youtube.com/watch?v=Eyt4bbW_9yw&t=2024s)

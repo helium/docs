@@ -12,177 +12,82 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Data-Only Hotspot Onboarding
 
-This guide walks through the process of setting up and onboarding a data-only Hotspot to the Helium
-Network. By the end of this guide, you will have:
+This guide walks through the process of onboarding a data-only Hotspot to the Helium Network. The
+onboarding procedure expects a gateway configured with the Semtech Packet Forwarder and Helium
+Gateway-rs.
 
-- Assembled hardware
-- Installed gateway-rs
-- Created a CLI wallet
-  - used that wallet to onboard Data-Only Hotspot.
+## Prerequsites
 
-## Prerequisites
+- LoRaWAN Gateway with Gateway-rs installed.
+- Helium Wallet CLI with a funded account imported.
+- Token balanced to onboard data-only Hotspot.
+  - 1,500,000 Data Credits
+    - 1,000,000 ($10) Data-Only Onboard
+    - 500,000 ($5) Location Assert
+  - SOL to cover transaction fees (~0.1 Sol)
 
-### Hardware
+## Prepare the Helium Wallet CLI
 
-- Raspberry Pi running 32-bit Raspbian OS
-- Lora piHAT
-- Lora Concentrator
-- LoRa Antenna
-- Internet Connection
-- A second computer is recommended to ssh into the Data-Only Hotspot. This guide uses an M1 MacBook
-  running macOS.
+The Wallet CLI will be used to sign and submit the transaction generated. The Wallet CLI should not
+be installed on the Hotspot.
 
-### Software
+The gateway-rs program will use the legacy Helium L1 account address to generate the `add`
+transaction.
 
-- [Rust](https://www.rust-lang.org) v1.71.0 or later
-- SSH access to the Raspberry Pi
-
-## Software Setup
-
-### On The Data-Only Hotspot
-
-1. Install Raspbian OS by following the instructions on the
-   [Raspberry Pi installation guide](https://www.raspberrypi.com/software/).
-1. Connect the Hotspot to power and connect to the internet.
-
-### From Another Computer
-
-These steps are run via an ssh connection to the Hotspot from another device. This will install
-gateway-rs on the Hotspot, not the second machine.
-
-1. open a terminal window and ssh into the Hotspot.
-2. install Rust following
-   [this guide on the Official Rust Documentation](https://www.rust-lang.org/tools/install).
-3. verify rust is installed correctly
-
-```sh title="Verify Rust installation"
-❯ rustc --version
-rustc 1.71.0 (8ede3aae2 2023-07-12)
-❯ cargo --version
-cargo 1.71.0 (cfd3bbd8f 2023-06-08)
+```sh title="Get Helium address for the imported account"
+./helium-wallet -f <path/to/>wallet.key info
 ```
 
-4. clone the `gateway-rs` repo onto the Hotspot
+The `info` command will return the wallet addresses for both the Solana blockchain and the legacy
+Helium L1.
 
-```sh title="clone Repo"
-❯ git clone git@github.com:helium/gateway-rs.git
-```
-
-5. navigate into the `gateway-rs` directory
-
-```sh title="move into the directory"
-❯ cd gateway-rs/
-```
-
-6. build gateway-rs specifying the `release` flag with the `--release` option
-
-```sh title="create a release build"
-❯ cargo build --release
-```
-
-:::tip multitasking
-
-Building `gateway-rs` on a Raspberry Pi may take a while. Now is a good time to create a CLI wallet
-if you have not done so already.
-
-:::
-
-### Verify The Installation
-
-<!-- TODO: What do on Hotspot at this stage? -->
-
-- once installed and built on the raspberry-pi
-- verify gateway-rs runs
-- when started, generates swam key for hotspot, typically want to back this up
-  - will have to re-onboard if this is lost
-
-<!-- TODO: standard user would use a `release` that avoids some of these build steps. -->
-
-## Onboarding With The Command Line Wallet
-
-Create a Command Line Wallet ("CLI Wallet" or "Wallet") on a trusted device, it is possible, **but
-not recommended** to create the Wallet on the Hotspot itself.
-
-### General Workflow:
-
-1. Create a CLI Wallet
-2. Fund that Wallet with HNT and SOL
-3. Burn HNT to mint the required Data Credits for onboarding
-4. Onboard the Data-Only Hotspot
-
-:::warning CLI Wallet Work in Progress
-
-This guide will work on Solana devnet but not Solana Mainnet.
-
-The current cli-wallet does not support Solana transactions. This guide uses a special branch
-created by MadNinja from Nova Labs that has not yet been merged for release.
-
-:::
-
-### Installing the CLI Wallet
-
-1. Clone the `helium-wallet-rs` project from the
-   [GitHub repo](https://github.com/helium/helium-wallet-rs)
-
-```sh title="clone the repo"
-❯ git clone git@github.com:helium/helium-wallet-rs.git
-```
-
-2. checkout the `madninja/solana` branch
-
-```sh title="switch branch"
-❯ git checkout madninja/solana
-```
-
-3. Create A Release Build
-
-```sh
-❯ cargo build --release
-```
-
-:::info 'Could not find protoc' error on macOS
-
-If this error causes a a build to fail, install `proto-lense` following
-[these steps](https://google.github.io/proto-lens/installing-protoc.html)
-
-```sh title="macOS proto-lens installation with homebrew"
-❯ brew install protobuf
-```
-
-Once installed, run the build command again.
-
-:::
-
-### Create A Basic Wallet
-
-Now that the ClI Wallet is installed, create a Basic Wallet with the following command. Other
-wallets can be created, this guide creates a Basic Wallet for simplicity.
-
-When prompted, give the Wallet a password. This is **NOT** a seed phrase, but a password to access
-the Wallet.
-
-```sh title="create a basic wallet"
-❯ ./target/release/helium-wallet create basic
-Wallet Password: [hidden]
+```json
 {
-  "address": "c6kJqVC3gAzojrhzh9t2b8eTUeBoe7zEWaaqdZghux7Z",
+  "address": {
+    "helium": "<Helium Address>",
+    "solana": "<Solana Address>"
+  },
   "pwhash": "Argon2id13",
   "sharded": false
 }
 ```
 
-### Some Helpful Commands
+## Generate a Transaction Using gateway-rs
 
-```sh title="Print the Wallet QR code to the console"
-❯ ./target/release/helium-wallet info --qr
+Connect to the Hotspot using SSH or the interface provided by the hardware manufacturer.
+
+Gateway-rs provides tooling to generate a transaction using the gateway_key. Use the Helium address
+for the `<OWNER>` and `<PAYER>` fields.
+
+```sh title="Generate an Add Hotspot Transaction"
+./helium_gateway -c <path/to/>settings.toml add --owner <OWNER> --payer <PAYER>
 ```
 
-```sh title="Print the Wallet Seed Phrase to the console"
-❯ ./target/release/helium-wallet export --output seed
+The owner and payer accounts can both be the same. To onboard the Hotspot, the payer account will
+need to sign the transaction and pay the DC onboarding fee. The owner will be the recipient of the
+data-only Hotspot.
+
+The add command will generate a txn that can be used in the next step.
+
+```json {7} title="Add transaction result"
+{
+  "address": "<Hotspot Address>",
+  "mode": "dataonly",
+  "owner": "<Owner>",
+  "payer": "<Payer>",
+  "staking fee": 1000000,
+  "txn": "<Add Transaction>"
+}
+```
+
+## Onboarding With The Command Line Wallet
+
+```
+./helium-wallet hotspots add --subdao iot --mode data-only <Txn from gateway-rs>
 ```
 
 ```sh title="List a Wallet's Hotspots"
-❯ ./target/release/helium-wallet hotspots list
+./helium-wallet hotspots list
 {
   "address": "c6kJqVC3gAzojrhzh9t2b8eTUeBoe7zEWaaqdZghux7Z",
   "hotspots": []
@@ -190,7 +95,7 @@ Wallet Password: [hidden]
 ```
 
 ```sh title="List a Wallet's Token Balances"
-❯ ./target/release/helium-wallet balance
+./helium-wallet balance
 {
   "address": "c6kJqVC3gAzojrhzh9t2b8eTUeBoe7zEWaaqdZghux7Z",
   "balance": {
@@ -204,33 +109,4 @@ Wallet Password: [hidden]
     }
   }
 }
-```
-
-## Onboard On Solana Devnet
-
-This guide uses the Solana Devnet, and will include the `--url d` flag in commands to specify
-Devnet.
-
-Your wallet will need Devnet HNT and Devnet SOL. Which can be acquired here:
-
-- Devnet HNT can be acquired by opening the following URL in any web browser.
-
-  - 'https://faucet.web.test-helium.com/hnt/WALLET_ADDRESS?amount=5'
-  - note there is a limit of 10 per load
-  - the HNT Devne Faucet is rate limited, but please, dont be greedy.
-
-- will also need devnet SOL for transaction fees.
-
-  - [https://solfaucet.com](https://solfaucet.com) is a good option.
-
-## Burn HNT for DC
-
-This example command will burn 10 HNT for Data Credits.
-
-**Note:** Without including the `--commit` flag at the end of the command, the on-chain transaction
-will not be processed. This is an extra step to prevent accidental transactions and is ideal for
-testing.
-
-```sh title="HNT burn command"
-❯ ./target/release/helium-wallet --url d dc mint --hnt 10`
 ```
