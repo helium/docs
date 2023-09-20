@@ -229,6 +229,9 @@ cargo build --release
 
 ### Gateway Configuration
 
+After obtaining or building gateway-rs, move the `helium_gateway` executable file and
+`settings.toml` file to places where they are easily accessible.
+
 #### Gateway Settings
 
 The `settings.toml` file handles the location of the keyfile used to sign messages as well as the
@@ -274,6 +277,8 @@ User=<current user>
 WantedBy=multi-user.target
 ```
 
+Once the service is written and proper paths are set, activate it using the following commands.
+
 ```sh title="Activate the service"
 sudo systemctl enable gateway-rs.service
 ```
@@ -285,6 +290,11 @@ sudo systemctl start gateway-rs.service
 ```sh title="View logs for gateway-rs"
 sudo journalctl -fu gateway-rs
 ```
+
+If there are errors in running the service edit it by first stopping the service
+(`systemctl stop gateway-rs.service`), then editing it
+(`nano /etc/systemd/system/gateway-rs.service`). After changes are made, rerun the above commands to
+test and monitor.
 
 ### Region Configuration
 

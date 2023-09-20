@@ -67,7 +67,7 @@ The owner and payer accounts can both be the same. To onboard the Hotspot, the p
 need to sign the transaction and pay the DC onboarding fee. The owner will be the recipient of the
 data-only Hotspot.
 
-The add command will generate a txn that can be used in the next step.
+The add command will generate a transaction that can be used in the next step.
 
 ```json {7} title="Add transaction result"
 {
@@ -82,8 +82,26 @@ The add command will generate a txn that can be used in the next step.
 
 ## Onboarding With The Command Line Wallet
 
-```
+Onboarding is done using the [Helium CLI Wallet](/wallets/cli-wallet).
+
+The Helium Wallet CLI will not automatically convert HNT to Data Credits. Make sure the paying
+account has 100,000 Data Credits available to complete the add transaction. The transactions take
+place on the Solana blockchain, so a small amount of Sol is also required to cover Solana fees.
+
+```sh
 ./helium-wallet hotspots add --subdao iot --mode data-only <Txn from gateway-rs> --commit
+```
+
+The CLI will return a Solana transaction hash for the on-chain event. This transaction can be looked
+up using a Solana block explorer.
+
+```sh
+$ helium-wallet hotspots add --subdao iot --mode data-only CrMB... --commit`
+Wallet Password: [hidden]
+{
+  "result": "ok",
+  "txid": "<Transaction ID>"
+}
 ```
 
 ```sh title="List a Wallet's Hotspots"
