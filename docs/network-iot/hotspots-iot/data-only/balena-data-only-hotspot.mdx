@@ -15,25 +15,14 @@ import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
 <LegacyContentBanner />
 
-A Data Only Hotspot is a type of Hotspot that participates on the Helium Network by transferring
-data from the end devices (LoRaWAN nodes). The Data Only Hotspots are eligible for Network Data
+A data-only Hotspot is a type of Hotspot that participates on the Helium Network by transferring
+data from the end devices (LoRaWAN nodes). The data-only Hotspots are eligible for Network Data
 Transfer Rewards but not Proof of Coverage Rewards.
 
-This guide covers all the steps needed to set up a Data Only Hotspot using a Raspberry Pi and a RAK
+This guide covers all the steps needed to set up a data-only Hotspot using a Raspberry Pi and a RAK
 concentrator (RAK2287) and the Pi Hat running on balena. This configuration can be achieved by
 installing the **_gatewayrs_** and **_packet forwarder_** services open sourced by
 [Nebra](https://github.com/nebraltd) and using balenaOS and [balenaCloud](https://balena.io).
-
-:::warning
-
-Data Only Hotspots cannot earn $HNT, at least for now, and after milestone 2 they will earn $HNT
-only for Device Packet Transfer. Remember to keep an eye on [Light Hotspots - BETA](/iot/hotspots)
-and the
-**[#gateway-development](discord://discord.com/channels/404106811252408320/784462269072277576)**
-channel on the [Helium Discord Server](https://discord.gg/helium) to check how the development
-process evolves.
-
-:::
 
 ## Getting started
 
@@ -41,7 +30,6 @@ process evolves.
 
 - Raspberry Pi 0/2/3/4 or balenaFin
 - SD card in case of the Raspberry Pi
-
 - [RAK 2287 LoRa concentrator SPI based](https://store.rakwireless.com/products/rak2287-lpwan-gateway-concentrator-module)
   and [RAK2287 Pi Hat](https://store.rakwireless.com/products/rak2287-pi-hat)
 
@@ -64,8 +52,8 @@ application. You can do it in just one click by using the button below:
 
 [![](https://www.balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/mpous/helium-data-hotspot)
 
-Follow instructions, click `Add a Device` and flash an SD card with that balenaOS image dowloaded
-from balenaCloud. Enjoy the magic 🌟Over-The-Air🌟!
+Follow the instructions, click `Add a Device` and flash an SD card with that balenaOS image
+downloaded from balenaCloud. Enjoy the magic 🌟Over-The-Air🌟!
 
 Find the [repository with the source code here](https://github.com/mpous/helium-data-hotspot) if you
 would like to clone and deploy from your computer or you would like to contribute.
@@ -108,31 +96,28 @@ Helium app is still not compatible with the data-only hotspots. Follow
 [this instructions](https://github.com/mpous/helium-data-hotspot/#join-the-helium-blockchain-with-your-data-only-hotspot)
 to add your Data Only Hotspot on the Blockchain.
 
-You can find as well the instructions to do it
+You can find the instructions to do it
 [here](https://github.com/mpous/helium-data-hotspot/#join-the-helium-blockchain-with-your-data-only-hotspot).
 
 ## Check your Data Only Hotspot
 
-Now that your Data Only Hostpot has been added into the Helium Blockchain you should be able to see
-it on your Helium wallet.
-
-Go to the [Helium Explorer](https://explorer.helium.com/) and introduce your URL
-`https://explorer.helium.com/hotspots/<hotspot address>`.
+Now that your data-only Hotspot has been added to the Blockchain you should be able to see it on
+your Helium wallet.
 
 If you create a Helium Device, then go to the [Helium Console](https://console.helium.com) and
-Inspect packages from your device to confirm that the Data Only Hostpot is the one that relays the
+Inspect packages from your device to confirm that the Data Only Hotspot is the one that relays the
 data from your Devices. You also will be able to see on the balenaCloud logs that UPLINK messages
 have been relayed to the Helium OUI.
 
 ## Manage your gateway_key
 
 It's extremely important that at this point, with the Hotspot added on the Helium blockchain you
-backup the `gateway_key`. If you loose this key, you will not be able to use this hotspot anymore in
-case there is a problem on your hostpot (SD card corrupted, etc).
+backup the `gateway_key`. If you lose this key, you will not be able to use this hotspot anymore in
+case there is a problem on your Hotspot (SD card corrupted, etc).
 
 ### Backup your gateway_key.bin file
 
-Follow this instructions to backup your gateway_key.bin file of your hotspot.
+Follow these instructions to back up your gateway_key.bin file of your Hotspot.
 
 - Open an SSH session to the "host-os" on balenaCloud Terminal.
 - Type this command and keep note of the (YOUR INSTANCE)\_miner-storage:
