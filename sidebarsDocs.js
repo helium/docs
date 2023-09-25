@@ -142,13 +142,13 @@ module.exports = {
         {
           type: 'category',
           label: 'Run Your Own LNS',
-          link: { type: 'doc', id: 'network-iot/run-a-lns/run-a-lns' },
+          link: { type: 'doc', id: 'network-iot/run-an-lns/run-an-lns' },
           items: [
-            'network-iot/run-a-lns/buy-an-oui',
-            'network-iot/run-a-lns/fund-an-oui',
-            'network-iot/run-a-lns/configure-chirpstack',
-            'network-iot/run-a-lns/configure-routing-rules',
-            'network-iot/run-a-lns/advanced-configuration',
+            'network-iot/run-an-lns/buy-an-oui',
+            'network-iot/run-an-lns/fund-an-oui',
+            'network-iot/run-an-lns/configure-chirpstack',
+            'network-iot/run-an-lns/configure-routing-rules',
+            'network-iot/run-an-lns/advanced-configuration',
           ],
         }
       ],

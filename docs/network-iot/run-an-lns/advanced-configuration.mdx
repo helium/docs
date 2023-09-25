@@ -5,12 +5,24 @@ pagination_label: Advanced Configuration
 sidebar_label: Advanced Configuration
 description: Advanced Configuration
 image: https://docs.helium.com/img/link-image.png
-slug: /iot/run-a-lns/advanced-configuration
+slug: /iot/run-an-lns/advanced-configuration
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
+
+
 ## Session Key Filter (SKF)
+
+let's say you have devaddr 1 and 2
+
+if you submitted sk on devaddr 1, then HPR will only let traffic through on devaddr 1 if we can MIC check it with one of the sk
+if you didn't submit any sk on devaddr 2 and the the flag "ignore empty skf" = false, then HPR lets all traffic through on devaddr 2
+if you didn't submit any sk on devaddr 2 and the the flag "ignore empty skf" = true, then HPR blocks all traffic through on devaddr 2
+[9:09 AM]
+sk as in device network sessio key
+
+## Automated EUI and SKF Route updates
 
 ## Config Service Interaction
 The Config Service can be used to manage an OUI and devAddr. There are two ways to interact with the

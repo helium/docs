@@ -1,105 +1,14 @@
 ---
-id: run-a-lns
-title: Run a LoRaWAN Network Server
-pagination_label: Run Your Own LNS
-sidebar_label: Run Your Own LNS
-description: Helium OpenLNS Documentation
+id: configure-routing-rules
+title: Configure Routing Rules
+pagination_label: Configure Routing Rules
+sidebar_label: Configure Routing Rules
+description: Configure Routing Rules
 image: https://docs.helium.com/img/link-image.png
-slug: /iot/run-a-lns
+slug: /iot/run-an-lns/configure-routing-rules
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-
-OpenLNS is the platform that enables any compatible LoRaWAN Network Server (LNS) to use Helium's IoT Network.
-In this guide, we'll walk you through the process of setting up and configuring OpenLNS with Chirpstack.
-
-## What to Expect
-
-There are three major steps to run your own LNS.
-
-1. Register as a Helium Organization
-2. Configure and deploy your LNS
-3. Set up your routing rules so the network infrastructure knows where to send your device data to.
-
-## Register as a Helium Organization
-
-<!-- TODO: Description of necessary keys for configuration and what they do: (payer, owner, delegate) -->
-
-Before getting started, make sure you have the following:
-
-- Helium Network Organizationally Unique Identifier ("OUI")
-- Helium LoRaWAN devAddr slab (if you have your own LoRa Alliance NetID, please refer to the
-  [roaming setup guide](/iot/lorawan-roaming))
-- LoRaWAN Network Server ("LNS"). A popular option is [ChirpStack](https://www.chirpstack.io). We
-  will show you how to set up a Chirpstack instance on the Helium Network.
-
-## Set up Your LNS
-
-<!-- TODO: what is config service? -->
-
-### Set Up Chirpstack Docker
-
-1. git clone https://github.com/chirpstack/chirpstack-docker.git
-2. Open configuration/chirpstack/chirpstack.toml
-   1. Under `[network]` Change `net_id` to `0x00003C`
-   2. Under `[network]`, add `dev_addr_prefixes` with the devAddr slab assigned to you. First run
-      `./main org get --OUI <your OUI>` to get your OUI's DevAddr constraints. Then run
-      `./main subnet-mask <your OUI's starting DevAddr> <your OUI's ending DevAddr>` to find your
-      subnets. In the chirpstack toml file put in `dev_addr_prefixes` = [`<your subnets>`], which is
-      formatted with the following rule: `starting devAddr`/`32-log2(devAddr slab size)`. Let's say
-      you requested 8 devAddr slab and the starting devAddr is `00000000`, then you would input
-      `dev_addr_prefixes` = ["00000000/29"]
-   3. Under `[gateway]`, add a line `allow_unknown_gateways=true`
-
-### Set Up Supported LoRaWAN Region
-
-You need to deploy a gateway bridge for each LoRaWAN region you plan on supporting on Chirpstack. By
-default, Chirpstack only supports EU868. This tutorial will show you how to add support for US915,
-and you can replicate the same process for other LoRaWAN regions.
-
-Open docker-compose.yml, you will find a container called `chirpstack-gateway-bridge-eu868`. Add the
-following.
-
-```
-chirpstack-gateway-bridge-us915:
-    image: chirpstack/chirpstack-gateway-bridge:4
-    restart: unless-stopped
-    ports:
-      - 1701:1700/udp
-    volumes:
-      - /helium/configuration/chirpstack-gateway-bridge-us915:/etc/chirpstack-gateway-bridge
-    depends_on:
-      - mosquitto
-    logging: *logs
-```
-
-Now head over to `configuration/chirpstack-gateway-bridge` and create a directory called
-`chirpstack-gateway-bridge-us915`. In that directory, create a file called
-`chirpstack-gateway-bridge.toml`. In that file, put down the following.
-
-```
-# See https://www.chirpstack.io/gateway-bridge/install/config/ for a full
-# configuration example and documentation.
-
-[integration.mqtt.auth.generic]
-servers=["tcp://mosquitto:1883"]
-username=""
-password=""
-
-[integration.mqtt]
-event_topic_template="us915_1/gateway/{{ .GatewayID }}/event/{{ .EventType }}"
-state_topic_template="us915_1/gateway/{{ .GatewayID }}/state/{{ .StateType }}"
-command_topic_template="us915_1/gateway/{{ .GatewayID }}/command/#"
-```
-
-Make sure you have port 1700 and 1701 both open on your server.
-
-### Run Your Chirpstack
-
-Run `docker-compose up` and you should be able to log in with the default credential:
-
-- username = admin
-- password = admin
 
 ## Set up Routing Rules
 
@@ -184,6 +93,12 @@ to be the devAddr slab of your OUI. Run
 ```bash
 $ ./main route devaddrs add -s <start devAddr> -e <end devAddr> --route-id <route-id> -- commit
 ```
+
+If you know all the possible EUIs ahead of time that you will use for your application, then you 
+can add them all and not have to worry about it after that. If you don't then you'll have to add
+them as you go. You can also learn how to automate it in the advanced section.
+
+```bash
 
 ### Upcoming Tutorials
 
