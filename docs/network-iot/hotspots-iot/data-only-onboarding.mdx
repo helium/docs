@@ -313,8 +313,6 @@ required to cover Solana fees.
 
 Before running the assert command, get the public key from the data-only Hotspot.
 
-<!--todo: Confirm that this is the right key. If not, where should it be sourced?-->
-
 ```sh
 helium_gateway key info
 ```
@@ -329,15 +327,14 @@ The `key info` command will return the Hotspot's 'animal name' along with the Ho
 }
 ```
 
-<!--end todo-->
-
 Use the "key" value along with the Hotspot's physical latitude and longitude to assert its location
-to the network. A utility like [latlong.net](https://www.latlong.net) is helpful to look up
-coordinates.
+to the network. A utility like [latlong.net](https://www.latlong.net) is helpful for looking up
+coordinates. Gain is set in dBm and elevation is set in meters.
 
 ```
-helium-wallet hotspots assert --gateway <Hotspot Public Key> --lat=37.771150 --lon=-122.419200 --mode dataonly --commit
+helium-wallet hotspots assert iot <Hotspot Public Key> --lat=37.771150 --lon=-122.419200 --gain 1.2 --elevation 7 --commit
 ```
 
-`--elevation` and `--gain` can be also set. Use `helium-wallet hotspots assert --help` for more
-info.
+`--elevation` and `--gain` are optional values and can be updated at any time without further fees
+as long as the lat/lon values remain the same. Use the built-in help command,
+`helium-wallet hotspots assert --help` for more info.
