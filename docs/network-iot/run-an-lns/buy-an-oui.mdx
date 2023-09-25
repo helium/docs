@@ -18,7 +18,7 @@ routing objects owned and maintained by the OUI operator:
 - One or more **slabs** of DevAddrs, reserving address space for the OUI's devices on the Helium
   Network
 
-A device, defined by `(AppEui, DevEui)`, can be allocated any of the DevAddrs owned by the OUI. It
+A device, defined by `(AppEui, DevEui)`, can be allocated any of the [DevAddrs](#devaddr-explained) owned by the OUI. It
 is even possible to multiplex many devices on the same DevAddr at the same time, using the Message
 Integrity Check (MIC) to disambiguate.
 
@@ -35,18 +35,15 @@ Requires basic familiarity with Linux and Bash command-line.
 
 ## Pricing
 
-The OUI is purchased with [Data Credits (DC)](/iot/transaction-fees). Costs are subject to change,
-but currently the OUI itself costs US$100 worth of DC and each DevAddr cost an additional US$100 in
-DC.
+Currently the purchasing of OUIs must be done by contacting the Helium Foundation. In the future
+it will be self service.
 
 DevAddr are sold in sequential blocks between 8 and 65,536 and any power of two.
 
-You must purchase a slab when purchasing an OUI, therefore, the total minimum cost is US$900 worth
-of Data Credits: $100 for the OUI itself and $800 for eight DevAddr's.
+You must purchase a slab when purchasing an OUI, therefore, the total minimum cost is US$900
+: $100 for the OUI itself and $800 for eight DevAddr's.
 
-[The OUI purchase transaction itself](https://github.com/helium/proto/blob/master/src/blockchain_txn_oui_v1.proto)
-incurs a fee based as does any other blockchain transaction; generally this will be $0.35-1.00 worth
-of DCs based on how the fields get filled and change the transaction size.
+You will find instructions on what you need and who to contact at the end of the next section.
 
 ---
 
@@ -113,8 +110,7 @@ OUI.
 - The Helium Wallet address
 - The number of devAddr you want
 
-The OUI costs $100 paid in [Data Credits](/tokens/data-credit) ("DC"), while the devAddr slab
-mandates a minimum of 8 devAddrs that cost $100 each.
+Once you receive your OUI, the next step is to fund it. Learn how [here](fund-an-oui).
 
 ---
 
@@ -127,8 +123,7 @@ Device addresses or `DeviceAddr` are assigned to a device by the LNS during the 
 
 ### Why & when should I purchase more `DeviceAddr`?
 
-When starting up your Helium LNS (Router / Console) you will probably be wondering, how many
-`DeviceAddr` do you need? This depends on a few factors:
+You may be wondering, how many `DeviceAddr` do you need? This depends on a few factors:
 
 1. number of devices
 1. location / concentration of devices
