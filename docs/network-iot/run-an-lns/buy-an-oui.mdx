@@ -8,14 +8,10 @@ image: https://docs.helium.com/img/link-image.png
 slug: /iot/run-an-lns/buy-an-oui
 ---
 
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
-
 ## What is an Organizationally Unique Identifier?
 
-Each LoRaWAN Network Server ("LNS") on the Helium Network acquires an Organizationally Unique
-Identifier ("OUI"). This registers the LNS with the blockchain and allocates two very important
+Each LoRaWAN Network Server (LNS) on the Helium Network acquires an Organizationally Unique
+Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
 routing objects owned and maintained by the OUI operator:
 
 - Up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the LNS
@@ -53,10 +49,6 @@ incurs a fee based as does any other blockchain transaction; generally this will
 of DCs based on how the fields get filled and change the transaction size.
 
 ---
-
-### Purchase Transaction
-
-:::info Current Process
 
 ### Purchasing OUI and devAddr Slab
 
@@ -124,31 +116,6 @@ OUI.
 The OUI costs $100 paid in [Data Credits](/tokens/data-credit) ("DC"), while the devAddr slab
 mandates a minimum of 8 devAddrs that cost $100 each.
 
-:::
-
-<details>
-<summary>Legacy Process</summary>
-
-You need [the Helium wallet](https://github.com/helium/helium-wallet-rs) to go any further. You'll
-want to [create a wallet](https://github.com/helium/helium-wallet-rs#create-a-wallet) and to have at
-least US$900 in HNT (based on current HNT Oracle pricing).
-
-Submit a "create OUI" transaction:
-
-```bash
-./helium-wallet oui create --subnet-size 8
-```
-
-The filter is a dummy filter to initialize the OUI. When you get Console running, it will
-automatically maintain it. You can once again track the transaction with the endpoint above. When it
-is complete, you should also see your OUI as the most recently purchased and
-[on the list here](https://api.helium.io/v1/ouis).
-
-Congratulations! You are the proud owner of a Helium Network OUI. OUIs are numbered sequentially, so
-the lower you are, the earlier you were on the Network!
-
-</details>
-
 ---
 
 ## DevAddr Explained
@@ -195,8 +162,8 @@ Offers only contain:
 
 :::info
 
-Note that a Console Organization is only ever charged when a packet is received and properly
-identified. Only Router's balance is charged during the offer / purchase process.
+Note that an OUI is only ever charged when a packet is received and properly
+identified.
 
 :::
 
@@ -259,17 +226,3 @@ Moving devices can trigger the same effect as well as they can get an assigned `
 Hexagaon and move to another one, potentially causing a conflict as specified above.
 
 :::
-
----
-
-## Tools
-
-### DevAddr
-
-1. `curl http://localhost:3000/DevAddr/json` get all DevAddr assignment in json format
-2. Input them in https://kepler.gl/demo
-
-### CLI
-
-- `router info device <device_id>` find every conflicts for a device
-- `router info hotspot <hotspot_b58>` find every conflicts for a hotspot
