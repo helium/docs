@@ -47,9 +47,7 @@ uplinks), Endpoint (so we know where to send the packet to), etc.
     src={useBaseUrl('img/open-lns/roaming-setup-generate-route.png')}
     style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
   />
-  <figcaption>
-    Route Creation as shown in a terminal window.
-  </figcaption>
+  <figcaption>Route Creation as shown in a terminal window.</figcaption>
 </figure>
 
 Next, let’s define the endpoint that you use for ingesting traffic. You can run:
@@ -90,10 +88,9 @@ to be the devAddr slab of your OUI. Run
 $ ./main route devaddrs add -s <start devAddr> -e <end devAddr> --route-id <route-id> -- commit
 ```
 
-If you know all the possible EUIs ahead of time that you will use for your application, then you 
-can add them all and not have to worry about it after that. If you don't then you'll have to add
-them as you go.
+If you know all the possible EUIs ahead of time that you will use for your application, then you can
+add them all and not have to worry about it after that. If you don't then you'll have to add them as
+you go.
 
-You now have a fully functioning LNS on the Helium IoT network. For additional advanced configurations,
-please see [here](advanced-configuration).
-
+You now have a fully functioning LNS on the Helium IoT network. For additional advanced
+configurations, please see [here](advanced-configuration).

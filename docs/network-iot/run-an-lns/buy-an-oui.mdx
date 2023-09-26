@@ -10,17 +10,17 @@ slug: /iot/run-an-lns/buy-an-oui
 
 ## What is an Organizationally Unique Identifier?
 
-Each LoRaWAN Network Server (LNS) on the Helium Network acquires an Organizationally Unique
-Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
+Each LoRaWAN Network Server (LNS) on the Helium Network is managed by means of an Organizationally
+Unique Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
 routing objects owned and maintained by the OUI operator:
 
 - Up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the LNS
 - One or more **slabs** of DevAddrs, reserving address space for the OUI's devices on the Helium
   Network
 
-A device, defined by `(AppEui, DevEui)`, can be allocated any of the [DevAddrs](#devaddr-explained) owned by the OUI. It
-is even possible to multiplex many devices on the same DevAddr at the same time, using the Message
-Integrity Check (MIC) to disambiguate.
+A device, defined by `(AppEUI, DevEUI)`, can be allocated any of the [DevAddrs](#devaddr-explained)
+owned by the OUI. It is even possible to multiplex many devices on the same DevAddr at the same
+time, using the Message Integrity Check (MIC) to disambiguate.
 
 :::info
 
@@ -35,13 +35,13 @@ Requires basic familiarity with Linux and Bash command-line.
 
 ## Pricing
 
-Currently the purchasing of OUIs must be done by contacting the Helium Foundation. In the future
-it will be self service.
+Currently the purchasing of OUIs must be done by contacting the Helium Foundation. In the future it
+will be self service.
 
 DevAddr are sold in sequential blocks between 8 and 65,536 and any power of two.
 
-You must purchase a slab when purchasing an OUI, therefore, the total minimum cost is US$900
-: $100 for the OUI itself and $800 for eight DevAddr's.
+You must purchase a slab when purchasing an OUI, therefore, the total minimum cost is US$900 : $100
+for the OUI itself and $800 for eight DevAddr's.
 
 You will find instructions on what you need and who to contact at the end of the next section.
 
@@ -102,8 +102,8 @@ generate the key pairs
    **Owner Keypair**: The owner key is irreplaceable and should be kept safe, secure, and private at
    all times. If lost or compromised, you could lose your OUI.
 
-Now, please send an email to [hello@helium.foundation](mailto:hello@helium.foundation) to purchase an
-OUI.
+Now, please send an email to [hello@helium.foundation](mailto:hello@helium.foundation) to purchase
+an OUI.
 
 - The public key of your owner key pair
 - The public key of your delegate key pair
@@ -157,8 +157,7 @@ Offers only contain:
 
 :::info
 
-Note that an OUI is only ever charged when a packet is received and properly
-identified.
+Note that an OUI is only ever charged when a packet is received and properly identified.
 
 :::
 
