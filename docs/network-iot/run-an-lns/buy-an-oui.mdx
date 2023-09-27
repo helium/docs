@@ -38,8 +38,10 @@ drops below 35M, device traffic to the routes associated with the OUI will halt.
 Currently, the purchasing of OUIs and devAddrs must be done by contacting the Helium Foundation. In
 the future, these registrations will be will be self-service.
 
-As an alternate to purchasing a devAddr slab, it is also an option to retain a netID from the LoRa
-alliance and use it in a roaming configuration. An OUI is required in either scenario.
+As an alternate to purchasing a devAddr slab, it is also an option to
+[retain a netID](https://resources.lora-alliance.org/faq/lorawan-netid-faq) from the LoRa Alliance
+and use it in a [roaming](/iot/lorawan-roaming) configuration. An OUI and data credits are required
+in either scenario.
 
 Before purchasing an OUI and devAddr Slab, you will need to do the following.
 
@@ -114,7 +116,7 @@ called `<key file name>.bin`.
 Print out the public key of your keypair by running:
 
 ```bash
-$ helium-config-service-cli env info --keypair <key file name>.bin
+helium-config-service-cli env info --keypair <key file name>.bin
 ```
 
 ```json {9} title="Example response from the info command highlighting the keypair."
