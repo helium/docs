@@ -10,8 +10,8 @@ slug: /iot/run-an-lns/buy-an-oui
 
 ## What is an Organizationally Unique Identifier?
 
-Each LoRaWAN Network Server (LNS) on the Helium Network is managed by means of an Organizationally
-Unique Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
+Each LoRaWAN Network Server (LNS) on the Helium Network is managed using an Organizationally Unique
+Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
 routing objects owned and maintained by the OUI operator:
 
 - Up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the LNS
@@ -22,32 +22,20 @@ A device, defined by `(AppEUI, DevEUI)`, can be allocated any of the [DevAddrs](
 owned by the OUI. It is even possible to multiplex many devices on the same DevAddr at the same
 time, using the Message Integrity Check (MIC) to disambiguate.
 
-:::info
-
-Based on benchmarking tests the upper limit for a DevAddr `1024` slab is approximately 5800 devices,
-but results still need to be replicated and bracketed. Community members are encouraged to run their
-own benchmarking tests. Instructions [here](/network-iot/run-a-network-server/router-benchmarking).
-Requires basic familiarity with Linux and Bash command-line.
-
-:::
-
----
-
 ## Pricing
 
-Currently the purchasing of OUIs must be done by contacting the Helium Foundation. In the future it
-will be self service.
+The cost of an OUI is US$100. This is a one-time fee. DevAddrs are sold in blocks of 8 and cost
+US$100 per devAddr for a total of $800. This is a one-time fee.
 
-DevAddr are sold in sequential blocks between 8 and 65,536 and any power of two.
-
-You must purchase a slab when purchasing an OUI, therefore, the total minimum cost is US$900 : $100
-for the OUI itself and $800 for eight DevAddr's.
+A devAddr slab must be purchased when purchasing an OUI, therefore, the total minimum cost is US$900
+: $100 for the OUI itself and $800 for eight DevAddr's.
 
 You will find instructions on what you need and who to contact at the end of the next section.
 
----
-
 ### Purchasing OUI and devAddr Slab
+
+Currently, the purchasing of OUIs and devAddrs must be done by contacting the Helium Foundation. In
+the future, these registrations will be will be self-service.
 
 Before you can purchase an OUI and devAddr Slab, you need to do the following.
 
@@ -56,9 +44,9 @@ Before you can purchase an OUI and devAddr Slab, you need to do the following.
 - Make sure you have a Helium Wallet
 
 You can create a Helium Wallet following the guide [here](/wallets/helium-wallet-app). Let's now
-generate the key pairs
+generate the key pairs.
 
-1. Run this to pull & build the config service cli:
+1. Run the following commands to pull & build the config service CLI:
 
    ```bash
    $ git clone https://github.com/helium/helium-config-service-cli.git
@@ -70,12 +58,12 @@ generate the key pairs
    $ cargo b --release
    ```
 
-2. You can then find the built binary file `helium-config-service-cli` under `./target/release`
+1. You can then find the built binary file `helium-config-service-cli` under `./target/release`
    inside the `helium-config-service-cli` directory. We would recommend renaming it into something
    short such as `main` so you can type less words (you can rename it by running
    `mv helium-config-service-cli main`)
 
-3. Now that we have the CLI binary, let’s just put it in a separate folder. This is recommended only
+1. Now that we have the CLI binary, let’s just put it in a separate folder. This is recommended only
    for simplicity's sake. Just copy `main` into the folder you created. You can reference the
    following commands:
 
@@ -86,9 +74,9 @@ generate the key pairs
    $ cp ../helium-config-service-cli/target/release/main .
    ```
 
-4. Let’s generate the keypairs you’ll be using to authenticate your interactions with the config
-   service, so only you can create/modify/delete routes. Run this command twice for 1) owner keypair
-   and 2) delegate kepair and name files accordingly. Run
+1. Generate the keypairs you'll be using to authenticate your interactions with the config service,
+   so only you can create/modify/delete routes. Run this command twice for 1) owner keypair and 2)
+   delegate kepair and name files accordingly. Run
    `./main env generate-keypair <key file name>.bin.` and you should find a file called
    `<key file name>.bin`. Print out the public key of your keypair by running:
 
@@ -108,7 +96,7 @@ an OUI.
 - The public key of your owner key pair
 - The public key of your delegate key pair
 - The Helium Wallet address
-- The number of devAddr you want
+- The number of devAddrs you want
 
 Once you receive your OUI, the next step is to fund it. Learn how [here](fund-an-oui).
 
@@ -116,10 +104,53 @@ Once you receive your OUI, the next step is to fund it. Learn how [here](fund-an
 
 ## DevAddr Explained
 
-<!-- TODO: replace this section with Devaddr/multiplexing info -->
+Device addresses or `DeviceAddr` are assigned to a device by the LNS during the join procedure See
+the
+[LoRaWAN 1.0.3 Specification](https://lora-alliance.org/resource_hub/lorawan-specification-v1-0-3/)
+for more info about the join procedure.
 
-Device addresses or `DeviceAddr` are assigned to a device by the LNS during the join procedure
-[See LoRaWAN Spec here for more info about Joins](https://lora-alliance.org/resource_hub/lorawan-specification-v1-0-3/).
+DevAddrs purchased through the methods outlined above are issued under the Helium Foundation's
+NetID, 0x00003C, which was assigned on May 2, 2023, as part of the Helium Foundation's membership in
+the LoRa Alliance.
+
+Customers using their own netID don't need devAddr from the Helium Foundation. Those with their own
+netID assigned by the LoRa Alliance should implement [roaming](/iot/lorawan-roaming) to allow their
+devices to use the Helium Network.
+
+| NetID (hex) | NetID (decimal) | NwkID (bits) | DevAddr Subnet |
+| ----------- | --------------- | ------------ | -------------- |
+| 0x00003C    | 60              | 6b'111100    | 78000000/7     |
+
+```mermaid
+graph LR
+    subgraph Devices
+        D1[Device 1]
+        D2[Device 2]
+        D3[Device 3]
+        D4[Device 4]
+    end
+    subgraph OpenLNS
+        PR[Packet Routing]
+    end
+    subgraph LNS
+        MC[MIC Computation]
+        subgraph Device Identification
+            DI1[Device 1 Identified]
+            DI2[Device 2 Identified]
+            DI3[Device 3 Identified]
+            DI4[Device 4 Identified]
+        end
+    end
+    D1 -->|Packet with Shared DevAddr| PR
+    D2 -->|Packet with Shared DevAddr| PR
+    D3 -->|Packet with Shared DevAddr| PR
+    D4 -->|Packet with Shared DevAddr| PR
+    PR --> MC
+    MC -->|MIC checked with DevAddr and NwkSKey| DI1
+    MC -->|MIC checked with DevAddr and NwkSKey| DI2
+    MC -->|MIC checked with DevAddr and NwkSKey| DI3
+    MC -->|MIC checked with DevAddr and NwkSKey| DI4
+```
 
 ### Why & when should I purchase more `DeviceAddr`?
 
