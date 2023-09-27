@@ -11,33 +11,34 @@ slug: /iot/run-an-lns/buy-an-oui
 ## What is an Organizationally Unique Identifier?
 
 Each LoRaWAN Network Server (LNS) on the Helium Network is managed using an Organizationally Unique
-Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
-routing objects owned and maintained by the OUI operator:
-
-- Up to five **filters**, describing the sets (AppEUI, DevEUI) expected by the LNS
-- One or more **slabs** of DevAddrs, reserving address space for the OUI's devices on the Helium
-  Network
-
-A device, defined by `(AppEUI, DevEUI)`, can be allocated any of the [DevAddrs](#devaddr-explained)
-owned by the OUI. It is even possible to multiplex many devices on the same DevAddr at the same
-time, using the Message Integrity Check (MIC) to disambiguate.
+Identifier (OUI). This registers the LNS with the network and manages the
+[devAddrs](#devaddr-explained), [Data Credits](/tokens/data-credit), and routes for device traffic.
 
 ## Pricing
 
-The cost of an OUI is US$100. This is a one-time fee. DevAddrs are sold in blocks of 8 and cost
-US$100 per devAddr for a total of $800. This is a one-time fee.
+The minimum cost to deploy an LNS to the Helium Network is $935 USD.
 
-A devAddr slab must be purchased when purchasing an OUI, therefore, the total minimum cost is US$900
-: $100 for the OUI itself and $800 for eight DevAddr's.
+The cost of an OUI is US$100. This is a one-time fee. DevAddrs are issued in blocks of 8 and cost
+US$100 per devAddr for a total of $800. DevAddrs are also purchased as a one-time fee.
 
-You will find instructions on what you need and who to contact at the end of the next section.
+A minimum of 35,000,000 ($35 USD) Data Credits must be held in the escrow account associated with
+the OUI. DC are consumed in proportion to the network traffic transfered[^1]. If the DC balance
+drops below 35M, device traffic to the routes associated with the OUI will halt.
 
-### Purchasing OUI and devAddr Slab
+| Item                | Fee             |
+| ------------------- | --------------- |
+| OUI                 | $100            |
+| DevAddr             | $100 × 8 ($800) |
+| Data Credit Minimum | $35             |
+
+[^1]: [Data Credits and IoT network traffic explained.](/tokens/data-credit#data-credits-and-iot)
+
+## Purchasing OUI and devAddr Slab
 
 Currently, the purchasing of OUIs and devAddrs must be done by contacting the Helium Foundation. In
 the future, these registrations will be will be self-service.
 
-Before you can purchase an OUI and devAddr Slab, you need to do the following.
+Before purchasing an OUI and devAddr Slab, you will need to do the following.
 
 - Generate an owner key pair
 - Generate a delegate key pair
@@ -46,56 +47,97 @@ Before you can purchase an OUI and devAddr Slab, you need to do the following.
 You can create a Helium Wallet following the guide [here](/wallets/helium-wallet-app). Let's now
 generate the key pairs.
 
-1. Run the following commands to pull & build the config service CLI:
+### Install The Config Service CLI
 
-   ```bash
-   $ git clone https://github.com/helium/helium-config-service-cli.git
-   $ curl https://sh.rustup.rs -sSf | sh
-   $ source "$HOME/.cargo/env"
-   $ brew update
-   $ brew install protobuf
-   $ cd helium-config-service-cli
-   $ cargo b --release
-   ```
+The [Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) will be used to
+generate the keypairs used for the OUI. Run the following commands to pull & build the config
+service CLI:
 
-1. You can then find the built binary file `helium-config-service-cli` under `./target/release`
-   inside the `helium-config-service-cli` directory. We would recommend renaming it into something
-   short such as `main` so you can type less words (you can rename it by running
-   `mv helium-config-service-cli main`)
+```bash title="Copy the latest source code from GitHub."
+git clone https://github.com/helium/helium-config-service-cli.git
+```
 
-1. Now that we have the CLI binary, let’s just put it in a separate folder. This is recommended only
-   for simplicity's sake. Just copy `main` into the folder you created. You can reference the
-   following commands:
+In order to compile the copied code, the Rust compiler must be installed.
 
-   ```bash
-   $ cd ..
-   $ mkdir cli-testing
-   $ cd cli-testing
-   $ cp ../helium-config-service-cli/target/release/main .
-   ```
+```bash title="Install the Rust toolchain."
+curl https://sh.rustup.rs -sSf | sh
+```
 
-1. Generate the keypairs you'll be using to authenticate your interactions with the config service,
-   so only you can create/modify/delete routes. Run this command twice for 1) owner keypair and 2)
-   delegate kepair and name files accordingly. Run
-   `./main env generate-keypair <key file name>.bin.` and you should find a file called
-   `<key file name>.bin`. Print out the public key of your keypair by running:
+```bash title="Add Rust to path."
+source "$HOME/.cargo/env"
+```
 
-   ```bash
-   $ ./main env info --keypair <key file name>.bin
-   ```
+Add the protobuf library which will be used during the compile process.
 
-   **Delegate Keypair**: The delegate key is actively used to create and manage routes. In case it
-   is ever compromised, it can be updated using the owner key.
+```bash title="Install protobuf"
+brew update && brew install protobuf
+```
 
-   **Owner Keypair**: The owner key is irreplaceable and should be kept safe, secure, and private at
-   all times. If lost or compromised, you could lose your OUI.
+```bash title="Enter the directory and compile the CLI"
+cd helium-config-service-cli && cargo build --release
+```
+
+The built binary file `helium-config-service-cli` can be found under `target/release/` inside the
+`helium-config-service-cli` directory.
+
+Now that we have the CLI binary, let's put a copy in the local bin folder for simplicity's sake.
+Just copy `helium-config-service-cli` into `/usr/local/bin`. Files added to the bin folder will
+automatically be available to your command line.
+
+```bash
+sudo cp target/release/helium-config-service-cli /usr/local/bin/
+```
+
+### Generate OUI Keys
+
+Generate the keypairs you'll be using to authenticate your interactions with the config service.
+These are keys are implemented such that only you can create/modify/delete routes.  
+Run this command twice. First for the owner keypair and second for the delegate kepair. Name files
+accordingly.
+
+**Delegate Keypair**: The delegate key is actively used to create and manage routes. In case it is
+ever compromised, it can be updated using the owner key.
+
+**Owner Keypair**: The owner key is irreplaceable and should be kept safe, secure, and private at
+all times. If lost or compromised, you could lose your OUI.
+
+```bash title="Generate keypair"
+helium-config-service-cli env generate-keypair ~/<key file name>.bin
+```
+
+Run `helium-config-service-cli env generate-keypair <key file name>.bin` and you should find a file
+called `<key file name>.bin`.
+
+Print out the public key of your keypair by running:
+
+```bash
+$ helium-config-service-cli env info --keypair <key file name>.bin
+```
+
+```json {9} title="Example response from the info command highlighting the keypair."
+{
+  "arguments": {
+    "config_host": "unset",
+    "key_type_from_keypair": "ed25519",
+    "keypair": "/Users/me/test.bin",
+    "max_copies": null,
+    "net_id": null,
+    "oui": null,
+    "public_key_from_keypair": "13eY9uE5fjMzKC7PZ1nsDigiyurhXhV3bbj8pxbD2KtQTSC1ZHP"
+  },
+  {/* env vars will be discussed later */}
+}
+```
+
+The .bin files should be kept safe and never shared. The public key of these keypairs is the only
+part that should be shared.
 
 Now, please send an email to [hello@helium.foundation](mailto:hello@helium.foundation) to purchase
-an OUI.
+an OUI and devAddrs containing the following informations.
 
 - The public key of your owner key pair
 - The public key of your delegate key pair
-- The Helium Wallet address
+- The Helium wallet address
 - The number of devAddrs you want
 
 Once you receive your OUI, the next step is to fund it. Learn how [here](fund-an-oui).
@@ -104,10 +146,12 @@ Once you receive your OUI, the next step is to fund it. Learn how [here](fund-an
 
 ## DevAddr Explained
 
-Device addresses or `DeviceAddr` are assigned to a device by the LNS during the join procedure See
-the
-[LoRaWAN 1.0.3 Specification](https://lora-alliance.org/resource_hub/lorawan-specification-v1-0-3/)
-for more info about the join procedure.
+Device addresses or `DeviceAddr` are assigned to a device by the LNS during the join procedure as
+defined in the
+[LoRaWAN 1.0.3 Specification](https://lora-alliance.org/resource_hub/lorawan-specification-v1-0-3/).
+A device, defined by `(AppEUI, DevEUI)`, can be allocated any of the devAddrs owned by the OUI. It
+is even possible to multiplex many devices on the same DevAddr at the same time, using the Message
+Integrity Check (MIC) to disambiguate.
 
 DevAddrs purchased through the methods outlined above are issued under the Helium Foundation's
 NetID, 0x00003C, which was assigned on May 2, 2023, as part of the Helium Foundation's membership in
