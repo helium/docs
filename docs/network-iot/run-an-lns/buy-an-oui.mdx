@@ -55,7 +55,7 @@ generate the key pairs.
 ### Install The Config Service CLI
 
 The [Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) will be used to
-generate the keypairs used for the OUI. Run the following commands to pull & build the config
+generate the key pairs used for the OUI. Run the following commands to pull & build the config
 service CLI:
 
 ```bash title="Copy the latest source code from GitHub."
@@ -95,31 +95,31 @@ sudo cp target/release/helium-config-service-cli /usr/local/bin/
 
 ### Generate OUI Keys
 
-Generate the keypairs you'll be using to authenticate your interactions with the config service.
+Generate the key pairs you'll be using to authenticate your interactions with the config service.
 These keys are implemented such that only you can create/modify/delete routes.  
-Run this command twice. First for the owner keypair and second for the delegate keypair. Name files
-accordingly.
+Run this command twice. First for the owner key pair and second for the delegate key pair. Name the
+files accordingly.
 
-**Delegate Keypair**: The delegate key is actively used to create and manage routes. In case it is
+**Delegate Key Pair**: The delegate key is actively used to create and manage routes. In case it is
 ever compromised, it can be updated using the owner key.
 
-**Owner Keypair**: The owner key is irreplaceable and should be kept safe, secure, and private at
+**Owner Key Pair**: The owner key is irreplaceable and should be kept safe, secure, and private at
 all times. If lost or compromised, you could lose your OUI.
 
-```bash title="Generate keypair"
+```bash title="Generate key pair"
 helium-config-service-cli env generate-keypair ~/<key file name>.bin
 ```
 
 Run `helium-config-service-cli env generate-keypair <key file name>.bin` and you should find a file
 called `<key file name>.bin`.
 
-Print out the public key of your keypair by running:
+Print out the public key of your key pair by running:
 
 ```bash
 helium-config-service-cli env info --keypair <key file name>.bin
 ```
 
-```json {9} title="Example response from the info command highlighting the keypair."
+```json {9} title="Example response from the info command highlighting the key pair."
 {
   "arguments": {
     "config_host": "unset",
@@ -134,7 +134,7 @@ helium-config-service-cli env info --keypair <key file name>.bin
 }
 ```
 
-The .bin files should be kept safe and never shared. The public key of these keypairs is the only
+The .bin files should be kept safe and never shared. The public key of these key pairs is the only
 part that should be shared.
 
 Now, please send an email to [hello@helium.foundation](mailto:hello@helium.foundation) to purchase
