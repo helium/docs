@@ -38,6 +38,9 @@ drops below 35M, device traffic to the routes associated with the OUI will halt.
 Currently, the purchasing of OUIs and devAddrs must be done by contacting the Helium Foundation. In
 the future, these registrations will be will be self-service.
 
+As an alternate to purchasing a devAddr slab, it is also an option to retain a netID from the LoRa
+alliance and use it in a roaming configuration. An OUI is required in either scenario.
+
 Before purchasing an OUI and devAddr Slab, you will need to do the following.
 
 - Generate an owner key pair
@@ -57,7 +60,7 @@ service CLI:
 git clone https://github.com/helium/helium-config-service-cli.git
 ```
 
-In order to compile the copied code, the Rust compiler must be installed.
+To build the copied code, the Rust compiler must be installed.
 
 ```bash title="Install the Rust toolchain."
 curl https://sh.rustup.rs -sSf | sh
@@ -91,8 +94,8 @@ sudo cp target/release/helium-config-service-cli /usr/local/bin/
 ### Generate OUI Keys
 
 Generate the keypairs you'll be using to authenticate your interactions with the config service.
-These are keys are implemented such that only you can create/modify/delete routes.  
-Run this command twice. First for the owner keypair and second for the delegate kepair. Name files
+These keys are implemented such that only you can create/modify/delete routes.  
+Run this command twice. First for the owner keypair and second for the delegate keypair. Name files
 accordingly.
 
 **Delegate Keypair**: The delegate key is actively used to create and manage routes. In case it is
@@ -167,6 +170,22 @@ devices to use the Helium Network.
 
 ### Multiplexing With DevAddrs
 
+Multiplexing in LoRaWAN, specifically DevAddr multiplexing, refers to the process where multiple
+devices share the same device address (DevAddr). It's a way to manage the limited available range of
+DevAddrs and allows more devices to join the network.
+
+If using Chirpstack, it randomly assigns a DevAddr at join or re-join to the device from the
+available range and then multiplexes each DevAddr as needed. The Chirpstack platform does this
+through the assignment of the Network Session Key.
+
+In the event of DevAddr collisions, i.e., when two or more devices have the same DevAddr, the
+network server (LNS) uses a technique called a Message Integrity Code (MIC) check computation to
+identify the real device behind each data packet.
+
+The computational overhead of these MIC checks is not heavy in most scenarios, these are checks
+designed to be performed on low-power devices. However, in high-traffic scenarios, it may be best to
+attribute a larger set of DevAddrs rather than allocate additional compute.
+
 ```mermaid
 graph LR
     subgraph Devices
@@ -198,21 +217,14 @@ graph LR
     MC -->|MIC checked with DevAddr and NwkSKey| DI4
 ```
 
-### Why & when should I purchase more `DeviceAddr`?
+### How many `DeviceAddr` are needed?
 
-You may be wondering, how many `DeviceAddr` do you need? This depends on a few factors:
+An allocation of 8 devAddrs is enough for all operators to get started and scale their services. The
+demands of devices usually won't become apparent until tens of thousands of frequently uplinking
+devices are onboarded. The need for more devAddr depends on a few factors:
 
-1. Number of devices
-1. Frequency of uplink
-1. LNS system specs
+1. Number of devices.
+1. Frequency of uplink.
+1. LNS system specs.
 
-To better figure out the right number for you, you will need to understand how `DeviceAddr` are
-assigned to Devices by Router.
-
-### Couple things to know before
-
-:::info
-
-Note that an OUI is only ever charged when a packet is received and properly identified.
-
-:::
+More devAddrs can be allocated at any time, and LNSs generally accommodate non-sequential ranges.
