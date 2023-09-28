@@ -106,13 +106,7 @@ module.exports = {
     'tokens/hnt-token',
     'tokens/iot-token',
     'tokens/mobile-token',
-    {
-      type: 'category',
-      label: 'Data Credit Tokens',
-      link: { type: 'doc', id: 'tokens/data-credit' },
-      items: ['tokens/data-credit', 'tokens/data-credit-portal'],
-      collapsed: true,
-    },
+    'tokens/data-credit',
     'tokens/sol-token',
   ],
 
@@ -145,7 +139,15 @@ module.exports = {
           link: { type: 'doc', id: 'network-iot/run-an-lns/run-an-lns' },
           items: [
             'network-iot/run-an-lns/buy-an-oui',
-            'network-iot/run-an-lns/fund-an-oui',
+            {
+              type: 'category',
+              label: 'Fund an Organizationally Unique Identifier',
+              link: { type: 'doc', id: 'network-iot/run-an-lns/fund-an-oui' },
+              items: [
+                'tokens/data-credit-portal',
+                'network-iot/run-an-lns/fund-an-oui-using-hnt',
+              ]
+            },
             'network-iot/run-an-lns/configure-chirpstack',
             'network-iot/run-an-lns/configure-routing-rules',
             'network-iot/run-an-lns/advanced-configuration',

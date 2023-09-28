@@ -8,73 +8,53 @@ image: https://docs.helium.com/img/link-image.png
 slug: /iot/run-an-lns/fund-an-oui
 ---
 
-Funding an OUI with Data Credits from HNT tokens can be performed with the Helium Wallet App or
-through the [Sphere Data Credit Portal](https://docs.helium.com/tokens/data-credit-portal).
+[Data Credits](/iot/data-credits) are used to pay for all transmission of data from devices on the
+Helium Network.
 
----
+It is worth noting that HNT to DC conversion is irreversible. Data Credits cannot be refunded,
+exchanged for other tokens, or transferred between wallets.
 
-## Funding OUI with Data Credits
+Several options are available for funding an OUI with Data Credits:
 
-Funding an OUI with Data Credits requires HNT, as Data Credits can only be obtained using HNT. The
-exchange rate for DC is $1 worth of HNT = 100,000 DC.
+- [Fund an OUI using HNT with the Helium Wallet App](fund-an-oui-using-hnt)
+- [Fund an OUI using a credit card with the Sphere Data Credit Portal](/tokens/data-credit-portal)
 
-- If HNT is $2 then 0.5 HNT = 100,000 DC
-- If HNT is $10 then 0.1 HNT = 100,000 DC
+## Estimating Usage
 
-The USD/HNT exchange rate within the Helium Wallet App is used for the conversion and appears in the
-Helium Wallet app before committing the transaction.
+<figure className="screensnippet-wrapper">
+  <iframe
+    src="https://dune.com/embeds/2608923/4325514"
+    frameborder="0"
+    width="100%"
+    height="350px"
+  ></iframe>
+  <figcaption>
+    Up-to-date usage metrics for all OUIs on the Helium network. <br /> To get a sense of traffic
+    and DC usage on the network, check out the full{' '}
+    <a href="https://dune.com/helium-foundation/helium-data-credits">Dune Data Credit Dashboard</a>.
+  </figcaption>
+</figure>
+<br />
 
-:::warning HNT to DC swaps are irreversible
+- dc per uplink
+  - link to usage calculator
+- multipacket
+- when to use multipacket
+  - ADR
+  - Confirmed uplinks
+  - scheduling downlinks
 
-Data Credits cannot be refunded, exchanged for other tokens, or transferred between wallets.
+## Tracking OUI Balance
 
-Always double-check the addresses before performing essential operations.
+- Escrow Account
+  - How to find
 
-:::
+## Minimum Balance
 
-### Swap HNT to DC within a Wallet:
+The Helium Packet Router enforces a minimum balance of 35,000,000 Data Credits ($35). This minimum
+balance is required to ensure that all Hotspots are compensated for their work on the network in the
+case that the LNS transfers data more quickly than can be deducted from the OUI's balance. Token
+balances cannot become negative, so this $35 buffer keeps network payments balanced.
 
-1. Select a Wallet in the Helium Wallet app.
-1. Tap the `$` icon on the bottom tab bar.
-1. Tap the `Swap` icon in the middle of the screen.
-1. Select `HNT` in the top drop-down and enter an amount of HNT to swap.
-1. The lower drop-down will be filled with the resulting DC amount.
-1. Tap the `Swap Tokens` button and confirm the swap transaction.
-1. HNT is burned for DC within the same Wallet.
-
-The new DC balance amount can be verified in the app tokens list on the `$` tab within the Helium
-Wallet app.
-
----
-
-## Swap to Fund a Different Wallet
-
-The Helium Wallet app can be used to swap HNT from one wallet to DC in another wallet.
-
-This method requires that the sending Wallet is already funded with HNT to swap and SOL for
-transaction fees.
-
-Firstly add the Wallet address to the Address Book as a contact. This is the destination wallet that
-you will send the DC to:
-
-1. Tap the `Address Book` icon in the top right corner of the Helium Wallet app.
-1. Add new contact with the Solana wallet address.
-
-### Swap HNT to DC to send to a Wallet:
-
-1. Select any Wallet in the Helium Wallet app.
-1. Tap the `$` icon on the bottom tab bar.
-1. Tap the `Swap` icon in the middle of the screen.
-1. Select `HNT` in the top drop-down and enter an amount of HNT to swap.
-1. The lower drop-down will be filled with the resulting DC amount.
-1. **Tap the grey `Add Recipient +` text to enter the receiving Solana wallet address. This is the
-   wallet address to send the DC to.**
-1. Tap the `...` to the right of Solana Address and select the contact for the Wallet.
-1. Tap the `Swap Tokens` button and confirm the swap transaction.
-1. HNT is burned for DC within the same Wallet.
-
-The new DC balance amount in the recipient Wallet can be verified by looking at the Helium Data
-Credit token balance of the wallet on https://explorer.solana.com/
-
-You now have a funded OUI, it's now time to configure and deploy your LNS
-[here](configure-chirpstack).
+If the DC balance of an OUI falls below the minimum balance, the LNS will be unable to recieve data
+until the balance is increased.
