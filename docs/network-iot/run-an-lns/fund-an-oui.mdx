@@ -67,8 +67,21 @@ valuable:
 
 ## Tracking OUI Balance
 
+The balance of an OUI is held in an escrow account that is generated at OUI creation. This escrow
+account is what allows the Helium Network to appropriately deduct DC as network transfer occurs.
+
+The escrow account is the main source for understanding the remaining balance of an OUI.
+
+When monitoring the OUI balance, it is worth noting that the minimum usage deducted at a time is
+10,000 DC[^1].
+
+[^1]:
+    `BURN_THRESHOLD` on
+    [GitHub](https://github.com/helium/oracles/blob/7c9f5b4e6f8e47be80eaf3c6cb4cc703373246ef/iot_packet_verifier/src/pending_burns.rs#L32)
+
 - Escrow Account
   - How to find
+  - burn intervals.
 
 ## Minimum Balance
 
@@ -77,5 +90,5 @@ balance is required to ensure that all Hotspots are compensated for their work o
 case that the LNS transfers data more quickly than can be deducted from the OUI's balance. Token
 balances cannot become negative, so this $35 buffer keeps network payments balanced.
 
-If the DC balance of an OUI falls below the minimum balance, the LNS will be unable to recieve data
+If the DC balance of an OUI falls below the minimum balance, the LNS will be unable to receive data
 until the balance is increased.
