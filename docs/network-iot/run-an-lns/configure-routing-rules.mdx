@@ -10,7 +10,7 @@ slug: /iot/run-an-lns/configure-routing-rules
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-While Chirpstack is up and running for you, you need to let Config Service know of its existence.
+While ChirpStack is up and running for you, you need to let Config Service know of its existence.
 First, let’s initialize some environment variables so that you don’t have to tell the CLI the same
 thing over and over again:
 
@@ -57,7 +57,7 @@ $ ./main route update server --host <server ip> --port 1700 --route-id <route-id
 ```
 
 Finally, let's make sure you specify the port for each LoRaWAN region you plan on supporting on your
-Chirpstack. In our example, run
+ChirpStack. In our example, run
 
 ```bash
 $ ./main route update add-gwmp-region —route-id <route-id> us915 1701 eu868 1700 --commit
@@ -65,7 +65,7 @@ $ ./main route update add-gwmp-region —route-id <route-id> us915 1701 eu868 17
 
 ### How to Add Your First Device
 
-In this example, we will show you how to add an US915 OTAA Class A Device. On Chirpstack, navigate
+In this example, we will show you how to add an US915 OTAA Class A Device. On ChirpStack, navigate
 to Device Profiles, and hit `Add device profile`. Name it something descriptive like
 `US915 OTAA Class A`, and change the Region to US915 in the drop down. Leave everything else as
 default.
@@ -73,7 +73,7 @@ default.
 The navigate to Applications, add an application if you don't have one yet. In that application, hit
 `Add device`. Fill in the `Name`, `Device EUI` and select the device profile you just created.
 
-Now that the device is successfully created on Chirpstack, you need to let Config Service know about
+Now that the device is successfully created on ChirpStack, you need to let Config Service know about
 it, you need to run
 
 ```bash
