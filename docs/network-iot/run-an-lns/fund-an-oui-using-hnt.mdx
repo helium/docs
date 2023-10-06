@@ -8,10 +8,6 @@ image: https://docs.helium.com/img/link-image.png
 slug: /iot/run-an-lns/fund-an-oui-using-hnt
 ---
 
-## Funding OUI using HNT
-
-<!--todo: tear this page apart-->
-
 Funding an OUI with Data Credits requires HNT, as Data Credits can only be obtained using HNT. The
 exchange rate for DC is $1 worth of HNT = 100,000 DC.
 
@@ -21,7 +17,36 @@ exchange rate for DC is $1 worth of HNT = 100,000 DC.
 The USD/HNT exchange rate within the Helium Wallet App is used for the conversion and appears in the
 Helium Wallet app before committing the transaction.
 
-### Swap HNT to DC within a Wallet:
+## Funding an OUI Using The CLI Wallet
+
+The Helium CLI Wallet provides several tools to manage DC balances.
+
+The `price` command is a helpful tool for determing the amount of HNT required for a particular
+amount of DC. For example, this command will output the amount of HNT required to fund 1M DC ($10).
+
+```sh
+helium-wallet dc price 1000000
+```
+
+With HNT and Sol (for transaction fees) in an account, use the `mint` command to convert HNT into
+DC. The `--dc` flag is a helpful way to mint a specific amount of DC. Mint these DC to an account
+where further transactions can be issued on them — often the same account where they are being
+minted from.
+
+```sh
+helium-wallet dc mint --payee <Account Address> --dc 1000000
+```
+
+After the DC is minted, it can be delegated to the OUI. The delegation is issued to the router key
+of the OUI.
+
+```sh
+helium-wallet dc delegate iot <Router Key> 1000000 --commit
+```
+
+## Funding an OUI Using The Helium Wallet App
+
+### Swap HNT to DC
 
 1. Select a Wallet in the Helium Wallet app.
 1. Tap the `$` icon on the bottom tab bar.
@@ -34,36 +59,15 @@ Helium Wallet app before committing the transaction.
 The new DC balance amount can be verified in the app tokens list on the `$` tab within the Helium
 Wallet app.
 
----
+### Delegate DC To The OUI
 
-## Swap to Fund a Different Wallet
-
-The Helium Wallet app can be used to swap HNT from one wallet to DC in another wallet.
-
-This method requires that the sending Wallet is already funded with HNT to swap and SOL for
-transaction fees.
-
-Firstly add the Wallet address to the Address Book as a contact. This is the destination wallet that
-you will send the DC to:
-
-1. Tap the `Address Book` icon in the top right corner of the Helium Wallet app.
-1. Add new contact with the Solana wallet address.
-
-### Swap HNT to DC to send to a Wallet:
-
-1. Select any Wallet in the Helium Wallet app.
 1. Tap the `$` icon on the bottom tab bar.
-1. Tap the `Swap` icon in the middle of the screen.
-1. Select `HNT` in the top drop-down and enter an amount of HNT to swap.
-1. The lower drop-down will be filled with the resulting DC amount.
-1. **Tap the grey `Add Recipient +` text to enter the receiving Solana wallet address. This is the
-   wallet address to send the DC to.**
-1. Tap the `...` to the right of Solana Address and select the contact for the Wallet.
-1. Tap the `Swap Tokens` button and confirm the swap transaction.
-1. HNT is burned for DC within the same Wallet.
-
-The new DC balance amount in the recipient Wallet can be verified by looking at the Helium Data
-Credit token balance of the wallet on https://explorer.solana.com/
+1. Tap the DC balance.
+1. Tap `Delegate`.
+1. Select the IOT Network.
+1. Enter the XX key of the OUI as the address.
+1. Enter the amount of DC to delegate.
+1. Swipe to Delegate.
 
 You now have a funded OUI, it's now time to configure and deploy your LNS
 [here](configure-chirpstack).
