@@ -12,7 +12,7 @@ export const DisplayLegacyWallet = () => {
       <input
         type="text"
         name="wallet"
-        placeholder="Helium or Solana Wallet Address"
+        placeholder="Enter Helium or Solana Wallet Address"
         value={wallet}
         onChange={(e) => setWallet(e.target.value)}
       />
