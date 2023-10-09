@@ -8,25 +8,22 @@ image: https://docs.helium.com/img/link-image.png
 slug: /iot/run-an-lns/fund-an-oui-using-hnt
 ---
 
-Funding an OUI with Data Credits requires HNT, as Data Credits can only be obtained using HNT. The
-exchange rate for DC is $1 worth of HNT = 100,000 DC.
-
-- If HNT is $2 then 0.5 HNT = 100,000 DC
-- If HNT is $10 then 0.1 HNT = 100,000 DC
-
-The USD/HNT exchange rate within the Helium Wallet App is used for the conversion and appears in the
-Helium Wallet app before committing the transaction.
+Whether facilitated through a third-party or acquired directly through the network, all data
+transfer on Helium requires [Data Credits](/tokens/data-credit). This guide will illustrate two
+methods of directly converting HNT into DC and subsequently delegating it for use by an OUI.
 
 ## Funding an OUI Using The CLI Wallet
 
 The Helium CLI Wallet provides several tools to manage DC balances.
 
-The `price` command is a helpful tool for determing the amount of HNT required for a particular
+The `price` command is a helpful tool for determining the amount of HNT required for a particular
 amount of DC. For example, this command will output the amount of HNT required to fund 1M DC ($10).
 
 ```sh
 helium-wallet dc price 1000000
 ```
+
+### Swap HNT to DC
 
 With HNT and Sol (for transaction fees) in an account, use the `mint` command to convert HNT into
 DC. The `--dc` flag is a helpful way to mint a specific amount of DC. Mint these DC to an account
@@ -36,6 +33,8 @@ minted from.
 ```sh
 helium-wallet dc mint --payee <Account Address> --dc 1000000
 ```
+
+### Delegate DC To The OUI
 
 After the DC is minted, it can be delegated to the OUI. The delegation is issued to the router key
 of the OUI.
