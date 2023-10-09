@@ -44,11 +44,19 @@ export const DisplayLegacyWallet = () => {
               <table>
                 <tr>
                   <td>Helium Address</td>
-                  <td>{heliumWallet?.b58} </td>
+                  {heliumWallet?.b58 ? (
+                    <td>{heliumWallet?.b58} </td>
+                  ) : (
+                    <td style={{color: '#aaa'}}>Helium base58 public address.</td>
+                  )}
                 </tr>
                 <tr>
                   <td>Solana Address</td>
-                  <td>{solanaWallet?.toBase58()} </td>
+                  {solanaWallet?.toBase58() ? (
+                    <td>{solanaWallet?.toBase58()}</td>
+                  ) : (
+                    <td style={{color: '#aaa'}}>Solana base58 public address.</td>
+                  )}
                 </tr>
               </table>
             </>
