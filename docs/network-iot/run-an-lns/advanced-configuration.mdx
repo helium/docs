@@ -16,16 +16,14 @@ Session Key Filters (SKF) regulate device traffic on specific devAddrs by utiliz
 session keys. They establish conditions to either permit or restrict data flow based on the
 configured session keys.
 
-Example scenario; consider two device addresses (devAddr) 1 and 2:
+In this example scenario, consider two device addresses (devAddr) 1 and 2:
 
-**Provided Session Key for devAddr 1:**  
-Only allows traffic through devAddr 1 if it passes Message Integrity Code (MIC) checks.
-
-**No Session Key for devAddr 2 and "ignore empty skf" = false:**  
-All traffic is allowed through devAddr 2 without MIC checks.
-
-**No Session Key for devAddr 2 and "ignore empty skf" = true:**  
-All traffic through devAddr 2 is blocked.
+- **Provided Session Key for devAddr 1:**  
+  Only allows traffic through devAddr 1 if it passes Message Integrity Code (MIC) checks.
+- **No Session Key for devAddr 2 and "ignore empty skf" = false:**  
+  All traffic is allowed through devAddr 2 without MIC checks.
+- **No Session Key for devAddr 2 and "ignore empty skf" = true:**  
+  All traffic through devAddr 2 is blocked.
 
 The SKF will regulate traffic based on session key availability and the "ignore empty skf" flag,
 independently per devAddr.
