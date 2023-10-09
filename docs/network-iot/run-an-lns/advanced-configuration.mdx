@@ -30,6 +30,15 @@ All traffic through devAddr 2 is blocked.
 The SKF will regulate traffic based on session key availability and the "ignore empty skf" flag,
 independently per devAddr.
 
+### Importance of Configuring Session Key Filters
+
+Configuring SKFs for devices introduces an additional layer of security on the Helium network. In
+instances where SKFs are not established, the network relies on the devAddr to associate packets
+with the respective OUI, potentially attributing unauthorized packet costs to the OUI owner.
+
+Implementing SKFs counteracts this risk by empowering the Helium Packet Router to authenticate
+packets, thus preventing the delivery of unwanted payloads (and their respective DC cost).
+
 ## Automated EUI and SKF Route Updates
 
 As the ecosystem of LNS operators grows, an increasing number of developers have open-sourced their
