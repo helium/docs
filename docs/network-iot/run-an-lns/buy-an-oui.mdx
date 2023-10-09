@@ -141,6 +141,20 @@ helium-config-service-cli env info --keypair <key file name>.bin
 The .bin files should be kept safe and never shared. The public key of these key pairs is the only
 part that should be shared.
 
+### Helium Wallet Address
+
+The OUI configuration process currently leverages public keys in a format from the Helium L1
+blockchain. In order to convert a Solana address into this legacy format, use the conversion tool
+below.
+
+import { DisplayLegacyWallet } from '@theme/DisplayLegacyWallet'
+
+<div className="screensnippet-wrapper">
+  <DisplayLegacyWallet />
+</div>
+
+### Submit For Purchasing
+
 Now, please send an email to [hello@helium.foundation](mailto:hello@helium.foundation) to purchase
 an OUI and devAddrs containing the following informations.
 
