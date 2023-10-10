@@ -151,7 +151,7 @@ module.exports = {
   customFields: {
     MIGRATION_SERVICE_URL: 'https://migration.web.helium.io',
     SOLANA_URL: 'https://solana-rpc.web.helium.io/?session-key=Pluto',
-    HNT_TO_RENT_SERVICE_URL: 'https://hnt-to-rent.web.helium.io',
+    TOKENS_TO_RENT_SERVICE_URL: 'https://tokens-to-rent.web.helium.io',
   },
   plugins: [
     function (context, options) {

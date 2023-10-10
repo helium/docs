@@ -1,0 +1,29 @@
+---
+layout: post
+title: Dedicated Console Post Mortem
+date: 2023-10-04
+hide_table_of_contents: true
+authors: [lytzV]
+---
+
+Around 18:30 PM PST 10/03/23, Dedicated Console started experiencing severe data transfer disruption. 
+The core team received the automated alerts immediately and started investigating the issue, 
+which was resolved around 19:30 PM PST 10/03/23.
+<!--truncate-->
+
+## Cause
+This bug was caused by the Config Service cache dropping Dedicated Console’s delegate key, which 
+rendered all Config Service API calls to fail on Dedicated Console. These failed API calls, 
+including hotspot location query, EUI pair updates and session key filter updates, overwhelmed 
+Router and disrupted data transfer as a result.
+
+## Next Steps
+Based on our investigation, there’s no clear cause as to why Config Service’s cache dropped Dedicated 
+Console’s delegate key, as there was no change being made to the persistent storage. The core team 
+will add additional logging around the cache, so that we can see whether any method call modified 
+the cache or whether it is something more low level.
+
+On the communication side, the engineering team will page comms oncall through PagerDuty if they 
+did not respond in team chat.
+
+Apologies for the disruption and Thanks for your patience!
