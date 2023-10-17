@@ -129,7 +129,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'LoRaWAN Network Servers',
+      label: 'Use Helium LoRaWAN',
       link: { type: 'doc', id: 'network-iot/lorawan-network-servers/lorawan-network-servers' },
       items: [
         'network-iot/lorawan-network-servers/find-a-lns-provider',
@@ -153,7 +153,8 @@ module.exports = {
             'network-iot/run-an-lns/advanced-configuration',
             'network-iot/run-an-lns/common-issues'
           ],
-        }
+        },
+        'network-iot/lorawan-roaming',
       ],
     },
     {
@@ -163,7 +164,6 @@ module.exports = {
       items: [
         'network-iot/lorawan-frequency-plans',
         'network-iot/lorawan-region-plans',
-        'network-iot/lorawan-roaming',
       ],
     },
     {
