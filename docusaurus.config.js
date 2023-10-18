@@ -132,10 +132,7 @@ module.exports = {
           trackingID: 'G-85D2WJWZNL',
         },
         theme: {
-          customCss: [
-            require.resolve('./node_modules/docslab/lib/main.css'),
-            require.resolve('./src/css/custom.css'),
-          ],
+          customCss: require.resolve('./src/css/custom.css'),
         },
       },
     ],
