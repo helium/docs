@@ -16,7 +16,7 @@ exchanged for other tokens, or transferred between wallets.
 
 Several options are available for funding an OUI with Data Credits:
 
-- [Fund an OUI using HNT with the Helium Wallet App](fund-an-oui-using-hnt)
+- [Fund an OUI using HNT](fund-an-oui-using-hnt)
 - [Fund an OUI using a credit card with the Sphere Data Credit Portal](/tokens/data-credit-portal)
 
 ## Estimating Usage
@@ -70,7 +70,9 @@ valuable:
 The balance of an OUI is held in an escrow account that is generated at OUI creation. This escrow
 account is what allows the Helium Network to appropriately deduct DC as network transfer occurs.
 
-The escrow account is the main source for understanding the remaining balance of an OUI.
+The escrow account is the main source for understanding the remaining balance of an OUI. Details on
+the funding and burn of data credits on an escrow account can be inspected using any Solana
+blockchain explorer.
 
 When monitoring the OUI balance, it is worth noting that the minimum usage deducted at a time is
 10,000 DC[^1].
@@ -79,9 +81,13 @@ When monitoring the OUI balance, it is worth noting that the minimum usage deduc
     `BURN_THRESHOLD` on
     [GitHub](https://github.com/helium/oracles/blob/7c9f5b4e6f8e47be80eaf3c6cb4cc703373246ef/iot_packet_verifier/src/pending_burns.rs#L32)
 
-- Escrow Account
-  - How to find
-  - burn intervals.
+### Sphere DC Balance API
+
+Sphere provides a public API endpoint for querying the DC balance of an OUI's escrow account.
+
+```
+https://api.spherepay.co/v1/solanaDepinSession/dcAmount/<Escrow Account>
+```
 
 ## Minimum Balance
 
