@@ -1,0 +1,103 @@
+---
+id: configure-chirpstack
+title: Configure ChirpStack
+pagination_label: Configure ChirpStack
+sidebar_label: Configure ChirpStack
+description: Configure ChirpStack
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/run-an-lns/configure-chirpstack
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+Before getting started, make sure to have the following:
+
+- Helium Network Organizationally Unique Identifier (OUI).
+- Helium LoRaWAN devAddr slab.
+- Data Credits (>35M DC).
+
+## Installation and Configuration
+
+There are several methods to install ChirpStack on a server. This guide will demonstrate a
+configuration using Docker and the
+[`chirpstack-docker`](https://github.com/chirpstack/chirpstack-docker) repository.
+
+```sh title="Copy the ChirpStack Docker repository."
+git clone https://github.com/chirpstack/chirpstack-docker.git
+```
+
+### Configure ChirpStack
+
+Open and edit the `chirpstack.toml` file located in `configuration/chirpstack`.
+
+Modify the following sections:
+
+- Under `[network]`:
+  - Set `net_id` to `0x00003C`
+  - Add `dev_addr_prefixes` with the devAddr slab assigned. Follow these steps to set it up:
+    - Run `helium-config-service-cli org get --OUI <OUI>` to retrieve the DevAddr constraints for
+      the OUI.
+    - Execute `helium-config-service-cli subnet-mask <starting DevAddr> <ending DevAddr>` to
+      identify subnets.
+    - In the ChirpStack `.toml` file, insert `dev_addr_prefixes = [<subnets>]` following the rule:
+      starting `devAddr/32-log2(devAddr slab size)`. For instance, if 8 devAddr slabs were requested
+      and the starting devAddr is 00000000, insert `dev_addr_prefixes = ["00000000/29"]`.
+- Under `[gateway]`:
+  - Add `allow_unknown_gateways=true`
+
+## Support Additional LoRaWAN Regions
+
+To support regions beyond the default EU868, deploy a gateway bridge in ChirpStack for each
+additional LoRaWAN region. Although this tutorial demonstrates adding support for US915, these steps
+can be adapted for other regions.
+
+Open `docker-compose.yml` and locate a container called `chirpstack-gateway-bridge-eu868`.
+
+Add the following.
+
+```yml
+chirpstack-gateway-bridge-us915:
+    image: chirpstack/chirpstack-gateway-bridge:4
+    restart: unless-stopped
+    ports:
+      - 1701:1700/udp
+    volumes:
+      - /helium/configuration/chirpstack-gateway-bridge-us915:/etc/chirpstack-gateway-bridge
+    depends_on:
+      - mosquitto
+    logging: *logs
+```
+
+Navigate to the `configuration/chirpstack-gateway-bridge` directory and create a new directory named
+`chirpstack-gateway-bridge-us915`.
+
+Inside this new directory, create a file named `chirpstack-gateway-bridge.toml` and insert the
+following content:
+
+```toml
+[integration.mqtt.auth.generic]
+servers=["tcp://mosquitto:1883"]
+username=""
+password=""
+
+[integration.mqtt]
+event_topic_template="us915_1/gateway/{{ .GatewayID }}/event/{{ .EventType }}"
+state_topic_template="us915_1/gateway/{{ .GatewayID }}/state/{{ .StateType }}"
+command_topic_template="us915_1/gateway/{{ .GatewayID }}/command/#"
+```
+
+See https://www.chirpstack.io/docs/chirpstack-gateway-bridge/configuration.html for a full
+configuration example and documentation.
+
+Make sure ports 1700 and 1701 are both open on the server.
+
+## Run ChirpStack
+
+Run `docker-compose up` to start the server. Utilize the default credentials to log in:
+
+Username: admin  
+Password: admin
+
+Now that the LNS is operational, proceed to establish routing rules. This ensures that the Helium
+Network accurately directs device packets to the designated LNS. Learn how to implement this in the
+[Routing Rules Configuration Guide](configure-routing-rules).

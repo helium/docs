@@ -1,0 +1,267 @@
+---
+id: buy-an-oui
+title: Buy An Organizationally Unique Identifier
+pagination_label: Buy An Organizationally Unique Identifier
+sidebar_label: Buy an Organizationally Unique Identifier
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/run-an-lns/buy-an-oui
+---
+
+## What is an Organizationally Unique Identifier?
+
+Each LoRaWAN Network Server (LNS) on the Helium Network is managed using an Organizationally Unique
+Identifier (OUI). This registers the LNS with the network and manages the
+[devAddrs](#devaddr-explained), [Data Credits](/tokens/data-credit), and routes for device traffic.
+
+## Pricing
+
+The minimum cost to deploy an LNS to the Helium Network is $935 USD. This cost is divided into three
+parts.
+
+The cost of an OUI is US$100. This is a one-time fee.
+
+DevAddrs are issued in blocks of 8 and cost US$100 per devAddr for a total of $800. DevAddrs are
+also purchased as a one-time fee. DevAddrs are only required if a NedID is not already retained from
+the LoRa Alliance.
+
+A minimum of 35,000,000 ($35 USD) Data Credits must be held in the escrow account associated with
+the OUI. DC are consumed in proportion to the network traffic transfered[^1]. If the DC balance
+drops below 35M, device traffic to the routes associated with the OUI will halt.
+
+| Item                | Fee             |
+| ------------------- | --------------- |
+| OUI                 | $100            |
+| DevAddr             | $100 × 8 ($800) |
+| Data Credit Minimum | $35             |
+
+[^1]: [Data Credits and IoT network traffic explained.](/tokens/data-credit#data-credits-and-iot)
+
+## Purchasing OUI and devAddr Slab
+
+Currently, the purchasing of OUIs and devAddrs must be done by contacting the Helium Foundation. In
+the future, these registrations will be will be self-service.
+
+As an alternate to purchasing a devAddr slab, it is also an option to
+[retain a netID](https://resources.lora-alliance.org/faq/lorawan-netid-faq) from the LoRa Alliance
+and use it in a [roaming](/iot/lorawan-roaming) configuration. An OUI and data credits are required
+in either scenario.
+
+Before purchasing an OUI and devAddr Slab, you will need to do the following.
+
+- Generate an owner key pair
+- Generate a delegate key pair
+- Make sure you have a Helium Wallet
+
+You can create a Helium Wallet following the guide [here](/wallets/helium-wallet-app). Let's now
+generate the key pairs.
+
+### Install The Config Service CLI
+
+The [Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) will be used to
+generate the key pairs used for the OUI. Run the following commands to pull & build the config
+service CLI:
+
+```bash title="Copy the latest source code from GitHub."
+git clone https://github.com/helium/helium-config-service-cli.git
+```
+
+To build the copied code, the Rust compiler must be installed.
+
+```bash title="Install the Rust toolchain."
+curl https://sh.rustup.rs -sSf | sh
+```
+
+```bash title="Add Rust to path."
+source "$HOME/.cargo/env"
+```
+
+Add the protobuf library which will be used during the compile process.
+
+```bash title="Install protobuf"
+brew update && brew install protobuf
+```
+
+```bash title="Enter the directory and compile the CLI"
+cd helium-config-service-cli && cargo build --release
+```
+
+The built binary file `helium-config-service-cli` can be found under `target/release/` inside the
+`helium-config-service-cli` directory.
+
+Now that we have the CLI binary, let's put a copy in the local bin folder for simplicity's sake.
+Just copy `helium-config-service-cli` into `/usr/local/bin`. Files added to the bin folder will
+automatically be available to your command line.
+
+```bash
+sudo cp target/release/helium-config-service-cli /usr/local/bin/
+```
+
+### Generate OUI Keys
+
+Generate the key pairs you'll be using to authenticate your interactions with the config service.
+These keys are implemented such that only you can create/modify/delete routes.  
+Run this command twice. First for the owner key pair and second for the delegate key pair. Name the
+files accordingly.
+
+**Delegate Key Pair**: The delegate key is actively used to create and manage routes. In case it is
+ever compromised, it can be updated using the owner key.
+
+**Owner Key Pair**: The owner key is irreplaceable and should be kept safe, secure, and private at
+all times. If lost or compromised, you could lose your OUI.
+
+```bash title="Generate key pair"
+helium-config-service-cli env generate-keypair ~/<key file name>.bin
+```
+
+Run `helium-config-service-cli env generate-keypair <key file name>.bin` and you should find a file
+called `<key file name>.bin`.
+
+Print out the public key of your key pair by running:
+
+```bash
+helium-config-service-cli env info --keypair <key file name>.bin
+```
+
+```json {9} title="Example response from the info command highlighting the key pair."
+{
+  "arguments": {
+    "config_host": "unset",
+    "key_type_from_keypair": "ed25519",
+    "keypair": "/Users/me/test.bin",
+    "max_copies": null,
+    "net_id": null,
+    "oui": null,
+    "public_key_from_keypair": "13eY9uE5fjMzKC7PZ1nsDigiyurhXhV3bbj8pxbD2KtQTSC1ZHP"
+  },
+  {/* env vars will be discussed later */}
+}
+```
+
+The .bin files should be kept safe and never shared. The public key of these key pairs is the only
+part that should be shared.
+
+### Helium Wallet Address
+
+The OUI configuration process currently leverages public keys in a format from the Helium L1
+blockchain. In order to convert a Solana address into this legacy format, use the conversion tool
+below.
+
+import { DisplayLegacyWallet } from '@theme/DisplayLegacyWallet'
+
+<div className="screensnippet-wrapper">
+  <DisplayLegacyWallet />
+</div>
+
+### Submit For Purchasing
+
+Direct purchase of OUIs and devAddrs are not currently avaliable on-chain. Send an email to
+[hello@helium.foundation](mailto:hello@helium.foundation) containing the following information.
+
+- The public key of your owner key pair
+- The public key of your delegate key pair
+- The Helium wallet address
+- The number of devAddrs you want
+
+Once you receive your OUI, the next step is to fund it. There are several options in the
+[Fund an OUI](fund-an-oui) guide.
+
+## Share The LNS With The Community
+
+- **Add the LNS to the 'Well Known' list.**  
+  Helium operates as a permissionless network, which means it is possible to leverage the network
+  with complete anonymity. In the interest of making the network more transparent, an LNS can be
+  added to the [Well Known](https://github.com/helium/well-known) list.
+
+  This list is leveraged in labeling OUIs with a human-readable name on public Helium Foundation
+  [dashboards](https://dune.com/helium-foundation/helium-data-credits) and other community-run
+  dashboards. Consider adding your LNS to this resource.
+
+- **Add the LNS to the public providers page.**  
+  If the OUI is being used for publicly accessible operations, let the community know that business
+  is open! Add the LNS to the [Find an LNS Provider](/iot/find-a-lns-provider) page.
+
+---
+
+## DevAddr Explained
+
+Device addresses or `DevAddr` are assigned to a device by the LNS during the join procedure as
+defined in the
+[LoRaWAN 1.0.3 Specification](https://lora-alliance.org/resource_hub/lorawan-specification-v1-0-3/).
+A device, defined by `(AppEUI, DevEUI)`, can be allocated any of the devAddrs owned by the OUI. It
+is even possible to multiplex many devices on the same DevAddr at the same time, using the Message
+Integrity Check (MIC) to disambiguate.
+
+DevAddrs purchased through the methods outlined above are issued under the Helium Foundation's
+NetID, 0x00003C, which was assigned on May 2, 2023, as part of the Helium Foundation's membership in
+the LoRa Alliance.
+
+| NetID (hex) | NetID (decimal) | NwkID (bits) | DevAddr Subnet |
+| ----------- | --------------- | ------------ | -------------- |
+| 0x00003C    | 60              | 6b'111100    | 78000000/7     |
+
+Customers using their own netID don't need devAddrs from the Helium Foundation. Those with their own
+netID assigned by the LoRa Alliance should implement [roaming](/iot/lorawan-roaming) to allow their
+devices to use the Helium Network.
+
+### Multiplexing With DevAddrs
+
+Multiplexing in LoRaWAN, specifically DevAddr multiplexing, refers to the process where multiple
+devices share the same device address (DevAddr). It's a way to manage the limited available range of
+DevAddrs and allows more devices to join the network.
+
+If using ChirpStack, it randomly assigns a DevAddr at join or re-join to the device from the
+available range and then multiplexes each DevAddr as needed. The ChirpStack platform does this
+through the assignment of the Network Session Key.
+
+In the event of DevAddr collisions, i.e., when two or more devices have the same DevAddr, the
+network server (LNS) uses a technique called a Message Integrity Code (MIC) check computation to
+identify the real device behind each data packet.
+
+The computational overhead of these MIC checks is not heavy in most scenarios, these are checks
+designed to be performed on low-power devices. However, in high-traffic scenarios, it may be best to
+attribute a larger set of DevAddrs rather than allocate additional compute.
+
+```mermaid
+graph LR
+    subgraph Devices
+        D1[Device 1]
+        D2[Device 2]
+        D3[Device 3]
+        D4[Device 4]
+    end
+    subgraph OpenLNS
+        PR[Packet Routing]
+    end
+    subgraph LNS
+        MC[MIC Computation]
+        subgraph Device Identification
+            DI1[Device 1 Identified]
+            DI2[Device 2 Identified]
+            DI3[Device 3 Identified]
+            DI4[Device 4 Identified]
+        end
+    end
+    D1 -->|Packet with Shared DevAddr| PR
+    D2 -->|Packet with Shared DevAddr| PR
+    D3 -->|Packet with Shared DevAddr| PR
+    D4 -->|Packet with Shared DevAddr| PR
+    PR --> MC
+    MC -->|MIC checked with DevAddr and NwkSKey| DI1
+    MC -->|MIC checked with DevAddr and NwkSKey| DI2
+    MC -->|MIC checked with DevAddr and NwkSKey| DI3
+    MC -->|MIC checked with DevAddr and NwkSKey| DI4
+```
+
+### How many `DeviceAddr` are needed?
+
+An allocation of 8 devAddrs is enough for all operators to get started and scale their services. The
+demands of devices usually won't become apparent until tens of thousands of frequently uplinking
+devices are onboarded. The need for more devAddr depends on a few factors:
+
+1. Number of devices.
+1. Frequency of uplink.
+1. Number of copies of a message received.
+1. LNS system specs.
+
+More devAddrs can be allocated at any time, and LNSs generally accommodate non-sequential ranges.

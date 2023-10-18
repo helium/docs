@@ -1,0 +1,77 @@
+---
+id: advanced-configuration
+title: Advanced Configuration
+pagination_label: Advanced Configuration
+sidebar_label: Advanced Configuration
+description: Advanced Configuration
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/run-an-lns/advanced-configuration
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Session Key Filter (SKF)
+
+Session Key Filters (SKF) regulate device traffic on specific devAddrs by utilizing LoRaWAN device
+session keys. They establish conditions to either permit or restrict data flow based on the
+configured session keys.
+
+In this example scenario, consider two device addresses (devAddr) 1 and 2:
+
+- **Provided Session Key for devAddr 1:**  
+  Only allows traffic through devAddr 1 if it passes Message Integrity Code (MIC) checks.
+- **No Session Key for devAddr 2 and "ignore empty skf" = false:**  
+  All traffic is allowed through devAddr 2 without MIC checks.
+- **No Session Key for devAddr 2 and "ignore empty skf" = true:**  
+  All traffic through devAddr 2 is blocked.
+
+The SKF will regulate traffic based on session key availability and the "ignore empty skf" flag,
+independently per devAddr.
+
+### Importance of Configuring Session Key Filters
+
+Configuring SKFs for devices introduces an additional layer of security on the Helium network. In
+instances where SKFs are not established, the network relies on the devAddr to associate packets
+with the respective OUI, potentially attributing unauthorized packet costs to the OUI owner.
+
+Implementing SKFs counteracts this risk by empowering the Helium Packet Router to authenticate
+packets, thus preventing the delivery of unwanted payloads (and their respective DC cost).
+
+## Automated EUI and SKF Route Updates
+
+As the ecosystem of LNS operators grows, an increasing number of developers have open-sourced their
+tooling for running a Helium-enabled LNS. These tools enable functionality such as EUI and SKF
+automation to per-tenant Data Credit accounting.
+
+A selection of the tools are outlined below.
+
+### Helium Route Updater
+
+The Helium Route Updater service is a third-party service that can be run alongside a ChirpStack
+deployment to automate the adding/removing of EUIs as well as enabling session key filters on
+devices to block traffic from devices that are not yours.
+
+You can find the service on GitHub
+[here](https://github.com/thisisdevelopment/helium-route-updater). There is also a section in the
+readme that details how to easily add it to your ChirpStack docker compose, found
+[here](https://github.com/thisisdevelopment/helium-route-updater#chirpstack-docker-compose-usage).
+
+### Disk91 Helium Chirpstack
+
+This service includes several utilities including EUI management and per-tenant accounting.
+
+Find the service on GitHub [here](https://github.com/disk91/helium-chirpstack).
+
+## Config Service Interaction
+
+The Config Service can be used to manage an OUI and devAddr. There are two ways to interact with the
+Config Service:
+
+1. Using the [Command-Line Interface (CLI)](https://github.com/helium/helium-config-service-cli).
+1. Alternatively, you can write scripts to interact with the Config Service directly through
+   [GRPC APIs](https://github.com/helium/proto/blob/master/src/service/iot_config.proto) for a more
+   programmatic approach.
+
+## Hotspot Location Data
+
+Hotspot location data can be requested from the Config Service using either the CLI or GRPC APIs.

@@ -106,13 +106,7 @@ module.exports = {
     'tokens/hnt-token',
     'tokens/iot-token',
     'tokens/mobile-token',
-    {
-      type: 'category',
-      label: 'Data Credit Tokens',
-      link: { type: 'doc', id: 'tokens/data-credit' },
-      items: ['tokens/data-credit', 'tokens/data-credit-portal'],
-      collapsed: true,
-    },
+    'tokens/data-credit',
     'tokens/sol-token',
   ],
 
@@ -135,12 +129,32 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'LoRaWAN Network Servers',
+      label: 'Use Helium LoRaWAN',
       link: { type: 'doc', id: 'network-iot/lorawan-network-servers/lorawan-network-servers' },
       items: [
         'network-iot/lorawan-network-servers/find-a-lns-provider',
-        'network-iot/lorawan-network-servers/run-a-lns',
-        'network-iot/buy-an-oui',
+        {
+          type: 'category',
+          label: 'Run Your Own LNS',
+          link: { type: 'doc', id: 'network-iot/run-an-lns/run-an-lns' },
+          items: [
+            'network-iot/run-an-lns/buy-an-oui',
+            {
+              type: 'category',
+              label: 'Fund an Organizationally Unique Identifier',
+              link: { type: 'doc', id: 'network-iot/run-an-lns/fund-an-oui' },
+              items: [
+                'tokens/data-credit-portal',
+                'network-iot/run-an-lns/fund-an-oui-using-hnt',
+              ]
+            },
+            'network-iot/run-an-lns/configure-chirpstack',
+            'network-iot/run-an-lns/configure-routing-rules',
+            'network-iot/run-an-lns/advanced-configuration',
+            'network-iot/run-an-lns/common-issues'
+          ],
+        },
+        'network-iot/lorawan-roaming',
       ],
     },
     {
@@ -150,7 +164,6 @@ module.exports = {
       items: [
         'network-iot/lorawan-frequency-plans',
         'network-iot/lorawan-region-plans',
-        'network-iot/lorawan-roaming',
       ],
     },
     {

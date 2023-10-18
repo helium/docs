@@ -1,0 +1,56 @@
+---
+id: common-issues
+title: Common Issues
+pagination_label: Common Issues
+sidebar_label: Troubleshooting Common Issues
+description: Common Issues
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/run-an-lns/common-issues
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+# Troubleshooting Common Issues
+
+## No Incoming Data On The LNS
+
+If data is not being delivered to the LNS when there is a strong expectation that it should be, it's
+helpful to double-check route and device configuration. A common mistake is that routes are not
+properly configured or the devEUI of the testing device is not added to the route.
+
+Review the [routing configuration](configure-routing-rules) guides.
+
+## Join Request Received But Nothing Else
+
+If the join process is successful but no further data is delivered, a common issue is that the
+Session Key Filter is enabled for the route, but the session key of the specific device has not been
+submitted. This effectively blocks all downlink activity for the omitted device.
+
+Review the [session key filter](advanced-configuration) information in the advanced configuration
+guides.
+
+## Joins Unsuccessful
+
+As outlined in the [Understanding Multibuy](fund-an-oui) section, if multibuy is not enabled, there
+is a chance that the nearest Hotspot or Hotspot with the strongest signal is not available to the
+LNS for the join-accept.
+
+Multipacket configuration on the route or session key filter allows HPR to forward more of the
+uplinks (in chronological order) to the LNS. This lets the LNS make the selection of the best
+candidate to handle the join-accept response or other downlink activity. Low RSSI/SNR values from
+the gateway[s] reporting the join request/uplink is a good sign that increasing the multibuy value
+should be considered.
+
+If RSSI/SNR values continue to be low, it may be necessary to deploy additional coverage. Review the
+[data-only Hotspot](/iot/data-only-hotspots) guides for steps on adding Helium functionality to any
+existing LoRaWAN gateway.
+
+## Community Support
+
+Helium developers and community members are active in Discord and GitHub.
+
+- [Helium Discord](https://discord.gg/helium) #OpenLNS Channel
+- [Helium GitHub](https://github.com/helium)
+
+As a closing note, these docs are open for contributions. If there are areas to improve the content
+here, please consider opening a [pull request](https://github.com/helium/docs/).
