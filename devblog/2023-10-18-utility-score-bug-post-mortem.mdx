@@ -20,7 +20,7 @@ MOBILE SubNetwork, what happened, and what the team is doing moving forward.
 On July 21st, 2023, MOBILE Subscriber Mapping went live. This introduced a new rewardable entity
 into the MOBILE ecosystem.
 
-Helium Oracles are powered by a data pipeline that runs over a Proof of Coverage and network usage
+Helium Oracles are powered by a data pipeline that runs over Proof of Coverage and network usage
 data. After generating rewards shares, the lifetime rewards for each entity are calculated and
 inserted into a Postgres database. When a user initiates a claim, the Oracle service then reads the
 values from the database and signs the claim transaction to set the lifetime rewards for that entity
@@ -49,11 +49,16 @@ subscribers. This corrected the utility score going forward.
 
 **Immediate Fix**
 
-The immediate fix for this was to correct the active device query to filter out MOBILE subscribers.
-This was deployed shortly after we recognized the error.
+The immediate fix for this, deployed September 12th, was to correct the active device query to
+filter out MOBILE subscribers. This was deployed shortly after we recognized the error.
 
 **HIP 88**
 
 Due to the implementation of HIP-88, tracking onboarding fees per device, this problem can no longer
-happen again. Instead, a new oracle sets each device on-chain as active or inactive based off of the
+happen again. Instead, a new oracle sets each device on-chain as active or inactive based on the
 generated rewards shares.
+
+## Impact
+
+The MOBILE utility score was slightly inflated from July 21st - September 12th, as MOBILE
+subscribers counted towards the Active Device (`A`) portion of the utility score.
