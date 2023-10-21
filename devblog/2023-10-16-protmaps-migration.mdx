@@ -8,18 +8,22 @@ authors: [mbthiery]
 
 ## Intro
 
-At the end of September, the Helium Foundation changed our tile server to Protomaps. We are
-currently on track to saving ~$2,000 a month (from our most expensive month). Given how important
-maps are to us and the community, we are thrilled to be able to save this much money and want to
-share some insights we learned while executing this migration. Hopefully, these insights can help
-other developers who are thinking of taking the leap. I'd recommend a developer use this as an
-addendum to the existing protomaps setup documentation.
+At the end of September, the Helium Foundation changed our map tile server to Protomaps. As a
+globally distributed network of physical infrastructure, maps are a critical piece of the
+interpretation and visualization of the network. Helium runs many services leveraging maps,
+including Explorer, which serves hundreds of thousands of users monthly. Through this refactor, we
+are on track to save upwards of $x a month.
+
+Given how important maps are to us and the community, we are thrilled to be able to save this much
+money and want to share some insights we learned while executing this migration. Hopefully, these
+insights can help other developers who are thinking of taking the leap. I'd recommend a developer
+use this as an addendum to the existing protomaps setup documentation.
 
 <!--truncate-->
 
 ## What Is Protomaps?
 
-[Protomaps](https://protomaps.com/) is an open source self-hosted way to serve vector tiles. The
+[Protomaps](https://protomaps.com/) is an open-source self-hosted way to serve vector tiles. The
 tiles are built with the use of [OpenStreetMaps](https://openstreetmap.org/) and stored in the
 [pmtile format](https://protomaps.com/docs/pmtiles). This is “a single-file archive format for
 pyramids of tiled data”. PMTiles readers can then use HTTP range-requests to get the subset of data
@@ -40,7 +44,7 @@ bandwidth fees**. Ultimately, that is what we did.
 
 While Protomaps strongly recommends Cloudflare as a storage platform, it is much looser in its
 recommendations on how to upload the map file. It lists out the web interface (for small files), the
-pmtiles CLI, rclone and finally the AWS CLI. **I’d recommend skipping straight to the AWS CLI**.
+pmtiles CLI, rclone and finally the AWS CLI. **I'd recommend skipping straight to the AWS CLI**.
 While the PMTiles CLI and rclone work great for small files, it seems that multi-part uploads
 currently do not work. Despite trying multiple different upload configurations (e.g. chunk size,
 maximum concurrency) these uploads would invariably fail with a `SignatureDoesNotMatch` error.
@@ -49,17 +53,16 @@ works.
 
 To make the AWS CLI work all you need to do is:
 
-1. configure an AWS profile with the Access Key Id and Secret Key that the
+1. Configure an AWS profile with the Access Key ID and Secret Key that the
    [Cloudflare R2 API](https://developers.cloudflare.com/r2/api/s3/tokens/) provides you.
 1. Upload your desired file to your R2 bucket
-
-   ```
+   ```sh
    aws s3 cp FILE.pmtiles s3://R2_BUCKET_NAME/ --endpoint-url https://CLOUDFLARE_ACCOUNT_ID.r2.cloudflarestorage.com --profile cloudflare
    ```
 
 ## R2 Worker And CORS Setup
 
-After uploading your pmtiles files to Cloudlflare R2, you'll need to create a Worker to expose said
+After uploading your pmtiles files to Cloudflare R2, you'll need to create a Worker to expose said
 file to the public. Protomaps provides instructions on how to do so with both the web console and
 through Wrangler. At the time of writing this, the instructions for the web console no longer match
 the UI on Cloudflare. For this reason and for further CORS setup, **I'd recommend setting up your
@@ -72,21 +75,21 @@ matches. If you are like the Helium Foundation and would like to also enable COR
 deployments, then you can edit the `PMTiles/serverless/cloudflare/src/index.ts` file with the
 following code snippet.
 
-```
-      if (typeof env.ALLOWED_ORIGINS !== "undefined") {
-        const previewRegex = /YOUR_REGEX/g;
-        const requestOrigin = request.headers.get("Origin") || "";
+```ts
+if (typeof env.ALLOWED_ORIGINS !== 'undefined') {
+  const previewRegex = /YOUR_REGEX/g
+  const requestOrigin = request.headers.get('Origin') || ''
 
-        for (const origin of env.ALLOWED_ORIGINS.split(",")) {
-          if (origin === requestOrigin || origin === "*") {
-            allowed_origin = origin;
-          }
-        }
+  for (const origin of env.ALLOWED_ORIGINS.split(',')) {
+    if (origin === requestOrigin || origin === '*') {
+      allowed_origin = origin
+    }
+  }
 
-        if (!!requestOrigin.match(previewRegex)) {
-          allowed_origin = requestOrigin;
-        }
-      }
+  if (!!requestOrigin.match(previewRegex)) {
+    allowed_origin = requestOrigin
+  }
+}
 ```
 
 ## Maplibre-libre-js
@@ -103,7 +106,7 @@ This one is more an indictment of myself versus the documentation itself, but be
 the URLs you use when adding the sources. If you’re like me and looking at the documentation which
 includes the two following code samples:
 
-```
+```json
 {
   "sources": {
     "protomaps": {
@@ -132,7 +135,7 @@ You might think that when serving the tileset locally, that the following is cor
 It however, most definitely is not. Instead, if you are serving files locally the following two
 formats work.
 
-```
+```json
     sources: {
       protomaps: {
         type: "vector",
