@@ -22,9 +22,9 @@ use this as an addendum to the existing protomaps setup documentation.
 ## What Is Protomaps?
 
 [Protomaps](https://protomaps.com/) is an open-source self-hosted way to serve vector tiles. The
-tiles are built with the use of [OpenStreetMaps](https://openstreetmap.org/) and stored in the
-[pmtile format](https://protomaps.com/docs/pmtiles). This is “a single-file archive format for
-pyramids of tiled data”. PMTiles readers can then use HTTP range-requests to get the subset of data
+tiles are built with using [OpenStreetMaps](https://openstreetmap.org/) and stored in the
+[pmtile format](https://protomaps.com/docs/pmtiles). This is "a single-file archive format for
+pyramids of tiled data." PMTiles readers can then use HTTP range-requests to get the subset of data
 it needs.
 
 All you need to do in order to use protomaps:
@@ -37,8 +37,8 @@ All you need to do in order to use protomaps:
 You can upload your PMTiles to any S3-compatible cloud-storage platform that supports HTTP
 range-requests. You can find a long
 [list of possible cloud platforms](https://protomaps.com/docs/pmtiles/cloud-storage) from protomaps.
-While those are all possible options, **Cloudflare is the recommended storage platform as it has no
-bandwidth fees**. Ultimately, that is what we did.
+While those are all possible options, **Cloudflare is the recommended storage platform since it has
+no bandwidth fees**. Ultimately, that is what we did.
 
 While Protomaps strongly recommends Cloudflare as a storage platform, it is much looser in its
 recommendations on how to upload the map file. It lists out the web interface (for small files), the
@@ -61,15 +61,15 @@ To make the AWS CLI work all you need to do is:
 ## R2 Worker And CORS Setup
 
 After uploading your pmtiles files to Cloudflare R2, you'll need to create a Worker to expose said
-file to the public. Protomaps provides instructions on how to do so with both the web console and
+file to the public. Protomaps provides instructions on how to do this with both the web console and
 through Wrangler. At the time of writing this, the instructions for the web console no longer match
-the UI on Cloudflare. For this reason and for further CORS setup, **I'd recommend setting up your
-Worker with Wrangler
+the UI on Cloudflare. For this reason, and for further CORS setup, **I'd recommend setting up your
+Worker with Wrangler,
 [per the instructions](https://protomaps.com/docs/cdn/cloudflare#alternative:-use-wrangler)**.
 
-Your `wrangler.toml` already comes with an `ALLOWED_ORIGINS` var which you can set to enable CORS
+Your `wrangler.toml` already comes with an `ALLOWED_ORIGINS` var, which you can set to enable CORS
 for your front-end. As currently set up, however, `ALLOWED_ORIGINS` only works on exact string
-matches. If you are like the Helium Foundation and would like to also enable CORS for your preview
+matches. If you are like the Helium Foundation and would also like to enable CORS for your preview
 deployments, then you can edit the `PMTiles/serverless/cloudflare/src/index.ts` file with the
 following code snippet.
 
@@ -92,9 +92,9 @@ if (typeof env.ALLOWED_ORIGINS !== 'undefined') {
 
 ## Maplibre-libre-js
 
-Since we were already using Mapbox to render our front-end, we opted to use maplibre-gl-js which is
-an open source fork of [mapbox-gl-js](https://github.com/maplibre/maplibre-gl-js). For the most
-part, migrating from one to the other is as straightforward as installing the dependencies and
+Since we already used Mapbox to render our front-end, we opted to use maplibre-gl-js, an open-source
+fork of [mapbox-gl-js](https://github.com/maplibre/maplibre-gl-js). For the most part, migrating
+from one to the other is as straightforward as installing the dependencies and
 [adding the pmtiles protocol](https://protomaps.com/docs/frontends/maplibre#installation). There
 were however two minor gotcha’s.
 
@@ -154,8 +154,8 @@ formats work.
 ### Update Your Styling
 
 Mapbox and Protomaps use two different sets of vector basemap layers. As such, if you are trying to
-migrate from Mapbox to Protomaps your existing Mapbox styles will not render anything. I'd recommend
-you use or adapt one of the existing `protomaps-theme-base` layers as shown
+migrate from Mapbox to Protomaps, your existing Mapbox styles will not render anything. I'd
+recommend you use or adapt one of the existing `protomaps-theme-base` layers as shown
 [in the docs](https://protomaps.com/docs/frontends/maplibre#vector-basemaps). Alternatively, feel
 free to use
 [our modified layers](https://github.com/helium/network-explorer/blob/main/src/components/HotspotsMap/mapLayersDark.tsx)
@@ -164,9 +164,7 @@ free to use
 ## Conclusion
 
 While we ran into a hiccup or two while completing the migration, we couldn’t be happier with the
-end result of our migration from Mapbox to Protomaps. While Mapbox has the benefit of being a nice
-out-of-the-box solution, when you have the time (a few days at most following the above advice), I’d
-recommend you migrate over to Protomaps. Since our migration, we have experienced equal or better
-performance for a fraction of the cost. In recognition of this, our CEO Abhay (who happened to work
-with Brandon, the man behind protomaps) has decided to become a sponsor of the project. It's that
+end result of our migration to Protomaps. Since our migration, we have experienced equal or better
+performance for a fraction of the cost. In recognition of this our CEO Abhay, who happened to work
+with Brandon, the man behind protomaps, has decided to become a sponsor of the project. ts that
 great!
