@@ -1,6 +1,6 @@
 ---
 id: balena-data-only-hotspot
-title: Data Only Hotspot with balena + Raspberry Pi + RAK Concentrator RAK2287
+title: Data-Only Hotspot with balena + Raspberry Pi + RAK Concentrator RAK2287
 pagination_label: Balena Data-Only Tutorial
 sidebar_label: Balena Data-Only Tutorial
 description: Helium Documentation
@@ -8,7 +8,7 @@ image: https://docs.helium.com/img/link-image.png
 slug: /iot/data-only/balena-data-only-hotspot
 ---
 
-# Data Only Hotspot Setup with balena + Raspberry Pi + RAK2287
+# Data-Only Hotspot Setup with balena + Raspberry Pi + RAK2287
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
@@ -47,7 +47,7 @@ with the SPI interface.
 
 ## Deploy the code
 
-Running this Data Only Hotspot with balena.io is as simple as deploying it to a balenaCloud
+Running this data-only Hotspot with balena.io is as simple as deploying it to a balenaCloud
 application. You can do it in just one click by using the button below:
 
 [![](https://www.balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/mpous/helium-data-hotspot)
@@ -62,7 +62,7 @@ would like to clone and deploy from your computer or you would like to contribut
 
 ### Device Variables
 
-Once the device is online on balenaCloud and the services `packet-forwarder` and `gatewayrs` are
+Once the device is online on balenaCloud and the services `packet-forwarder` and `gateway-rs` are
 downloaded and installed, go to `Device Variables`.
 
 - Create the variable for all the services `VARIANT` with your hardware definition. During the test
@@ -79,7 +79,7 @@ Once the Device Variables are properly set up, the Hotspot should be running sho
 connecting to the Blockchain on the balenaCloud Logs.
 
 To check that the Hotspot has been generated correctly, go to the `Terminal` and select the
-`gatewayrs` service, then introduce.
+`gateway-rs` service, then introduce.
 
 `helium_gateway key info`
 
@@ -87,25 +87,25 @@ And you will get something like this:
 
 `{ "address": <hotspot address>, "name": <hotspot name> }`
 
-At this point, your Data Only Hotspot is ready to join the Helium blockchain!
+At this point, your data-only Hotspot is ready to join the Helium blockchain!
 
 ### Join the Helium blockchain with your Hotspot
 
 To join the Helium blockchain, at the moment (summer 2021) you only can use the Helium CLI. The
 Helium app is still not compatible with the data-only hotspots. Follow
 [this instructions](https://github.com/mpous/helium-data-hotspot/#join-the-helium-blockchain-with-your-data-only-hotspot)
-to add your Data Only Hotspot on the Blockchain.
+to add your data-only Hotspot on the Blockchain.
 
 You can find the instructions to do it
 [here](https://github.com/mpous/helium-data-hotspot/#join-the-helium-blockchain-with-your-data-only-hotspot).
 
-## Check your Data Only Hotspot
+## Check your Data-Only Hotspot
 
 Now that your data-only Hotspot has been added to the Blockchain you should be able to see it on
 your Helium wallet.
 
 If you create a Helium Device, then go to the [Helium Console](https://console.helium.com) and
-Inspect packages from your device to confirm that the Data Only Hotspot is the one that relays the
+Inspect packages from your device to confirm that the data-only Hotspot is the one that relays the
 data from your Devices. You also will be able to see on the balenaCloud logs that UPLINK messages
 have been relayed to the Helium OUI.
 
