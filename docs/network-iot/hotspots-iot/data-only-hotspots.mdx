@@ -77,16 +77,21 @@ For guidance on using gateway-rs, view the
 
 ## Transactions & Cost
 
-To enable the Helium Network to reward a data-only Hotspot for network traffic, two criteria must be
-met.
+A data-only Hotspot is capable of transferring network traffic without being onboarded. However,
+rewards for data transfer will not be issued.
+
+To enable the Helium Network to reward a data-only Hotspot for network traffic and to report a
+location, two criteria must be met.
 
 1. The Hotspot must be 'onboarded' to the network.  
    The **Add Hotspot** transaction links the Hotspot's key (`swarm_key`) to a user's
-   [account](/wallets) and makes the Hotspot known to the network.
-1. The specific location of the Hotspot must be declared.  
-   This allows the network to appropriately address regional parameters and aids in location-solving
-   for certain sensor applications. The **Assert Location** transaction provides the physical
-   location (lat/long), elevation (in meters), and antenna EIRP (in dBi) data for the Hotspot.
+   [account](/wallets) and makes the Hotspot known to the network. This allows the Hotspot to be
+   rewarded for data transfer.
+1. The specific location of the Hotspot should be declared.  
+   This allows the network define regional parameters and aids in location-solving for certain
+   sensor applications. The **Assert Location** transaction provides the physical location
+   (lat/long), elevation (in meters), and antenna EIRP (in dBi) data for the Hotspot. A Hotspot must
+   be onboarded before its location can be asserted.
 
 The network fees are as follows:
 
