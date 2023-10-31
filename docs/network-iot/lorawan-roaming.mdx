@@ -10,167 +10,141 @@ slug: /iot/lorawan-roaming
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The Helium Network, the largest LoRaWAN Network in the world, is an attractive Network to other
-public and private LoRaWAN Network providers wanting to expand their coverage without deploying
-additional infrastructure.
+Before getting started, make sure to have the following:
+
+- Helium Network Organizationally Unique Identifier (OUI).
+- Data Credits (>3.5M DC).
+- A Net ID issued by the LoRaWAN Alliance.
+- A roaming endpoint so your LNS can receive roaming traffic.
+
+You can refer to [this](/iot/run-an-lns/buy-an-oui) and [this](/iot/run-an-lns/fund-an-oui) to buy
+and fund an OUI.
 
 ## Roaming Quickstart
 
-The [Helium Config Service](https://github.com/helium/oracles/tree/main/iot_config) stores LoRaWAN
-routing information on the Helium IoT Network. Each roaming user is registered in the Config Service
-under their Net ID and may define multiple routes for their data. Each route contains information
-such as:
+While your roaming endpoint is up and running, you need to let Config Service know of its existence.
+First, let's initialize some environment variables so that you don't have to tell the CLI the same
+commands over and over again:
 
-- **DevEUI+AppEUI pairs** — so the network knows which join requests to send your way
-- **DevAddr ranges** — so the network knows which uplinks to send your way
-- **Server endpoint + port** — so we know where to send packets to
+Run `helium-config-service-cli env init`
 
-There are two ways of interacting with the Config Service, directly through GRPC APIs or through CLI
-(command-line-interface).
+1.  Fill in the relative path of your delegate key pair file for `Keypair Location`
+1.  Fill in `Your Net ID` for `Net ID`
+1.  Fill in your assigned OUI for `Assigned OUI`
+1.  Fill in the number of `multi-buy` you want for `Default Max Copies` as a default for your
+    routes.
+1.  Then export the environment variables. This needs to be done manually. You will see something
+    like this and just add `export` to each line and run it. For instance, you would run
+    `export HELIUM_MAX_COPIES=15` variable. Do NOT put a space around the `=` sign
 
-### CLI
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/open-lns/roaming-setup-env-variables.png')}
+    className="add-shadow add-shadow-margin"
+    style={{ maxHeight: 350, minWidth: 0 }}
+  />
+  <figcaption>Setting environment variables as shown in a terminal window.</figcaption>
+</figure>
+<br />
 
-1. Run the following commands to pull & build the latest config service CLI:
+Now, you are ready to generate your first route. Routes contain the necessary information for us to
+know how to route a packet — DevEUI+AppEUI (for routing join requests), DevAddr range (for routing
+uplinks), Endpoint (so we know where to send the packet to), etc.
 
-   ```bash
-   $ git clone https://github.com/helium/helium-config-service-cli.git
-   $ curl https://sh.rustup.rs -sSf | sh
-   $ source "$HOME/.cargo/env"
-   $ cd helium-config-service-cli
-   $ cargo b --release
-   ```
+1.  Run `helium-config-service-cli route new --commit`
+1.  You can then see the empty route template. It should look like this, except that you should be
+    seeing your Net ID, assigned OUI, max_copies in there:
 
-1. The CLI program `helium-config-service-cli` will be built in the `./target/release` folder inside
-   the `helium-config-service-cli` directory. Renaming the program as `main` is a timesaving measure
-   and will be used throughout the remainder of this guide. (Rename it by running
-   `mv helium-config-service-cli main` from the build directory)
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/open-lns/roaming-setup-generate-route.png')}
+    className="add-shadow add-shadow-margin"
+    style={{ maxHeight: 350, minWidth: 0 }}
+  />
+  <figcaption>Route Creation as shown in a terminal window.</figcaption>
+</figure> <br />
 
-1. Now that we have the CLI binary, let’s just put it in a separate folder. This is recommended only
-   for simplicity's sake. Just copy `main` into the folder you created. You can reference the
-   following commands:
+Next, let's define the endpoint that you use for ingesting traffic. You can run:
 
-   ```bash
-   $ cd ..
-   $ mkdir cli-testing
-   $ cd cli-testing
-   $ cp ../helium-config-service-cli/target/release/main .
-   ```
+```bash
+$ helium-config-service-cli route update server --host <roaming endpoint> --port <roaming port> --route-id <route-id> --commit
+```
 
-1. Let’s generate the keypairs you’ll be using to authenticate your interactions with the config
-   service. These keys allow only you to create/modify/delete routes. Run this command twice for 1)
-   _owner keypair_ and 2) _delegate keypair_ and name files accordingly. Run
-   `./main env generate-keypair <key file name>.bin` and you should find a file called
-   `<key file name>.bin`. Print out the public key of your keypair by running:
+If you are using HTTP roaming, you need to run:
 
-   ```bash
-   $ ./main env info --keypair <key file name>.bin
-   ```
+- Note that the auth-header and receiver-nsid are optional.
 
-   **Delegate Keypair**: The delegate key is actively used to create and manage routes. In case it
-   is ever compromised, it can be updated using the owner key.
+```bash
+$ helium-config-service-cli route update http --dedupte-timeout <dedupte timeout> --path <roaming endpoint sub-path> --auth-header <auth header> --receiver-nsid <ReceiverNSID> --route-id <route-id> --commit
+```
 
-   **Owner Keypair**: The owner key is irreplaceable and should be kept safe, secure, and private at
-   all times. If lost or compromised, you could lose your OUI.
+If you are using GWMP roaming, you need to run:
 
-   **Payer Keypair**: The third keypair, the payer keypair, corresponds to your Helium wallet
-   addresses. The public wallet address (payer key) is used to keep your wallet and OUI funded.
+```bash
+$ helium-config-service-cli route update add-gwmp-region --route-id <route-id> --commit
+```
 
-1. Next, make sure you have a Helium Wallet.
-   [You can download them here](https://wallet.helium.com/).
+Make sure your endpoint, port and protocol are set correctly, otherwise we may not be able to send
+traffic to your LNS.
 
-1. Contact the Helium Foundation with your public key and Helium Wallet address via email at
-   [hello@helium.foundation](mailto:hello@helium.foundation) for the information needed in the next
-   steps.
+### How to Add Your First Device
 
-1. Next, let’s initialize some environment variables so that you don’t have to tell the CLI the same
-   thing over and over again in later commands:
+In this example, we will show you how to add your first device to start roaming. In order to receive
+join request for your device, you need to let Helium know which EUI pair to watch out for. You can
+run the following
 
-   1. Run `./main env init`
-   1. Fill in `https://mainnet-config.helium.io:6080/` for `Config Service Host`
-   1. Fill in the path `./keypair.bin` for `Keypair Location`
-   1. Fill in your NET ID for `Net ID`
-   1. Fill in your OUI for `Assigned OUI`
-   1. Fill in the multi-buy value you want for `Default Max Copies` as a default for your routes.
-   1. Then export the environment variables. This needs to be done manually. You will see something
-      like this and just add `export` to each line and run it. For instance, you would run export
-      `HELIUM_MAX_COPIES=15` variable. Do NOT put a space around the `=` sign
+**If you are a roaming partner migrating from Roaming Console, please read the
+`Migrating from Roaming Console` section below first.**
 
-   <figure className="screensnippet-wrapper">
-     <img
-       src={useBaseUrl('img/open-lns/roaming-setup-env-variables.png')}
-       style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
-       className="add-shadow add-shadow-margin"
-     />
-     <figcaption>Setting Environment Variables shown in a Terminal window.</figcaption>
-   </figure>
+```bash
+$ helium-config-service-cli route euis add --route-id <route-id> -d <dev-eui> -a <app-eui> --commit
+```
 
-1. Now, you are ready to generate your first route. Routes contain the necessary information for the
-   network to know how to route a packet — DevEUI+AppEUI (for routing join requests), DevAddr range
-   (for routing uplinks), Endpoint (so we know where to send the packet to), etc.
+While this allows your Helium to forward your device's join request, you also need to specify a
+DevAddr range on that route so that Helium can forward its uplinks.
 
-   1. Run `./main route new --commit`
-   1. You can then see the empty route template. It should look like this, except that you should be
-      seeing your Net ID, assigned OUI, and max_copies:
+```bash
+$ helium-config-service-cli route devaddrs add -s <start devAddr> -e <end devAddr> --route-id <route-id> -- commit
+```
 
-   <figure className="screensnippet-wrapper">
-     <img
-       src={useBaseUrl('img/open-lns/roaming-setup-generate-route.png')}
-       style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
-       className="add-shadow add-shadow-margin"
-     />
-     <figcaption>Route Creation as shown in a Terminal window.</figcaption>
-   </figure>
+### Migrating from Roaming Console
 
-1. Next, let’s define DevAddr range so packet router knows which uplinks to route to your endpoint.
-   Just use your OUI’s assigned DevAddr range, which you can get by running `./main org get`.
-   Afterwards, run:
+If you are a roaming partner migrating from Roaming Console to the new OpenLNS Architecture, please
+carefully test out your roaming connections before the full switch.
 
-   ```bash
-   $ ./main route devaddrs add -s <start> -e <end> --route-id <route-id> --commit
-   ```
+While the Roaming Console currently coexists with the OpenLNS Architecture, it is not possible to
+have the same device to simultaneously send traffic to both Roaming Console and through OpenLNS
+Architecture.
 
-1. Next, let’s define EUI pairs so packet router knows which join requests to route to your
-   endpoint. You can run:
+#### Migrating EUI pair for join requests
 
-   ```bash
-   $ ./main route euis add --route-id <route-id> -d <dev-eui> -a <app-eui> --commit
-   ```
+Let's say you had 100 devices on Roaming Console, you can start the migration slowly by registering
+1 EUI pair with the CLI, so that 99 of your devices will roam through Roaming Console and 1 of your
+devices will roam through OpenLNS. Then, you can keep migrating, possibly registering 50 EUI pairs
+with the CLI, so that 49 of your devices will roam through Roaming Console and 51 will roam through
+OpenLNS. Eventually, you will have registered all 100 EUI pairs with the CLI, so that all of your
+devices will roam through Roaming Console.
 
-1. Next, let’s define the endpoint that you use for ingesting traffic. You can run:
+#### Migrating DevAddr range for uplinks
 
-   ```bash
-   $ ./main route update server --host <host> --port <port> --route-id <route-id> --commit
-   ```
+Let's say you have 10 DevAddrs, you can start the migration slowly by registering 1 DevAddr with the
+CLI, so that 9 of your DevAddrs will roam through Roaming Console and 1 of your DevAddrs will roam
+through OpenLNS. Then, you can keep migrating, possibly registering 5 DevAddrs with the CLI, so that
+4 of your DevAddrs will roam through Roaming Console and 6 will roam through OpenLNS. Eventually,
+you will have registered all 10 DevAddrs with the CLI, so that all of your devices will roam through
+Roaming Console.
 
-1. Lastly, define other relevant parameters for HTTP roaming. You can run:
-   ```bash
-   $ ./main route update http --dedupe-timeout <dedupe-timeout> --path <url path> --auth-header <auth-header> --route-id <route-id> --commit
-   ```
-1. Fund your OUI  
-   You will need to keep your OUI funded with a minimum of 3.5 million data credits (equivalent to
-   $35 USD) at all times to ensure data transfer. If the balance falls below  
-   3.5 million data credits your OUI may be locked.
+## Advanced Roaming
 
-To fund your OUI, you will delegate data credits to your payer key (Helium public wallet address).
-Your delegated data credits will then be held in an escrow account. To delegate data credits to your
-OUI, you can utilize one of the following options:
+### Session Key Filter
 
-- Use the [Sphere tool](/tokens/data-credit-portal) to pay with a credit card (USA only)
-- Use the Sphere to convert HNT directly to your OUI. Select a payment method, connect a wallet,
-  specify the quantity, and enter your OUI.
-- Delegate data credits directly from the Helium wallet.
-  1.  Make sure you have a data credit balance. If necessary, swap HNT for DCs using the “Swap”
-      feature in the wallet app.
-  1.  Select the DC assets in the wallet
-  1.  Click “delegate” and select the “IOT subDAO”.  
-      **Make sure to select the IoT SubDao. Data credits delegated to the MOBILE subDAO can not be
-      used to pay for IoT traffic.**  
-      Note: You can only delegate data credits once, and if you delegate to the Mobile Subdao this
-      cannot be undone.
-  1.  Enter your payer key and the DC amount you wish to delegate.
-  1.  Swipe to delegate  
-      Note: You need a small amount of SOL to complete any transaction. You can fund your wallet by
-      sending SOL to your Solana address in the Helium Wallet App.
+Session key filter gives you the ability to essentially accept and reject roaming traffic on a
+device level. You can read more about that [here](/iot/run-an-lns/advanced-configuration)
 
-To confirm your escrow account is properly funded, you can utilize the Sphere tool by entering your
-OUI number and viewing the associated keys.
+### Proxy Service
+
+If Helium's OpenLNS Architecture is a deal breaker for you, then you can leverage
+[this service we prototyped](https://github.com/helium/helium-packet-router-ingest), which should
+provide you with a Standard roaming interface. Note that Helium is not in active maintenance of this
+service. Helium does not necessarily recommend the usage of this architecture, but appreciates the
+diverse need of roaming partners.
