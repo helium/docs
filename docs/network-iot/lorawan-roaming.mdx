@@ -14,28 +14,29 @@ Before getting started, make sure to have the following:
 
 - Helium Network Organizationally Unique Identifier (OUI).
 - Data Credits (>3.5M DC).
-- A Net ID issued by the LoRaWAN Alliance.
+- A NetID issued by the LoRa Alliance.
 - A roaming endpoint so your LNS can receive roaming traffic.
 
-You can refer to [this](/iot/run-an-lns/buy-an-oui) and [this](/iot/run-an-lns/fund-an-oui) to buy
-and fund an OUI.
+For guidance on purchasing and funding an OUI, refer to the following guides:
+
+- [Buy an OUI](/iot/run-an-lns/buy-an-oui)
+- [Fund an OUI](/iot/run-an-lns/fund-an-oui)
 
 ## Roaming Quickstart
 
-While your roaming endpoint is up and running, you need to let Config Service know of its existence.
-First, let's initialize some environment variables so that you don't have to tell the CLI the same
-commands over and over again:
+While your roaming endpoint is up and running, you need to let the Helium config service know of its
+existence. Initialization of some CLI environment variables will streamline the process:
 
 Run `helium-config-service-cli env init`
 
-1.  Fill in the relative path of your delegate key pair file for `Keypair Location`
+1.  Fill in the relative path of the delegate key pair file for `Keypair Location`
 1.  Fill in `Your Net ID` for `Net ID`
 1.  Fill in your assigned OUI for `Assigned OUI`
 1.  Fill in the number of `multi-buy` you want for `Default Max Copies` as a default for your
     routes.
 1.  Then export the environment variables. This needs to be done manually. You will see something
     like this and just add `export` to each line and run it. For instance, you would run
-    `export HELIUM_MAX_COPIES=15` variable. Do NOT put a space around the `=` sign
+    `export HELIUM_MAX_COPIES=15` variable. Be sure not to put a space around the `=` sign
 
 <figure className="screensnippet-wrapper">
   <img
@@ -49,11 +50,11 @@ Run `helium-config-service-cli env init`
 
 Now, you are ready to generate your first route. Routes contain the necessary information for us to
 know how to route a packet — DevEUI+AppEUI (for routing join requests), DevAddr range (for routing
-uplinks), Endpoint (so we know where to send the packet to), etc.
+uplinks), endpoint (so the network knows where to send the packet), etc.
 
 1.  Run `helium-config-service-cli route new --commit`
 1.  You can then see the empty route template. It should look like this, except that you should be
-    seeing your Net ID, assigned OUI, max_copies in there:
+    seeing your NetID, assigned OUI, max_copies in there:
 
 <figure className="screensnippet-wrapper">
   <img
@@ -75,7 +76,7 @@ If you are using HTTP roaming, you need to run:
 - Note that the auth-header and receiver-nsid are optional.
 
 ```bash
-$ helium-config-service-cli route update http --dedupte-timeout <dedupte timeout> --path <roaming endpoint sub-path> --auth-header <auth header> --receiver-nsid <ReceiverNSID> --route-id <route-id> --commit
+$ helium-config-service-cli route update http --dedupe-timeout <dedupe timeout> --path <roaming endpoint sub-path> --auth-header <auth header> --receiver-nsid <ReceiverNSID> --route-id <route-id> --commit
 ```
 
 If you are using GWMP roaming, you need to run:
@@ -116,7 +117,7 @@ While the Roaming Console currently coexists with the OpenLNS Architecture, it i
 have the same device to simultaneously send traffic to both Roaming Console and through OpenLNS
 Architecture.
 
-#### Migrating EUI pair for join requests
+#### Migrating EUI Pair for Join Requests
 
 Let's say you had 100 devices on Roaming Console, you can start the migration slowly by registering
 1 EUI pair with the CLI, so that 99 of your devices will roam through Roaming Console and 1 of your
@@ -125,7 +126,7 @@ with the CLI, so that 49 of your devices will roam through Roaming Console and 5
 OpenLNS. Eventually, you will have registered all 100 EUI pairs with the CLI, so that all of your
 devices will roam through Roaming Console.
 
-#### Migrating DevAddr range for uplinks
+#### Migrating DevAddr Range for Uplinks
 
 Let's say you have 10 DevAddrs, you can start the migration slowly by registering 1 DevAddr with the
 CLI, so that 9 of your DevAddrs will roam through Roaming Console and 1 of your DevAddrs will roam
@@ -138,13 +139,15 @@ Roaming Console.
 
 ### Session Key Filter
 
-Session key filter gives you the ability to essentially accept and reject roaming traffic on a
-device level. You can read more about that [here](/iot/run-an-lns/advanced-configuration)
+The session key filter gives an opertator the ability to accept and reject specific roaming traffic
+on a device level. Leveraging the session key filter is recommended for all operators. Read more
+about the session key filter in the
+[LNS advanced configuration](/iot/run-an-lns/advanced-configuration##session-key-filter).
 
 ### Proxy Service
 
 If Helium's OpenLNS Architecture is a deal breaker for you, then you can leverage
 [this service we prototyped](https://github.com/helium/helium-packet-router-ingest), which should
-provide you with a Standard roaming interface. Note that Helium is not in active maintenance of this
+provide you with a standard roaming interface. Note that Helium is not in active maintenance of this
 service. Helium does not necessarily recommend the usage of this architecture, but appreciates the
-diverse need of roaming partners.
+diverse needs of roaming partners.
