@@ -85,14 +85,14 @@ Hotspot location data can be requested from the Config Service using either the 
 
 ## Add and Remove Delegate Keys
 
-Note that you must have access to the owner key in order to perform those actions. You can add
+Note that only owner key can perform the actions below. OUI owners can add
 delegate keys by running
 
 ```bash
 helium-config-service-cli org update delegate-add --pubkey <public key of the delegate key pair you are trying to add> --keypair <relative path of your **owner** keypair path> --commit
 ```
 
-You can remove delegate keys by running
+OUI owners can remove delegate keys by running
 
 ```bash
 helium-config-service-cli org update delegate-remove --pubkey <public key of the delegate key pair you are trying to remove> --keypair <relative path of your **owner** keypair path> --commit
