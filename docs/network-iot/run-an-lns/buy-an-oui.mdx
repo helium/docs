@@ -78,9 +78,15 @@ source "$HOME/.cargo/env"
 
 Add the protobuf library which will be used during the compile process.
 
-```bash title="Install protobuf"
+```bash title="Install protobuf (Mac)"
 brew update && brew install protobuf
 ```
+
+```bash title="install protobuf (Ubuntu)"
+sudo apt update && sudo apt install protobuf-compiler
+```
+
+With the build toolchain installed, compile the CLI.
 
 ```bash title="Enter the directory and compile the CLI"
 cd helium-config-service-cli && cargo build --release
@@ -107,7 +113,8 @@ files accordingly.
 **Delegate Key Pair**: The delegate key is actively used to create and manage routes. In case it is
 ever compromised, it can be updated using the owner key.
 
-- Note that an OUI can have multiple delegate key pairs, guidance on how to create and remove delegate key pairs can be found in the
+- Note that an OUI can have multiple delegate key pairs, guidance on how to create and remove
+  delegate key pairs can be found in the
   [advanced configuration](/iot/run-an-lns/advanced-configuration)
 
 **Owner Key Pair**: The owner key is irreplaceable and should be kept safe, secure, and private at
