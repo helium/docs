@@ -13,6 +13,12 @@ import TabItem from '@theme/TabItem'
 
 # Hotspot API Documentation
 
+The Hotspot API is provided free of charge by the Helium Foundation. The API runs inside of an AWS
+EKS cluster and leverages an RDS instance for improved accessability of on-chain hotspot data. The
+API sits behind CloudFront to offer reduced latency via endpoint caching. As on-chain hotspot data
+is updated (e.g., attributes such as location, activity, and ownership), invalidations are created
+to ensure up to date data is provided to API consumers.
+
 ---
 
 ## Wallet Info by Wallet Public Key
