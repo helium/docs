@@ -35,7 +35,7 @@ token account balances.
   defaultValue="request"
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
 >
-  <TabItem value="request">
+<TabItem value="request">
 
 `Path Parameters`
 
@@ -43,8 +43,8 @@ token account balances.
 | ---------------------------- | -------- | ---------------------------------------- |
 | Wallet public key (required) | _string_ | Solana public key/address for the wallet |
 
-  </TabItem>
-  <TabItem value="response">
+</TabItem>
+<TabItem value="response">
 
 `200: OK`
 
@@ -157,7 +157,7 @@ token account balances.
 }
 ```
 
-  </TabItem>
+</TabItem>
 </Tabs>
 
 ---
@@ -176,7 +176,7 @@ pagination page size, total number of hotspots, and total number of pages.
   defaultValue="request"
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
 >
-  <TabItem value="request">
+<TabItem value="request">
 
 `Query Parameters`
 
@@ -184,8 +184,8 @@ pagination page size, total number of hotspots, and total number of pages.
 | --------------------- | -------- | ------------------------------------- |
 | Subnetwork (required) | _string_ | Name of subnetwork (iot, mobile, etc) |
 
-  </TabItem>
-  <TabItem value="response">
+</TabItem>
+<TabItem value="response">
 
 `200: OK`
 
@@ -217,7 +217,7 @@ pagination page size, total number of hotspots, and total number of pages.
 }
 ```
 
-  </TabItem>
+</TabItem>
 </Tabs>
 
 ---
@@ -238,7 +238,7 @@ returned along with a cursor value for the subsequent page.
   defaultValue="request"
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
 >
-  <TabItem value="request">
+<TabItem value="request">
 
 `Query Parameters`
 
@@ -247,8 +247,8 @@ returned along with a cursor value for the subsequent page.
 | Subnetwork (required) | _string_ | Name of subnetwork (iot, mobile, etc.)        |
 | Cursor (optional)     | _string_ | Cursor for the next page of hotspots to fetch |
 
-  </TabItem>
-  <TabItem value="response">
+</TabItem>
+<TabItem value="response">
 
 `200: OK`
 
@@ -289,7 +289,7 @@ returned along with a cursor value for the subsequent page.
 }
 ```
 
-  </TabItem>
+</TabItem>
 </Tabs>
 
 ---
@@ -312,7 +312,7 @@ identical results and are merely provided for backwards compatability.
   defaultValue="request"
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
 >
-  <TabItem value="request">
+<TabItem value="request">
 
 `Path Parameters`
 
@@ -320,8 +320,8 @@ identical results and are merely provided for backwards compatability.
 | ----------------------- | -------- | -------------------------------------------- |
 | Key to asset (required) | _string_ | Public key of on-chain `KeyToAssetV0` struct |
 
-  </TabItem>
-  <TabItem value="response">
+</TabItem>
+<TabItem value="response">
 
 `200: OK`
 
@@ -401,6 +401,16 @@ identical results and are merely provided for backwards compatability.
 }
 ```
 
+`404: Error`
+
+```json
+{
+  "statusCode": 404,
+  "error": "Not Found",
+  "message": "string"
+}
+```
+
 `500: Error`
 
 ```json
@@ -411,7 +421,7 @@ identical results and are merely provided for backwards compatability.
 }
 ```
 
-  </TabItem>
+</TabItem>
 </Tabs>
 
 ---
@@ -429,7 +439,7 @@ Get hotspot records based on the entity / ECC compact key value.
   defaultValue="request"
   values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
 >
-  <TabItem value="request">
+<TabItem value="request">
 
 `Path Parameters`
 
@@ -437,8 +447,8 @@ Get hotspot records based on the entity / ECC compact key value.
 | ------------------------ | -------- | --------------------------------------- |
 | Entity / ECC compact key | _string_ | Legacy Helium L1 address of the hotspot |
 
-  </TabItem>
-  <TabItem value="response">
+</TabItem>
+<TabItem value="response">
 
 `200: OK`
 
@@ -518,6 +528,16 @@ Get hotspot records based on the entity / ECC compact key value.
 }
 ```
 
+`404: Error`
+
+```json
+{
+  "statusCode": 404,
+  "error": "Not Found",
+  "message": "string"
+}
+```
+
 `500: Error`
 
 ```json
@@ -528,5 +548,5 @@ Get hotspot records based on the entity / ECC compact key value.
 }
 ```
 
-  </TabItem>
+</TabItem>
 </Tabs>
