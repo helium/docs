@@ -108,6 +108,10 @@ will not be overwritten and can be easily found.
 The default path is `/etc/helium_gateway/settings.toml`. If using a different path, pass the
 location of the settings.toml file to helium_gateway using the `-c` flag.
 
+```sh title="Initialize the default directory for Helium Gateway"
+sudo mkdir /etc/helium_gateway
+```
+
 ```sh title="Make a copy of settings.toml in the default directory"
 sudo cp gateway-rs/config/settings.toml /etc/helium_gateway/
 ```
@@ -173,6 +177,10 @@ sudo helium_gateway server
 
 Gateway-rs will not automatically run at system start. To make gateway-rs automatically run, create
 a system service.
+
+```sh title="Create a service file for gateway-rs"
+sudo nano /etc/systemd/system/gateway-rs.service
+```
 
 Define the system user to execute the service (Line 9).
 
