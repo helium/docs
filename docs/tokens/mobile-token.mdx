@@ -17,17 +17,20 @@ import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
 MOBILE is the protocol token of the [Helium Mobile Network][mobile]. MOBILE was introduced to the
 Helium Network through the community proposal [HIP-53][hip-53] and is further defined in subsequent
-HIPs<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>,</sup>[^3]<sup>)</sup>.
+HIPs<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>,</sup>[^3]<sup>,</sup>[^4]<sup>)</sup>.
 
-[^1]: [HIP-70: Scaling the Helium Network][hip-70]
-[^2]: [HIP-75: MOBILE PoC - Initiate Programmatic Minting][hip-75]
-[^3]: [HIP-77: Solana Parameters][hip-77]
 
-The MOBILE token is mined by 5G Hotspots through both data transfer proceeds as well as Proof of
-Coverage.
+
+
+The MOBILE token is mined by 5G-CBRS and WiFi Hotspots through both data transfer proceeds as well 
+as Proof of Coverage.
 
 The mint address for MOBILE is [`mb1eu7TzEc71KxDpsmsKoucSSuuoGLv1drys1oP2jh6`][mobile-mint-addr] on
 the Solana blockchain.
+
+Navigate to [https://explorer.helium.com/stats][explorer-stats] for up-to-date information on
+Network tokens.
+
 
 ## Redemption for HNT
 
@@ -46,16 +49,16 @@ MOBILE follows a similar minting schedule to HNT, however at a max supply of 230
 50B MOBILE were pre-mined at the launch of the Mobile Network and distributed to the Network
 operations fund administered by the Helium Foundation. A fraction of this allocation was distributed
 throughout the Genesis period to live Mobile Network Hotspots. Year 1 for MOBILE started on August
-1st, 2022.
+1st, 2022 with the first tokens minted on August 12th, 2022.
 
 The issuance is scheduled to have halvings every 2 years, aligning with HNT issuance halvings.
 
 The emission schedule was created in [HIP-53][hip-53-emissions], updated in
 [HIP-75][hip-75-emissions], confirmed in [HIP-77][hip-77-emissions] and updated in [HIP-79][hip-79]. It is as follows:
 
-| Year | MOBILE at Year Start | MOBILE Minted                     | Proof of Coverage <sup>(</sup>[^4]<sup>)</sup> | Hotspot Data <sup>(</sup>[^4]<sup>)</sup> | Mappers | Service Providers | Oracles <sup>(</sup>[^5]<sup>)</sup> | veHNT Stakers |
+| Year | MOBILE at Year Start | MOBILE Minted                     | Proof of Coverage <sup>(</sup>[^5]<sup>)</sup> | Hotspot Data <sup>(</sup>[^5]<sup>)</sup> | Mappers | Service Providers | Oracles <sup>(</sup>[^6]<sup>)</sup> | veHNT Stakers |
 | ---- | -------------------- | --------------------------------- | ---------------------------------------------- | ----------------------------------------- | ------- | ----------------- | ------------------------------------ | ------------- |
-| 1    | 50B                  | 110B <sup>(</sup>[^6]<sup>)</sup> | 20%                                            | 40%                                       | 20%     | 10%               | 4%                                   | 6%            |
+| 1    | 50B                  | 110B <sup>(</sup>[^7]<sup>)</sup> | 20%                                            | 40%                                       | 20%     | 10%               | 4%                                   | 6%            |
 | 2    | 110B                 | 30B                               | 20%                                            | 40%                                       | 20%     | 10%               | 4%                                   | 6%            |
 | 3    | 140B                 | 30B                               | 20%                                            | 40%                                       | 20%     | 10%               | 4%                                   | 6%            |
 | 4    | 170B                 | 15B                               | 20%                                            | 40%                                       | 20%     | 10%               | 4%                                   | 6%            |
@@ -66,11 +69,15 @@ The emission schedule was created in [HIP-53][hip-53-emissions], updated in
 > Full token emissions can be viewed in the MOBILE section of this document: [Token Emissions as of
 > Solana Migration][sol-emisions]
 
-[^4]: Any MOBILE not rewarded for data transfer is rolled into Proof of Coverage.
-[^5]: Oracles are not rewarded until additional Oracle operators deploy services.
-[^6]:
-    50B pre-mine, 60B max emitted in year one. Only 30B was emitted as no emissions occurred between
-    August 2022 and Jan 31st, 2023
+[^1]: [HIP-70: Scaling the Helium Network][hip-70]
+[^2]: [HIP-75: MOBILE PoC - Initiate Programmatic Minting][hip-75]
+[^3]: [HIP-77: Solana Parameters][hip-77]
+[^4]: [HIP-77: MOBILE PoC Mappers][hip-79]
+[^5]: Any MOBILE not rewarded for data transfer is rolled into Proof of Coverage.
+[^6]: Oracles are not rewarded until additional Oracle operators deploy services.
+[^7]:
+    50B pre-mine, 60B max emitted in year one. Only 20B was emitted as no emissions occurred between
+    August 2022 and Jan 31st, 2023. And non were emitted to Oracles or Service Providers.
 
 [github]: https://github.com/helium
 [hip-53-emissions]: https://github.com/helium/HIP/blob/main/0053-mobile-dao.md#emissions-curve
@@ -89,3 +96,4 @@ The emission schedule was created in [HIP-53][hip-53-emissions], updated in
 [sol-emisions]:
   https://github.com/helium/HIP/blob/main/HIP-solana-parameters/token-emissions-as-of-solana-migration.pdf
 [wallet-app]: /wallets/helium-wallet-app
+[explorer-stats]: https://explorer.helium.com/stats
