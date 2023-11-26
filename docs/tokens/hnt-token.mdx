@@ -73,31 +73,17 @@ transaction and used to pay fees on the Helium Network. DC is only produced by b
 One Data Credit will always cost $0.00001. Or, $1.00 will always be exchanged for 100,000 DC.
 
 This HNT to DC relationship is based on a design commonly called a [burn and mint equilibrium][bme]
-and intends to allow for the supply of HNT to respond to Network usage trends such that the amount
+and intends to allow for the supply of HNT to respond to network usage trends such that the amount
 of HNT that exists remains static month on month. The amount of DC produced by burning HNT will
-increase and decrease based on the USD price of HNT as reported by the HNT [Price
-Oracles][price-oracles].
+fluctuate based on the USD price of HNT as reported by the HNT [Price Oracles][price-oracles].
 
-Below are a few examples of HNT to DC conversion calculations:
+The tool below demonstrates the HNT to DC conversion based on the oracle price of HNT.
 
-**Example 1: 1 HNT = $1.00**
+import { HntToDcSimulator } from '@theme/HntToDcSimulator'
 
-- The price of one DC is $0.00001.
-- The current HNT Oracle price is $1.
-- Burning 1 HNT would produce 100,000 DC.
-
-**Example 2: 1 HNT = $5.00**
-
-- The price of one DC is $0.00001.
-- The current HNT Oracle price is $5.
-- Burning 1 HNT would produce 500,000 DC.
-
-:::important Data Credits are non-transferable
-
-Once the DC mint transaction is complete, the receiving Helium Wallet owns all of the DC and cannot
-transfer them to any other Helium Wallet.
-
-:::
+<div className="screensnippet-wrapper">
+  <HntToDcSimulator />
+</div>
 
 ### Net Emissions
 
