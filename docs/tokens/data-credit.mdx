@@ -20,6 +20,20 @@ For further reading on DC's place in the overall mechanics of the Helium network
 [burn and mint economics](/tokens/hnt-token/#burn-and-mint-economics) in the HNT token
 documentation.
 
+## Data Credit Fundamentals
+
+**One Data Credit equals $0.00001 USD.**
+
+The amount of DC produced by burning HNT will fluctuate based on the USD price of HNT as reported by
+the HNT [Price Oracles](/oracles/price-oracles). The tool below demonstrates the HNT to DC
+conversion based on the Oracle price of HNT.
+
+import { HntToDcSimulator } from '@theme/HntToDcSimulator'
+
+<div className="screensnippet-wrapper">
+  <HntToDcSimulator />
+</div>
+
 ## Data Credit Usage
 
 DCs are used first and foremost as the payment of data transfer on the Helium IoT and Mobile
@@ -27,7 +41,6 @@ networks. Unlike traditional wireless networks, the Helium network has no annual
 pay for data used. In the original design of the protocol, it was recognized that users of the
 network would not be comfortable with the volatility that comes with typical token economics.
 Therefore, DCs were designed such that all data transfer is pinned to USD, making it predictable.
-**One Data Credit equals $0.00001 USD.**
 
 DCs are also used for specific functions on the Helium subnetworks, such as onboarding or asserting
 the locations of Hotspots. See the [IoT](#dc-and-iot) and [Mobile](#dc-and-mobile) usage sections
