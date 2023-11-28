@@ -50,13 +50,13 @@ These tokens are paid to the Solana blockchain.
 
 These tokens are "burned".
 
-|                             | IOT Hotspot Fee                                    | MOBILE Hotspot Fee<sup>(</sup>[^1]<sup>)</sup> |
-| --------------------------- | -------------------------------------------------- | ---------------------------------------------- |
-| Onboarding Fee              | 4,000,000 DC ($40 USD)                             | 0 DC                                           |
-| First Location Assrtion Fee | 1,000,000 DC<sup>(</sup>[^2]<sup>)</sup> ($10 USD) | 0 DC                                           |
-| **Total**                   | **5,000,000 DC**                                   | **0 DC**                                       |
+|                              | IOT Hotspot Fee                                    | MOBILE Hotspot Fee<sup>(</sup>[^1]<sup>)</sup> |
+| ---------------------------- | -------------------------------------------------- | ---------------------------------------------- |
+| Onboarding Fee               | 4,000,000 DC ($40 USD)                             | 4,000,000 DC ($40 USD)                         |
+| First Location Assertion Fee | 1,000,000 DC<sup>(</sup>[^2]<sup>)</sup> ($10 USD) | 1,000,000 DC ($10 USD)                         |
+| **Total**                    | **5,000,000 DC**                                   | **5,000,000 DC**                               |
 
-[^2]: Currently 500,000 due to [HIP-69][hip-69].
+[^2]: Currently 500,000 due to [HIP-69][hip-69] and [HIP-81][hip-81].
 
 ---
 
@@ -126,7 +126,7 @@ wallet that you will send the DC to:
    wallet address to send the DC to.**
 1. Tap the `...` to the right of Solana Address and select the contact for the Maker Wallet.
 1. Tap the `Swap Tokens` button and confirm the swap transaction.
-1. HNT is burned for DC within the same Wallet.
+1. HNT is burned in the current wallet for DC in the recipent Maker Wallet.
 
 The new DC balance amount in the recipient Maker Wallet can be verified by looking at the Helium
 Data Credit token balance of the maker wallet on https://explorer.solana.com/
@@ -135,3 +135,4 @@ Data Credit token balance of the maker wallet on https://explorer.solana.com/
 [helium-wallet]: /wallets/helium-wallet-app
 [jupiter]: https://jup.ag/swap
 [hip-69]: https://github.com/helium/HIP/blob/main/0069-reassertion-fee-reduction.md
+[hip-81]: https://github.com/helium/HIP/blob/main/0091-data-driven-extension-reduced-iot-assertion-cost.md
