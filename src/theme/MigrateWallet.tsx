@@ -56,7 +56,7 @@ export const MigrateWallet = () => {
   })
 
   return (
-    <div style={{ paddingBottom: '20px' }}>
+    <div className="font-disable-calt" style={{ paddingBottom: '20px' }}>
       {errorInflate && (
         <div class="alert alert--danger" role="alert">
           {errorInflate.message}
