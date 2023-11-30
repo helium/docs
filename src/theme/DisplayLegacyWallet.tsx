@@ -8,7 +8,7 @@ export const DisplayLegacyWallet = () => {
   const [wallet, setWallet] = useState<string>("");
 
   return (
-    <div className="display-legacy-wallet">
+    <div className="display-legacy-wallet font-disable-calt">
       <input
         type="text"
         name="wallet"
