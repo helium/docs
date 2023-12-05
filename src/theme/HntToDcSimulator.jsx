@@ -2,10 +2,15 @@ import { PythConnection } from '@pythnetwork/client'
 import { Connection, PublicKey } from '@solana/web3.js'
 import React, { useEffect, useState } from 'react'
 
+const calculateDc = (price) => {
+  const DC_PRICE = 0.00001
+  return price / DC_PRICE
+}
+
 export const HntToDcSimulator = () => {
   const [liveHntPrice, setLiveHntPrice] = useState(0)
   const [simulatedHntPrice, setSimulatedHntPrice] = useState(1)
-  const [dcAmount, setDcAmount] = useState(100000)
+  const dcAmount = calculateDc(simulatedHntPrice)
   const [sliderRange, setSliderRange] = useState({ min: 0, max: 5 })
   const [isInitialPriceSet, setIsInitialPriceSet] = useState(false)
 
@@ -32,7 +37,6 @@ export const HntToDcSimulator = () => {
     // based on queried price, update the initial position and min/max of the input
     const roundedPrice = Math.round(price * 100) / 100
     setSimulatedHntPrice(roundedPrice)
-    setDcAmount(calculateDc(roundedPrice))
     const upperLimit = Math.ceil(price / 5) * 5 + 5
     let lowerLimit = Math.max(0, Math.floor(price / 5) * 5)
     if (lowerLimit == 0) {
@@ -41,21 +45,14 @@ export const HntToDcSimulator = () => {
     setSliderRange({ min: lowerLimit, max: upperLimit })
   }
 
-  const calculateDc = (price) => {
-    const DC_PRICE = 0.00001
-    return price / DC_PRICE
-  }
-
   const handleSliderChange = (event) => {
     const newPrice = parseFloat(event.target.value)
     setSimulatedHntPrice(newPrice)
-    setDcAmount(calculateDc(newPrice))
   }
 
   const handleSetToLivePrice = () => {
     const roundedPrice = Math.round(liveHntPrice * 100) / 100
     setSimulatedHntPrice(roundedPrice)
-    setDcAmount(calculateDc(roundedPrice))
   }
 
   const hntForTenDollars = 10 / simulatedHntPrice
