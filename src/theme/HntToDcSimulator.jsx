@@ -2,10 +2,11 @@ import { PythConnection } from '@pythnetwork/client'
 import { Connection, PublicKey } from '@solana/web3.js'
 import React, { useEffect, useState } from 'react'
 
-const calculateDc = (price) => {
-  const DC_PRICE = 0.00001
-  return price / DC_PRICE
-}
+const DC_PRICE = 0.00001;
+const RPC_ENDPOINT = 'https://api.devnet.solana.com';
+const PROGRAM_KEY = 'gSbePebfvPy7tRqimPoVecS2UsBvYv46ynrzWocc92s';
+
+const calculateDc = (price) => price / DC_PRICE;
 
 export const HntToDcSimulator = () => {
   const [liveHntPrice, setLiveHntPrice] = useState(0)
@@ -15,8 +16,8 @@ export const HntToDcSimulator = () => {
   const dcAmount = calculateDc(simulatedHntPrice)
 
   useEffect(() => {
-    const connection = new Connection('https://api.devnet.solana.com')
-    const programKey = new PublicKey('gSbePebfvPy7tRqimPoVecS2UsBvYv46ynrzWocc92s')
+    const connection = new Connection(RPC_ENDPOINT)
+    const programKey = new PublicKey(PROGRAM_KEY)
 
     const pythConnection = new PythConnection(connection, programKey)
     pythConnection.onPriceChange((product, price) => {
