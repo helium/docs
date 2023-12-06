@@ -75,7 +75,7 @@ export const HntToDcSimulator = () => {
           </tr>
         </tbody>
       </table>
-      <div className={`${styles.dcEstTable} ${styles.interactiveBox}`}>
+      <div className={styles.interactiveBox}>
         <div className={styles.inputContainer}>
           <input
             type="range"
