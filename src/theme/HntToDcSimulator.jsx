@@ -40,7 +40,7 @@ export const HntToDcSimulator = () => {
     // based on queried price, update the initial position and min/max of the input
     setSimulatedHntPrice(getRoundedPrice(price))
     const upperLimit = Math.ceil(price / 5) * 5 + 5
-    let lowerLimit = Math.max(0, Math.floor(price / 5) * 5)
+    let lowerLimit = Math.max(0, Math.floor(price / 5) * 5 - 5)
     if (lowerLimit == 0) {
       lowerLimit = 0.01
     }
