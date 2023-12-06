@@ -1,7 +1,7 @@
 import { PythConnection } from '@pythnetwork/client'
 import { Connection, PublicKey } from '@solana/web3.js'
 import React, { useEffect, useState } from 'react'
-import styles from "./../css/HntToDcSimulator.module.css"
+import styles from "./HntToDcSimulator.module.css"
 
 const DC_PRICE = 0.00001;
 const RPC_ENDPOINT = 'https://api.devnet.solana.com';
