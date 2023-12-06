@@ -87,19 +87,19 @@ export const HntToDcSimulator = () => {
         </div>
         <div className={styles.pricesContainer} >
           <p>Simulated HNT Oracle Price: ${simulatedHntPrice.toFixed(2)}</p>
-          {liveHntPrice ? (
-            <button
-              onClick={handleSetToLivePrice}
-              className={styles.setToLivePriceButton}
-            >
-              <span className={styles.textUnderline}>
-                Set Live Oracle Price
-              </span>
-              <span>: ${liveHntPrice.toFixed(6)}</span>
-            </button>
-          ) : (
-            ''
-          )}
+          {
+            !!liveHntPrice && (
+              <button
+                onClick={handleSetToLivePrice}
+                className={styles.setToLivePriceButton}
+              >
+                <span className={styles.textUnderline}>
+                  Set Live Oracle Price
+                </span>
+                <span>: ${liveHntPrice.toFixed(6)}</span>
+              </button>
+            )
+          }
         </div>
       </div>
     </div>
