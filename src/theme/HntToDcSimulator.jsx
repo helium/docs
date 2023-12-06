@@ -8,6 +8,8 @@ const RPC_ENDPOINT = 'https://api.devnet.solana.com';
 const PROGRAM_KEY = 'gSbePebfvPy7tRqimPoVecS2UsBvYv46ynrzWocc92s';
 
 const calculateDc = (price) => price / DC_PRICE;
+const getRoundedPrice = (price) => Math.round(price * 100) / 100;
+
 
 export const HntToDcSimulator = () => {
   const [liveHntPrice, setLiveHntPrice] = useState(0)
@@ -36,8 +38,7 @@ export const HntToDcSimulator = () => {
 
   const setInitialSliderValues = (price) => {
     // based on queried price, update the initial position and min/max of the input
-    const roundedPrice = Math.round(price * 100) / 100
-    setSimulatedHntPrice(roundedPrice)
+    setSimulatedHntPrice(getRoundedPrice(price))
     const upperLimit = Math.ceil(price / 5) * 5 + 5
     let lowerLimit = Math.max(0, Math.floor(price / 5) * 5)
     if (lowerLimit == 0) {
@@ -52,7 +53,7 @@ export const HntToDcSimulator = () => {
   }
 
   const handleSetToLivePrice = () => {
-    const roundedPrice = Math.round(liveHntPrice * 100) / 100
+    const roundedPrice = getRoundedPrice(liveHntPrice)
     setSimulatedHntPrice(roundedPrice)
   }
 
