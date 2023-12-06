@@ -12,7 +12,7 @@ export const HntToDcSimulator = () => {
   const [liveHntPrice, setLiveHntPrice] = useState(0)
   const [simulatedHntPrice, setSimulatedHntPrice] = useState(1)
   const [sliderRange, setSliderRange] = useState({ min: 0, max: 5 })
-  const [isInitialPriceSet, setIsInitialPriceSet] = useState(false)
+  const isInitialPriceSet = !!liveHntPrice
   const dcAmount = calculateDc(simulatedHntPrice)
 
   useEffect(() => {
@@ -25,7 +25,6 @@ export const HntToDcSimulator = () => {
         setLiveHntPrice(price.price)
         if (!isInitialPriceSet) {
           setInitialSliderValues(price.price)
-          setIsInitialPriceSet(true)
         }
       }
     })
