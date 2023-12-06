@@ -10,9 +10,9 @@ const calculateDc = (price) => {
 export const HntToDcSimulator = () => {
   const [liveHntPrice, setLiveHntPrice] = useState(0)
   const [simulatedHntPrice, setSimulatedHntPrice] = useState(1)
-  const dcAmount = calculateDc(simulatedHntPrice)
   const [sliderRange, setSliderRange] = useState({ min: 0, max: 5 })
   const [isInitialPriceSet, setIsInitialPriceSet] = useState(false)
+  const dcAmount = calculateDc(simulatedHntPrice)
 
   useEffect(() => {
     const connection = new Connection('https://api.devnet.solana.com')
@@ -109,13 +109,17 @@ export const HntToDcSimulator = () => {
                 border: 'none',
                 cursor: 'pointer',
                 color: '#53627c',
+                paddingLeft: '1em',
                 fontSize: '1.125rem',
                 lineHeight: '1.65rem',
                 textAlign: 'right',
                 fontVariantNumeric: 'tabular-nums',
               }}
             >
-              Live Oracle Price: ${liveHntPrice.toFixed(6)}
+              <span style={{textDecoration: 'underline'}}>
+                Set Live Oracle Price
+              </span>
+              <span>: ${liveHntPrice.toFixed(6)}</span>
             </button>
           ) : (
             ''
