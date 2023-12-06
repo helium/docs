@@ -1,6 +1,7 @@
 import { PythConnection } from '@pythnetwork/client'
 import { Connection, PublicKey } from '@solana/web3.js'
 import React, { useEffect, useState } from 'react'
+import styles from "./../css/HntToDcSimulator.module.css"
 
 const DC_PRICE = 0.00001;
 const RPC_ENDPOINT = 'https://api.devnet.solana.com';
@@ -58,8 +59,8 @@ export const HntToDcSimulator = () => {
   const hntForTenDollars = 10 / simulatedHntPrice
 
   return (
-    <div style={{ padding: '16px 16px 0' }}>
-      <table className="dc-calc-table">
+    <div className={styles.componentSpacing}>
+      <table className={styles.dcEstTable}>
         <thead>
           <tr>
             <th>DC from 1 HNT</th>
@@ -73,15 +74,8 @@ export const HntToDcSimulator = () => {
           </tr>
         </tbody>
       </table>
-      <div
-        style={{
-          background: 'white',
-          padding: '16px 16px 0',
-          marginBottom: '1em',
-        }}
-        className="dc-calc-table"
-      >
-        <div style={{ display: 'flex', padding: '0.125em 0 0.125em 0' }}>
+      <div className={`${styles.dcEstTable} ${styles.interactiveBox}`}>
+        <div className={styles.inputContainer}>
           <input
             type="range"
             min={sliderRange.min}
@@ -89,34 +83,16 @@ export const HntToDcSimulator = () => {
             step="0.01"
             value={simulatedHntPrice}
             onChange={handleSliderChange}
-            style={{ flex: '1 1 auto' }}
           />
         </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'baseline',
-          }}
-        >
+        <div className={styles.pricesContainer} >
           <p>Simulated HNT Oracle Price: ${simulatedHntPrice.toFixed(2)}</p>
           {liveHntPrice ? (
             <button
               onClick={handleSetToLivePrice}
-              style={{
-                appearance: 'none',
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                color: '#53627c',
-                paddingLeft: '1em',
-                fontSize: '1.125rem',
-                lineHeight: '1.65rem',
-                textAlign: 'right',
-                fontVariantNumeric: 'tabular-nums',
-              }}
+              className={styles.setToLivePriceButton}
             >
-              <span style={{textDecoration: 'underline'}}>
+              <span className={styles.textUnderline}>
                 Set Live Oracle Price
               </span>
               <span>: ${liveHntPrice.toFixed(6)}</span>
