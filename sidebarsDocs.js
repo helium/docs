@@ -436,23 +436,6 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Enthutech',
-      items: [
-        'network-iot/devices/ready-to-use/enthutech/rs485-ln',
-        'network-iot/devices/ready-to-use/enthutech/rs485-bl',
-        'network-iot/devices/ready-to-use/enthutech/lsn50v2-s31',
-        'network-iot/devices/ready-to-use/enthutech/lsn50v2-d20',
-        'network-iot/devices/ready-to-use/enthutech/ldss20',
-        'network-iot/devices/ready-to-use/enthutech/ldds75',
-        'network-iot/devices/ready-to-use/enthutech/lbt1',
-        'network-iot/devices/ready-to-use/enthutech/lse01',
-        'network-iot/devices/ready-to-use/enthutech/lwl01',
-        'network-iot/devices/ready-to-use/enthutech/lds01',
-      ],
-      collapsed: true,
-    },
-    {
-      type: 'category',
       label: 'IMST',
       items: [
         'network-iot/devices/ready-to-use/imst/range-extender',
