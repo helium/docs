@@ -119,29 +119,27 @@ In the above example, the URL would look like such:
 </p>
 
 <p>
-The SenseCAP sensor device's AppEUI and AppKey have been flashed into the device by SEEED.
-We will use the HTTP API to retrieve the actual App EUI and App Key.
+  The SenseCAP sensor device's AppEUI and AppKey have been flashed into the device by SEEED. We will
+  use the HTTP API to retrieve the actual App EUI and App Key.
 </p>
-<p>
-You can use a browser to issue an HTTP GET request.
-</p>
-We simply paste the URL we constructed above into a browser address bar, and it should return a JSON object in the following format containing the *actual* keys programmed onto the device:
-<div>
+<p>You can use a browser to issue an HTTP GET request.</p>
+We simply paste the URL we constructed above into a browser address bar, and it should return a JSON
+object in the following format containing the *actual* keys programmed onto the device:
 
-    {
-      "code": "0",
-      "data": {
-        "nodeEui": "2cf7f12121XXXXXX",
-        "deviceCode": "1826ed12XXXXXXXX",
-        "lorawanInformation": {
-          "dev_eui": "2CF7F12121XXXXXX",
-          "app_eui": "8000000000XXXXXX",
-          "app_key": "3BF3D4C5744A057E0A1A61F4XXXXXXXX"
-        }
-      }
+```json
+{
+  "code": "0",
+  "data": {
+    "nodeEui": "2cf7f12121XXXXXX",
+    "deviceCode": "1826ed12XXXXXXXX",
+    "lorawanInformation": {
+      "dev_eui": "2CF7F12121XXXXXX",
+      "app_eui": "8000000000XXXXXX",
+      "app_key": "3BF3D4C5744A057E0A1A61F4XXXXXXXX"
     }
-
-</div>
+  }
+}
+```
 
 The last three keys in this object (dev_eui, app_eui, and app_key) will be used to create this
 device in the [Helium Console](https://console.helium.com/devices).

@@ -56,7 +56,8 @@ For this example, you will need one of the following Heltec development boards. 
 has experience with the AB01, AB02x and CubeCell Capsule line boards. Subsequent follow on products
 may work but have not been tested.
 
-At the end of this tutorial, there is an [example that can run within your web browser](#HTCC-COMPLETE-EXAMPLE).
+At the end of this tutorial, there is an
+[example that can run within your web browser](#HTCC-COMPLETE-EXAMPLE).
 
 ### Hardware
 
@@ -130,8 +131,8 @@ unfamiliar interface.
 [https://docs.platformio.org/en/latest/integration/ide/vscode.html\#quick-start](https://docs.platformio.org/en/latest/integration/ide/vscode.html#quick-start)
 
 In this tutorial, as an example, we will be using the
-[Heltec CubeCell AB0x](https://heltec.org/cubecell_overview/). One can substitute your
-target device as needed as you progress through these steps.
+[Heltec CubeCell AB0x](https://heltec.org/cubecell_overview/). One can substitute your target device
+as needed as you progress through these steps.
 
 Once PlatformIO is installed, you should be welcomed to VSCode with the following "PIO Home" screen:
 
@@ -218,7 +219,7 @@ Typical project explorer view.
 If you are familiar with developing within the Arduino IDE, main.cpp is much the same as the Arduino
 \*.ino. It also contains default setup() and loop() functions.
 
-PlatformIO also adds a required "\#include <Arduino.h\>" statement. This is an important/necessary
+PlatformIO also adds a required `#include <Arduino.h\>` statement. This is an important/necessary
 difference between PlatformIO and Arduino IDEs.
 
 <img
@@ -720,10 +721,10 @@ LoRaWAN.setDataRateForNoADR(int8_t dataRate);
 
 This should be done sometime after LoRaWAN.init() is called.
 
-
 ## Complete example<a id="HTCC-COMPLETE-EXAMPLE"></a>
 
-Consider the following code from [the helium/longfi-platformio repository](https://github.com/helium/longfi-platformio/blob/master/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp):
+Consider the following code from
+[the helium/longfi-platformio repository](https://github.com/helium/longfi-platformio/blob/master/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp):
 
 ```cpp docslab hardshare=heliumdev/cubecell-draw-demo
 command:source .platformio/penv/bin/activate && cd m/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic && pio run -t upload && pio device monitor
