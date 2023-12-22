@@ -47,7 +47,7 @@ As an alternate to purchasing a devAddr slab, it is also an option to
 and use it in a [roaming](/iot/lorawan-roaming) configuration. An OUI and data credits are required
 in either scenario.
 
-Before purchasing an OUI and devAddr slab, you will need to create the following:
+Before purchasing an OUI and devAddr slab, create the following:
 
 - Helium wallet
 - OUI owner key pair
@@ -55,21 +55,28 @@ Before purchasing an OUI and devAddr slab, you will need to create the following
 
 The steps provided below outline how to create a Helium wallet and OUI owner and delegate key pairs.
 
-### 1. Create Helium Wallet in Solana Format
+1. [Create Helium Wallet in Solana Format](#create-wallet)
+1. [Convert Solana Formatted Public Key to Legacy Helium Format](#convert-wallet)
+1. [Install The Config Service CLI](#install-cli)
+1. [Generate OUI Keys](#generate-keys)
+1. [Submit For Purchasing](#submit)
 
-To create a Helium wallet, you can follow the guide for [creating a new Helium Account](/wallets/helium-wallet-app).
+### Create Helium Wallet in Solana Format {#create-wallet}
+
+To create a Helium wallet, you can follow the guide for
+[creating a new Helium Account](/wallets/helium-wallet-app).
 
 In doing so, a Helium wallet will be generated with key pairs in the native Solana format.
 
-### 2. Convert Solana Formatted Public Key to Legacy Helium Format
+### Convert Solana Formatted Public Key to Legacy Helium Format {#convert-wallet}
 
 The OUI configuration process currently leverages public keys in a format from the legacy Helium L1
-blockchain. To convert a Solana public key into the legacy format, use the conversion tool below. 
+blockchain. To convert a Solana public key into the legacy format, use the conversion tool below.
 
-In using the tool, simply paste your Helium wallet public key in the Solana format into the top 
-"Enter Helium or Solana Wallet Address" field and copy the result from the "Helium Address" field. 
+In using the tool, simply paste your Helium wallet public key in the Solana format into the top
+"Enter Helium or Solana Wallet Address" field and copy the result from the "Helium Address" field.
 
-**This value will be the Helium wallet public key in the legacy format required for purchasing an 
+**This value will be the Helium wallet public key in the legacy format required for purchasing an
 OUI**.
 
 import { DisplayLegacyWallet } from '@theme/DisplayLegacyWallet'
@@ -78,7 +85,7 @@ import { DisplayLegacyWallet } from '@theme/DisplayLegacyWallet'
   <DisplayLegacyWallet />
 </div>
 
-### 3. Install The Config Service CLI
+### Install The Config Service CLI {#install-cli}
 
 The [Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) will be used to
 generate the key pairs used for the OUI. Run the following commands to pull & build the config
@@ -125,7 +132,7 @@ automatically be available to your command line.
 sudo cp target/release/helium-config-service-cli /usr/local/bin/
 ```
 
-### 4. Generate OUI Keys
+### Generate OUI Keys {#generate-keys}
 
 Generate the key pairs you'll be using to authenticate your interactions with the config service.
 These keys are implemented such that only you can create/modify/delete routes.
@@ -133,8 +140,9 @@ These keys are implemented such that only you can create/modify/delete routes.
 After this step you will have at least two keys:
 
 - **Delegate Key Pair**: The delegate key is actively used to create and manage routes. In case it
-  is ever compromised, it can be updated using the owner key. Note that an OUI can have multiple 
-  delegate key pairs. Guidance on how to manage delegate key pairs can be found in the [advanced configuration](/iot/run-an-lns/advanced-configuration).
+  is ever compromised, it can be updated using the owner key. Note that an OUI can have multiple
+  delegate key pairs. Guidance on how to manage delegate key pairs can be found in the
+  [advanced configuration](/iot/run-an-lns/advanced-configuration).
 
 - **Owner Key Pair**: The owner key is irreplaceable and should be kept safe, secure, and private at
   all times. If lost or compromised, you could lose your OUI. The owner key pair is used for
@@ -174,7 +182,7 @@ helium-config-service-cli env info --keypair <key file name>.bin
 The `.bin` files should be kept safe and never shared. The public key of these key pairs is the only
 part that should be shared.
 
-### 5. Submit For Purchasing
+### Submit For Purchasing {#submit}
 
 Direct purchase of OUIs and devAddrs are not currently available on-chain. Send an email to
 [hello@helium.foundation](mailto:hello@helium.foundation) containing the following information.
