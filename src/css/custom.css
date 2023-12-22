@@ -622,58 +622,6 @@ html[data-theme='dark'] .badge--secondary:hover {
   background: #313232;
 }
 
-/* solana migration status */
-.migration-status {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
-  color: white;
-  background: #474dff;
-  padding: 0.25rem 1rem;
-  margin: 1rem 0;
-  border-radius: 0.25rem;
-  transition: opacity 0.3s ease;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.migration-status.migration-status-fetching {
-  opacity: 0.3;
-}
-
-.migration-status .countdown {
-  font-variant-numeric: tabular-nums;
-}
-
-.migration-status-not-started {
-}
-
-.migration-status-in-progress {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-}
-
-.migration-status-complete .countdown {
-  display: none;
-}
-
-.migration-status-unknown,
-.migration-status-error {
-  visibility: hidden;
-  opacity: 0;
-}
-
 /* DcCostEstimator.jsx */
 .dc-calc {
   padding: 16px;
