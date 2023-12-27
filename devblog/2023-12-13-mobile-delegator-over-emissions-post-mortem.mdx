@@ -1,0 +1,118 @@
+---
+layout: post
+title: MOBILE Delegator Over-Emissions Post-Mortem
+date: 2023-12-13
+hide_table_of_contents: true
+authors: [noah]
+---
+
+An incident involving oracle rewards implementation on Solana was identified on December 12, 2023,
+revealing a discrepancy in MOBILE token rewards due to configuration errors in the delegator rewards
+percentage. The issue led to an over-emission to delegators and an underfunded rewards escrow,
+amounting to a total discrepancy of approximately 274 million MOBILE tokens. To address this, the
+protocol will temporarily increase emissions, effectively replenishing the escrow and slightly
+increasing the circulating supply of MOBILE by 274 million, a minor deviation that does not affect
+the max supply of 230B.
+
+<!--truncate-->
+
+## Technical Background
+
+To understand the incident, it helps to understand the technical details of oracle rewards
+implementation on Solana.
+
+Rewards for all rewardable entities (Hotspots, mappers, etc) are collated via oracles that crunch
+the numbers on PoC, data transfer, etc. The smart contracts on-chain do not keep track of rewards
+for individual entities. Instead, the contracts emit all subnetwork tokens into an escrow account
+reserved for these rewards. A separate contract then allows the oracle to set the rewards of a given
+entity on-chain. When rewards on an entity are claimed, they come from this pool of rewards.
+
+94% of all rewards for the subnetworks are handled by the oracle network. The other 6% go to veHNT
+delegators. This 6% is handled by the smart contracts.
+
+It is important to note that at any given time, all 94% of subnetwork rewards are not necessarily
+enabled. For example, the 4% subnetwork rewards carved out for oracles are currently not enabled and
+therefore not emitted.
+
+To account for this, the smart contracts have a concept of both (a) an emissions schedule in terms
+of total tokens emitted per epoch and (b) a percentage allocation of these total tokens that goes to
+delegators.
+
+As an example, if the total emissions are 66% of the theoretical max, the delegator rewards
+percentage is actually `.06 / .66 * 100 = 9.090909%`.
+
+This works because `9.09% * 66%` is `6%` of the total theoretical emissions.
+
+## Discovery
+
+On 12/12/23 as part of routine monitoring and system improvements, the protocol team implemented a
+new metric to measure the integrity of the rewards escrow. This metric sought to compare the
+theoretical number of unclaimed rewards vs the amount of tokens in the escrow account. The goal was
+to improve alerting in the case of an exploit or slow drain of the escrow. This was implemented by
+comparing the total lifetime rewards of all entities in the system vs the total claimed rewards of
+all entities in the system.
+
+It was then discovered that there was a discrepancy of ~274m MOBILE tokens. Both the Helium
+Foundation and Nova Labs teams convened to track down the source of the discrepancy. This issue
+could happen from
+
+1. Over-emissions from the oracles.
+2. Under-emissions from the smart contracts.
+3. An exploit.
+
+## Cause
+
+After digging into the data, the team found that the smart contracts had been over-emitting to
+delegators and under-emitting to the rewards escrow. It was also found that the smart contracts
+emitted rewards for MOBILE mappers 2 days fewer than the oracles had been emitting mapper rewards.
+
+The former bug was caused by the delegator rewards percentage chainvar (see above Background). This
+chainvar was still set for emissions of 66%, while the actual emissions with the addition of mappers
+is 86%. This meant the variable was set to `9.09%` instead of `6.98%`. This led to an extra
+`1490312.96508` being emitted to delegators and not to the rewards escrow. This does not mean that
+Hotspots/mappers were rewarded any less, but instead meant that the escrow was underfunded – it did
+not have enough tokens to fund all claims.
+
+The latter bug was related to the delegator rewards percentage. When mappers were enabled, there
+were coordination issues between the oracles and smart contracts. These issues were discovered, and
+the team attempted to rectify them by temporarily increasing emissions for an epoch. Unfortunately,
+when the team updated the emissions, they accidentally reset the delegator rewards percentage to the
+previous value.
+
+## Impact
+
+The smart contracts have been over-emitting by `1,490,312.96508 MOBILE` a day since August
+1st, 2023. This amounts to `201,192,250.2858 MOBILE` missing from the escrow.
+
+Additionally, `73,229,486.7032 MOBILE` were not emitted for the addition of mappers due to the
+timing and coordination issues.
+
+This leaves a discrepancy of `274,421,737.0063 MOBILE`
+
+## Next Steps
+
+To repair the issue, the protocol will temporarily increase emissions for the next epoch starting
+2023–12-27. This will cause increased emissions to the escrow, which will fill the underfunding.
+Theoretically, this will also increase the circulating supply of MOBILE by `274M`. In 
+practice those 274M MOBILE had not yet been claimed and it is unlikely this emission will affect the
+rate at which they will be claimed in the future. 
+
+While this is substantially less than the unemitted rewards for oracles and service providers and
+does not affect max supply of MOBILE, it is still a deviation from expected total emissions by at
+most 0.12%.
+
+## Prevention
+
+Two major efforts will prevent this issue from happening again.
+
+The first is that contract changes currently being audited will allow the on-chain emission schedule
+to be 100% of theoretical emissions. This change will allow the oracles to specify the amount that
+is not emitted, rather than using on-chain configuration to control portions that are not emitted.
+Along with enabling HIP-87, this will also make coordination issues with the oracles less likely to
+occur. Instead, the delegator 6% and the agreed-upon emissions schedules can be encoded and never
+again changed. Instead of requiring changes every time a new rewardable entity has its emissions
+enabled.
+
+The second is the monitoring solution that led to this discovery. The team will now be able to
+monitor and be alerted to any underfunding of the escrows. With this solution, issues like this will
+be discovered before they can have a large impact.
