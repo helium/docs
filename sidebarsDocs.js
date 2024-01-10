@@ -41,6 +41,7 @@ module.exports = {
       ],
       collapsed: true,
     },
+    'architecture/hotspot-api',
     {
       type: 'category',
       label: 'Hotspots',

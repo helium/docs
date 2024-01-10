@@ -1,8 +1,8 @@
 ---
-id: api
+id: hotspot-api
 title: Hotspot API Documentation
 pagination_label: Hotspot API
-sidebar_label: Hotspot API Documentation
+sidebar_label: Hotspot API
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /architecture/hotspot-api
@@ -11,7 +11,7 @@ slug: /architecture/hotspot-api
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-# Hotspot API Documentation
+# Hotspot API
 
 The Hotspot API is provided free of charge by the Helium Foundation. The data provided focuses on
 infrequently changing attributes of Hotspots such as their owner and asserted location. For more
@@ -26,8 +26,6 @@ invalidations are created to ensure up-to-date data is provided to API consumers
 In the interest of anonymity, the latitude/longitude data provided by the API is obfuscated to
 [H3](https://h3geo.org/docs/core-library/restable/) resolution 8 rather than resolution 12 stored
 on-chain on Solana.
-
----
 
 ## Wallet Info by Wallet Public Key
 
@@ -168,8 +166,6 @@ token account balances.
 </TabItem>
 </Tabs>
 
----
-
 ## Hotspot Pagination Metadata
 
 ```
@@ -227,8 +223,6 @@ pagination page size, total number of Hotspots, and total number of pages.
 
 </TabItem>
 </Tabs>
-
----
 
 ## List Hotspots by Subnetwork
 
@@ -311,8 +305,6 @@ returned along with a cursor value for the subsequent page.
 
 </TabItem>
 </Tabs>
-
----
 
 ## Hotspot Info by Key to Asset Key
 
@@ -443,8 +435,6 @@ identical results and are merely provided for backward compatibility.
 
 </TabItem>
 </Tabs>
-
----
 
 ## Hotspot Info by Entity/ECC Compact Key
 
