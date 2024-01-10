@@ -13,11 +13,11 @@ import TabItem from '@theme/TabItem'
 
 # Hotspot API Documentation
 
-The Hotspot API is provided free of charge by the Helium Foundation. The API runs inside of an AWS
+The Hotspot API is provided free of charge by the Helium Foundation. The API runs inside an AWS
 EKS cluster and leverages an RDS instance for improved accessability of on-chain hotspot data. The
 API sits behind CloudFront to offer reduced latency via endpoint caching. As on-chain hotspot data
 is updated (e.g., attributes such as location, activity, and ownership), invalidations are created
-to ensure up to date data is provided to API consumers.
+to ensure up-to-date data is provided to API consumers.
 
 ---
 
@@ -228,7 +228,7 @@ pagination page size, total number of hotspots, and total number of pages.
 GET https://entities.nft.helium.io/v2/hotspots?subnetwork=<subnetwork>&cursor=<cursor>
 ```
 
-Get a list of key value pairs denoting hotspots in a particular subnetwork. If the returned `cursor`
+Get a list of key-value pairs denoting hotspots in a particular subnetwork. If the returned `cursor`
 field is a non-null value, more results are available. If no cursor is provided (e.g., if the URL
 does not include the `&cursor=<cursor>` query string component), then the first page of results is
 returned along with a cursor value for the subsequent page.
@@ -257,13 +257,25 @@ returned along with a cursor value for the subsequent page.
   "cursor": "string", // Or null if there are no more hotspots to fetch
   "items": [
     {
-      "key_to_asset_key": "string"
+      "key_to_asset_key": "string",
+      "entity_key_str": "string",
+      "is_active": "boolean",
+      "lat": 0,
+      "long": 0
     },
     {
-      "key_to_asset_key": "string"
+      "key_to_asset_key": "string",
+      "entity_key_str": "string",
+      "is_active": "boolean",
+      "lat": 0,
+      "long": 0
     },
     {
-      "key_to_asset_key": "string"
+      "key_to_asset_key": "string",
+      "entity_key_str": "string",
+      "is_active": "boolean",
+      "lat": 0,
+      "long": 0
     }
   ]
 }
@@ -305,7 +317,7 @@ GET https://entities.nft.helium.io/v2/hotspot/:keyToAssetKey
 ```
 
 Get hotspot records based on the key to asset value. Both the `/v1` and `/v2/hotspot` routes return
-identical results and are merely provided for backwards compatability.
+identical results and are merely provided for backward compatibility.
 
 <Tabs
   block={true}
