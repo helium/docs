@@ -13,11 +13,11 @@ import TabItem from '@theme/TabItem'
 
 # Hotspot API Documentation
 
-The Hotspot API is provided free of charge by the Helium Foundation. The API runs inside an AWS
-EKS cluster and leverages an RDS instance for improved accessability of on-chain hotspot data. The
-API sits behind CloudFront to offer reduced latency via endpoint caching. As on-chain hotspot data
-is updated (e.g., attributes such as location, activity, and ownership), invalidations are created
-to ensure up-to-date data is provided to API consumers.
+The Hotspot API is provided free of charge by the Helium Foundation. The API runs inside an AWS EKS
+cluster and leverages an RDS instance for improved accessibility of on-chain Hotspot data. The API
+sits behind Cloudflare to offer reduced latency via endpoint caching. As on-chain Hotspot data is
+updated (e.g., attributes such as location, activity, and ownership), invalidations are created to
+ensure up-to-date data is provided to API consumers.
 
 ---
 
@@ -27,7 +27,7 @@ to ensure up-to-date data is provided to API consumers.
 GET https://entities.nft.helium.io/v2/wallet/:walletPublicKey
 ```
 
-Get wallet information by wallet public key including hotspot count, list of hotspot records, and
+Get wallet information by wallet public key including Hotspot count, list of Hotspot records, and
 token account balances.
 
 <Tabs
@@ -168,8 +168,8 @@ token account balances.
 GET https://entities.nft.helium.io/v2/hotspots/pagination-metadata?subnetwork=<subnetwork>
 ```
 
-Get general information about the pagination of hotspots in a particular subnetwork including
-pagination page size, total number of hotspots, and total number of pages.
+Get general information about the pagination of Hotspots in a particular subnetwork including
+pagination page size, total number of Hotspots, and total number of pages.
 
 <Tabs
   block={true}
@@ -228,7 +228,7 @@ pagination page size, total number of hotspots, and total number of pages.
 GET https://entities.nft.helium.io/v2/hotspots?subnetwork=<subnetwork>&cursor=<cursor>
 ```
 
-Get a list of key-value pairs denoting hotspots in a particular subnetwork. If the returned `cursor`
+Get a list of key-value pairs denoting Hotspots in a particular subnetwork. If the returned `cursor`
 field is a non-null value, more results are available. If no cursor is provided (e.g., if the URL
 does not include the `&cursor=<cursor>` query string component), then the first page of results is
 returned along with a cursor value for the subsequent page.
@@ -245,7 +245,7 @@ returned along with a cursor value for the subsequent page.
 | Param                 | Type     | Note                                          |
 | --------------------- | -------- | --------------------------------------------- |
 | Subnetwork (required) | _string_ | Name of subnetwork (iot, mobile, etc.)        |
-| Cursor (optional)     | _string_ | Cursor for the next page of hotspots to fetch |
+| Cursor (optional)     | _string_ | Cursor for the next page of Hotspots to fetch |
 
 </TabItem>
 <TabItem value="response">
@@ -254,7 +254,7 @@ returned along with a cursor value for the subsequent page.
 
 ```json
 {
-  "cursor": "string", // Or null if there are no more hotspots to fetch
+  "cursor": "string", // Or null if there are no more Hotspots to fetch
   "items": [
     {
       "key_to_asset_key": "string",
@@ -316,7 +316,7 @@ GET https://entities.nft.helium.io/v1/:keyToAssetKey
 GET https://entities.nft.helium.io/v2/hotspot/:keyToAssetKey
 ```
 
-Get hotspot records based on the key to asset value. Both the `/v1` and `/v2/hotspot` routes return
+Get Hotspot records based on the key to asset value. Both the `/v1` and `/v2/hotspot` routes return
 identical results and are merely provided for backward compatibility.
 
 <Tabs
@@ -444,7 +444,7 @@ identical results and are merely provided for backward compatibility.
 GET https://entities.nft.helium.io/:eccCompact
 ```
 
-Get hotspot records based on the entity / ECC compact key value.
+Get Hotspot records based on the entity / ECC compact key value.
 
 <Tabs
   block={true}
@@ -457,7 +457,7 @@ Get hotspot records based on the entity / ECC compact key value.
 
 | Param                    | Type     | Note                                    |
 | ------------------------ | -------- | --------------------------------------- |
-| Entity / ECC compact key | _string_ | Legacy Helium L1 address of the hotspot |
+| Entity / ECC compact key | _string_ | Legacy Helium L1 address of the Hotspot |
 
 </TabItem>
 <TabItem value="response">
