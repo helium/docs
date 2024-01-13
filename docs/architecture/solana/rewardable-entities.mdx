@@ -10,35 +10,33 @@ slug: /solana/rewardable-entites
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<LegacyContentBanner />
-
 Following the transition to Solana, all actors in the network that receive tokens are considered
 "Rewardable Entities."
 
-Hotspots were the first rewardable entity, this changed with the addition of phones with the Helium
-Mobile app installed mapping the Mobile network. Dedicated Hardware mappers and other rewardable 
-categories will be available in the future.
+Initially, only Hotspots could earn rewards. This expanded to include phones using the Helium Mobile
+app for Mobile network mapping. In the future, there will be more ways to earn rewards, like using
+specific mapping devices.
 
 A rewardable entity on the Helium Network is represented on Solana as an NFT (Non-Fungible Token).
 
-NFTs are ideal for this job as the represent ownership in a way that is easily transferrable and
-recognized by all major wallets. Open your wallet and see all of your hotspots inside.
+NFTs are ideal for this job as they represent ownership in a way that is easily transferrable and
+recognized by all major wallets.
 
 ## Compression NFTs
 
 A new development on the Solana Blockchain has been
 [Compression NFTs](https://www.metaplex.com/posts/expanding-digital-assets-with-compression-for-nfts).
 
-With normal NFTs on Solana, each token is stored on chain as a distinct spl-token mint, with
+With normal NFTs on Solana, each token is stored on-chain as a distinct spl-token mint, with
 decimals of 0 and supply of 1. This mint has some metadata attached to it, as well as a token
-account representing the ownership of the token. In total this leads to 4 accounts with a cost of
-0.01197616 SOL in rent. Multiplying this by millions of hotspots leads to not only a high cost, but
+account representing the ownership of the token. In total, this leads to 4 accounts with a cost of
+0.01197616 SOL in rent. Multiplying this by millions of Hotspots leads to not only a high cost but
 also a large usage of storage space on the blockchain.
 
 Enter: Compression NFTs. Compression NFTs use a Concurrent Merkle Tree to compress millions of NFTs
-into one 32-byte hash. Clients executing transactions on compressed NFTs are able to send a
-cryptographic proof to the blockchain that verifies the NFT and ownership. In other words, instead
-of sending a transaction with:
+into one 32-byte hash. Clients executing transactions on compressed NFTs can send a cryptographic
+proof to the blockchain that verifies the NFT and ownership. In other words, instead of sending a
+transaction with:
 
 ```rust
 
@@ -72,12 +70,12 @@ pub merkle_tree: UncheckedAccount<'info>,
 
 ```
 
-While this can make the transaction size larger, the amount of data stored on chain is tiny. While
+While this can make the transaction size larger, the amount of data stored on-chain is tiny. While
 this may look difficult, this is all neatly packed in the Metaplex Digital Asset API. This API runs
 on multiple RPC providers and allows you to hit convenient functions like `get_assets_by_owner` and
 `get_asset_proof` so that you never have to worry about the underlying concurrent merkle algorithm.
 
-## Fetching Rewardable Entities.
+## Fetching Rewardable Entities
 
 All rewardable entities are created by the `helium-entity-manager` program. Further, they exist
 under a collection that is managed by the Maker of that entity. The easiest way to fetch all Helium
@@ -120,10 +118,10 @@ curl --request POST \
 
 ### Hotspots and ECC Compact Keys
 
-Hotspots on the Helium Network currently are uniquely identified by their ECC Compact Public Keys
+Hotspots on the Helium Network currently are uniquely identified by their ECC Compact Public Keys.
 
-At onboarding time, hotspots are able to sign an onboard transaction proving physical ownership of
-the device.
+At onboarding time, Hotspots can sign an onboard transaction proving physical ownership of the
+device.
 
 As such, the Helium Solana implementation enforces that all NFTs are unique by ECC Compact keys.
 
@@ -142,7 +140,7 @@ const eccCompactKey = asset.content.json_uri.split("/").slice(-1)[0];
 ```
 
 If you have only an ECC Compact key and would like to find the NFT, you can use the `KeyToAssetV0`
-struct that is stored on chain:
+struct that is stored on-chain:
 
 <!-- prettier-ignore -->
 ```js
@@ -157,7 +155,7 @@ const eccKey = "...ecc compact key..."
 // Init program
 const program = await init(provider);
 
-// Get the asset id from the KeyToAssetV0 account on chain
+// Get the asset id from the KeyToAssetV0 account on-chain
 const keyToAssetPkey = keyToAssetKey(dao, eccKey)[0]
 const keyToAssetAcc = await program.account.keyToAssetV0.fetch(keyToAssetPkey);
 const assetId = keyToAssetAcc.asset;
@@ -172,18 +170,18 @@ const asset = await getAsset(rpcUrl, assetId)
 
 ## Onboarding Rewardable Entities
 
-The onboarding flow for an entity is general that a customer purchases the hardware from a Maker,
+The onboarding flow for an entity is generally that a customer purchases the hardware from a Maker,
 and then self-onboards to the network. Because all hardware is created by approved Makers, the
 onboard transaction must be approved by the Maker. This uses a similar flow to the legacy
 onboarding-server of the Helium blockchain.
 
 The main difference between the Solana version of Helium, and the legacy version on the Helium
-chain, is that onboarding is on a per-network basis. A Hotspot can be an IOT hotspot, a MOBILE
-hotspot, or both. If the Hotspot wants to earn both MOBILE and IOT rewards, it must onboard to the
+chain, is that onboarding is on a per-network basis. A Hotspot can be an IOT Hotspot, a MOBILE
+Hotspot, or both. If the Hotspot wants to earn both MOBILE and IOT rewards, it must onboard to the
 IOT network AND the MOBILE network. It must also assert location on both subnetworks.
 
-Similarly, makers are approved for specific subnetworks. A maker that creates IOT hotspots cannot
-necessarily onboard MOBILE hotspots. Each network subDAO must approve makers to issue rewardable
+Similarly, makers are approved for specific subnetworks. A maker that creates IOT Hotspots cannot
+necessarily onboard MOBILE Hotspots. Each network subDAO must approve makers to issue rewardable
 entities.
 
 The following test shows the full flow of onboarding a Hotspot using the onboarding server.
@@ -304,7 +302,7 @@ describe("onboarding server", () => {
       } catch {
         console.log(`Hotspot may not exist yet ${tries}`);
         tries++;
-        await sleep(2000); // Wait for hotspot to be indexed into asset api
+        await sleep(2000); // Wait for Hotspot to be indexed into asset api
       }
     }
 
@@ -356,20 +354,20 @@ A system of oracles keeps track of the rewards owed to each Rewardable Entity. F
 IOT network there are oracles that keep track of the IOT tokens earned by each Hotspot for PoC.
 
 These oracles are responsible ONLY for tracking the total lifetime rewards associated with a
-hotspot. This frees the oracles from any kind of dependence on the blockchain. They don't care about
+Hotspot. This frees the oracles from any kind of dependence on the blockchain. They don't care about
 the issuance or movement of tokens.
 
-The `lazy-distributor` program keeps track of, for each hotspot, how much of the total lifetime
+The `lazy-distributor` program keeps track of, for each Hotspot, how much of the total lifetime
 rewards have been claimed. Claiming rewards, then, consists of two steps:
 
-1. Ask oracles to update the on-chain state to reflect the latest lifetime rewards for this hotspot.
-2. Issue the difference between the total lifetime rewards and total claimed rewards to the hotspot
+1. Ask oracles to update the on-chain state to reflect the latest lifetime rewards for this Hotspot.
+2. Issue the difference between the total lifetime rewards and total claimed rewards to the Hotspot
    owner.
 
 In practice, we have made it so that this can all happen in a singular transaction for PoC rewards.
 Staking rewards will happen in transactions combining up to 4 days of rewards.
 
-### Finding current rewards
+### Finding Current Rewards
 
 Oracles work off of a restful API that involves
 
@@ -405,7 +403,7 @@ rewards.map(reward => {
 })
 ```
 
-### Claiming rewards
+### Claiming Rewards
 
 :::info
 
