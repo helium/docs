@@ -75,6 +75,9 @@ are complete to simplify accounting.
 Once the DC mint transaction is complete, the receiving Helium wallet owns all of the DC and cannot
 transfer them to any other Helium wallet.
 
+DC can be delegated to other Helium Wallets but these must be IOT LNS provider Wallets in
+arrangement with the LNS provider.
+
 :::
 
 ## Data Credits and IoT {#dc-and-iot}
@@ -124,16 +127,16 @@ import OperationCostEstimator from '@site/src/theme/DcCostEstimator'
   <OperationCostEstimator />
 </figure>
 
-### Protocol Fees
+### IOT Protocol Fees
 
 In addition to network data transfer, DCs are also utilized for certain network-related fees.
 
-| Action            | Fee                                             |
-| ----------------- | ----------------------------------------------- |
-| Device Onboarding | $40                                             |
-| Assert Location   | $10                                             |
-| OUI               | $100                                            |
-| DevAddr           | $100 ($800)<sup>(</sup>[^1]<sup>)</sup>         |
+| Action            | Fee                                     |
+| ----------------- | --------------------------------------- |
+| Device Onboarding | $40                                     |
+| Assert Location   | $10                                     |
+| OUI               | $100                                    |
+| DevAddr           | $100 ($800)<sup>(</sup>[^1]<sup>)</sup> |
 
 [^1]: DevAddrs must be purchased in slabs of 8.
 
@@ -154,7 +157,22 @@ Hotspot operator.
 Fees related to onboarding and location assert were defined through community governance through
 [HIP-89](https://github.com/helium/HIP/blob/main/0089-mobile-network-onboard-fees.md).
 
-| Action          | Fee |
-| --------------- | --- |
-| Onboard         | $40 |
-| Assert Location | $10 |
+| Action               | Fee                             |
+| -------------------- | ------------------------------- |
+| CBRS Onboard         | $40                             |
+| CBRS Assert Location | $10                             |
+| Wifi Indoor Onboard  | $10<sup>(</sup>[^4]<sup>)</sup> |
+| Wifi Outdoor Onboard | $10<sup>(</sup>[^4]<sup>)</sup> |
+
+[^1]:
+    [HIP-69](https://github.com/helium/HIP/blob/main/0069-reassertion-fee-reduction.md) set the
+    assert location fee to $5 for three months following the Solana migration.
+
+[^2]:
+    [HIP-91](https://github.com/helium/HIP/blob/main/0091-data-driven-extension-reduced-iot-assertion-cost.md)
+    further extended the $5 location assert for 6 months to January 20, 2024.
+
+[^3]: DevAddrs must be purchased in slabs of 8.
+[^4]:
+    [HIP-96](https://github.com/helium/HIP/blob/main/0096-wifi-ap-onboarding-structure.md) set an
+    additional MOBILE token onboarding fee for WiFi hotspots as well as the DC onboarding fee.
