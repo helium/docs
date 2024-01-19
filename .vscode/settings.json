@@ -9,7 +9,25 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "grammarly.files.include": ["**/*.mdx", "**/*.md"],
-  "grammarly.config.suggestions.InformalPronounsAcademic": true,
-  "grammarly.config.suggestions.PassiveVoice": true
+  "spellright.language": [
+    "en"
+  ],
+  "spellright.documentTypes": [
+    "markdown",
+    "mdx"
+  ],
+  "spellright.parserByClass": {
+    "mdx": {
+      "parser": "markdown"
+    }
+  },
+  "spellright.ignoreRegExpsByClass": {
+    "mdx": [ 
+      "/&amp;/g",
+      "/&nbsp;/g",
+      "/&mdash;/g",
+      "/&gt;/g",
+      "/&lt;/g" 
+    ],
+  }
 }
