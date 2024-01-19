@@ -1,0 +1,84 @@
+---
+layout: post
+title: New IoT Denylist Classifiers
+date: 2024-01-17 22:00 -0800
+hide_table_of_contents: true
+authors: [vagabond]
+---
+
+# New IoT Denylist Classifiers
+
+As discussed on recent IoT working group calls, Nova Labs has introduced two new classifiers into
+the denylist.
+
+<!--truncate-->
+
+## Ingest Latency Edge Classifier
+
+The data gathered from the oracles contains information related to the observed ingest latency when
+a Hotspot witnesses another Hotspot. In the PoC pipeline we create histograms of these observed
+ingest latencies.
+
+The keys in the histogram correspond to the observed time-diff when the packet was received by the
+destination Hotspot and the values correspond to the number of occurrences of the observed
+time-diff.
+
+Below are two samples of such histograms:
+
+![Latency Histogram 1](histogram1.png)
+
+This is an example of a "bad" latency histogram. No peaks, and very little below 4000/50 (80 on the
+x axis here).
+
+![Latency Histogram 2](histogram2.png)
+
+This is an example of a "good" latency histogram. A strong and defined peak at 3400ms, which is the
+expected time for EU868.
+
+To quantify and mathematically prove such outliers, we have the following algorithm:
+
+### Preparation
+
+Make coarser buckets of keys and accumulate values such that the variance of observed time-diff has
+lower impact on the algorithm to find the outliers.
+
+For example, a time-diff of 3000, 3010, 3020 can be bucketed as 3000. Notice that these times are
+1/100th of a millisecond thus it's reasonable to make this assumption and have some built-in
+tolerance.
+
+### Rules
+
+- If the number of observed samples is greater than 1 and the standard deviation of values (counts)
+  is greater than or equal to 0.0 and the maximum observed time diff is less than or equal to 4000,
+  we consider the ingest latency to be within bounds.
+- If the number of samples is exactly equal to 1 and the maximum observed time diff is less than or
+  equal to 4000, we consider the ingest latency to be within bounds.
+- Anything else that doesn't belong to the above two rules is considered a potential re-broadcaster.
+
+We use the above rules to quantify whether an edge should be marked as illegitimate or not.
+
+## Antenna Splitter Hotspot Classifier
+
+This classifier attempts to identify Hotspots that are sharing an antenna.
+
+Antenna splitting is never considered ok, so there's an absolute maximum RSSI we tolerate (currently
+set to 0).
+
+This classifier requires these links to have these properties reciprocally, as in the reverse link
+also has to exceed these thresholds.
+
+The classifier records a list of Hotspots that the Hotspot is splitting with. These are included in
+the report cards.
+
+![Antenna splitter example](splitter1.png)
+
+A Hotspot with positive RSSI values with multiple peers that are asserted more than a kilometer
+apart. This is very likely to be antenna splitting.
+
+![Non-antenna splitter example](splitter2.png)
+
+A Hotspot (in US915) with a much more typical RSSI/Distance plot.
+
+We've currently been quite conservative with this classifier. In the future we intend to extend it
+to also cover Hotspots that are in the same room/building but are asserted significant distances
+apart.
