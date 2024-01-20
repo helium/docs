@@ -155,7 +155,14 @@ module.exports = {
             'network-iot/run-an-lns/common-issues'
           ],
         },
-        'network-iot/lorawan-roaming',
+        {
+          type: 'category',
+          label: 'Roaming',
+          link: { type: 'doc', id: 'network-iot/lorawan-roaming' },
+          items: [
+            'network-iot/roaming/migrating-from-roaming-console',
+          ],
+        },
       ],
     },
     {

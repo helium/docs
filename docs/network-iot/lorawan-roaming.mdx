@@ -117,38 +117,11 @@ DevAddr range on that route so that Helium can forward its uplinks.
 $ helium-config-service-cli route devaddrs add -s <start devAddr> -e <end devAddr> --route-id <route-id> -- commit
 ```
 
-### Migrating from Roaming Console
-
-If you are a roaming partner migrating from Roaming Console to the new OpenLNS Architecture, please
-carefully test out your roaming connections before the full switch.
-
-While the Roaming Console currently coexists with the OpenLNS Architecture, it is not possible to
-have the same device to simultaneously send traffic to both Roaming Console and through OpenLNS
-Architecture.
-
-#### Migrating EUI Pair for Join Requests
-
-Let's say you had 100 devices on Roaming Console, you can start the migration slowly by registering
-1 EUI pair with the CLI, so that 99 of your devices will roam through Roaming Console and 1 of your
-devices will roam through OpenLNS. Then, you can keep migrating, possibly registering 50 EUI pairs
-with the CLI, so that 49 of your devices will roam through Roaming Console and 51 will roam through
-OpenLNS. Eventually, you will have registered all 100 EUI pairs with the CLI, so that all of your
-devices will roam through Roaming Console.
-
-#### Migrating DevAddr Range for Uplinks
-
-Let's say you have 10 DevAddrs, you can start the migration slowly by registering 1 DevAddr with the
-CLI, so that 9 of your DevAddrs will roam through Roaming Console and 1 of your DevAddrs will roam
-through OpenLNS. Then, you can keep migrating, possibly registering 5 DevAddrs with the CLI, so that
-4 of your DevAddrs will roam through Roaming Console and 6 will roam through OpenLNS. Eventually,
-you will have registered all 10 DevAddrs with the CLI, so that all of your devices will roam through
-Roaming Console.
-
 ## Advanced Roaming
 
 ### Session Key Filter
 
-The session key filter gives an opertator the ability to accept and reject specific roaming traffic
+The session key filter gives an operator the ability to accept and reject specific roaming traffic
 on a device level. Leveraging the session key filter is recommended for all operators. Read more
 about the session key filter in the
 [LNS advanced configuration](/iot/run-an-lns/advanced-configuration##session-key-filter).

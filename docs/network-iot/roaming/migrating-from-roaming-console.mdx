@@ -1,0 +1,36 @@
+---
+id: migrating-from-roaming-console
+title: Migrating From Roaming Console
+pagination_label: Migrating From Roaming Console
+sidebar_label: Migrating From Roaming Console
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/migrating-roaming-console
+---
+
+### Migrating from Roaming Console
+
+If you are a roaming partner migrating from Roaming Console to the new OpenLNS Architecture, please
+carefully test out your roaming connections before the full switch.
+
+While the Roaming Console currently coexists with the OpenLNS Architecture, it is not possible to
+have the same device to simultaneously send traffic to both Roaming Console and through OpenLNS
+Architecture.
+
+#### Migrating EUI Pair for Join Requests
+
+Let's say you had 100 devices on Roaming Console, you can start the migration slowly by registering
+1 EUI pair with the CLI, so that 99 of your devices will roam through Roaming Console and 1 of your
+devices will roam through OpenLNS. Then, you can keep migrating, possibly registering 50 EUI pairs
+with the CLI, so that 49 of your devices will roam through Roaming Console and 51 will roam through
+OpenLNS. Eventually, you will have registered all 100 EUI pairs with the CLI, so that all of your
+devices will roam through Roaming Console.
+
+#### Migrating DevAddr Range for Uplinks
+
+Let's say you have 10 DevAddrs, you can start the migration slowly by registering 1 DevAddr with the
+CLI, so that 9 of your DevAddrs will roam through Roaming Console and 1 of your DevAddrs will roam
+through OpenLNS. Then, you can keep migrating, possibly registering 5 DevAddrs with the CLI, so that
+4 of your DevAddrs will roam through Roaming Console and 6 will roam through OpenLNS. Eventually,
+you will have registered all 10 DevAddrs with the CLI, so that all of your devices will roam through
+Roaming Console.
