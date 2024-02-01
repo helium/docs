@@ -44,8 +44,8 @@ module.exports = {
       style: 'primary',
       logo: {
         alt: 'Helium Logo',
-        src: 'img/icons/logoblack.svg',
-        srcDark: 'img/icons/logowhite.svg',
+        src: 'img/icons/logo_docs_black.svg',
+        srcDark: 'img/icons/logo_docs_white.svg',
       },
       items: [
         {
