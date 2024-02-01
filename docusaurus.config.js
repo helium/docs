@@ -49,11 +49,6 @@ module.exports = {
       },
       items: [
         {
-          to: 'solana',
-          label: 'Architecture',
-          position: 'left',
-        },
-        {
           to: 'tokens/hnt-token',
           label: 'Tokens',
           position: 'left',
@@ -73,36 +68,20 @@ module.exports = {
           label: 'Mobile Network',
           position: 'left',
         },
-        // {
-        //   to: 'governance',
-        //   label: 'Governance',
-        //   position: 'left',
-        // },
-        // {
-        //   to: 'devblog',
-        //   label: 'Dev Blog',
-        //   position: 'left',
-        // },
         // "more" dropdown for navbar
         {
           label: 'More',
           position: 'left',
           items: [
-            { label: 'Governance', to: 'governance' },
+            { label: 'Network Architecture', to: 'solana' },
+            { label: 'Community Governance', to: 'governance' },
             { label: 'Dev Blog', to: 'devblog' },
-            { label: 'Console (Legacy)', to: '/console' },
             {
               href: 'https://github.com/helium',
-              label: 'Github »',
+              label: 'Helium GitHub',
             },
           ],
         },
-        // {
-        //   to: '/solana/migration/',
-        //   label: 'Solana Migration Guides',
-        //   position: 'right',
-        //   className: 'announcementnav',
-        // },
       ],
     },
     footer: {
@@ -202,8 +181,5 @@ module.exports = {
   markdown: {
     mermaid: true,
   },
-  themes: [
-    '@docusaurus/theme-mermaid',
-    'docslab-docusaurus',
-  ],
+  themes: ['@docusaurus/theme-mermaid', 'docslab-docusaurus'],
 }
