@@ -10,28 +10,14 @@ slug: /solana/migration/blockchain-api
 
 The legacy blockchain API was retired on July 28, 2023.
 
-To accommodate the need for historical data, a CSV export of the Helium L1 data is available on a
-requestor-pays basis on AWS in the `foundation-helium-l1-archive-requester-pays` S3 bucket.
+To accommodate the need for historical data, a snapshot of the Helium L1 data is available on a
+requestor-pays basis on AWS in the `foundation-prod-etl-artifacts-v2` S3 bucket.
 
 The data is also available as a torrent.
 
-| Torrent                                                   | Magnet Link                                                                                                                                                                                                                                                                                                                                                                                                     |
-| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Helium L1 Archive](/Helium_L1_Archive.torrent) (1.45 TB) | [Magnet Link](magnet:?xt=urn:btih:c6dcc83f1dbff0888a2cac026febae00a7293e0a&dn=HeliumL1&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopentracker.i2p.rocks%3A6969%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce) |
-
-:::caution Notice: January 2024
-
-It has been flagged that these sources miss some early blocks, starting at block ~73k. A new data
-source has been retained and a new bucket and torrent file will be generated to provide a complete
-history of the Helium L1. The existing sources remain available for those not needing these early
-blocks.
-
-Those seeding the above torrent to the community are encouraged to replace it with the updated
-version.
-
-This page will be updated as these updated sources become available.
-
-:::
+| Torrent                                                                               | Magnet Link                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Helium L1 Archive - Postgres Snapshot](/helium-l1-archive-postgres.torrent) (3.1 TB) | [Magnet Link](magnet:?xt=urn:btih:ac508205c440ac66d18d2f1755a7eb682a6c6549&dn=foundation-prod-etl-artifacts-v2&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.auctor.tv%3A6969%2Fannounce&tr=udp%3A%2F%2Fopentracker.i2p.rocks%3A6969%2Fannounce&tr=https%3A%2F%2Fopentracker.i2p.rocks%3A443%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce&tr=http%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.moeking.me%3A6969%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&tr=udp%3A%2F%2Fuploads.gamecoast.net%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.tiny-vps.com%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.skyts.net%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker-udp.gbitt.info%3A80%2Fannounce&tr=udp%3A%2F%2Fopen.tracker.ink%3A6969%2Fannounce&tr=udp%3A%2F%2Fmovies.zsw.ca%3A6969%2Fannounce&tr=udp%3A%2F%2Fbt1.archive.org%3A6969%2Fannounce&tr=https%3A%2F%2Ftracker.tamersunion.org%3A443%2Fannounce&tr=https%3A%2F%2Ftracker.gbitt.info%3A443%2Fannounce) |
 
 For info on the historical DeWi ETL query tool, check the
 [Blockchain ETL](/solana/migration/blockchain-etl) page.
