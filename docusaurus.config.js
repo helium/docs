@@ -22,8 +22,8 @@ module.exports = {
     },
     // hideableSidebar: true,
     algolia: {
-      appId: 'XC618T80WL',
-      apiKey: '7d9c9bfed6c45d91cb148ac5a365079d',
+      appId: process.env.ALGOLIA_APP_ID,
+      apiKey: process.env.ALGOLIA_API_KEY,
       indexName: 'helium',
       contextualSearch: false,
     },
