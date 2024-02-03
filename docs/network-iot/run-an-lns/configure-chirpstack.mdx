@@ -45,6 +45,69 @@ Modify the following sections:
 - Under `[gateway]`:
   - Add `allow_unknown_gateways=true`
 
+
+### Example chirpstack.toml with helium additions.
+```toml
+# Network related configuration.
+[network]
+
+  # Network identifier (NetID, 3 bytes) encoded as HEX (e.g. 010203).
+  # new helium net_id="00003C"
+  net_id="00003C"
+
+  # Helium 8 block dev address prefix 29
+  # if you have multiple blocks you can add them as an array
+  dev_addr_prefixes=[
+    "78000000/29"
+  ]
+
+  # Enabled regions.
+  #
+  # Multiple regions can be enabled simultaneously. Each region must match
+  # the 'name' parameter of the region configuration in '[[regions]]'.
+  enabled_regions=[
+    "au915_1",
+    "eu868",
+    "in865",
+    "kr920",
+    "us915_1",
+  ]
+
+  # Time to wait for uplink de-duplication.
+  #
+  # This is the time that ChirpStack will wait for other gateways to receive
+  # the same uplink frame. Please note that this value affects the
+  # roundtrip time. The total roundtrip time (which includes network latency)
+  # must be less than the (first) receive-window.
+  deduplication_delay="200ms"
+
+
+# API interface configuration.
+[api]
+
+  # interface:port to bind the API interface to.
+  bind="0.0.0.0:8080"
+
+  # Secret.
+  #
+  # This secret is used for generating login and API tokens, make sure this
+  # is never exposed. Changing this secret will invalidate all login and API
+  # tokens. The following command can be used to generate a random secret:
+  #   openssl rand -base64 32
+  secret="REPLACE-WITH-YOUR-SECRET-HERE"
+
+
+# Global gateway configuration.
+# Please note that backend configuration can be found in the per-region
+# configuration.
+[gateway]
+  # Allow unknown gateways.
+  #
+  # If set to true, then uplinks received from gateways not configured in
+  # ChirpStack will be allowed.
+  allow_unknown_gateways=true
+  ```
+
 ## Support Additional LoRaWAN Regions
 
 To support regions beyond the default EU868, deploy a gateway bridge in ChirpStack for each
@@ -95,7 +158,7 @@ Make sure ports 1700 and 1701 are both open on the server.
 
 Run `docker-compose up` to start the server. Utilize the default credentials to log in:
 
-Username: admin  
+Username: admin
 Password: admin
 
 Now that the LNS is operational, proceed to establish routing rules. This ensures that the Helium
