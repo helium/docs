@@ -36,7 +36,7 @@ import { FakeHivemapper } from './HeliumWalletApp'
   </div>
 </div>
 
-The Helium Wallet app is the trusted way to manage your Helium account.  
+The Helium Wallet App is the trusted way to manage your Helium account.  
 Some notable features:
 
 - Multiple account support (maximum of 10)
@@ -45,24 +45,29 @@ Some notable features:
 - Verify your Helium identity
 - Lock-up tokens for voting power and staking rewards
 - Multiple recipient payment support
-- Claiming tokens from Hotspots to your account
+- Claim tokens from Hotspots to your account
+- Claim staking rewards to your account
 - Transfer NFTs representing Hotspot ownership
+- Swap HNT into DC
 - Swap MOBILE and IOT Tokens into HNT
-- Updating the location of a Hotspot
+- Update the location of a Hotspot
+- Update the antenna of a Hotspot
+- Onboard Hotspots
+- Vote on HIPs on the [Helium Vote](https://heliumvote.com/hnt) website
 
 Hotspot management should be done via the [Maker App](/hotspot-makers) available from the
 manufacturer.  
-See Hotspot manufacturer apps for features like:
+See Hotspot manufacturer apps for features such as:
 
 - Hotspot diagnostics
 - Onboarding Hotspots
-- Hotspot settings like WiFi credentials
+- Hotspot settings such as Wi-Fi credentials
 
 ## A Note On Account Safety
 
 Before proceeding, a few general notes on how to be safe in web3. An account is entirely your own.
 No third party – including Helium – can recover or access an account. As such, it is critical that
-the 12 or 24-word seed phrase be stored in a **secure manner** and **never be shared**. Taking and
+the 12 or 24-word seed phrase be stored in a **secure manner** and **must never be shared**. Taking and
 storing screenshots of the seed words is not recommended, as it is not a secure way to store them.
 Screenshots and photos stored or backed up in the cloud are an easy target for attackers, leading to
 funds being stolen.
@@ -88,10 +93,10 @@ other features. Do not share private keys or authenticate transactions through u
   src={useBaseUrl('img/wallets/helium-wallet-app/new-account-banner.png')}
 />
 
-Accounts created with the Helium Wallet app are generated with a 24-word seed phrase. These 24 words
+Accounts created with the Helium Wallet App are generated with a 24-word seed phrase. These 24 words
 in the correct order are the **only** way to access the account and can **never** be recovered if
-lost. Whomever has the 24-word seed phrase controls the wallet, meaning that they are considered the
-owner of all tokens, Hotspots, or NFTs in the account.
+lost. Whomever has the 24-word seed phrase controls the Wallet, meaning that they are considered the
+owner of all tokens, Hotspots or NFTs in the account.
 
 ### Importing An Existing Account
 
@@ -100,7 +105,7 @@ owner of all tokens, Hotspots, or NFTs in the account.
   src={useBaseUrl('img/wallets/helium-wallet-app/import-account-banner.png')}
 />
 
-If you have an existing Helium account you can import it into the Helium Wallet app.
+If you have an existing Helium account you can import it into the Helium Wallet App.
 
 |    Account Type     | Action                                                                                |
 | :-----------------: | :------------------------------------------------------------------------------------ |
@@ -122,10 +127,13 @@ The Helium Wallet will display the token balances and fiat value in your account
 **HNT** - in USD or your defined currency  
 **MOBILE** - in USD or your defined currency  
 **IOT**- in USD or your defined currency  
-**DC**- in USD (Not transferable)  
-**SOL**- in USD or your defined currency
+**DC** - in USD (Not transferable)  
+**SOL** - in USD or your defined currency
+**USDC** - in USD or your defined currency
 
-No other tokens held in your account will be displayed in the Helium Wallet App.
+No other tokens held in your account will be displayed in the Helium Wallet App. There is a 'Manage Visible
+Tokens' toggle menu below the token list in your Helium Wallet account, where you can choose which Helium
+Network tokens are to be visible in your account.
 
 ## Send And Request Tokens
 
@@ -171,9 +179,8 @@ are requesting or add a note.
 
 ## Helium Identity
 
-Use the Helium Wallet app to connect to dApps and authenticate your identity on the Solana
-blockchain. Using the in-app browser, access dApps like Jupiter Aggregator or
-[stake and vote your tokens using Realms](/governance/realms).
+Use the Helium Wallet App to connect to dApps and authenticate your identity on the Solana
+blockchain. Using the in-app browser, access dApps such as Jupiter Aggregator or Orca.
 
 ## Address Book And Contacts
 
@@ -198,12 +205,12 @@ adjusted at any time.
   src={useBaseUrl('img/wallets/helium-wallet-app/settings-wallet-account-banner.png')}
 />
 
-Each account imported to the Helium Wallet app has separate settings.
+Each account imported to the Helium Wallet App has separate settings.
 
 |     Setting     | Description                                                                                                                                        |
 | :-------------: | :------------------------------------------------------------------------------------------------------------------------------------------------- |
 |  Account Alias  | Give your account a name to help separate it from other accounts managed in the Helium Wallet App.                                                 |
-| Default Account | When using multiple accounts, this toggle will determine which one is the default and will show first whenever the Helium Wallet app is opened.    |
+| Default Account | When using multiple accounts, this toggle will determine which one is the default and will show first whenever the Helium Wallet App is opened.    |
 |  Copy Address   | Copies the account address to your device's clipboard.                                                                                             |
 |  Share Address  | Provides QR code so someone can scan your account's public address or allows you to quickly share it via email or text.                            |
 |  Remove Wallet  | Logs you out of the current account. The original seed phrase is required to ensure the words are safely backed up since they cannot be recovered. |
@@ -212,13 +219,13 @@ Each account imported to the Helium Wallet app has separate settings.
 
 If someone has your private key, they will have full control of your account. This includes the
 ability to remove tokens and Hotspots.  
-Do not enter these words into any untrusted website. Any person or website asking for these keys is
+Do **not** enter these words into any untrusted website. Any person or website asking for these keys is
 likely a scammer.
 
 |      Setting       | Description                                                                                                                                                                                                                                      |
 | :----------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |    Reveal Words    | While logged in, you can view your 12-word or 24-word seed phrase. These are required for login/logout of an account and can never be recovered if lost. Lose these, lose the Wallet and everything it contains. Back them up in a secure place. |
-| Reveal Private Key | The private key of your account can be used to import the account into other Solana-compatible wallet apps like Solflare, Phantom, Coinbase Wallet, or Backpack.                                                                                 |
+| Reveal Private Key | The private key of your account can be used to import the account into other Solana-compatible wallet apps such as Solflare, Phantom, Coinbase Wallet or Backpack.                                                                                 |
 
 ### Security Settings
 
@@ -227,14 +234,14 @@ likely a scammer.
   src={useBaseUrl('img/wallets/helium-wallet-app/settings-security-banner.png')}
 />
 
-These settings keep the Helium Wallet app secure.
+These settings keep the Helium Wallet App secure.
 
 |         Setting          | Description                                                                                        |
 | :----------------------: | :------------------------------------------------------------------------------------------------- |
 |        Enable PIN        | Set up a PIN code for accessing the Wallet from the device.                                        |
 |       Require PIN        | Set time limit when PIN is required to log back in (Immediately, 1min, 5min, 15min, 1hr, 4hrs).    |
 |        Reset PIN         | Change the current PIN to a new one (the original PIN is required).                                |
-| Require PIN for Payments | This additional security option requires the PIN to be entered before any HNT payment can be sent. |
+| Require PIN for Payments | This additional security option requires the PIN to be entered before any payment can be sent. |
 
 ### App Settings
 
@@ -243,7 +250,7 @@ These settings keep the Helium Wallet app secure.
   src={useBaseUrl('img/wallets/helium-wallet-app/settings-app-banner.png')}
 />
 
-The Helium Wallet app has interface settings that can be adjusted to your liking.
+The Helium Wallet App has interface settings that can be adjusted to your liking.
 
 | Setting  | Description                                                                     |
 | :------: | :------------------------------------------------------------------------------ |
@@ -271,16 +278,16 @@ You can now examine your Hotspots by clicking the Collectables Tab.
 
 ## 12-Word And 24-Word Seed Phrases
 
-When a Helium account is created with the Helium Wallet app, a 24-word "Seed Phrase" is generated.
+When a Helium account is created with the Helium Wallet App, a 24-word "Seed Phrase" is generated.
 
 Users who created their Helium account using the Helium Hotspot app will have a 12-word seed phrase.
-While the Helium Wallet app accepts 12-word seed phrases, all new Helium Wallets are created with
+While the Helium Wallet App accepts 12-word seed phrases, all new Helium Wallets are created with
 24-word seed phrases.
 
-Read more about Helium Wallet [seed phrases here](/wallets/wallet-seed-phrase).
+Visit [Helium Wallet Seed Phrase](/wallets/wallet-seed-phrase) to learn more.
 
 :::caution Before Deleting Helium Wallet Apps
 
-Do not uninstall the Helium Wallet app without first writing down the seed phrase.
+Do not uninstall the Helium Wallet App without first writing down the seed phrase!
 
 :::
