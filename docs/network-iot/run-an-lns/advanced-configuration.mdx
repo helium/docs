@@ -12,30 +12,30 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Session Key Filter (SKF) {#session-key-filter}
 
-Session Key Filters (SKF) regulate device traffic on specific devAddrs by utilizing LoRaWAN device
-session keys. They establish conditions to either permit or restrict data flow based on the
+Session Key Filters (SKF) regulate device traffic on specific DevAddrs by utilizing LoRaWAN&trade;
+device session keys. They establish conditions to either permit or restrict data flow based on the
 configured session keys. It essentially allows the LNS operators to accept and reject traffic on a
 device (session) level.
 
-In this example scenario, consider two device addresses (devAddr) 1 and 2:
+In this example scenario, consider two Device Addresses (DevAddr) 1 and 2:
 
-- **Provided Session Key for devAddr 1 and "ignore empty skf" = false:**  
-  Only allows traffic through devAddr 1 if it passes Message Integrity Code (MIC) checks.
-- **No Session Key for devAddr 2 and "ignore empty skf" = false:**  
-  All traffic is allowed through devAddr 2 without MIC checks.
-- **No Session Key for devAddr 2 and "ignore empty skf" = true:**  
-  All traffic through devAddr 2 is blocked.
+- **Provided Session Key for DevAddr 1 and "ignore empty skf" = false:**  
+  Only allows traffic through DevAddr 1 if it passes Message Integrity Code (MIC) checks.
+- **No Session Key for DevAddr 2 and "ignore empty skf" = false:**  
+  All traffic is allowed through DevAddr 2 without MIC checks.
+- **No Session Key for DevAddr 2 and "ignore empty skf" = true:**  
+  All traffic through DevAddr 2 is blocked.
 
 The SKF will regulate traffic based on session key availability and the "ignore empty skf" flag,
-independently per devAddr.
+independently per DevAddr.
 
 ### Importance of Configuring Session Key Filters
 
-Configuring SKFs for devices introduces an additional layer of security on the Helium network. In
-instances where SKFs are not established, the network relies on the devAddr to associate packets
+Configuring SKFs for devices introduces an additional layer of security on the Helium Network. In
+instances where SKFs are not established, the Network relies on the DevAddr to associate packets
 with the respective OUI, potentially attributing unauthorized packet costs to the OUI owner.
 
-Implementing SKFs counteracts this risk by empowering the Helium Packet Router to authenticate
+Implementing SKFs counteracts this risk by empowering the Helium Packet Router (HPR) to authenticate
 packets, thus preventing the delivery of unwanted payloads (and their respective DC cost).
 
 ## Automated EUI and SKF Route Updates
@@ -52,29 +52,29 @@ The Helium Route Updater service is a third-party service that can be run alongs
 deployment to automate the adding/removing of EUIs as well as enabling session key filters on
 devices to block traffic from devices that are not yours.
 
-You can find the service on GitHub
-[here](https://github.com/thisisdevelopment/helium-route-updater). There is also a section in the
-readme that details how to easily add it to your ChirpStack docker compose, found
-[here](https://github.com/thisisdevelopment/helium-route-updater#chirpstack-docker-compose-usage).
+You can find the [Helium Route Updater](https://github.com/thisisdevelopment/helium-route-updater)
+on GitHub. There is also a section in the
+[readme](https://github.com/thisisdevelopment/helium-route-updater#chirpstack-docker-compose-usage)
+file on GitHub that details how to easily add it to your ChirpStack docker compose.
 
-### Disk91 Helium Chirpstack
+### Disk91 Helium ChirpStack
 
 This service includes several utilities including EUI management and per-tenant accounting.
 
-Find the service on GitHub [here](https://github.com/disk91/helium-chirpstack-community)
+Find the service on [GitHub](https://github.com/disk91/helium-chirpstack-community).
 
-### Chirpstack-hpr by Bones
+### ChirpStack-hpr by Bones
 
 This service includes several utilities including EUI and SKF management.
 
-Find the service on GitHub [here](https://github.com/ccall48/chirpstack-hpr)
+Find the service on [GitHub](https://github.com/ccall48/chirpstack-hpr).
 
 ## Config Service Interaction
 
-The Config Service can be used to manage an OUI and devAddr. There are two ways to interact with the
+The Config Service can be used to manage an OUI and DevAddr. There are two ways to interact with the
 Config Service:
 
-1. Using the [Command-Line Interface (CLI)](https://github.com/helium/helium-config-service-cli).
+1. Using the [Command Line Interface (CLI)](https://github.com/helium/helium-config-service-cli).
 1. Alternatively, you can write scripts to interact with the Config Service directly through
    [GRPC APIs](https://github.com/helium/proto/blob/master/src/service/iot_config.proto) for a more
    programmatic approach.
@@ -85,8 +85,8 @@ Hotspot location data can be requested from the Config Service using either the 
 
 ## Add and Remove Delegate Keys
 
-Note that only owner key can perform the actions below. OUI owners can add
-delegate keys by running
+Note that only the owner key can perform the actions below. OUI owners can add delegate keys by
+running
 
 ```bash
 helium-config-service-cli org update delegate-add --pubkey <public key of the delegate key pair you are trying to add> --keypair <relative path of your **owner** keypair path> --commit

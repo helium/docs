@@ -13,7 +13,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 Before getting started, make sure to have the following:
 
 - Helium Network Organizationally Unique Identifier (OUI).
-- Helium LoRaWAN devAddr slab.
+- Helium LoRaWAN DevAddr slab.
 - Data Credits (>3.5M DC).
 
 ## Installation and Configuration
@@ -34,22 +34,22 @@ Modify the following sections:
 
 - Under `[network]`:
   - Set `net_id` to `0x00003C`
-  - Add `dev_addr_prefixes` with the devAddr slab assigned. Follow these steps to set it up:
+  - Add `dev_addr_prefixes` with the DevAddr slab assigned. Follow these steps to set it up:
     - Run `helium-config-service-cli org get --OUI <OUI>` to retrieve the DevAddr constraints for
       the OUI.
     - Execute `helium-config-service-cli subnet-mask <starting DevAddr> <ending DevAddr>` to
       identify subnets.
     - In the ChirpStack `.toml` file, insert `dev_addr_prefixes = [<subnets>]` following the rule:
-      starting `devAddr/32-log2(devAddr slab size)`. For instance, if 8 devAddr slabs were requested
-      and the starting devAddr is 00000000, insert `dev_addr_prefixes = ["00000000/29"]`.
+      starting `devAddr/32-log2(devAddr slab size)`. For instance, if 8 DevAddr slabs were requested
+      and the starting DevAddr is 00000000, insert `dev_addr_prefixes = ["00000000/29"]`.
 - Under `[gateway]`:
   - Add `allow_unknown_gateways=true`
 
 ## Support Additional LoRaWAN Regions
 
 To support regions beyond the default EU868, deploy a gateway bridge in ChirpStack for each
-additional LoRaWAN region. Although this tutorial demonstrates adding support for US915, these steps
-can be adapted for other regions.
+additional LoRaWAN&trade; region. Although this tutorial demonstrates adding support for US915,
+these steps can be adapted for other regions.
 
 Open `docker-compose.yml` and locate a container called `chirpstack-gateway-bridge-eu868`.
 
@@ -100,4 +100,4 @@ Password: admin
 
 Now that the LNS is operational, proceed to establish routing rules. This ensures that the Helium
 Network accurately directs device packets to the designated LNS. Learn how to implement this in the
-[Routing Rules Configuration Guide](configure-routing-rules).
+[Routing Rules Configuration Guide](/iot/run-an-lns/configure-routing-rules).
