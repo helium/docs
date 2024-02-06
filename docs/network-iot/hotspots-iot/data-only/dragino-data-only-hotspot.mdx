@@ -13,7 +13,7 @@ slug: /iot/data-only/dragino-data-only-hotspot
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { YouTube } from 'mdx-embed'
 
-This guide provides instructions on how to configure an 8-channel Dragino LoRaWAN&trade; gateway
+This guide provides instructions on how to configure an 8-channel Dragino LoRaWAN gateway
 such as the LPS8 or DLOS8 to work with the Helium IoT Network.
 
 ## Prerequisites
@@ -23,9 +23,9 @@ connected to the Internet and updated to the latest firmware. Refer to the user 
 the [Dragino download site](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/) for more
 detailed instructions.
 
-## Configure LoRaWAN&trade; Frequency Plan
+## Configure LoRaWAN Frequency Plan
 
-To be able to send and receive LoRaWAN&trade; data, your Gateway must be configured to the frequency
+To be able to send and receive LoRaWAN data, your Gateway must be configured to the frequency
 plan specified for your region. You may be able to use the predefined frequency in the Dragino
 software or in some cases may need to manually set them per the frequencies used by the Helium IoT
 Network in your region.
@@ -52,7 +52,7 @@ _Example of customized channel settings using the US915 frequency plan for the H
   src={useBaseUrl('img/mine-hnt/guides/dragino-guide-lora-config-US915.png')}
 />
 
-## Configure LoRaWAN&trade; Settings
+## Configure LoRaWAN Settings
 
 Next, you will configure the LoRa packet forwarder on the Dragino to forward packets to the Helium
 Gateway service which will be installed on the Dragino in the next step.
@@ -92,12 +92,12 @@ view the public key address and animal name of your Gateway.
 
 ## Verify
 
-Your Dragino gateway should now be set up and forwarding LoRaWAN&trade; data traffic to the Helium
+Your Dragino gateway should now be set up and forwarding LoRaWAN data traffic to the Helium
 IoT Network.
 
 ### Through Helium Console
 
-If you have a LoRaWAN&trade; device configured through the Helium Console, you should now see it
+If you have a LoRaWAN device configured through the Helium Console, you should now see it
 uplinking traffic through the Dragino gateway. You can verify this by turning on your device within
 range of the Dragino and looking for traffic in a LNS associated with the Dragino gateway's animal
 name.
@@ -118,14 +118,14 @@ Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.289 IN
 Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.306 INFO starting, module: router
 ```
 
-Additionally, the LoRa Packet Forwarder log can provide some clues as to whether the LoRaWAN&trade;
+Additionally, the LoRa Packet Forwarder log can provide some clues as to whether the LoRaWAN
 server configuration is correct. Search the system log for PULL_DATA messages and confirm that they
 are acknowledged such as `REPORT~ # PULL_DATA sent: 1 (100.00% acknowledged)`. This indicates that
 the packet forwarder is communicating with the Helium Gateway service running on the Dragino and is
 getting replies from the service as expected. Note, this is not a foolproof way to confirm it is
-configured correctly. By default, the LoRaWAN&trade; Server settings are configured for the TTN EU
+configured correctly. By default, the LoRaWAN Server settings are configured for the TTN EU
 server which will also provide acknowledgment. However, the absence of acknowledgment could indicate
-that the LoRaWAN&trade; settings are not correct per the above.
+that the LoRaWAN settings are not correct per the above.
 
 ## Onboard as Data-Only Hotspot
 
