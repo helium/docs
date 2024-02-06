@@ -8,17 +8,17 @@ image: https://docs.helium.com/img/link-image.png
 slug: /iot/data-only/dragino-pg1301
 ---
 
-# Data Only Hotspot Setup with Dragino PG1301 and Raspberry Pi
+# Data-Only Hotspot Setup with Dragino PG1301 and Raspberry Pi
 
 import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
 <LegacyContentBanner />
 
-A Data Only Hotspot is a type of Hotspot that participates on the Helium Network by transferring
-data from the end devices (LoRaWAN nodes). The Data Only Hotspots are eligible for Network Data
-Transfer Rewards but not Proof of Coverage Rewards.
+A Data-Only Hotspot is a type of Hotspot that participates on the Helium IoT Network by transferring
+data from the end devices (LoRaWAN&trade; nodes). The Data-Only Hotspots are eligible for Network
+Data Transfer rewards but not Proof-of-Coverage rewards.
 
-This guide covers all the steps needed to set up a Data Only Hotspot using a Raspberry Pi and
+This guide covers all the steps needed to set up a Data-Only Hotspot using a Raspberry Pi and
 Dragino PG1301 hat.
 
 ## Getting started
@@ -30,15 +30,15 @@ other computers on your network.
 What we will be doing is :
 
 - installing the LoRa Packet Forwarder service from Dragino to use the Concentrator hat
-- installing the Helium Gateway service to move data between the packet forwarder and the Helium
-  network
+- installing the Helium Gateway service to move data between the packet forwarder and the Helium IoT
+  Network
 - configure everything
 - verify everything is working
 
 ### Hardware
 
-- Raspberry Pi 4. Other faimilies of Pi may work, but this has only been tested on the Pi 4 Model B.
-- [Dragino 10 channels - LoRaWAN GPS Concentrator for Raspberry Pi](https://www.dragino.com/products/lora/item/149-lora-gps-hat.html)
+- Raspberry Pi 4. Other families of Pi may work, but this has only been tested on the Pi 4 Model B.
+- [Dragino 10 channels - LoRaWAN GPS Concentrator for Raspberry Pi](https://www.dragino.com/products/lora/item/149-lora-gps-hat.html).
 
 ### Software
 
@@ -47,14 +47,14 @@ We will be using the following:
 - Fresh Raspbian Buster image
 - lorapktfwd package from
   [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/)
-- Latest helium-gateway package release from [Helium](https://github.com/helium/gateway-rs/releases)
-  ending in -`-raspi234.deb`
+- Latest helium-gateway package release from the
+  [Helium GitHub repo](https://github.com/helium/gateway-rs/releases) ending in -`-raspi234.deb`
 
 ## Configure the Raspberry Pi
 
 1. Use the Raspberry Pi Configuration application and enable the SPI kernel module in the Interface
-   Options section. This is located in the GUI from the Applications Menu under Preferences
-2. Reboot to apply the changes
+   Options section. This is located in the GUI from the Applications Menu under Preferences.
+2. Reboot to apply the changes.
 
 If you haven't done so, attach the Dragino PG1301 to the Raspberry Pi with the power off, attach the
 antenna, then power on.
@@ -62,12 +62,12 @@ antenna, then power on.
 ## Install the LoRa Packet Forwarder Service
 
 1. Open the web browser and download `lorapktfwd_v1.1.deb` from the
-   [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/)
-2. Open a terminal window and install the package using dpkg
+   [Dragino Downloads Site](https://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/PG1301/software/).
+2. Open a terminal window and install the package using dpkg.
    ```
    sudo dpkg -i lorapktfwd_v1.1.deb
    ```
-3. Verify lorapktfwd is running using systemctl
+3. Verify lorapktfwd is running using systemctl.
    ```
    sudo systemctl status lorapktfwd
    ```
@@ -109,13 +109,13 @@ pi@raspberrypi:~/Downloads $
 ## Install the Helium Gateway Service
 
 1. Download the latest helium-gateway release package from
-   https://github.com/helium/gateway-rs/releases ending in -raspi234.deb
-2. Install the package
+   https://github.com/helium/gateway-rs/releases ending in -raspi234.deb.
+2. Install the package.
    ```
    sudo dpkg -i helium-gateway-v1.0.0-alpha.18-raspi234.deb
    ```
    Replace helium-gateway-v1.0.0-alpha.18-raspi234.deb with the version you downloaded.
-3. Verify the gateway is running
+3. Verify the gateway is running.
    ```
    sudo systemctl status helium_gateway
    ```
@@ -158,11 +158,11 @@ pi@raspberrypi:~/Downloads $
 These steps assume the US915 region. For other regions, replace with your region locale
 configuration in Step 2.
 
-1. Change directory to the `/etc/lora-gateway` directory
+1. Change directory to the `/etc/lora-gateway` directory.
    ```
    cd /etc/lora-gateway
    ```
-2. Copy the US915 Band 2 configuration from the `cfg` subdirectory as global_conf.json
+2. Copy the US915 Band 2 configuration from the `cfg` subdirectory as global_conf.json.
    ```
    cp cfg/dragino/global_conf.us915_1.json global_conf.json
    ```
@@ -177,7 +177,7 @@ In the below example, you see two values (DCA6328XXX6F and DCA6328XXX70) because
 wired and wireless interface on the Raspberry Pi. It doesn't matter which one you use, as all MAC
 addresses are globally unique.
 
-The goal here is to guarantee a unique gateway ID in the network.
+The goal here is to guarantee a unique gateway ID in the Network.
 
 ```
 pi@raspberrypi:~/Downloads $ cd /etc/lora-gateway/
@@ -193,16 +193,16 @@ value from this documentation, it will not work.
 ### Point the LoRa Packet Forwarder to the Helium Gateway
 
 By default the LoRa Packet Forwarder from Dragino is configured to work with the Things Network.
-Here we will configure it to talk to the Helium gateway you installed on the Raspberry Pi.
+Here we will configure it to talk to the Helium Gateway you installed on the Raspberry Pi.
 
-1. Use a text editor and open the `/etc/lora-gateway/local_conf.json` file
+1. Use a text editor and open the `/etc/lora-gateway/local_conf.json` file.
 2. Replace the current value for gateway_ID with (one of) the values generated in the previous step
    and **append the value FFFF to the end**. The reason we append `FFFF` to the end is the gateway
    ID is required to be 16 characters, and the unique MAC address generated is only 12. Again, this
-   guarantees your gateway ID will be unique in the network.
-3. Add the `server_address` key with the value `127.0.0.1`
-4. Add the `serv_port_up` key with the value `1680`
-5. Add the `serv_port_down` key with the value `1680`
+   guarantees your gateway ID will be unique in the Network.
+3. Add the `server_address` key with the value `127.0.0.1`.
+4. Add the `serv_port_up` key with the value `1680`.
+5. Add the `serv_port_down` key with the value `1680`.
 
 You should have something that resembles the following in your /etc/lora-gateway/local_conf.json
 file. Be sure to double check the JSON syntax and have the key/values separated by commas and the {}
@@ -273,14 +273,15 @@ and is working.
 
 Use the spacebar to scroll thru the logs, and Ctrl-C to get back to the command prompt.
 
-Congradulations, your LoRa Packet Forwarder and Helium Gateway service is setup! At this point your
-LoRa radio will be able to pass radio traffic between the network and the Helium gateway. Any
-devices you registered via the Helium console should now be live. Your hotspot will not appear on
-the map. Before adding your hotspot to the blockchain, please check and backup your configuration.
+Congratulations, your LoRa Packet Forwarder and Helium Gateway service is setup! At this point your
+LoRa radio will be able to pass radio traffic between the Helium IoT Network and the Helium Gateway.
+Any devices you registered via the Helium Console should now be live. Your Data-Only Hotspot will
+not appear on the map. Before adding your Data-Only Hotspot to the Helium IoT Network, please check
+and backup your configuration.
 
 ## Check and Backup your Configuration
 
-1. To view your gateway address and unique animal name assigned to you
+1. View your gateway address and unique animal name assigned to you by running
    ```
    helium_gateway key info
    ```
@@ -297,20 +298,21 @@ the map. Before adding your hotspot to the blockchain, please check and backup y
 
 :::warning
 
-If you lose this key, you will not be able to use this hotspot anymore in case there is a problem on
-your hostpot (SD card corrupted, etc). You will need to generate a new key and lose your existing
-animal name/hostpot configuration
+If you lose this key, you will not be able to use this Data-Only Hotspot anymore in case there is a
+problem on your Data-Only Hotspot (SD card corrupted, etc). You will need to generate a new key and
+lose your existing animal name/hotspot configuration.
 
 :::
 
 ## Testing the packet transfer with an end device
 
-If you have an end device (LoRaWAN node), you can check if the hotspot can transfer packets through
-the network. In other words, you can check if the devices can send data to the Helium Console. The
-Helium Console is where you can provision and manage the end devices, so the nodes need to be
-registered to start using the network.
+If you have an end device (LoRaWAN&trade; node), you can check if the Data-Only Hotspot can transfer
+packets through the Helium IoT Network. In other words, you can check if the devices can send data
+to the Helium Console. The Helium Console is where you can provision and manage the end devices, so
+the nodes need to be registered to start using the Helium IoT Network.
 
 ## What's next?
 
-At this point, after you verified your Data Only Hotspot is working, it is ready to be added to the
-blockchain! You can find more information about that process [here](/iot/data-only-hotspots).
+At this point, after you have verified that your Data-Only Hotspot is working, it is ready to be
+added to the Helium IoT Network! You can find more information about that process in the
+[Data-Only Hotspot Onboarding](/iot/data-only-hotspots-onboarding/) section.
