@@ -1,6 +1,6 @@
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-export const BlockChainPage = () => (
+export const BlockchainPage = () => (
   <>
     <div class="container" style={{ padding: 0, marginBottom: 60 }}>
       <div class="row">
