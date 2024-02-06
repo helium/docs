@@ -72,7 +72,7 @@ an IPK, a backup snapshot is made. You can then
 
 ## Check installation
 
-You need the latest KerOS version (see above) and the appropriate light miner software installed:
+You need the latest KerOS version (see above) and the appropriate Helium Gateway software installed:
 
 ```
 root@klk-wiis-050029:~ # opkg list
@@ -82,7 +82,7 @@ keros - 4.3.3-0-g993efce1
 
 ## Configure LoRa Frequency Plan
 
-Use the built-in tool `klk_apps_config` to activate the Kerlink Packet Forwarder (CPF) on the
+Use the built-in tool `klk_apps_config` to activate the Kerlink Common Packet Forwarder (CPF) on the
 appropriate region:
 
 ```
@@ -144,8 +144,8 @@ monit restart lorad
 
 ## TX frequencies
 
-By default, Kerlink restricts the TX frequencies (downlinks) to what LoRaWAN defines. Helium Proofs
-of Coverage use the uplink bands for the transmission of the challenge RF packet.
+By default, Kerlink restricts the TX frequencies (downlinks) to what LoRaWAN&trade; defines.
+Helium's Proof-of-Coverage uses the uplink bands for the transmission of the challenge RF packet.
 
 This is only required in US915 and AU915:
 
@@ -160,7 +160,7 @@ monit restart lorad
 
 # Troubleshooting
 
-LoRa logs are available in `/var/log/lora.log`:
+LoRa logs are available in `/var/log/lora.log`.
 
 ## Radio configuration
 
@@ -256,7 +256,7 @@ lorafwd[6973]: <6> Uplink message (43A6) acknowledged in 1.0356 ms
 
 Here we can confirm:
 
-- that the packet forwarder communicates well with the Helium light gateway because all the
-  heartbeats / uplinks are acknowledged in a millisecond
+- that the packet forwarder communicates well with the Helium Gateway because all the heartbeats /
+  uplinks are acknowledged in a millisecond;
 - that the radio is well configured because it received an uplink message (Join Request) at
-  903.3MHz, -65dBm RSSI and 15dB SNR (device was close)
+  903.3MHz, -65dBm RSSI and 15dB SNR (device was close).

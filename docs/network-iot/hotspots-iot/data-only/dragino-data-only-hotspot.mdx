@@ -13,21 +13,22 @@ slug: /iot/data-only/dragino-data-only-hotspot
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { YouTube } from 'mdx-embed'
 
-This guide provides instructions on how to configure an 8-channel Dragino LoRaWAN gateway such as
-the LPS8 or DLOS8 to work with the Helium network.
+This guide provides instructions on how to configure an 8-channel Dragino LoRaWAN&trade; gateway
+such as the LPS8 or DLOS8 to work with the Helium IoT Network.
 
 ## Prerequisites
 
-Before configuring your Dragino to work with the Helium network, please confirm that it is connected
-to the Internet and updated to the latest firmware. Refer to the user guide provided on the
-[Dragino download site](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/) for more
+Before configuring your Dragino to work with the Helium IoT Network, please confirm that it is
+connected to the Internet and updated to the latest firmware. Refer to the user guide provided on
+the [Dragino download site](http://www.dragino.com/downloads/index.php?dir=LoRa_Gateway/) for more
 detailed instructions.
 
-## Configure LoRaWAN Frequency Plan
+## Configure LoRaWAN&trade; Frequency Plan
 
-To be able to send and receive LoRaWAN data, your gateway must be configured to the frequency plan
-specified for your region. You may be able to use the predefined frequency in the Dragino software
-or in some cases may need to manually set them per the frequencies used by Helium in your region.
+To be able to send and receive LoRaWAN&trade; data, your Gateway must be configured to the frequency
+plan specified for your region. You may be able to use the predefined frequency in the Dragino
+software or in some cases may need to manually set them per the frequencies used by the Helium IoT
+Network in your region.
 
 1. Log into the Dragino gateway web interface. In the standard Dragino firmware connect via your
    browser at `http://<ip_address>:8000` once the Dragino is connected to your network.
@@ -42,16 +43,16 @@ For some regions, it may be necessary to manually populate the Customized Channe
 the Helium frequencies for your region. Refer to the
 [Helium sample LoRa packet forwarder global.conf files](https://github.com/helium/sx1302_hal/tree/helium/hotspot/packet_forwarder)
 for your region as a guide to the values to use. You can check the values used by the pre-defined
-frequency plans by viewing the global_conf.json file: `cat /etc/lora/global_conf.json`
+frequency plans by viewing the global_conf.json file: `cat /etc/lora/global_conf.json`.
 
-_Example of customized channel settings using the US915 frequency plan for Helium_
+_Example of customized channel settings using the US915 frequency plan for the Helium IoT Network_
 
 <img
   className="docsheader"
   src={useBaseUrl('img/mine-hnt/guides/dragino-guide-lora-config-US915.png')}
 />
 
-## Configure LoRaWAN Settings
+## Configure LoRaWAN&trade; Settings
 
 Next, you will configure the LoRa packet forwarder on the Dragino to forward packets to the Helium
 Gateway service which will be installed on the Dragino in the next step.
@@ -73,7 +74,8 @@ Gateway service which will be installed on the Dragino in the next step.
 Finally, you will install the Helium Gateway service. This requires SSH access to the Dragino.
 
 1. Connect to the Dragino over SSH. By default, the standard Dragino firmware uses port 2222 for SSH
-   (the OpenVPN firmware uses port 22) and the root user has access. `ssh root@<ip address> -p 2222`
+   (the OpenVPN firmware uses port 22) and the root user has access.
+   `ssh root@<ip address> -p 2222`.
 2. Copy the Helium Gateway package to the Dragino. The latest
    [source code](https://github.com/helium/gateway-rs) and pre-built
    [releases](https://github.com/helium/gateway-rs/releases) are available on GitHub. Option 1:
@@ -83,20 +85,22 @@ Finally, you will install the Helium Gateway service. This requires SSH access t
    containing the package `scp helium-gateway-<version>-dragino.ipk <dragino ip>:/tmp/`.
 3. Install the Helium Gateway package `opkg install /tmp/helium-gateway-<version>-dragino.ipk`.
 4. Backup your key file `/etc/helium_gateway/gateway_key.bin` and keep in a safe place. This will be
-   needed to recover this gateway especially if it is onboarded to the blockchain.
+   needed to recover this Gateway especially if it is onboarded to the Helium IoT Network.
 
 Helium Gateway is now installed and should be running. Use the command `helium_gateway key info` to
-view the public key address and animal name of your gateway.
+view the public key address and animal name of your Gateway.
 
 ## Verify
 
-Your Dragino gateway should now be set up and forwarding LoRaWAN data traffic to the Helium Network.
+Your Dragino gateway should now be set up and forwarding LoRaWAN&trade; data traffic to the Helium
+IoT Network.
 
 ### Through Helium Console
 
-If you have a LoRaWAN device configured through the Helium Console, you should now see it uplinking
-traffic through the Dragino gateway. You can verify this by turning on your device within range of
-the Dragino and looking for traffic in an LNS associated with the Dragino gateway's animal name.
+If you have a LoRaWAN&trade; device configured through the Helium Console, you should now see it
+uplinking traffic through the Dragino gateway. You can verify this by turning on your device within
+range of the Dragino and looking for traffic in a LNS associated with the Dragino gateway's animal
+name.
 
 ### Through the System Logs
 
@@ -114,25 +118,25 @@ Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.289 IN
 Thu Mar 25 19:43:06 2021 daemon.err helium_gateway[2031]: Mar 25 19:43:06.306 INFO starting, module: router
 ```
 
-Additionally, the LoRa Packet Forwarder log can provide some clues as to whether the LoRaWAN server
-configuration is correct. Search the system log for PULL_DATA messages and confirm that they are
-acknowledged such as `REPORT~ # PULL_DATA sent: 1 (100.00% acknowledged)`. This indicates that the
-packet forwarder is communicating with the Helium Gateway service running on the Dragino and is
+Additionally, the LoRa Packet Forwarder log can provide some clues as to whether the LoRaWAN&trade;
+server configuration is correct. Search the system log for PULL_DATA messages and confirm that they
+are acknowledged such as `REPORT~ # PULL_DATA sent: 1 (100.00% acknowledged)`. This indicates that
+the packet forwarder is communicating with the Helium Gateway service running on the Dragino and is
 getting replies from the service as expected. Note, this is not a foolproof way to confirm it is
-configured correctly. By default, the LoRaWAN Server settings are configured for the TTN EU server
-which will also provide acknowledgment. However, the absence of acknowledgment could indicate that
-the LoRaWAN settings are not correct per the above.
+configured correctly. By default, the LoRaWAN&trade; Server settings are configured for the TTN EU
+server which will also provide acknowledgment. However, the absence of acknowledgment could indicate
+that the LoRaWAN&trade; settings are not correct per the above.
 
 ## Onboard as Data-Only Hotspot
 
 As part of the Light Hotspot project, a new class of Hotspots called "Data-Only Hotspots" can be
-added to the blockchain, meaning Dragino LPS80/DLOS8 Hotspots can be added to the Network. These
-Hotspots can mine IOT for transferring data but never for Proof-of-Coverage. This process will
-require using the Helium
-[command-line interface (CLI) Wallet](https://github.com/helium/helium-wallet-rs) to submit the
-onboarding and assert location transactions. See
-[Data-Only Onboarding](/iot/data-only-hotspots-onboarding/) for specific details on Hotspot
-onboarding.
+added to the Helium IoT Network, meaning Dragino LPS80/DLOS8 Hotspots can be added to the Helium IoT
+Network. These Data-Only Hotspots reward IOT tokens for transferring data but never for
+Proof-of-Coverage. This onboarding process will require using the
+[Helium CLI Wallet](/wallets/cli-wallet/) to submit the onboarding and assert location transactions.
+See [Prepare the Helium Wallet CLI and further
+information]](iot/data-only-hotspots-onboarding#prepare-the-helium-wallet-cli) in the Data-Only
+Hotspot Onboarding section for specific details on onboarding a Data-Only Hotspot.
 
 ### Video Guide for Setup
 
