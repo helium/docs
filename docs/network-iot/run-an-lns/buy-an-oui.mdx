@@ -11,8 +11,8 @@ slug: /iot/run-an-lns/buy-an-oui
 ## What is an Organizationally Unique Identifier?
 
 Each LoRaWAN Network Server (LNS) on the Helium Network is managed using an Organizationally Unique
-Identifier (OUI). This registers the LNS with the Network and manages the
-[DevAddrs](#devaddr-explained), [Data Credits](/tokens/data-credit), and routes for device traffic.
+Identifier (OUI). This registers the LNS with the network and manages the
+[devAddrs](#devaddr-explained), [Data Credits](/tokens/data-credit), and routes for device traffic.
 
 ## Pricing
 
@@ -39,21 +39,21 @@ drops below 35M, device traffic to the routes associated with the OUI will halt.
 
 ## Purchasing OUI and devAddr Slab
 
-Currently, the purchasing of OUIs and DevAddrs must be done by contacting the Helium Foundation. In
+Currently, the purchasing of OUIs and devAddrs must be done by contacting the Helium Foundation. In
 the future, these registrations will be self-service.
 
-As an alternate to purchasing a DevAddr slab, it is also an option to
+As an alternate to purchasing a devAddr slab, it is also an option to
 [obtain a NetID](https://resources.lora-alliance.org/faq/lorawan-netid-faq) from the LoRa Alliance
-and use it in a [roaming](/iot/lorawan-roaming) configuration. An OUI and Data Credits are required
+and use it in a [roaming](/iot/lorawan-roaming) configuration. An OUI and data credits are required
 in either scenario.
 
-Before purchasing an OUI and DevAddr slab, create the following:
+Before purchasing an OUI and devAddr slab, create the following:
 
 - Helium wallet
 - OUI owner key pair
 - OUI delegate key pair
 
-The steps provided below outline how to create a Helium Wallet and OUI owner and delegate key pairs.
+The steps provided below outline how to create a Helium wallet and OUI owner and delegate key pairs.
 
 1. [Create Helium Wallet in Solana Format](#create-wallet)
 1. [Convert Solana Formatted Public Key to Legacy Helium Format](#convert-wallet)
@@ -63,20 +63,20 @@ The steps provided below outline how to create a Helium Wallet and OUI owner and
 
 ### Create Helium Wallet in Solana Format {#create-wallet}
 
-To create a Helium Wallet, you can follow the guide for
+To create a Helium wallet, you can follow the guide for
 [creating a new Helium Account](/wallets/helium-wallet-app).
 
-In doing so, a Helium Wallet will be generated with key pairs in the native Solana format.
+In doing so, a Helium wallet will be generated with key pairs in the native Solana format.
 
 ### Convert Solana Formatted Public Key to Legacy Helium Format {#convert-wallet}
 
 The OUI configuration process currently leverages public keys in a format from the legacy Helium L1
-Blockchain. To convert a Solana public key into the legacy format, use the conversion tool below.
+blockchain. To convert a Solana public key into the legacy format, use the conversion tool below.
 
-In using the tool, simply paste your Helium Wallet public key in the Solana format into the top
+In using the tool, simply paste your Helium wallet public key in the Solana format into the top
 "Enter Helium or Solana Wallet Address" field and copy the result from the "Helium Address" field.
 
-**This value will be the Helium Wallet public key in the legacy format required for purchasing an
+**This value will be the Helium wallet public key in the legacy format required for purchasing an
 OUI**.
 
 import { DisplayLegacyWallet } from '@theme/DisplayLegacyWallet'
@@ -88,8 +88,8 @@ import { DisplayLegacyWallet } from '@theme/DisplayLegacyWallet'
 ### Install The Config Service CLI {#install-cli}
 
 The [Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) will be used to
-generate the key pairs used for the OUI. Run the following commands to pull & build the Helium Config
-Service CLI:
+generate the key pairs used for the OUI. Run the following commands to pull & build the config
+service CLI:
 
 ```bash title="Copy the latest source code from GitHub."
 git clone https://github.com/helium/helium-config-service-cli.git
@@ -184,10 +184,11 @@ part that should be shared.
 
 ### Submit For Purchasing {#submit}
 
-Direct purchase of OUIs and DevAddrs are not currently available on-chain. Send an email with the subject line
-'Purchasing OUI' to the [Helium Foundation](mailto:hello@helium.foundation) containing the following information:
+Direct purchase of OUIs and devAddrs are not currently available on-chain. Send an email with the
+subject line 'Purchasing OUI' to the [Helium Foundation](mailto:hello@helium.foundation) containing
+the following information:
 
-- The Helium Wallet address
+- The Helium wallet address
 - The public key of your owner key pair
 - The public key of your delegate key pair
 - The number of devAddrs you want
@@ -207,7 +208,7 @@ Once you receive your OUI, the next step is to fund it. There are several option
   dashboards. Consider adding your LNS to this resource.
 
 - **Add the LNS to the public providers page.**  
-  If the OUI is being used for publicly accessible operations, let the Community know that business
+  If the OUI is being used for publicly accessible operations, let the community know that business
   is open! Add the LNS to the [Find an LNS Provider](/iot/find-a-lns-provider) page.
 
 ---
@@ -217,7 +218,7 @@ Once you receive your OUI, the next step is to fund it. There are several option
 Device addresses or `DevAddr` are assigned to a device by the LNS during the join procedure as
 defined in the
 [LoRaWAN 1.0.3 Specification](https://lora-alliance.org/resource_hub/lorawan-specification-v1-0-3/).
-A device, defined by `(AppEUI, DevEUI)`, can be allocated any of the DevAddrs owned by the OUI. It
+A device, defined by `(AppEUI, DevEUI)`, can be allocated any of the devAddrs owned by the OUI. It
 is even possible to multiplex many devices on the same DevAddr at the same time, using the Message
 Integrity Check (MIC) to disambiguate.
 
@@ -229,15 +230,15 @@ the LoRa Alliance.
 | ----------- | --------------- | ------------ | -------------- |
 | 0x00003C    | 60              | 6b'111100    | 78000000/7     |
 
-Customers using their own NetID don't need DevAddrs from the Helium Foundation. Those with their own
-NetID assigned by the LoRa Alliance should implement [roaming](/iot/lorawan-roaming) to allow their
+Customers using their own netID don't need devAddrs from the Helium Foundation. Those with their own
+netID assigned by the LoRa Alliance should implement [roaming](/iot/lorawan-roaming) to allow their
 devices to use the Helium Network.
 
 ### Multiplexing With DevAddrs
 
 Multiplexing in LoRaWAN, specifically DevAddr multiplexing, refers to the process where multiple
-devices share the same Device Address (DevAddr). It's a way to manage the limited available range of
-DevAddrs and allows more devices to join a network.
+devices share the same device address (DevAddr). It's a way to manage the limited available range of
+DevAddrs and allows more devices to join the network.
 
 If using ChirpStack, it randomly assigns a DevAddr at join or re-join to the device from the
 available range and then multiplexes each DevAddr as needed. The ChirpStack platform does this
@@ -284,13 +285,13 @@ graph LR
 
 ### How many `DevAddr` are needed?
 
-An allocation of 8 DevAddrs is enough for all operators to get started and scale their services. The
+An allocation of 8 devAddrs is enough for all operators to get started and scale their services. The
 demands of devices usually won't become apparent until tens of thousands of frequently uplinking
-devices are onboarded. The need for more DevAddr depends on a few factors:
+devices are onboarded. The need for more devAddr depends on a few factors:
 
 1. Number of devices.
 1. Frequency of uplink.
 1. Number of copies of a message received.
 1. LNS system specs.
 
-More DevAddrs can be allocated at any time, and LNSs generally accommodate non-sequential ranges.
+More devAddrs can be allocated at any time, and LNSs generally accommodate non-sequential ranges.

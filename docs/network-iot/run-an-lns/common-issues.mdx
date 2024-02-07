@@ -23,8 +23,8 @@ Review the [Configuration Routing Rules](/iot/run-an-lns/configure-routing-rules
 ## Join Request Received But Nothing Else
 
 If the join process is successful but no further data is delivered, a common issue is that the
-Session Key Filter (SKF) is enabled for the route, but the session key of the specific device has
-not been submitted. This effectively blocks all downlink activity for the omitted device.
+Session Key Filter is enabled for the route, but the session key of the specific device has not been
+submitted. This effectively blocks all downlink activity for the omitted device.
 
 Review the [Session Key Filter (SKF)](/iot/run-an-lns/advanced-configuration) information in the
 Advanced Configuration section.
@@ -35,7 +35,7 @@ As outlined in the [Fund an OUI](/iot/run-an-lns/fund-an-oui) section, if multib
 there is a chance that the nearest Hotspot or Hotspot with the strongest signal is not available to
 the LNS for the join-accept.
 
-Multipacket configuration on the route or Session Key Filter (SKF) allows HPR to forward more of the
+Multipacket configuration on the route or session key filter allows HPR to forward more of the
 uplinks (in chronological order) to the LNS. This lets the LNS make the selection of the best
 candidate to handle the join-accept response or other downlink activity. Low RSSI/SNR values from
 the gateway[s] reporting the join request/uplink is a good sign that increasing the multibuy value
@@ -47,9 +47,9 @@ any existing LoRaWAN gateway.
 
 ## Community Support
 
-Helium developers and Community members are active on Discord and GitHub.
+Helium developers and community members are active on Discord and GitHub.
 
-- [Helium Discord](https://discord.gg/helium) #Openlns Channel
+- [Helium Discord](https://discord.gg/helium) #openlns Channel
 - [Helium GitHub](https://github.com/helium)
 
 As a closing note, these docs are open for contributions. If there are areas to improve the content
