@@ -11,9 +11,11 @@ slug: /tokens/sol-token
 The Helium Network runs on the [Solana](https://solana.com/) blockchain, an extremely fast,
 scalable, and low-cost blockchain.
 
-Interacting with the Solana blockchain requires a small fee (average transaction fee is 0.000014
-SOL) paid in SOL tokens, which is massively cheaper than the original Helium blockchain transaction
-fee of $0.35 in DC.
+Interacting with the Solana blockchain requires a small fee (the average transaction fee is
+0.000117590 SOL)<sup>(</sup>[^1]<sup>)</sup> paid in SOL tokens, which is massively cheaper than the
+original Helium Blockchain transaction fee of $0.35 in DC.
+
+[^1]: [Solana Compass](https://solanacompass.com/statistics/fees)
 
 All interactions with the Solana blockchain require fees, including sending tokens, staking tokens,
 making payments, swapping tokens, minting NFTs, claiming rewards from your Hotspots, and all
@@ -22,8 +24,8 @@ on-chain Helium transactions.
 ## Solana Accounts and Rent
 
 Information is stored on the Solana blockchain, such as token balances, NFTs, or other data, in
-"accounts." Keeping this data on-chain takes up space, so Solana charges a "rent" fee of ~0.002 SOL
-on accounts.
+"accounts". Keeping this data on-chain takes up space, so Solana charges a
+["rent"](https://solana.com/docs/terminology#rent) fee of ~0.002 SOL on accounts.
 
 Rent Facts:
 
@@ -36,10 +38,10 @@ Performing more complex transactions, which include creating accounts, may requi
 example, if a Wallet does not have enough SOL for rent fees, the Wallet **cannot** create new
 accounts to hold tokens, and transactions will fail.
 
-This includes reasserting your Hotspot's location, locking HNT to gain veHNT, and potentially more
-complex DeFi actions where multiple accounts must be created (even temporarily).
+This includes reasserting your Hotspot's location, locking HNT to receive veHNT, and potentially
+more complex DeFi actions where multiple accounts must be created (even temporarily).
 
-Locking up HNT to gain [veHNT][vehnt] creates new accounts and requires ~0.014 SOL. It is best
+Locking up HNT to receive [veHNT][vehnt] creates new accounts and requires ~0.014 SOL. It is best
 practice to hold more than 0.02 SOL in a Wallet to fund additional accounts in the future.
 
 :::note Foundation Funding
