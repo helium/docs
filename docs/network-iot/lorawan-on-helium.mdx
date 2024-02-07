@@ -9,23 +9,20 @@ slug: /iot/lorawan-on-helium
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 <img className="docsheader" src={useBaseUrl('img/lorawan-on-helium/lorawanheader.png')} />
 
-In typical LoRaWAN Networks, a central or regional LNS is managed by a single entity.
-Helium’s design for a decentralized Network, however, means not only do we want gateways (referred
-to as Hotspots) to be independently owned and operated, but we want to enable the independent
-operation of the LNS.
+In typical LoRaWAN Networks, a central or regional LNS is managed by a single entity. Helium's
+design for a decentralized Network, however, means not only do we want gateways (referred to as
+Hotspots) to be independently owned and operated, but we want to enable the independent operation of
+the LNS.
 
 Without this, access to the Network would require permission from a single central entity, the LNS
 operator of the Network.
 
-Therefore, we want to enable the multi-tenancy of LNSs on the same public LoRaWAN Network.
-Achieving this distinguishes Helium’s LoRaWAN Network from all other LoRaWAN networks:
-public wireless infrastructure is now compatible with privately-run Network Servers.
+Therefore, we want to enable the multi-tenancy of LNSs on the same public LoRaWAN Network. Achieving
+this distinguishes Helium's LoRaWAN Network from all other LoRaWAN networks: public wireless
+infrastructure is now compatible with privately-run Network Servers.
 
 The rest of this article will discuss the networking primitives. If you want to go ahead and run a
 Network Server, please check out our article about running a network server.
@@ -48,7 +45,7 @@ usability. You can read more about the OpenLNS Initiative at the [Helium Foundat
 Blog][foundation-blog] or read more in the [Use Helium LoraWAN](/iot/lorawan-network-servers)
 section.
 
-## Organizationally Unique Identifier (OUI)
+## Organizationally Unique Identifier
 
 Organizationally Unique Identifiers (OUIs) are registered identities on the Helium Blockchain. To
 send and receive packets to an end-device, a network user needs to be serviced an OUI. This can be
