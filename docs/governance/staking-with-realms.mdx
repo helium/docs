@@ -1,11 +1,11 @@
 ---
-id: staking-with-realms
-title: Staking veHNT on Realms
-pagination_label: Realms
-sidebar_label: Staking veHNT on Realms
-description: Helium on Realms Documentation
+id: staking-with-helium-vote
+title: Staking veHNT on Helium Vote
+pagination_label: Helium Vote
+sidebar_label: Staking veHNT on Helium Vote
+description: Helium on Helium Vote Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /governance/staking-with-realms
+slug: /governance/staking-with-helium-vote
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -24,9 +24,9 @@ import {
 
 <img className="docsheader" src={useBaseUrl('/img/blockchain/realmsheader.png')} />
 
-Like many other Solana Ecosystem projects, Helium utilizes [Realms](https://realms.heliumvote.com/)
-to organize and manage vote escrow tokens, delegation, and more. Stakes can be created and later
-managed within Realms at any time at https://realms.heliumvote.com/.
+Like many other Solana Ecosystem projects, Helium utilizes [Helium Vote](https://heliumvote.com) to
+organize and manage vote escrow tokens, delegation, and more. Stakes can be created and later
+managed within Helium Vote at any time at https://heliumvote.com.
 
 ## Creating a Stake
 
@@ -37,26 +37,31 @@ While staking IOT or MOBILE tokens is possible through their respective subDAOs,
 only eligible for voting power and cannot currently be delegated for the purposes of earning
 rewards.
 
-This guide outlines using Realms with the [Helium Wallet App](/wallets/helium-wallet-app). To use
-Realms on a desktop browser, a Solana-compatible browser wallet can be used (such as Phantom or
-Backpack).
+This guide outlines using Helium Vote with the [Helium Wallet App](/wallets/helium-wallet-app). To
+use Helium Vote on a desktop browser, a Solana-compatible browser wallet can be used (such as
+Phantom or Backpack).
 
 The Helium Wallet App's browser can be accessed via the globe icon in the bottom navigation.
 
 <RealmsBrower />
 <br />
 
-### Signing Into Realms
+### Signing Into Helium Vote
 
-Connect your account to Realms using the in-app browser from the Helium Wallet App.
+Sign into the Helium Vote interface within the Helium Wallet App by clicking on the Governance tab.
 
 <ConnectAccount />
 <br />
 
-Once your wallet has been connected to Realms, your token balances (or existing positions) will be
-displayed in the governance section of the DAO.
+Once your wallet has been connected to Helium Vote, your token balances (or existing positions) will
+be displayed in the governance section of the DAO.
 
-<GovernancePower />
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('/img/realms/availabletokens.png')} />
+  <figcaption>
+    Stake positions can be made in the "My governance power" section of Helium Vote
+  </figcaption>
+</figure>
 <br />
 
 As long as HNT is available in your linked account, new stakes can be created by tapping on the
@@ -127,7 +132,7 @@ the overall lockup multiplier.
 
 ### Confirming your Stake
 
-Once parameters are settled in the Realms UI, you are now ready to create your veHNT position.
+Once parameters are settled in the Helium Vote UI, you are now ready to create your veHNT position.
 
 The Helium Wallet App will ask for confirmation before issuing the Solana transaction that creates
 the veHNT position.
@@ -136,14 +141,14 @@ the veHNT position.
 
 ## Managing Stakes
 
-With Realms, it's a sizzling experience to take control of your HNT stakes, ensuring they're grilled
-to perfection. Chew through stake delegation, transfers, splitting, and cooldowns like a master
-chef. <span className="🥩">🥩</span>
+With Helium Vote, it's a sizzling experience to take control of your HNT stakes, ensuring they're
+grilled to perfection. Chew through stake delegation, transfers, splitting, and cooldowns like a
+master chef. <span className="🥩">🥩</span>
 
 ### Delegating Stakes
 
 A stake will not earn any token return until it is delegated to a subDAO. A stake without delegation
-earns voting rights, but no token return. You can delegate an active stake within the Realms
+earns voting rights, but no token return. You can delegate an active stake within the Helium Vote
 interface.
 
 Once a stake has been delegated, it can be undelegated in the same interface. Delegations can be
