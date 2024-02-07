@@ -35,7 +35,7 @@ tokes: HNT, IOT, or MOBILE.
       style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
     />
     <img
-      src={useBaseUrl('/img/realms/realmsui_mobile.png')}
+      src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932710113')}
       style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
     />
   </div>
@@ -47,8 +47,19 @@ tokes: HNT, IOT, or MOBILE.
 ### Signing Into Helium Vote
 
 There are two ways to sign into Helium Vote. 
-Use your account that holds your veHNT positions to sign in to Helium Vote. The same account can be used
-for all platforms, but it must have veTokens for the specific DAO or subDAO hosting the vote.
+
+The first and easiest way to sign in, is to use your Helium Wallet app. Simply click icon to view past Governance Proposals, and vote on active HIPs. 
+
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932704992')} />
+  <figcaption>
+    By clicking on the Governance icon within the Helium Wallet app, it allows you to view Helium Vote.
+  </figcaption>
+</figure>
+
+The second way to sign into Helium Vote is through web browser. Use your account that holds your veHNT 
+positions to sign in to Helium Vote. The same account can be used for all platforms, but it must have 
+veTokens for the specific DAO or subDAO hosting the vote.
 
 The links for the Helium Vote governance portals are:
 
@@ -56,9 +67,12 @@ The links for the Helium Vote governance portals are:
 - [https://heliumvote.com/iot][helium-vote-iot]
 - [https://heliumvote.com/mobile][helium-vote-mobile]
 
-Sign in to these using the in-app browser from the Helium Wallet App.
-
-<ConnectImg />
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932737745')} />
+  <figcaption>
+    This user is logged in with their <code>xMFC..Uomt...</code> account.
+  </figcaption>
+</figure>
 
 ### Casting Your Vote
 
@@ -70,15 +84,15 @@ Note: You will need a bit of Sol to cast your veTokens for a vote.
 <figure className="screensnippet-wrapper">
   <div style={{ display: 'flex', alignItems: 'center' }}>
     <img
-      src={useBaseUrl('/img/realms/castvote.png')}
-      style={{ maxHeight: 250, minWidth: 0, flex: '1 1 auto' }}
+      src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932761939')}
+      style={{ maxHeight: 600, minWidth: 0, flex: '1 1 auto' }}
     />
     <img
-      src={useBaseUrl('/img/realms/confirmvote.png')}
-      style={{ maxHeight: 300, minWidth: 0, flex: '1 1 auto' }}
+      src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932762156')}
+      style={{ maxHeight: 600, minWidth: 0, flex: '1 1 auto' }}
     />
   </div>
-  <figcaption>After voting, you can leave a comment supporting your stance.</figcaption>
+  <figcaption>Before voting, each option (yes, no, other) will be an unfilled circle (left image). Once you've voted, the choice you voted for will have a filled in circle (right image).</figcaption>
 </figure>
 
 ### Understanding Vote Power
@@ -87,13 +101,9 @@ When you vote your veTokens, all positions will be attributed to your vote choic
 cannot be split within one vote on a single account.
 
 Your vote is calculated at the time your vote is submitted. If your position is in 'decay' mode,
-voting sooner means you apply greater voting power. Conversely, if a position is extended to added
-to, a vote can be relinquished and re-voted to apply the new voting power.
+voting sooner means you apply greater voting power. 
 
-<figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/realms/relinquishvote.png')} />
-  <figcaption>A vote can be changed by first relinquishing it.</figcaption>
-</figure>
+
 
 [realms]: https://heliumvote.com
 [realms-hnt]: https://heliumvote.com/hnt
