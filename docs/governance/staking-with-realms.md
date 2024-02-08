@@ -28,7 +28,7 @@ and later managed within Helium Vote at any time at https://heliumvote.com.
 
 ## Creating a Stake
 
-Anyone with HNT, MOBILE or IOT in their Helium Wallet App or Solana-compatible browser wallet
+Anyone with HNT, MOBILE, or IOT in their Helium Wallet App or Solana-compatible browser wallet
 can be used (such as Phantom orBackpack).
 
 While staking IOT or MOBILE tokens is possible through their respective subDAOs, those positions are
