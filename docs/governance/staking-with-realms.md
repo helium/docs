@@ -213,7 +213,7 @@ subDAO.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933080044')} style={{ maxHeight: 300 }} />
-  <figcaption>Once your stake is undelegated, you can click on the stake to transfer it.</figcaption>
+  <figcaption>Once your position is undelegated, click on the position to transfer it.</figcaption>
 </figure>
 
 ### Extending a Stake
