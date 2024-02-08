@@ -46,7 +46,54 @@ Modify the following sections:
   - Add `allow_unknown_gateways=true`
 
 
-### Example chirpstack.toml with helium additions.
+## Support Additional LoRaWAN Regions
+
+To support regions beyond the default EU868, deploy a gateway bridge in ChirpStack for each
+additional LoRaWAN region. Although this tutorial demonstrates adding support for US915, these steps
+can be adapted for other regions.
+
+Open `docker-compose.yml` and locate a container called `chirpstack-gateway-bridge-eu868`.
+
+Add the following.
+
+```yml
+chirpstack-gateway-bridge-us915:
+    image: chirpstack/chirpstack-gateway-bridge:4
+    restart: unless-stopped
+    ports:
+      - 1701:1700/udp
+    volumes:
+      - /helium/configuration/chirpstack-gateway-bridge-us915:/etc/chirpstack-gateway-bridge
+    depends_on:
+      - mosquitto
+    logging: *logs
+```
+
+Navigate to the `configuration/chirpstack-gateway-bridge` directory and create a new directory named
+`chirpstack-gateway-bridge-us915`.
+
+Inside this new directory, create a file named `chirpstack-gateway-bridge.toml` and insert the
+following content:
+
+```toml
+[integration.mqtt.auth.generic]
+servers=["tcp://mosquitto:1883"]
+username=""
+password=""
+
+[integration.mqtt]
+event_topic_template="us915_1/gateway/{{ .GatewayID }}/event/{{ .EventType }}"
+state_topic_template="us915_1/gateway/{{ .GatewayID }}/state/{{ .StateType }}"
+command_topic_template="us915_1/gateway/{{ .GatewayID }}/command/#"
+```
+
+See https://www.chirpstack.io/docs/chirpstack-gateway-bridge/configuration.html for a full
+configuration example and documentation.
+
+Make sure ports 1700 and 1701 are both open on the server.
+
+
+### Example `chirpstack.toml` with Helium Additions.
 ```toml
 # Network related configuration.
 [network]
@@ -108,57 +155,12 @@ Modify the following sections:
   allow_unknown_gateways=true
   ```
 
-## Support Additional LoRaWAN Regions
-
-To support regions beyond the default EU868, deploy a gateway bridge in ChirpStack for each
-additional LoRaWAN region. Although this tutorial demonstrates adding support for US915, these steps
-can be adapted for other regions.
-
-Open `docker-compose.yml` and locate a container called `chirpstack-gateway-bridge-eu868`.
-
-Add the following.
-
-```yml
-chirpstack-gateway-bridge-us915:
-    image: chirpstack/chirpstack-gateway-bridge:4
-    restart: unless-stopped
-    ports:
-      - 1701:1700/udp
-    volumes:
-      - /helium/configuration/chirpstack-gateway-bridge-us915:/etc/chirpstack-gateway-bridge
-    depends_on:
-      - mosquitto
-    logging: *logs
-```
-
-Navigate to the `configuration/chirpstack-gateway-bridge` directory and create a new directory named
-`chirpstack-gateway-bridge-us915`.
-
-Inside this new directory, create a file named `chirpstack-gateway-bridge.toml` and insert the
-following content:
-
-```toml
-[integration.mqtt.auth.generic]
-servers=["tcp://mosquitto:1883"]
-username=""
-password=""
-
-[integration.mqtt]
-event_topic_template="us915_1/gateway/{{ .GatewayID }}/event/{{ .EventType }}"
-state_topic_template="us915_1/gateway/{{ .GatewayID }}/state/{{ .StateType }}"
-command_topic_template="us915_1/gateway/{{ .GatewayID }}/command/#"
-```
-
-See https://www.chirpstack.io/docs/chirpstack-gateway-bridge/configuration.html for a full
-configuration example and documentation.
-
-Make sure ports 1700 and 1701 are both open on the server.
 
 ## Run ChirpStack
 
 Run `docker-compose up` to start the server. Utilize the default credentials to log in:
 
-Username: admin
+Username: admin  
 Password: admin
 
 Now that the LNS is operational, proceed to establish routing rules. This ensures that the Helium
