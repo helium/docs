@@ -140,7 +140,7 @@ the overall lockup multiplier.
 
 Once you select how much HNT you want to lock up, an interface will appear to allow you to delegate 
 your veHNT to a subDAO for rewards. A position will not earn any token return until it is delegated to 
-a subDAO. A stake without delegation earns voting rights, but no token return. You can delegate an 
+a subnetwork. A stake without delegation earns voting rights, but no token return. You can delegate an 
 active stake within the Helium Vote interface.
 
 <figure className="screensnippet-wrapper">
