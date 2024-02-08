@@ -381,8 +381,29 @@ Heartbeat as the new `coverage_claim_time`.
 The passing of [HIP 103](https://github.com/helium/HIP/blob/main/0103-oracle-hex-boosting.md) allows for the
 creation of Oracles to boost or reduce PoC rewards based on the location they are deployed in. Most notably,
 the Footfall Oracle will identify areas that have a high level of footfall traffic to determine which areas
-should have a higher or lower boost based on the footfall data. This is currently being implemented, with
-an expected implementation date of Q2 2024.
+should have a higher or lower boost based on the footfall data. Two other Oracles are being introduced, and
+are noted below. Please note, this is currently being created, with an expected implementation date of Q2 2024.
+
+### Footfall Oracle
+This Oracle will use data from third parties [Veraset](https://www.veraset.com/) and [SafeGraph](https://www.safegraph.com/), 
+which identifies the level of footfall traffic in an area, and uses the method described [here](https://www.safegraph.com/guides/visit-attribution-white-paper) 
+to determine areas that should have a higher multiplier based on their level of footfall. This data can be visualized on a 
+map [here](https://shdw-drive.genesysgo.net/5RgAheef6auTTu8DVMfAXSYtq4RrzK1jeW4tGCPrAhqX/index.html?filter_name=visitors&filter_value=0). 
+
+### Land Type Oracle
+
+This Oracle will use the data from the European Space Agency’s [WorldCover project](https://esa-worldcover.org/), 
+as visualized [here](https://viewer.esa-worldcover.org/worldcover/?language=en&bbox=-255.05859374999997,-78.6991059255054,255.05859374999997,78.69910592550542&overlay=false&bgLayer=OSM&date=2023-12-25&layer=WORLDCOVER_2021_MAP), to identify the type of land, and provide multipliers based on land type. New data 
+from this source will be incorporated into the Oracle as it becomes available. T
+
+
+### Urbanization Oracle
+This Oracle will use the data from the United States Census Bureau's urban-rural classification, as defined 
+[here](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html) and visualized 
+[here](https://www.arcgis.com/apps/mapviewer/index.html?layers=10551da8fcd24062b1857473252b3df8), to provide 
+multipliers based on if they are, or are not urbanized. New data from this source will be incorporated into the 
+Oracle as it becomes available. 
+
 
 ---
 
