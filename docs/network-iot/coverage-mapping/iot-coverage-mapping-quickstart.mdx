@@ -9,9 +9,6 @@ slug: /iot/coverage-mapping/quickstart
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 <!-- TODO: some kind of image header would be nice here -->
 
@@ -55,14 +52,12 @@ Console-ready device that you onboard to spend your own Data Credits.
 ### DIY Mappers
 
 Flash your own code, add the device to your Helium Console, and spend your own Data Credits. Setting
-up a mapper from your own dev board is a great way to learn about LoRaWAN&trade; devices on the
-Helium Network.
+up a mapper from your own dev board is a great way to learn about LoRaWAN devices on the Helium
+Network.
 
 - Heltec CubeCell GPS-6502 (HTCC-AB02S)
   - ARM Cortex M0+, AIR530Z GPS module with internal antenna, SX1262 LoRa, OLED Screen
   - [Product page](https://heltec.org/project/htcc-ab02s/),
-    [Product page via Parley Labs](https://shop.parleylabs.com/collections/iot-developers-products/products/cubecell-gps-6502-by-heltec-htcc-ab02s),
-    [IoWE DIY Kit](https://www.internetofwe.net/product-page/diy-coverage-mapper-kit-us915)
   - [Heltec Cubecell (jas_williams)](https://github.com/jas-williams/CubeCell-Helium-Mapper)
   - [Heltec Cubecell (kicko)](https://github.com/hkicko/CubeCell-GPS-Helium-Mapper)
   - [Heltec Cubecell (Max_Plastix)](https://github.com/Max-Plastix/CubeCell-GPS-Helium-Mapper)
@@ -72,7 +67,7 @@ Helium Network.
     screen.
   - There are multiple versions of the TTGO T-Beam available. Version `v1.1` is recommended, and
     often sold with the Meshtastic software pre-loaded.
-  - [Product page](http://www.lilygo.cn/prod_view.aspx?TypeId=50060&Id=1317&FId=t3:50060:3)
+  - [Product page](https://www.lilygo.cc/products/t-beam-v1-1-esp32-lora-module)
   - [TTGO T-Beam (kizniche)](https://github.com/kizniche/ttgo-tbeam-ttn-tracker)
   - [TTGO T-Beam (khrys)](https://github.com/khrys63/helium-mapper-tbeam)
   - [TTGO T-Beam (hekopath)](https://github.com/hekopath/ttgo-rev1-helium)
@@ -83,7 +78,7 @@ Helium Network.
   - [RAK Helium Mapper Kit tutorial](https://news.rakwireless.com/make-a-helium-mapper-with-the-wisblock/)
 - Helium Dev Kit / RAK WisBlock
   - [Product page via RAKwireless](https://store.rakwireless.com/products/helium-developer-kit),
-    [Product page via ParleyLabs](https://shop.parleylabs.com/collections/iot-developers-products/products/helium-wisblock-connected-kit)
+    [Product page via ParleyLabs](https://parleylabs.com/helium-developer-kit-us915-/)
   - [Helium Dev Kit tutorial (arkieguy)](https://github.com/arkieguy/RAK4631-Helium-Mapper)
   - [Make a Helium Mapper with the WisBlock (johansmacias)](https://news.rakwireless.com/make-a-helium-mapper-with-the-wisblock/)
 - Ingenious Things Mapper (disk91)
@@ -97,7 +92,7 @@ GPS-6502 and LilyGo TTGO T-Beam v1.1. Here are some approximate comparisons:
 
 |                   | CubeCell GPS-6502                          | TTGO T-Beam                              |
 | ----------------- | ------------------------------------------ | ---------------------------------------- |
-| Cost (USD)        | $33 (Parley Labs)                          | $35 Amazon or $25 AliExpress             |
+| Cost (USD)        | $25.90 (Heltec)                            | $30.80 LILYGO                            |
 | Size              | Smaller                                    | 2x Longer                                |
 | Battery           | Add ~1000mA LiPo plug-in                   | 18650 LiIon cell holder                  |
 | Power Switch      | None                                       | Power Button / PMU                       |
@@ -139,7 +134,7 @@ A flow that sends data to all three projects would look similar to this:
 
 ---
 
-This guide will show you step by step how to contribute data to the Mappers project with an
+This guide will show you step-by-step how to contribute data to the Mappers project with an
 off-the-shelf tracker. This guide will use the
 [Dragino LGT92](https://www.dragino.com/products/lora/item/142-lgt-92.html), but any LoRaWAN
 compatible tracker will work.
@@ -182,11 +177,10 @@ Next we'll fill in the details, see instructions and image below.
 Next, we'll be creating a Function decoder to decode the payload from the device and properly format
 it for the API endpoint. The decoder is specific to the encoding scheme used to encode the data
 before the device transmits it. For off-the-shelf devices this is usually manufacturer specific. For
-development devices,
-[CayenneLPP](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload) is
-often used. For this guide we'll be using a decoder specifically made for this tracking device. We
-have a repository with decoders for various devices
-[here](https://github.com/helium/console-decoders).
+development devices, [CayenneLPP](https://docs.mydevices.com/docs/lorawan/cayenne-lpp) is often
+used. For this guide we'll be using a decoder specifically made for this tracking device. We have a
+repository with decoders for various devices on
+[GitHub](https://github.com/helium/console-decoders).
 
 To start, navigate to the Functions page using the left navigation and then click _Add Function_.
 
@@ -244,9 +238,9 @@ To start, navigate to the Functions page using the left navigation and then clic
    ```
 
    Next we need to verify that all required fields are present in the function. Find more details on
-   the API specification [here](/iot/coverage-mapping/api). The required fields are case-sensitive.
-   If you got your decoder from the manufacturer and one or more required fields are missing - add
-   them with hard-coded values like accuracy in the above example.
+   the API specification in [Mappers API](/iot/coverage-mapping/api). The required fields are
+   case-sensitive. If you got your decoder from the manufacturer and one or more required fields are
+   missing - add them with hard-coded values like accuracy in the above example.
 
 3. Finally, save your function.
 
