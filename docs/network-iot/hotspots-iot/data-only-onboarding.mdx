@@ -36,7 +36,7 @@ Gateway-rs.
 ## Installing Gateway-rs
 
 If the gateway is already configured with gateway-rs, skip to
-[Prepare the Helium Wallet CLI](/iot/data-only-hotspots-onboarding/#prepare-the-helium-wallet-cli).
+[Prepare the Helium Wallet CLI](#prepare-the-helium-wallet-cli).
 
 If the gateway does not already have gateway-rs installed, follow these steps to install and
 configure it.  
@@ -140,7 +140,7 @@ region plan in the Semtech Packet Forwarder.
 The default path is `/etc/helium_gateway/gateway_key.bin`. If using a different path, update the key
 location in `settings.toml`.
 
-The `gateway_key.bin` file stores the information used to identify the Hotspot on the Network. The
+The `gateway_key.bin` file stores the information used to identify the Hotspot on the network. The
 key file will allow gateway-rs to securely sign all messages transferred from the Hotspot. Key
 signing allows the Helium Network to confirm that data payloads are delivered from verifiable
 sources. The gateway_key will be generated during the first run of the server if no existing key is
@@ -157,7 +157,7 @@ onboarding process.
 ### First Run
 
 With gateway-rs installed on the gateway, initialize the key for the Hotspot. If creating the
-`gateway_key` in /etc/helium_gateway/, `sudo` may be required on first run to create the key file.
+gateway_key in /etc/helium_gateway/, `sudo` may be required on first run to create the key file.
 
 ```sh title="Generate a swarm_key by running gateway-rs."
 sudo helium_gateway server
@@ -340,5 +340,5 @@ helium-wallet hotspots assert iot <Hotspot Public Key> --lat=37.771150 --lon=-12
 ```
 
 `--elevation` and `--gain` are optional values and can be updated at any time without further fees
-as long as the lat/long values remain the same. Use the built-in help command,
+as long as the lat/lon values remain the same. Use the built-in help command,
 `helium-wallet hotspots assert --help` for more info.
