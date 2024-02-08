@@ -29,7 +29,7 @@ and later managed within Helium Vote at any time at https://heliumvote.com.
 ## Creating a Stake
 
 Anyone with HNT, MOBILE, or IOT in their Helium Wallet App or Solana-compatible browser wallet
-can be used (such as Phantom orBackpack).
+(such as Phantom orBackpack) can stake.
 
 While staking IOT or MOBILE tokens is possible through their respective subDAOs, those positions are
 only eligible for voting power and cannot currently be delegated for the purposes of earning
@@ -42,7 +42,7 @@ Backpack) by navagating to https://heliumvote.com.
 
 ### Staking in the Helium Wallet App
 
-Staking in the Helium Wallet App can be done by navigating to the <code>Governance</code> tab within the Helium Wallet.
+Staking in the Helium Wallet App can be done by navigating to the "Governance" tab within the Helium Wallet.
 Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
 
 <figure className="screensnippet-wrapper">
@@ -53,19 +53,19 @@ Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
 </figure>
 <br />
 
-Once in the <code>Governance</code> tab, you will see <code>Your Voting Power</code>. Click <code>Your Voting Power</code>
+Once in the "Governance" tab, you will see "Your Voting Power". Click "Your Voting Power"
 to see your total voting power, and for the ability to lock HNT/MOBILE/IOT.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933060292')} />
   <figcaption>
-    Stake positions can be made and viewed in the <code>Your Voting Power</code> section of Helium Vote
+    Stake positions can be made and viewed in the "Your Voting Power" section of Helium Vote
   </figcaption>
 </figure>
 <br />
 
 As long as HNT, MOBILE or IOT is available in your linked account, new stakes can be created by tapping on the
-<code>Lock Tokens</code> button within the governance view.
+"Lock Tokens" button within the governance view.
 
 
 ### Lockup Period
