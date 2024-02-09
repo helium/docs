@@ -10,6 +10,7 @@ slug: /iot/coverage-mapping
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
+import { MapperWebsite } from './IotCoverageMapping'
 
 <LegacyContentBanner />
 
@@ -62,15 +63,7 @@ into a heatmap, radar plots and alpha shapes. View Helium's heatmap at
 From within the [Mappers tool](http://mappers.helium.com), clicking on a green hexagon will allow
 you to get more information about the coverage available in that region.
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/network-iot/coverage-mapping/mappers-visualizer.png')}
-    style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
-  />
-  <figcaption>
-    The <a href="http://mappers.helium.com">Mapper Website</a> shown on desktop.
-  </figcaption>
-</figure>
+<MapperWebsite />
 
 - **H3 Index**: The funny looking number like `89283082853ffff` is the unique h3 index of the
   hexagon on the map. In other words, it's the hex’s name. H3 is a system of managing global

@@ -152,7 +152,8 @@ module.exports = {
             'network-iot/run-an-lns/configure-chirpstack',
             'network-iot/run-an-lns/configure-routing-rules',
             'network-iot/run-an-lns/advanced-configuration',
-            'network-iot/run-an-lns/common-issues'
+            'network-iot/run-an-lns/common-issues',
+            'network-iot/run-an-lns/chirpstack-add-device'
           ],
         },
         'network-iot/lorawan-roaming',
@@ -258,7 +259,7 @@ module.exports = {
       type: 'category',
       label: 'Improvement Proposals',
       link: { type: 'doc', id: 'governance/hip' },
-      items: ['home/faq/write-a-hip', 'home/faq/edit-a-hip'],
+      items: ['home/faq/hip-list', 'home/faq/write-a-hip', 'home/faq/edit-a-hip'],
     },
   ],
 

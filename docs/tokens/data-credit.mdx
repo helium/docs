@@ -9,6 +9,7 @@ slug: /tokens/data-credit
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import { PayloadSize } from './DataCredit'
 
 <img className="docsheader" src={useBaseUrl('/img/blockchain/fees.png')} />
 
@@ -17,8 +18,7 @@ redeemable for data transfer on both the IoT and Mobile subnetworks. Furthermore
 like onboarding a Hotspot are paid for using DC.
 
 For further reading on DC's place in the overall mechanics of the Helium network, refer to
-[burn and mint economics](/tokens/hnt-token/#burn-and-mint-economics) in the HNT token
-documentation.
+[burn and mint economics](/tokens/hnt-token#burn-and-mint-economics) in the HNT token documentation.
 
 ## Data Credit Fundamentals
 
@@ -53,6 +53,17 @@ cannot be redelegated.
 At a network level, DCs are only generated through the conversion of HNT. However, several tools
 exist to simplify the process for network users.
 
+:::important Data Credits are non-transferable
+
+Once the DC mint transaction is complete, the receiving Helium wallet owns all of the DC and cannot
+transfer them to any other Helium wallet.
+
+DC can be delegated to network operator wallets in arrangement with the operator. This is a one-time
+action. Learn more in the [Fund an Organizationally Unique Identifier](/iot/run-an-lns/fund-an-oui)
+documentation.
+
+:::
+
 ### HNT Swap
 
 For individuals or organizations with HNT holdings and familiarity with using cryptocurrencies in
@@ -70,13 +81,6 @@ network users like [LNS operators](/iot/lorawan-network-servers) or mobile
 [service providers](/mobile/service-providers). The tool provides a clear invoice once transactions
 are complete to simplify accounting.
 
-:::important Data Credits are non-transferable
-
-Once the DC mint transaction is complete, the receiving Helium wallet owns all of the DC and cannot
-transfer them to any other Helium wallet.
-
-:::
-
 ## Data Credits and IoT {#dc-and-iot}
 
 On the Helium IoT network, the primary utility of DCs is for network data transfer. Data transfer is
@@ -87,28 +91,7 @@ Network users also have the choice to purchase multiple reports of the same pack
 reports each account for their own cost. For instance, if three 24-byte copies are returned for a
 given message, the cost would be 3 DC.
 
-<figure className="screensnippet-wrapper" style={{ padding: '1.25em 5vw 1em' }}>
-  <p>Message Payload Size</p>
-  <table className="dc-calc-table" style={{ marginBottom: '1em' }}>
-    <thead>
-      <tr>
-        <th>0-24 bytes</th>
-        <th>25-48 bytes</th>
-        <th>... 241 bytes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1 DC</td>
-        <td>2 DC</td>
-        <td>... 11 DC</td>
-      </tr>
-    </tbody>
-  </table>
-  <figcaption>
-    Data transfer is accounted for in 24-byte increments per message on the LoRaWAN network.
-  </figcaption>
-</figure>
+<PayloadSize />
 <br />
 
 ### Data Transfer Calculator
@@ -124,16 +107,16 @@ import OperationCostEstimator from '@site/src/theme/DcCostEstimator'
   <OperationCostEstimator />
 </figure>
 
-### Protocol Fees
+### IoT Protocol Fees
 
 In addition to network data transfer, DCs are also utilized for certain network-related fees.
 
-| Action            | Fee                                             |
-| ----------------- | ----------------------------------------------- |
-| Device Onboarding | $40                                             |
-| Assert Location   | $10                                             |
-| OUI               | $100                                            |
-| DevAddr           | $100 ($800)<sup>(</sup>[^1]<sup>)</sup>         |
+| Action            | Fee                                     |
+| ----------------- | --------------------------------------- |
+| Device Onboarding | $40                                     |
+| Assert Location   | $10                                     |
+| OUI               | $100                                    |
+| DevAddr           | $100 ($800)<sup>(</sup>[^1]<sup>)</sup> |
 
 [^1]: DevAddrs must be purchased in slabs of 8.
 
@@ -149,12 +132,18 @@ individual packets. By setting the data cost to $0.50 per gigabyte, the Helium M
 positions itself competitively in the marketplace while preserving valuable rewards for the mobile
 Hotspot operator.
 
-### Protocol Fees
+### Mobile Protocol Fees
 
 Fees related to onboarding and location assert were defined through community governance through
 [HIP-89](https://github.com/helium/HIP/blob/main/0089-mobile-network-onboard-fees.md).
 
-| Action          | Fee |
-| --------------- | --- |
-| Onboard         | $40 |
-| Assert Location | $10 |
+| Action               | Fee                             |
+| -------------------- | ------------------------------- |
+| CBRS Onboard         | $40                             |
+| CBRS Assert Location | $10                             |
+| Wifi Indoor Onboard  | $10<sup>(</sup>[^2]<sup>)</sup> |
+| Wifi Outdoor Onboard | $10<sup>(</sup>[^2]<sup>)</sup> |
+
+[^2]:
+    [HIP-96](https://github.com/helium/HIP/blob/main/0096-wifi-ap-onboarding-structure.md) set an
+    additional MOBILE token onboarding fee for WiFi hotspots as well as the DC onboarding fee.
