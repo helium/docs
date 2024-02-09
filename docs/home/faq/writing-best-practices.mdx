@@ -1,0 +1,189 @@
+---
+id: docs-best-practices
+title: Writing Docs - Best Practices
+pagination_label: Writing Best Practices
+sidebar_label: Writing Best Practices
+description: Writing Docs - Best Practices
+image: https://docs.helium.com/img/link-image.png
+slug: /faq/docs-best-practices
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
+import CodeBlock from '@theme/CodeBlock';
+
+# Style Guide for Helium Docs (docs.helium.com)
+
+This is a collection of agreed upon dos and don'ts for pages on Helium Docs that should be used
+during process of creating new pages or editing already existing ones. It serves as a reference for
+maintaining consistency, clarity, and professionalism across all technical documentation related to
+the Helium Network.
+
+## Titles
+
+Use descriptive, short titles that are no longer than 4 words. 
+
+## Visual Assets
+
+### Diagrams and Illustrations
+
+Use visual aids such as diagrams, flowcharts where needed to enhance understanding of complex
+technical concepts, processes and network schemas.
+
+### Images / Screenshots
+
+- Include alternative text to describe what is visible on the image.
+
+- Include screenshots of relevant interfaces or platforms to provide visual context for users
+following instructions or guides. For example: when dealing with interface tutorials, provide
+screenshot after each step.
+
+Do: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include screenshots with relevant step for a given process  
+Don't: &nbsp;Add screenshots with information irrelevant to current page
+
+Do: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use screenshots with same image ratio and high resolution.
+Edit screenshot in app before including them if needed  
+Don't: &nbsp;Include weairdly cropped screenshots with inconsistent ratio or low resolution
+
+## Acronyms
+
+When using it for the first time, include the term, followed by the acronym in parentheses. Then
+use just the acronym for following mentions.
+
+Example:
+
+> Hotspots enable people to own and operate a wireless network that supports a wide range of Internet
+of Things (IoT) devices.
+
+## Code
+
+Use codeblocks to showcase any technical examples. All snippets should be copied exactly as they
+appear in the code without any additional changes. Use the matching language meta string for your
+code block, and Docusaurus will pick up syntax highlighting automatically.
+
+<Tabs
+  defaultValue="alert-code"
+  values={[
+    {label: 'Code', value: 'alert-code'},
+    {label: 'Example', value: 'alert-example'},
+  ]}
+>
+  <TabItem value="alert-code" label="Code">
+    <CodeBlock
+        language="jsx"
+        title="/sidebarDocs.js"
+        >
+          {`home: [
+    {
+      type: 'category',
+      label: 'Home',
+      link: { type: 'doc', id: 'home/home' },
+      items: ['home/about-helium', 'home/helium-history'],
+    },
+  ],`}
+</CodeBlock>
+  </TabItem>
+  <TabItem value="alert-example" label="Example">
+  <div>
+    ```jsx
+    <CodeBlock
+        language="jsx"
+        title="/sidebarDocs.js"
+        >
+          {`home: [
+            {
+              type: 'category',
+              label: 'Home',
+              link: { type: 'doc', id: 'home/home' },
+              items: ['home/about-helium', 'home/helium-history'],
+            },
+          ],`}
+        </CodeBlock>
+        ```
+      </div>
+  </TabItem>
+</Tabs>
+
+## Technical terms
+
+### Use Examples
+
+- When dealing with novel technical terms, simplify concepts, use examples where possible
+
+| Recommended | Example                                                                                                   |
+| ----------- | --------------------------------------------------------------------------------------------------------- |
+| ✔️          | _"A quorum of tokens represented must be met to certify the proposal as a valid outcome. The quorum is 100,000,000 tokens represented at the time of the vote in the vote results. This quorum is equal across the Network and all subNetworks. If a proposal does not reach this quorum, the proposal will automatically fail. Even if the proposal received a 66% super majority of Voting Power, the proposal did not reach quorum and therefore is invalidated."_ |
+| ❌          | _"A quorum of tokens for a valid outcome."_                                      |
+
+### Consistency
+
+- Maintain consistency in formatting, language, and terminology throughout the documentation.
+
+- Use the same naming conventions for tokens, protocols, and components across all sections.
+
+### Governance related
+
+#### "Locking / Delegating" vs. "Staking"
+
+- When talking about token lock-up and delegation of tokens, use the specific terms "locking" and
+  "delegating" where applicable.
+- Avoid referring to any of those solely as "staking".
+
+| Recommended | Example                                                                                                   |
+| ----------- | --------------------------------------------------------------------------------------------------------- |
+| ✔️          | _"To earn MOBILE token rewards: (1.) Lock HNT (2.) Delegate the veHNT position to the Mobile Subnetwork"_ |
+| ❌          | _"To earn MOBILE token rewards: Stake HNT in the Mobile Subnetwork"_                                      |
+
+# Alerts
+
+Alerts add additional context to information. Admonitions from Docusaurus can be used to indicate
+the alert is a Note, Caution, or a Tip. The types that are accepted are as follows: note, tip,
+danger, info, warning.
+
+<Tabs
+  defaultValue="alert-code"
+  values={[
+    {label: 'Code', value: 'alert-code'},
+    {label: 'Example', value: 'alert-example'},
+  ]}
+>
+  <TabItem value="alert-code" label="Code">
+    ```Rust
+      :::warning
+
+      Only certified CBRS Radios provisioned with the FreedomFi firmware will operate when connected to a 5G Hotspot.
+
+      CBRS Radios that are not certified and do not use the FreedomFi firmware will not provide 5G coverage and will not mine MOBILE.
+
+      :::
+    ```
+  </TabItem>
+  <TabItem value="alert-example" label="Example">
+  <div>
+    <Admonition type="warning">
+        <p>
+          Only certified CBRS Radios provisioned with the FreedomFi firmware will operate when connected to a 5G Hotspot.
+        </p>
+      </Admonition>
+      </div>
+  </TabItem>
+</Tabs>
+
+## Miscellaneous
+
+### Links
+
+Do: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name linked things  
+Don't: &nbsp;Connect the link to a linked thing with a "click here" or "here".  
+
+_Examples:_  
+
+_Do: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Visit [Google](www.google.com) to learn more._  
+_Don't: &nbsp; [Click here](www.google.com) to go to Google._
+
+_Do: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Find the
+[Disk91 ChipStack service on GitHub](https://github.com/disk91/helium-chirpstack-community)_  
+_Don't: &nbsp; Find the service on GitHub
+[here](https://github.com/disk91/helium-chirpstack-community)_
+
