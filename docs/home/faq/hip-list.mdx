@@ -1,0 +1,37 @@
+---
+id: hip-list
+title: Important HIP List
+pagination_label: Important HIP List
+sidebar_label: Important HIP List
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /hip-list
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
+import { CreateFork, PullRequest } from './EditAHip'
+
+This list contains note-worthy HIPs that passed the voting along with short, 
+easy-to-understand summary of what the HIP is about. While HIPs are in discussion, they are included
+in the [Helium HIP Repository on GitHub](https://github.com/helium/hip).
+
+## HIP Overview
+
+- **HIP-0-template** - Template for creating new HIPs.
+- **HIP-1-longfi-and-lorawan** - This proposal includes initial implementation of LongFi on LoRaWAN by leveraging LoRaWAN's existing features.
+-**HIP-2-sign-miner** - This is a proposal to separate Helium's blockchain software from the rest of the Hotspot firmware image in order to
+  make a stronger case for decentralized nature of the Helium Network. Reliance on one or more independent signatories allows the network to
+  grow in a truly decentralized fashion, eventually moving control of how the network develops away from any single entity and into the hands
+  of the network stakeholders themselves.
+-**HIP-3-miner-update.md** - This proposal examines how Helium could allow consumer Hotspot owners to specify and deliver their own over-the-air
+  miner updates. The scope of this proposal excludes do-it-yourself Hotspots which Helium is under no obligation to support. It also excludes
+  the non-miner-related bits of the Hotspot firmware image which Helium will solely continue to update using our existing nextgate/nexthaul
+  client-server mechanism.
+-**HIP-4-expensing-data-credits-for-lorawan** - The proposal's goal is streamlining data credit expenses for LoRaWAN traffic by charging a
+  fixed rate for each 24 bytes used, simplifying the user experience. It suggests charging for specific data components while ensuring minimal
+  charge for essential packet types. This approach aims to strike a balance between fairness for both users and operators by offering a
+  straightforward way to estimate costs while preventing exploitation of the system.
+-**HIP-5-poc-fairness** - The proposal addresses the concentration of rewards in proof of coverage challenges among top Hotspots in the
+  Helium Network by suggesting a cap on the number of challenges a single Hotspot can participate in during an Epoch.
+  
