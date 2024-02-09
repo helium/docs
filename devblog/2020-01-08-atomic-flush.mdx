@@ -9,7 +9,7 @@ authors: [vagabond, evanmcc]
 We've been seeing issues of ledger corruption when nodes are syncing the chain with increased
 frequency and have finally identified the fix. In the way we use rocksdb we split data in the ledger
 and the blockchain across column families (eg token balances are distinct from hotspot information).
-The ledger corrruption issues were when _part_ of a ledger update would commit but the other parts
+The ledger corruption issues were when _part_ of a ledger update would commit but the other parts
 would not. The fix was to enable the
 [atomic flush](https://github.com/facebook/rocksdb/wiki/Atomic-flush) option in the rocksdb database
 options which ensures that all updates in a batch update are committed atomically, even across

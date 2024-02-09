@@ -186,7 +186,7 @@ To install, open your Arduino IDE:
 #### Update IBM LMIC framework config.h
 
 This library requires that a config file be setup properly. After you have installed the
-`IBM LMIC framework` library, navigate to it's directory on your operating system found below. Next,
+`IBM LMIC framework` library, navigate to its directory on your operating system found below. Next,
 replace the `config.h` file in this directory with this
 [config.h](https://github.com/helium/longfi-arduino/blob/master/Adafruit-Feather-M0-RFM95/longfi-us915/config.h)
 file.
@@ -207,7 +207,7 @@ copy and paste the entirety of it.
 
 Next we'll need to fill in the AppEUI\(lsb\), DevEUI\(lsb\), and AppKey\(msb\), in the sketch, which
 you can find on the device details page on Console. Be sure to use the formatting buttons to match
-the endianess and formatting required for the sketch, shown below.
+the endianness and formatting required for the sketch, shown below.
 
 <img
   src={useBaseUrl(
@@ -315,7 +315,7 @@ shown below.
 Last for this step, you can optionally change the group name that is set to `{{device_id}}` by
 default. The group name is used to group one or more data values that is received from a device and
 sent to AdafruitIO in a single message. This name is used as the default because it is guaranteed to
-be unique for every Helium device. You can use any of the the available template tags which are auto
+be unique for every Helium device. You can use any of the available template tags which are auto
 populated when messages are actually sent, which are `{{device_id}}`, `{{device_eui}}`, and
 `{{device_name}}`. This integration uses group topics to send device data to AdafruitIO over MQTT,
 you can read more about it [here](https://io.adafruit.com/api/docs/mqtt.html#group-topics).
