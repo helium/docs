@@ -45,6 +45,40 @@ have passed.
 Information about governance is subject to change as the Helium Network constantly evolves. It is
 led by the open-source community that continues to build it.
 
+## Security
+
+The Helium implementation on Solana has circuit breakers in place to prevent exploits to the smart
+contracts. These circuit breakers act as a protection mechanism to protect the Helium network and
+limit the impact of potential exploits. The circuit breakers will be adjustable by the multisig and
+through the governance process. They may limit legitimate use but we feel that the security benefits
+outweigh the drawbacks. We propose several different circuit breakers that are outlined below: 
+
+1. **Mint Circuit Breakers**: The Mint Circuit Breakers protect the issuance of new tokens. We
+propose that the circuit breaker does not allow more than 5x the epoch amount be minted within a
+single 24h period. Because epoch rewards are automated by Clockwork there should never be a day in
+which more than the normal epoch amount is emitted. The initial value of 5 allows bugs to process
+emissions that might be backed up by a bug. There are three Mint Circuit Breakers, one for HNT, one
+for MOBILE and one for IOT token.
+
+2. **Reward Pool Circuit Breaker**: The Reward Pool Circuit Breaker protect the reward pool accounts.
+Tokens that are minted will wait in the reward pool account until the hotspots owner claims the
+rewards. We propose that the circuit breaker does not allow more than 5x the epoch amount to be
+claimed from the reward pool account. The drawback of this limit is that a large deployer claiming a
+large number of tokens might trigger the circuit breaker. There will initially be two Reward Pool
+Circuit Breakers, one for MOBILE and one for IOT token.
+
+3. **Treasury Circuit Breakers**: The Treasury Circuit Breakers protect the subDAO treasuries. The
+subDAO treasuries allow DNT tokens to be redeemed for HNT. We propose that the circuit breaker will
+allow a maximum of 20% of the treasury to be redeemed in every 24-hour period. Currently there are
+two Treasury Circuit Breakers, one for MOBILE and one for IOT token.
+
+### Multisig Authority
+
+Multisig update authority is currenyly held by Helium Foundation in order to make changes and/or
+upgrades to the Solana programs quickly if there are any bugs or faults uncovered. As the programs
+mature and stabilize these upgrades will become less time sensitive and this will allow the multisig
+to be expanded to include the Helium DAO or an elected council.
+
 ## Participate
 
 Ready to participate? Join the global decentralized wireless network and participate in Helium
