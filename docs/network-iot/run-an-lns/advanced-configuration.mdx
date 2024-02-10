@@ -38,6 +38,47 @@ with the respective OUI, potentially attributing unauthorized packet costs to th
 Implementing SKFs counteracts this risk by empowering the Helium Packet Router to authenticate
 packets, thus preventing the delivery of unwanted payloads (and their respective DC cost).
 
+## Max Copy
+
+Since LoRaWAN devices broadcast uplinks openly, it is very common for multiple hotspots to pick up
+the same device uplink on the Helium Network. LNS operators have the option to configure how many
+copies of the same uplink they would like to receive and pay for. There are two major potential
+benefits for configuring the max copy setting to receive identical uplinks from multiple hotspots.
+
+- Better downlink performance: if the max copy setting is 10, you can receive up to 10 copies of the
+  same uplink, and the downlink will be sent by the hotspot with the best RSSI of those 10.
+- Geolocation: you could leverage hotspot metadata to estimate the sensor location without GPS or
+  Wi-Fi.
+
+There are 2 levels of granularity for max copy setting
+
+1. Route level: applies to all devices registered under the route
+2. SKF level: only applies to the device with the specified Network Session Key, overrides route
+   level max copy setting
+
+For instance, if the LNS operator has a route that contains device A and B, and configures a route
+level max copy setting of 2 and an SKF level max copy setting of 5 for device B. Then device A will
+inherit the route level max copy setting = 2, and device B will use its SKF level max copy setting
+= 5.
+
+### Improve Join Performance
+
+Since Over-The-Air-Activation (OTAA) devices require a network joining process before they start
+transmitting valuable sensor data, it is beneficial to ensure the network joining process is as
+effective as possible.
+
+Join performance can be improved by increasing the number of copies of the same Join Requests the
+LNS receives, because then the Join Accept will be delivered by the hotspot with the best RSSI,
+increasing the possibility of a successful delivery.
+
+Now that Join Requests are free on the Helium Network, LNS operators can leverage max copy to
+improve the join performance.
+
+For instance, the LNS operator can define a route level max copy setting of 20 and all SKF level max
+copy setting of 1. This will have the effect of allowing up to 20 copies of Join Requests and 1 copy
+of Uplink. This way, the devices will have a much better chance to join, without consuming extra DC
+from the uplinks.
+
 ## Automated EUI and SKF Route Updates
 
 As the ecosystem of LNS operators grows, an increasing number of developers have open-sourced their
@@ -85,8 +126,7 @@ Hotspot location data can be requested from the Config Service using either the 
 
 ## Add and Remove Delegate Keys
 
-Note that only owner key can perform the actions below. OUI owners can add
-delegate keys by running
+Note that only owner key can perform the actions below. OUI owners can add delegate keys by running
 
 ```bash
 helium-config-service-cli org update delegate-add --pubkey <public key of the delegate key pair you are trying to add> --keypair <relative path of your **owner** keypair path> --commit
