@@ -16,6 +16,13 @@ Before getting started, make sure to have the following:
 - Helium LoRaWAN devAddr slab.
 - Data Credits (>3.5M DC).
 
+## Prerequisites
+
+- Docker
+- Docker Compose
+
+Please refer to [Docker documentation](https://docs.docker.com/get-docker/) for installation instructions.
+
 ## Installation and Configuration
 
 There are several methods to install ChirpStack on a server. This guide will demonstrate a
@@ -24,6 +31,7 @@ configuration using Docker and the
 
 ```sh title="Clone the ChirpStack Docker repository."
 git clone https://github.com/chirpstack/chirpstack-docker.git
+cd chirpstack-docker
 ```
 
 ### Configure ChirpStack
@@ -93,7 +101,7 @@ Make sure ports 1700 and 1701 are both open on the server.
 
 ## Run ChirpStack
 
-Run `docker-compose up` to start the server. Utilize the default credentials to log in:
+Run `docker-compose up` to start the server on [http://localhost:8080](http://localhost:8080). Utilize the default credentials to log in:
 
 Username: admin  
 Password: admin
