@@ -33,7 +33,7 @@ Open and edit the `chirpstack.toml` file located in `configuration/chirpstack`.
 Modify the following sections:
 
 - Under `[network]`:
-  - Set `net_id` to `0x00003C`
+  - Set `net_id` to `00003C`
   - Add `dev_addr_prefixes` with the devAddr slab assigned. Follow these steps to set it up:
     - Run `helium-config-service-cli org get --OUI <OUI>` to retrieve the DevAddr constraints for
       the OUI.
@@ -44,7 +44,6 @@ Modify the following sections:
       and the starting devAddr is 00000000, insert `dev_addr_prefixes = ["00000000/29"]`.
 - Under `[gateway]`:
   - Add `allow_unknown_gateways=true`
-
 
 ## Support Additional LoRaWAN Regions
 
@@ -92,8 +91,8 @@ configuration example and documentation.
 
 Make sure ports 1700 and 1701 are both open on the server.
 
+## Example `chirpstack.toml` with Helium Additions
 
-## Example `chirpstack.toml` with Helium Additions.
 ```toml
 # Network related configuration.
 [network]
@@ -153,8 +152,7 @@ Make sure ports 1700 and 1701 are both open on the server.
   # If set to true, then uplinks received from gateways not configured in
   # ChirpStack will be allowed.
   allow_unknown_gateways=true
-  ```
-
+```
 
 ## Run ChirpStack
 
