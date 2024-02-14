@@ -26,11 +26,11 @@ const LnsProvidersTable = () => {
       },
       {
         Header: 'Service Region',
-        accessor: (d) => d.serviceRegion.join(', '),
+        accessor: (provider) => provider.serviceRegion.join(', '),
       },
       {
         Header: 'Offering',
-        accessor: (d) => d.serverType.join(', '),
+        accessor: (provider) => provider.serverType.join(', '),
       },
       {
         Header: 'Description',
