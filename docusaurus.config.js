@@ -1,9 +1,9 @@
-const math = require('remark-math')
-const katex = require('rehype-katex')
-const webpack = require('webpack')
-
-const lightCodeTheme = require('prism-react-renderer/themes/github')
-const darkCodeTheme = require('prism-react-renderer/themes/dracula')
+import { themes } from 'prism-react-renderer'
+import katex from 'rehype-katex'
+import math from 'remark-math'
+import webpack from 'webpack'
+const darkCodeTheme = themes.dracula
+const lightCodeTheme = themes.github
 
 module.exports = {
   title: 'Helium Documentation',
@@ -91,7 +91,7 @@ module.exports = {
     prism: {
       theme: lightCodeTheme,
       darkTheme: darkCodeTheme,
-      additionalLanguages: ['protobuf', 'rust', 'toml'],
+      additionalLanguages: ['protobuf', 'rust', 'toml', 'bash'],
     },
   },
   presets: [

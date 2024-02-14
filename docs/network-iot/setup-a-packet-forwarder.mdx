@@ -13,6 +13,9 @@ slug: /iot/setup-a-packet-forwarder
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
+export const experimentalWarningText =
+  'This guide is experimental and for advanced users only, and you may run into various issues trying to get this working.'
+
 <LegacyContentBanner />
 
 :::warning
@@ -53,10 +56,7 @@ compiling the Packet Forwarder, and running it all ourselves. In short, we'll be
 that hard way!
 
 <center>
-  <i>
-    This guide is experimental and for advanced users only, and you may run into various issues
-    trying to get this working.
-  </i>
+  <i>{experimentalWarningText}</i>
 </center>
 
 ### Example Custom Hardware
@@ -132,7 +132,7 @@ $ cd sx1302_hal
 $ make
 ```
 
-Next, go into the the packet_forwarder directory, where we will create a link to the reset script:
+Next, go into the packet_forwarder directory, where we will create a link to the reset script:
 
 ```bash
 $ cd packet_forwarder

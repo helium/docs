@@ -10,6 +10,7 @@ slug: /edit-a-hip
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
+import { CreateFork, PullRequest } from './EditAHip'
 
 <LegacyContentBanner />
 
@@ -64,17 +65,7 @@ repository maintainers and other community members will help!
 **Step 4.** Leave all settings default and confirm using the green `Create Fork` button at the
 bottom left-hand corner.
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/hip/fork-step-1.png')}
-    style={{ maxHeight: 800 }}
-    className="add-shadow-margin"
-  />
-  <figcaption>
-    A copy of the Helium HIP repository will be made in the user's GitHub account and should open
-    automatically.
-  </figcaption>
-</figure>
+<CreateFork />
 
 ---
 
@@ -192,17 +183,7 @@ proposed changes.
 **Step 1.** A new banner will be presented with a green `Compare & pull request` button. Click the
 button to start a Pull Request
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/hip/pull-request-step-0.png')}
-    style={{ maxHeight: 800 }}
-    className="add-shadow-margin"
-  />
-  <figcaption>
-    The number may be more than 1, depending on how many edits ahead the forked repository is from
-    the main HIP repository.
-  </figcaption>
-</figure>
+<PullRequest />
 
 <br />
 

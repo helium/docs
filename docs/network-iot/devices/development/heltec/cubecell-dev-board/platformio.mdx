@@ -15,9 +15,6 @@ import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
 ## Getting Started With Helium, PlatformIO and Heltec CubeCell
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
 The Heltec CubeCell HTCC AB0x are one of Heltec's line of popular ASR605x(ARM® Cortex® M0+ Core)
 based LoRa development boards with built in USB and battery charging.
 
@@ -57,7 +54,7 @@ has experience with the AB01, AB02x and CubeCell Capsule line boards. Subsequent
 may work but have not been tested.
 
 At the end of this tutorial, there is an
-[example that can run within your web browser](#HTCC-COMPLETE-EXAMPLE).
+[example that can run within your web browser](#htcc-complete-example).
 
 ### Hardware
 
@@ -76,9 +73,9 @@ with the Helium Console.
   - [PlatformIO \(VScode Extension)](https://platformio.org/)
 - [Helium Console](/console)
 
-## Hardware Setup <a id="hardware-setup"></a>
+## Hardware Setup {#hardware-setup}
 
-#### Attaching the LoRa Antenna <a id="adding-the-antenna"></a>
+#### Attaching the LoRa Antenna {#adding-the-antenna}
 
 Your board should have come with a U.FL antenna. All you have to do is attach it to the U.FL port on
 the developer board. The method of attachment varies depending on the target board.
@@ -88,7 +85,7 @@ U.FL port, if this is the case generally the LoRa antenna attaches to the port t
 side of the board as contains the USB port connector. In all cases, it is best to verify the proper
 connector with the board manufacturer.
 
-#### Connect Target Board to Development PC<a id="connect-board"></a>
+#### Connect Target Board to Development PC{#connect-board}
 
 The target boards are typically connected to the host computer via a USB 2.0 A-Male to Micro B
 cable. Again this may vary depending on your target board.
@@ -102,7 +99,7 @@ accomplished.
 For our example installation directions can be found on Heltec's documentation website
 [here](https://docs.heltec.org/general/establish_serial_connection.html).
 
-## Software Setup <a id="software-setup"></a>
+## Software Setup {#software-setup}
 
 Setting up the VSCode/PlatformIO IDE environment while not complex, does require several steps that
 are independent of your target device. We will walk through these initial setup steps before trying
@@ -158,7 +155,7 @@ application it is best to familiarize yourself with the basic use of PlatformIO 
 complexity of Helium network access code to the mix.
 
 If you are familiar and confident with the steps required you can continue at "Sample Helium Network
-Access Code" by clicking [here](#ADD-HELIUM-NETWORK-CODE).
+Access Code" by clicking [here](#add-helium-network-code).
 
 The following steps will walk you through what is required to:
 
@@ -352,7 +349,7 @@ When creating the console device, make note of the DevEUI, AppEUI, and AppKey de
 These are used to connect to the network and will need to be inserted into the device application
 code below. A console quick start guide can be found [here](/console/quickstart).
 
-### Sample Helium Network Access Code <a name="ADD-HELIUM-NETWORK-CODE"></a>
+### Sample Helium Network Access Code {#add-helium-network-code}
 
 If you have not created a simple template project and you want to try one of the samples you can
 copy a sample into your workspace where it should build without error. A full PlatformIO project can
@@ -472,7 +469,7 @@ Running the previous build operation will ensure the Heltec runtime dependencies
 downloaded. At the time of this writing some versions of Heltec's runtime libraries have set default
 configuration variables to values that are incompatible with the Helium network, especially when the
 Heltec device is configured to target the North American market. Please follow this
-[link](#HTCC-MANUAL-RUNTIME-UPDATES) within this document and verify the file content. Return here
+[link](#htcc-manual-runtime-updates) within this document and verify the file content. Return here
 after verification.
 
 If changes needed to be made it is best to run a "Clean" build process by clicking on the Trash Can
@@ -495,7 +492,7 @@ automatically close the comm port, if it does not upload errors will occur.
 
 Successful upload example, your results will vary.
 
-#### Viewing Target Device Serial Output <a id="viewing-serial-output"></a>
+#### Viewing Target Device Serial Output {#viewing-serial-output}
 
 When your firmware update completes, the board will reset, and begin by joining the network. The
 PlatformIO Serial Monitor can be used to view the serial debug output from the board. You will
@@ -550,9 +547,9 @@ for help with external debugger questions.
 
 ### Misc device application hints
 
-Follow this [link](#HTCC-APPLICATION-HINTS) within this guide for useful application enhancements.
+Follow this [link](#htcc-application-hints) within this guide for useful application enhancements.
 
-### Manual updates to the Heltec runtime libraries <a name="HTCC-MANUAL-RUNTIME-UPDATES"></a>
+### Manual updates to the Heltec runtime libraries {#htcc-manual-runtime-updates}
 
 Some versions of Heltec's runtime libraries have set default configuration variables to values that
 are incompatible with the Helium network, especially when the Heltec device is configured to target
@@ -691,9 +688,9 @@ datarate = phyParam.Value;
 This will prevent the CubeCell from reducing the Data Rate over time and allow you to send larger
 packets on a repeated, prolonged basis.
 
-### Device application hints<a id="HTCC-APPLICATION-HINTS"></a>
+### Device application hints{#htcc-application-hints}
 
-#### Using HTCC-AB02S Board with GPS Capable Sketch <a id="HTCC-AB02S-with-GPS"></a>
+#### Using HTCC-AB02S Board with GPS Capable Sketch {#HTCC-AB02S-with-GPS}
 
 If you are using the HTCC-AB02S board with a program that is GPS enabled but find the device is
 unable to obtain a GPS lock you can try changing the GPS data satellite source via the GPS class
@@ -721,7 +718,7 @@ LoRaWAN.setDataRateForNoADR(int8_t dataRate);
 
 This should be done sometime after LoRaWAN.init() is called.
 
-## Complete example<a id="HTCC-COMPLETE-EXAMPLE"></a>
+## Complete example {#htcc-complete-example}
 
 Consider the following code from
 [the helium/longfi-platformio repository](https://github.com/helium/longfi-platformio/blob/master/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp):

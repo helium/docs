@@ -1,7 +1,7 @@
 ---
 id: wallet-seed-phrase
 title: Wallet Seed Phrase
-pagination_label: Seed Phrase
+pagination_label: Wallet Seed Phrase
 sidebar_label: Wallet Seed Phrase
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
@@ -13,8 +13,10 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 # Helium Wallet Seed Phrase
 
 When creating a Helium account, users are prompted to write down the 24-word seed phrase. This
-mnemonic phrase is generated from a list of 2048 specifically selected words and can be used to
-recover the private key of the account. The seed phrase should never be shared.
+mnemonic phrase is generated from a
+[list](https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt) of 2048 specifically
+selected words and can be used to recover the private key of the account. The seed phrase should
+never be shared.
 
 ## Seed Phrase Security
 
@@ -36,9 +38,9 @@ account, the tokens and NFTs it contains, and all access to associated Hotspots 
 
 Back up a seed phrase by writing down the words in their exact order and appropriately securing
 them. As an even more robust solution, some experienced crypto users engrave their seed phrases on
-[titanium plates](https://www.amazon.com/s?k=titanium+seed+phrase+plate&sprefix=titanium+seed%2Caps%2C159).
+[titanium plates](https://www.amazon.com/s?k=titanium+seed+phrase+plate).
 
-Storing seed phrases on cloud storage providers like Google Drive or Dropbox is not recommended.
+Storing seed phrases on cloud storage providers like Google Drive or Dropbox is **not** recommended.
 When these services are compromised, seed phrases are among the first things that hackers look for.
 
 No one can recover a lost, forgotten, or misplaced seed phrase. Offers to do so should be ignored.
@@ -46,7 +48,7 @@ No one can recover a lost, forgotten, or misplaced seed phrase. Offers to do so 
 When entering the seed phrase make sure you:
 
 1. Enter them in the right order.
-1. Get the spelling correct. Check words here for correct spelling:
+1. Get the spelling correct. Check the words from this list for correct spelling:
    https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt
 1. Watch out for similar-sounding word errors, like 'car' vs 'can' or 'blub' vs 'bulk'. See
    [Commonly Misspelled Recovery Seed Words](https://trezor.io/support/a/commonly-misspelled-recovery-seed-words),
@@ -61,7 +63,7 @@ Wallet app supports both formats.
 
 With 128 bits of entropy, a 12-word seed phrase has 3.4 × 10<sup>38</sup> possible combinations. A
 24-word seed phrase has 256 bits of entropy, resulting in approximately 1.16 × 10<sup>77</sup>
-possible combinations. Both are _highly_ secure, but 24-word phrases offer the best protection.
+possible combinations. Both are **highly** secure, but 24-word phrases offer the best protection.
 
 | Phrase Length | Possible Combinations                                                                                   |
 | :------------ | :------------------------------------------------------------------------------------------------------ |
