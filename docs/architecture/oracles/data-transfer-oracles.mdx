@@ -8,23 +8,20 @@ image: https://docs.helium.com/img/link-image.png
 slug: /oracles/data-transfer-oracles
 ---
 
-import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-As part of the migration to Solana, the data transfer architecture is moved off-chain to Oracles,
-which increases scalability and reduces points of failure. In the new architecture, the blockchain
+As part of the migration to Solana, the data transfer architecture is moved to Oracles, which
+increases scalability and reduces points of failure. In the new architecture, the blockchain
 components are decoupled from the data transfer components, which means that blockchain outages or
-congestions will no longer disrupt IoT data transfer.
+congestions will no not disrupt data transfer.
 
 ## OpenLNS
 
 Before the architecture upgrade, Helium Console was the only choice of LoRaWAN Network Server (LNS)
-on the Helium Network as the old architecture requires the LNS to administer both LoRaWAN specific
+on the Helium Network as the old architecture required the LNS to administer both LoRaWAN-specific
 functions as well as blockchain overhead. Now that blockchain components are no longer intertwined
-with data transfer, IoT application can now leverage any compatible LoRaWAN Network Server. Check
+with data transfer, IoT applications can now leverage any compatible LoRaWAN Network Server. Check
 out [this tutorial](/iot/run-an-lns) to more about how to run your own LoRaWAN Network Server.
 
-The update brings the responsibilities of a Helium LNS much more in line with a generic LNS while
+The update brings the responsibilities of a Helium LNS much more in-line with a generic LNS while
 also easing the integrations of existing LNS systems, further helping the expansion of the Helium
 Network.
 
