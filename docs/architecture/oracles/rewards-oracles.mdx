@@ -47,14 +47,14 @@ Receipts, and the veHNT backing the MOBILE Network and emits rewards to each Hot
 ## HNT Rewards Oracle
 
 As defined in [HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md), the HNT Rewards
-Oracle will issue HNT Reward emissions to each subDAOs treasury using each subDAOs Utility Score to
-determine which percentage of the total rewards each subDAO is due.
+Oracle will issue HNT Reward emissions to each Subnetworks treasury using each Subnetworks Utility Score to
+determine which percentage of the total rewards each Subnetwork is due.
 
-The following comprise the subDAO Utility Score:
+The following comprise the Subnetwork Utility Score:
 
-- subDAO's DCs burned in USD
-- subDAO's active device count and device activation fee
-- veHNT backing each subDAO
+- Subnetwork's DCs burned in USD
+- Subnetwork's active device count and device activation fee
+- veHNT backing each Subnetwork
 
 DC burned, active device count, and veHNT staked are submitted to the chain through the proxy of
 [Switchboard](https://switchboard.xyz/) to facilitate this process and keep a record.
@@ -121,9 +121,9 @@ flowchart LR
 
 ```
 
-## SubDAO to HNT Conversion
+## Subnetwork to HNT Conversion
 
-Each subDAO is responsible for defining its Treasury Reserve Decentralized Network Token (DNT)
+Each Subnetwork is responsible for defining its Treasury Reserve Decentralized Network Token (DNT)
 Market Making Curve.
 
 The curves for
