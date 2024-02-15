@@ -30,6 +30,13 @@ There is currently no authentication required.
 POST https://mappers.helium.com/api/v1/ingest/uplink
 ```
 
+:::important Post-Console Migration Note
+
+Certain parameters are implicitly included from the legacy Console payload. The Mappers platform
+requires updates to accommodate payloads from other LNSs like ChirpStack.
+
+:::
+
 Submit geo tagged device uplink.
 
 `Content-Type: application/json`
