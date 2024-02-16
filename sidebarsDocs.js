@@ -579,6 +579,7 @@ module.exports = {
       type: 'category',
       label: 'RAKwireless',
       items: [
+        'network-iot/devices/ready-to-use/rakwireless/rak2270',
         'network-iot/devices/ready-to-use/rakwireless/rak2171',
         'network-iot/devices/ready-to-use/rakwireless/rak7200',
         'network-iot/devices/ready-to-use/rakwireless/rak7201',
