@@ -19,4 +19,215 @@ for:
 - Transferring tokens
 - Signing transactions
 
+:::important
+
 At this time, Hotspot management actions such as onboarding or asserting location are not supported.
+
+:::
+
+## How To Access Ledger Account in Helium Mobile Wallet
+
+So let's take a look at how to access your Ledger account via the Helium Mobile Wallet app.
+
+### Step 1: Preparation
+Before you begin, there are prerequsites and software you need to install which includes:
+
+* Helium Ledger Nano X Device
+* [Ledger Live Application](https://www.ledger.com/ledger-live)
+* Helium Mobile Wallet app
+
+Nano X users need to have Bluetooth connectivity to manage HNT using the app.
+
+### Step 2: Install the Solana app on your Ledger device
+
+:::important
+
+Helium migration to Solana
+
+Helium blockchain migrated to Solana blockchain. The migration to Solana took place on April 18, 2023, beginning at 9am PST. After the migration the Helium blockchain is officially halted. Learn more
+
+As a result, the Helium app was removed from Ledger Live. After the migration, users should be able to manage their HNT tokens with the Solana app. 
+
+:::
+
+To do this, first open "Ledger Live" and select "Settings" > Experimental features and activate "Developer mode". Then connect your Ledger device to "My Ledger" to ensure that your device is running the latest firmware version. If you can not find "Solana", you may need to update your Ledger Live. So check your version of Ledger Live by navigating to Settings, and select About and Version.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/wallets/ledger/install-app.png')}
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ maxHeight: 'initial', maxWidth: '720px' }}
+  />
+  <figcaption>Add Solana App".</figcaption>
+</figure>
+<br />
+
+Once you have done this, click on "My Ledger" and install the "Solana" app to your Ledger device.
+
+You have to ensure your Ledger Live app and Ledger device are running on the latest firmware. If your Ledger Live is out of date, you will likely see update notifications appear at the top of the window. Otherwise, you can manually check your version of Ledger Live by navigating to Settings, select About and Version. You will find the "update" button.
+
+### Step 3: Pair your Ledger with the Helium Mobile Wallet app (Nano X only)
+
+Since this process requires Bluetooth connectivity, go to the "Control Center" of your Nano X device and ensure that the Bluetooth is on. If you have any issues owith Bluetooth, watch [this video](https://www.youtube.com/watch?v=wHUkE1Gw0hs) for possible solutions. Then use the buttons on your Ledger device to open the Solana app. Now, open the Helium Mobile Wallet app on your phone and select "Add New Wallet".
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/wallets/ledger/add-new-wallet.png')}
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ maxHeight: 'initial', maxWidth: '360px' }}
+  />
+  <figcaption>Add New Wallet".</figcaption>
+</figure>
+<br />
+
+Once you've done that, Select Pair with Ledger and select your Nano device. 
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/wallets/ledger/select-nano.png')}
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ maxHeight: 'initial', maxWidth: '360px' }}
+  />
+  <figcaption>Look For Devices".</figcaption>
+</figure>
+<br />
+
+The app should display an "Select wallets" text to indicate its visibility. 
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/wallets/ledger/select-wallet.png')}
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ maxHeight: 'initial', maxWidth: '360px' }}
+  />
+  <figcaption>Select Wallet".</figcaption>
+</figure>
+<br />
+
+A request for "Bluetooth Pairing with code" will show in your wallet and you can click "Pair" to proceed. Your Ledger device should display "Confirm Pairing" and also show the pairing code. Press both buttons simultaneously to confirm the address. And that's it, your account is connected and you're good to go.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/wallets/ledger/select-address.png')}
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ maxHeight: 'initial', maxWidth: '360px' }}
+  />
+  <figcaption>Import Wallet".</figcaption>
+</figure>
+<br />
+
+If you have other accounts you want to import, you can continue this process.
+
+And now that's it you have imported your accounts from Ledger. 
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/wallets/ledger/pair-success.png')}
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ maxHeight: 'initial', maxWidth: '360px' }}
+  />
+  <figcaption>View Wallet".</figcaption>
+</figure>
+<br />
+
+You can click "View Account" to see the details. 
+
+### Step 4: Receive HNT coins into your Ledger Helium account
+Now that you're done with the set-up process, you can send or receive HNT coins into your Ledger account. There's a "Send" or "Request" icon in the app. You can select Request and ensure your correct Ledger account appears.
+
+After selecting Request, a QR code will pop up. You will use this code to send HNT coins to your account.
+
+## How To Access Ledger Account in CLI
+
+With the following steps, you will be able to set up a Ledger Wallet for the Helium blockchain on any laptop or desktop computer of your choice.
+
+### Step 1: Get the Requirements Ready
+Before you begin, there are prerequsites and software you need to install which includes:
+
+* Helium Ledger Nano X or Ledger Nano S Device
+* [Ledger Live Application](https://www.ledger.com/ledger-live)
+* Personal Computer (Mac OS/Windows OS/Linux OS)
+
+If an update notification doesn't appear, your Ledger Live app and device are likely running on the latest software and you should have no issues.
+
+You have to ensure your Ledger Live app and Ledger device are running on the latest firmware. If your Ledger Live is out of date, you will likely see update notifications appear at the top of the window. Otherwise, you can manually check your version of Ledger Live by navigating to Settings, select About and Version. You will find the "update" button.
+
+### Step 2: Install the Solana app on your Ledger device
+
+:::important
+
+Helium migration to Solana
+
+Helium blockchain migrated to Solana blockchain. The migration to Solana took place on April 18, 2023, beginning at 9am PST. After the migration the Helium blockchain is officially halted. Learn more
+
+As a result, the Helium app was removed from Ledger Live. After the migration, users should be able to manage their HNT tokens with the Solana app. 
+
+:::
+
+To do this, first open "Ledger Live" and select "Settings" > Experimental features and activate "Developer mode". Then connect your Ledger device to "My Ledger" to ensure that your device is running the latest firmware version. If you can not find "Solana", you may need to update your Ledger Live. So check your version of Ledger Live by navigating to Settings, and select About and Version.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/wallets/ledger/install-app.png')}
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ maxHeight: 'initial', maxWidth: '720px' }}
+  />
+  <figcaption>Add Solana App".</figcaption>
+</figure>
+<br />
+
+Once you have done this, click on "My Ledger" and install the "Solana" app to your Ledger device.
+
+You have to ensure your Ledger Live app and Ledger device are running on the latest firmware. If your Ledger Live is out of date, you will likely see update notifications appear at the top of the window. Otherwise, you can manually check your version of Ledger Live by navigating to Settings, select About and Version. You will find the "update" button.
+
+
+### Step 3: Install Solana CLI
+
+There are multiple ways to install the Solana tools on your computer depending on your preferred workflow:
+
+* [Use Solana's Install Tool (Simplest option)](https://docs.solanalabs.com/cli/install#use-solanas-install-tool)
+* [Download Prebuilt Binaries](https://docs.solanalabs.com/cli/install#download-prebuilt-binaries)
+* [Build from Source](https://docs.solanalabs.com/cli/install#build-from-source)
+* [Use Homebrew](https://docs.solanalabs.com/cli/install#use-homebrew)
+
+
+The `spl-token` command-line utility can be used to experiment with SPL tokens. Once you have Rust installed, run:
+
+```
+$ cargo install spl-token-cli
+```
+
+Run `spl-token --help` for a full description of available commands.
+
+You can also install Solana in your OS by following the official installation guide [here](https://docs.solana.com/cli/install-solana-cli-tools)
+
+To use Ledger Nano with Solana CLI, you have to make sure:
+* Ensure the Ledger Live application is closed
+* Plug your Nano into your computer's USB port
+* Enter your pin and start the Solana app on the Nano
+* Ensure the screen reads "Application is ready"
+
+
+### Step 4: Set your Wallet Keypair
+Your Nano supports an arbitrary number of valid wallet addresses and signers. To view any address, use the `solana-keygen pubkey` command
+
+Having several wallet addresses can be beneficial for transferring tokens across your personal accounts for various reasons, or employing distinct keypairs on the device to act as signing authorities for a stake account, for instance.
+
+```
+solana-keygen pubkey usb://ledger
+solana-keygen pubkey usb://ledger?key=0
+solana-keygen pubkey usb://ledger?key=1
+```
+
+### Step 5: Send HNT from Ledger
+
+To transfer tokens from an address associated with your Ledger Hardware wallet, you'll need to sign the transaction using the device, utilizing the same keypair URL that was used to generate the address. Ensure your Nano is connected, unlocked using your PIN, that Ledger Live is closed, and that the Solana App is activated on your device, displaying "Application is Ready."
+
+The `spl-token transfer` command allows you to define the recipient address, the amount of tokens to send, and includes the `--keypair` argument to identify the sending keypair. This keypair will sign off on the transaction, resulting in a deduction from the balance of the specified address.
+
+The mint address for HNT is `hntyVP6YFm1Hg25TN9WGLqM12b8TQmcknKrdu1oxWux` on the Solana blockchain.
+
+```
+~$ spl-token transfer hntyVP6YFm1Hg25TN9WGLqM12b8TQmcknKrdu1oxWux <AMOUNT> <RECEIVER> --keypair usb://ledger?key=1
+
+```
