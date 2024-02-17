@@ -1,11 +1,11 @@
 ---
-id: staking-with-helium-vote
+id: staking-with-realms
 title: Staking on Helium Vote
 pagination_label: Helium Vote
 sidebar_label: Staking on Helium Vote
 description: Helium on Helium Vote Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /governance/staking-with-helium-vote
+slug: /governance/staking-with-realms
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -46,7 +46,7 @@ Staking in the Helium Wallet App can be done by navigating to the "Governance" t
 Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933058646')} />
+  <img src={useBaseUrl('img/modular-governance/app-voting-overview.jpeg')} />
   <figcaption>
    The Governance tab is the fourth tab from the left. The HNT stake button at the top is the default selection.
   </figcaption>
@@ -57,7 +57,7 @@ Once in the "Governance" tab, you will see "Your Voting Power". Click "Your Voti
 to see your total voting power, and for the ability to lock HNT/MOBILE/IOT.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933060292')} />
+  
   <figcaption>
     Stake positions can be made and viewed in the "Your Voting Power" section of Helium Vote
   </figcaption>
@@ -75,7 +75,7 @@ themselves with the long-term health of the Helium Network. This is done by allo
 receive veHNT/veMOBILE/veIOT in proportion to the amount of time that the tokens are staked for.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933065377')} />
+  
   <figcaption>Selecting your lockup type, Decaying or Constant.</figcaption>
 </figure>
 
@@ -117,7 +117,7 @@ While it is possible to set a higher duration than 4 years, no additional vote w
 will be added.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933067284')} style={{ maxHeight: 250 }} />
+  -->
   <figcaption>Setting a longer duration results in a greater vote weight multiplier.</figcaption>
 </figure>
 
@@ -144,7 +144,7 @@ a subnetwork. A stake without delegation earns voting rights, but no token retur
 active stake within the Helium Vote interface.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933068839')} style={{ maxHeight: 300 }} />
+  -->
   <figcaption>
     You may choose to delegate your stake to either the MOBILE or IOT subDAO.
   </figcaption>
@@ -158,7 +158,7 @@ The Helium Wallet App will ask for confirmation before issuing the Solana transa
 the veHNT/veMOBILE/veIOT position.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933070813')} style={{ maxHeight: 300 }} />
+  -->
   <figcaption>
     After pressing "Lock Tokens", a Solana transaction is issued to create the stake.
   </figcaption>
@@ -179,7 +179,7 @@ position is in. A delegated position can only be undelegated after all accrued r
 claimed.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933071395')} style={{ maxHeight: 300 }} />
+  -->
   <figcaption>
     You will be required to approve a transaction in your wallet when you undelegate your veHNT.
   </figcaption>
@@ -212,7 +212,7 @@ undelegated your stake, you can click on your locked position to delegate your s
 subDAO.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933080044')} style={{ maxHeight: 300 }} />
+  -->
   <figcaption>Once your position is undelegated, click on the position to transfer it.</figcaption>
 </figure>
 
@@ -239,7 +239,7 @@ cooldown period has ended. You must claim all tokens from the position and undel
 before the Close Position button is available as an option.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1784#issuecomment-1933085189')} style={{ maxHeight: 350 }} />
+  -->
   <figcaption>
     Once the unlock is approved, the position will turn into a decaying position, decayed over the amount of 
     time originally selected.
@@ -287,7 +287,7 @@ position. If you do not have enough SOL and proceed with the transaction, an err
 will appear and allow you to swap your existing HNT/MOBILE/IOT to SOL to proceed with the transaction.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/https://github.com/helium/docs/pull/1784#issuecomment-1933086741')} style={{ maxHeight: 400 }} />
+  -->
   <figcaption>Transaction warning noting the user does not have enough $SOL in order to continue.</figcaption>
 </figure>
 
