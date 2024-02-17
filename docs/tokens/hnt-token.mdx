@@ -9,6 +9,7 @@ slug: /tokens/hnt-token
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import { TopLedgerEmbed } from '@site/src/theme/TopLedgerEmbed'
 
 <img className="docsheader" src={useBaseUrl('img/blockchain/heliumtoken.png')} />
 
@@ -80,7 +81,7 @@ Net Emissions enable the Network to monitor the number of HNT burned for DC in a
 that to the number of HNT to mint that epoch. The current value for Net Emissions is 1,643.83561643 HNT.
 
 For example, if less than 1,643.83561643 HNT is burned for DC within an epoch, the full amount burned
-will be re-minted and distributed into the subDAOs Treasury for that epoch. However, if more than 1,643 
+will be re-minted and distributed into the subDAOs Treasury for that epoch. However, if more than 1,643
 HNT is burned for DC within a single epoch, any HNT burn for DC over 1,643.83561643 will be permanently
 burned and removed from the max supply, while 1,643.83561643 being re-minted and distributed to the subDAOs.
 
@@ -89,6 +90,14 @@ The Net Emissions cap can be verified on chain [here](https://explorer.solana.co
 A cap on the number of HNT minted via Net Emissions per epoch ensures the desired deflationary
 effect of Burn and Mint and the resulting reduction of supply. Because HNT produced via Net
 Emissions do not add to the total outstanding, they do not violate max supply.
+
+<TopLedgerEmbed
+  title="Daily Net Emissions"
+  client="helium"
+  queryId="7417"
+  visualizationId="21858"
+  apiKey="gmq5liGNsuNxbesxmL3y3CbWgE02BWvAMI6k6YaU"
+/>
 
 Review the [complete Net Emissions discussion in the HIP][hip-20] for more information.
 

@@ -10,6 +10,7 @@ slug: /tokens/data-credit
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { PayloadSize } from './DataCredit'
+import { TopLedgerEmbed } from '@site/src/theme/TopLedgerEmbed'
 
 <img className="docsheader" src={useBaseUrl('/img/blockchain/fees.png')} />
 
@@ -33,6 +34,14 @@ import { HntToDcSimulator } from '@theme/HntToDcSimulator'
 <div className="screensnippet-wrapper">
   <HntToDcSimulator />
 </div>
+
+<TopLedgerEmbed
+  title="Daily DC Burnt"
+  client="helium"
+  queryId="5023"
+  visualizationId="14472"
+  apiKey="nPc8FdcKG69aM0Ne2C4FYHArO3LzpLPEPbnEYfsK"
+/>
 
 ## Data Credit Usage
 
@@ -92,6 +101,15 @@ reports each account for their own cost. For instance, if three 24-byte copies a
 given message, the cost would be 3 DC.
 
 <PayloadSize />
+<br />
+<TopLedgerEmbed
+  title="Daily Data Transfer - Payload size"
+  caption="Payload size of data transfer in last 24 hours"
+  client="helium"
+  queryId="7454"
+  visualizationId="21941"
+  apiKey="bu9Ju2wL8TvslcUq81jL7r1QiHuIZjyPYxJb449V"
+/>
 <br />
 
 ### Data Transfer Calculator
