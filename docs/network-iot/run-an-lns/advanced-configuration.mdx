@@ -38,27 +38,27 @@ with the respective OUI, potentially attributing unauthorized packet costs to th
 Implementing SKFs counteracts this risk by empowering the Helium Packet Router to authenticate
 packets, thus preventing the delivery of unwanted payloads (and their respective DC cost).
 
-## Max Copy
+## Max Copies
 
-Since LoRaWAN devices broadcast uplinks openly, it is very common for multiple Hotspots to pick up
-the same device uplink on the Helium Network. LNS operators have the option to configure how many
-copies of the same uplink they would like to receive and pay for. There are two major potential
-benefits for configuring the max copy setting to receive identical uplinks from multiple Hotspots.
+Given that LoRaWAN devices openly broadcast uplinks, it's common for multiple Hotspots to capture
+the same device uplink within the Helium Network. LNS operators can customize the number of duplicate
+uplinks they wish to receive and pay for by setting a max copies amount. Configuring the max
+copies setting offers two significant potential advantages for receiving identical uplinks from multiple Hotspots:
 
-- Better downlink performance: if the max copy setting is 10, the LNS will receive up to 10 copies
+- Better downlink performance: if the max copies setting is 10, the LNS will receive up to 10 copies
   of the same uplink, and the downlink will be sent by the Hotspot with the best RSSI of those 10.
 - Geolocation: It is possible to leverage Hotspot metadata to estimate the sensor location without
   GPS or Wi-Fi.
 
-There are 2 levels of granularity for the max copy setting:
+There are 2 levels of granularity for the max copies setting:
 
 1. Route level: applies to all devices registered under the route
 2. SKF level: only applies to the device with the specified network session key (NwkSKey). This
-   configuration overrides the route-level max copy setting
+   configuration overrides the route-level max copies setting
 
 As an example, if the LNS operator has a route that contains device A and B, and configures a
-route-level max copy setting of 2 and an SKF level max copy setting of 5 for device B. Then device A
-will inherit the route level max copy setting = 2, and device B will use its SKF-level max copy
+route-level max copies setting of 2 and an SKF level max copies setting of 5 for device B. Then device A
+will inherit the route level max copies setting = 2, and device B will use its SKF-level max copies
 setting = 5.
 
 ### Improve Join Performance
@@ -71,11 +71,11 @@ Join performance can be improved by increasing the number of copies of the same 
 LNS receives, because then the join accept will be delivered by the Hotspot with the best RSSI,
 increasing the possibility of a successful delivery.
 
-Join requests are free on the Helium Network. LNS operators can leverage max copy to improve the
+Join requests are free on the Helium Network. LNS operators can leverage max copies to improve the
 join performance without additional cost overhead.
 
-As an example, the LNS operator can define a route-level max copy setting of 20 and all SKF-level
-max copy setting of 1. This will have the effect of allowing up to 20 copies of join requests and 1
+As an example, the LNS operator can define a route-level max copies setting of 20 and all SKF-level
+max copies setting of 1. This will have the effect of allowing up to 20 copies of join requests and 1
 copy of uplink. This way, the devices will have a much better chance to join, without consuming
 extra DC from the uplinks once joined.
 
