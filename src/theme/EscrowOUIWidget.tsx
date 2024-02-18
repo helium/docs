@@ -36,7 +36,7 @@ export const EscrowOUIWidget = () => {
       <input
         type="text"
         name="wallet"
-        placeholder="Enter OUI Router Key"
+        placeholder="Enter OUI Router or Payer Key"
         value={wallet}
         onChange={(e) => setWallet(e.target.value)}
       />
@@ -47,26 +47,35 @@ export const EscrowOUIWidget = () => {
           }
 
           const IOT_SUB_DAO_KEY = subDaoKey(IOT_MINT)[0]
+          const escrowTokenAccount = getEscrowTokenAccount(IOT_SUB_DAO_KEY)?.escrowTokenAccount
 
           return (
             <>
               <table>
                 <tr>
                   <td>Escrow Account</td>
-                  {getEscrowTokenAccount(IOT_SUB_DAO_KEY)?.escrowTokenAccount ? (
-                    <td>{getEscrowTokenAccount(IOT_SUB_DAO_KEY)?.escrowTokenAccount} </td>
+                  {escrowTokenAccount ? (
+                    <td>
+                      <a
+                        href={`https://explorer.solana.com/address/${escrowTokenAccount}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {escrowTokenAccount}
+                      </a>
+                    </td>
                   ) : (
                     <td style={{ color: '#aaa' }}>Solana base58 escrow token address</td>
                   )}
                 </tr>
-                <tr>
+                {/* <tr>
                   <td>Delegated Data Credits Account</td>
                   {getEscrowTokenAccount(IOT_SUB_DAO_KEY)?.delegatedDataCredits ? (
                     <td>{getEscrowTokenAccount(IOT_SUB_DAO_KEY)?.delegatedDataCredits}</td>
                   ) : (
                     <td style={{ color: '#aaa' }}>Solana base58 data credit address.</td>
                   )}
-                </tr>
+                </tr> */}
 
                 <OuiEscrowAccountBalance
                   escrowAccount={
