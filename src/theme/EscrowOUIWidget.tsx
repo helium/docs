@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { Connection, Keypair, PublicKey, Transaction } from '@solana/web3.js'
@@ -24,7 +24,6 @@ export const EscrowOUIWidget = () => {
             delegatedDataCredits: delegatedDataCredits.toBase58(),
           }
         } catch (e) {
-          // Logger.error(e)
           throw e as Error
         }
       }
@@ -129,7 +128,15 @@ const OuiEscrowAccountBalance = ({ escrowAccount }: OuiAccountDataProps) => {
     <tr>
       <td>Escrow Account Balance</td>
       {dcBalance ? (
-        <td>{Number(dcBalance).toLocaleString()}</td>
+        <td>
+          {Number(dcBalance).toLocaleString()} DC (
+          {(Number(dcBalance) * 0.00001).toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            currencyDisplay: 'code',
+          })}
+          )
+        </td>
       ) : (
         <td style={{ color: '#aaa' }}>Escrow account DC Balance.</td>
       )}
