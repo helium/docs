@@ -70,11 +70,7 @@ export const EscrowOUIWidget = () => {
                 </tr>
 
                 <OuiEscrowAccountBalance
-                  escrowAccount={
-                    getEscrowTokenAccount(IOT_SUB_DAO_KEY)?.escrowTokenAccount
-                      ? new PublicKey(getEscrowTokenAccount(IOT_SUB_DAO_KEY)?.escrowTokenAccount)
-                      : undefined
-                  }
+                  escrowAccount={escrowTokenAccount ? new PublicKey(escrowTokenAccount) : undefined}
                 />
               </table>
             </>
