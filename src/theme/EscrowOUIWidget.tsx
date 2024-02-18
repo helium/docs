@@ -57,7 +57,7 @@ export const EscrowOUIWidget = () => {
                   {escrowTokenAccount ? (
                     <td>
                       <a
-                        href={`https://explorer.solana.com/address/${escrowTokenAccount}`}
+                        href={`https://solana.fm/address/${escrowTokenAccount}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -139,7 +139,7 @@ const OuiEscrowAccountBalance = ({ escrowAccount }: OuiAccountDataProps) => {
           )
         </td>
       ) : (
-        <td style={{ color: '#aaa' }}>Escrow account DC Balance.</td>
+        <td style={{ color: '#aaa' }}>Escrow account DC balance</td>
       )}
     </tr>
   )
