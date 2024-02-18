@@ -68,14 +68,6 @@ export const EscrowOUIWidget = () => {
                     <td style={{ color: '#aaa' }}>Solana base58 escrow token address</td>
                   )}
                 </tr>
-                {/* <tr>
-                  <td>Delegated Data Credits Account</td>
-                  {getEscrowTokenAccount(IOT_SUB_DAO_KEY)?.delegatedDataCredits ? (
-                    <td>{getEscrowTokenAccount(IOT_SUB_DAO_KEY)?.delegatedDataCredits}</td>
-                  ) : (
-                    <td style={{ color: '#aaa' }}>Solana base58 data credit address.</td>
-                  )}
-                </tr> */}
 
                 <OuiEscrowAccountBalance
                   escrowAccount={
