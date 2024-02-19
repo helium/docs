@@ -9,24 +9,22 @@ slug: /solana/migration/wallet-user
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 This guide provides step-by-step instructions for Helium Wallet app, CLI Wallet, and Ledger Wallet
 users to migrate their wallets to the Solana blockchain.
 
 Wallet migration is necessary to interact with your HNT, DC, MOBILE, IOT, and Hotspots on the Solana
-blockchain. You can find Hotspot NFTs in the NFT Collectibles section once Helium on Solana goes
-live. Token balances are visible on the account page. You can also create or import multiple
-accounts to a maximum of 10 on the Helium Wallet app.
+blockchain. You can find Hotspot NFTs in the NFT Collectibles section in the Wallet app after your
+wallet is migrated. Token balances are visible on the account page. You can also create or import
+multiple accounts to a maximum of 10 on the Helium Wallet app.
 
 Existing HNT and MOBILE tokens in your wallets will remain unchanged by this migration.
 
 ## Migration Utility
 
 You can migrate a wallet using the widget below by entering a Helium or Solana wallet address and
-clicking the "Seed Wallet" button.
+clicking the "Seed Wallet" button. Wallets seeded/migrated will have 0.00139088 SOL deposited in
+them
 
 import { MigrateWallet } from '@theme/MigrateWallet'
 
@@ -37,14 +35,16 @@ import { MigrateWallet } from '@theme/MigrateWallet'
 :::caution
 
 The Helium Hotspot App is no longer used to manage Tokens or perform Wallet activities and instead
-is only used to manage Original Helium Hotspots and FreedomFi Hotspots.
+is only used to manage Original Helium Hotspots and FreedomFi Hotspots. Hotspots are now managed
+with the Helium Wallet and some makers have apps that provide additional management and diagnostic
+features.
 
 :::
 
 Helium Hotspot app users must migrate to the Helium Wallet App following these steps.
 
-To start, ensure your Helium Hotspot app is updated to version **5.0.0** or later and that you have
-downloaded the latest Helium Wallet app version **2.0.0** or higher.
+To start, ensure your Helium Hotspot app is updated to at least version **5.0.0** or later and that
+the Helium Wallet app version is **2.0.8** or later.
 
 <div class="container">
   <div class="row" style={{ marginBottom: 20 }}>
@@ -68,7 +68,7 @@ downloaded the latest Helium Wallet app version **2.0.0** or higher.
   <div class="row" style={{ marginBottom: 20 }}>
     <div class="col col--12">
       <p>
-        <b>Step 2.</b> If you do not see the pop up, tap the Settings menu on the bottom tab bar and
+        <b>Step 2.</b> If you do not see the pop-up, tap the Settings menu on the bottom tab bar and
         then <code>Export Private Key (Migrate Wallet)</code>.
       </p>
     </div>
@@ -130,12 +130,14 @@ will remain the same.
 
 > Some users may know the Helium Wallet app as the "New Wallet app" or "the black app."
 
-To migrate to Solana, simply update your Helium Wallet app version to 2.0.0 or newer. That’s it!
+To migrate to Solana, simply update your Helium Wallet app version to 2.0.8 or newer. That's it! The
+Helium Wallet app is regularly upgraded with new features and it is recommended that the wallet is
+upgraded to the latest version.
 
 If you have Hotspots in any account, they will appear as an NFT Collectible. All other tokens and
 their balances are automatically transferred to the Solana Blockchain under the same token name.
 
-Your public Wallet address will change, but your private key and seed phrase (12 or 24 word) will
+Your public Wallet address will change, but your private key and seed phrase (12 or 24-word) will
 remain the same.
 
 ---
@@ -163,10 +165,10 @@ To migrate a Helium CLI Wallet to Solana, you will need to perform the following
 ### Inflate/seed Solana-mapped Helium Wallet on Solana
 
 To provide high-level context, during the migration window a chain variable will be issued to cause
-the Helium L1 to cease block production after which time a snapshot of Helium Network state will be
-taken and loaded onto Solana Mainnet via a data structure (e.g., Merkle Tree). As such, all account
-state on the Helium L1 - including that of your CLI wallet - will be available on Solana Mainnet
-after the migration window.
+the Helium L1 to cease block production after which time a snapshot of the Helium Network state will
+be taken and loaded onto Solana Mainnet via a data structure (e.g., Merkle Tree). As such, all
+account state on the Helium L1 - including that of your CLI wallet - will be available on Solana
+Mainnet after the migration window.
 
 Given the usage of the Merkle Tree, however, you will need to "inflate" or "seed" your Solana-mapped
 Helium Wallet on Solana. To do so, there is a **passive means** provided by the Helium Wallet App,
@@ -176,9 +178,9 @@ the documentation.
 
 Regarding the **passive means**, you can simply export your Helium private key from the Helium CLI
 Wallet and import the Helium private key into the Helium Wallet App in the manner described in steps
-2 and 3 below. Once the migration window is complete and Helium Network state has been loaded onto
-Solana, you will be able to open the Helium Wallet app and behind the scenes your Wallet will be
-inflated on Solana. After that point, you can use the Helium Wallet app to send HNT or MOBILE
+2 and 3 below. Once the migration window is complete and the Helium Network state has been loaded
+onto Solana, you will be able to open the Helium Wallet app and behind the scenes, your Wallet will
+be inflated on Solana. After that point, you can use the Helium Wallet app to send HNT or MOBILE
 transactions on Solana Mainnet.
 
 Regarding the **active means**, you can use the
@@ -194,7 +196,7 @@ will be changed to Solana Mainnet during the migration window._
 
 Starting in Helium CLI Wallet
 [v1.7.11](https://github.com/helium/helium-wallet-rs/releases/tag/v1.7.11), updates were made to the
-`export` command to facilitate exporting private keys in (1) password encrypted QR code format for
+`export` command to facilitate exporting private keys in (1) password-encrypted QR code format for
 import into the Helium Wallet App, (2) raw format for import into a Solana CLI Wallet, and (3) raw
 format for import into a Phantom Wallet. For each situation, example Helium CLI Wallet commands are
 provided below:
@@ -235,9 +237,9 @@ Depending on how you exported your private key from the Helium CLI Wallet, you w
 import your private key into the Helium Wallet app, (2) import your private key into the Solana CLI
 Wallet, or (3) import your private key into Phantom Wallet.
 
-1. Import private key into Helium Wallet app
+1. Import private key into the Helium Wallet app
 
-If you exported your private key in password encrypted QR code form, you import the private key into
+If you exported your private key in password-encrypted QR code form, you import the private key into
 the Helium Wallet app. In particular, on the Helium Wallet app, you will need to navigate to the CLI
 QR code reader found at `Add New Account > Import > CLI` and scan the encrypted private key produced
 via the Helium CLI Wallet.
@@ -280,10 +282,10 @@ your Helium Ledger account.
 
 ### Derivation Paths and your new Public Key
 
-The Helium Ledger App uses `ED25519` keys, similarly to Solana, but at a different derivation path.
+The Helium Ledger App uses `ED25519` keys, similar to Solana, but at a different derivation path.
 
-This means that, while seed phrases are the same, private keys are different on Solana.
+This means that while seed phrases are the same, private keys are different on Solana.
 
-In order to get around this, when you run the migration, the migration application will ask you to
-use the old derivation path to approve sending all of your Hotspots, tokens, etc. to the new
-derivation path.
+To get around this, when you run the migration, the migration application will ask you to use the
+old derivation path to approve sending all of your Hotspots, tokens, etc. to the new derivation
+path.
