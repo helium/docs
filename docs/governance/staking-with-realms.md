@@ -175,7 +175,7 @@ the veHNT/veMOBILE/veIOT position.
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/modular-governance/estimated-changes.jpeg')}
-  style={{ maxHeight: 350, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 375, borderRadius: '40px', padding: '14px 16px 20px' }}
       />
   <figcaption>
     After pressing "Lock Tokens", a Solana transaction is issued to create the stake.
@@ -199,7 +199,7 @@ claimed.
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/modular-governance/undelegate.jpeg')}
-  style={{ maxHeight: 350, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 375, borderRadius: '40px', padding: '14px 16px 20px' }}
       />
   <figcaption>
     You will be required to approve a transaction in your wallet when you undelegate your veHNT.
@@ -300,7 +300,7 @@ will appear and allow you to swap your existing HNT/MOBILE/IOT to SOL to proceed
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/modular-governance/no-sol-error.jpg')}
-  style={{ maxHeight: 400, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 500, borderRadius: '40px', padding: '14px 16px 20px' }}
  />
   <figcaption>Transaction warning noting the user does not have enough $SOL in order to continue.</figcaption>
 </figure>
