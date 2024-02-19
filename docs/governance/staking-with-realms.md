@@ -84,7 +84,7 @@ receive veHNT/veMOBILE/veIOT in proportion to the amount of time that the tokens
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/modular-governance/lockup-type.jpeg')}
-  style={{ maxHeight: 280, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 300, borderRadius: '40px', padding: '14px 16px 20px' }}
   /> 
   <figcaption>
     Selecting your lockup type, Decaying or Constant.
@@ -175,7 +175,7 @@ the veHNT/veMOBILE/veIOT position.
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/modular-governance/estimated-changes.jpeg')}
-  style={{ maxHeight: 380, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 350, borderRadius: '40px', padding: '14px 16px 20px' }}
       />
   <figcaption>
     After pressing "Lock Tokens", a Solana transaction is issued to create the stake.
@@ -199,7 +199,7 @@ claimed.
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/modular-governance/undelegate.jpeg')}
-  style={{ maxHeight: 380, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 350, borderRadius: '40px', padding: '14px 16px 20px' }}
       />
   <figcaption>
     You will be required to approve a transaction in your wallet when you undelegate your veHNT.
@@ -299,9 +299,9 @@ position. If you do not have enough SOL and proceed with the transaction, an err
 will appear and allow you to swap your existing HNT/MOBILE/IOT to SOL to proceed with the transaction.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/modular-governance/no-sol-error.jpg')} />
+  <img src={useBaseUrl('/img/modular-governance/no-sol-error.jpg')}
   style={{ maxHeight: 400, borderRadius: '40px', padding: '14px 16px 20px' }}
- 
+ />
   <figcaption>Transaction warning noting the user does not have enough $SOL in order to continue.</figcaption>
 </figure>
 
