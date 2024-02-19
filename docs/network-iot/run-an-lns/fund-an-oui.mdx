@@ -9,6 +9,7 @@ slug: /iot/run-an-lns/fund-an-oui
 ---
 
 import { OUIUsage } from './FundAnOUI'
+import { TopLedgerEmbed } from '@site/src/theme/TopLedgerEmbed'
 
 [Data Credits](/tokens/data-credit) are used to pay for all transmission of data from devices on the
 Helium Network.
@@ -25,6 +26,19 @@ Several options are available for funding an OUI with Data Credits:
 
 <OUIUsage />
 <br />
+
+<TopLedgerEmbed
+  title="Data credits usage"
+  caption="Data credits usage by organisation last 7 days"
+  client="helium"
+  queryId="7386"
+  visualizationId="21761"
+  height="590px"
+  apiKey="aDJwNXZZPbYlqfgqInKljAzPaMNDmaVuEIWOxAsa"
+  params={{
+    'p_oui name': '1663 Console by Nova Labs',
+  }}
+/>
 
 Data credits are charged per 1DC per 24b increment for each response of an uplink payload. For a
 helpful visualization of DC usage of devices for a given period, check out the
@@ -80,6 +94,18 @@ When monitoring the OUI balance, it is worth noting that the minimum usage deduc
 [^1]:
     `BURN_THRESHOLD` on
     [GitHub](https://github.com/helium/oracles/blob/7c9f5b4e6f8e47be80eaf3c6cb4cc703373246ef/iot_packet_verifier/src/pending_burns.rs#L32)
+
+<TopLedgerEmbed
+  title="Organisation DC balanace"
+  caption="Current DC balance in USD"
+  client="helium"
+  queryId="7481"
+  visualizationId="22038"
+  apiKey="3klj5bCQd2kOL9phffs6qE05LalhTfA477LWV9q1"
+  params={{
+    'p_oui name': '1663 Console by Nova Labs',
+  }}
+/>
 
 ### Sphere DC Balance API
 
