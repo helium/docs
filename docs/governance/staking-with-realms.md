@@ -46,8 +46,9 @@ Staking in the Helium Wallet App can be done by navigating to the "Governance" t
 Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('img/modular-governance/Your-voting-power.png')} />
-  <figcaption>
+  <img src={useBaseUrl('/img/modular-governance/Governance-tab-on-HW.jpg')}
+  style={{ maxHeight: 300, borderRadius: '40px', padding: '14px 16px 20px' }}
+  /> 
    The Governance tab is the fourth tab from the left. The HNT stake button at the top is the default selection.
   </figcaption>
 </figure>
@@ -63,8 +64,8 @@ displayed in the governance section of the DAO.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/modular-governance/Your-voting-power.png')}
-  style={{ maxHeight: 350, borderRadius: '40px', padding: '14px 16px 20px' }}
-   />
+  style={{ maxHeight: 450, borderRadius: '40px', padding: '14px 16px 20px' }}
+  /> 
   <figcaption>
     Stake positions can be made and viewed in the "Your Voting Power" section of Helium Vote
   </figcaption>
@@ -113,7 +114,7 @@ then it declines linearly until release.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/s/constantgraph.png')}
+    src={useBaseUrl('/img/modular-governance/constantgraph.png')}
     style={{ maxHeight: 'initial', padding: '0 0 8px 0' }}
   />
   <figcaption>
