@@ -46,7 +46,7 @@ Staking in the Helium Wallet App can be done by navigating to the "Governance" t
 Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/static/img/modular-governance/Your-voting-power.png')} />
+  <img src={useBaseUrl('img/modular-governance/Your-voting-power.png')} />
   <figcaption>
    The Governance tab is the fourth tab from the left. The HNT stake button at the top is the default selection.
   </figcaption>
@@ -62,7 +62,9 @@ Once your wallet has been connected to Realms, your token balances (or existing 
 displayed in the governance section of the DAO.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/modular-governance/Your-voting-power.png')} />
+  <img src={useBaseUrl('/img/modular-governance/Your-voting-power.png')}
+  style={{ maxHeight: 350, borderRadius: '40px', padding: '14px 16px 20px' }}
+   />
   <figcaption>
     Stake positions can be made and viewed in the "Your Voting Power" section of Helium Vote
   </figcaption>
@@ -81,7 +83,9 @@ receive veHNT/veMOBILE/veIOT in proportion to the amount of time that the tokens
 
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/modular-governance/lockup-type.jpeg')} />
+  <img src={useBaseUrl('/img/modular-governance/lockup-type.jpeg')}
+  style={{ maxHeight: 350, borderRadius: '40px', padding: '14px 16px 20px' }}
+  /> 
   <figcaption>
     Selecting your lockup type, Decaying or Constant.
   </figcaption>
@@ -153,7 +157,7 @@ active stake within the Helium Vote interface.
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/modular-governance/delegate-to-subdao.jpeg')}
-    style={{ maxHeight: 250, borderRadius: '40px', padding: '14px 16px 20px' }}
+    style={{ maxHeight: 350, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
   <figcaption>
     You may choose to delegate your stake to either the MOBILE or IOT subDAO.
@@ -281,16 +285,6 @@ understanding specific details for former Validator operators.
 
 These positions are not automatically delegated to a subDAO and are set with a constant
 [lockup period](#lockup-period) by default.
-
-As a note, these Validator positions will appear as one large stake. `hntyv...` is the Solana mint
-address for HNT.
-
-<figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/realms/landrush.png')} />
-  <figcaption>
-    A veHNT position representing two migrated validators (20,000 HNT) under one account.
-  </figcaption>
-</figure>
 
 ## Possible Errors
 
