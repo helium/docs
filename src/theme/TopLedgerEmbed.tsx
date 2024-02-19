@@ -1,10 +1,6 @@
 import React from 'react'
 
-const style = {
-  width: '720px',
-  minHeight: '520px',
-  height: '100%',
-}
+import styles from './TopLedgerEmbed.module.css'
 
 export const TopLedgerEmbed = ({
   title,
@@ -13,8 +9,8 @@ export const TopLedgerEmbed = ({
   queryId,
   visualizationId,
   apiKey,
-  height = style.height,
-  width = style.width,
+  height,
+  width,
   params = {},
 }) => {
 
@@ -23,16 +19,15 @@ export const TopLedgerEmbed = ({
 
   return (
     <figure
-      className="screensnippet-wrapper"
-      style={{ padding: '1.25em 5vw 1em', marginBottom: '0.5rem', marginTop: '0.5rem' }}
+      className={`screensnippet-wrapper ${styles.tlembedWrapper}`}
     >
       {title && <p>{title}</p>}
       <iframe
         src={embedUrl.toString()}
         width="720"
         height="391"
+        className={styles.tlembed}
         style={{
-          ...style,
           height,
           width,
         }}
