@@ -63,7 +63,7 @@ Once your wallet has been connected to Realms, your token balances (or existing 
 displayed in the governance section of the DAO.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/img/modular-governance/Your-voting-power.png')}
+  <img src={useBaseUrl('/img/modular-governance/Your-voting-power.jpg')}
   style={{ maxHeight: 450, borderRadius: '40px', padding: '14px 16px 20px' }}
   /> 
   <figcaption>
@@ -114,7 +114,7 @@ then it declines linearly until release.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/modular-governance/constantgraph.png')}
+    src={useBaseUrl('/img/modular-governance/constantgraph1.jpg)')}
     style={{ maxHeight: 'initial', padding: '0 0 8px 0' }}
   />
   <figcaption>
