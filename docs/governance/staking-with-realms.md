@@ -46,7 +46,7 @@ Staking in the Helium Wallet App can be done by navigating to the "Governance" t
 Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('img/modular-governance/app-voting-overview.jpeg')} />
+  <img src={useBaseUrl('/static/img/modular-governance/Your-voting-power.png')} />
   <figcaption>
    The Governance tab is the fourth tab from the left. The HNT stake button at the top is the default selection.
   </figcaption>
@@ -56,8 +56,13 @@ Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
 Once in the "Governance" tab, you will see "Your Voting Power". Click "Your Voting Power"
 to see your total voting power, and for the ability to lock HNT/MOBILE/IOT.
 
+
+
+Once your wallet has been connected to Realms, your token balances (or existing positions) will be
+displayed in the governance section of the DAO.
+
 <figure className="screensnippet-wrapper">
-  
+  <img src={useBaseUrl('/static/img/modular-governance/Your-voting-power.png')} />
   <figcaption>
     Stake positions can be made and viewed in the "Your Voting Power" section of Helium Vote
   </figcaption>
@@ -74,10 +79,16 @@ To build a secure voting system, Helium only allows votes from token holders wil
 themselves with the long-term health of the Helium Network. This is done by allowing holders to
 receive veHNT/veMOBILE/veIOT in proportion to the amount of time that the tokens are staked for.
 
+
 <figure className="screensnippet-wrapper">
-  
-  <figcaption>Selecting your lockup type, Decaying or Constant.</figcaption>
+  <img src={useBaseUrl('/static/img/modular-governance/lockup-type.jpeg')} />
+  <figcaption>
+    Selecting your lockup type, Decaying or Constant.
+  </figcaption>
 </figure>
+<br />
+
+
 
 #### Decaying
 
@@ -116,10 +127,6 @@ the 'Unlock' action is executed.
 While it is possible to set a higher duration than 4 years, no additional vote weight multiplier
 will be added.
 
-<figure className="screensnippet-wrapper">
-  -->
-  <figcaption>Setting a longer duration results in a greater vote weight multiplier.</figcaption>
-</figure>
 
 ### Stake Multiplier
 
@@ -144,11 +151,15 @@ a subnetwork. A stake without delegation earns voting rights, but no token retur
 active stake within the Helium Vote interface.
 
 <figure className="screensnippet-wrapper">
-  -->
+  <img
+    src={useBaseUrl('/static/img/modular-governance/delegate-to-subdao.jpeg')}
+    style={{ maxHeight: 250, borderRadius: '40px', padding: '14px 16px 20px' }}
+  />
   <figcaption>
     You may choose to delegate your stake to either the MOBILE or IOT subDAO.
   </figcaption>
 </figure>
+
 
 ### Confirming your Stake
 
@@ -158,7 +169,9 @@ The Helium Wallet App will ask for confirmation before issuing the Solana transa
 the veHNT/veMOBILE/veIOT position.
 
 <figure className="screensnippet-wrapper">
-  -->
+  <img
+    src={useBaseUrl('/static/img/modular-governance/estimated-changes.jpeg')}
+      />
   <figcaption>
     After pressing "Lock Tokens", a Solana transaction is issued to create the stake.
   </figcaption>
@@ -179,7 +192,9 @@ position is in. A delegated position can only be undelegated after all accrued r
 claimed.
 
 <figure className="screensnippet-wrapper">
-  -->
+  <img
+    src={useBaseUrl('/static/img/modular-governance/undelegate.jpeg')}
+      />
   <figcaption>
     You will be required to approve a transaction in your wallet when you undelegate your veHNT.
   </figcaption>
@@ -212,8 +227,10 @@ undelegated your stake, you can click on your locked position to delegate your s
 subDAO.
 
 <figure className="screensnippet-wrapper">
-  -->
-  <figcaption>Once your position is undelegated, click on the position to transfer it.</figcaption>
+  <img
+    src={useBaseUrl('/static/img/modular-governance/Split-Menu.jpg')}
+      />
+   <figcaption>Once your position is undelegated, click on the position to transfer it.</figcaption>
 </figure>
 
 ### Extending a Stake
@@ -238,13 +255,6 @@ You will be required to close the position to return the staked HNT/MOBILE/IOT t
 cooldown period has ended. You must claim all tokens from the position and undelegate the position
 before the Close Position button is available as an option.
 
-<figure className="screensnippet-wrapper">
-  -->
-  <figcaption>
-    Once the unlock is approved, the position will turn into a decaying position, decayed over the amount of 
-    time originally selected.
-  </figcaption>
-</figure>
 
 ## Landrush
 
@@ -275,7 +285,12 @@ These positions are not automatically delegated to a subDAO and are set with a c
 As a note, these Validator positions will appear as one large stake. `hntyv...` is the Solana mint
 address for HNT.
 
-<ValidatorStake />
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('/img/realms/landrush.png')} />
+  <figcaption>
+    A veHNT position representing two migrated validators (20,000 HNT) under one account.
+  </figcaption>
+</figure>
 
 ## Possible Errors
 
@@ -287,7 +302,8 @@ position. If you do not have enough SOL and proceed with the transaction, an err
 will appear and allow you to swap your existing HNT/MOBILE/IOT to SOL to proceed with the transaction.
 
 <figure className="screensnippet-wrapper">
-  -->
+  <img src={useBaseUrl('/static/img/modular-governance/no-sol-error.jpg')} />
+ 
   <figcaption>Transaction warning noting the user does not have enough $SOL in order to continue.</figcaption>
 </figure>
 
