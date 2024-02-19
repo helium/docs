@@ -62,7 +62,7 @@ Once your wallet has been connected to Realms, your token balances (or existing 
 displayed in the governance section of the DAO.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/static/img/modular-governance/Your-voting-power.png')} />
+  <img src={useBaseUrl('/img/modular-governance/Your-voting-power.png')} />
   <figcaption>
     Stake positions can be made and viewed in the "Your Voting Power" section of Helium Vote
   </figcaption>
@@ -81,7 +81,7 @@ receive veHNT/veMOBILE/veIOT in proportion to the amount of time that the tokens
 
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/static/img/modular-governance/lockup-type.jpeg')} />
+  <img src={useBaseUrl('/img/modular-governance/lockup-type.jpeg')} />
   <figcaption>
     Selecting your lockup type, Decaying or Constant.
   </figcaption>
@@ -152,7 +152,7 @@ active stake within the Helium Vote interface.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/static/img/modular-governance/delegate-to-subdao.jpeg')}
+    src={useBaseUrl('/img/modular-governance/delegate-to-subdao.jpeg')}
     style={{ maxHeight: 250, borderRadius: '40px', padding: '14px 16px 20px' }}
   />
   <figcaption>
@@ -170,7 +170,7 @@ the veHNT/veMOBILE/veIOT position.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/static/img/modular-governance/estimated-changes.jpeg')}
+    src={useBaseUrl('/img/modular-governance/estimated-changes.jpeg')}
       />
   <figcaption>
     After pressing "Lock Tokens", a Solana transaction is issued to create the stake.
@@ -193,7 +193,7 @@ claimed.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/static/img/modular-governance/undelegate.jpeg')}
+    src={useBaseUrl('/img/modular-governance/undelegate.jpeg')}
       />
   <figcaption>
     You will be required to approve a transaction in your wallet when you undelegate your veHNT.
@@ -228,7 +228,7 @@ subDAO.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/static/img/modular-governance/Split-Menu.jpg')}
+    src={useBaseUrl('/img/modular-governance/Split-Menu.jpg')}
       />
    <figcaption>Once your position is undelegated, click on the position to transfer it.</figcaption>
 </figure>
@@ -302,7 +302,7 @@ position. If you do not have enough SOL and proceed with the transaction, an err
 will appear and allow you to swap your existing HNT/MOBILE/IOT to SOL to proceed with the transaction.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('/static/img/modular-governance/no-sol-error.jpg')} />
+  <img src={useBaseUrl('/img/modular-governance/no-sol-error.jpg')} />
  
   <figcaption>Transaction warning noting the user does not have enough $SOL in order to continue.</figcaption>
 </figure>
