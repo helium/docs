@@ -118,7 +118,7 @@ then it declines linearly until release.
     src={useBaseUrl('/img/modular-governance/constantgraph1.jpg)')}
     style={{ maxHeight: 'initial', padding: '0 0 8px 0' }}
   />
-  <figcaption>
+   <figcaption>
     You lock 10.000 tokens with a lockup duration of one year. After three years you decide to start
     the unlocking process. Another year after that, you can withdraw the tokens.
   </figcaption>
