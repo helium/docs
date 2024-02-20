@@ -49,7 +49,8 @@ Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
   <img src={useBaseUrl('/img/modular-governance/Governance-tab-on-HW.jpg')}
   style={{ maxHeight: 300, borderRadius: '40px', padding: '14px 16px 20px' }}
   /> 
-   The Governance tab is the fourth tab from the left. The HNT stake button at the top is the default selection.
+  <figcaption>
+      The Governance tab is the fourth tab from the left. The HNT stake button at the top is the default selection.
   </figcaption>
 </figure>
 <br />
