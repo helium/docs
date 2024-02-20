@@ -83,7 +83,7 @@ receive veMOBILE or veIOT in proportion to the amount of time that the tokens ar
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/modular-governance/lockup-type.jpeg')}
-  style={{ maxHeight: 300, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 275, borderRadius: '40px', padding: '14px 16px 20px' }}
   /> 
   <figcaption>
     Selecting your lockup type, Decaying or Constant.
@@ -104,7 +104,7 @@ cooldown period has ended.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/modular-governance/constant-lockup.jpg)')}
+    src={useBaseUrl('img/modular-governance/constant-lockup.jpg')}
     style={{ maxHeight: 'initial', padding: '0 0 8px 0' }}
   />
   <figcaption>
@@ -153,7 +153,16 @@ get a return in that network's tokens.
 Positions created during the [landrush](#landrush) period received an additional 3x multiplier on
 the overall lockup multiplier.
 
-<StakeMultipler />
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/modular-governance/duration.jpeg')}
+    style={{ maxHeight: 250, borderRadius: '40px', padding: '14px 16px 20px' }}
+  />
+  <figcaption>
+    The multiplier affects a position's voting and delegation power but does not mean more HNT is
+    returned.
+  </figcaption>
+</figure>
 
 ### Delegating to a subDAO (veHNT Only)
 A stake will not earn any token return until it is delegated to a subDAO. A stake without delegation
@@ -271,7 +280,7 @@ cooldown period has ended. You must claim all tokens from the position and undel
 before the Close Position button is available as an option.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('img/modular-governance/constant-lockup.jpg')} style={{ maxHeight: 300 }} />
+  <img src={useBaseUrl('img/modular-governance/two-years.jpg')} style={{ maxHeight: 300 }} />
   <figcaption>
     This position will unlock over the period of 2 years once the unlock has been initiated.
   </figcaption>
