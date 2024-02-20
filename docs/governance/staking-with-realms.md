@@ -115,7 +115,7 @@ then it declines linearly until release.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/modular-governance/constantgraph1.jpg)')}
+    src={useBaseUrl('mg/modular-governance/constant-lockup.jpg')}
     style={{ maxHeight: 'initial', padding: '0 0 8px 0' }}
   />
    <figcaption>
