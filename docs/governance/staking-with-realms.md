@@ -104,7 +104,7 @@ cooldown period has ended.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/modular-governance/constant-lock.jpg')}
+    src={useBaseUrl('img/modular-governance/decaying.jpg')}
     style={{ maxHeight: 'initial', padding: '0 0 8px 0' }}
   />
   <figcaption>
@@ -280,7 +280,7 @@ cooldown period has ended. You must claim all tokens from the position and undel
 before the Close Position button is available as an option.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('img/modular-governance/two-years.jpg')} style={{ maxHeight: 275 }} />
+  <img src={useBaseUrl('img/modular-governance/two-years.jpg')} style={{ maxHeight: 250 }} />
   <figcaption>
     This position will unlock over the period of 2 years once the unlock has been initiated.
   </figcaption>
