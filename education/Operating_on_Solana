@@ -1,7 +1,31 @@
 Introduction:
 The Helium network, a pioneer in decentralized wireless infrastructure, has embarked on a transformative journey by migrating to the Solana blockchain. This shift represents a significant leap forward in terms of scalability, speed, and integration possibilities. In this comprehensive guide, we will navigate the process of operating on Solana with Helium, uncovering the advantages, setup procedures, ecosystem integration, best practices, and troubleshooting tips.
 
+## Prerequisites
+
+Before you begin, make sure you have the following prerequisites:
+
+- A Helium-compatible wireless device (Hotspot)
+- Access to the Solana blockchain
+- Basic knowledge of the command line interface (CLI)
+
+## Step 1: Setting Up Helium Nodes on Solana
+
+### Install Required Software
+
+Open your terminal and install the necessary software:
+
+```bash
+# Install Helium CLI
+npm install -g helium-cli
+
+# Install Solana CLI
+sh -c "$(curl -sSfL https://release.solana.com/v1.8.4/install)"
+
 Setting Up on Solana:
+
+# Connect Helium node to Solana
+helium-cli configure solana
 
 1. Understand the Migration:
 Before diving into the setup process, grasp the rationale behind Helium's migration to Solana. Solana offers enhanced transaction speeds, scalability, and stability compared to Helium's native blockchain. The migration ensures a more robust and efficient network for Helium participants.
@@ -24,26 +48,71 @@ Integration with Solana Ecosystem:
 
 3. Exploring Helium and Solana Synergy:
 a. Clockwork Automation:
+
+# Install Clockwork CLI
+npm install -g clockwork-cli
+
+# Schedule transactions
+clockwork schedule -t "Transfer HNT to Solana" -s "every day at 3 PM" "helium-cli transfer HNT --to-solana"
+
 + Helium leverages Solana's Clockwork for seamless automation of HNT rewards to IoT and Mobile subnetworks.
 + Understand how Clockwork enhances the efficiency of Helium's reward distribution.
 
 b. Helius Development Optimization:
+
+# Install Helius CLI
+npm install -g helius-cli
+
+# Navigate to your Helium project folder
+cd /path/to/your/helium/project
+
+# Optimize development with Helius
+helius optimize
+
 + Helius, a Solana development optimization service, contributes to the overall efficiency of Helium operations.
 + Learn how Helius aids developers in API provisioning, monitoring, and webhooks.
 
 c. Jupiter Liquidity Aggregator:
+
+# Install Jupiter SDK
+npm install -g jupiter-sdk
+
+# Get token swap rates
+jupiter get-rates -p "HNT/SOL"
+
 + Integration with Jupiter enhances token swap rates, providing liquidity for Helium participants.
 + Explore the benefits of Jupiter integration for Helium users engaging in token swaps.
 
 d. Pyth Oracles:
+
+# Install Pyth SDK
+npm install -g pyth-sdk
+
+# Retrieve HNT price information
+pyth get-price -t "HNT/USD"
+
 + Pyth's oracles on Solana provide real-world data to Helium's on-chain programs.
 + Understand the role of Pyth in Helium's pricing mechanisms and data-driven operations.
 
 e. Switchboard Oracle Network:
+
+# Install Switchboard CLI
+npm install -g switchboard-cli
+
+# Retrieve device statistics using Switchboard
+switchboard get-stats -d "device-address"
+
 + Switchboard facilitates a community-curated oracle network for Helium on Solana.
 + Delve into how Switchboard enhances device statistics incorporation into on-chain reward calculations.
 
 f. Realms DAO Integration:
+
+# Install Realms SDK
+npm install -g realms-sdk
+
+# Create a new DAO on Realms
+realms create-dao -n "MyHeliumDAO" -m "Members"
+
 + Realms, a DAO platform on Solana, integrates Helium tokens and subnetwork delegation into its framework.
 + Explore the collaborative opportunities between Helium and Realms for decentralized governance.
 
