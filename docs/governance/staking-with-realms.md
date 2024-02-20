@@ -60,9 +60,6 @@ to see your total voting power, and for the ability to lock HNT/MOBILE/IOT.
 
 
 
-Once your wallet has been connected to Realms, your token balances (or existing positions) will be
-displayed in the governance section of the DAO.
-
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/modular-governance/Your-voting-power.jpg')}
   style={{ maxHeight: 400, borderRadius: '40px', padding: '14px 16px 20px' }}
@@ -80,8 +77,8 @@ As long as HNT, MOBILE or IOT is available in your linked account, new stakes ca
 ### Lockup Period
 
 To build a secure voting system, Helium only allows votes from token holders willing to align
-themselves with the long-term health of the Helium Network. This is done by allowing holders to
-receive veHNT/veMOBILE/veIOT in proportion to the amount of time that the tokens are staked for.
+themselves with the long-term health of the Helium Network. This is done by allowing holders to delegate their stake to a subDAO to
+receive veMOBILE or veIOT in proportion to the amount of time that the tokens are staked for.
 
 
 <figure className="screensnippet-wrapper">
@@ -163,9 +160,7 @@ A stake will not earn any token return until it is delegated to a subDAO. A stak
 earns voting rights, but no token return. 
 
 Once you select how much HNT you want to lock up, an interface will appear to allow you to delegate 
-your veHNT to a subDAO for rewards. A position will not earn any token return until it is delegated to 
-a subnetwork. A stake without delegation earns voting rights, but no token return. You can delegate an 
-active stake within the Helium Vote interface.
+your veHNT to a subDAO for rewards. 
 
 <figure className="screensnippet-wrapper">
   <img
@@ -180,7 +175,7 @@ active stake within the Helium Vote interface.
 
 ### Confirming your Stake
 
-Once parameters are settled in the Helium Vote UI, you are now ready to create your veHNT position.
+Once parameters are settled in the Helium Vote UI, you are now ready to create your veHNT/veMOBILE/veIOT position.
 
 The Helium Wallet App will ask for confirmation before issuing the Solana transaction that creates
 the veHNT/veMOBILE/veIOT position.
@@ -290,7 +285,13 @@ for a 'landrush' bonus of 3x the locked amount.<sup>(</sup>[^1]<sup>,</sup>[^2]<
 If a landrush stake is moved or split out of its original position after the first 10 days have
 lapsed, the landrush bonus is forfeited.
 
-<LandRush />
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('img/modular-governance/landrush.jpg')} />
+  <figcaption>
+    The 'landrush' banner indicates a position created within the first 10 days of the Solana
+    migration.
+  </figcaption>
+</figure>
 
 [^1]:
     [HIP 70: Scaling the Helium Network](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md)
@@ -307,6 +308,16 @@ understanding specific details for former Validator operators.
 
 These positions are not automatically delegated to a subDAO and are set with a constant
 [lockup period](#lockup-period) by default.
+
+As a note, these Validator positions will appear as one large stake. `hntyv...` is the Solana mint
+address for HNT.
+
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('img/modular-governance/validator-stake.jpg')} />
+  <figcaption>
+    A veHNT position representing two migrated validators (20,000 HNT) under one account.
+  </figcaption>
+</figure>
 
 ## Possible Errors
 
