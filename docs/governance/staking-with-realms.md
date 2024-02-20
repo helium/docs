@@ -105,7 +105,16 @@ moment of staking.
 You will be required to close the position to return the staked HNT to your wallet after the
 cooldown period has ended.
 
-<Decaying />
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/modular-governance/constant-lockup.jpg)')}
+    style={{ maxHeight: 'initial', padding: '0 0 8px 0' }}
+  />
+  <figcaption>
+    You lock 10.000 tokens with a lockup duration of one year. They are then unavailable for the
+    next one year. After this time, you can withdraw them again.
+  </figcaption>
+</figure>
 
 #### Constant
 
@@ -150,6 +159,8 @@ the overall lockup multiplier.
 <StakeMultipler />
 
 ### Delegating to a subDAO (veHNT Only)
+A stake will not earn any token return until it is delegated to a subDAO. A stake without delegation
+earns voting rights, but no token return. 
 
 Once you select how much HNT you want to lock up, an interface will appear to allow you to delegate 
 your veHNT to a subDAO for rewards. A position will not earn any token return until it is delegated to 
@@ -264,6 +275,12 @@ You will be required to close the position to return the staked HNT/MOBILE/IOT t
 cooldown period has ended. You must claim all tokens from the position and undelegate the position
 before the Close Position button is available as an option.
 
+<figure className="screensnippet-wrapper">
+  <img src={useBaseUrl('img/modular-governance/constant-lockup.jpg')} style={{ maxHeight: 300 }} />
+  <figcaption>
+    This position will unlock over the period of 2 years once the unlock has been initiated.
+  </figcaption>
+</figure>
 
 ## Landrush
 
