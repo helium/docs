@@ -22,32 +22,32 @@ import {
   ValidatorStake,
 } from './StakingWithRealms'
 
-Helium utilizes [Helium Vote](https://heliumvote.com), a native application built by the Helium 
-Foundation to organize and manage vote escrow tokens, delegation, and more. Stakes can be created 
+Helium utilizes [Helium Vote](https://heliumvote.com), a native application built by the Helium
+Foundation to organize and manage vote escrow tokens, delegation, and more. Stakes can be created
 and later managed within Helium Vote at any time at https://heliumvote.com.
 
 ## Creating a Stake
 
-Anyone with HNT, MOBILE, or IOT in their Helium Wallet App or Solana-compatible browser wallet
-(such as Phantom orBackpack) can stake.
+Anyone with HNT, MOBILE, or IOT in their Helium Wallet App or Solana-compatible browser wallet (such
+as Phantom orBackpack) can stake.
 
 While staking IOT or MOBILE tokens is possible through their respective subDAOs, those positions are
 only eligible for voting power and cannot currently be delegated for the purposes of earning
 rewards.
 
-This guide outlines using Helium Vote with the [Helium Wallet App](/wallets/helium-wallet-app). To use
-Helium Vote on a desktop browser, a Solana-compatible browser wallet can be used (such as Phantom or
-Backpack) by navagating to https://heliumvote.com.
-
+This guide outlines using Helium Vote with the [Helium Wallet App](/wallets/helium-wallet-app). To
+use Helium Vote on a desktop browser, a Solana-compatible browser wallet can be used (such as
+Phantom or Backpack) by navigating to https://heliumvote.com.
 
 ### Staking in the Helium Wallet App
 
-Staking in the Helium Wallet App can be done by navigating to the "Governance" tab within the Helium Wallet.
-Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
+Staking in the Helium Wallet App can be done by navigating to the "Governance" tab within the Helium
+Wallet. Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/modular-governance/Governance-tab-on-HW.jpg')}
-  style={{ maxHeight: 325, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 325 }}
+  className="add-border-radius add-shadow add-shadow-margin"
   /> 
   <figcaption>
       The Governance tab is the fourth tab from the left. The HNT stake button at the top is the default selection.
@@ -55,14 +55,13 @@ Ensure you select the token you want to stake (HNT, MOBILE or IOT) at the top.
 </figure>
 <br />
 
-Once in the "Governance" tab, you will see "Your Voting Power". Click "Your Voting Power"
-to see your total voting power, and for the ability to lock HNT/MOBILE/IOT.
-
-
+Once in the "Governance" tab, you will see "Your Voting Power". Click "Your Voting Power" to see
+your total voting power, and for the ability to lock HNT/MOBILE/IOT.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/modular-governance/Your-voting-power.jpg')}
-  style={{ maxHeight: 400, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 400 }}
+  className="add-border-radius add-shadow add-shadow-margin"
   /> 
   <figcaption>
     Stake positions can be made and viewed in the "Your Voting Power" section of Helium Vote
@@ -70,28 +69,26 @@ to see your total voting power, and for the ability to lock HNT/MOBILE/IOT.
 </figure>
 <br />
 
-As long as HNT, MOBILE or IOT is available in your linked account, new stakes can be created by tapping on the
-"Lock Tokens" button within the governance view.
-
+As long as HNT, MOBILE or IOT is available in your linked account, new stakes can be created by
+tapping on the "Lock Tokens" button within the governance view.
 
 ### Lockup Period
 
 To build a secure voting system, Helium only allows votes from token holders willing to align
-themselves with the long-term health of the Helium Network. This is done by allowing holders to delegate their stake to a subDAO to
-receive veMOBILE or veIOT in proportion to the amount of time that the tokens are staked for.
-
+themselves with the long-term health of the Helium Network. This is done by allowing holders to
+delegate their stake to a subDAO to receive veMOBILE or veIOT in proportion to the amount of time
+that the tokens are staked for.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/modular-governance/lockup-type.jpeg')}
-  style={{ maxHeight: 275, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 275 }}
+  className="add-border-radius add-shadow add-shadow-margin"
   /> 
   <figcaption>
     Selecting your lockup type, Decaying or Constant.
   </figcaption>
 </figure>
 <br />
-
-
 
 #### Decaying
 
@@ -133,18 +130,17 @@ then it declines linearly until release.
 ### Duration
 
 The duration of your cooldown is set in units of days. The longer your tokens are staked, the more
-veHNT/veMOBILE/veIOT will be issued. If you chose the 'Constant' lockup period, this duration takes effect after
-the 'Unlock' action is executed.
+veHNT/veMOBILE/veIOT will be issued. If you chose the 'Constant' lockup period, this duration takes
+effect after the 'Unlock' action is executed.
 
 While it is possible to set a higher duration than 4 years, no additional vote weight multiplier
 will be added.
 
-
 ### Stake Multiplier
 
-veHNT/veMOBILE/veIOT positions can be strengthened by increasing the duration that they are locked for. The
-resulting multiplier designates the amount of vote and delegation power (delegate power only applicable to veHNT)
-of the position. It is not indicative of an investment return.
+veHNT/veMOBILE/veIOT positions can be strengthened by increasing the duration that they are locked
+for. The resulting multiplier designates the amount of vote and delegation power (delegate power
+only applicable to veHNT) of the position. It is not indicative of an investment return.
 
 In other words, if you staked 10 HNT for 6 months, you'd get the same 10 HNT back 6 months later.
 During this time you would be able to [delegate](#delegating-stakes) your position to a network to
@@ -156,7 +152,8 @@ the overall lockup multiplier.
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('img/modular-governance/duration.jpeg')}
-    style={{ maxHeight: 250, borderRadius: '40px', padding: '14px 16px 20px' }}
+    style={{ maxHeight: 250 }}
+    className="add-border-radius add-shadow add-shadow-margin"
   />
   <figcaption>
     The multiplier affects a position's voting and delegation power but does not mean more HNT is
@@ -165,26 +162,28 @@ the overall lockup multiplier.
 </figure>
 
 ### Delegating to a subDAO (veHNT Only)
-A stake will not earn any token return until it is delegated to a subDAO. A stake without delegation
-earns voting rights, but no token return. 
 
-Once you select how much HNT you want to lock up, an interface will appear to allow you to delegate 
-your veHNT to a subDAO for rewards. 
+A stake will not earn any token return until it is delegated to a subDAO. A stake without delegation
+earns voting rights, but no token return.
+
+Once you select how much HNT you want to lock up, an interface will appear to allow you to delegate
+your veHNT to a subDAO for rewards.
 
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/modular-governance/delegate-to-subdao.jpeg')}
-    style={{ maxHeight: 350, borderRadius: '40px', padding: '14px 16px 20px' }}
+    style={{ maxHeight: 350 }}
+    className="add-border-radius add-shadow add-shadow-margin"
   />
   <figcaption>
     You may choose to delegate your stake to either the MOBILE or IOT subDAO.
   </figcaption>
 </figure>
 
-
 ### Confirming your Stake
 
-Once parameters are settled in the Helium Vote UI, you are now ready to create your veHNT/veMOBILE/veIOT position.
+Once parameters are settled in the Helium Vote UI, you are now ready to create your
+veHNT/veMOBILE/veIOT position.
 
 The Helium Wallet App will ask for confirmation before issuing the Solana transaction that creates
 the veHNT/veMOBILE/veIOT position.
@@ -192,7 +191,8 @@ the veHNT/veMOBILE/veIOT position.
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/modular-governance/estimated-changes.jpeg')}
-  style={{ maxHeight: 375, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 375 }}
+  className="add-border-radius add-shadow add-shadow-margin"
       />
   <figcaption>
     After pressing "Lock Tokens", a Solana transaction is issued to create the stake.
@@ -201,11 +201,12 @@ the veHNT/veMOBILE/veIOT position.
 
 ## Managing Stakes
 
-With Helium Vote, it's a sizzling experience to take control of your HNT stakes, ensuring they're grilled
-to perfection. Chew through stake delegation, transfers, splitting, and cooldowns like a master
-chef. <span className="🥩">🥩</span>
+With Helium Vote, it's a sizzling experience to take control of your HNT stakes, ensuring they're
+grilled to perfection. Chew through stake delegation, transfers, splitting, and cooldowns like a
+master chef. <span className="🥩">🥩</span>
 
 ### UnDelegating veHNT
+
 Once a stake has been delegated, it can be undelegated in the same interface. Delegations can be
 changed at any time, however, it will take one epoch for the position to be available for
 redelegation. The stake must be delegated for the entire epoch to receive rewards for that epoch.
@@ -216,7 +217,8 @@ claimed.
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/modular-governance/undelegate.jpeg')}
-  style={{ maxHeight: 375, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 375 }}
+  className="add-border-radius add-shadow add-shadow-margin"
       />
   <figcaption>
     You will be required to approve a transaction in your wallet when you undelegate your veHNT.
@@ -232,7 +234,8 @@ positions.
 Be warned, splitting a [landrush](#landrush) position after the initial 10 day period will result in
 losing the multiplier for the position being split or transferred off the position.
 
-You must undelegate before splitting a stake (veHNT only). You can redelegate after the split is complete.
+You must undelegate before splitting a stake (veHNT only). You can redelegate after the split is
+complete.
 
 Positions that are in any active votes cannot be split. To change a position during a vote it must
 be relinquished from the active vote.
@@ -245,14 +248,15 @@ greater or equal duration. This functionality is useful for consolidating positi
 positions cannot have more locked tokens transferred into them after the landrush period. Any veHNT
 transferred out of a landrush position will lose the 3x multiplier bonus.
 
-You must undelegate both positions before transferring a stake between positions (veHNT only). Once you've 
-undelegated your stake, you can click on your locked position to delegate your stake to a new
+You must undelegate both positions before transferring a stake between positions (veHNT only). Once
+you've undelegated your stake, you can click on your locked position to delegate your stake to a new
 subDAO.
 
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/modular-governance/Split-Menu.jpg')}
-  style={{ maxHeight: 300, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 300 }}
+  className="add-border-radius add-shadow add-shadow-margin"
       />
    <figcaption>Once your position is undelegated, click on the position to transfer it.</figcaption>
 </figure>
@@ -266,21 +270,22 @@ the new selection.
 
 ### Unlocking a Stake (Cooldown)
 
-Before a stake can become unlocked, you must first undelegate any delegations you have to existing subDAOs.
-If a stake was created with a 'constant' [lockup period](#lockup-period), the ability to 'Unlock'
-the position will be visible in the position as long as the unlock has not yet been initiated. A
-constant lockup position will first need to be unlocked before the cooldown period begins.
+Before a stake can become unlocked, you must first undelegate any delegations you have to existing
+subDAOs. If a stake was created with a 'constant' [lockup period](#lockup-period), the ability to
+'Unlock' the position will be visible in the position as long as the unlock has not yet been
+initiated. A constant lockup position will first need to be unlocked before the cooldown period
+begins.
 
 Unlocking the position will begin the cooldown decay process. The time this takes is the lockup
-duration set during the creation of the position. And your veHNT/veMOBILE/veIOT value will decay to 0 during
-this cooldown period.
+duration set during the creation of the position. And your veHNT/veMOBILE/veIOT value will decay to
+0 during this cooldown period.
 
-You will be required to close the position to return the staked HNT/MOBILE/IOT to your wallet after the
-cooldown period has ended. You must claim all tokens from the position and undelegate the position
-before the Close Position button is available as an option.
+You will be required to close the position to return the staked HNT/MOBILE/IOT to your wallet after
+the cooldown period has ended. You must claim all tokens from the position and undelegate the
+position before the Close Position button is available as an option.
 
 <figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('img/modular-governance/two-years.jpg')} style={{ maxHeight: 250 }} />
+  <img src={useBaseUrl('img/modular-governance/two-years.jpg')} style={{ maxHeight: 250 }} className="add-border-radius add-shadow add-shadow-margin" />
   <figcaption>
     This position will unlock over the period of 2 years once the unlock has been initiated.
   </figcaption>
@@ -332,15 +337,16 @@ address for HNT.
 
 ### Insufficient SOL Balance
 
-Creating new veHNT/veMOBILE/veIOT positions requires more SOL than standard token claims or account-to-account
-transfers. To stake your HNT you will need approximately 0.006 SOL in your account to create the
-position. If you do not have enough SOL and proceed with the transaction, an error notification
-will appear and allow you to swap your existing HNT/MOBILE/IOT to SOL to proceed with the transaction.
+Creating new veHNT/veMOBILE/veIOT positions requires more SOL than standard token claims or
+account-to-account transfers. To stake your HNT you will need approximately 0.006 SOL in your
+account to create the position. If you do not have enough SOL and proceed with the transaction, an
+error notification will appear and allow you to swap your existing HNT/MOBILE/IOT to SOL to proceed
+with the transaction.
 
 <figure className="screensnippet-wrapper">
   <img src={useBaseUrl('/img/modular-governance/no-sol-error.jpg')}
-  style={{ maxHeight: 500, borderRadius: '40px', padding: '14px 16px 20px' }}
+  style={{ maxHeight: 500 }}
+  className="add-border-radius add-shadow add-shadow-margin"
  />
   <figcaption>Transaction warning noting the user does not have enough $SOL in order to continue.</figcaption>
 </figure>
-
