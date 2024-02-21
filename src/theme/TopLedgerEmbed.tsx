@@ -15,7 +15,7 @@ export const TopLedgerEmbed = ({
 }) => {
 
   const embedUrl = new URL(`https://analytics.topledger.xyz/${client}/embed/query/${queryId}/visualization/${visualizationId}`)
-  embedUrl.search = new URLSearchParams({ api_key: apiKey, hide_header: 'true', hide_timestamp: 'true', ...params }).toString()
+  embedUrl.search = new URLSearchParams({ api_key: apiKey, hide_header: 'true', hide_timestamp: 'true', iframe: 'true', ...params }).toString()
 
   return (
     <figure
