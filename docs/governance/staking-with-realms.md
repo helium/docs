@@ -9,18 +9,6 @@ slug: /governance/staking-with-realms
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import {
-  RealmsBrower,
-  ConnectAccount,
-  GovernancePower,
-  Decaying,
-  Constant,
-  StakeMultipler,
-  ConfirmStake,
-  StakeLockup,
-  LandRush,
-  ValidatorStake,
-} from './StakingWithRealms'
 
 Helium utilizes [Helium Vote](https://heliumvote.com), a native application built by the Helium
 Foundation to organize and manage vote escrow tokens, delegation, and more. Stakes can be created
