@@ -10,7 +10,7 @@ module.exports = {
       type: 'category',
       label: 'FAQ',
       link: { type: 'doc', id: 'home/faq/helium-network' },
-      items: ['home/faq/security', 'home/faq/open-source', 'home/faq/docs-installation'],
+      items: ['home/faq/security', 'home/faq/open-source', 'home/faq/docs-installation', 'home/faq/docs-best-practices'],
       collapsed: true,
     },
   ],
