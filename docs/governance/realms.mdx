@@ -1,10 +1,10 @@
 ---
-id: Helium Modular Governance
-title: Helium Modular Governance
-pagination_label: Helium Modular Governance
-sidebar_label: Helium Modular Governance
+id: realms
+title: Realms
+pagination_label: Realms
+sidebar_label: Realms
 description: Helium Documentation
-slug: /governance/helium modular governance
+slug: /governance/realms
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -21,58 +21,35 @@ is facilitated through the website [Helium Vote][https://heliumvote.com].
 
 ## How to Vote on Helium Vote
 
-Helium uses Helium Vote to organize and manage governance,
-vote escrowed tokens, delegation, and more. Using the links below, or your Helium Wallet app, you can cast your vote for the
-subDAO of which you seek to impact and contribute to.
+Helium uses Helium Vote to organize and manage governance, vote escrowed tokens, 
+delegation, and more. Using the links below, or your Helium Wallet app, you can
+ cast your vote for the subDAO of which you seek to impact and contribute to.
 
 Ensure that you have a Solana-ready wallet that is funded with some SOL and one of the network
 tokes: HNT, IOT, or MOBILE.
 
 <figure className="screensnippet-wrapper">
-  <div style={{ display: 'flex' }}>
-    <img
-      src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932691056')}
-      style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
-    />
-    <img
-      src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932710113')}
-      style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
-    />
-  </div>
-  <figcaption>
-    The <a href="https://heliumvote.com/hnt">Helium DAO</a> in Helium Vote loading page. Shown on desktop and mobile.
-  </figcaption>
+  <img src={useBaseUrl('/img/modular-governance/Helium-Vote.jpeg')} 
+  style={{ maxHeight: 600 }} />
+  <figcaption>Helium Vote show on mobile.</figcaption>
 </figure>
+
+
 
 ### Signing Into Helium Vote
 
-There are two ways to sign into Helium Vote. 
+Use your account that holds your veHNT positions to sign in to Helium Vote. The same account can
+ be used for all platforms, but it must have veTokens for the specific DAO or subDAO hosting the 
+ vote.
 
-The first and easiest way to sign in, is to use your Helium Wallet app. Simply click icon to view past Governance Proposals, and vote on active HIPs. 
-
-<figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932704992')} />
-  <figcaption>
-    By clicking on the Governance icon within the Helium Wallet app, it allows you to view Helium Vote.
-  </figcaption>
-</figure>
-
-The second way to sign into Helium Vote is through web browser. Use your account that holds your veHNT 
-positions to sign in to Helium Vote. The same account can be used for all platforms, but it must have 
-veTokens for the specific DAO or subDAO hosting the vote.
-
-The links for the Helium Vote governance portals are:
+The links for the Realms governance portals are:
 
 - [https://heliumvote.com/hnt][helium-vote-hnt]
 - [https://heliumvote.com/iot][helium-vote-iot]
 - [https://heliumvote.com/mobile][helium-vote-mobile]
 
-<figure className="screensnippet-wrapper">
-  <img src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932737745')} />
-  <figcaption>
-    This user is logged in with their <code>xMFC..Uomt...</code> account.
-  </figcaption>
-</figure>
+Sign in to these using the in-app browser from the Helium Wallet App.
+
 
 ### Casting Your Vote
 
@@ -84,16 +61,17 @@ Note: You will need a bit of Sol to cast your veTokens for a vote.
 <figure className="screensnippet-wrapper">
   <div style={{ display: 'flex', alignItems: 'center' }}>
     <img
-      src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932761939')}
-      style={{ maxHeight: 600, minWidth: 0, flex: '1 1 auto' }}
+      src={useBaseUrl('/img/modular-governance/HIP-105-not-voted.jpg')}
+      style={{ maxHeight: 450, minWidth: 0, flex: '1 1 auto' }}
     />
     <img
-      src={useBaseUrl('https://github.com/helium/docs/pull/1781#issuecomment-1932762156')}
-      style={{ maxHeight: 600, minWidth: 0, flex: '1 1 auto' }}
+      src={useBaseUrl('img/modular-governance/HIP-105-voted.jpg')}
+      style={{ maxHeight: 450, minWidth: 0, flex: '1 1 auto' }}
     />
   </div>
-  <figcaption>Before voting, each option (yes, no, other) will be an unfilled circle (left image). Once you've voted, the choice you voted for will have a filled in circle (right image).</figcaption>
-</figure>
+  <figcaption>Before voting, each option (yes, no, other) will be an unfilled circle (left image).
+   Once you've voted, the choice you voted for will have a filled in circle (right image).</figcaption>
+
 
 ### Understanding Vote Power
 
@@ -101,14 +79,14 @@ When you vote your veTokens, all positions will be attributed to your vote choic
 cannot be split within one vote on a single account.
 
 Your vote is calculated at the time your vote is submitted. If your position is in 'decay' mode,
-voting sooner means you apply greater voting power. 
+voting sooner means you apply greater voting power. Conversely, if a position is extended to added
+to, a vote can be relinquished and re-voted to apply the new voting power.
 
 
-
-[helium-vote]: https://heliumvote.com
-[helium-vote-hnt]: https://heliumvote.com/hnt
-[helium-vote-iot]: https://heliumvote.com/iot
-[helium-vote-mobile]: https://heliumvote.com/mobile
+[realms]: https://realms.today
+[realms-hnt]: https://realms.heliumvote.com/dao/hnt
+[realms-iot]: https://realms.heliumvote.com/dao/iot
+[realms-mobile]: https://realms.heliumvote.com/dao/mobile
 [discord]: https://discord.gg/helium
-[staking]: /staking-with-helium-vote
+[staking]: /staking-with-realms
 [swap-utility]: /sol-token#swap-utility
