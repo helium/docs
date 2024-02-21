@@ -252,7 +252,7 @@ module.exports = {
     'governance/governance-faq',
     'governance/realms',
     'governance/vehnt',
-    'governance/staking-with-realms',
+    'governance/staking-with-helium-vote',
     'governance/working-groups',
     'governance/committees',
     {
