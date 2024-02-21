@@ -1,6 +1,6 @@
 ---
 id: buy-an-oui
-title: Buy An Organizationally Unique Identifier
+title: Buy An Organizationally Unique Identifier (OUI)
 pagination_label: Buy An Organizationally Unique Identifier
 sidebar_label: Buy an Organizationally Unique Identifier
 description: Helium Documentation
@@ -26,7 +26,7 @@ also purchased as a one-time fee. DevAddrs are only required if a NetID is not a
 the LoRa Alliance.
 
 A minimum of 35,000,000 Data Credits ($35 USD) must be held in the escrow account associated with
-the OUI. DC are consumed in proportion to the network traffic transfered[^1]. If the DC balance
+the OUI. DCs are consumed in proportion to the network traffic transferred[^1]. If the DC balance
 drops below 35M, device traffic to the routes associated with the OUI will halt.
 
 | Item                | Fee             |
@@ -142,7 +142,7 @@ After this step you will have at least two keys:
 - **Delegate Key Pair**: The delegate key is actively used to create and manage routes. In case it
   is ever compromised, it can be updated using the owner key. Note that an OUI can have multiple
   delegate key pairs. Guidance on how to manage delegate key pairs can be found in the
-  [advanced configuration](/iot/run-an-lns/advanced-configuration).
+  [Advanced Configuration](/iot/run-an-lns/advanced-configuration) section.
 
 - **Owner Key Pair**: The owner key is irreplaceable and should be kept safe, secure, and private at
   all times. If lost or compromised, you could lose your OUI. The owner key pair is used for
@@ -184,8 +184,8 @@ part that should be shared.
 
 ### Submit For Purchasing {#submit}
 
-Direct purchase of OUIs and devAddrs are not currently available on-chain. Send an email to
-[hello@helium.foundation](mailto:hello@helium.foundation) containing the following information.
+Direct purchase of OUIs and devAddrs are not currently available on-chain. Send an email to the
+[Helium Foundation](mailto:hello@helium.foundation) containing the following information:
 
 - The Helium wallet address
 - The public key of your owner key pair
@@ -282,7 +282,7 @@ graph LR
     MC -->|MIC checked with DevAddr and NwkSKey| DI4
 ```
 
-### How many `DeviceAddr` are needed?
+### How many `DevAddr` are needed?
 
 An allocation of 8 devAddrs is enough for all operators to get started and scale their services. The
 demands of devices usually won't become apparent until tens of thousands of frequently uplinking
