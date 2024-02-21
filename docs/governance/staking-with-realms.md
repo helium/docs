@@ -1,11 +1,11 @@
 ---
-id: staking-with-realms
+id: staking-with-helium-vote
 title: Staking on Helium Vote
 pagination_label: Helium Vote
 sidebar_label: Staking on Helium Vote
 description: Helium on Helium Vote Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /governance/staking-with-realms
+slug: /governance/staking-with-helium-vote
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
