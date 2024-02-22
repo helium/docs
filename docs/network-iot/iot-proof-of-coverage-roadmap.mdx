@@ -1,19 +1,16 @@
 ---
 id: iot-proof-of-coverage-roadmap
-title: IOT Proof of Coverage Roadmap
-pagination_label: Proof of Coverage Roadmap
-sidebar_label: Proof of Coverage Roadmap
+title: IOT Proof-of-Coverage Roadmap
+pagination_label: Proof-of-Coverage Roadmap
+sidebar_label: Proof-of-Coverage Roadmap
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/proof-of-coverage-roadmap
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
-<LegacyContentBanner />
-
-Because Proof of Coverage ("PoC") is such an important part of the Network’s success and continued
+Because Proof-of-Coverage (PoC) is such an important part of the Network's success and continued
 growth, it must adapt to change. Change comes in many forms, but the key changes that have happened
 since the start of the Network are:
 
@@ -23,7 +20,7 @@ since the start of the Network are:
 - Attempts to subvert PoC have grown in sophistication
 - The Network has been re-organized to be more scalable (HIP-70 <sup>(</sup>[^1]<sup>)</sup>)
 - The Network has diversified; there are more actors and roles available
-- A talented and committed community has continued to grow as more Hotspots come online
+- A talented and committed community has continued to grow as more IoT Hotspots come online
 
 [^1]: https://github.com/helium/HIP/blob/main/0070-scaling-helium.md
 
@@ -59,7 +56,7 @@ effective changes and additions to Hotspot setups were. These limits included:
 
 #### Room to Breathe
 
-With the adoption of HIP-70, the Core Developers have been able to adopt a newer, higher performing
+With the adoption of HIP-70, the core developers have been able to adopt a newer, higher performing
 model known as “Oracle-Based PoC”. Oracle-Based PoC brings two important improvements:
 
 - It eliminates the Challenger role, allowing Hotspots to be in charge of their own Beacons, and
@@ -83,7 +80,7 @@ been holding PoC back. In short, we will:
 Increasing the Beacon rate per Hotspot will provide the Network and Hotspot owners with more timely
 measurements, which in turn will allow them to make improvements with confidence and allow Network
 users to quickly see new areas of coverage. Increasing the Beacon rate will be evaluated by the
-[IOT Working Group](/governance/working-groups#iot-working-group) as a potential upgrade to
+[IOT Working Group](/governance/working-groups/#iot-working-group) as a potential upgrade to
 functionality on the Network.
 
 #### Publishing the Full Witness List
@@ -91,7 +88,7 @@ functionality on the Network.
 Under Oracle-Based PoC we can now separately report the entire list of Witnesses to every Beacon
 without also requiring the entire list to be represented on the blockchain, which is solely
 dedicated to handing out rewards for the event. The ability to separate these concerns is important
-because many Hotspots are routinely Witnessed by many more than the 14 Hotspots reported in the
+because many Hotspots are routinely witnessed by many more than the 14 Hotspots reported in the
 blockchain rewards transaction, but until now there simply was no place to report them.
 
 With the advent of Oracle-Based PoC, the IOT PoC Verifier Oracle can publish a side report, off
@@ -101,7 +98,7 @@ chain, of the entire witness list to each and every Beacon on the Network.
 
 We should reconsider each density target individually to ensure that its limit makes sense, and if
 not, change it. Additionally, we should consider shortening the list and removing area scale targets
-that aren’t helpful, such as the “Res 4” scale, which roughly covers an area of 1,770 square
+that aren't helpful, such as the “Res 4” scale, which roughly covers an area of 1,770 square
 kilometers (683 square miles).
 
 ---
@@ -128,23 +125,23 @@ will be without simply testing them. Proposed ideas include:
 
 ### Modeled Coverage
 
-use suspicious coverage reports as a possible indicator of a misbehaving Hotspot. The IOT Proof of
-Coverage shouldn’t reward for coverage that is physically impossible to provide and should Verifier
-should incorporate basic terrain data and electromagnetic wave propagation models to judge the
-plausibility of Witness events and begin to build a trust model to identify well-behaved Hotspots
-amongst those that are untrustworthy.
+Use suspicious coverage reports as a possible indicator of a misbehaving Hotspot. The IOT
+Proof-of-Coverage shouldn't reward for coverage that is physically impossible to provide and the
+Verifier Oracle should incorporate basic terrain data and electromagnetic wave propagation models to
+judge the plausibility of Witness events and begin to build a trust model to identify well-behaved
+Hotspots amongst those that are untrustworthy.
 
 ### Worldwide Reward Harmonization
 
 The IOT network uses several different “unlicensed” radio bands across the world. Each of these
 bands comes with its own regulations, some of which can change from country to country in the space
 of just a few kilometers. Some of these regulations limit the output power and dwell times that a
-Hotspot can use when transmitting a Proof of Coverage Beacon, which ultimately changes how easily it
-is heard by other Hotspots in the area, and ultimately affects a Hotspot’s PoC rewards.
+Hotspot can use when transmitting a Proof-of-Coverage Beacon, which ultimately changes how easily it
+is heard by other Hotspots in the area, and ultimately affects a Hotspot's PoC rewards.
 
 Not all of these limits ultimately affect how well a Hotspot can cover a given area, and as such,
-any parameter that artificially inflates or deflates a Hotspot’s apparent coverage should be
-accounted for when computing a Hotspot’s PoC rewards for a Beacon. Once Reward Harmonization is
+any parameter that artificially inflates or deflates a Hotspot's apparent coverage should be
+accounted for when computing a Hotspot's PoC rewards for a Beacon. Once Reward Harmonization is
 enacted, Hotspot owners should be able to expect their rewards to be based only on the effectiveness
 and uniqueness of their coverage and not by the particular country or region in which they are
 deployed.
@@ -159,5 +156,5 @@ be composed of standardized and cheaper hardware.
 
 Make it possible for anyone to add a Hotspot to the Network and participate in PoC, just as long as
 they provide the onboarding fee. The PoC algorithm will sort out who is providing coverage and who
-is not. Don’t require a specialized third party to attest which Hotspots are real and which are
-virtualized.
+is not. This doesn't require a specialized third party to attest which Hotspots are real and which
+are virtualized.

@@ -57,8 +57,18 @@ valuable:
 
 ## Tracking OUI Balance
 
-The balance of an OUI is held in an escrow account that is generated at OUI creation. This escrow
-account is what allows the Helium Network to appropriately deduct DC as network transfer occurs.
+import { EscrowOUIWidget } from '@theme/EscrowOUIWidget'
+
+The balance of an OUI is held in an escrow account that is generated based on the OUI's payer key.
+This escrow account is what allows the Helium Network to appropriately deduct DC as network transfer
+occurs. The widget below can be used to look up the escrow account and balance for payer or router
+keys associated to any valid OUI.
+
+<div className="screensnippet-wrapper">
+  <EscrowOUIWidget />
+</div>
+
+<br />
 
 The escrow account is the main source for understanding the remaining balance of an OUI. Details on
 the funding and burn of data credits on an escrow account can be inspected using any Solana

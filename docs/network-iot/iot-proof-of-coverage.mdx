@@ -1,34 +1,31 @@
 ---
 id: iot-proof-of-coverage
-title: Proof of Coverage
-pagination_label: Proof of Coverage
-sidebar_label: Proof of Coverage
+title: Proof-of-Coverage
+pagination_label: Proof-of-Coverage
+sidebar_label: Proof-of-Coverage
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/proof-of-coverage
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 <img className="docsheader" src={useBaseUrl('img/blockchain/proofofcoverage.png')} />
 
-The Helium Network uses a novel work algorithm called "Proof of Coverage" ("PoC") to verify that
+The Helium Network uses a unique consensus algorithm called "Proof-of-Coverage" (PoC) to verify that
 Hotspots accurately represent their location, configuration, and the wireless coverage they create.
 
-Proof of Coverage incentivizes Hotspot Operators to deploy Hotspots in underserved areas and report
+Proof-of-Coverage incentivizes Hotspot Operators to deploy Hotspots in underserved areas and report
 their deployments accurately so that users of the Helium Network can see where coverage is likely to
 be available.
 
-## Why Proof of Coverage
+## Why Proof-of-Coverage
 
-The Helium Network is a physical wireless Network that succeeds based on the reliable coverage it
+The Helium Network is a physical wireless network that succeeds based on the reliable coverage it
 can create for users deploying connected devices. As such, it required a working algorithm built for
 this use case.
 
-Proof of Coverage leverages unique, undeniable properties of radio frequency ("RF") propagation to
+Proof-of-Coverage leverages unique, undeniable properties of radio frequency (RF) propagation to
 produce meaningful proofs to the Helium Network and its participants. Specifically, PoC relies on
 the following characteristics:
 
@@ -42,26 +39,22 @@ provided by Hotspots on the network.
 
 ---
 
-## Oracled Proof of Coverage
+## Oracled Proof-of-Coverage
 
-- Oracled Proof of Coverage ChainVar was set in block 1,731,335.
-- The first Oracled Proof of Coverage Receipts were in block 1,731,339.
+- Oracled Proof-of-Coverage ChainVar was set in block 1,731,335.
+- The first Oracled Proof-of-Coverage Receipts were in block 1,731,339.
 - "Bitter Concrete Parakeet" is the animal name of the Injector Oracle for Oracled PoC.
 
 Oracled PoC moves the responsibility of validating all PoC events to dedicated Oracles, powerful
 machines that ingest completed challenges, verify challenges, and witness validity, then inject the
-results back into the Helium L1 blockchain for rewards to be issued.
+results back into the Helium Network for rewards to be issued.
 
 Oracles interact with data and systems outside of a native blockchain environment where the
 processing can be completed much more efficiently and at scale, providing a solution to a
 fundamental limitation of smart contracts.
 
-- Oracled Proof of Coverage ChainVar was set in block 1,731,335.
-- The first Oracled Proof of Coverage Receipts were in block 1,731,339.
-- "Bitter Concrete Parakeet" is the animal name of the Injector Oracle for Oracled PoC.
-
-Oracled Proof of Coverage allows Hotspots running miner version `2022.12.13.0` or later to
-"self-beacon", transmitting Beacons on their own to participate in Proof of Coverage, ensuring more
+Oracled Proof-of-Coverage allows Hotspots running miner version `2022.12.13.0` or later to
+"self-beacon", transmitting Beacons on their own to participate in Proof-of-Coverage, ensuring more
 reliable Beacon events.
 
 At the start, Hotspots self-beacon every 6 hours, though this time window may change as Oracled PoC
@@ -85,8 +78,8 @@ PoC currently judges an area as over- or under-served by consulting a table of d
 which dictates how many Hotspots are needed to effectively cover a given area.
 
 As each Hotspot is added to or removed from the Network, the Oracle examines the deployment and how
-it affects the Hotspot count at each of the seven scales, computing a new Transmit Scale for every
-Hotspot in the regions affected.
+it affects the Hotspot count at each of the seven scales, computing a new Transmit Scale (TS) for
+every Hotspot in the regions affected.
 
 If the change is an addition to the Network which increases the density of Hotspots at a particular
 scale beyond the ideal density, every Hotspot in that region has its Transmit Scale reduced.
@@ -97,8 +90,8 @@ the ideal number of Hotspots that should be deployed at that scale.
 In every epoch, rewards split amongst Hotspots that had a role in that reward pool.
 
 For example, a Hotspot might earn a "reward unit" for witnessing a beacon. If five additional
-Hotspots successfully witnessed a Beacon during the epoch, each earning a "reward unit." In that
-case, each Hotspot gets 1/6th of the 20% of rewards in that epoch.
+Hotspots successfully witnessed a Beacon during the epoch, each Hotspot earns a "reward unit." In
+that case, each Hotspot gets 1/6th of the 20% of rewards in that epoch.
 
 The activation of [HIP-15][hip-15] and [HIP-17][hip-17] introduced the idea of scaling these reward
 units. So the units earned when being witnessed or witnessing a packet scale depend on two things:

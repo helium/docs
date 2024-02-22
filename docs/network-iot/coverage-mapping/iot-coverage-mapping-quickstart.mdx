@@ -9,11 +9,6 @@ slug: /iot/coverage-mapping/quickstart
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
-
-<!-- TODO: some kind of image header would be nice here -->
 
 ## Mapping Devices
 
@@ -22,28 +17,26 @@ arduino-type devices. A few common devices are listed below, but in no way is th
 
 ### Fully Preconfigured
 
-Fully managed mapping devices are ready to use as soon as they arrive. These are pre-configured and
+Fully managed mapping devices are ready-to-use as soon as they arrive. These are pre-configured and
 enrolled by the seller, and not your own Helium Console. The Data Credits are provided by the
 seller, and the devices have pre-selected back-end Integrations that are not user-configurable.
 Generally, these devices are the most easy and accessible, requiring just power to start mapping.
 
-- IoWe Coverage Mapper
-  - [Product page](https://www.internetofwe.net/product-page/helium-coverage-mapper)
-- Wio Terminal LoRaWAN Field Tester
+- RAKwireless's Helium Field Mapper
+  - [Product page](https://store.rakwireless.com/products/field-mapper-for-helium-with-plug-play-and-3rd-party-mode-rak10701-h?variant=42437640782022)
+- Seeed Studio's Wio Terminal LoRaWAN Field Tester Kit
   - [Product page](https://www.seeedstudio.com/WioField-Tester-Kit-p-5282.html)
 
 ### Plug & Play
 
-Console-ready device that you onboard to spend your own Data Credits. The
-[Mappers Quickstart](/iot/coverage-mapping/quickstart) guide focuses on the Dragino LGT-92, but
-the steps are effectively the same for any mapping device.
+Console-ready device that you onboard to spend your own Data Credits.
 
 - Adeunis Field Test Device
   - [Product page](https://www.adeunis.com/en/produit/ftd-network-tester/)
   - [Adeunis tutorial](/iot/coverage-mapping/adeunis-mapper)
 - Dragino LGT-92
   - [Product page](https://www.dragino.com/products/lora-lorawan-end-node/item/142-lgt-92.html)
-  - [Dragino LGT-92 tutorial](/iot/coverage-mapping/quickstart)
+  - [Dragino LGT-92 tutorial](/iot/coverage-mapping/quickstart/#steps)
 - Fiz-Tech Mapper
   - [Product page](https://fiz-tech.net/search?type=tag&q=Mapper)
 - Glamos Walker
@@ -63,8 +56,6 @@ Network.
 - Heltec CubeCell GPS-6502 (HTCC-AB02S)
   - ARM Cortex M0+, AIR530Z GPS module with internal antenna, SX1262 LoRa, OLED Screen
   - [Product page](https://heltec.org/project/htcc-ab02s/),
-    [Product page via Parley Labs](https://shop.parleylabs.com/collections/iot-developers-products/products/cubecell-gps-6502-by-heltec-htcc-ab02s),
-    [IoWE DIY Kit](https://www.internetofwe.net/product-page/diy-coverage-mapper-kit-us915)
   - [Heltec Cubecell (jas_williams)](https://github.com/jas-williams/CubeCell-Helium-Mapper)
   - [Heltec Cubecell (kicko)](https://github.com/hkicko/CubeCell-GPS-Helium-Mapper)
   - [Heltec Cubecell (Max_Plastix)](https://github.com/Max-Plastix/CubeCell-GPS-Helium-Mapper)
@@ -74,7 +65,7 @@ Network.
     screen.
   - There are multiple versions of the TTGO T-Beam available. Version `v1.1` is recommended, and
     often sold with the Meshtastic software pre-loaded.
-  - [Product page](http://www.lilygo.cn/prod_view.aspx?TypeId=50060&Id=1317&FId=t3:50060:3)
+  - [Product page](https://www.lilygo.cc/products/t-beam-v1-1-esp32-lora-module)
   - [TTGO T-Beam (kizniche)](https://github.com/kizniche/ttgo-tbeam-ttn-tracker)
   - [TTGO T-Beam (khrys)](https://github.com/khrys63/helium-mapper-tbeam)
   - [TTGO T-Beam (hekopath)](https://github.com/hekopath/ttgo-rev1-helium)
@@ -85,7 +76,7 @@ Network.
   - [RAK Helium Mapper Kit tutorial](https://news.rakwireless.com/make-a-helium-mapper-with-the-wisblock/)
 - Helium Dev Kit / RAK WisBlock
   - [Product page via RAKwireless](https://store.rakwireless.com/products/helium-developer-kit),
-    [Product page via ParleyLabs](https://shop.parleylabs.com/collections/iot-developers-products/products/helium-wisblock-connected-kit)
+    [Product page via ParleyLabs](https://parleylabs.com/helium-developer-kit-us915-/)
   - [Helium Dev Kit tutorial (arkieguy)](https://github.com/arkieguy/RAK4631-Helium-Mapper)
   - [Make a Helium Mapper with the WisBlock (johansmacias)](https://news.rakwireless.com/make-a-helium-mapper-with-the-wisblock/)
 - Ingenious Things Mapper (disk91)
@@ -99,7 +90,7 @@ GPS-6502 and LilyGo TTGO T-Beam v1.1. Here are some approximate comparisons:
 
 |                   | CubeCell GPS-6502                          | TTGO T-Beam                              |
 | ----------------- | ------------------------------------------ | ---------------------------------------- |
-| Cost (USD)        | $33 (Parley Labs)                          | $35 Amazon or $25 AliExpress             |
+| Cost (USD)        | $25.90 (Heltec)                            | $30.80 LILYGO                            |
 | Size              | Smaller                                    | 2x Longer                                |
 | Battery           | Add ~1000mA LiPo plug-in                   | 18650 LiIon cell holder                  |
 | Power Switch      | None                                       | Power Button / PMU                       |
@@ -117,171 +108,3 @@ GPS-6502 and LilyGo TTGO T-Beam v1.1. Here are some approximate comparisons:
 | PMIC              | -none-                                     | AXP192                                   |
 | Open Source       | parts                                      | yes                                      |
 | WiFi & Bluetooth  | no                                         | yes                                      |
-
----
-
-## Configuration Basics
-
-At its core, contributing to Helium Mappers is just a matter of delivering a specific payload
-through the console. Learn more about the [Mappers API](/iot/coverage-mapping/api).
-
-If your mapping device is delivering messages to Helium Mappers, you can also enable the
-integrations for [Cargo](/console/integrations/cargo) and
-[CoverageMap.net](https://docs.ttnmapper.org/integration/helium.html) to contribute to these two
-projects using the same Decoded payload.
-
-A flow that sends data to all three projects would look similar to this:
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/flow-mappers-cargo-coverage.png')}
-    style={{ maxHeight: 350, minWidth: 0, flex: '1 1 auto' }}
-  />
-</figure>
-
----
-
-This guide will show you step by step how to contribute data to the Mappers project with an
-off-the-shelf tracker. This guide will use the
-[Dragino LGT92](https://www.dragino.com/products/lora/item/142-lgt-92.html), but any LoRaWAN
-compatible tracker will work.
-
-### Steps
-
-1. Add device to Console.
-2. Create new HTTP integration with Mappers API ingest endpoint.
-3. Create Function Decoder to decode device payload.
-4. Create a Flow and verify data is being sent successfully.
-
-### 1. Add Device to Console
-
-To start, you'll need to add your device to Console. You should have been provided with a DevEUI,
-AppEUI, and AppKey from the seller of the device. Follow our [quickstart](/console/quickstart) for
-instructions on how to add a new device to Console.
-
-### 2. Create HTTP Integration
-
-To create a new HTTP integration in Console, navigate to the Integrations page using the left
-navigation and then select the HTTP integration.
-
-<img src={useBaseUrl('img/network-iot/integrations/integrations-select-http.png')} />
-
-Next we'll fill in the details, see instructions and image below.
-
-1. Enter the Mappers API Ingest Endpoint URL (Required)
-   `https://mappers.helium.com/api/v1/ingest/uplink`
-2. Enter the name for this Integration: _Mappers Integration_
-3. Finally, click _Add Integration_ to complete.
-
-<img
-  src={useBaseUrl(
-    'img/network-iot/coverage-mapping/mappers-quickstart-create-http-integration.png',
-  )}
-/>
-
-### 3. Create Function Decoder
-
-Next, we'll be creating a Function decoder to decode the payload from the device and properly format
-it for the API endpoint. The decoder is specific to the encoding scheme used to encode the data
-before the device transmits it. For off-the-shelf devices this is usually manufacturer specific. For
-development devices,
-[CayenneLPP](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload) is
-often used. For this guide we'll be using a decoder specifically made for this tracking device. We
-have a repository with decoders for various devices
-[here](https://github.com/helium/console-decoders).
-
-To start, navigate to the Functions page using the left navigation and then click _Add Function_.
-
-1. Enter a name for the decoder (below we've used _Dragino LGT92 Decoder_), select the type of
-   Function, _Decoder_ in this case, and finally select _Custom Script_ from the drop down.
-2. Copy and paste the complete decoder function provided by the manufacturer or found
-   [here](https://github.com/helium/console-decoders/blob/master/Dragino/LGT92/decoder-v1.6.4.js).
-
-   ```javascript
-   function Decoder(bytes, port) {
-     // Decode an uplink message from a buffer
-     // (array) of bytes to an object of fields.
-     var latitude //gps latitude,units: °
-     latitude = ((bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3]) / 1000000 //gps latitude,units: °
-     var longitude
-     longitude = ((bytes[4] << 24) | (bytes[5] << 16) | (bytes[6] << 8) | bytes[7]) / 1000000 //gps longitude,units: °
-     var alarm = bytes[8] & 0x40 ? 'TRUE' : 'FALSE' //Alarm status
-     var batV = (((bytes[8] & 0x3f) << 8) | bytes[9]) / 1000 //Battery,units:V
-     if ((bytes[10] & 0xc0) == 0x40) {
-       var motion_mode = 'Move'
-     } else if ((bytes[10] & 0xc0) == 0x80) {
-       motion_mode = 'Collide'
-     } else if ((bytes[10] & 0xc0) == 0xc0) {
-       motion_mode = 'User'
-     } else {
-       motion_mode = 'Disable'
-     } //mode of motion
-
-     var led_updown = bytes[10] & 0x20 ? 'ON' : 'OFF' //LED status for position,uplink and downlink
-     var Firmware = 160 + (bytes[10] & 0x1f) // Firmware version; 5 bits
-     var roll = (((bytes[11] << 24) >> 16) | bytes[12]) / 100 //roll,units: °
-     var pitch = (((bytes[13] << 24) >> 16) | bytes[14]) / 100 //pitch,units: °
-     var hdop = 0
-     if (bytes[15] > 0) {
-       hdop = bytes[15] / 100 //hdop,units: Â°
-     } else {
-       hdop = bytes[15]
-     }
-     var altitude = (((bytes[16] << 24) >> 16) | bytes[17]) / 100 //Altitude,units: °
-     return {
-       latitude: latitude, // Note that must be lower-case
-       longitude: longitude,
-       altitude: altitude,
-       accuracy: 3,
-       Roll: roll,
-       Pitch: pitch,
-       BatV: batV,
-       ALARM_status: alarm,
-       MD: motion_mode,
-       LON: led_updown,
-       FW: Firmware,
-       HDOP: hdop,
-     }
-   }
-   ```
-
-   Next we need to verify that all required fields are present in the function. Find more details on
-   the API specification [here](/iot/coverage-mapping/api). The required fields are case-sensitive.
-   If you got your decoder from the manufacturer and one or more required fields are missing - add
-   them with hard-coded values like accuracy in the above example.
-
-3. Finally, save your function.
-
-<img src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-decoder.png')} />
-
-### 4. Create a Flow
-
-Next we will create a [_Flow_](/console/flows/orientation). Navigate to the Flows page and click
-the + sign next to Nodes.
-
-<img
-  src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-flow-nodes.png')}
-/>
-
-Drag and drop your device, function and integration on the workspace. Link them by drawing lines
-with your mouse between the connection points. Link device -> decoder -> integration.
-
-<img
-  src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-flow-basic.png')}
-/>
-
-You are now ready to power on your device and verify that data is being sent correctly to the Mapper
-API. To do this just expand an uplink event in the event log and verify that you are getting a
-_"Success"_ message for the integration as shown below.
-
-<img src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-device-event.png')} />
-
-That's all! You can now expect to see your data show up on
-[mappers.helium.com](https://mappers.helium.com) in a few minutes. If you want to see where your
-mapper is on the map, you could use [Cargo](https://cargo.helium.com). You will have to add one more
-[integration](/console/integrations/cargo#add-a-cargo-integration) and link it to the decoder in
-your flow.
-
-<img
-  src={useBaseUrl('img/network-iot/coverage-mapping/mappers-quickstart-create-flow-with-cargo.png')}
-/>

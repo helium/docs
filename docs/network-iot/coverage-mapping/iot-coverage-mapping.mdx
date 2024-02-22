@@ -9,54 +9,18 @@ slug: /iot/coverage-mapping
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 import { MapperWebsite } from './IotCoverageMapping'
-
-<LegacyContentBanner />
 
 <img className="docsheader" src={useBaseUrl('img/network-iot/coverage-mapping/header.png')} />
 
 The [Mappers Coverage map](https://mappers.helium.com) is a crowd-sourced effort to build a
-true-signal coverage map of the Helium IOT Network across the globe. By mapping real-world coverage,
+true-signal coverage map of the Helium IoT Network across the globe. By mapping real-world coverage,
 network users can understand where sensor deployments are likely to have success connecting to the
 Helium Network.
 
-> Coverage mapping should only be done from ground level, or slightly above it. We would like the
-> map to indicate the expected coverage a standard sensor device would experience. If you want to
-> fly a GPS tracker on a balloon or aircraft, please do not contribute this data to the coverage
-> map.
-
 Be sure to check out the ongoing conversation in the dedicated
 [#mappers-iot](discord://discord.com/channels/404106811252408320/730801390431240228) channel on the
-[Helium Discord Server](https://discord.gg/helium).
-
-## Mapping Projects
-
-### Helium Mappers
-
-Helium Mappers lets you see the areas that have been explored by participants in the coverage
-mapping project. The map also shows the Helium Hotspots that have provided coverage to these areas.
-Helium Mappers uses the H3 hexagon tiles to aggregate survey results and provided statistics.
-
-View Mappers data at [mappers.helium.com](https://mappers.helium.com/).
-
-### Helium Cargo
-
-Cargo is an evaluation tool for LoRaWAN GPS tracking devices. It shows the current location of these
-devices, along with the coverage of the network as an H3 hex grid. While Helium Mappers shows an
-aggregate view of the network coverage, Cargo can display specific mapper devices by name, and their
-most-recent position reports.
-
-View GPS trackers on Cargo at [cargo.helium.com](https://cargo.helium.com/).
-
-### CoverageMap.net
-
-Coverage Map is a third party tool that draws heatmaps for LoRaWAN networks. This tool has the
-ability to show raw survey results for devices and Hotspots. It aggregates coverage measurements
-into a heatmap, radar plots and alpha shapes. View Helium's heatmap at
-[CoverageMap.net](https://coveragemap.net/).
-
----
+official [Helium Community Discord Server](https://discord.gg/helium).
 
 ## Mappers Visualization
 
@@ -65,13 +29,13 @@ you to get more information about the coverage available in that region.
 
 <MapperWebsite />
 
-- **H3 Index**: The funny looking number like `89283082853ffff` is the unique h3 index of the
-  hexagon on the map. In other words, it's the hex’s name. H3 is a system of managing global
-  datasets, and is pervasive throughout different Helium protocols.
-- **RSSI**: “Received Signal Strength Indicator” is a measure of the power present in a received
+- **H3 Index**: The funny looking number like `89283082853ffff` is the unique H3 index of the
+  hexagon on the map. In other words, it's the hex's name. H3 is a system of managing global
+  datasets and is pervasive throughout different Helium protocols.
+- **RSSI**: 'Received Signal Strength Indicator' is a measure of the power present in a received
   radio signal. This number is computed by the hotspot when it hears the signal from a mapper. The
-  higher the signal (less negative), the ‘stronger’ it is considered.
-- **SNR**: “Signal to Noise” measures the ratio of received power to background power in the
+  higher the signal (less negative), the 'stronger' it is considered.
+- **SNR**: 'Signal to Noise Ratio' measures the ratio of received power to background power in the
   received signal. Like the RSSI, it is also computed by the hotspot when it hears signal from the
   mapper. A higher ratio represents a clear signal whereas a negative number in this field
   represents a noisy signal.
@@ -79,36 +43,36 @@ you to get more information about the coverage available in that region.
   is helpful in understanding the resilience of the network in a given area.
 - **Distance**: This is the approximate distance of the mapper from the hotspot that heard it.
 
----
-
 ## Mappers Newsletter
 
-Join the Mappers [newsletter](https://www.helium.com/mappers) to stay up to date on new and upcoming
+Join the Mappers [newsletter](https://www.helium.com/mappers) to stay up-to-date on new and upcoming
 features.
-
----
 
 ## Frequently Asked Questions
 
 ### How does Mappers work?
 
-Participants use low cost LoRaWAN devices to survey the real-world network created by Helium. Many
-contributors bring their mapper with them when they walk, hike, bike, drive or even boat! They’re
-small and fit well in a pocket or on a car dash. Some have set up their mappers so they’re
-contributing to the coverage map every time they take a drive.
+Participants use low-cost LoRaWAN devices to survey the real-world network created by Helium. Many
+contributors bring their mapper with them when they walk, hike, bike, drive or even boat! These
+mappers are small and fit well in a pocket or on a car dash. Some have set up their mappers so they
+are contributing to the coverage map every time they take a drive.
 
 In order to place a mark on the map, the mapper device sends out a signal with a GPS location
-encoded. If a Helium Hotspot ‘hears’ that signal, data is passed through the internet and recorded
-in the Mappers database. The Mappers database uses the GPS information from the Mapper to ‘light up’
+encoded. If a Helium Hotspot 'hears' that signal, data is passed through the internet and recorded
+in the Mappers database. The Mappers database uses the GPS information from the Mapper to 'light up'
 the hex on the map.
+
+Coverage mapping should only be done from ground level, or slightly above it. The map is designed to
+indicate the expected coverage a standard sensor device would experience. Data from GPS trackers on
+a balloon or aircraft should not be contributed to the coverage map.
 
 ### Why should I contribute to Mappers?
 
 There are a variety of ways that Mapping is valuable to both Hotspot owners and network users. For
 Hotspot owners, the collected data helps to visualize the coverage provided by all Helium Hotspots -
 identifying areas where coverage is lacking or even where Hotspot placements could be made that
-would participate in Proof of Coverage with other Hotspots. A marked hex on the map indicates that
-uplink signals from registered Helium LoRaWAN sensors have been proven to be “heard” by the Helium
+would participate in Proof-of-Coverage with other Hotspots. A marked hex on the map indicates that
+uplink signals from registered Helium LoRaWAN sensors have been proven to be 'heard' by the Helium
 network somewhere within that hex shaped area.
 
 For network users, the map proves the real-world coverage that Hotspots provide. This is like
@@ -123,15 +87,15 @@ grows and the token value increases.
 ### Do I earn rewards for contributing?
 
 No, coverage mapping is entirely voluntary. To participate in mapping, you will need to spend Data
-Credits to pay for the data transfer that your mapper uses. HNT can be converted to DC to fund
+Credits (DCs) to pay for the data transfer that your mapper uses. HNT can be converted to DC to fund
 device data transfer or DC can be purchased directly through the
-[Data Credit](/tokens/data-credit-portal).
+[Data Credits Portal](/tokens/data-credit-portal).
 
-Mapping does not make a Hotspot earn more IOT through Proof of Coverage. The real value is to prove
-the network, drive adoption, and increase the purchase of Data Credits by commercial users.
+Mapping does not make a Hotspot earn more IOT tokens through Proof-of-Coverage. The real value is to
+prove the network, drive adoption, and increase the purchase of Data Credits by commercial users.
 
 If the Hotspots that you are mapping are your own, those Data Credits are paid back to your Hotspots
-in the form of HNT. Hotspots earn HNT for data packets they transfer, for mapping or otherwise.
+in the form of IOT. Hotspots earn IOT for data packets they transfer, for mapping or otherwise.
 
 ### How can I use Mappers for my own Hotspot deployments?
 
@@ -142,9 +106,26 @@ in the form of HNT. Hotspots earn HNT for data packets they transfer, for mappin
 ### How can I use Mappers for my own sensor deployments?
 
 Take a mapping device to the area where you want to deploy sensors and watch to see if it is picked
-up by a Hotspot in the hex where you want to deploy a sensor. If it’s picked up by only one Hotspot,
+up by a Hotspot in the hex where you want to deploy a sensor. If it's picked up by only one Hotspot,
 decide if you want to deploy an additional Hotspot in that area for sensor connection redundancy.
 Look at existing mapped areas for confirmation that your sensors can be deployed in that area and
-how many Hotspot can pick them up. It only takes one Hotspot to receive and transmit data through
+how many Hotspots can pick them up. It only takes one Hotspot to receive and transmit data through
 the internet, but the redundancy offered by the Helium Network helps to ensure that your data is
 received.
+
+## Other Mapping Projects
+
+### Helium Cargo
+
+Cargo is an evaluation tool for LoRaWAN GPS tracking devices. It shows the current location of these
+devices, along with the coverage of the network as an H3 hex grid. While Helium Mappers shows an
+aggregate view of the network coverage, Cargo can display specific mapper devices by name, and their
+most-recent position reports.
+
+View GPS trackers on Cargo at [cargo.helium.com](https://cargo.helium.com/).
+
+### CoverageMap.net
+
+Coverage Map draws heatmaps for LoRaWAN networks. This tool has the ability to show raw survey
+results for devices and Hotspots. It aggregates coverage measurements into a heatmap, radar plots
+and alpha shapes. View Helium's heatmap on this tool at [CoverageMap.net](https://coveragemap.net/).
