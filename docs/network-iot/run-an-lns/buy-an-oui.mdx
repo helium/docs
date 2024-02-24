@@ -25,9 +25,9 @@ DevAddrs are issued in blocks of 8 and cost US$100 per devAddr for a total of $8
 also purchased as a one-time fee. DevAddrs are only required if a NetID is not already obtained from
 the LoRa Alliance.
 
-A minimum of 35,000,000 Data Credits ($35 USD) must be held in the escrow account associated with
-the OUI. DC are consumed in proportion to the network traffic transfered[^1]. If the DC balance
-drops below 35M, device traffic to the routes associated with the OUI will halt.
+A minimum of 3,500,000 Data Credits ($35 USD) must be held in the escrow account associated with the
+OUI. DC are consumed in proportion to the network traffic transfered[^1]. If the DC balance drops
+below 3.5M, device traffic to the routes associated with the OUI will halt.
 
 | Item                | Fee             |
 | ------------------- | --------------- |
@@ -190,7 +190,7 @@ Direct purchase of OUIs and devAddrs are not currently available on-chain. Send 
 - The Helium wallet address
 - The public key of your owner key pair
 - The public key of your delegate key pair
-- The number of devAddrs you want
+- The number of devAddrs you want or your non-Helium Net ID
 
 Once you receive your OUI, the next step is to fund it. There are several options in the
 [Fund an OUI](fund-an-oui) guide.
@@ -245,7 +245,11 @@ through the assignment of the Network Session Key.
 
 In the event of DevAddr collisions, i.e., when two or more devices have the same DevAddr, the
 network server (LNS) uses a technique called a Message Integrity Code (MIC) check computation to
-identify the real device behind each data packet.
+identify the real device behind each data packet. For instance, if there are 4 devices all sending
+uplinks on the same DevAddr as shown in the diagram below, the LNS should have 4 Network Session
+Keys on the same DevAddr. Upon receiving an uplink on that DevAddr, the LNS will attempt a MIC check
+with each of the 4 Netwok Session Keys, and the uplink will be attributed to the device whose
+Network Session Key was successfully validated.
 
 The computational overhead of these MIC checks is not heavy in most scenarios, these are checks
 designed to be performed on low-power devices. However, in high-traffic scenarios, it may be best to
@@ -292,5 +296,7 @@ devices are onboarded. The need for more devAddr depends on a few factors:
 1. Frequency of uplink.
 1. Number of copies of a message received.
 1. LNS system specs.
+
+In practice, some deployers were able to successfully support 100k+ devices with 32 DevAddrs.
 
 More devAddrs can be allocated at any time, and LNSs generally accommodate non-sequential ranges.

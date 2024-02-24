@@ -96,5 +96,7 @@ balance is required to ensure that all Hotspots are compensated for their work o
 case that the LNS transfers data more quickly than can be deducted from the OUI's balance. Token
 balances cannot become negative, so this $35 buffer keeps network payments balanced.
 
-If the DC balance of an OUI falls below the minimum balance, the LNS will be unable to receive data
-until the balance is increased.
+If the DC balance of an OUI falls below the minimum balance, the OUI will be unable to receive data
+until the balance is increased. The
+[Packet Verifier](/oracles/data-transfer-oracles#packet-verifier-service) checks the DC balance of
+every locked OUI every 30 minutes, and unlocks them if their DC balance is above 3.5MM DC.
