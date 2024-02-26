@@ -1,0 +1,335 @@
+---
+id: staking-with-helium-vote
+title: Staking on Helium Vote
+pagination_label: Helium Vote
+sidebar_label: Staking on Helium Vote
+description: Helium on Helium Vote Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /governance/staking-with-helium-vote
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+Helium utilizes [Modular Governance](https://github.com/helium/modular-governance) which is an open
+application built by the Helium Foundation to organize and manage vote escrow tokens, delegation,
+and more. Modular Governance is deployed as [Helium Vote](https://heliumvote.com). Positions can be
+created and later managed within Helium Vote at any time at [heliumvote.com](https://heliumvote.com)
+or within the Helium Wallet App.
+
+## Creating a Position
+
+Anyone with HNT, MOBILE, or IOT tokens in their Helium Wallet App or Solana-compatible browser
+wallet (such as Phantom or Backpack) can create a position. These positions can be used for voting
+in Helium Network or subnetwork governance.
+
+In the case of positions created from HNT, the position can be [delegated](#delegating-stakes) to a
+subnetwork in order to reinforce that network's protocol score and earn a portion of its token
+emissions. While IOT or MOBILE positions can be created through their respective subnetworks, those
+positions are only eligible for voting power and cannot currently be delegated for the purposes of
+earning rewards.
+
+This guide outlines using Helium Vote with the [Helium Wallet App](/wallets/helium-wallet-app). To
+use Helium Vote on a desktop browser, a Solana-compatible browser wallet can be used (such as
+Phantom or Backpack) by navigating to [heliumvote.com](https://heliumvote.com).
+
+### Staking in the Helium Wallet App
+
+Staking in the Helium Wallet App can be done by navigating to the "Governance" tab within the Helium
+Wallet. Ensure you select the token you want to lock up (HNT, MOBILE or IOT) at the top.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/modular-governance/Governance-tab-on-HW.jpg')}
+    style={{ maxHeight: 325 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>
+    The Governance tab is the fourth tab from the left. The HNT button at the top is the default
+    selection.
+  </figcaption>
+</figure>
+<br />
+
+Once in the "Governance" tab, you will see "Your Voting Power". Click "Your Voting Power" to see
+your total voting power, and for the ability to lock HNT/MOBILE/IOT.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/modular-governance/Your-voting-power.jpg')}
+    style={{ maxHeight: 400 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>
+    Positions can be made and viewed in the "Your Voting Power" section of Helium Vote
+  </figcaption>
+</figure>
+<br />
+
+As long as HNT, MOBILE or IOT is available in your linked account, new positions can be created by
+tapping on the "Lock Tokens" button within the governance view.
+
+### Lockup Period {#lockup-period}
+
+To build a secure voting system, Helium gives priority to votes from token holders willing to align
+themselves with the long-term health of the Helium Network. This is done by allowing holders to lock
+up their tokens to receive a vote-escrow position in proportion to the amount of tokens and time
+allocated to the position. The longer tokens are locked up, the greater the vote power of the
+position.
+
+Two lockup period types are available.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/modular-governance/lockup-type.jpeg')}
+    style={{ maxHeight: 275 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Selecting your lockup type, Decaying or Constant.</figcaption>
+</figure>
+<br />
+
+#### Decaying
+
+Tokens are locked for a fixed duration and are released in full at the end of the defined lockup
+period. Vote power declines linearly until release. This effectively starts the cooldown at the
+moment of lockup.
+
+You will be required to close the position to return the locked HNT to your wallet after the
+cooldown period has ended.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/modular-governance/decaying.jpg')}
+    style={{ maxHeight: 'initial', padding: '0 0 8px 0' }}
+  />
+  <figcaption>
+    You lock 10.000 tokens with a lockup duration of one year. They are then unavailable for the
+    next one year. After this time, you can withdraw them again.
+  </figcaption>
+</figure>
+
+#### Constant
+
+Tokens are locked indefinitely. At any time you can start the unlock process which lasts for the
+initially chosen lockup duration. Vote power stays constant until you start the unlock process, then
+it declines linearly over the lockup period until release.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/modular-governance/constant-lockup.jpg')}
+    style={{ maxHeight: 'initial', padding: '0 0 8px 0' }}
+  />
+  <figcaption>
+    You lock 10.000 tokens with a lockup duration of one year. After three years you decide to start
+    the unlocking process. Another year after that, you can withdraw the tokens.
+  </figcaption>
+</figure>
+
+### Duration
+
+The duration of your cooldown is set in units of days. The longer your tokens are locked up, the
+more veHNT/veMOBILE/veIOT will be issued. If you chose the 'Constant' lockup period, this duration
+takes effect after the 'Unlock' action is executed.
+
+While it is possible to set a higher duration than 4 years, no additional vote power multiplier will
+be added.
+
+### Vote Power Multiplier
+
+veHNT/veMOBILE/veIOT positions can be strengthened by increasing the duration that they are locked
+for. The resulting multiplier designates the amount of vote and delegation power (delegate power
+only applicable to veHNT) of the position. It is not indicative of an investment return.
+
+In other words, if you locked up 10 HNT for 6 months, you'd get the same 10 HNT back 6 months later.
+During this time you would be able to [delegate](#delegating-stakes) your position to a network to
+get a return in that network's tokens.
+
+Positions created during the [landrush](#landrush) period received an additional 3x multiplier on
+the overall lockup multiplier.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/modular-governance/duration.jpeg')}
+    style={{ maxHeight: 250 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>
+    The multiplier affects a position's voting and delegation power but does not mean more HNT is
+    returned.
+  </figcaption>
+</figure>
+
+### Delegating to a Subnetwork (veHNT Only) {#delegating-stakes}
+
+A position will not earn any token return until it is delegated to a subnetwork. A position without
+delegation earns voting rights, but no token return.
+
+Once you select how much HNT you want to lock up, an interface will appear to allow you to delegate
+your veHNT to a subnetwork for rewards.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/modular-governance/delegate-to-subdao.jpeg')}
+    style={{ maxHeight: 350 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>
+    You may choose to delegate your HNT position to either the MOBILE or IOT subnetwork.
+  </figcaption>
+</figure>
+
+### Confirming your Position
+
+Once parameters are settled in the Helium Vote UI, you are now ready to create your
+veHNT/veMOBILE/veIOT position.
+
+The Helium Wallet App will ask for confirmation before issuing the Solana transaction that creates
+the veHNT/veMOBILE/veIOT position.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/modular-governance/estimated-changes.jpeg')}
+    style={{ maxHeight: 375 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>
+    After pressing "Lock Tokens", a Solana transaction is issued to create the position.
+  </figcaption>
+</figure>
+
+## Managing Positions
+
+### Undelegating veHNT
+
+Once a position has been delegated, it can be undelegated in the same interface. Delegations can be
+changed at any time, however, it will take one epoch for the position to be available for
+redelegation. The position must be delegated for the entire epoch to receive rewards for that epoch.
+Received rewards need to be claimed manually. Only then will they be sent to the wallet the veHNT
+position is in. A delegated position can only be undelegated after all accrued rewards have been
+claimed.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/modular-governance/undelegate.jpeg')}
+    style={{ maxHeight: 375 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>
+    You will be required to approve a transaction in your wallet when you undelegate your veHNT.
+  </figcaption>
+</figure>
+
+### Splitting a Position
+
+A position can be divided among multiple positions. This can be helpful if you wish to delegate your
+veHNT position to multiple networks (IOT or MOBILE) or set different lockup times to different
+positions.
+
+Be warned, splitting a [landrush](#landrush) position after the initial 10 day period will result in
+losing the multiplier for the position being split or transferred off the position.
+
+You must undelegate before splitting a position (veHNT only). You can redelegate after the split is
+complete.
+
+Positions that are in any active votes cannot be split. To change a position during a vote it must
+be relinquished from the active vote.
+
+### Transfer a Position
+
+Positions cannot be transferred from one account to another. Positions can only be transferred from
+one position to another within the same account. Positions can only transfer to positions of greater
+or equal duration. This functionality is useful for consolidating positions. Landrush positions
+cannot have more locked tokens transferred into them after the landrush period. Any veHNT
+transferred out of a landrush position will lose the 3x multiplier bonus.
+
+If a veHNT position, you must undelegate both positions before transferring. Once you've undelegated
+your position, you can click on your locked position to delegate your position to a new subnetwork.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/modular-governance/Split-Menu.jpg')}
+    style={{ maxHeight: 300 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Once your position is undelegated, click on the position to transfer it.</figcaption>
+</figure>
+
+### Extending a Position
+
+Extending a position will lengthen the time it will take to cooldown. Position holders may extend a
+position to gain a larger multiplier for voting power or delegation purposes.
+
+### Unlocking a Position (Cooldown)
+
+Before a position can become unlocked, you must first undelegate any delegations you have to
+existing subnetworks. If a position was created with a 'constant' [lockup period](#lockup-period),
+the ability to 'Unlock' the position will be visible in the position as long as the unlock has not
+yet been initiated. A constant lockup position will first need to be unlocked before the cooldown
+period begins.
+
+Unlocking the position will begin the cooldown decay process. The time this takes is the lockup
+duration set during the creation of the position. Vote power value will decay to 0 during this
+cooldown period.
+
+You will be required to close the position to return the locked up HNT/MOBILE/IOT to your wallet
+after the cooldown period has ended. You must claim all tokens from the position and undelegate the
+position before the Close Position button is available as an option.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/modular-governance/two-years.jpg')}
+    style={{ maxHeight: 250 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>
+    This position will unlock over the period of 2 years once the unlock has been initiated.
+  </figcaption>
+</figure>
+
+## Landrush {#landrush}
+
+For the first 10 days following the Solana migration, HNT holders were eligible to lock up their HNT
+for a 'landrush' bonus of 3x the locked amount.<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>)</sup>
+
+If a landrush position is moved or split out of its original position after the first 10 days have
+lapsed, the landrush bonus is forfeited.
+
+[^1]:
+    [HIP 70: Scaling the Helium Network](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md)
+
+[^2]:
+    [HIP 77: Launch Parameters for Solana Migration](https://github.com/helium/HIP/blob/main/0077-solana-parameters.md)
+
+## Automatically Created Validator Positions
+
+For token holders operating validators through the Solana migration, a veHNT position was
+automatically created based on the existing staked position previously tied to validators. The
+[Validator migration guide](/solana/migration/validator-operator) is a valuable reference in
+understanding specific details for former Validator operators.
+
+These positions are not automatically delegated to a subnetwork and are set with a constant
+[lockup period](#lockup-period) by default.
+
+As a note, these Validator positions will appear as one large position.
+
+## Possible Errors
+
+### Insufficient SOL Balance
+
+Creating new veHNT/veMOBILE/veIOT positions requires more SOL than standard token claims or
+account-to-account transfers. To lock up your HNT you will need approximately 0.006 SOL in your
+account to create the position. If you do not have enough SOL and proceed with the transaction, a
+notification will appear and allow you to swap a portion of your existing HNT/MOBILE/IOT to SOL to
+proceed with the transaction.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/modular-governance/no-sol-error.jpg')}
+    style={{ maxHeight: 500 }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>
+    Transaction warning noting the user does not have enough $SOL in order to continue.
+  </figcaption>
+</figure>
+<br />
