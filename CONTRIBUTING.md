@@ -44,4 +44,4 @@ Above all, thank you for taking the time to be a part of the Helium Community.
 
 
 
-[local-server-guide]: docs/home/docs-contribution-guide.mdx
+[local-server-guide]: docs/home/docs-contribution-guide.md
