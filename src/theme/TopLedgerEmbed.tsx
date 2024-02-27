@@ -10,6 +10,7 @@ export const TopLedgerEmbed = ({
   visualizationId,
   apiKey,
   params = {},
+  style = {},
 }) => {
   const embedUrl = new URL(
     `https://analytics.topledger.xyz/${client}/embed/query/${queryId}/visualization/${visualizationId}`,
@@ -25,7 +26,7 @@ export const TopLedgerEmbed = ({
   return (
     <figure className={`screensnippet-wrapper ${styles.tlembedWrapper}`}>
       {title && <p>{title}</p>}
-      <iframe src={embedUrl.toString()} className={styles.tlembed}></iframe>
+      <iframe src={embedUrl.toString()} className={styles.tlembed} style={style}></iframe>
       {caption && <figcaption>{caption}</figcaption>}
     </figure>
   )
