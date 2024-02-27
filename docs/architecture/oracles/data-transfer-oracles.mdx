@@ -85,10 +85,10 @@ and wallet addresses per OUI.
 The Packet Verifier verifies the submitted packets. Its primary responsibilities are to:
 
 - Confirm that each OUI and the associated LNS have enough DC to pay for the packets received.
-  - For every Packet Report received, if the DC balance for an OUI has fallen below 35MM DC, the
+  - For every Packet Report received, if the DC balance for an OUI has fallen below 3.5MM DC, the
     route will be locked.
   - The Packet Verifier checks the DC balance of every locked OUI every 30 minutes, and unlocks them
-    if their DC balance is above 35MM DC.
+    if their DC balance is above 3.5MM DC.
 - Process reports into a separate database of verified and denied reports (denied reports include
   the cause of denial).
 - Based on data transfer, calculate Rewards and the amount of DC to debit from each wallet
