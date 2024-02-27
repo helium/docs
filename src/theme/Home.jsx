@@ -14,8 +14,8 @@ export const Home = () => (
                 with Helium
               </h1>
               <p className="podtext" style={{ padding: '0 1rem 0 0' }}>
-                Build amazing connected solutions on the world's largest decentralized wireless
-                network.
+                The world's largest decentralized wireless
+                network!
               </p>
             </div>
             <div class="col col--6">

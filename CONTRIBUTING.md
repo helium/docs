@@ -9,6 +9,8 @@ our way or a bug to report:
   repo](https://github.com/helium/docs). Include a
   write up of the PR with details on what it does.
 
+* To contribute to the documentation by setting up a server locally, visit [Contribution Guide: Setting Up Local Server for Documentation][local-server-guide].
+
 * **Reporting Bugs**: Open an issue [against this
   repo](https://github.com/helium/docs/issues) with as much
   detail as you can. At the very least you'll include steps to
@@ -36,3 +38,10 @@ collaboration, and contributors are expected to adhere to the
 Conduct](http://contributor-covenant.org/).
 
 Above all, thank you for taking the time to be a part of the Helium Community.
+
+
+
+
+
+
+[local-server-guide]: docs/home/docs-contribution-guide.mdx
