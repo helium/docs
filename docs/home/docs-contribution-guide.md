@@ -1,9 +1,4 @@
----
-id: docs-contribution-guide
-title: documentation contribution guide
-description: How to install helium docs locally
-slug: /home/docs-contribution-guide
----
+
 
 ### Installation Guide: Running the Server Locally
 
