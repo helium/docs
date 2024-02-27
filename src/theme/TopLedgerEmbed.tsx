@@ -9,8 +9,6 @@ export const TopLedgerEmbed = ({
   queryId,
   visualizationId,
   apiKey,
-  height,
-  width,
   params = {},
 }) => {
 
@@ -24,13 +22,7 @@ export const TopLedgerEmbed = ({
       {title && <p>{title}</p>}
       <iframe
         src={embedUrl.toString()}
-        width="720"
-        height="391"
         className={styles.tlembed}
-        style={{
-          height,
-          width,
-        }}
       ></iframe>
       {caption && <figcaption>{caption}</figcaption>}
     </figure>
