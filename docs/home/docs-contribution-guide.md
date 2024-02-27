@@ -1,6 +1,6 @@
 
 
-## Installation Guide: Running the Server Locally
+# Installation Guide: Running the Server Locally
 
 #### Prerequisites:
 - Node.js installed on your machine. You can download it from [the official Node.js website](https://nodejs.org/).
