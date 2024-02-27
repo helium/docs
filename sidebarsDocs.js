@@ -4,7 +4,7 @@ module.exports = {
       type: 'category',
       label: 'Home',
       link: { type: 'doc', id: 'home/home' },
-      items: ['home/getting-started', 'home/helium-history'],
+      items: ['home/about-helium', 'home/helium-history'],
     },
     {
       type: 'category',
