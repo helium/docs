@@ -98,7 +98,7 @@ The proposed new algorithm for MOBILE Reward calculation in the MOBILE Rewards O
 - If there are more than 1 Radio/Access Point with the same signal strength level, use the
   `coverage_claim_time` value to rank the top 3 oldest installations where `coverage_claim_time`
   is the timestamp when the Radio received the spectrum access grant for the first time. The
-  oldest Radio will receive the higher   rank, while the newest radio will receive the lowest rank.
+  oldest Radio will receive the higher rank, while the newest radio will receive the lowest rank.
   To prevent rewarding "dead" Radios,  the `coverage_claim_time` will be reset if the Radio/Access
   Point was not generating a Heartbeat for more than 72 hours and use the time of the last Heartbeat
   as the new `coverage_claim_time`.
