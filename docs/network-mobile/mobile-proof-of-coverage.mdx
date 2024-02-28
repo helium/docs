@@ -25,24 +25,14 @@ that Hotspots are honestly representing their location and the wireless network 
 creating from that location.
 
 While current 5G Hotspots are _also_ able to participate in the IOT Network and PoC, the CBRS Small
-Cell and Wi-Fi Access Points require a new approach to validating PoC.
+Cell and Wi-Fi access points require a new approach to validating PoC and cannot participate in the
+IOT network.
 
 Modeled Coverage introduces a fundamental difference in using hexes for the MOBILE Network compared
 to the IOT Network where hexes determine the locations and number of Hotspots within the given hex.
 In the MOBILE Network, hexes determine where the coverage exists. Modeled Coverage data allows us to
-un-tie a Radio's location from its signal strength and propagation.
+un-tie a radio's location from its signal strength and propagation.
 
-:::tip One Way Traffic
-
-A CBRS Small Cell Radio ("Radio") can only operate as a transmitter; they cannot receive incoming
-data and thus can not "hear" one another directly.
-
-Unlike CBRS, Wi-Fi Access Points have the ability to "sniff" packet data of other wireless devices
-and networks to estimate where the Access Point is deployed.
-
-LoRaWAN Hotspots utilize a PoC method that benefits from Hotspots being used as senders ("Beacon")
-and receivers ("Witness") of PoC activity; read more here:
-[Proof of Coverage](/iot/proof-of-coverage)
 
 :::
 
@@ -54,19 +44,19 @@ Determining useful coverage and the impact on MOBILE PoC rewards will be based o
 factors. The following factors have been implemented or are being explored to better enhance
 the current PoC algorithm. 
 
-### Radio Uptime Data (Implemented)
+- radio Uptime Data (Implemented)
 
-### Backhaul Speed tests (Implemented)
+- Backhaul Speed tests (Implemented)
 
-### Modeled Coverage (Implemented)
+- Modeled Coverage (Implemented)
 
-### Service Provider Hex Boosting (Implemented)
+- Service Provider Hex Boosting (Implemented)
 
-### Overlapping Hex Limits (Implemented)
+- Overlapping Hex Limits (Implemented)
 
-### Location-Based Optimization (Estimated Implementation date Q2 2024)
+- Location-Based Optimization (Estimated Implementation date Q2 2024)
 
-### MOBILE Mappers (Being Explored)
+- MOBILE Mappers (Being Explored)
 
 ---
 
@@ -74,15 +64,15 @@ the current PoC algorithm.
 
 The proposed new algorithm for MOBILE Reward calculation in the MOBILE Rewards Oracle is as follows:
 
-1. Supply the declared transmitter power of each Radio and its location to the Obstruction Data
+1. Supply the declared transmitter power of each radio and its location to the Obstruction Data
    Oracle.
-2. Get all hexes that have coverage from Outdoor Radios/Access Points based on the information from the
+2. Get all hexes that have coverage from rutdoor radios/access points based on the information from the
    Obstruction Data Oracle.
-3. Based on the location of Indoor Radios, get all hexes with Indoor coverage and all adjacent
+3. Based on the location of indoor radios, get all hexes with indoor coverage and all adjacent
    hexes.
 4. Use projected signal loss information from the Obstruction Data Oracle to determine the potential
-   signal strength of each Outdoor Radio in each hex.
-5. For each hex, get at most 3 Outdoor Radios and 3 Outdoor Wi-Fi Access Points and award the top 3
+   signal strength of each outdoor radio in each hex.
+5. For each hex, get at most 3 outdoor radios and 3 outdoor Wi-Fi access points and award the top 3
    signals based on rank, and provide a decaying multiplier, as noted in the table below. Any with a
    rank of "Fail" will receive 0 modeled coverage points, and the algorithm will end. Note, the
    calculation for this will be done in step 10.
@@ -95,30 +85,30 @@ The proposed new algorithm for MOBILE Reward calculation in the MOBILE Rewards O
 | Fail | 0.00X                |
 
 
-- If there are more than 1 Radio/Access Point with the same signal strength level, use the
+- If there are more than 1 radio/access point with the same signal strength level, use the
   `coverage_claim_time` value to rank the top 3 oldest installations where `coverage_claim_time`
-  is the timestamp when the Radio received the spectrum access grant for the first time. The
-  oldest Radio will receive the higher rank, while the newest radio will receive the lowest rank.
-  To prevent rewarding "dead" Radios,  the `coverage_claim_time` will be reset if the Radio/Access
-  Point was not generating a Heartbeat for more than 72 hours and use the time of the last Heartbeat
+  is the timestamp when the radio received the spectrum access grant for the first time. The
+  oldest radio will receive the higher rank, while the newest radio will receive the lowest rank.
+  To prevent rewarding "dead" radios,  the `coverage_claim_time` will be reset if the radio/access
+  point was not generating a Heartbeat for more than 72 hours and use the time of the last Heartbeat
   as the new `coverage_claim_time`.
 
-6. Get max 1 Indoor Radios/Access Points using the same approach as above for Outdoor Radios.
+6. Get max 1 indoor radios/access points using the same approach as above for outdoor radios.
 7. Based on [Modeled Coverage Reward Tiers](#modeled-coverage-reward-tiers), sum up all estimated
-   coverage points earned by each Radio in all hexes and multiply that by `speedtest_multiplier`, then
-   the `Hex Limit Multiplier` and then any `Service Provider Boosts` for each Radio and Access Point.
+   coverage points earned by each radio in all hexes and multiply that by `speedtest_multiplier`, then
+   the `Hex Limit Multiplier` and then any `Service Provider Boosts` for each radio and access point.
    When Location-Based Optimization is added, the sum of this will be multiplied by the boost identified
    by the Oracle.
 9. Divide the total number of MOBILE Rewards emitted during the Rewards Period by the sum of
    multiples of [`heartbeat_multiplier`](#heartbeat-reward-tiers),
    [`estimated_reward_points`](#modeled-coverage-reward-tiers), and
-   [`speedtest_multiplier`](#speed-test-reward-tiers) for each Radio to determine MOBILE Rewards per
-   `estimated_reward_point` for Radio with a passing Speed Test and valid Heartbeats.
-10. Multiply the MOBILE per `estimated_reward_point` by the sum of each Radio's reward points to
-   determine the MOBILE Rewards for each Radio.
+   [`speedtest_multiplier`](#speed-test-reward-tiers) for each radio to determine MOBILE Rewards per
+   `estimated_reward_point` for radio with a passing Speed Test and valid Heartbeats.
+10. Multiply the MOBILE per `estimated_reward_point` by the sum of each radio's reward points to
+   determine the MOBILE Rewards for each radio.
    
 
-The new formula for Reward calculation per Radio/Access Point:
+The new formula for Reward calculation per radio/access point:
 
 $$
 W = k_H \times k_S \times k_L\times k_B\times k_O \times C_E \times W_p
@@ -140,22 +130,22 @@ $$
 
 For simplicity, assume that the total MOBILE Rewards per period is 10,000.
 
-|    Radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speedtest Multiplier $k_S$ | Hex 1 - Hex 10 | Hex 11 - Hex 20 | Hex 21 - Hex 220 | Total Coverage Points | Total Reward Points |
+|    radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speedtest Multiplier $k_S$ | Hex 1 - Hex 10 | Hex 11 - Hex 20 | Hex 21 - Hex 220 | Total Coverage points | Total Reward points |
 | :---------: | :-------: | :------------------------: | :--------: | :------------------------: | :------------: | :-------------: | :--------------: | :-------------------: | :-----------------: |
-| 1 (Outdoor) |    Ok     |             1              |    Good    |             1              |      160       |       80        |       800        |         1,040         |        1,040        |
-| 2 (Outdoor) |    Ok     |             1              |    Poor    |            0.25            |       80       |       40        |                  |          120          |         30          |
-|             |           |                            |            |                            |                |                 |                  |      **Points**       |      **1,070**      |
+| 1 (outdoor) |    Ok     |             1              |    Good    |             1              |      160       |       80        |       800        |         1,040         |        1,040        |
+| 2 (outdoor) |    Ok     |             1              |    Poor    |            0.25            |       80       |       40        |                  |          120          |         30          |
+|             |           |                            |            |                            |                |                 |                  |      **points**       |      **1,070**      |
 
-**Table 3.** Simplified data for two Outdoor Radios with Heartbeat, Speed Test, and Estimated
-Coverage Points for one Reward Period.
+**Table 3.** Simplified data for two outdoor radios with Heartbeat, Speed Test, and Estimated
+Coverage points for one Reward Period.
 
-|   Radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speedtest Multiplier $k_S$ | Hex 1 | Hex 2 | Hex 3 | Hex 4 | Total Coverage Points | Total Reward Points |
+|   radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speedtest Multiplier $k_S$ | Hex 1 | Hex 2 | Hex 3 | Hex 4 | Total Coverage points | Total Reward points |
 | :--------: | :-------: | :------------------------: | :--------: | :------------------------: | :---: | :---: | :---: | :---: | :-------------------: | :-----------------: |
-| 3 (Indoor) |    Ok     |             1              |  Degraded  |            0.5             |  100  |  100  |  100  |  400  |          700          |         350         |
-|            |           |                            |            |                            |       |       |       |       |      **Points**       |       **350**       |
+| 3 (indoor) |    Ok     |             1              |  Degraded  |            0.5             |  100  |  100  |  100  |  400  |          700          |         350         |
+|            |           |                            |            |                            |       |       |       |       |      **points**       |       **350**       |
 
-**Table 4.** Simplified data for one Indoor Radio with Heartbeat, Speed Test, and Estimated Coverage
-Points for one Reward Period.
+**Table 4.** Simplified data for one indoor radio with Heartbeat, Speed Test, and Estimated Coverage
+points for one Reward Period.
 
 $$
 R  \times (1 \times 1 \times 1040 + 1 \times 0.25 \times 120 + 1 \times 0.5 \times 700) = 10,000
@@ -169,9 +159,9 @@ $$
 
 |                   | Calculation           | Total MOBILE Rewards |
 | ----------------- | :-------------------- | -------------------: |
-| Radio 1 (Outdoor) | 6.54 x 1 x 1 x 1040   |         **6,806.30** |
-| Radio 2 (Outdoor) | 6.54 x 1 x 0.25 x 120 |           **903.14** |
-| Radio 3 (Indoor)  | 6.54 x 1 x 0.5 x 700  |         **2,290.58** |
+| radio 1 (outdoor) | 6.54 x 1 x 1 x 1040   |         **6,806.30** |
+| radio 2 (outdoor) | 6.54 x 1 x 0.25 x 120 |           **903.14** |
+| radio 3 (indoor)  | 6.54 x 1 x 0.5 x 700  |         **2,290.58** |
 
 ---
 
@@ -180,32 +170,32 @@ $$
 With the [passing](https://heliumvote.com/14jH67zhctwb3B5NmwiAjaXQuyF7jZMZCAnfyBYhSpRS3L22sQE) of
 [HIP-74](https://github.com/helium/HIP/blob/main/0074-mobile-poc-modeled-coverage-rewards.md)
 Modeled Coverage aims to allow for more appropriate Rewards and incentivizes the deployment of
-Radios at optimal locations.
+radios at optimal locations.
 
-This new algorithm uses the location of the Radio to calculate MOBILE Rewards based on the number of
-res12 hexes receiving coverage from a given Radio.
+This new algorithm uses the location of the radio to calculate MOBILE Rewards based on the number of
+res12 hexes receiving coverage from a given radio.
 
-The MOBILE Rewards Oracle will calculate a coverage model for each Radio by considering the physical
+The MOBILE Rewards Oracle will calculate a coverage model for each radio by considering the physical
 location, antenna direction, radio max transmit power, and Obstruction Data Oracle inputs to
-calculate the number of res12 hexes receiving coverage from each Radio.
+calculate the number of res12 hexes receiving coverage from each radio.
 
 Depending on the number of res12 hexes and the resulting signal power in each, the MOBILE Rewards
-Oracle will allot **Coverage Points** to a given Radio for calculating its MOBILE Rewards instead of
-assuming a fixed Radio Type multiplier Reward.
+Oracle will allot **Coverage points** to a given radio for calculating its MOBILE Rewards instead of
+assuming a fixed radio Type multiplier Reward.
 
 ### Reward Hexagon Sizing
 
-Analysis of the coverage by a single Outdoor Radio with Modeled Coverage data shows that the res8
-hex used in the IOT Network is too large to represent a Radio's coverage. Using res12 hexes better
-aligns with what an Outdoor Radio can reasonably cover, with an average area of 0.0003071 km² and an
+Analysis of the coverage by a single outdoor radio with Modeled Coverage data shows that the res8
+hex used in the IOT Network is too large to represent a radio's coverage. Using res12 hexes better
+aligns with what an outdoor radio can reasonably cover, with an average area of 0.0003071 km² and an
 edge length of 9.4 m, slightly bigger than an average single-family home.
 
 To summarize:
 
-- Hexes in the MOBILE Network identify the level of coverage from all the different Radios providing
+- Hexes in the MOBILE Network identify the level of coverage from all the different radios providing
   coverage to each res12 hex.
-- A Radio can provide coverage for a hex it is not located within.
-- A Radio can earn Rewards by providing coverage in multiple hexes.
+- A radio can provide coverage for a hex it is not located within.
+- A radio can earn Rewards by providing coverage in multiple hexes.
 
 To help visualize the significant difference between these two resolutions, below is a map with a
 green res8 hex and a purple res12 hex inside.
@@ -219,18 +209,18 @@ green res8 hex and a purple res12 hex inside.
 
 :::info
 
-Each Radio is given a **coverage points** value depending on the number and signal strength of the
-res12 hexes receiving coverage from the Radio.
+Each radio is given a **coverage points** value depending on the number and signal strength of the
+res12 hexes receiving coverage from the radio.
 
 :::
 
-#### Outdoor CBRS Radios
+#### outdoor CBRS radios
 
-Modeled Coverage replaces Radio Type multipliers with **coverage points** represented by four tiers
+Modeled Coverage replaces radio Type multipliers with **coverage points** represented by four tiers
 of potential signal power as modeled by the Obstruction Data Oracle - `High`, `Medium`, `Low`, and
 `None`.
 
-The reward tiers for Outdoor Radios will be as follows:
+The reward tiers for outdoor radios will be as follows:
 
 |                               | Tier 1        | Tier 2                     | Tier 3                      | Tier 4           |
 | ----------------------------- | ------------- | -------------------------- | --------------------------- | ---------------- |
@@ -238,7 +228,7 @@ The reward tiers for Outdoor Radios will be as follows:
 | **Potential Signal Level**    | High          | Medium                     | Low                         | None             |
 | **Estimated coverage points** | 16            | 8                          | 4                           | 0                |
 
-#### Outdoor Wi-Fi Access Points
+#### outdoor Wi-Fi access points
 Given the nature of 5GHz band propagation and the shared spectrum nature of the Wi-Fi standard, a similar 
 table with different signal strengths is used:
 
@@ -246,36 +236,36 @@ table with different signal strengths is used:
 | ----------------------------- | ---------------- | ---------------------------- | ---------------------------- | ------------------ |
 | **Potential RSSI**            | $RSSI > -65 dBm$ | $-65 dBm \ge RSSI > -75 dBm$ | $-75 dBm \ge RSSI > -85 dBm$ | $RSSI \le -85 dBm$ |
 | **Potential Signal Level**    | High             | Medium                       | Low                          | None               |
-| **Estimated Coverage Points** | 16               | 8                            | 4                            | 0                  |
+| **Estimated Coverage points** | 16               | 8                            | 4                            | 0                  |
 
 
-:::note Modeled Coverage Distance Limit for Outdoor Radios
+:::note Modeled Coverage Distance Limit for outdoor radios
 
-The Modeled Coverage algorithm limits the radius of coverage for a given Radio to 1000 meters. This
-value results from evaluating a selection of "ideal case" Radios, which provided usable coverage to
+The Modeled Coverage algorithm limits the radius of coverage for a given radio to 1000 meters. This
+value results from evaluating a selection of "ideal case" radios, which provided usable coverage to
 roughly 500 meters and doubled that value. A larger radius would also be too heavy for the
 computation and is a current trade-off.
 
 :::
 
-#### Indoor CBRS Radios
+#### indoor CBRS radios
 
-Like Outdoor, Indoor Radios can collect MOBILE Rewards by providing coverage in multiple hexes.
+Like outdoor, indoor radios can collect MOBILE Rewards by providing coverage in multiple hexes.
 
-The Obstruction Data Oracle cannot evaluate coverage by Indoor Radios as there are no good and
+The Obstruction Data Oracle cannot evaluate coverage by indoor radios as there are no good and
 reliable data sources about obstacles in indoor spaces. Instead, the Modeled Coverage Oracle uses an
-approximation based on the data gathered while testing certified Indoor Radios in various indoor
+approximation based on the data gathered while testing certified indoor radios in various indoor
 settings.
 
-From this testing, the hex in which an Indoor Radio is physically located receives maximum signal
+From this testing, the hex in which an indoor radio is physically located receives maximum signal
 strength coverage, and all adjacent hexes receive lower signal strength. Therefore, the algorithm
-errs on generosity to ensure equitable potential MOBILE Rewards for Indoor Radio coverage.
+errs on generosity to ensure equitable potential MOBILE Rewards for indoor radio coverage.
 
-Estimated per-hex coverage points for Indoor Radios are intentionally significantly higher than
-those awarded to Outdoor Radios to balance the importance of Indoor Radios in the MOBILE Network
+Estimated per-hex coverage points for indoor radios are intentionally significantly higher than
+those awarded to outdoor radios to balance the importance of indoor radios in the MOBILE Network
 with their relatively smaller coverage footprints.
 
-The reward tiers for Indoor Radios will be as follows:
+The reward tiers for indoor radios will be as follows:
 
 |                               |   Tier 1   |       Tier 2       |
 | ----------------------------- | :--------: | :----------------: |
@@ -283,31 +273,31 @@ The reward tiers for Indoor Radios will be as follows:
 | **Potential Signal Level**    |    High    |        Low         |
 | **Estimated coverage points** |    400     |        100         |
 
-These values were chosen by taking all the Outdoor Radios in an example area and analyzing the
-resulting distribution of estimated coverage points per Radio. Estimated coverage point values were
-chosen such that Indoor Radios receive roughly ¼th the estimated coverage points as the 95th
-percentile Outdoor Radios and about ½ the points of the average Outdoor Radio.
+These values were chosen by taking all the outdoor radios in an example area and analyzing the
+resulting distribution of estimated coverage points per radio. Estimated coverage point values were
+chosen such that indoor radios receive roughly ¼th the estimated coverage points as the 95th
+percentile outdoor radios and about ½ the points of the average outdoor radio.
 
-These results align with the current Radio Type Multiplieres approach `1:2.5:4` for Indoor Radios,
-Outdoor Radios, and High-Power Outdoor Radios. Figure 2 below is the cumulative distribution
-function plot of the sample market Outdoor Radio estimated coverage points.
+These results align with the current radio Type Multiplieres approach `1:2.5:4` for indoor radios,
+outdoor radios, and High-Power outdoor radios. Figure 2 below is the cumulative distribution
+function plot of the sample market outdoor radio estimated coverage points.
 
 <img className="explorerSidebar" src={useBaseUrl('img/5g-on-helium/propagation_point_cdf.png')} />
 
-Cumulative distribution function of Outdoor Radio estimated coverage points for 904 Radios in the
+Cumulative distribution function of outdoor radio estimated coverage points for 904 radios in the
 L.A. market area.
 
-#### Indoor Wi-Fi Access Points
-Similar to indoor CBRS radios, obstruction Data Oracle cannot evaluate coverage by Indoor Access
-Points as there are no good and reliable data sources about obstacles in indoor spaces. Instead, 
+#### indoor Wi-Fi access points
+Similar to indoor CBRS radios, obstruction Data Oracle cannot evaluate coverage by indoor access
+points as there are no good and reliable data sources about obstacles in indoor spaces. Instead, 
 the Modeled Coverage Oracle uses an approximation based on the data gathered while testing 
-certified Indoor Radios in various indoor settings.
+certified indoor radios in various indoor settings.
 
 From this testing, Wi-Fi has a much shorter range than CBRS. Therefore, the hex in which an 
-Indoor Access Point is physically located will receive maximum signal strength coverage;
+indoor access point is physically located will receive maximum signal strength coverage;
 however, any adjacent hexes will show a signal strength of 0.
 
-The reward tiers for Indoor Radios will be as follows:
+The reward tiers for indoor radios will be as follows:
 
 |                               |   Tier 1   |     
 | ----------------------------- | :--------: | 
@@ -367,11 +357,11 @@ points.
 
 
 In instances where there is a tie in the signal strength, `Coverage Claim Time`  will be used use to rank the 
-Radios/Access Points that have the same signal strength, where `coverage_claim_time` is the timestamp when 
-the Radio received the spectrum access grant for the first time, and the Access Point received its first 
-Heart Beat. The oldest Radio/Access Point will receive the higher rank, while the newest Radio/Access Point will 
-receive the lowest rank. To prevent rewarding "dead" Radios/Access Points, `coverage_claim_time` is reset if 
-the Radio/Access Point is not generating a Heartbeat for more than 72 hours and use the time of the last 
+radios/access points that have the same signal strength, where `coverage_claim_time` is the timestamp when 
+the radio received the spectrum access grant for the first time, and the access point received its first 
+Heart Beat. The oldest radio/access point will receive the higher rank, while the newest radio/access point will 
+receive the lowest rank. To prevent rewarding "dead" radios/access points, `coverage_claim_time` is reset if 
+the radio/access point is not generating a Heartbeat for more than 72 hours and use the time of the last 
 Heartbeat as the new `coverage_claim_time`.
 
 ---
@@ -409,26 +399,26 @@ Oracle as it becomes available.
 
 ## Uptime Heartbeats
 
-A "heartbeat" is data sent by the 5G Hotspot indicating that a connected Radio is authorized to
+A "heartbeat" is data sent by the 5G Hotspot indicating that a connected radio is authorized to
 transmit 5G coverage.
 
 Heartbeats occur every 60 seconds and transmit authorizations are valid for 240 seconds. This
-rolling overlap ensures that a Small Cell Radio can broadcast on an ongoing basis while allowing for
+rolling overlap ensures that a Small Cell radio can broadcast on an ongoing basis while allowing for
 brief interruptions.
 
-To encourage reliable signal availability, 5G Hotspots and connected CBRS Small Cell Radios must
+To encourage reliable signal availability, 5G Hotspots and connected CBRS Small Cell radios must
 generate at least one valid heartbeat per hour in 12 unique hours of the 24-hour Reward Period.
 
 ### Heartbeat Reward Tiers
 
-:::info Heartbeat impact on Radio rewards
+:::info Heartbeat impact on radio rewards
 
-Each Radio is given a **heartbeat multiplier** of either `0` or `1`.
+Each radio is given a **heartbeat multiplier** of either `0` or `1`.
 
 :::
 
-Each Radio is awarded 1 point for a valid heartbeat in each hour, with a maximum of 24 points in the
-Reward Period. All Radios with at least 12 points in the 24-hour Reward Period are given a
+Each radio is awarded 1 point for a valid heartbeat in each hour, with a maximum of 24 points in the
+Reward Period. All radios with at least 12 points in the 24-hour Reward Period are given a
 `heartbeat multiplier` of `1` and will be eligible to earn MOBILE Rewards.
 
 ### Heartbeat Examples
@@ -440,9 +430,9 @@ rewards.
 
 <TabItem value="no_missed_heartbeats" label="✅ No Missed Heartbeats" default>
 
-The Radio generated a heartbeat every hour of the day, earning 24 points.
+The radio generated a heartbeat every hour of the day, earning 24 points.
 
-This Radio **will** be eligible for rewards during the Reward Period.
+This radio **will** be eligible for rewards during the Reward Period.
 
 <img
   className="explorerSidebar"
@@ -453,9 +443,9 @@ This Radio **will** be eligible for rewards during the Reward Period.
 
 <TabItem value="half_day_offline" label="✅ Half Day Offline" default>
 
-The Radio did not generate Heartbeats for 12 hours, earning 12 points.
+The radio did not generate Heartbeats for 12 hours, earning 12 points.
 
-This Radio **will** be eligible for rewards during the Reward Period.
+This radio **will** be eligible for rewards during the Reward Period.
 
 <img
   className="explorerSidebar"
@@ -466,9 +456,9 @@ This Radio **will** be eligible for rewards during the Reward Period.
 
 <TabItem value="mostly_offline" label="⛔️ Mostly Offline" default>
 
-The Radio did not generate Heartbeats for 19 hours, earning 5 points.
+The radio did not generate Heartbeats for 19 hours, earning 5 points.
 
-This Radio **will not** be eligible for rewards during the Reward Period.
+This radio **will not** be eligible for rewards during the Reward Period.
 
 <img
   className="explorerSidebar"
@@ -498,11 +488,11 @@ Test results must be collected before a Moving Average can be calculated.
 
 ### Speed Test Reward Tiers
 
-:::info Speed test impact on Radio rewards
+:::info Speed test impact on radio rewards
 
 Each 5G Hotspot is given a `speedtest multiplier` of either `0.0`, `0.25`, `0.5` or `1.0`.
 
-This multiplier is applied to all connected Radios in rewards calculations.
+This multiplier is applied to all connected radios in rewards calculations.
 
 :::
 
