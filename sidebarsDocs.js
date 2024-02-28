@@ -29,6 +29,7 @@ module.exports = {
         'architecture/solana/primer',
         'architecture/solana/rewardable-entities',
         'architecture/solana/compression-nfts',
+        'architecture/solana/helium-program-library',
       ],
       collapsed: true,
     },
