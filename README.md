@@ -8,9 +8,9 @@ Documentation for the Helium network.
 
 - [Yarn](https://yarnpkg.com/getting-started/install) version >= 1.5
 
-## Installation
+## Helium Documentation Installation Guide
 
-- [Installation Guide](https://docs.helium.com/home/faqdocs-installation/)
+- [Installation Guide](https://docs.helium.com/faq/docs-installation/)
 
 ## Contributing
 
