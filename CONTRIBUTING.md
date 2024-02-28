@@ -2,19 +2,19 @@
 
 1. **Git Clone the Project**: Clone the repository to your local machine using the git clone command
 followed by the repository URL. This will create a local copy of the project on your machine. bash
-`git clone https://github.com/helium/docs` 
+```git clone https://github.com/helium/docs```
 
 2. **Make the Changes**: Navigate to the project directory and make
 the necessary changes to the code, documentation, or any other relevant files using your preferred
 text editor or IDE. Commit the Changes: Once you've made the desired modifications, stage the
 changes using the git add command followed by the filenames or directories of the modified files.
-`git commit -m "Brief description of the changes made"`
+```git commit -m "Brief description of the changes made"```
 
 3. **Open a Pull Request (PR)**: Push your committed changes to your fork of the repository using the git push command.
 Then, navigate to the original repository on the hosting platform (e.g., GitHub, GitLab) and open a
 pull request to merge your changes into the main branch of the original repository. bash
 
-`git push origin <branch_name>`
+```git push origin <branch_name>```
 
 
 4. Pull Request (PR) Guidelines: Provide a clear title and description for your pull request, detailing
