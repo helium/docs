@@ -567,7 +567,7 @@ Get Hotspot records based on the entity / ECC compact key value.
 ## List OUI Organization Info
 
 ```
-GET https://entities.nft.helium.io/v2/oui/list
+GET https://entities.nft.helium.io/v2/oui/all
 ```
 
 Get a list of OUIs registered on the Helium Network and corresponding organization info.
@@ -667,6 +667,16 @@ Get an OUI registered on the Helium Network and corresponding organization info 
     "string"
   ],
   "locked": "boolean" // Is org locked because of no payment
+}
+```
+
+`400: Error`
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "string"
 }
 ```
 
