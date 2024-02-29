@@ -563,3 +563,122 @@ Get Hotspot records based on the entity / ECC compact key value.
 
 </TabItem>
 </Tabs>
+
+## List OUI Organization Info
+
+```
+GET https://entities.nft.helium.io/v2/oui/list
+```
+
+Get a list of OUIs registered on the Helium Network and corresponding organization info.
+
+<Tabs
+  block={true}
+  defaultValue="response"
+  values={[{"label":"Response","value":"response"}]}
+>
+<TabItem value="response">
+
+`200: OK`
+
+```json
+{
+  "orgs": [
+    {
+      "oui": 1,
+      "owner": "string", // Org admin key
+      "payer": "string", // Key only used for DC payments
+      "escrow": "string", // Escrow account key
+      "delegate_keys": [ // List of keys allowed some specific actions, see services.
+        "string"
+      ],
+      "locked": "boolean" // Is org locked because of no payment
+    },
+    {
+      "oui": 2,
+      "owner": "string",
+      "payer": "string",
+      "escrow": "string",
+      "delegate_keys": [
+        "string"
+      ],
+      "locked": "boolean"
+    },
+    {
+      "oui": 3,
+      "owner": "string",
+      "payer": "string",
+      "escrow": "string",
+      "delegate_keys": [
+        "string"
+      ],
+      "locked": "boolean"
+    },
+  ]
+}
+```
+
+`500: Error`
+
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "string"
+}
+```
+
+</TabItem>
+</Tabs>
+
+## OUI Organization Info by OUI ID
+
+```
+GET https://entities.nft.helium.io/v2/oui/:id
+```
+
+Get an OUI registered on the Helium Network and corresponding organization info by the OUI ID.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
+>
+<TabItem value="request">
+
+`Path Parameters`
+
+| Param                   | Type     | Note                                         |
+| ----------------------- | -------- | -------------------------------------------- |
+| OUI ID (required)       | _string_ | ID of the OUI (e.g., 1) for getting info     |
+
+</TabItem>
+<TabItem value="response">
+
+`200: OK`
+
+```json
+{
+  "oui": 1, // OUI ID
+  "owner": "string", // Org admin key
+  "payer": "string", // Key only used for DC payments
+  "escrow": "string", // Escrow account key
+  "delegate_keys": [ // List of keys allowed some specific actions, see services.
+    "string"
+  ],
+  "locked": "boolean" // Is org locked because of no payment
+}
+```
+
+`500: Error`
+
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "string"
+}
+```
+
+</TabItem>
+</Tabs>
