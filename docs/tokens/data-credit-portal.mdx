@@ -23,7 +23,7 @@ Access the Data Credit Portal at [dc-portal.helium.com][dc-portal].
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/dcportal/dcportal-main.png')}
+    src={useBaseUrl('/img/dcportal/dcportal-main-new.png')}
     style={{ maxHeight: '450px' }}
     className="add-shadow add-shadow-margin add-border-radius"
   />
@@ -40,15 +40,16 @@ If access appears to be restricted in your region, please email
 
 ## Using the Data Credit Portal
 
-For the sake of this example, we will send 100,000 DC ($1.00 USD) to OUI 1 with the memo “helium”.
+For the sake of this example, we will send 1,000,000 DC ($10.00 USD) to OUI 1 with the memo "test".
 
 As you type in the OUI number, you will notice a pop-up. OUI owners can see how many DC are
-available under their OUI. For instance, there are just over 850 million DC available under OUI 1
-for the LoRaWAN network.
+available under their OUI. For instance, there are just over 180 million DC available under OUI 1
+for the LoRaWAN network. An email address can also be specified in order to receive the purchase
+receipt.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/dcportal/ouipreview.png')}
+    src={useBaseUrl('/img/dcportal/ouipreview-new.png')}
     style={{ maxHeight: '225px' }}
     className="add-shadow add-shadow-margin add-border-radius"
   />
@@ -56,80 +57,12 @@ for the LoRaWAN network.
 </figure>
 <br />
 
-Upon clicking “Continue”, you will be taken to this view, where you will interface with Link which
-is Stripe's crypto payment service. Hit “Continue” again.
+Upon clicking “Continue”, you will be taken to Sphere's crypto payment interface. Hit "Pay" when you
+have filled in your payment information.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/dcportal/link-onramp.png')}
-    style={{ maxHeight: '450px' }}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-</figure>
-<br />
-
-### KYC
-
-If you have already completed Link KYC, you can skip to [payment method][payment-method]. If you are
-new to Link, you will need to sign up.
-
-First, fill in your email address.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/dcportal/link-email.png')}
-    style={{ maxHeight: '450px' }}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-</figure>
-<br />
-
-Fill in your phone number to initiate Stripe's KYC (Know-Your-Customer) process.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/dcportal/link-phone.png')}
-    style={{ maxHeight: '450px' }}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-</figure>
-<br />
-
-Then, check your email for a six-digit code, and fill that in. You will then share the following
-personal information with Stripe for compliance.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/dcportal/link-personal.png')}
-    style={{ maxHeight: '450px' }}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-  <figcaption>The KYC process managed by Stripe requires this information.</figcaption>
-</figure>
-<br />
-
-Afterward, you will be taken to this screen. There's nothing you need to do here, press “Use this
-wallet”.
-
-The suggested address in this view will be used to automatically create the Data Credits in your
-previously selected OUI.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/dcportal/stripe-confirm-wallet.png')}
-    style={{ maxHeight: '450px' }}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-</figure>
-<br />
-
-### Payment Method
-
-Now that you've completed Stripe's KYC, add your payment method.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/dcportal/stripe-payment-method.png')}
+    src={useBaseUrl('/img/dcportal/link-onramp-new.png')}
     style={{ maxHeight: '450px' }}
     className="add-shadow add-shadow-margin add-border-radius"
   />
@@ -138,61 +71,15 @@ Now that you've completed Stripe's KYC, add your payment method.
 
 ### Confirm Purchase
 
-Next, you'll be asked to verify your identity. Hit “Verify”
+While Sphere is performing the underlying transactions for you, you will see this loading screen. Do
+not refresh or exit the page.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/dcportal/stripe-verify-purchase.png')}
+    src={useBaseUrl('/img/dcportal/loading.png')}
     style={{ maxHeight: '450px' }}
     className="add-shadow add-shadow-margin add-border-radius"
   />
-</figure>
-<br />
-
-Hit “Complete on your mobile device”
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/dcportal/stripe-verify-on-mobile.png')}
-    style={{ maxHeight: '450px' }}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-</figure>
-<br />
-
-Choose one of the four ways to begin verification. If you're quick with your camera app, scanning
-the QR code is fast and easy.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/dcportal/stripe-verification-options.png')}
-    style={{ maxHeight: '450px' }}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-</figure>
-<br />
-
-Finish the verification on your mobile device. You should see “Verification submitted.” Then you can
-return to your computer.
-
-You should be able to see this page. When you are ready, hit “Pay.”
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/dcportal/stripe-confirm-final.png')}
-    style={{ maxHeight: '450px' }}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-</figure>
-<br />
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/dcportal/stripe-confirming.png')}
-    style={{ maxHeight: '450px' }}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-  <figcaption>Letting the magic happen 🪄✨</figcaption>
 </figure>
 <br />
 
@@ -201,7 +88,7 @@ on the Explorer link.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/dcportal/stripe-confirmed.png')}
+    src={useBaseUrl('/img/dcportal/purchase-confirmed.png')}
     style={{ maxHeight: '450px' }}
     className="add-shadow add-shadow-margin add-border-radius"
   />
@@ -215,11 +102,25 @@ was used for the transaction.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/dcportal/receipt.png')}
+    src={useBaseUrl('/img/dcportal/invoice-new.png')}
     style={{ maxHeight: '300px' }}
     className="add-shadow add-shadow-margin add-border-radius"
   />
   <figcaption>A receipt will be emailed to the account responsible for the transaction.</figcaption>
+</figure>
+<br />
+
+Click on the link to explore the transaction details. Scroll down to the transaction titled
+"Delegate Data Credits V 0". As you can see, 970,000 DC was delegated to the OUI's escrow account
+because there is a 3% transaction fee when you purchase DC through Sphere's Data Credit portal.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/dcportal/txn.png')}
+    style={{ maxHeight: '300px' }}
+    className="add-shadow add-shadow-margin add-border-radius"
+  />
+  <figcaption>The transaction detail that delegates DC towards your OUI escrow account.</figcaption>
 </figure>
 
 ## Deep Links
