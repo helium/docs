@@ -9,9 +9,6 @@ slug: /solana/migration/maker
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 ## Update and Add New Dependencies
 
@@ -32,7 +29,7 @@ import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
 ## Update App Providers
 
-Apps must now be wrapped in a `<SolanaProvider>` and the `baseUrl` for `<OnboardingProvider>` has
+Apps must be wrapped in a `<SolanaProvider>` and the `baseUrl` for `<OnboardingProvider>` has
 changed
 
 A Solana Provider must be set with a Solana RPC. Because Helium makes use of Compressed NFTs, there
@@ -44,7 +41,7 @@ are currently 5 RPC providers with support:
 - [Shyft](https://docs.shyft.to/solana-rpcs-das-api/compression-das-api)
 - [Hello Moon](https://docs.hellomoon.io/reference/rpc-endpoint-for-digital-asset-standard)
 
-You can visit their websites and get set up with an RPC url.
+You can visit their websites and get set up with an RPC URL.
 
 ```tsx
 // src/App.tsx
@@ -81,9 +78,9 @@ useEffect(() => {
 
 ## Testing Solana Pre-Migration
 
-Before the migration to Solana has been completed, the v2 onboarding server will be used, and
-transactions will still be submitted to the Helium blockchain. To test Solana before transition, use
-these variables:
+Before the migration to Solana was completed, the v2 onboarding server was used, and transactions
+were still be submitted to the Helium blockchain. To test Solana before transition these variables
+were used:
 
 **_IT IS CRITICALLY IMPORTANT THAT YOU ONLY USE THESE FOR TESTING._**
 
@@ -110,7 +107,7 @@ ONBOARDING_MAKER_NAME="Test Maker"
 
 ## Onboarding a Hotspot
 
-When onboarding a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
+When onboarding a Hotspot you must specify which `hotspotTypes` it supports (e.g., `iot` , `mobile`)
 
 You can optionally set `elevation`, `gain`, `lat`, and `lng` to avoid having to create a second
 transaction.
@@ -155,7 +152,7 @@ setSolanaTransactions(onboardData.solanaTransactions)
 
 ## Updating a Hotspot
 
-When updating a Hotspot you must specify which `hotspotTypes` it supports (eg `iot` , `mobile`)
+When updating a Hotspot you must specify which `hotspotTypes` it supports (e.g., `iot` , `mobile`)
 
 ### Create transactions
 
@@ -259,7 +256,7 @@ useEffect(() => {
 
 The Helium Hotspot App is deprecated, Maker Apps should link to the Helium Wallet app. Add the hook
 `useCheckWalletLink()` to `src/App.tsx` It will check to see if the user is linked to the Hotspot
-app and prompt them to update their link
+app and prompt them to update their link.
 
 ```tsx
 // src/App.tsx
@@ -316,9 +313,8 @@ const permissions = [
 ]
 ```
 
-The Maker Starter is now using `react-native-permissions` to request/check permissions. If you'd
-like to use the library, the setup guide can be found here:
-https://github.com/zoontek/react-native-permissions
+The Maker Starter uses `react-native-permissions` to request/check permissions. If you'd like to use
+the library, the setup guide can be found here: https://github.com/zoontek/react-native-permissions
 
 ---
 
@@ -327,7 +323,7 @@ https://github.com/zoontek/react-native-permissions
 :::info
 
 Maker Wallets will need both `SOL` for transactions on the Solana blockchain and `DC` for onboarding
-fees post Migration.
+fees.
 
 :::
 
@@ -367,7 +363,7 @@ For more insight to the amount of SOL needed, check out
 
 ### Maker Wallet DC
 
-Maker Wallets will need `DC` to pay Helium onboarding and assert fees. DC can be acquired by either
+Maker Wallets will need `DC` to pay Helium onboarding and assert fees. DC can be acquired by either:
 
 - Depositing DC into the Maker Wallet on the current Helium L1.
 - Use the Helium Wallet app to swap HNT for DC.
