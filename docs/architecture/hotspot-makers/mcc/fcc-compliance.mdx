@@ -9,9 +9,6 @@ slug: /hotspot-makers/fcc-compliance
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 ## Introduction
 
@@ -22,13 +19,13 @@ modified LoRaWAN compatible gateways. Currently the Helium system operates on 8 
 Standard LoRaWAN gateways downstream transmissions are in the upper frequency range (923.3 – 927.5
 MHz) using 500 kHz modulation in digital DTS mode. In addition, Helium compatible gateways transmit
 in the lower frequency range (903.9 to 905.3 MHz) using 125 kHz channel modulation to support
-proof-of-coverage (PoC) functions. The PoC transmissions are similar in format and requirements to
+Proof-of-Coverage (PoC) functions. The PoC transmissions are similar in format and requirements to
 LoRaWAN endpoint devices. This PoC operation falls under a different FCC classification known as a
 DSS Hybrid system and specific testing is required for certification.
 
 Using FCC pre-certified LoRaWAN gateway modules based on Semtech Corcell LoRaWAN concentrator card
 designs from marketplace suppliers are not likely to have been tested and certified to support
-Helium’s PoC 125 kHz hybrid transmissions. In this case, the FCC requires full recertification with
+Helium's PoC 125 kHz hybrid transmissions. In this case, the FCC requires full recertification with
 a new FCC product identification (FCC ID) number. It is the responsibility of manufacturers
 providing Helium compatible network products to ensure that proper testing and certification or
 recertification is obtained.
@@ -52,7 +49,7 @@ support PoC.
 - **KDB**: FCC Knowledge Database
 - **LoRa**: Long Range radio modulation technique
 - **LoRaWAN™**: LoRa low power Wide Area Network protocol
-- **PoC**: Helium Proof of Coverage function
+- **PoC**: Helium Proof-of-Coverage function
 - **RX**: Receive / Receiver
 - **SF**: Spreading Factor
 - **TX**: Transmit / Transmitter
@@ -200,7 +197,7 @@ testing in restricted frequency bands.
 ## Helium PoC DSS Hybrid operation
 
 Operation in the lower portion of the US915 frequency band using 125 kHz modulation bandwidth for
-Helium’s PoC transmissions falls under the FCC classification of a Hybrid system and test
+Helium's PoC transmissions falls under the FCC classification of a Hybrid system and test
 requirements for certification differ from standard digital modulation modes. A Hybrid system is
 defined by the FCC as employing both frequency hopping and digital modulation techniques at the same
 time on the same carrier. A Hybrid system must also meet the definition of true frequency hopping
@@ -332,9 +329,9 @@ is regulated by FCC rules, however, the FCC does not specify minimum power outpu
 are no US federally regulated receiver minimum sensitivity levels.
 
 For the proper operation of the Helium network, minimum power outputs and receiver sensitivity are
-expected for Helium’s hotspot approval process (see HIP19). The minimum performance levels are based
-on Semtech Corecell reference design using the SX1302 baseband processor and SX1250 RF transceiver.
-The Semtech performance report (link in the references) shows typical power output in section 6 and
-receiver performance for various spreading factors in section 8. Helium expects power output to be
-within 1 dB of the Corcell reference design and receiver sensitivities to be no worse than 2 dB
-above the reference design levels.
+expected for Helium's hotspot approval process (see HIP 19). The minimum performance levels are
+based on Semtech Corecell reference design using the SX1302 baseband processor and SX1250 RF
+transceiver. The Semtech performance report (link in the references) shows typical power output in
+section 6 and receiver performance for various spreading factors in section 8. Helium expects power
+output to be within 1 dB of the Corcell reference design and receiver sensitivities to be no worse
+than 2 dB above the reference design levels.

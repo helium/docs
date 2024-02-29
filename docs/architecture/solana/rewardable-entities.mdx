@@ -27,7 +27,7 @@ recognized by all major wallets.
 A new development on the Solana Blockchain has been
 [Compression NFTs](https://www.metaplex.com/posts/expanding-digital-assets-with-compression-for-nfts).
 
-With normal NFTs on Solana, each token is stored on-chain as a distinct spl-token mint, with
+With normal NFTs on Solana, each token is stored on-chain as a distinct SPL-token mint, with
 decimals of 0 and supply of 1. This mint has some metadata attached to it, as well as a token
 account representing the ownership of the token. In total, this leads to 4 accounts with a cost of
 0.01197616 SOL in rent. Multiplying this by millions of Hotspots leads to not only a high cost but
@@ -176,12 +176,12 @@ onboard transaction must be approved by the Maker. This uses a similar flow to t
 onboarding-server of the Helium blockchain.
 
 The main difference between the Solana version of Helium, and the legacy version on the Helium
-chain, is that onboarding is on a per-network basis. A Hotspot can be an IOT Hotspot, a MOBILE
+chain, is that onboarding is on a per-network basis. A Hotspot can be an IoT Hotspot, a Mobile
 Hotspot, or both. If the Hotspot wants to earn both MOBILE and IOT rewards, it must onboard to the
-IOT network AND the MOBILE network. It must also assert location on both subnetworks.
+IoT network AND the Mobile network. It must also assert location on both subnetworks.
 
-Similarly, makers are approved for specific subnetworks. A maker that creates IOT Hotspots cannot
-necessarily onboard MOBILE Hotspots. Each network subDAO must approve makers to issue rewardable
+Similarly, makers are approved for specific subnetworks. A maker that creates IoT Hotspots cannot
+necessarily onboard Mobile Hotspots. Each subnetwork must approve makers to issue rewardable
 entities.
 
 The following test shows the full flow of onboarding a Hotspot using the onboarding server.
@@ -351,7 +351,7 @@ describe("onboarding server", () => {
 ## Claiming Rewards on Rewardable Entities
 
 A system of oracles keeps track of the rewards owed to each Rewardable Entity. For example, in the
-IOT network there are oracles that keep track of the IOT tokens earned by each Hotspot for PoC.
+IoT network there are oracles that keep track of the IOT tokens earned by each Hotspot for PoC.
 
 These oracles are responsible ONLY for tracking the total lifetime rewards associated with a
 Hotspot. This frees the oracles from any kind of dependence on the blockchain. They don't care about
@@ -365,7 +365,7 @@ rewards have been claimed. Claiming rewards, then, consists of two steps:
    owner.
 
 In practice, we have made it so that this can all happen in a singular transaction for PoC rewards.
-Staking rewards will happen in transactions combining up to 4 days of rewards.
+Rewards for locking tokens will happen in transactions combining up to 4 days of rewards.
 
 ### Finding Current Rewards
 

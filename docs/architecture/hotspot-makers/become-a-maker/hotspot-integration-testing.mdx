@@ -9,11 +9,8 @@ slug: /hotspot-makers/become-a-maker/hotspot-integration-testing
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
-<LegacyContentBanner />
-
-This guide is intended for companies that have been approved via HIP-19 and successfully passed the
+This guide is intended for companies that have been approved via HIP 19 and successfully passed the
 hardware audit stage.
 
 All Makers and prospective makers are required to develop, and make available to their customers,
@@ -61,7 +58,7 @@ Support for any other operating system will not be available.
 
 :::info
 
-Makers in the HIP-19 process can continue to submit their Hotspots to the Hotspot App for
+Makers in the HIP 19 process can continue to submit their Hotspots to the Hotspot App for
 integration. However, all active Makers by March 1, 2022 must have their own Maker app available on
 App Stores.
 
@@ -69,9 +66,9 @@ App Stores.
 
 To add your Hotspot to the Hotspot App, follow the
 [Maker Guide](https://github.com/helium/hotspot-app/tree/main/src/makers) in GitHub and
-[submit a pull request to the Hotspot Github Repo](https://github.com/helium/hotspot-app).
+[submit a pull request to the Hotspot GitHub Repo](https://github.com/helium/hotspot-app).
 
-In this codebase, you’ll want to modify the onboarding flow to add a UI element that enables users
+In this codebase, you'll want to modify the onboarding flow to add a UI element that enables users
 to select your Hotspot type on this screen, add support emails to Diagnostic Reports (Bluetooth
 only), add additional onboarding instructions (web/QR) and include default antenna TX/RX gain:
 
@@ -137,7 +134,7 @@ To select Bluetooth onboarding, in the `hotspot.ts` file, specify `BLE` in `onbo
 
 # Constructing the Add Gateway Transaction
 
-If you’re using [Helium’s miner image](https://github.com/helium/miner), constructing a transaction
+If you're using [Helium's miner image](https://github.com/helium/miner), constructing a transaction
 is relatively easy.
 
 Every Hotspot on the blockchain goes through two transactions:
@@ -160,9 +157,9 @@ appropriate stage with the Manufacturing Compliance Committee. The current list 
 [here](https://onboarding.dewi.org/api/v2/makers).
 
 When testing with this `payer` address, adding hotspots and asserting location transactions will be
-submitted and you’ll see them as pending transactions in the Hotspot App. However, once it reaches
+submitted and you'll see them as pending transactions in the Hotspot App. However, once it reaches
 the blockchain, the transaction will be discarded as the payer address does not exist in the
-blockchain’s `chain_var` of valid addresses. This ensures no Data Credits are spent on testing, but
+blockchain's `chain_var` of valid addresses. This ensures no Data Credits are spent on testing, but
 allows trial and error as Makers finish app integration.
 
 Once you have the transaction, you will pass it onto the Helium app to sign the transaction. Once
@@ -193,7 +190,7 @@ By design, this transaction will fail, as this is a test account.
 
 :::
 
-Once you’re ready to proceed, request a Maker account and replace the test payer address with your
+Once you're ready to proceed, request a Maker account and replace the test payer address with your
 own maker address.
 
 ## Requesting a Maker Account
@@ -229,7 +226,7 @@ Maker IDs are sequential and cannot be customized.
 
 ### Testing
 
-When you’re ready to start integration with the Test Maker account with the mobile wallet app, send
+When you're ready to start integration with the Test Maker account with the mobile wallet app, send
 us details about your Test Hotspot in this JSON format. :
 
 ```json
@@ -293,7 +290,7 @@ The final steps and flow for production onboarding are as follows:
 3. Go through the Onboarding process in the Hotspot app. The app will check the Onboarding server
    for the Hotspot and verify the Maker ID. The app will then sign the transaction and submit to the
    blockchain.
-4. You’ll see a pending transaction in your Maker address.
+4. You'll see a pending transaction in your Maker address.
 5. The blockchain will process the `add_gateway` and `assert_location` transaction and verify that
    the maker address is in the chain variable.
 6. The transaction will go through and Data Credits will be deducted from the Maker account.

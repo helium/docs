@@ -19,7 +19,7 @@ Before the architecture upgrade, Helium Console was the only choice of LoRaWAN N
 on the Helium Network as the old architecture required the LNS to administer both LoRaWAN-specific
 functions as well as blockchain overhead. Now that blockchain components are no longer intertwined
 with data transfer, IoT applications can now leverage any compatible LoRaWAN Network Server. Check
-out [this tutorial](/iot/run-an-lns) to more about how to run your own LoRaWAN Network Server.
+out [this tutorial](/iot/run-an-lns) to learn more about how to run your own LoRaWAN Network Server.
 
 The update brings the responsibilities of a Helium LNS much more in-line with a generic LNS while
 also easing the integrations of existing LNS systems, further helping the expansion of the Helium
@@ -53,7 +53,7 @@ then the Join Request will be forwarded to the endpoint specified on that route.
 
 If a Packet Router can match a received packet to a defined route, it will forward that message to
 the appropriate LNS and submit a packet report to the Packet Reports Database, which will be
-ingested by the Reward Oracles so that the hotspots delivering that packet are duely rewarded.
+ingested by the Reward Oracles so that the hotspots delivering that packet are duly rewarded.
 
 Each packet report includes OUI, network ID, region, gateway, and payload hash metadata. The full
 definition can be found
@@ -85,10 +85,10 @@ and wallet addresses per OUI.
 The Packet Verifier verifies the submitted packets. Its primary responsibilities are to:
 
 - Confirm that each OUI and the associated LNS have enough DC to pay for the packets received.
-  - For every Packet Report received, if the DC balance for an OUI has fallen below 3.5MM DC, the
+  - For every Packet Report received, if the DC balance for an OUI has fallen below 3.5M DC, the
     route will be locked.
   - The Packet Verifier checks the DC balance of every locked OUI every 30 minutes, and unlocks them
-    if their DC balance is above 3.5MM DC.
+    if their DC balance is above 3.5M DC.
 - Process reports into a separate database of verified and denied reports (denied reports include
   the cause of denial).
 - Based on data transfer, calculate Rewards and the amount of DC to debit from each wallet
