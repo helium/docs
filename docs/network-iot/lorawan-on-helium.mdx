@@ -9,9 +9,7 @@ slug: /iot/lorawan-on-helium
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
-<LegacyContentBanner />
 
 <img className="docsheader" src={useBaseUrl('img/lorawan-on-helium/lorawanheader.png')} />
 
@@ -30,14 +28,26 @@ compatible with privately-run Network Servers.
 The rest of this article will discuss the networking primitives. If you want to go ahead and run a
 Network Server, please check out our article about running a network server.
 
+Decentralized LNS Operation
+In the Helium Network, the goal is to enable the independent operation of LNSs, moving away from a 
+centralized model. This decentralization not only allows hotspots (gateways) to be independently 
+owned and operated but also enables the independent operation of LNSs on the same public LoRaWAN 
+Network. This approach distinguishes the Helium Network from other public wireless infrastructures 
+by making it compatible with privately-run Network Servers.
+
+
 ## The OUI
 
 Each LoRaWAN Network Server (LNS) on the Helium Network acquires an Organizationally Unique
 Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
 routing objects owned and maintained by the OUI Operator:
+one or more **slabs** of DevAddrs, reserving NwkAddr space for the OUI's devices on the Helium
+Network
 
-- one or more **slabs** of DevAddrs, reserving NwkAddr space for the OUI's devices on the Helium
-  Network
+- DevAddrs: These reserve NwkAddr space for the OUI's devices on the Helium Network. A device 
+defined by (AppEUI, DevEUI) can be allocated to any of the DevAddrs owned by the OUI. It's even 
+possible to multiplex many devices on the same DevAddr simultaneously, using the Message Integrity 
+Check (MIC) to disambiguate.
 
 A device defined by (AppEUI, DevEUI) can be allocated to any of the DevAddrs owned by the OUI. It is
 even possible to multiplex many devices on the same DevAddr at the same time, using the Message
@@ -53,6 +63,15 @@ Organizationally Unique Identifiers (OUIs) are registered identities on the Heli
 send and receive packets to an end-device, a network user needs to be serviced an OUI. This can be
 their own OUI or one operated by a third party, such as [Console](/console) operated by Helium
 Foundation.
+
+### Important Considerations
+- Blockchain Registration: Only libp2p addresses registered as endpoints for the OUI may open and 
+close state channels on behalf of an OUI. This ensures secure and authorized operations within the
+ network.
+- Benchmarking and Testing: The upper limit for a Devaddr 1024 slab is approximately 5800 devices, 
+based on benchmarking tests. However, community members are encouraged to run their own benchmarking
+ tests to validate these results.
+
 
 An OUI has some specificities related to LoRaWAN and packet routing,
 [documented here](/iot/lorawan-on-helium#the-oui), but with respect to the blockchain, what's
@@ -78,6 +97,11 @@ command line.
 
 ### Join Request Frames and Filters
 
+The process of joining the network involves a Join Request frame, which is unencrypted and contains
+the AppEUI, DevEUI, and DevNonce. Gateways use this information to determine if any OUIs are
+interested in the Join Request by querying filters maintained and written to the blockchain by every
+OUI.
+
 A Join Request frame has the following unencrypted header:
 
 ```bash
@@ -99,6 +123,10 @@ In response to the Join Request, a Join Accept is sent down, assigning the NwkAd
 multi-tenancy on the Helium Network, the LNS may only assign NwkAddrs within its DevAddr slab(s).
 
 ### Data Frames and DevAddr Slabs
+
+Data packets have an unencrypted header (FHDR) that includes the DevAddr, FCtrl, FCnt, and FOpts.
+The DevAddr contains the NwkAddr of a device, which is allocated by the OUI's DevAddr slab. Gateways
+can use the DevAddr to determine the OUI of Data frames, facilitating quicker look-up and routing.
 
 Data packets have the following unencrypted header (FHDR):
 
@@ -129,3 +157,12 @@ query can say which OUI owns this DevAddr slab. This look-up and routing by DevA
 
 [foundation-blog]:
   https://medium.com/helium-foundation/scaling-iot-growth-with-heliums-open-lns-initiative-c906e6953d6d
+
+### Conclusion
+
+The migration to the Solana blockchain has brought significant changes to the Helium Network,
+particularly in how LoRaWAN Network Servers operate and how OUIs are managed. This update aims to
+provide a clear understanding of these changes and their implications for network participants. For
+those interested in running a Network Server or participating in the network, it's essential to stay
+updated with the latest developments and guidelines provided by the Helium Foundation and the
+community.
