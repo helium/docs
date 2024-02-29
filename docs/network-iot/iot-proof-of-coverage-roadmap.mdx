@@ -67,14 +67,15 @@ before, when PoC events had to be validated under strict real-time deadlines by 
 currently elected Consensus Group, and which often led to events silently being dropped just to keep
 the blockchain moving.
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/blockchain/OraclePoCModel.png')}
-    className="add-shadow add-shadow-margin add-border-radius"
-    style={{ maxHeight: 'initial' }}
-  />
-  <figcaption>Comparison Diagram: Original vs Oracle-Based PoC Models.</figcaption>
-</figure>
+graph TD;
+    Challenger --> Beaconer;
+    Beaconer --> Witness;
+    Witness --> Validator;
+    Validator --> Rewarder;
+
+graph TD;
+    Hotspot_with_own_Beacon --> IOT_PoC_Verifier_Oracle;
+    IOT_PoC_Verifier_Oracle --> Rewarder;
 
 
 ### Step 2: Removing the Limits to PoC
