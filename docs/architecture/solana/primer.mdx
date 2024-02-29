@@ -31,7 +31,7 @@ for this account, we can see that this is a `DaoV0` on the devnet `helium-sub-da
 
 ![Dao in Explorer](/img/solana/dao-in-explorer.png)
 
-Scrolling up we can see that it is, in fact, owned by the Helium Subnetwork's program:
+Scrolling up we can see that it is, in fact, owned by the Helium subnetwork's program:
 
 ![Program Owner](/img/solana/program-owner.png)
 
@@ -81,9 +81,9 @@ const daoAddr = daoKey(new PublicKey("...hnt mint..."))[0];
 :::note Helium PDAs and Mints
 
 You'll notice that if you trace the graph of Helium PDAs, they always lead back to the address of
-either the HNT token mint, or the Subnetwork token mint.
+either the HNT token mint, or the subnetwork token mint.
 
-This design is intentional. Rather than making DAOs, Subnetworks, etc global, we opted to make them
+This design is intentional. Rather than making DAOs, subnetworks, etc global, we opted to make them
 dependent on the specific mints being used. This allows us to set up testing scenarios in which we
 use a testing token alongside the real tokens. This design also allows for easier reuse of our
 contracts throughout the Solana community.
