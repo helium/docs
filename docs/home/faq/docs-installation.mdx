@@ -8,135 +8,82 @@ image: https://docs.helium.com/img/link-image.png
 slug: /faq/docs-installation
 ---
 
-# Helium Documentation Installation Guide
+# Installation Guide: Running the Server Locally
 
-Clone the docs repo from [Github](https://github.com/helium/docs).
+#### Prerequisites:
 
-```bash title="clone the repo"
-$ git clone https://github.com/helium/docs.git
-```
+- Node.js installed on your machine. You can download it from
+  [the official Node.js website](https://nodejs.org/).
+- Yarn package manager installed. You can install it by following the instructions below:
 
-Navigate to the `docs` directory
+#### Steps (Assuming you have Node.js Installed):
 
-```bash title="navigate to the docs directory"
-$ cd docs/
-```
+1. **Install Yarn:**
 
----
+   - Download and install Yarn by following the instructions on the
+     [Yarn website](https://classic.yarnpkg.com/lang/en/docs/install/).
+     - You can also install Yarn globally using npm:
+     ```
+     npm install -g yarn
+     ```
+   - After installing, you can verify the installation by running:
+     ```
+     yarn --version
+     ```
+   - This should display the installed Yarn version.
 
-## Prerequisites
+2. **Fork the Project Repository:**
 
-### Install Node.js
+   - Fork the project repository to your GitHub account by clicking the "Fork" button at the top
+     right of the repository page.
 
-Download and install the latest version of [Node.js](https://nodejs.org/en/download).
+3. **Clone the Project Repository:**
 
-```bash title="Verify the installation."
-$ node --version
-v18.16.0
-```
+   - Clone the project repository to your local machine using Git:
+     ```
+     git clone https://github.com/your-username/docs.git
+     ```
+   - Change into the project's `docs/` folder:
+     ```
+     cd docs/
+     ```
 
-:::info
+4. **Install Dependencies:**
 
-Windows users installing Node.js do not need to install the `Compiler` nor `Chocolaty` dependencies.
+   - Inside the `docs/` folder, install project dependencies and start the server using:
+     ```
+     yarn && yarn start
+     ```
+   - This command should install project dependencies and start the server, automatically opening
+     the project's documentation in your default web browser.
 
-:::
+5. **Access the Documentation:**
+   - The local server should now be running, and you can view the documentation by navigating to:
+     ```
+     http://localhost:3000/
+     ```
+   - This will open the documentation website locally, allowing you to browse and interact with the
+     project's documentation.
 
-### Install Yarn
+#### Start Contributing:
 
-After installing Node.js, npm will be installed and can be used to install Yarn.
+- After running the server, you can open the project in your preferred code editor, such as Visual
+  Studio Code.
+- Make changes to the documentation files, and as you save them, you will see the updates reflected
+  in the browser window opened by the local server.
 
-```bash title="install yarn"
-$ npm install -g yarn
-> yarn@1.22.11 preinstall /path/to/npm/node_modules/yarn
-> :; (node ./preinstall.js > /dev/null 2>&1 || true)
-```
+### Example Commands:
 
-To upgrade the Yarn version to be >= 1.5, set the project directory to version `berry`.
+```bash
+# Clone the repository
+git clone https://github.com/your-username/docs.git
+cd docs/
 
-```bash title="set yarn version to berry"
-$ yarn set version berry
-➤ YN0000: Retrieving https://repo.yarnpkg.com/3.5.1/packages/yarnpkg-cli/bin/yarn.js
-➤ YN0000: Saving the new release in .yarn/releases/yarn-3.5.1.cjs
-➤ YN0000: Done in 0s 430ms
-```
+# Install Yarn (if not already installed)
+npm install -g yarn
 
-### Install Dependencies
+# Install project dependencies
+yarn
 
-Install Yarn which will download and compile all the project module dependencies.
-
-```bash title="install yarn and dependencies"
-$ yarn install
-➤ YN0070: Migrating from Yarn 1; automatically enabling the compatibility node-modules linker 👍
-
-➤ YN0000: ┌ Resolution step
-...
-➤ YN0000: └ Completed in 4s 287ms
-➤ YN0000: ┌ Fetch step
-...
-➤ YN0000: └ Completed in 9s 723ms
-➤ YN0000: ┌ Link step
-...
-➤ YN0000: └ Completed in 8s 494ms
-➤ YN0000: Done with warnings in 22s 635ms
-```
-
-Check the final version and confirm that it is >= 1.5
-
-```bash title="verify yarn version"
-$ yarn --version
-3.5.1
-```
-
----
-
-## Local Development
-
-```bash title="start the development server"
-$ yarn start
-[INFO] Starting the development server...
-[SUCCESS] Docusaurus website is running at: http://localhost:3000/
-
-✔ Client
-  Compiled successfully in 25.06s
-
-client (webpack 5.76.3) compiled successfully
-
-✔ Client
-  Compiled successfully in 542.45ms
-
-client (webpack 5.76.3) compiled successfully
-```
-
-This command starts a local development server and open up a browser window. Most changes are
-reflected live without having to restart the server.
-
-### Auto Refresh
-
-Each time a file is saved the site will get rebuilt and the pages refreshed on the fly, there is no
-need to keep restarting Yarn.
-
----
-
-## Link Checking Before Creating a Pull Request
-
-Checking links can be accomplished by using the `yarn build` command
-
-```bash title="make production build"
-$ yarn build
-[INFO] [en] Creating an optimized production build...
-
-✔ Client
-
-✔ Server
-  Compiled successfully in 30.22s
-
-bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
-
-✔ Client
-
-● Server █████████████████████████ cache (99%) shutdown IdleFileCachePlugin
- stored
-
-[SUCCESS] Generated static files in "build".
-[INFO] Use `npm run serve` command to test your build locally.
-```
+# Start the local server
+yarn start
