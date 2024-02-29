@@ -1,104 +1,81 @@
 ---
-id: third-party-wallets
-title: Third-Party Wallets
-pagination_label: Third-Party Wallets
-sidebar_label: Third-Party Wallets
-description: Helium Documentation
-image: https://docs.helium.com/img/link-image.png
-slug: /wallets/third-party-wallets
+
+id: third-party-wallets title: Third-Party Wallets pagination_label: Third-Party Wallets
+sidebar_label: Third-Party Wallets description: Learn how to use third-party Solana wallets with
+your Helium account for enhanced functionality and convenience. image:
+https://docs.helium.com/img/link-image.png slug: /wallets/third-party-wallets
+
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { Tweet } from 'mdx-embed'
 
-Helium operates on the Solana blockchain, which allows any Solana-compatible wallet to be used with
-your account.
+With Helium's integration into the Solana blockchain, users have the flexibility to manage their
+accounts using any Solana-compatible wallet. This guide explores how to utilize third-party wallets
+with your Helium account, highlighting the unique features available through the Helium Wallet App
+and Maker apps.
 
-- Certain Hotspot actions are not universally supported. Special tooling in the Helium Wallet App
-  and Maker apps enables these functions:
-  - Claiming Hotspot rewards.
-  - Asserting or updating location
-  - Antenna setup
-  - Onboarding new Hotspots.
+## Capabilities and Limitations
 
-## Solana Ecosystem Wallets
+While third-party Solana wallets offer a broad range of functionalities, it's important to note that
+specific actions related to Hotspot management are exclusive to the Helium Wallet App and certain
+Maker apps. These include:
 
-Several browser and mobile app based wallets support Solana. Find the right one for you on the
-[Solana Ecosystem](https://solana.com/ecosystem/explore?categories=wallet) page.
+- Claiming Hotspot rewards
+- Asserting or updating Hotspot locations
+- Configuring antenna settings
+- Onboarding new Hotspots
 
-For advanced users or developers, Command Line Interface (CLI) wallets may be more appropriate.
+## Exploring Solana Ecosystem Wallets
 
-- [Solana CLI](https://docs.solanalabs.com/cli/)
-- [Helium CLI](/wallets/cli-wallet)
+The Solana ecosystem boasts a diverse selection of wallets, ranging from browser and mobile
+app-based solutions to more advanced Command Line Interface (CLI) options for developers or users
+seeking granular control. Explore the array of wallets and find the perfect fit for your needs on
+the [Solana Ecosystem](https://solana.com/ecosystem/explore?categories=wallet) page.
+
+- For browser and mobile wallets: Check out popular options like [Phantom](https://phantom.app/),
+  [Solflare](https://solflare.com/), and [Sollet](https://www.sollet.io/).
+- For CLI enthusiasts: Dive into the [Solana CLI](https://docs.solanalabs.com/cli/) and
+  [Helium CLI](/wallets/cli-wallet) for a hands-on approach to wallet management.
 
 ## Importing Helium Accounts into Solana Wallets
 
-In order to bring a Helium account from the Helium Wallet App into another Solana wallet, the
-'Private Key' for the account must be used. Importing accounts with the 12 or 24-word seed phrase
-will not result in your tokens appearing in the other wallet app.
+To transfer your Helium account into another Solana-compatible wallet, you'll need the 'Private Key'
+of your account. It's crucial to understand that importing using the 12 or 24-word seed phrase may
+not display your tokens in the new wallet due to different derivation paths.
 
-To be technical about it, the private key embeds the specific derivation path used by the Helium
-Wallet App (`44'/904'/n'/0'`). Otherwise, using the seed phrase, the Solana wallet app will attempt
-to resolve the account at a default path of `44'/501'/n'/0'` or `44'/501'/n'/0'/0'`.
+### Retrieve Your Account's Private Key
 
-### Get Your Account's Private Key
+Access the "Reveal Private Key" option within the Helium Wallet App's settings to obtain your
+private key.
 
-From within the Helium Wallet App, select "Reveal Private Key" from the settings menu.
+![Reveal Private Key](https://docs.helium.com/img/wallets/third-party/reveal-private-key.png) _This
+setting is located within the Helium Wallet App._
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/wallets/third-party/reveal-private-key.png')}
-    className="add-shadow add-shadow-margin add-border-radius"
-  />
-  <figcaption>This setting is accessible from the Helium Wallet App.</figcaption>
-</figure>
-<br />
+Upon revealing your private key, you'll have the option to copy it for use in your chosen Solana
+wallet.
 
-From within the private key view, the key can be copied before pasting it into the new Solana wallet
-app.
+![Copy Private Key](https://docs.helium.com/img/wallets/third-party/reveal-private-key-tap.png)
+_Copy the private key to your clipboard for easy importing._
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/wallets/third-party/reveal-private-key-tap.png')}
-    className="add-shadow add-shadow-margin add-border-radius"
-    style={{ maxHeight: 'initial', maxWidth: '360px' }}
-  />
-  <figcaption>Tapping 'Reveal Private Key' will allow copying to clipboard.</figcaption>
-</figure>
+### Steps to Import into a Solana Wallet
 
-<br />
+Using [Phantom](https://phantom.app/) as an example, begin by creating a basic Solana wallet
+account. Then, navigate to the 'Manage Accounts' menu to add a new account via the "Import Private
+Key" option.
 
-Copy the private key before switching to the Solana wallet that you wish to import your account
-into.
+![Import Private Key](https://docs.helium.com/img/wallets/third-party/import-key.png) _Import your
+Helium account by selecting "Import Private Key."_
 
-### Import the Private Key into a Solana Wallet
+Congratulations! You've successfully imported your Helium account into a Solana wallet. Your Helium
+tokens, along with any associated Hotspots, are now accessible on the Solana blockchain.
 
-For this walkthrough, we'll demonstrate importing a private key into
-[Phantom](https://phantom.app/). In Phantom, first make a regular Solana wallet account. Then add a
-new account from the 'Manage Accounts' menu in the settings screen.
+![Imported Account](https://docs.helium.com/img/wallets/third-party/imported-account.jpeg) _View
+your tokens and Hotspot NFTs within the new wallet._
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/wallets/third-party/import-key.png')}
-    className="add-shadow add-shadow-margin add-border-radius"
-    style={{ maxHeight: 'initial', maxWidth: '360px' }}
-  />
-  <figcaption>Add your Helium account using "Import Private Key".</figcaption>
-</figure>
-<br />
+## Video Guide
 
-Success! Your Helium tokens and Hotspots should now be visible within this other wallet – all backed
-by the Solana blockchain.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/wallets/third-party/imported-account.jpeg')}
-    className="add-shadow add-shadow-margin add-border-radius"
-    style={{ maxHeight: 'initial', maxWidth: '360px' }}
-  />
-  <figcaption>Tokens and Hotspot NFTs are now accessible from within Phantom.</figcaption>
-</figure>
-
-## Video Walkthrough
+For a visual step-by-step guide on importing your Helium account into a Solana wallet, watch the
+following video walkthrough.
 
 <Tweet tweetLink="Helium/status/1649145876646883337" align="center" />

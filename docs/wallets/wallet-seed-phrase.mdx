@@ -3,7 +3,9 @@ id: wallet-seed-phrase
 title: Wallet Seed Phrase
 pagination_label: Wallet Seed Phrase
 sidebar_label: Wallet Seed Phrase
-description: Helium Documentation
+description:
+  Understand the critical role of the wallet seed phrase in securing your Helium account and best
+  practices for its safekeeping.
 image: https://docs.helium.com/img/link-image.png
 slug: /wallets/wallet-seed-phrase
 ---
@@ -12,60 +14,66 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Helium Wallet Seed Phrase
 
-When creating a Helium account, users are prompted to write down the 24-word seed phrase. This
-mnemonic phrase is generated from a
-[list](https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt) of 2048 specifically
-selected words and can be used to recover the private key of the account. The seed phrase should
-never be shared.
+Creating a Helium account generates a 24-word seed phrase, a critical security feature. This
+mnemonic phrase, derived from a
+[predefined list](https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt) of 2048 words,
+is the backbone of your account's security, enabling the recovery of the private key if needed.
+**The utmost care should be taken to never share this seed phrase.**
 
 ## Seed Phrase Security
 
-:::caution Lose the seed phrase, lose it all.
+:::caution **Lose the seed phrase, lose it all.**
 
-The seed phrase words can never be recovered if they are lost. They are the sole key to accessing an
-account, the tokens and NFTs it contains, and all access to associated Hotspots and their rewards.
-
-:::
-
-:::note Remember these important things.
-
-1. Write down and keep seed phrases safe, do it now.
-1. Never give seed phrase words to anyone who cannot be trusted with full control of your Hotspots
-   and token balances.
-1. Do not enter seed phrase words in any app or website you don't fully trust.
+Without the seed phrase, there is no way to access your account, the tokens, NFTs it contains, or
+any associated Hotspots and their rewards. The seed phrase is irreplaceable and unrecoverable if
+lost.
 
 :::
 
-Back up a seed phrase by writing down the words in their exact order and appropriately securing
-them. As an even more robust solution, some experienced crypto users engrave their seed phrases on
-[titanium plates](https://www.amazon.com/s?k=titanium+seed+phrase+plate).
+:::note **Key Security Tips:**
 
-Storing seed phrases on cloud storage providers like Google Drive or Dropbox is **not** recommended.
-When these services are compromised, seed phrases are among the first things that hackers look for.
+1. **Immediately secure your seed phrase**: Write it down and store it in a safe location.
+2. **Guard your seed phrase**: Only share with trusted parties. Anyone with access can control your
+   assets completely.
+3. **Be cautious**: Avoid entering your seed phrase on questionable apps or websites. Trust is
+   paramount.
 
-No one can recover a lost, forgotten, or misplaced seed phrase. Offers to do so should be ignored.
+:::
 
-When entering the seed phrase make sure you:
+**Securing Your Seed Phrase:**
 
-1. Enter them in the right order.
-1. Get the spelling correct. Check the words from this list for correct spelling:
-   https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt
-1. Watch out for similar-sounding word errors, like 'car' vs 'can' or 'blub' vs 'bulk'. See
-   [Commonly Misspelled Recovery Seed Words](https://trezor.io/support/a/commonly-misspelled-recovery-seed-words),
-   which lists common mistakes.
+- **Physical Backup**: Document the seed phrase in its precise sequence. For enhanced security,
+  consider using [titanium plates](https://www.amazon.com/s?k=titanium+seed+phrase+plate) for
+  durability against physical damage.
+- **Digital Storage Warning**: Storing seed phrases on cloud services (e.g., Google Drive, Dropbox)
+  poses a significant risk. Compromised accounts can lead directly to stolen seed phrases.
+
+**No Recovery Options**: If a seed phrase is lost, forgotten, or misplaced, it cannot be recovered.
+Disregard any claims offering recovery services.
+
+**Correct Seed Phrase Entry**:
+
+1. Ensure the **correct order** and **accurate spelling**. Refer to the
+   [official list](https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt) for guidance.
+2. Beware of **similar-sounding words** (e.g., 'car' vs 'can'). Refer to
+   [Commonly Misspelled Recovery Seed Words](https://trezor.io/support/a/commonly-misspelled-recovery-seed-words)
+   for common errors.
 
 ## 12 vs 24-Word Seed Phrases
 
-While seed phrases can come in a few different lengths, 12 and 24-word will be most familiar for
-Helium users. Most early accounts leverage a 12-word seed phrase. Accounts created with the
-[Helium Wallet App](/wallets/helium-wallet-app) are generated with 24-word seed phrases. The Helium
-Wallet app supports both formats.
+Helium accounts use either 12 or 24-word seed phrases, with older accounts typically using 12 words
+and newer accounts created through the [Helium Wallet App](/wallets/helium-wallet-app) utilizing 24
+words. Both lengths are supported by the Helium Wallet app.
 
-With 128 bits of entropy, a 12-word seed phrase has 3.4 × 10<sup>38</sup> possible combinations. A
-24-word seed phrase has 256 bits of entropy, resulting in approximately 1.16 × 10<sup>77</sup>
-possible combinations. Both are **highly** secure, but 24-word phrases offer the best protection.
+A 12-word phrase offers robust security with 3.4 × 10<sup>38</sup> possible combinations, while a
+24-word phrase increases security further to about 1.16 × 10<sup>77</sup> possible combinations,
+offering optimal protection against brute-force attacks.
 
-| Phrase Length | Possible Combinations                                                                                   |
-| :------------ | :------------------------------------------------------------------------------------------------------ |
-| 12 Words      | 340,282,366,920,938,463,463,374,607,431,768,211,456                                                     |
-| 24 Words      | 115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,936 |
+| Phrase Length | Possible Combinations  |
+| :------------ | :--------------------- |
+| 12 Words      | 3.4 × 10<sup>38</sup>  |
+| 24 Words      | 1.16 × 10<sup>77</sup> |
+
+Understanding and safeguarding your seed phrase is paramount for maintaining access to your Helium
+account and its assets. Adopting best practices for seed phrase security ensures your account's
+integrity and the safety of your digital assets.
