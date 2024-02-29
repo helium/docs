@@ -125,6 +125,13 @@ Config Service:
 
 Hotspot location data can be requested from the Config Service using either the CLI or GRPC APIs.
 
+## EUI Pair Wildcard
+
+In some applications, deployers may have many DevEUIs all associated under the same AppEUI, and it
+might be inconvenient to provision all those EUI pairs individually. If the LNS operator would like
+to receive Join Requests for all devices under a certain AppEUI, simply input 0000000000000000 for
+the DevEUI when adding an EUI pair.
+
 ## Add and Remove Delegate Keys
 
 Note that only owner key can perform the actions below. OUI owners can add delegate keys by running
