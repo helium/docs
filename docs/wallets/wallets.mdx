@@ -12,24 +12,13 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <img className="docsheader" src={useBaseUrl('img/wallets/header.png')} />
 
-As a blockchain-powered network, Helium uses on-chain
-[accounts](https://docs.solana.com/developing/programming-model/accounts) to protect Hotspots and
-Tokens. An account is an abstraction for a cryptographic key which consists of two parts — a public
-key and a private key. This approach of having two keys is known as public key cryptography which is
-a widely used cryptographic system. Users new to web3 are likely accustomed to usernames and
-passwords as authentication methods. Web3 projects like Helium replace traditional logins with
-private and public keys.
+As a blockchain-powered network, Helium relies on on-chain [accounts](https://docs.solana.com/developing/programming-model/accounts) to safeguard Hotspots and Tokens. An account serves as an abstraction for a cryptographic key, comprising two components: a public key and a private key. This dual-key system is rooted in public key cryptography, a widely adopted cryptographic framework. While users familiar with conventional web environments may be accustomed to usernames and passwords for authentication, web3 projects like Helium substitute these traditional credentials with private and public keys.
 
 ## Diving into Crypto Wallets
 
-A crypto wallet operates as a custodian for the public and private cryptographic keys. Wallets
-enable users to transmit, obtain, and oversee cryptocurrency ownership. These wallets can be as
-varied as directories on a computer, physical paper codes, or exclusive hardware devices. A host of
-apps and software solutions also present a streamlined process for wallet creation and maintenance.
+A cryptocurrency wallet serves as a custodian for both public and private cryptographic keys, facilitating the transmission, receipt, and management of cryptocurrency assets. These wallets come in various forms, including digital directories on computers, physical paper codes, or specialized hardware devices. Additionally, a plethora of apps and software solutions offer streamlined processes for creating and maintaining wallets.
 
-The Helium Foundation maintains the [Helium Wallet App](/wallets/helium-wallet-app), which is
-specifically catered to the needs of the Helium Network. However, as a Solana-native token, Helium
-is accessible through any Solana-enabled wallet.
+The Helium Foundation oversees the development and maintenance of the [Helium Wallet App](/wallets/helium-wallet-app), tailored specifically to meet the requirements of the Helium Network. However, given that Helium is a Solana-native token, it can also be accessed through any Solana-compatible wallet.
 
 ## Understanding Public and Private Keys
 
@@ -52,18 +41,11 @@ likely to be keys on the old Helium blockchain. Double-check these addresses usi
 
 ### Private Key
 
-The private key of your account is never to be shared and should be kept safe from potential
-thieves. If a private key is lost, there is no means of recovering it. If the _public_ key is lost
-or forgotten, the private key can be used to determine it using the derivation path leveraged by
-Helium Wallet App accounts.
+Your account's private key is sacrosanct and must never be shared, safeguarded against potential theft at all costs. Losing a private key is irreversible, with no recourse for recovery. In the event of misplacing or forgetting the _public_ key, however, the private key can be utilized to determine it, leveraging the derivation path implemented by the Helium Wallet App accounts.
 
-Private keys can take several forms, though most will know them as
-[12-word or 24-word seed phrases](/wallets/wallet-seed-phrase). Certain tools can also manage
-private key phrases stored in a file; something like `keyfile.bin` or as a long string of letters
-and numbers.
+Private keys manifest in various forms, with the most familiar being the [12-word or 24-word seed phrases](/wallets/wallet-seed-phrase). Additionally, certain tools facilitate the management of private key phrases, stored either in a file format such as `keyfile.bin`, or as an extended string of alphanumeric characters.
 
-Private keys allow for full access to an account's contents and should be protected. These keys are
-never needed to diagnose a Hotspot or on-chain transaction.
+Private keys grant unfettered access to an account's entirety and thus warrant stringent protection. It's important to note that these keys are never required for diagnosing a Hotspot or for on-chain transaction purposes.
 
 :::warning Important summary: Never give away your seed phrases or private keys
 

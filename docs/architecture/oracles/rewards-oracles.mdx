@@ -22,22 +22,15 @@ every 24 hours by each Reward Oracle.
 
 ## Lazy Distribution of Rewards
 
-On the Solana L1, Rewards will now be "lazily distributed" to each Hotspot, meaning that instead of
-passively receiving tokens, Hotspot Owners will _redeem_ them.
+On the Solana L1, Rewards will adopt a "lazily distributed" approach, altering the dynamics for Hotspot Owners who will now actively redeem their tokens instead of receiving them passively.
 
-When a Hotspot Owner makes a redemption request, the Rewards Oracle will compute the difference
-between the `lifetime` and `claimed` token Rewards to determine the amount of unclaimed tokens per
-Hotspot. It will then pre-sign a transaction which the Hotspot Owner will submit to the blockchain.
-It is only at this point that Rewards will be registered on-chain and associated with the owning
-Helium Wallet.
+Upon a redemption request from a Hotspot Owner, the Rewards Oracle will calculate the disparity between the `lifetime` and `claimed` token Rewards to ascertain the unclaimed tokens per Hotspot. Subsequently, it will pre-sign a transaction, which the Hotspot Owner will then submit to the blockchain. It's crucial to note that Rewards will only be registered on-chain and linked with the respective Helium Wallet upon this submission.
 
 ## IOT Rewards Oracle
 
-The IOT Rewards Oracle combines the Verified PoC Receipts, the Verified IOT Data Transfer Receipts,
-and the veHNT backing the IOT Network and emits rewards to each Hotspot.
+The IOT Rewards Oracle integrates Verified PoC Receipts, Verified IOT Data Transfer Receipts, and the veHNT supporting the IOT Network to distribute rewards to individual Hotspots.
 
-As a reminder, the Data Transfer Verifier and the PoC Verifier already do much of the heavy lifting
-by including the shares each Hotspot should receive.
+It's worth noting that the Data Transfer Verifier and the PoC Verifier shoulder a significant portion of the workload by incorporating the allocation of shares for each Hotspot, thus streamlining the reward distribution process.
 
 ## MOBILE Rewards Oracle
 
