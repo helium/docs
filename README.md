@@ -10,7 +10,7 @@ Documentation for the Helium network.
 
 ## Installation
 
-- [Installation Guide](https://docs.helium.com/home/faqdocs-installation/)
+- [Installation Guide](./docs/home/faq/docs-installation.mdx)
 
 ## Contributing
 

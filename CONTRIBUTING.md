@@ -45,4 +45,4 @@ expected to adhere to the [Contributor Covenant Code of Conduct](http://contribu
 
 Above all, thank you for taking the time to be a part of the Helium Community.
 
-[local-server-guide]: docs/home/faq/docs-installation.mdx
+- [local-server-guide]: docs/home/faq/docs-installation.mdx
