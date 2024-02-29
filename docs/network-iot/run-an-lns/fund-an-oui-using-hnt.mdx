@@ -57,6 +57,12 @@ helium-wallet dc delegate iot <Payer Key> 1000000 --commit
 The new DC balance amount can be verified in the app tokens list on the `$` tab within the Helium
 Wallet app.
 
+At this point, DC has been successfully acquired into the wallet, represented by the OUI's payer
+key. However, the [Packet Verifier Service](/oracles/data-transfer-oracles#packet-verifier-service)
+does not have the authority to burn DC from the wallet directly. To enable this, it is necessary to
+delegate DC into the OUI's escrow account, where the Packet Verifier Service is authorized to burn
+DC.
+
 ### Delegate DC To The OUI
 
 1. Select a Wallet in the Helium Wallet app.
@@ -68,5 +74,6 @@ Wallet app.
 1. Enter the amount of DC to delegate.
 1. Swipe to Delegate.
 
-The OUI is now funded. It's now time to configure and deploy the LNS following the
+The OUI is now funded, the history of DC delegation is visible under the "All Activity" section
+towards the bottom of the DC page. It's now time to configure and deploy the LNS following the
 [Chirpstack Configuration](configure-chirpstack) guides.

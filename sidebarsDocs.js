@@ -29,6 +29,7 @@ module.exports = {
         'architecture/solana/primer',
         'architecture/solana/rewardable-entities',
         'architecture/solana/compression-nfts',
+        'architecture/solana/helium-program-library',
       ],
       collapsed: true,
     },
@@ -590,6 +591,7 @@ module.exports = {
       type: 'category',
       label: 'Seeed Studio',
       items: [
+        'network-iot/devices/ready-to-use/seeed-studio/sensecap-t1000-tracker',
         'network-iot/devices/ready-to-use/seeed-studio/sensecap-s2100-data-logger',
         'network-iot/devices/ready-to-use/seeed-studio/sensecap-s2101-tem-humid',
         'network-iot/devices/ready-to-use/seeed-studio/sensecap-s2102-light',

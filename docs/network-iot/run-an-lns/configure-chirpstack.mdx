@@ -42,6 +42,8 @@ Modify the following sections:
     - In the ChirpStack `.toml` file, insert `dev_addr_prefixes = [<subnets>]` following the rule:
       starting `devAddr/32-log2(devAddr slab size)`. For instance, if 8 devAddr slabs were requested
       and the starting devAddr is 00000000, insert `dev_addr_prefixes = ["00000000/29"]`.
+    - If the OUI has multiple non-sequential DevAddr ranges, separate the prefixes by comma. For
+      instance, dev_addr_prefixes = ["00000000/29", "00000010/29"]
 - Under `[gateway]`:
   - Add `allow_unknown_gateways=true`
 
