@@ -1,36 +1,33 @@
 ---
 id: mobile-proof-of-coverage
-title: MOBILE Proof of Coverage
-pagination_label: MOBILE Proof of Coverage
-sidebar_label: MOBILE Proof of Coverage
-description: MOBILE Proof of Coverage
+title: MOBILE Proof-of-Coverage
+pagination_label: MOBILE Proof-of-Coverage
+sidebar_label: MOBILE Proof-of-Coverage
+description: MOBILE Proof-of-Coverage
 image: https://docs.helium.com/img/link-image.png
 slug: /mobile/proof-of-coverage
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { TopLedgerEmbed } from '@site/src/theme/TopLedgerEmbed'
 
 # MOBILE Proof of Coverage
 
-<LegacyContentBanner />
-
 ## Introduction
 
-The Helium blockchain uses a novel work algorithm called "Proof of Coverage" ("PoC") to verify that
+The Helium blockchain uses a novel work algorithm called "Proof-of-Coverage" ("PoC") to verify that
 Hotspots are located where they claim. Put another way, PoC tries to verify, on an ongoing basis,
 that Hotspots are honestly representing their location and the wireless network coverage they are
 creating from that location.
 
-While current 5G Hotspots are _also_ able to participate in the IOT Network and PoC, the CBRS Small
+While current 5G Hotspots are _also_ able to participate in the IoT Network and PoC, the CBRS Small
 Cell and 5G aspects of a 5G Hotspot require a new approach to validating PoC.
 
-Modeled Coverage introduces a fundamental difference in using hexes for the MOBILE Network compared
-to the IOT Network where hexes determine the locations and number of Hotspots within the given hex.
-In the MOBILE Network, hexes determine where the coverage exists. Modeled Coverage data allows us to
+Modeled Coverage introduces a fundamental difference in using hexes for the Mobile Network compared
+to the IoT Network where hexes determine the locations and number of Hotspots within the given hex.
+In the Mobile Network, hexes determine where the coverage exists. Modeled Coverage data allows us to
 un-tie a Radio's location from its signal strength and propagation.
 
 :::tip One Way Traffic
@@ -39,8 +36,8 @@ A CBRS Small Cell Radio ("Radio") can only operate as a transmitter; they cannot
 data and thus can not "hear" one another directly.
 
 LoRaWAN Hotspots utilize a PoC method that benefits from Hotspots being used as senders ("Beacon")
-and receivers ("Witness") of PoC activity; read more here:
-[Proof of Coverage](/iot/proof-of-coverage)
+and receivers ("Witness") of PoC activity; read more about
+[Proof-of-Coverage](/iot/proof-of-coverage)
 
 :::
 
@@ -55,8 +52,7 @@ factors:
 
 These factors will be rolled out in stages over the next twelve months and explained in detail to
 ensure Network Builders can take concrete steps to plan or improve their setups. Check out the
-MOBILE PoC Roadmap
-[here](https://blog.helium.com/mobile-proof-of-coverage-the-road-ahead-73a25601a13d).
+[MOBILE PoC Roadmap](https://blog.helium.com/mobile-proof-of-coverage-the-road-ahead-73a25601a13d).
 
 ---
 
@@ -103,7 +99,7 @@ $$
 | -------- | -------------------------------- |
 | $W$      | Total rewards                    |
 | $k_H$    | Heartbeat multiplier             |
-| $k_S$    | Speedtest multiplier             |
+| $k_S$    | Speed test multiplier            |
 | $C_E$    | Estimated coverage points        |
 | $W_p$    | Epoch rewards per coverage point |
 
@@ -120,19 +116,19 @@ $$
 
 For simplicity, assume that the total MOBILE Rewards per period is 10,000.
 
-|    Radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speedtest Multiplier $k_S$ | Hex 1 - Hex 10 | Hex 11 - Hex 20 | Hex 21 - Hex 220 | Total Coverage Points | Total Reward Points |
-| :---------: | :-------: | :------------------------: | :--------: | :------------------------: | :------------: | :-------------: | :--------------: | :-------------------: | :-----------------: |
-| 1 (Outdoor) |    Ok     |             1              | Acceptable |             1              |      160       |       80        |       800        |         1,040         |        1,040        |
-| 2 (Outdoor) |    Ok     |             1              |    Poor    |            0.25            |       80       |       40        |                  |          120          |         30          |
-|             |           |                            |            |                            |                |                 |                  |      **Points**       |      **1,070**      |
+|    Radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speed test Multiplier $k_S$ | Hex 1 - Hex 10 | Hex 11 - Hex 20 | Hex 21 - Hex 220 | Total Coverage Points | Total Reward Points |
+| :---------: | :-------: | :------------------------: | :--------: | :-------------------------: | :------------: | :-------------: | :--------------: | :-------------------: | :-----------------: |
+| 1 (Outdoor) |    Ok     |             1              | Acceptable |              1              |      160       |       80        |       800        |         1,040         |        1,040        |
+| 2 (Outdoor) |    Ok     |             1              |    Poor    |            0.25             |       80       |       40        |                  |          120          |         30          |
+|             |           |                            |            |                             |                |                 |                  |      **Points**       |      **1,070**      |
 
 **Table 3.** Simplified data for two Outdoor Radios with Heartbeat, Speed Test, and Estimated
 Coverage Points for one Reward Period.
 
-|   Radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speedtest Multiplier $k_S$ | Hex 1 | Hex 2 | Hex 3 | Hex 4 | Total Coverage Points | Total Reward Points |
-| :--------: | :-------: | :------------------------: | :--------: | :------------------------: | :---: | :---: | :---: | :---: | :-------------------: | :-----------------: |
-| 3 (Indoor) |    Ok     |             1              |  Degraded  |            0.5             |  100  |  100  |  100  |  400  |          700          |         350         |
-|            |           |                            |            |                            |       |       |       |       |      **Points**       |       **350**       |
+|   Radio    | Heartbeat | Heartbeat multiplier $k_H$ | Speed Test | Speed test Multiplier $k_S$ | Hex 1 | Hex 2 | Hex 3 | Hex 4 | Total Coverage Points | Total Reward Points |
+| :--------: | :-------: | :------------------------: | :--------: | :-------------------------: | :---: | :---: | :---: | :---: | :-------------------: | :-----------------: |
+| 3 (Indoor) |    Ok     |             1              |  Degraded  |             0.5             |  100  |  100  |  100  |  400  |          700          |         350         |
+|            |           |                            |            |                             |       |       |       |       |      **Points**       |       **350**       |
 
 **Table 4.** Simplified data for one Indoor Radio with Heartbeat, Speed Test, and Estimated Coverage
 Points for one Reward Period.
@@ -147,7 +143,7 @@ $$
 R = 6.54
 $$
 
-|                   | Calcuation            | Total MOBILE Rewards |
+|                   | Calculation           | Total MOBILE Rewards |
 | ----------------- | :-------------------- | -------------------: |
 | Radio 1 (Outdoor) | 6.54 x 1 x 1 x 1040   |         **6,806.30** |
 | Radio 2 (Outdoor) | 6.54 x 1 x 0.25 x 120 |           **903.14** |
@@ -176,13 +172,13 @@ assuming a fixed Radio Type multiplier Reward.
 ### Reward Hexagon Sizing
 
 Analysis of the coverage by a single Outdoor Radio with Modeled Coverage data shows that the res8
-hex used in the IOT Network is too large to represent a Radio's coverage. Using res12 hexes better
+hex used in the IoT Network is too large to represent a Radio's coverage. Using res12 hexes better
 aligns with what an Outdoor Radio can reasonably cover, with an average area of 0.0003071 km² and an
 edge length of 9.4 m, slightly bigger than an average single-family home.
 
 To summarize:
 
-- Hexes in the MOBILE Network identify the level of coverage from all the different Radios providing
+- Hexes in the Mobile Network identify the level of coverage from all the different Radios providing
   coverage to each res12 hex.
 - A Radio can provide coverage for a hex it is not located within.
 - A Radio can earn Rewards by providing coverage in multiple hexes.
@@ -241,7 +237,7 @@ strength coverage, and all adjacent hexes receive lower signal strength. Therefo
 errs on generosity to ensure equitable potential MOBILE Rewards for Indoor Radio coverage.
 
 Estimated per-hex coverage points for Indoor Radios are intentionally significantly higher than
-those awarded to Outdoor Radios to balance the importance of Indoor Radios in the MOBILE Network
+those awarded to Outdoor Radios to balance the importance of Indoor Radios in the Mobile Network
 with their relatively smaller coverage footprints.
 
 The reward tiers for Indoor Radios will be as follows:
@@ -257,7 +253,7 @@ resulting distribution of estimated coverage points per Radio. Estimated coverag
 chosen such that Indoor Radios receive roughly ¼th the estimated coverage points as the 95th
 percentile Outdoor Radios and about ½ the points of the average Outdoor Radio.
 
-These results align with the current Radio Type Multiplieres approach `1:2.5:4` for Indoor Radios,
+These results align with the current Radio Type Multipliers approach `1:2.5:4` for Indoor Radios,
 Outdoor Radios, and High-Power Outdoor Radios. Figure 2 below is the cumulative distribution
 function plot of the sample market Outdoor Radio estimated coverage points.
 
@@ -270,7 +266,7 @@ L.A. market area.
 
 :::tip check coverage
 
-Modeled Coverage Explorer is available [here](https://planner.hellohelium.com/).
+Modeled Coverage Explorer is [available](https://planner.hellohelium.com/).
 
 :::
 
@@ -278,9 +274,9 @@ Modeled Coverage data will play a key role in providing information to visualize
 added as additional external sources (e.g., [Mobile Mappers](/mobile/mobile-mappers)) come into
 play.
 
-HIP-74 proposed the creation of a new Mobile Explorer dedicated exclusively to the MOBILE Network as
-adding more features and data for MOBILE Rewards to the IOT Network Explorer becomes practically
-impossible as the MOBILE Network grows. The first iteration of the MOBILE Explorer proposes a basic
+HIP-74 proposed the creation of a new Mobile Explorer dedicated exclusively to the Mobile Network as
+adding more features and data for MOBILE Rewards to the IoT Network Explorer becomes practically
+impossible as the Mobile Network grows. The first iteration of the Mobile Explorer proposes a basic
 map overlay of 5G data coverage with signal strength.
 
 ---
@@ -418,9 +414,9 @@ the Network and its users.
 
 :::
 
-### Speedtest Examples
+### Speed test Examples
 
-Choose from the options below to see some speedtest example scenarios and the impact on MOBILE
+Choose from the options below to see some speed test example scenarios and the impact on MOBILE
 rewards.
 
 <Tabs block={true}>
