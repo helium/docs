@@ -7,7 +7,6 @@ description: Ledger Hardware Wallet User Documentation
 slug: /solana/migration/ledger
 ---
 
-
 ## Video Walkthrough
 
 import { YouTube } from 'mdx-embed'
@@ -63,6 +62,26 @@ Before starting these steps, close the Ledger Live application or the transactio
 import { LedgerMigration } from '@theme/LedgerMigration'
 
 <LedgerMigration />
+
+## Verification Step
+
+After completing the migration, it's crucial to verify that the process was successful. Here's how
+you can do it:
+
+Find the public address associated with your pre-migrated account. You can do this by checking the
+account details in your Ledger Live application or through the Solana blockchain explorer. Search
+for your old public address on Solana Explorer and ensure the account has no funds. This step
+confirms that all funds have been successfully migrated. Find the public address associated with
+your post-migrated account. This can be done by checking the account details in your Ledger Live
+application or through the Solana blockchain explorer. Search for your new public address on Solana
+Explorer and ensure the account has some funds. This step confirms that the migration was successful
+and that your funds are now available on the Solana blockchain.
+
+## Note on Staked HNT
+
+It's important to note that any staked Helium Network Tokens (HNT) will be migrated to a single
+veHNT token. This change is part of the migration process to ensure compatibility with the Solana
+blockchain. For more information on the veHNT token, please refer to the veHNT documentation.
 
 ---
 
