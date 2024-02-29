@@ -9,13 +9,10 @@ slug: /oracles/rewards-oracles
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
-<LegacyContentBanner />
-
-There are initially three Rewards Oracles, one for each subDAO (MOBILE and IOT) and one for HNT,
+There are initially three Rewards Oracles, one for each subnetwork (Mobile and IoT) and one for HNT,
 which ingest the work of all of the above Oracles to determine the appropriate emissions for each
-subDAO.
+subnetwork.
 
 Epochs will increase from around 30 blocks (or about 30 minutes) to 24 hours, with rewards issued
 every 24 hours by each Reward Oracle.
@@ -34,7 +31,7 @@ Helium Wallet.
 ## IOT Rewards Oracle
 
 The IOT Rewards Oracle combines the Verified PoC Receipts, the Verified IOT Data Transfer Receipts,
-and the veHNT backing the IOT Network and emits rewards to each Hotspot.
+and the veHNT backing the IoT Network and emits rewards to each Hotspot.
 
 As a reminder, the Data Transfer Verifier and the PoC Verifier already do much of the heavy lifting
 by including the shares each Hotspot should receive.
@@ -42,21 +39,21 @@ by including the shares each Hotspot should receive.
 ## MOBILE Rewards Oracle
 
 The MOBILE Rewards Oracle combines the Verified MOBILE Receipts, the Verified MOBILE Data Transfer
-Receipts, and the veHNT backing the MOBILE Network and emits rewards to each Hotspot.
+Receipts, and the veHNT backing the Mobile Network and emits rewards to each 5G Hotspot.
 
 ## HNT Rewards Oracle
 
-As defined in [HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md), the HNT Rewards
-Oracle will issue HNT Reward emissions to each subDAOs treasury using each subDAOs Utility Score to
-determine which percentage of the total rewards each subDAO is due.
+As defined in [HIP 51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md), the HNT Rewards
+Oracle will issue HNT Reward emissions to each subnetworks treasury using each subnetworks Utility
+Score to determine which percentage of the total rewards each subnetwork is due.
 
-The following comprise the subDAO Utility Score:
+The following comprise the subnetwork's DAO Utility Score:
 
-- subDAO's DCs burned in USD
-- subDAO's active device count and device activation fee
-- veHNT backing each subDAO
+- subnetwork's DCs burned in USD
+- subnetworks's active device count and device activation fee
+- veHNT backing each subnetwork
 
-DC burned, active device count, and veHNT staked are submitted to the chain through the proxy of
+DC burned, active device count, and locked veHNT are submitted to the chain through the proxy of
 [Switchboard](https://switchboard.xyz/) to facilitate this process and keep a record.
 
 Device count is a fluctuating number based on recent PoC activity and is not readily available
@@ -121,9 +118,9 @@ flowchart LR
 
 ```
 
-## SubDAO to HNT Conversion
+## Subnetwork to HNT Conversion
 
-Each subDAO is responsible for defining its Treasury Reserve Decentralized Network Token (DNT)
+Each subnetwork is responsible for defining its Treasury Reserve Decentralized Network Token (DNT)
 Market Making Curve.
 
 The curves for
@@ -142,5 +139,5 @@ This is a "one-way" transaction to convert your subDNT into HNT, as you can not 
 - During the transition to Solana, data transmission will be temporarily interrupted while Makers
   roll out the new `gateway-rs` image, which will tell Hotspots to communicate with the packet
   routers instead of LNS state channels.
-- To learn more about how staking and governance will change, refer to the documentation on
+- To learn more about how locking tokens and governance will change, refer to the documentation on
   [Voting Power](/governance/faq).
