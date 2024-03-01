@@ -16,13 +16,6 @@ Before getting started, make sure to have the following:
 - Helium LoRaWAN devAddr slab.
 - Data Credits (>3.5M DC).
 
-## Prerequisites
-
-- Docker
-- Docker Compose
-
-Please refer to [Docker documentation](https://docs.docker.com/get-docker/) for installation instructions.
-
 ## Installation and Configuration
 
 There are several methods to install ChirpStack on a server. This guide will demonstrate a
@@ -31,7 +24,6 @@ configuration using Docker and the
 
 ```sh title="Clone the ChirpStack Docker repository."
 git clone https://github.com/chirpstack/chirpstack-docker.git
-cd chirpstack-docker
 ```
 
 ### Configure ChirpStack
@@ -41,7 +33,7 @@ Open and edit the `chirpstack.toml` file located in `configuration/chirpstack`.
 Modify the following sections:
 
 - Under `[network]`:
-  - Set `net_id` to `0x00003C`
+  - Set `net_id` to `00003C`
   - Add `dev_addr_prefixes` with the devAddr slab assigned. Follow these steps to set it up:
     - Run `helium-config-service-cli org get --OUI <OUI>` to retrieve the DevAddr constraints for
       the OUI.
@@ -50,6 +42,8 @@ Modify the following sections:
     - In the ChirpStack `.toml` file, insert `dev_addr_prefixes = [<subnets>]` following the rule:
       starting `devAddr/32-log2(devAddr slab size)`. For instance, if 8 devAddr slabs were requested
       and the starting devAddr is 00000000, insert `dev_addr_prefixes = ["00000000/29"]`.
+    - If the OUI has multiple non-sequential DevAddr ranges, separate the prefixes by comma. For
+      instance, dev_addr_prefixes = ["00000000/29", "00000010/29"]
 - Under `[gateway]`:
   - Add `allow_unknown_gateways=true`
 
@@ -99,9 +93,72 @@ configuration example and documentation.
 
 Make sure ports 1700 and 1701 are both open on the server.
 
+## Example `chirpstack.toml` with Helium Additions
+
+```toml
+# Network related configuration.
+[network]
+
+  # Network identifier (NetID, 3 bytes) encoded as HEX (e.g. 010203).
+  # new helium net_id="00003C"
+  net_id="00003C"
+
+  # Helium 8 block dev address prefix 29
+  # if you have multiple blocks you can add them as an array
+  dev_addr_prefixes=[
+    "78000000/29"
+  ]
+
+  # Enabled regions.
+  #
+  # Multiple regions can be enabled simultaneously. Each region must match
+  # the 'name' parameter of the region configuration in '[[regions]]'.
+  enabled_regions=[
+    "au915_1",
+    "eu868",
+    "in865",
+    "kr920",
+    "us915_1",
+  ]
+
+  # Time to wait for uplink de-duplication.
+  #
+  # This is the time that ChirpStack will wait for other gateways to receive
+  # the same uplink frame. Please note that this value affects the
+  # roundtrip time. The total roundtrip time (which includes network latency)
+  # must be less than the (first) receive-window.
+  deduplication_delay="200ms"
+
+
+# API interface configuration.
+[api]
+
+  # interface:port to bind the API interface to.
+  bind="0.0.0.0:8080"
+
+  # Secret.
+  #
+  # This secret is used for generating login and API tokens, make sure this
+  # is never exposed. Changing this secret will invalidate all login and API
+  # tokens. The following command can be used to generate a random secret:
+  #   openssl rand -base64 32
+  secret="REPLACE-WITH-YOUR-SECRET-HERE"
+
+
+# Global gateway configuration.
+# Please note that backend configuration can be found in the per-region
+# configuration.
+[gateway]
+  # Allow unknown gateways.
+  #
+  # If set to true, then uplinks received from gateways not configured in
+  # ChirpStack will be allowed.
+  allow_unknown_gateways=true
+```
+
 ## Run ChirpStack
 
-Run `docker-compose up` to start the server on [http://localhost:8080](http://localhost:8080). Utilize the default credentials to log in:
+Run `docker-compose up` to start the server. Utilize the default credentials to log in:
 
 Username: admin  
 Password: admin

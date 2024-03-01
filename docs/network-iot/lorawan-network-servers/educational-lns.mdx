@@ -10,14 +10,13 @@ slug: /iot/educational-lns
 
 ## Unrewarded Trial Network
 
-[HIP-102](https://github.com/helium/HIP/blob/main/0102-helium-educational-lns.md) proposes the
-implementation of a dedicated LoRaWAN Network Server ([LNS](/iot/lorawan-network-servers)) tailored
-for educational and trial usage in the Helium IoT Network. Operating under the Helium Foundation's
-Type 6 NetID (0xC00053), distinctly separate from OUIs issued using the Type 0 NetID. This LNS offers free data transfer services for educational, trial, and
-experimental purposes, with the crucial distinction that these transfers will not yield rewards for
-Hotspots, to ensure the network's integrit. 
+[HIP-102](https://github.com/helium/HIP/blob/main/0102-helium-educational-lns.md) which outlines the
+creation of a dedicated LoRaWAN Network Server ([LNS](/iot/lorawan-network-servers)) solely for
+educational and trial purposes within the Helium Network. Operating under a distinct NetID (0xC00053),
+this LNS offers free data transfer for users to learn and experiment without compromising the
+integrity or economic model of the main network.
 
-The initiative aims to foster learning and experimentation within the Helium IoT Network while
+The initiative aims to encourage learning and experimentation within the Helium IoT Network while
 maintaining its economic stability. By introducing a specialized LNS under a designated NetID, users
 can engage in educational and trial activities without risking exploitation of the main network. This
 approach seeks to balance the need for an open, accessible learning environment with the maintenance
@@ -33,20 +32,22 @@ to use this free service to exploit network coverage available on Helium. It als
 utility of the Helium network for deployment-based use cases.
 
 The presence of a closely managed free route in the ecosystem introduces numerous opportunities
-including but not limited to: interactive educational materials, coverage mapping platforms, and
-other initiatives.
+including but not limited to: 
+- interactive educational materials
+- coverage mapping platforms
 
 Metrics from the OUIs operating on the Foundation Type 6 NetID will all be recorded in Oracle data
 stores. As a means to offer transparency to the community, a dashboard will be created to represent
 metrics such as the number of distinct devices, traffic metrics, Hotspots used, etc.
 
-### Rationale
+### Rationale for Chosen Approach
 
-We're favoring providing access to developers in the LoRaWAN ecosystem over alternative approaches
-like converting Foundation Console into a paid service or leaving educational efforts to third-party
-providers.
+This initiative prioritizes providing accessible learning opportunities for developers within the 
+Helium Network ecosystem. We carefully considered alternative approaches such as monetizing the existing 
+Foundation Console or relying solely on third-party educational resources. However, past experiences 
+with free or non-profit access models revealed significant challenges. 
 
-Past efforts to provide free or zero-profit access have proven to present numerous challenges. We
-feel that the passthrough of free data exclusively for trial and educational purposes is the best
-design for the long-term success of the network. Not making this change at this time would leave a
-void for developers and deployers curious to step into using the network.
+We firmly believe that offering free data transfer exclusively for educational and trial purposes
+is the most effective long-term strategy for the network's success. The aim of this initiative is to
+eliminate potential barriers for developers and deployers curious about exploring the capabilities 
+of the Helium Network.
