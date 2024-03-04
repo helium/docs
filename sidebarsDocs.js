@@ -119,8 +119,8 @@ module.exports = {
 
   wallets: [
     'wallets/wallets',
-    'wallets/helium-wallet-app',
     'wallets/transaction-safety',
+    'wallets/helium-wallet-app',
     'wallets/third-party-wallets',
     'wallets/wallet-seed-phrase',
     'wallets/ledger-wallet',
