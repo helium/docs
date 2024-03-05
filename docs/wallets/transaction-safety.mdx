@@ -12,18 +12,13 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 Helium is built on top of Solana, a general-purpose blockchain. Because Helium is built on Solana,
 there are many things you can do with your wallet both inside and outside of the Helium ecosystem.
+With this freedom, it is important to understand a few points to keep your tokens safe.
 
-This article serves as an interactive quickstart on Solana transactions, and how to make sure you're
-staying safe!
-
-## A Note On Account Safety
-
-Before proceeding, a few general notes on how to be safe in web3. An account is entirely your own.
-No third party – including Helium – can recover or access an account. As such, it is critical that
-the 12 or 24-word seed phrase be stored in a **secure manner** and **must never be shared**. Taking
-and storing screenshots of the seed words is not recommended, as it is not a secure way to store
-them. Screenshots and photos stored or backed up in the cloud are an easy target for attackers,
-leading to funds being stolen.
+An account is entirely your own. No third party – including Helium – can recover or access an
+account. As such, it is critical that the 12 or 24-word seed phrase be stored in a **secure manner**
+and **must never be shared**. Taking and storing screenshots of the seed words is not recommended,
+as it is not a secure way to store them. Screenshots and photos stored or backed up in the cloud are
+an easy target for attackers, leading to funds being stolen.
 
 The point cannot be emphasized enough:  
 **Securely store and never share the 12 or 24-word seed phrase.**
@@ -32,55 +27,36 @@ Anyone asking for your 12 or 24-word seed phrase is **guaranteed to be a scammer
 keep your seed phrase secure or if you share your seed phrase with anybody, all of your tokens,
 Hotspots, or NFTs will be **stolen** and will never be able to be recovered!
 
-Additionally, beware of lookalike websites or apps seeking to offer help, support, airdrops, or
-other features. Do not share private keys or authenticate transactions through untrusted platforms.
-
-<figure className="screensnippet-wrapper">
-  <div>
-    <img src={useBaseUrl('img/wallet-app/hivemapper_fake.png')} style={{ maxHeight: '400px' }} />
-  </div>
-  <figcaption style={{ paddingTop: 0 }}>
-    Lookalike websites like this one offering an airdrop for the{' '}
-    <a href="https://hivemapper.com">Hivemapper</a> project are a common means for scammers to trick
-    users. Note the additional `p` in the URL and the manufactured urgency around connecting the
-    Wallet.
-  </figcaption>
-</figure>
+This article serves as an interactive quickstart on Solana transactions, and how to make sure you're
+staying safe!
 
 ## Was my wallet compromised?
 
 There are only two ways a wallet on Solana can be compromised.
 
 1. Someone gained access to your 12 or 24-word seed phrase.
-
-   a. You are the ONLY person who has access to this phrase. Do not give it out.
-
-2. You approved a malicious transaction.
+1. You approved a malicious transaction.
 
 If neither (1) or (2) happened, your wallet is safe. Some examples:
 
-> An NFT appeared in my wallet and I visited the site listed. Am I compromised?
+**An NFT appeared in my wallet and I visited the site listed. Am I compromised?**  
+_No, simply visiting a website is not enough to compromise your wallet._
 
-No, simply visiting a website is not enough to compromise your wallet.
+**I took a screenshot of my seed phrase and stored it in iCloud. My iCloud was hacked.**  
+_Yes. You have been compromised._
 
-> I took a screenshot of my seed phrase and stored it in iCloud. My iCloud was hacked
+**Helium Support contacted me and said I needed to give them my seed phrase to fix my Hotspot. I
+gave it to them or entered the phrase into the support site.**  
+_Yes. You have been compromised. Nobody from Helium will EVER ask you for your seed phrase. It is
+never needed to diagnose or fix an issue._
 
-Yes. You have been compromised.
+**A website failed to connect to my wallet and said I needed to manually connect my wallet with my
+seed phrase. I input the seed phrase.**  
+_Yes. You have been compromised. No website should EVER ask you for your seed phrase._
 
-> Helium Support contacted me and said I needed to give them my seed phrase to fix my Hotspot. I
-> gave it to them.
-
-Yes. You have been compromised. Nobody from Helium will EVER ask you for your seed phrase.
-
-> A website failed to connect to my wallet and said I needed to manually connect my wallet with my
-> seed phrase. I input the seed phrase.
-
-Yes. You have been compromised. No website should EVER ask you for your seed phrase.
-
-> An NFT appeared in my wallet claiming I had free tokens to claim. I went to the website, clicked
-> the claim button, and clicked approve
-
-Yes. You may have been compromised by approving a bad transaction.
+**An NFT appeared in my wallet claiming I had free tokens to claim. I went to the website, clicked
+the claim button, and clicked approve.**  
+_Yes. You may have been compromised by approving a bad transaction._
 
 What is a bad transaction? How can you tell if a transaction is suspicious? In general, you should
 never sign a transaction from an app you do not trust. When in doubt, do not sign.
@@ -147,7 +123,7 @@ import { Spoiler } from '@theme/Spoiler'
 import { SystemProgram, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 
 <figure className="screensnippet-wrapper">
-  <div>
+  <div className="add-shadow-margin">
     <Simulate
       getInstructions={async ({ connection, wallet }) => {
         return {
@@ -164,13 +140,9 @@ import { SystemProgram, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
       }}
     />
   </div>
-  <figcaption style={{ paddingTop: 0 }}>
-    Lookalike websites like this one offering an airdrop for the{' '}
-    <a href="https://hivemapper.com">Hivemapper</a> project are a common means for scammers to trick
-    users. Note the additional `p` in the URL and the manufactured urgency around connecting the
-    Wallet.
-  </figcaption>
+  <figcaption>This transaction will simulate sending 0.01 SOL.</figcaption>
 </figure>
+<br />
 
 You should see the following:
 
@@ -223,20 +195,29 @@ import { getObviousDrain } from './transactions'
 
 The following transaction(s) will attempt to drain all of your token accounts:
 
-<Simulate
-  getInstructions={async ({ connection, wallet, publicKey }) => {
-    return getObviousDrain({ connection, wallet, publicKey })
-  }}
-/>
+<figure className="screensnippet-wrapper">
+  <div className="add-shadow-margin">
+    <Simulate
+      getInstructions={async ({ connection, wallet, publicKey }) => {
+        return getObviousDrain({ connection, wallet, publicKey })
+      }}
+    />
+  </div>
+  <figcaption>This transaction will simulate sending the entire contents of an account.</figcaption>
+</figure>
+<br />
 
 You should see a preview like this:
 
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-  <img
-    src={useBaseUrl('img/wallets/safety/previews/drain-all.png')}
-    style={{ maxHeight: '400px' }}
-  />
-</div>
+<figure className="screensnippet-wrapper">
+  <div>
+    <img
+      src={useBaseUrl('img/wallets/safety/previews/drain-all.png')}
+      style={{ maxHeight: '400px' }}
+      className="add-border-radius add-shadow add-shadow-margin"
+    />
+  </div>
+</figure>
 
 Given this preview, it is pretty obvious that all your token accounts are getting drained. Not only
 are they all labeled as writable, the simulation shows that all tokens are getting sent away!
@@ -253,21 +234,33 @@ approve the transaction to flip the switch. What does one of these look like in 
 
 import { getBitflipDrain } from './transactions'
 
-<Simulate
-  getInstructions={async ({ connection, wallet, publicKey }) => {
-    return getBitflipDrain({ connection, wallet, publicKey })
-  }}
-/>
+<figure className="screensnippet-wrapper">
+  <div className="add-shadow-margin">
+    <Simulate
+      getInstructions={async ({ connection, wallet, publicKey }) => {
+        return getBitflipDrain({ connection, wallet, publicKey })
+      }}
+    />
+  </div>
+  <figcaption>This transaction will simulate a bitflip attack.</figcaption>
+</figure>
+<br />
 
 You should see a preview like this. Note that we did not create a bitflip program, this is just what
 it would look like in preview:
 
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-  {/* <div style={{ maxWidth: '450px' }}>![Bitflip Drain](./previews/bitflip-drain.png)</div> */}
-</div>
+<figure className="screensnippet-wrapper">
+  <div>
+    <img
+      src={useBaseUrl('img/wallets/safety/previews/bitflip-drain.png')}
+      style={{ maxHeight: '400px' }}
+      className="add-border-radius add-shadow add-shadow-margin"
+    />
+  </div>
+</figure>
 
 Given this preview, it's not clear that you are getting rugged. Your accounts are labeled as
-writable, bt they do not change in simulation.
+writable, but they do not change in simulation.
 
 An attacker may mix such a transaction with other accounts as a smoke-screen. Remember **any account
 that is writable is at risk of getting drained.**
@@ -281,17 +274,29 @@ transactions
 
 import { getFailedSimulation } from './transactions'
 
-<Simulate
-  getInstructions={async ({ connection, wallet, publicKey }) => {
-    return getFailedSimulation({ connection, wallet, publicKey })
-  }}
-/>
+<figure className="screensnippet-wrapper">
+  <div className="add-shadow-margin">
+    <Simulate
+      getInstructions={async ({ connection, wallet, publicKey }) => {
+        return getFailedSimulation({ connection, wallet, publicKey })
+      }}
+    />
+  </div>
+  <figcaption>This transaction will demonstrate a failed simulation.</figcaption>
+</figure>
+<br />
 
 You should see a preview like this:
 
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-  {/* <div style={{ maxWidth: '450px' }}>![Simulation Failed](./previews/simulation-failed.png)</div> */}
-</div>
+<figure className="screensnippet-wrapper">
+  <div>
+    <img
+      src={useBaseUrl('img/wallets/safety/previews/simulation-failed.png')}
+      style={{ maxHeight: '400px' }}
+      className="add-border-radius add-shadow add-shadow-margin"
+    />
+  </div>
+</figure>
 
 ### The Smoke Screen
 
@@ -307,17 +312,31 @@ The transaction may look something like this:
 
 import { getSmokeScreen } from './transactions'
 
-<Simulate
-  getInstructions={async ({ connection, wallet, publicKey }) => {
-    return getSmokeScreen({ connection, wallet, publicKey })
-  }}
-/>
+<figure className="screensnippet-wrapper">
+  <div className="add-shadow-margin">
+    <Simulate
+      getInstructions={async ({ connection, wallet, publicKey }) => {
+        return getSmokeScreen({ connection, wallet, publicKey })
+      }}
+    />
+  </div>
+  <figcaption>
+    This transaction will simulate a nefarious transaction hiding among legitimate transactions.
+  </figcaption>
+</figure>
+<br />
 
 You should see a preview like this:
 
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-  {/* <div style={{ maxWidth: '450px' }}>![Smoke Screen](./previews/smoke-screen.png)</div> */}
-</div>
+<figure className="screensnippet-wrapper">
+  <div>
+    <img
+      src={useBaseUrl('img/wallets/safety/previews/smoke-screen.png')}
+      style={{ maxHeight: '400px' }}
+      className="add-border-radius add-shadow add-shadow-margin"
+    />
+  </div>
+</figure>
 
 This looks appealing. After all, the simulation is telling you you'll get $1,000,000 and all you
 have to do is send 0.01 SOL! As always, if it seems too good to be true, it is. If you approve a
@@ -343,17 +362,29 @@ You'll need to hold HNT for this to work. The transaction may look something lik
 
 import { getDelegate } from './transactions'
 
-<Simulate
-  getInstructions={async ({ connection, wallet, publicKey }) => {
-    return getDelegate({ connection, wallet, publicKey })
-  }}
-/>
+<figure className="screensnippet-wrapper">
+  <div className="add-shadow-margin">
+    <Simulate
+      getInstructions={async ({ connection, wallet, publicKey }) => {
+        return getDelegate({ connection, wallet, publicKey })
+      }}
+    />
+  </div>
+  <figcaption>This transaction will simulate the delegation of tokens to a third-party.</figcaption>
+</figure>
+<br />
 
 You should see a preview like this:
 
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-  {/* <div style={{ maxWidth: '450px' }}>![Delegate](./previews/delegate.png)</div> */}
-</div>
+<figure className="screensnippet-wrapper">
+  <div>
+    <img
+      src={useBaseUrl('img/wallets/safety/previews/delegate.png')}
+      style={{ maxHeight: '400px' }}
+      className="add-border-radius add-shadow add-shadow-margin"
+    />
+  </div>
+</figure>
 
 Note that typically this attack is combined with a smoke screen. The attacker will have multiple
 transactions, or disguise this transaction to look like a legitimate transaction. This attack can
@@ -370,17 +401,29 @@ You'll need to hold HNT for this to work. The transaction may look something lik
 
 import { getOwnerChange } from './transactions'
 
-<Simulate
-  getInstructions={async ({ connection, wallet, publicKey }) => {
-    return getOwnerChange({ connection, wallet, publicKey })
-  }}
-/>
+<figure className="screensnippet-wrapper">
+  <div className="add-shadow-margin">
+    <Simulate
+      getInstructions={async ({ connection, wallet, publicKey }) => {
+        return getOwnerChange({ connection, wallet, publicKey })
+      }}
+    />
+  </div>
+  <figcaption>This transaction will simulate changing owners of a token account.</figcaption>
+</figure>
+<br />
 
 You should see a preview like this:
 
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-  {/* <div style={{ maxWidth: '450px' }}>![Owner Change](./previews/owner-change.png)</div> */}
-</div>
+<figure className="screensnippet-wrapper">
+  <div>
+    <img
+      src={useBaseUrl('img/wallets/safety/previews/owner-change.png')}
+      style={{ maxHeight: '400px' }}
+      className="add-border-radius add-shadow add-shadow-margin"
+    />
+  </div>
+</figure>
 
 Note that typically this attack is combined with a smoke screen. The attacker will have multiple
 transactions, or disguise this transaction to look like a legitimate transaction. This attack can
@@ -458,3 +501,20 @@ applications.
 Treat your cold wallet like a savings account. For an added layer of safety, you can make your cold
 wallet a hardware wallet (Ledger, Trezor, Keystone, Ryder, etc). You can also use a multisig like
 [Squads](https://squads.so/).
+
+## Recognizing Illegitimate Actors
+
+Additionally, beware of lookalike websites or apps seeking to offer help, support, airdrops, or
+other features. Do not share private keys or authenticate transactions through untrusted platforms.
+
+<figure className="screensnippet-wrapper">
+  <div>
+    <img src={useBaseUrl('img/wallet-app/hivemapper_fake.png')} style={{ maxHeight: '400px' }} />
+  </div>
+  <figcaption style={{ paddingTop: 0 }}>
+    Lookalike websites like this one offering an airdrop for the{' '}
+    <a href="https://hivemapper.com">Hivemapper</a> project are a common means for scammers to trick
+    users. Note the additional `p` in the URL and the manufactured urgency around connecting the
+    Wallet.
+  </figcaption>
+</figure>
