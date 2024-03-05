@@ -14,21 +14,18 @@ Helium is built on top of Solana, a general-purpose blockchain. Because Helium i
 there are many things you can do with your wallet both inside and outside of the Helium ecosystem.
 With this freedom, it is important to understand a few points to keep your tokens safe.
 
-An account is entirely your own. No third party – including Helium – can recover or access an
+An account is entirely your own. No third party – including Helium – can recover or access an
 account. As such, it is critical that the 12 or 24-word seed phrase be stored in a **secure manner**
 and **must never be shared**. Taking and storing screenshots of the seed words is not recommended,
 as it is not a secure way to store them. Screenshots and photos stored or backed up in the cloud are
 an easy target for attackers, leading to funds being stolen.
 
-The point cannot be emphasized enough:  
-**Securely store and never share the 12 or 24-word seed phrase.**
+The point cannot be emphasized enough: **Securely store and never share the 12 or 24-word seed
+phrase.**
 
-Anyone asking for your 12 or 24-word seed phrase is **guaranteed to be a scammer**. If you fail to
-keep your seed phrase secure or if you share your seed phrase with anybody, all of your tokens,
-Hotspots, or NFTs will be **stolen** and will never be able to be recovered!
-
-This article serves as an interactive quickstart on Solana transactions, and how to make sure you're
-staying safe!
+In addition to protecting the seed phrase, it is also important to understand where scammers may
+take advantage of on-chain transactions to steal tokens. This article serves as an interactive
+quickstart on Solana transactions, and how to make sure you're staying safe!
 
 ## Was my wallet compromised?
 
@@ -442,19 +439,19 @@ duplicate of another token. If you are unsure, verify the public key of the toke
 
 ### Address Poisoning
 
-You are trying to send your SOL to an exchange like coinbase. Imagine the following workflow
+You are trying to send your SOL to an exchange like Coinbase. Imagine the following workflow
 
-1.  You send 0.01 SOL as a test to the address coinbase specified
-2.  You verify it arrived in coinbase
-3.  You go into your transaction history and copy the succesful coinbase address
-4.  You send the remaining 100 SOL to coinbase
+1.  You send 0.01 SOL as a test to the address Coinbase specified
+2.  You verify it arrived in Coinbase
+3.  You go into your transaction history and copy the succesful Coinbase address
+4.  You send the remaining 100 SOL to Coinbase
 5.  It never arrives.
 
 What happened? This attack is called dusting. Notice in step 3 you copied an address from your
 transaction history. There was a hidden step 2.5. The scammer sent you a transaction from an address
-that looks exactly like the coinbase address -- the first 4 and last 4 characters of the public key
+that looks exactly like the Coinbase address -- the first 4 and last 4 characters of the public key
 are the same! When you went into your transaction history and clicked the first transaction, it was
-the scammer's dust transacion. NOT your testing transaction.
+the scammer's dust transaction. NOT your testing transaction.
 
 To avoid this attack, always copy addresses directly from the exchange, and never from your
 transaction history.
