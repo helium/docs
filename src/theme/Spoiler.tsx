@@ -19,6 +19,7 @@ export const Spoiler = ({ children }) => {
       //keep text rendered on screen for screenreaders
       filter: 'blur(4px)',
       opacity: '0.2',
+      display: 'inline-block',
     },
     clickableNoticeActive: {
       backgroundColor: 'white',
