@@ -10,7 +10,12 @@ module.exports = {
       type: 'category',
       label: 'FAQ',
       link: { type: 'doc', id: 'home/faq/helium-network' },
-      items: ['home/faq/security', 'home/faq/open-source', 'home/faq/docs-installation'],
+      items: [
+        'home/faq/terminology',
+        'home/faq/security',
+        'home/faq/open-source',
+        'home/faq/docs-installation',
+      ],
       collapsed: true,
     },
   ],
@@ -24,6 +29,7 @@ module.exports = {
         'architecture/solana/primer',
         'architecture/solana/rewardable-entities',
         'architecture/solana/compression-nfts',
+        'architecture/solana/helium-program-library',
       ],
       collapsed: true,
     },
@@ -113,6 +119,7 @@ module.exports = {
 
   wallets: [
     'wallets/wallets',
+    'wallets/transaction-safety',
     'wallets/helium-wallet-app',
     'wallets/third-party-wallets',
     'wallets/wallet-seed-phrase',
@@ -144,16 +151,13 @@ module.exports = {
               type: 'category',
               label: 'Fund an Organizationally Unique Identifier',
               link: { type: 'doc', id: 'network-iot/run-an-lns/fund-an-oui' },
-              items: [
-                'tokens/data-credit-portal',
-                'network-iot/run-an-lns/fund-an-oui-using-hnt',
-              ]
+              items: ['tokens/data-credit-portal', 'network-iot/run-an-lns/fund-an-oui-using-hnt'],
             },
             'network-iot/run-an-lns/configure-chirpstack',
             'network-iot/run-an-lns/configure-routing-rules',
             'network-iot/run-an-lns/advanced-configuration',
             'network-iot/run-an-lns/common-issues',
-            'network-iot/run-an-lns/chirpstack-add-device'
+            'network-iot/run-an-lns/chirpstack-add-device',
           ],
         },
         'network-iot/lorawan-roaming',
@@ -163,10 +167,7 @@ module.exports = {
       type: 'category',
       label: 'LoRaWAN on Helium',
       link: { type: 'doc', id: 'network-iot/lorawan-on-helium' },
-      items: [
-        'network-iot/lorawan-frequency-plans',
-        'network-iot/lorawan-region-plans',
-      ],
+      items: ['network-iot/lorawan-frequency-plans', 'network-iot/lorawan-region-plans'],
     },
     {
       type: 'category',
@@ -252,7 +253,7 @@ module.exports = {
     'governance/governance-faq',
     'governance/realms',
     'governance/vehnt',
-    'governance/staking-with-realms',
+    'governance/staking-with-helium-vote',
     'governance/working-groups',
     'governance/committees',
     {
@@ -279,9 +280,7 @@ module.exports = {
       type: 'category',
       label: 'Mine IOT',
       link: { type: 'doc', id: 'tokens/mine-iot' },
-      items: [
-        'home/faq/build-on-network',
-      ],
+      items: ['home/faq/build-on-network'],
       collapsed: true,
     },
   ],
@@ -593,6 +592,7 @@ module.exports = {
       type: 'category',
       label: 'Seeed Studio',
       items: [
+        'network-iot/devices/ready-to-use/seeed-studio/sensecap-t1000-tracker',
         'network-iot/devices/ready-to-use/seeed-studio/sensecap-s2100-data-logger',
         'network-iot/devices/ready-to-use/seeed-studio/sensecap-s2101-tem-humid',
         'network-iot/devices/ready-to-use/seeed-studio/sensecap-s2102-light',

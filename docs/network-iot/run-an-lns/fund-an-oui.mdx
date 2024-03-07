@@ -8,8 +8,6 @@ image: https://docs.helium.com/img/link-image.png
 slug: /iot/run-an-lns/fund-an-oui
 ---
 
-import { OUIUsage } from './FundAnOUI'
-
 [Data Credits](/tokens/data-credit) are used to pay for all transmission of data from devices on the
 Helium Network.
 
@@ -23,7 +21,21 @@ Several options are available for funding an OUI with Data Credits:
 
 ## Estimating Usage
 
-<OUIUsage />
+<figure className="screensnippet-wrapper">
+  <iframe
+    src="https://dune.com/embeds/3463955/5822522/"
+    frameborder="0"
+    width="100%"
+    height="350px"
+    style={{borderRadius: 16, paddingBottom: `0.5rem` }}
+  ></iframe>
+  <figcaption>
+    Up-to-date usage metrics for all IoT OUIs on the Helium network. <br /> To get a sense of
+    traffic and DC usage on the network, check out the full{' '}
+    <a href="https://dune.com/helium-foundation/helium-data-credits">Dune Data Credit Dashboard</a>.
+  </figcaption>
+</figure>
+
 <br />
 
 Data credits are charged per 1DC per 24b increment for each response of an uplink payload. For a
@@ -96,5 +108,7 @@ balance is required to ensure that all Hotspots are compensated for their work o
 case that the LNS transfers data more quickly than can be deducted from the OUI's balance. Token
 balances cannot become negative, so this $35 buffer keeps network payments balanced.
 
-If the DC balance of an OUI falls below the minimum balance, the LNS will be unable to receive data
-until the balance is increased.
+If the DC balance of an OUI falls below the minimum balance, the OUI will be unable to receive data
+until the balance is increased. The
+[Packet Verifier](/oracles/data-transfer-oracles#packet-verifier-service) checks the DC balance of
+every locked OUI every 30 minutes, and unlocks them if their DC balance is above 3.5MM DC.

@@ -22,59 +22,6 @@ A rewardable entity on the Helium Network is represented on Solana as an NFT (No
 NFTs are ideal for this job as they represent ownership in a way that is easily transferrable and
 recognized by all major wallets.
 
-## Compression NFTs
-
-A new development on the Solana Blockchain has been
-[Compression NFTs](https://www.metaplex.com/posts/expanding-digital-assets-with-compression-for-nfts).
-
-With normal NFTs on Solana, each token is stored on-chain as a distinct spl-token mint, with
-decimals of 0 and supply of 1. This mint has some metadata attached to it, as well as a token
-account representing the ownership of the token. In total, this leads to 4 accounts with a cost of
-0.01197616 SOL in rent. Multiplying this by millions of Hotspots leads to not only a high cost but
-also a large usage of storage space on the blockchain.
-
-Enter: Compression NFTs. Compression NFTs use a Concurrent Merkle Tree to compress millions of NFTs
-into one 32-byte hash. Clients executing transactions on compressed NFTs can send a cryptographic
-proof to the blockchain that verifies the NFT and ownership. In other words, instead of sending a
-transaction with:
-
-```rust
-
-...
-pub mint: Account<'info, Mint>,
-pub metadata: Account<'info, Metadata>,
-pub master_edition: Account<'info, MasterEdition>,
-#[account(
-  constraint = token_account.amount >= 1,
-  token::owner = owner
-)]
-pub token_account: Account<'info, TokenAccount>,
-pub owner: Signer<'info>
-...
-```
-
-You can instead send:
-
-```rust
-
-pub struct ProofArgs {
-  pub hash: Vec<u8>, // The 32 byte hash of the NFT
-  pub root: [u8; 32], // The root of the merkle tree
-  pub index: u32, // The index of the item in the tree
-  pub proof: Vec<Vec<u8>> // An array of 32 byte proofs proving that the `hash` is part of the `root`
-}
-
-...
-pub merkle_tree: UncheckedAccount<'info>,
-...
-
-```
-
-While this can make the transaction size larger, the amount of data stored on-chain is tiny. While
-this may look difficult, this is all neatly packed in the Metaplex Digital Asset API. This API runs
-on multiple RPC providers and allows you to hit convenient functions like `get_assets_by_owner` and
-`get_asset_proof` so that you never have to worry about the underlying concurrent merkle algorithm.
-
 ## Fetching Rewardable Entities
 
 All rewardable entities are created by the `helium-entity-manager` program. Further, they exist
@@ -181,7 +128,7 @@ Hotspot, or both. If the Hotspot wants to earn both MOBILE and IOT rewards, it m
 IOT network AND the MOBILE network. It must also assert location on both subnetworks.
 
 Similarly, makers are approved for specific subnetworks. A maker that creates IOT Hotspots cannot
-necessarily onboard MOBILE Hotspots. Each network subDAO must approve makers to issue rewardable
+necessarily onboard MOBILE Hotspots. Each network subnetwork must approve makers to issue rewardable
 entities.
 
 The following test shows the full flow of onboarding a Hotspot using the onboarding server.

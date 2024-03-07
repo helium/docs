@@ -1,21 +1,18 @@
 ---
 id: iot-hotspots
-title: IOT Network Hotspots
-pagination_label: IOT Network Hotspots
-sidebar_label: IOT Network Hotspots
+title: IoT Network Hotspots
+pagination_label: IoT Network Hotspots
+sidebar_label: IoT Network Hotspots
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/hotspots
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
-<LegacyContentBanner />
+## IoT Hotspot Properties
 
-## IOT Hotspot Properties
-
-The IOT Hotspot software [gateway-rs](https://github.com/helium/gateway-rs) is in production,
+The IoT Hotspot software [gateway-rs](https://github.com/helium/gateway-rs) is in production,
 satisfying the following properties:
 
 - A Hotspot on the Helium network will Beacon automatically on a pre-determined time interval.
@@ -23,15 +20,18 @@ satisfying the following properties:
 - A Hotspot will transmit packets on behalf of IoT devices on the Network to an Off-Chain Data
   Oracle.
 - A Hotspot will no longer depend on libp2p or "gossip", and instead use [gRPC](https://grpc.io/), a
-  new framework to communicate between distributed systems
+  new framework to communicate between distributed systems.
 - A Hotspot will be eligible to earn IOT token rewards.
+- A Hotspot will reconnect every 30 minutes to
+  [Packet Router Service](/oracles/data-transfer-oracles#packet-router-service) in order to ensure
+  healthy connection and optimal load distribution.
 
 :::info Naming
 
-All IOT Hotspots are referred to as "Hotspots", discarding the previous distinctions of "Full
+All IoT Hotspots are referred to as "Hotspots", discarding the previous distinctions of "Full
 Hotspot" and "Light Hotspot."
 
-With the switch to `gateway-rs,` all IOT Hotspots are "Light Hotspots", so the prefix is no longer
+With the switch to `gateway-rs,` all IoT Hotspots are "Light Hotspots", so the prefix is no longer
 needed.
 
 :::
@@ -40,15 +40,15 @@ needed.
 
 ## HIP 70 Changes
 
-[HIP-70](https://github.com/helium/HIP/issues/471)has passed. HIP-70 proposes a new architecture
-involving several Oracles, allowing Proof of Coverage ("PoC") generation to be automated and its
+[HIP-70](https://github.com/helium/HIP/issues/471) has passed. HIP-70 proposes a new architecture
+involving several Oracles, allowing Proof-of-Coverage (PoC) generation to be automated and its
 receipts to be off-chain.
 
 The most taxing piece of PoC is not just Challenge creation but Receipt validation and verification.
 By taking these tasks off-chain, PoC event frequency can increase to several times daily. As a
 result, Hotspot operators can expect more reliable challenges and witness events.
 
-## IOT Proof of Coverage Architecture Overview
+## IoT Proof-of-Coverage Architecture Overview
 
 1. A Hotspot broadcasts a Beacon.
 2. Nearby Hotspot(s) witness the Beacon.
@@ -72,8 +72,8 @@ packet forwarder called [gateway-rs](https://github.com/helium/gateway-rs).
 
 :::info Join The Conversation
 
-For real-time development and community support of Data Only Hotspots and IOT Hotspots, please join
+For real-time development and community support of Data-Only Hotspots and IoT Hotspots, please join
 the [#gateway-development](discord://discord.com/channels/404106811252408320/784462269072277576)
-channel on [Helium Discord](https://discord.gg/helium)
+channel on the official [Helium Discord](https://discord.gg/helium)
 
 :::

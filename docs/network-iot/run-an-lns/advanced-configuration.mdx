@@ -29,6 +29,12 @@ In this example scenario, consider two device addresses (devAddr) 1 and 2:
 The SKF will regulate traffic based on session key availability and the "ignore empty skf" flag,
 independently per devAddr.
 
+Check the SKF flag for a route by running
+
+```bash
+helium-config-service-cli route get --route-id <route-id>
+```
+
 ### Importance of Configuring Session Key Filters
 
 Configuring SKFs for devices introduces an additional layer of security on the Helium network. In
@@ -38,7 +44,7 @@ with the respective OUI, potentially attributing unauthorized packet costs to th
 Implementing SKFs counteracts this risk by empowering the Helium Packet Router to authenticate
 packets, thus preventing the delivery of unwanted payloads (and their respective DC cost).
 
-## Max Copies
+## Max Copies {#max-copies}
 
 Given that LoRaWAN devices openly broadcast uplinks, it's common for multiple Hotspots to capture
 the same device uplink within the Helium Network. LNS operators can customize the number of
@@ -125,6 +131,13 @@ Config Service:
 
 Hotspot location data can be requested from the Config Service using either the CLI or GRPC APIs.
 
+## EUI Pair Wildcard
+
+In some applications, deployers may have many DevEUIs all associated under the same AppEUI, and it
+might be inconvenient to provision all those EUI pairs individually. If the LNS operator would like
+to receive Join Requests for all devices under a certain AppEUI, simply input 0000000000000000 for
+the DevEUI when adding an EUI pair.
+
 ## Add and Remove Delegate Keys
 
 Note that only owner key can perform the actions below. OUI owners can add delegate keys by running
@@ -137,4 +150,51 @@ OUI owners can remove delegate keys by running
 
 ```bash
 helium-config-service-cli org update delegate-remove --pubkey <public key of the delegate key pair you are trying to remove> --keypair <relative path of your **owner** keypair path> --commit
+```
+
+## Set up NGINX for Chirpstack Docker
+
+NGINX can be used for web serving, reverse proxy, caching, load balancing, SSL and etc. In order to
+set it up on Chirpstack docker, add the following section in docker-compose.yml
+
+```bash
+nginx:
+    image: nginx:latest
+    container_name: chirpstack_nginx
+    restart: always
+    volumes:
+      - "./logs/nginx:/var/log/nginx"
+      - "./configuration/nginx.conf:/etc/nginx/conf.d/default.conf"
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - chirpstack
+    networks:
+      - iot-network
+```
+
+and then create a new file under the configuration directory called nginx.conf, with the following
+content
+
+```bash
+upstream chirpstack_upstream {
+  server chirpstack:8080;
+}
+
+server {
+  listen 80;
+  server_name _;
+
+  location ^~ /api {
+    grpc_pass grpc://chirpstack_upstream;
+  }
+
+  location / {
+    proxy_pass http://chirpstack_upstream;
+
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_redirect off;
+  }
+}
 ```

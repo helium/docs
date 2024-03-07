@@ -1,8 +1,8 @@
 ---
 id: data-only-hotspots-onboarding
-title: Data-Only Onboarding
-pagination_label: Data-Only Onboarding
-sidebar_label: Data-Only Onboarding
+title: Data-Only Hotspot Onboarding
+pagination_label: Data-Only Hotspot Onboarding
+sidebar_label: Data-Only Hotspot Onboarding
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/data-only-hotspots-onboarding
@@ -23,12 +23,12 @@ This guide walks through the process of onboarding a data-only Hotspot to the He
 onboarding procedure expects a gateway configured with the Semtech Packet Forwarder and Helium
 Gateway-rs.
 
-## Prerequsites
+## Prerequisites
 
 - LoRaWAN Gateway with Gateway-rs installed.
 - Helium Wallet CLI with a funded account imported.
 - Token balances to onboard data-only Hotspot.
-  - 1,500,000 Data Credits
+  - 1,500,000 Data Credits (DCs)
     - 1,000,000 ($10) Data-Only Onboard
     - 500,000 ($5) Location Assert
   - SOL (Solana's native cryptocurrency) to cover transaction fees (~0.1 Sol)
@@ -42,7 +42,6 @@ If the gateway does not already have gateway-rs installed, follow these steps to
 configure it.  
 For more in-depth guides, refer to the available tutorials.
 
-- [COTX X1 Lite](https://support.cotxnetworks.com/support/solutions/articles/73000567327-cotx-x1-lite-cli-user-guide)
 - [Dragino LPS8/DLOS8](/iot/data-only/dragino-data-only-hotspot)
 - [Dragino Concentrator PG1301 + Raspberry Pi](/iot/data-only/dragino-pg1301)
 - [Kerlink Gateways](/iot/data-only/kerlink-data-only-hotspot)
@@ -87,9 +86,9 @@ directory.
 
 ## Prepare Gateway-rs
 
-To simplify running the helium_gateway program, place it in a folder that is easily accessible or in
-the `/usr/bin/` directory. Placing `helium_gateway` in this bin directory will automatically add it
-to the shell path.
+To simplify running the `helium_gateway` program, place it in a folder that is easily accessible or
+in the `/usr/bin/` directory. Placing `helium_gateway` in this bin directory will automatically add
+it to the shell path.
 
 ```sh title="Copying the helium_gateway program to /usr/bin/"
 sudo cp gateway-rs/target/release/helium_gateway /usr/bin/
@@ -133,13 +132,13 @@ on-chain. The Hotspot will not transfer data unless one of these criteria is met
 ```
 
 To determine the region plan that should be used, refer to the
-[Helium Region Plans](/iot/lorawan-region-plans) document. The selected region plan must match the
+[Helium Region Plans](/iot/lorawan-region-plans) section. The selected region plan must match the
 region plan in the Semtech Packet Forwarder.
 
 #### [Optional] Define `gateway_key.bin` Location
 
 The default path is `/etc/helium_gateway/gateway_key.bin`. If using a different path, update the key
-location in settings.toml.
+location in `settings.toml`.
 
 The `gateway_key.bin` file stores the information used to identify the Hotspot on the network. The
 key file will allow gateway-rs to securely sign all messages transferred from the Hotspot. Key
@@ -152,7 +151,7 @@ found.
 keypair = "/etc/helium_gateway/gateway_key.bin"
 ```
 
-It's advised to backup the gateway_key file, especially if it needs to be recovered after the
+It's advised to backup the `gateway_key.bin` file, especially if it needs to be recovered after the
 onboarding process.
 
 ### First Run
@@ -213,17 +212,17 @@ sudo systemctl start gateway-rs.service
 sudo journalctl -fu gateway-rs
 ```
 
-If there are errors in the service edit it by first stopping the service
+If there are errors in the service, edit it by first stopping the service
 (`systemctl stop gateway-rs.service`), then editing it
 (`sudo nano /etc/systemd/system/gateway-rs.service`). After changes are made, rerun the above
 commands to test and monitor.
 
 ## Prepare the Helium Wallet CLI
 
-The Wallet CLI will be used to sign and submit the transaction generated. The Wallet CLI should not
-be installed on the Hotspot.
+The Helium Wallet CLI will be used to sign and submit the transaction generated. The Helium Wallet
+CLI should not be installed on the Hotspot.
 
-For details on setting up the Wallet CLI and using an existing account, see the
+For details on setting up the Helium Wallet CLI and using an existing account, see the
 [CLI Wallet](/wallets/cli-wallet) documentation.
 
 ```sh title="Get Helium address for the imported account"
@@ -257,7 +256,7 @@ helium_gateway add --owner <OWNER> --payer <PAYER>
 
 The owner and payer accounts can both be the same. To onboard the Hotspot, the payer account will
 need to sign the transaction and pay the DC onboarding fee. The owner will be the recipient of the
-data-only Hotspot.
+Hotspot.
 
 The add command will generate the transaction that can be used in the onboarding step.
 
@@ -271,11 +270,11 @@ The add command will generate the transaction that can be used in the onboarding
 }
 ```
 
-## Onboarding With The Command Line Wallet
+## Onboarding With The Command Line Interface Wallet
 
 Onboarding is done using the [Helium CLI Wallet](/wallets/cli-wallet).
 
-The Helium Wallet CLI will not automatically convert HNT to Data Credits. Make sure the paying
+The Helium CLI Wallet will not automatically convert HNT to Data Credits. Make sure the paying
 account has at least 1,000,000 Data Credits available to complete the add transaction. The
 transactions take place on the Solana blockchain, so a small amount of SOL is also required to cover
 Solana fees.
@@ -285,7 +284,8 @@ helium-wallet hotspots add iot <Txn from gateway-rs> --commit
 ```
 
 The CLI will return a Solana transaction hash for the on-chain event. This transaction can be looked
-up using a Solana block explorer.
+up using a Solana block explorer such as [Solana Explorer](https://explorer.solana.com/) or
+[Solscan](https://solscan.io/).
 
 ```json
 {
@@ -297,18 +297,18 @@ up using a Solana block explorer.
 ## Asserting Hotspot Location
 
 Asserting the location of the Hotspot can be performed with either the Helium Wallet App or the
-Helium Wallet CLI. Once onboarded to the network, asserting the location of a data-only Hotspot is
+Helium CLI Wallet. Once onboarded to the network, asserting the location of a data-only Hotspot is
 the same experience as any other Hotspot.
 
 ### Asserting Using the Helium Wallet App
 
 Once the Hotspot has been onboarded, it will be visible in the wallet for the account indicated with
---owner in the previous `helium_gateway add` transaction. Follow the in-app steps to assert the
+`--owner` in the previous `helium_gateway add` transaction. Follow the in-app steps to assert the
 location of the Hotspot.
 
-### Asserting Using the Helium Wallet CLI
+### Asserting Using the Helium CLI Wallet
 
-To assert the location of the Hotspot using the Wallet CLI, use the command
+To assert the location of the Hotspot using the Helium CLI Wallet, use the command
 `helium-wallet hotspots assert`.
 
 Make sure the paying account has at least 500,000 Data Credits available to complete the assert
@@ -332,7 +332,7 @@ The `key info` command will return the Hotspot's 'animal name' along with the Ho
 ```
 
 Use the "key" value along with the Hotspot's physical latitude and longitude to assert its location
-to the network. A utility like [latlong.net](https://www.latlong.net) is helpful for looking up
+to the network. A utility such as [latlong.net](https://www.latlong.net) is helpful for looking up
 coordinates. Gain is set in dBm and elevation is set in meters.
 
 ```

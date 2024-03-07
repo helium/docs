@@ -9,6 +9,7 @@ slug: /iot/proof-of-coverage
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import { TopLedgerEmbed } from '@site/src/theme/TopLedgerEmbed'
 
 <img className="docsheader" src={useBaseUrl('img/blockchain/proofofcoverage.png')} />
 
@@ -93,11 +94,13 @@ For example, a Hotspot might earn a "reward unit" for witnessing a beacon. If fi
 Hotspots successfully witnessed a Beacon during the epoch, each Hotspot earns a "reward unit." In
 that case, each Hotspot gets 1/6th of the 20% of rewards in that epoch.
 
-The activation of [HIP-15][hip-15] and [HIP-17][hip-17] introduced the idea of scaling these reward
-units. So the units earned when being witnessed or witnessing a packet scale depend on two things:
+The activation of [HIP-15][hip-15], [HIP-17][hip-17] and [HIP-104][hip-104] introduced the idea of
+scaling these reward units. So the units earned when being witnessed or witnessing a packet scale
+depend on three things:
 
 1. The number of Witnesses, as detailed in [HIP-15][hip-15]
 2. The number of Hotspots in the hex tile of the transmitter, detailed in [HIP-17][hip-17]
+3. The adjusted parameters from [HIP-17][hip-17], detailed in [HIP-104][hip-104]
 
 The HIPs themselves provide a rich explanation of these mechanisms, but they can be summarized as
 follows:
@@ -114,9 +117,26 @@ follows:
   "target density." Target density varies by hex resolution, as detailed in the HIP and defined in
   several chain variables.
 
+**From HIP-104**
+
+- The Hotspots in rural areas (or less densely covered regions) now earn more PoC rewards than they
+  did previously, in order to guide the Helium IoT Network coverage towards a more well-balanced and
+  expansive state.
+
+<TopLedgerEmbed
+  title="IOT token rewards"
+  caption="Daily IOT token rewards by reward category"
+  client="helium"
+  queryId="7478"
+  visualizationId="22030"
+  apiKey="VIIqvYhSLrXZ01R7OSzMhPfG0cEivFklSSiXYsaM"
+/>
+
 [hip-15]: https://github.com/helium/HIP/blob/master/0015-beaconing-rewards.md
 [hip-17]:
   https://github.com/helium/HIP/blob/master/0017-hex-density-based-transmit-reward-scaling.md
 [hip-70]: https://github.com/helium/HIP/blob/main/0070-scaling-helium.md
+[hip-104]:
+  https://github.com/helium/HIP/blob/main/0104-finetune-hip17-parameters-to-tackle-density.md
 
 <!-- TODO: explain witness selection process, hip-83 (first 14), proximity, range limits, etc -->
