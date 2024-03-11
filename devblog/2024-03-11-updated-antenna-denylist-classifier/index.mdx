@@ -9,33 +9,33 @@ authors: [vagabond]
 # Updated Antenna Denylist Classifier
 
 [Back in January](https://docs.helium.com/devblog/2024/01/17/new-denylist-classifiers), we added two
-new denylist classifiers, the antenna split classifier and the latency classifier. In the time
-since, we've identified some shortcomings with the antenna classifier, so we've put in some time
-improving it.
+new denylist classifiers, the antenna split classifier and the latency classifier. In the time since
+we've identified some shortcomings with the antenna classifier, so we've put in some time improving
+it.
 
 The old classifier was rather crude in that we only ever configured it to look for reciprocal (in
 both directions) links where the RSSI was above 0db. It was difficult to extend it beyond that
 because the classifier didn't have access to some information about how powerful the signal was so
-it could not properly calculate the attentuation. We've since improved that by adding the missing
+it could not properly calculate the attenuation. We've since improved that by adding the missing
 information and we've been testing a significantly improved version of the classifier for the last
-few weeks. During the last few IoT working group meetings we've presented the classifier and its
+few weeks. During the last few IoT working group meetings, we've presented the classifier and its
 results. At last week's meeting (February 4th), the working group concluded we should move ahead
 with enabling it for the March 11th deny list.
 
 The key changes to the classifier are that it now looks at the Hotspot's antenna gains, for both the
 transmitter and receiver, and the transmit power used. It then calculates the free space path loss
 over a short distance, that is considered to be within the Hotspot owner's sphere of influence, and
-then looks for Hotspot connections that have loss less than that (by a configurable value) that are
-significantly farther away (another configurable multiplier).
+then looks for Hotspot connections that have a loss less than that (by a configurable value) that
+are significantly farther away (another configurable multiplier).
 
 Thus, if we calculate the FSPL loss for two Hotspots, both with a 2.3dBi antenna, 30 meters apart in
 EU868, we get a loss of 56.15dB. In the EU, if we assume the Hotspot is complying with the 16dB
 transmit power limit, we can assume the Hotspot transmitted at about 14dB. This means that over a 30
 meter distance, between those two antennas we should see RSSIs of at _most_ -40dB. We then add the
-leniency value of 10dB to give us a cutoff of 30dB for those two hotpots. If these Hotspots are more
-than 20x the 30 meter "colocation distance" apart, but still show -30dB RSSIs, we can conclude there
-is a significant mis-assertion. Additionally, by limiting the distance to a fairly short one, we can
-also conclude that the Hotspot owner either controls both Hotspots or can influence the other
+leniency value of 10dB to give us a cutoff of 30dB for those two Hotspots. If these Hotspots are
+more than 20x the 30 meter "colocation distance" apart, but still show -30dB RSSIs, we can conclude
+there is a significant mis-assertion. Additionally, by limiting the distance to a fairly short one,
+we can also conclude that the Hotspot owner either controls both Hotspots or can influence the other
 Hotspot, because it must be very close.
 
 It is important to also note that the FSPL curve at these short distances is almost vertical, which
@@ -54,12 +54,12 @@ As seen above this is a Hotspot with at least 8 other Hotspots colocated with it
 Another factor of this classifier is that it requires these RSSIs to be observed some number of
 times, in both directions, before considering the result. This number is currently set to 5.
 
-Finally, some cases where Hotspots were right next to each other, and getting tagged by the 0dB
+Finally, in some cases where Hotspots were right next to each other, and getting tagged by the 0dB
 check will no longer be reported by this classifier. If you correctly assert your Hotspots that are
-right next to each other, you'll be subject to the to normal IoT PoC verifier density limits but not
+right next to each other, you'll be subject to the normal IoT PoC verifier density limits but not
 this classifier.
 
-Here's a few more examples of what this classifier finds:
+Here are a few more examples of what this classifier finds:
 
 ![RSSI vs Distance 2](rssi_vs_distance2.png)
 
@@ -79,7 +79,7 @@ Below are the classifier parameters, their current values and a brief descriptio
 | min_occurances        | 5     | How many times an RSSI has to be reported to be considered by the classifier        |
 | colocation_distance_m | 30    | The distance, in meters, used for the loss threshold calculation                    |
 | distance_multiplier   | 20    | The multiple of colocation_distance_m to apply to exclude Hotspots closer than this |
-| fudge_factor_db       | 10    | How many dB to add to the expected loss to account for unforseen circumstances      |
+| fudge_factor_db       | 10    | How many dB to add to the expected loss to account for unforeseen circumstances     |
 
 # What to Do If Your Hotspots Get Caught by This Classifier
 
