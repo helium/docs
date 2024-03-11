@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Updated antenna denylist classifier
+title: Updated Antenna Denylist Classifier
 date: 2024-03-11 09:00 -0800
 hide_table_of_contents: true
 authors: [vagabond]
 ---
 
-# Updated antenna denylist classifier
+# Updated Antenna Denylist Classifier
 
 [Back in January](https://docs.helium.com/devblog/2024/01/17/new-denylist-classifiers), we added two
 new denylist classifiers, the antenna split classifier and the latency classifier. In the time
@@ -65,7 +65,7 @@ Here's a few more examples of what this classifier finds:
 
 ![RSSI vs Distance 3](rssi_vs_distance3.png)
 
-# Current classifier parameters
+# Current Classifier Parameters
 
 We wanted to be very conservative when starting out with this classifier, so we've set very lenient
 parameters for the classifier initially. We don't wish to overwhelm the community with denylist
@@ -81,7 +81,7 @@ Below are the classifier parameters, their current values and a brief descriptio
 | distance_multiplier   | 20    | The multiple of colocation_distance_m to apply to exclude hotspots closer than this |
 | fudge_factor_db       | 10    | How many dB to add to the expected loss to account for unforseen circumstances      |
 
-# What to do if your hotspots get caught by this classifier
+# What to Do If Your Hotspots Get Caught by This Classifier
 
 If you find one of your hotspots caught by this classifier, you should look at your report card. The
 report card will identify the hotspots that are extremely close to you but are asserted
