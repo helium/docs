@@ -8,7 +8,8 @@ authors: [vagabond]
 
 # Updated antenna denylist classifier
 
-Back in January, we added two new denylist classifiers, the antenna split
+[Back in January](https://docs.helium.com/devblog/2024/01/17/new-denylist-classifiers),
+we added two new denylist classifiers, the antenna split
 classifier and the latency classifier. In the time since, we've identified some
 shortcomings with the antenna classifier, so we've put in some time improving
 it.
@@ -22,7 +23,7 @@ information and we've been testing a significantly improved version of the
 classifier for the last few weeks. During the last few IoT working group
 meetings we've presented the classifier and its results. At last week's meeting
 (February 4th), the working group concluded we should move ahead with enabling
-it for this week's list.
+it for the March 11th deny list.
 
 The key changes to the classifier are that it now looks at the hotspot's antenna
 gains, for both the transmitter and receiver, and the transmit power used. It
@@ -64,7 +65,7 @@ result. This number is currently set to 5.
 Finally, some cases where hotspots were right next to each other, and getting
 tagged by the 0dB check will no longer be reported by this classifier. If you
 correctly assert your hotspots that are right next to each other, you'll be
-subject to the density limits but not this classifier.
+subject to the to normal IoT PoC verifier density limits but not this classifier.
 
 Here's a few more examples of what this classifier finds:
 
@@ -87,7 +88,7 @@ description:
 | --------- | ----- | ----------- |
 | min_occurances | 5 | How many times an RSSI has to be reported to be considered by the classifier |
 | colocation_distance_m | 30 | The distance, in meters, used for the loss threshold calculation |
-| distance_multiplier | 20 | The multiple of colocation_distance_m to apply toexclude hotspots closer than this |
+| distance_multiplier | 20 | The multiple of colocation_distance_m to apply to exclude hotspots closer than this |
 | fudge_factor_db | 10 | How many dB to add to the expected loss to account for unforseen circumstances |
 
 # What to do if your hotspots get caught by this classifier
