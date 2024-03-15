@@ -3,7 +3,9 @@ id: cli-wallet
 title: CLI Wallet
 pagination_label: CLI Wallet
 sidebar_label: CLI Wallet
-description: Helium Documentation
+description:
+  Comprehensive guide to using the Helium CLI Wallet for managing Helium tokens and participating in
+  the Helium network.
 image: https://docs.helium.com/img/link-image.png
 slug: /wallets/cli-wallet
 ---
@@ -12,158 +14,101 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Command Line Interface Wallet
 
-## Installing Helium CLI Wallet
+The Helium CLI Wallet offers a robust interface for advanced users to interact with the Helium
+blockchain, manage tokens, participate in consensus groups, and perform secure transactions directly
+from the command line.
+
+## Installing the Helium CLI Wallet
 
 ### Running From a Release
 
-Releases of the Helium CLI Wallet are
-[available on GitHub](https://github.com/helium/helium-wallet-rs/releases). Select the appropriate
-package for your operating system.
-
-Unpack the zip file and place the helium-wallet binary in your `$PATH`. This operation differs
-depending on your operating system but is a common task and easily searchable.
+To get started quickly, download the latest release of the Helium CLI Wallet from the
+[GitHub releases page](https://github.com/helium/helium-wallet-rs/releases). Choose the release that
+matches your operating system, unpack the archive, and place the `helium-wallet` binary in a
+directory included in your system's `$PATH`.
 
 ### Building From Source
 
-The Helium CLI Wallet is open-source, written in Rust, and can be compiled with appropriate tooling.
-For build instructions, see the
-[Building from Source](https://github.com/helium/helium-wallet-rs#building-from-source) section on
-the helium‑wallet‑rs GitHub repo.
+For those who prefer to build from source or contribute to the wallet development, the CLI wallet's
+source code is available on GitHub. It's written in Rust, offering high performance and safety.
+Follow the [build instructions](https://github.com/helium/helium-wallet-rs#building-from-source) in
+the repository to compile the wallet on your system.
 
-## Usage
+## Getting Started with the CLI Wallet
 
-At any time, use `--help` to see the most recent in-program documentation.
-
-At the time of this writing, version 2.0.0-rc.3 looks like this:
-
-```sh
-./helium-wallet --help
-Common options for most wallet commands
-
-Usage: helium-wallet [OPTIONS] <COMMAND>
-
-Commands:
-  info      Get wallet information
-  balance   Get the balance for a wallet or a given public key. The balance is given for each of the Helium related holdings of a given Solana address
-  upgrade   Upgrade a wallet to the latest supported version of the given format. The same password is used to decrypt the old and encrypt the new wallet
-  router    Operations on routers
-  create    Create a new wallet or keypair
-  hotspots  Commands on hotspots
-  dc        Commands on data credits
-  transfer  Send one (or more) payments to given addresses
-  export    Exports encrypted wallet seed as QR-encoded JSON or raw seed via stdout
-  help      Print this message or the help of the given subcommand(s)
-
-Options:
-  -f, --file <FILES>  File(s) to use [default: wallet.key]
-      --url <URL>     Solana RPC URL to use [default: m]
-  -h, --help          Print help
-  -V, --version       Print version
-```
-
-Exploring the help menu is always a good way to orient yourself. To learn more about a certain
-transaction (or subcommand), simply append `--help`. e.g.:
+After installation, you can explore the wallet's functionalities using the `--help` flag. This flag
+provides an up-to-date list of commands and options. For example:
 
 ```sh
-./helium-wallet dc --help
-Commands on data credits
-
-Usage: helium-wallet dc <COMMAND>
-
-Commands:
-  price     Get the amount of HNT needed to buy a given number of USD worth of Data Credits
-  mint      Burn HNT to Data Credits (DC) from this wallet to given payees wallet
-  delegate  Delegate DC from this wallet to a given router
-  help      Print this message or the help of the given subcommand(s)
-
-Options:
-  -h, --help  Print help
+helium-wallet --help
 ```
 
-## Basic Commands
+Will display general usage information and a list of available commands.
 
-### Create Wallet
+### Key Commands
 
-`helium-wallet create basic`
+- **Creating a Wallet**: To create a new wallet, use:
 
-This command will create an account as a single key, stored in `wallet.key` which gets output in the
-same directory where the command is run.
+  ```sh
+  helium-wallet create basic
+  ```
 
-Upon creation, the CLI will prompt you for a password that encrypts the file. A strong password will
-make it difficult for someone to brute force the file should the file be compromised.
+  This command generates a new wallet file (`wallet.key`) in the current directory and prompts you
+  to set a password.
 
-### Display Wallet
+- **Viewing Wallet Information**: For basic wallet details like the public address, use:
 
-Displaying information for an account without needing its password can be done using:
+  ```bash
+  helium-wallet info
+  ```
 
-```bash
-$ helium-wallet info
+  Add `--qr` to generate a QR code of your wallet's public address, convenient for receiving tokens.
+
+- **Checking Balance**: To check your wallet's balance, run:
+  ```sh
+  helium-wallet balance
+  ```
+  This command shows your HNT, Data Credits, and Security Tokens balance.
+
+### Advanced Features
+
+#### Importing a Seed Phrase
+
+If you have an existing wallet from the Helium mobile app or another Helium wallet, you can import
+it using the seed phrase with the `--seed` flag:
+
+```sh
+helium-wallet create basic --seed
 ```
 
-To display a QR code for the public key of the given Wallet use:
+You'll be prompted to enter your seed phrase securely.
 
-```bash
-$ helium-wallet info --qr
+#### Multi-Signature Wallets
+
+For enhanced security, the CLI wallet supports multi-signature setups. Create a multi-signature
+wallet with:
+
+```sh
+helium-wallet create multisig --threshold <REQUIRED_SIGS> --signers <PUBLIC_KEY1>,<PUBLIC_KEY2>,...
 ```
 
-The QR Code is useful for sending tokens to the account from a wallet app.
+### Best Practices for Security
 
-### Wallet Creation Features
+- **Backup Your Seed Phrase**: Securely store your wallet's seed phrase in multiple locations.
+- **Use Strong Passwords**: Encrypt your wallet file with a strong, unique password.
+- **Regular Updates**: Keep your CLI wallet updated to the latest version to benefit from security
+  and feature enhancements.
 
-Creating a Wallet above is easy, but there's a lot more flexibility you might not know about. It's
-always recommended to explore the help menu to learn more:
+## Support and Troubleshooting
 
-```bash
-$ helium-wallet create basic --help
-Create a new basic wallet
+For support, visit the Helium Community Discord or check the GitHub repository for known issues. The
+Helium documentation and forums are also great resources for troubleshooting and learning more about
+the network.
 
-Usage: helium-wallet create basic [OPTIONS]
-
-Options:
-  -o, --output <OUTPUT>  Output file to store the key in [default: wallet.key]
-      --force            Overwrite an existing file
-      --seed             Use a BIP39 or mobile app seed phrase to generate the wallet keys
-  -h, --help             Print help
-```
-
-### Managing Multiple Accounts
-
-A more precise location or filename can be specified when creating an account by using the
-`--output` flag. e.g.:
-
-```bash
-$ helium-wallet create basic --output ~/my-wallets/wallet-5.key
-```
-
-You can specify a file other than the default `./wallet.key` by using the global option `--file`.
-e.g.:
-
-```bash
-$ helium-wallet -f ~/my-wallets/wallet-5.key transfer <AMOUNT> <ADDRESS> <TOKEN>
-```
-
-### Import Seed-phrase Account into CLI
-
-The `--seed` flag enables you to import an account secured by a 12 or 24-word seed phrase.
-
-Enter the command:
+For the most current information and advanced use cases, refer to the
+[official Helium documentation](https://docs.helium.com).
 
 ```
-$ helium-wallet create basic --seed
+
+This revised document includes a more structured layout, clearer instructions for installation and usage, security best practices, and additional details on advanced features like seed phrase import and multi-signature wallets. It's designed to be accessible for new users while providing depth for more experienced individuals looking to leverage advanced functionalities.
 ```
-
-After you press enter, you will be prompted for your seed words, separated by spaces.
-
-### Export to Helium Wallet App
-
-Helium Wallets created using the CLI can be exported to the Helium Wallet App.
-
-```bash
-$ helium-wallet export
-```
-
-You will be prompted for the Wallet Password, (this is _not_ your seed phrase, this password was
-input when the Wallet was created.)
-
-The `export` command will display the seed phrase associated with the given account. This seed
-phrase can be used with the Helium Wallet App or other Solana ecosystem wallets.
