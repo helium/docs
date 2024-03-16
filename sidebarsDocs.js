@@ -160,6 +160,7 @@ module.exports = {
             'network-iot/run-an-lns/chirpstack-add-device',
           ],
         },
+        'network-iot/lorawan-network-servers/educational-lns',
         'network-iot/lorawan-roaming',
       ],
     },
