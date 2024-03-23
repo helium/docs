@@ -67,6 +67,22 @@ before, when PoC events had to be validated under strict real-time deadlines by 
 currently elected Consensus Group, and which often led to events silently being dropped just to keep
 the blockchain moving.
 
+```mermaid
+graph TB
+    subgraph "Oracle-Based PoC Model"
+    direction TB
+    Hotspot["Hotspot (Own Beacon)"]-->Verifier["IoT PoC Verifier Oracle"]
+    Verifier-->Rewarder2["Rewards Oracle"]
+    end
+    subgraph "Original Model"
+    direction TB
+    Challenger-->Beaconer
+    Beaconer-->Witness
+    Witness-->Validator
+    Validator-->Rewarder
+    end
+```
+
 ### Step 2: Removing the Limits to PoC
 
 Now that Oracle-Based PoC is in effect, we can begin to remove some of the restrictions that had
