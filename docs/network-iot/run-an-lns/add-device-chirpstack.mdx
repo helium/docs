@@ -10,13 +10,13 @@ slug: /iot/run-an-lns/chirpstack-add-device
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-To add a device to your ChirpStack console is currently a 3 step process. Each device needs a device
-profile and each device needs to belong to an application. Integrations are currently handled by a
-per application level for device(s).
+Adding a device to your ChirpStack console for the first time is currently a 3 step process. Each
+device needs a device profile and each device needs to belong to an application. Integrations are
+currently handled per-application level for device(s).
 
-1.  Create Device Profile or Select from Template
-2.  Create An Application
-3.  Create Device in Application
+1.  Create a Device Profile or Select from Templates
+2.  Create an Application
+3.  Create a Device in the Application
 
 After adding a device to ChirpStack, take note of the Device EUI and Join EUI values in order to be
 able to
@@ -26,48 +26,52 @@ able to
 
 ### Device Profiles -> Add Device Profile
 
-From the dashboard click on Device Profiles<br />
+From the dashboard click on **Device Profiles**.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_001_dashboard.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_001_dashboard.jpg')}
+  />
+</figure>
 <br />
 <br />
 
-From Device Profiles click on Add device profile
+From **Device Profiles** click on **Add device profile**.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_002_device_profile.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_002_device_profile.jpg')}
+  />
+</figure>
 <br />
 <br />
 
-From here you can either create a new Device Template, or select one from the device-profile
-templates if they're available.
+From here you can either create a new **device profile**, or select one from the **device-profile
+templates** if they're available.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_003_device_profile.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_003_device_profile.jpg')}
+  />
+</figure>
 <br />
 <br />
 
-Click submit to add your new device profile
+Click **Submit** to add your new device profile.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_004_device_profile.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_004_device_profile.jpg')}
+  />
+</figure>
 <br />
 <br />
 
@@ -75,96 +79,107 @@ Click submit to add your new device profile
 
 ### Applications -> Add Application
 
-{' '}
+From the **Applications** sidebar menu, click **Add Application**.
 
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_005_application.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_005_application.jpg')}
+  />
+</figure>
 <br />
 <br />
 
-Create application name and description
+Create the application with a name and description.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_006_application.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_006_application.jpg')}
+  />
+</figure>
 <br />
 <br />
 
-## Create Device in Application
+## Create Device in Application {#add-device}
 
 ### Application -> Application-Name -> Add Device
 
-{' '}
-
 <br />
 
-Select your Application and click Add Device
+Select your Application and click **Add Device**.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_007_add_device.jpg')}
-/>
-<br />
-<br />
-
-Fill in your device details and select the device profile for the device you made earlier.
-
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_008_add_device.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_007_add_device.jpg')}
+  />
+</figure>
 <br />
 <br />
 
-Click submit when done
+Fill in your device details and select the device profile you made earlier. A Device EUI can be
+entered from a pre-provisioned device, or pressing the **↻** button will generate a fresh EUI.  
+The AppKey will be shown in the next step, don't worry about finding it yet.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_009_add_device.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_008_add_device.jpg')}
+  />
+</figure>
 <br />
 <br />
 
-Enter application key
+Click **Submit** when done.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_010_add_device.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_009_add_device.jpg')}
+  />
+</figure>
 <br />
 <br />
 
-Click submit once you enter application key
+Enter the application key or generate a new one by pressing the **↻** button.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_011_add_device.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_010_add_device.jpg')}
+  />
+</figure>
 <br />
 <br />
 
-Now your device should be created and listed in the application.
+Click **Submit** once you enter the application key.
 
-{' '}
-
-<img
-  className="docsheader"
-  src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_012_add_device.jpg')}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_011_add_device.jpg')}
+  />
+</figure>
 <br />
+<br />
+
+Your device should be created and listed in the application. The **LoRaWAN frames** tab will display
+a live view of payloads being delivered to the LNS.  
+Additional devices can be added to the existing Application.
+
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_012_add_device.jpg')}
+  />
+</figure>
 <br />
