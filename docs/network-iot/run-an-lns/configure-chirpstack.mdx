@@ -27,7 +27,7 @@ Before beginning, make sure to have the following:
 
 This guide describes running ChirpStack in a non-production setting. As such, the infrastructure
 requirements noted below are sufficient for getting a ChirpStack instance up and running for
-experimentational purposes, but are not suggested for use in a mission critical, production setting.
+experimentation purposes, but are not suggested for use in a mission critical, production setting.
 
 - 4 vCPU
 - 8GB RAM
@@ -91,7 +91,7 @@ the underlying EC2 instance running ChirpStack with inbound rules for the noted 
 
 3. UDP `1701`
 
-- Simlarly, the `chirpstack-gateway-bridge` container for the US915 region binds to UDP `1701`. As
+- Similarly, the `chirpstack-gateway-bridge` container for the US915 region binds to UDP `1701`. As
   such, for US915-based sensor traffic to reach ChirpStack, UDP `1701` needs to be open.
 
 Please note that if more `chirpstack-gateway-bridge` containers are added for additional LoRaWAN
@@ -194,7 +194,7 @@ your ChirpStack configuration. Again, all other sections in `chirpstack.toml` ca
 [network]
 
   # Network identifier (NetID, 3 bytes) encoded as HEX (e.g. 010203).
-  # New helium net_id="00003C"
+  # Helium net_id="00003C"
   net_id="00003C"
 
   # Helium 8 block dev address prefix 29
@@ -257,7 +257,7 @@ above in the `settings.toml` file, add `chirpstack-gateway-bridge` service defin
 additional LoRaWAN region. Although this tutorial demonstrates adding support for US915 and EU868
 these steps can be adapted for other regions.
 
-To do so, ammend the `chirpstack-gateway-bridge` label to be `chirpstack-gateway-bridge-eu868` then
+To do so, amend the `chirpstack-gateway-bridge` label to be `chirpstack-gateway-bridge-eu868` then
 create a new service definition for `chirpstack-gateway-bridge-us915` as provided below:
 
 ```yml
@@ -377,7 +377,7 @@ default credentials to log in:
 Username: admin  
 Password: admin
 
-## Next Setps
+## Next Steps
 
 Now that the LNS is operational, proceed to establish routing rules. This ensures that the Helium
 Network accurately directs device packets to the designated LNS. Learn how to implement this in the
