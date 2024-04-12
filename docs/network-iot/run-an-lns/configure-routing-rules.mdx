@@ -14,7 +14,7 @@ With ChirpStack up and running, OUI-specific routing and sensor configurations c
 [Helium Config Service](/oracles/data-transfer-oracles#config-service) to enable sensor data to be
 routed to the ChirpStack instance.
 
-## Initalize Helium Config Service CLI
+## Initialize Helium Config Service CLI
 
 First, initialize the Helium Config Service CLI by running `helium-config-service-cli env init`. A
 series of prompts, as noted below, will be provided in the terminal session.
@@ -41,7 +41,7 @@ Second, as suggested in the output, export the suggested environment variables i
 session. This needs to be done manually. To do so, just add `export` to each line in the manner
 provided below and run the commands:
 
-```sh title="Setting environment variables as shown in a terminal window"
+```sh title="Setting environment variables in a terminal window."
 export HELIUM_KEYPAIR_BIN=<./your/path/to/delegate/keypair.bin>
 export HELIUM_NET_ID=00003C
 export HELIUM_OUI=<OUI_ID>
@@ -160,7 +160,7 @@ perform a "dry run" if the `--commit` flag isn't provided.
 
 In preparing the command, the LoRaWAN region is proceeded by the port to be used for the region. For
 example, in the example command below, the region `us915` is proceeded by `<us915 port>`. Here, the
-`<us915 port>`value will mirror the port bound to the `chirpstack-gateway-bridge-us915` container
+`<us915 port>` value will mirror the port bound to the `chirpstack-gateway-bridge-us915` container
 (e.g., `1701`).
 
 Please note that the command will also need to be run for the `eu868` region for port `1700`.
@@ -254,13 +254,19 @@ To add device EUIs to the route, run the `helium-config-service-cli route euis a
 shown below, the command will perform a "dry run" if the `--commit` flag isn't provided.
 
 In preparing the command, the `--route-id` flag corresponds to the id of the route created above,
-the `--dev-eui` flag corresponds to the device EUI generated in ChirpStack, and the `--app-eui` flag
-corresponds to the join EUI also generated in ChirpStack.
+the `--dev-eui` flag corresponds to the device EUI generated entered in ChirpStack, and the
+`--app-eui` flag corresponds to the join EUI also entered in ChirpStack.
 
 Please refer to the red-boxed portion of image below to find the device and join EUIs in ChirpStack.
 
-<img className="docsheader" src={useBaseUrl('/img/open-lns/chirpstack-device-and-join-eui.png')} />
-<br />
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack-device-and-join-eui.png')}
+  />
+  <figcaption>DevEUI and AppEUI displayed in ChirpStack</figcaption>
+</figure>
 <br />
 
 ```bash
@@ -286,7 +292,8 @@ helium-config-service-cli route devaddrs add --start-addr <start devAddr> --end-
 Again, once the result looks as desired, simply re-run the command with the ` --commit` to add the
 DevAddr to the route.
 
-## Next Setps
+## Next Steps
 
 You now have a fully functioning LNS on the Helium IoT network. For additional advanced
-configurations, please see [here](advanced-configuration).
+configurations, including automating the device addition process, please see
+[Advanced Configuration](advanced-configuration).
