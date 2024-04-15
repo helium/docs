@@ -156,6 +156,7 @@ module.exports = {
             'network-iot/run-an-lns/configure-chirpstack',
             'network-iot/run-an-lns/configure-routing-rules',
             'network-iot/run-an-lns/chirpstack-add-device',
+            'network-iot/run-an-lns/chirpstack-add-device-grpc',
             'network-iot/run-an-lns/advanced-configuration',
             'network-iot/run-an-lns/common-issues',
           ],
