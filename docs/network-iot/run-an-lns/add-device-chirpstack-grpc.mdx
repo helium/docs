@@ -1,8 +1,8 @@
 ---
 id: chirpstack-add-device-grpc
-title: Add Device to Chirpstack via gRPC
-pagination_label: Add Device to Chirpstack via gRPC
-sidebar_label: Add Device to Chirpstack via gRPC
+title: Add Device to ChirpStack via gRPC
+pagination_label: Add Device to ChirpStack via gRPC
+sidebar_label: Add Device to ChirpStack via gRPC
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/run-an-lns/chirpstack-add-device-grpc
@@ -10,8 +10,8 @@ slug: /iot/run-an-lns/chirpstack-add-device-grpc
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-ChirpStack offers a [gRPC API](https://www.chirpstack.io/docs/chirpstack/api/grpc.html) to faciliate
-interactions with ChirpStack such as creating device profiles, applications, and devices.
+ChirpStack offers a [gRPC API](https://www.chirpstack.io/docs/chirpstack/api/grpc.html) to
+facilitate interactions with ChirpStack such as creating device profiles, applications, and devices.
 Additionally, ChirpStack provides
 [SDKs](https://www.chirpstack.io/docs/chirpstack/api/grpc.html#chirpstack-sdks) in Go, Python,
 JavaScript, and Rust for interacting with the gRPC API. Please refer to the
@@ -24,23 +24,23 @@ This guide, outlined by the five step process below, demonstrates how to add a d
 via the gRPC API.
 
 1. Create an API key using the ChirpStack console
-2. Identify tenant ID using the ChirpStack console
+2. Identify the tenant ID using the ChirpStack console
 3. Create a Device Profile via the gRPC API
 4. Create an Application via the gRPC API
 5. Create a Device via the gRPC API
 
-## Create an API key Using the ChirpStack Console
+## Create an API Key Using the ChirpStack Console
 
 ### Access ChirpStack Console
 
 To create an API key using the ChirpStack console, first access your ChirpStack instance. The
-ChirpStack console UI is accessible at `http://<public_ip_address>:8080`. Utilize the default
-credentials to log in:
+ChirpStack console UI is accessible at `http://<public_ip_address>:8080`. If no user has been set,
+utilize the default credentials to log in:
 
 Username: admin  
 Password: admin
 
-### API Keys -> Add API Key
+### Generate an API Key
 
 From the dashboard, click on `API Keys` under the `Tenant` header on the left side panel.
 
@@ -51,7 +51,6 @@ From the dashboard, click on `API Keys` under the `Tenant` header on the left si
     src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_013_add_api_key.jpg')}
   />
 </figure>
-<br />
 <br />
 
 Next, click the on the `Add API Key` button in the upper right hand portion of the screen.
@@ -64,7 +63,6 @@ Next, click the on the `Add API Key` button in the upper right hand portion of t
   />
 </figure>
 <br />
-<br />
 
 Finally, provide a name for the API key and click Submit.
 
@@ -75,7 +73,6 @@ Finally, provide a name for the API key and click Submit.
     src={useBaseUrl('/img/open-lns/chirpstack/chirpstack_015_add_api_key.jpg')}
   />
 </figure>
-<br />
 <br />
 
 When complete, take note of the API key as it will not be provided again once you navigate away from
@@ -95,9 +92,8 @@ middle of the tenant dashboard page.
   />
 </figure>
 <br />
-<br />
 
-Take note of the Tenant ID as it will be provided when using the gRPC API.
+Take note of the Tenant ID as it will be required when using the gRPC API.
 
 ## Create a Device Profile via the gRPC API
 
@@ -106,7 +102,8 @@ API using the JavaScript SDK. Please note that `<public_ip_address>` corresponds
 of the ChirpStack instance, `<your_api_key>` corresponds to the API key created through the steps
 above, and `<your_tenant_id>` corresponds to the tenant ID identified in the steps above.
 
-```js
+<!-- prettier-ignore -->
+```js title="ChirpStack profile creation example in Node.js"
 // Required imports
 const grpc = require('@grpc/grpc-js');
 const deviceProfileGrpc = require('@chirpstack/chirpstack-api/api/device_profile_grpc_pb');
@@ -118,13 +115,13 @@ const server = '<public_ip_address>:8080';
 // The API token obtained from the "Create an API key from ChirpStack Console" section above
 const apiToken = '<your_api_key>';
 
-// Create the client for the DeviceProfileService.
+// Create the client for the DeviceProfileService
 const deviceProfileService = new deviceProfileGrpc.DeviceProfileServiceClient(
   server,
   grpc.credentials.createInsecure(),
 );
 
-// Create the Metadata object.
+// Create the Metadata object
 const metadata = new grpc.Metadata();
 metadata.set('authorization', 'Bearer ' + apiToken);
 
@@ -163,7 +160,8 @@ that `<public_ip_address>` corresponds to the IP address of the ChirpStack insta
 `<your_api_key>` corresponds to the API key created through the steps above, and `<your_tenant_id>`
 corresponds to the tenant ID identified in the steps above.
 
-```js
+<!-- prettier-ignore -->
+```js title="ChirpStack application creation example in Node.js"
 // Required imports
 const grpc = require('@grpc/grpc-js');
 const applicationGrpc = require('@chirpstack/chirpstack-api/api/application_grpc_pb');
@@ -175,13 +173,13 @@ const server = '<public_ip_address>:8080';
 // The API token obtained from the "Create an API key from ChirpStack Console" section above
 const apiToken = '<your_api_key>';
 
-// Create the client for the ApplicationServiceClient.
+// Create the client for the ApplicationServiceClient
 const applicationService = new applicationGrpc.ApplicationServiceClient(
   server,
   grpc.credentials.createInsecure(),
 );
 
-// Create the Metadata object.
+// Create the Metadata object
 const metadata = new grpc.Metadata();
 metadata.set('authorization', 'Bearer ' + apiToken);
 
@@ -215,12 +213,13 @@ key created through the steps above, and `<your_tenant_id>` corresponds to the t
 in the steps above.
 
 Additionally, `<application_id>` and `<device_profile_id>` correspond to the application and device
-profile created in the files above.
+profile created via the files above.
 
 Lastly, `<dev_eui>` and `<join_eui>` are unique identifiers for the device being added to
 ChirpStack.
 
-```js
+<!-- prettier-ignore -->
+```js title="Device creation example in Node.js"
 // Required imports
 const grpc = require('@grpc/grpc-js');
 const deviceGrpc = require('@chirpstack/chirpstack-api/api/device_grpc_pb');
