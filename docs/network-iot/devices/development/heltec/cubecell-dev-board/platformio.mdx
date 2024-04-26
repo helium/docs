@@ -9,6 +9,7 @@ slug: /network-iot/devices/development/heltec/cubecell-dev-board/platformio
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import { DocslabCodeBlock } from 'docslab-docusaurus/lib/theme/DocslabCodeBlock'
 
 ## Getting Started With Helium, PlatformIO and Heltec CubeCell
 
@@ -720,9 +721,11 @@ This should be done sometime after LoRaWAN.init() is called.
 Consider the following code from
 [the helium/longfi-platformio repository](https://github.com/helium/longfi-platformio/blob/master/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp):
 
-```cpp docslab hardshare=heliumdev/cubecell-draw-demo
-command:source .platformio/penv/bin/activate && cd m/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic && pio run -t upload && pio device monitor
-destpath: m/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp
-repoUrl: https://github.com/helium/longfi-platformio.git
-urlfile: https://raw.githubusercontent.com/helium/longfi-platformio/master/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp
-```
+<DocslabCodeBlock
+  hardshare="heliumdev/cubecell-draw-demo"
+  className="language-cpp"
+  command="source .platformio/penv/bin/activate && cd m/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic && pio run -t upload && pio device monitor"
+  destpath="m/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp"
+  repoUrl="https://github.com/helium/longfi-platformio.git"
+  urlfile="https://raw.githubusercontent.com/helium/longfi-platformio/master/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp"
+/>
