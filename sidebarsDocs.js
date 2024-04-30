@@ -64,6 +64,7 @@ module.exports = {
           items: [
             'architecture/hotspot-makers/mcc/compliance-committee',
             'architecture/hotspot-makers/mcc/maker-ethics',
+            'architecture/hotspot-makers/become-a-maker/on-chain-maker-creation',
             'architecture/hotspot-makers/become-a-maker/burn-hnt-to-maker-wallet',
             'architecture/hotspot-makers/become-a-maker/funding-a-maker-account',
           ],
