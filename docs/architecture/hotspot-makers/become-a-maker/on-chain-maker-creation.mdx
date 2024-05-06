@@ -1,36 +1,37 @@
 ---
 id: on-chain-maker-creation
-title: On Chain Maker Creation
-pagination_label: On Chain Maker Creation
-sidebar_label: On Chain Maker Creation
+title: On-Chain Maker Creation
+pagination_label: On-Chain Maker Creation
+sidebar_label: On-Chain Maker Creation
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /hotspot-makers/become-a-maker/on-chain-maker-creation
 ---
 
-On Solana, issuance of hotspots requires that an approved maker be created on chain. This happens
-in 3 steps:
+On Solana, the issuance of Hotspots requires that an approved maker be created on-chain. This
+happens in 3 steps:
 
-  * Creation of a maker in the onboarding server
-  * Creation of the `MakerV0` on chain
-  * Approval of the `MakerV0` on chain
+- Creation of a maker in the onboarding server.
+- Approval of the `MakerV0` on-chain.
+- Creation of the `MakerV0` on-chain.
 
-First, you will need a working solana paper wallet with the solana cli. Follow this guide https://docs.solanalabs.com/cli/wallets/paper
+First, you will need a working Solana wallet with the Solana CLI. Follow this guide
+https://docs.solanalabs.com/cli/wallets/file-system.
 
-You will need to fund this wallet with Sol in order to create the maker.
+You will need to fund this wallet with Sol to create the maker.
 
-## Getting a maker in the onboarding server
+## Getting a Maker in the Onboarding Server
 
-Contact the helium-foundation to have an API key and maker public key created on the onboarding server. For the rest of
-this guide, the maker public key will be referred to as the Issuing Authority. This is the Solana public key that has the
-authority to create hotspots for this maker.
+Contact the Helium Foundation to have an API key and maker public key created on the onboarding
+server. For the rest of this guide, the maker public key will be referred to as the Issuing
+Authority. This is the Solana public key that has the authority to create Hotspots for this maker.
 
-## Installing the Helium Admin Cli
+## Installing the Helium Admin CLI
 
 The `helium-admin-cli` is a very minimal command line interface for performing administrative
-operations on the Solana blockchain. Its target is mainly developers, and contains minimal help
-or documentation. For the purposes of this guide, you will only need to run one specific command
-which will be documented here.
+operations on the Solana blockchain. Its target is mainly developers and contains minimal help or
+documentation. For this guide, you will only need to run one specific command which will be
+documented here.
 
 If you do not already have nodejs installed on your system, you will need to install it.
 
@@ -57,24 +58,24 @@ You will be using the `create-maker` command with the following args:
                                                              [number] [required]
 ```
 
-Onboarding yourself as a maker will require paying for a merkle tree to store the hotspot NFTs created
-under your maker account. You should use the flag `-c` to estimate the count of hotspots you plan to
-eventually onboard. If this limit is reached, your maker wallet will be charged an equal amount of sol
-to create another tree. 
+Onboarding yourself as a maker will require paying for a merkle tree to store the Hotspot NFTs
+created under your maker account. You should use the flag `-c` to estimate the count of Hotspots you
+plan to eventually onboard. If this limit is reached, your maker wallet will be charged an equal
+amount of sol to create another tree.
 
-The `--metadataUrl` flag should be used to set the collection metadata for your maker.
-Every hotspot issued is an NFT, and it will belong to an NFT collection defined by the JSON at this URL. Ideally,
+The `--metadataUrl` flag should be used to set the collection metadata for your maker. Every Hotspot
+issued is an NFT, and it will belong to an NFT collection defined by the JSON at this URL. Ideally,
 it should have the following fields:
 
-  * `name` - The name of the maker
-  * `description` - A short description of the maker
-  * `image` - A recognizable image for the maker, likely a logo.
+- `name` - The name of the maker
+- `description` - A short description of the maker
+- `image` - A recognizable image for the maker, likely a logo.
 
 To create the maker:
 
 ```
 helium-admin create-maker -u <your-rpc-url> \
-                          -k path/to/your/solana/paper/wallet.json \
+                          -k path/to/your/solana/wallet.json \
                           -n <your maker name> \
                           --issuingAuthority <your issuing authority> \
                           --updateAuthority <the pubkey you will use as an admin for this maker> \
@@ -101,11 +102,11 @@ Latency xByfLKdF2J5W9XZaU3dKjRePw3D5pewiHBz2jNUwJMBMFemxPix57zof99Hb9MXzssieiALb
 
 ### MOBILE Maker
 
-Mobile makers are required to stake 50m MOBILE. In order to do this, you should transfer 50m MOBILE
-tokens to the maker address listed above when creating the maker (the text after `Creating maker with address:`).
+Mobile makers are required to stake 50m MOBILE. To do this, transfer 50m MOBILE tokens to the maker
+address listed above when creating the maker (the text after `Creating maker with address:`).
 
 ## Maker Approval
 
-Once your maker has been created on-chain, and all other maker requirements have been fulfilled,
-the Helium Foundation multisig will need to approve the maker. Please contact the Helium Foundation
-and provide the exact name you used with the `-n` flag.
+Once your maker has been created on-chain, and all other maker requirements have been fulfilled, the
+Helium Foundation multisig will need to approve the maker. Please contact the Helium Foundation and
+provide the exact name you used with the `-n` flag.
