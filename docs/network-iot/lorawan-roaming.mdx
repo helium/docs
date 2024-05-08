@@ -16,6 +16,7 @@ Before getting started, make sure to have the following:
 - Data Credits (>3.5M DC).
 - A NetID issued by the LoRa Alliance.
 - A roaming endpoint so your LNS can receive roaming traffic.
+- [Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) installed.
 
 For guidance on purchasing and funding an OUI, refer to the following guides:
 
@@ -34,19 +35,16 @@ Run `helium-config-service-cli env init`
 1.  Fill in your assigned OUI for `Assigned OUI`
 1.  Fill in the number of `multi-buy` you want for `Default Max Copies` as a default for your
     routes.
-1.  Then export the environment variables. This needs to be done manually. You will see something
-    like this and just add `export` to each line and run it. For instance, you would run
-    `export HELIUM_MAX_COPIES=15` variable. Be sure not to put a space around the `=` sign
+1.  Export the environment variables. This needs to be done manually. The CLI will list values to be
+    exported. Add `export` to each line and run it. For instance, run `export HELIUM_MAX_COPIES=15`
+    to set the max_copies value in the session. Be sure not to put a space around the `=` sign
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/open-lns/roaming-setup-env-variables.png')}
-    className="add-shadow add-shadow-margin"
-    style={{ maxHeight: 350, minWidth: 0 }}
-  />
-  <figcaption>Setting environment variables as shown in a terminal window.</figcaption>
-</figure>
-<br />
+```sh title="Setting environment variables in a terminal window."
+export HELIUM_KEYPAIR_BIN=<./your/path/to/delegate/keypair.bin>
+export HELIUM_NET_ID=00003C
+export HELIUM_OUI=<OUI_ID>
+export HELIUM_MAX_COPIES=15
+```
 
 Now, you are ready to generate your first route. Routes contain the necessary information for us to
 know how to route a packet — DevEUI+AppEUI (for routing join requests), DevAddr range (for routing
@@ -54,7 +52,7 @@ uplinks), endpoint (so the network knows where to send the packet), etc.
 
 1.  Run `helium-config-service-cli route new --commit`
 1.  You can then see the empty route template. It should look like this, except that you should be
-    seeing your NetID, assigned OUI, max_copies in there:
+    seeing your NetID, assigned OUI, and max_copies value:
 
 <figure className="screensnippet-wrapper">
   <img
@@ -62,8 +60,9 @@ uplinks), endpoint (so the network knows where to send the packet), etc.
     className="add-shadow add-shadow-margin"
     style={{ maxHeight: 350, minWidth: 0 }}
   />
-  <figcaption>Route Creation as shown in a terminal window.</figcaption>
-</figure> <br />
+  <figcaption>Route creation as shown in a terminal window.</figcaption>
+</figure>
+<br />
 
 Next, let's define the endpoint that you use for ingesting traffic. You can run:
 
@@ -85,14 +84,14 @@ If you are using GWMP roaming, you need to run:
 $ helium-config-service-cli route update add-gwmp-region --route-id <route-id> --commit
 ```
 
-Make sure your endpoint, port and protocol are set correctly, otherwise we may not be able to send
+Make sure your endpoint, port and protocol are set correctly, otherwise, we may not be able to send
 traffic to your LNS.
 
 ### How to Add Your First Device
 
-In this example, we will show you how to add your first device to start roaming. In order to receive
-join request for your device, you need to let Helium know which EUI pair to watch out for. You can
-run the following
+In this example, we will show you how to add your first device to start roaming. To receive join
+request for your device, you need to let Helium know which EUI pair to watch out for. You can run
+the following
 
 **If you are a roaming partner migrating from Roaming Console, please read the
 `Migrating from Roaming Console` section below first.**
@@ -137,16 +136,16 @@ Roaming Console.
 
 ## Advanced Roaming
 
-The session key filter gives an opertator the ability to accept and reject specific roaming traffic
+The session key filter gives an operator the ability to accept and reject specific roaming traffic
 on a device level. Leveraging the session key filter is recommended for all operators. Read more
 about the session key filter and other advanced configurations in the
 [Advanced Configuration](/iot/run-an-lns/advanced-configuration) section.
 
 ## Roaming Proxy Service
 
-If Helium's OpenLNS architecture is incompatible with a roaming partner's set up, then they can
+If Helium's OpenLNS architecture is incompatible with a roaming partner's setup, then they can
 leverage
 [the roaming proxy service prototype](https://github.com/helium/helium-packet-router-ingest), which
 should provide a standard roaming interface. Note that Helium is not in active maintenance of this
-service. Helium does not necessarily recommend the usage of this architecture, but appreciates the
+service. Helium does not necessarily recommend the usage of this architecture but appreciates the
 diverse needs of roaming partners.
