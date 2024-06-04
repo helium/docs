@@ -110,7 +110,7 @@ cooldown period has ended.
 
 #### Constant
 
-Tokens are locked indefinitely. At any time you can start the unlock process which lasts for the
+Tokens are locked indefinitely. At any time you can start the unlock process, which lasts for the
 initially chosen lockup duration. Vote power stays constant until you start the unlock process, then
 it declines linearly over the lockup period until release.
 
@@ -289,13 +289,17 @@ position before the Close Position button is available as an option.
 ## Landrush {#landrush}
 
 For the first 10 days following the Solana migration, HNT holders were eligible to lock up their HNT
-for a 'landrush' bonus of 3x the locked amount.<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>)</sup>
+for a 'landrush' bonus multiplier of 3x on the amount of
+veHNT.<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>)</sup>
 
-If a landrush position is moved or split out of its original position after the first 10 days have
-lapsed, the landrush bonus is forfeited.
+If a landrush position is split after the first 10 days have lapsed, or if HNT is transferred from a
+landrush position into another position, the landrush bonus is forfeited on the HNT leaving the
+landrush position.
+
+No HNT can be added to a landrush position.
 
 [^1]:
-    [HIP 70: Scaling the Helium Network](https://github.com/helium/HIP/blob/main/0070-scaling-helium.md)
+    [HIP 76: Simplify Lockup and veTokens](https://github.com/helium/HIP/blob/main/0076-linear-lockup-curve.md#landrush-3x-multiplier)
 
 [^2]:
     [HIP 77: Launch Parameters for Solana Migration](https://github.com/helium/HIP/blob/main/0077-solana-parameters.md)
