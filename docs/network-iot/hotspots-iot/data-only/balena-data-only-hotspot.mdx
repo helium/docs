@@ -11,13 +11,10 @@ slug: /iot/data-only/balena-data-only-hotspot
 # Data-Only Hotspot Setup with balena + Raspberry Pi + RAK2287
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 A data-only Hotspot is a type of Hotspot that participates on the Helium Network by transferring
-data from the end devices (LoRaWAN nodes). The data-only Hotspots are eligible for Network Data
-Transfer Rewards but not Proof of Coverage Rewards.
+data from the end devices (LoRaWAN nodes). The data-only Hotspots are eligible for network data
+transfer rewards but not Proof-of-Coverage rewards.
 
 This guide covers all the steps needed to set up a data-only Hotspot using a Raspberry Pi and a RAK
 concentrator (RAK2287) and the Pi Hat running on balena. This configuration can be achieved by
@@ -31,7 +28,7 @@ installing the **_gatewayrs_** and **_packet forwarder_** services open sourced 
 - Raspberry Pi 0/2/3/4 or balenaFin
 - SD card in case of the Raspberry Pi
 - [RAK 2287 LoRa concentrator SPI based](https://store.rakwireless.com/products/rak2287-lpwan-gateway-concentrator-module)
-  and [RAK2287 Pi Hat](https://store.rakwireless.com/products/rak2287-pi-hat)
+  and [RAK2287 Pi HAT](https://store.rakwireless.com/products/rak2287-pi-hat)
 
 :::important
 
@@ -55,7 +52,7 @@ application. You can do it in just one click by using the button below:
 Follow the instructions, click `Add a Device` and flash an SD card with that balenaOS image
 downloaded from balenaCloud. Enjoy the magic 🌟Over-The-Air🌟!
 
-Find the [repository with the source code here](https://github.com/mpous/helium-data-hotspot) if you
+Find the [repository with the source code](https://github.com/mpous/helium-data-hotspot) if you
 would like to clone and deploy from your computer or you would like to contribute.
 
 ## Configure the device
@@ -67,19 +64,20 @@ downloaded and installed, go to `Device Variables`.
 
 - Create the variable for all the services `VARIANT` with your hardware definition. During the test
   is being used a Raspberry Pi 4 with RAK2287 LoRa concentrator and the `VARIANT` is defined
-  `DIY-RAK2287`. This `VARIANT` is compatible with any Raspberry Pi. You can find here the
-  [list of hardware compatible](https://github.com/NebraLtd/helium-hardware-definitions).
+  `DIY-RAK2287`. This `VARIANT` is compatible with any Raspberry Pi. You can find the list of
+  hardware compatible combinations on
+  [GitHub](https://github.com/NebraLtd/helium-hardware-definitions).
 
 - Create the variable for all the services `REGION_OVERRIDE` with your LoRa region (e.g. `EU868`).
-  You can find here the [list of LoRa regions compatible](https://github.com/NebraLtd/hm-pktfwd).
+  You can find a list of LoRa regions compatible on [GitHub](https://github.com/NebraLtd/hm-pktfwd).
 
-### Test the Helium Hotspot
+### Test the Helium Data-Only Hotspot
 
 Once the Device Variables are properly set up, the Hotspot should be running showing some errors on
-connecting to the Blockchain on the balenaCloud Logs.
+connecting to the network on the balenaCloud Logs.
 
 To check that the Hotspot has been generated correctly, go to the `Terminal` and select the
-`gateway-rs` service, then introduce.
+`gateway-rs` service, then introduce:
 
 `helium_gateway key info`
 
@@ -87,22 +85,19 @@ And you will get something like this:
 
 `{ "address": <hotspot address>, "name": <hotspot name> }`
 
-At this point, your data-only Hotspot is ready to join the Helium blockchain!
+At this point, your data-only Hotspot is ready to join the Helium IoT Network.
 
-### Join the Helium blockchain with your Hotspot
+### Join the Helium IoT Network with your Data-Only Hotspot
 
-To join the Helium blockchain, at the moment (summer 2021) you only can use the Helium CLI. The
-Helium app is still not compatible with the data-only hotspots. Follow
-[this instructions](https://github.com/mpous/helium-data-hotspot/#join-the-helium-blockchain-with-your-data-only-hotspot)
-to add your data-only Hotspot on the Blockchain.
+To join the Helium IoT Network, at the moment only the Helium CLI Wallet can be used. The Helium
+Wallet App is still not compatible with the data-only Hotspots. Follow
+[these instructions](https://github.com/mpous/helium-data-hotspot/#join-the-helium-blockchain-with-your-data-only-hotspot)
+to add your data-only Hotspot on the Helium IoT Network.
 
-You can find the instructions to do it
-[here](https://github.com/mpous/helium-data-hotspot/#join-the-helium-blockchain-with-your-data-only-hotspot).
+## Check the Data-Only Hotspot
 
-## Check your Data-Only Hotspot
-
-Now that your data-only Hotspot has been added to the Blockchain you should be able to see it on
-your Helium wallet.
+Now that the data-only Hotspot has been added to the Helium IoT Network it should be visible in the
+Helium Wallet.
 
 If you create a Helium Device, then go to the [Helium Console](https://console.helium.com) and
 Inspect packages from your device to confirm that the data-only Hotspot is the one that relays the
@@ -111,35 +106,36 @@ have been relayed to the Helium OUI.
 
 ## Manage your gateway_key
 
-It's extremely important that at this point, with the Hotspot added on the Helium blockchain you
+It's extremely important that at this point, with the Hotspot added on the Helium IoT Network you
 backup the `gateway_key`. If you lose this key, you will not be able to use this hotspot anymore in
-case there is a problem on your Hotspot (SD card corrupted, etc).
+case there is a problem on your Hotspot (SD card corrupted, etc.).
 
 ### Backup your gateway_key.bin file
 
-Follow these instructions to back up your gateway_key.bin file of your Hotspot.
+Follow these instructions to back up your `gateway_key.bin` file of your Hotspot.
 
 - Open an SSH session to the "host-os" on balenaCloud Terminal.
 - Type this command and keep note of the (YOUR INSTANCE)\_miner-storage:
-  `ls /var/lib/docker/volumes`
+  `ls /var/lib/docker/volumes`.
 - Type this command to get a link to download the gateway key (note to replace the YOUR INSTANCE
-  part with the container number that you got from the previous command)
+  part with the container number that you got from the previous command).
   `curl -F "file=@/var/lib/docker/volumes/(YOUR INSTANCE)_miner-storage/_data#/gateway_key.bin" https://file.io`
-- Use the outputted file.io link to securely download your swarm key. The link only works one time.
+- Use the outputted file.io link to securely download your swarm key. The link only works **one**
+  time.
 
 ### Restore your gateway_key.bin file on your new file
 
-Follow this instructions to restore your gateway_key.bin key into your new hotspot.
+Follow these instructions to restore your `gateway_key.bin` key into your new hotspot.
 
 - Open an SSH session to the "host-os" on balenaCloud Terminal.
 - Type this command and keep note of the (YOUR INSTANCE)\_miner-storage information:
-  `ls /var/lib/docker/volumes`
+  `ls /var/lib/docker/volumes`.
 - Navigate to where the swarm_key is stored
-  `cd /var/lib/docker/volumes/(YOUR INSTANCE)_miner-storage/_data#/`
-- Remove the original `gateway_key.bin` file `rm gateway_key.bin`
-- Reboot miner and you will see it restored and working :)
+  `cd /var/lib/docker/volumes/(YOUR INSTANCE)_miner-storage/_data#/`.
+- Remove the original `gateway_key.bin` file `rm gateway_key.bin`.
+- Reboot miner and you will see it restored and working.
 - Upload your `gateway_key.bin` that you wish to restore onto file.io and do
-  `curl -LJO [FILE.IO UPLOAD LINK]`
+  `curl -LJO [FILE.IO UPLOAD LINK]`.
 
 ## Contributions
 
