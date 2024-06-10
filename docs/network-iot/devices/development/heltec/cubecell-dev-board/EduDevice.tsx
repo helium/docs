@@ -249,7 +249,7 @@ export function DeviceEventLogger() {
       setDevEui(devEui)
     }
     deviceEmitter.on('deviceInfo', setStreamInfo)
-    return deviceEmitter.removeListener('deviceInfo', setStreamInfo)
+    return () => deviceEmitter.removeListener('deviceInfo', setStreamInfo)
   }, [])
 
   const onMessage = useCallback((logItem: LogItem) => {
