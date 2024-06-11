@@ -131,7 +131,7 @@ export const CreateDevice = () => {
           }
           const deviceApplications = resp.toObject()
           const targetApplication = deviceApplications.resultList.find(
-            (application) => application.name === 'Mapper 2',
+            (application) => application.name === 'Docs',
           )
           if (!targetApplication) return reject('Target application not found')
           applicationId = targetApplication.id
