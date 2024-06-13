@@ -21,6 +21,7 @@ import { EventEmitter } from 'events'
 import google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb'
 import * as grpcWeb from 'grpc-web'
 import React, { useCallback, useEffect, useState } from 'react'
+import styles from "./build-a-device.module.css"
 
 const deviceEmitter = new EventEmitter()
 
@@ -47,10 +48,17 @@ const getHexArray = (key: string = '') => {
 }
 
 const DeviceInfoRow = ({ label, value }) => {
-  if (!value) return <p>{label}: Pending - Hex Value: Pending</p>
+  if (!value)
+    return (
+      <p className={styles.keybox}>
+        <label>{label}</label>
+        <input readOnly value="" placeholder="0x00, 0x00, 0x00 ..." />
+      </p>
+    )
   return (
-    <p>
-      {label}: {value} - {getHexArray(value)}
+    <p className={styles.keybox}>
+      <label>{label}</label>
+      <input readOnly value={getHexArray(value)} />
     </p>
   )
 }
@@ -221,15 +229,14 @@ export const CreateDevice = () => {
 
   return (
     <>
-      <button onClick={() => createDevice()} disabled={!!deviceInfo.devEui}>
-        Trigger Device Creation
-      </button>
-      <div>
-        <p>Device Info</p>
+      <div className={styles.DeviceKeys}>
         <DeviceInfoRow label="Device EUI" value={deviceInfo.devEui} />
         <DeviceInfoRow label="Join EUI" value={deviceInfo.joinEui} />
         <DeviceInfoRow label="Network Key" value={deviceInfo.networkKey} />
       </div>
+      <button className={styles.createDeviceButton} onClick={() => createDevice()} disabled={!!deviceInfo.devEui}>
+        Create Device
+      </button>
     </>
   )
 }

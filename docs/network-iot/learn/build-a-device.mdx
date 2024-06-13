@@ -1,25 +1,30 @@
 ---
-id: platformio
-title: PlatformIO
-pagination_label: PlatformIO
-sidebar_label: PlatformIO
+id: build-a-device
+title: Build A LoRaWAN Device
+pagination_label: Build A LoRaWAN Device
+sidebar_label: Build A LoRaWAN Device
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /network-iot/devices/development/heltec/cubecell-dev-board/platformio-test
+slug: /network-iot/learn/build-a-device
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { DocslabCodeBlock } from 'docslab-docusaurus/lib/theme/DocslabCodeBlock'
 import { CreateDevice, DeviceEventLogger } from './EduDevice.tsx'
 
-## Getting Started With Helium, PlatformIO and Heltec CubeCell
+How to provision a custom-built device on Helium and see the payloads:
 
-The Heltec CubeCell HTCC AB0x are one of Heltec's line of popular ASR605x(ARM® Cortex® M0+ Core)
-based LoRa development boards with built in USB and battery charging.
+- background on LoRaWAN ( keys, onboarding, etc)
+- Using an LNS to provision a device
+- Create a Device
+- Using an off-the-shelf development board.
+  - distinction for ready-to-use devices with pre-provisioned keys
+- Send data to the Helium Network
+- View the data in the Console
 
-## Complete example {#htcc-complete-example}
-
-<CreateDevice />
+<figure className="screensnippet-wrapper">
+  <CreateDevice />
+</figure>
 
 Consider the following code from
 [the helium/longfi-platformio repository](https://github.com/helium/longfi-platformio/blob/master/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp):
