@@ -38,16 +38,15 @@ Network was created with the passing of
 with 5G Hotspots is the first step in the evolution of the Helium ecosystem.
 
 The passing of [HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md) additionally
-allows for the creation of MOBILE tokens that will reward 5G Hotspots with Small Cell Radio(s) on
-the Mobile Network.
+allows for the creation of MOBILE tokens that will reward 5G Wi-Fi Access Points and Hotspots with
+Small Cell Radio(s) on the Mobile Network.
 
 ---
 
 ## How To Earn MOBILE
 
 The Helium Network rewards 5G Hotspots with CBRS Radios ("Radios") and Wi-Fi Access Points ("Access
-Points") for providing 5G wireless coverage and verifying the Helium Network with the Helium MOBILE
-Token.
+Points") for providing 5G wireless coverage.
 
 Earning MOBILE by providing 5G coverage requires a Wi-Fi Access Point or 5G Hotspot and one or more
 compatible, online Radios. Radios must also be registered in the SAS (Spectrum Access System)
@@ -64,13 +63,12 @@ Point or 5G Hotspot when the Rewards Oracle disperses MOBILE PoC Rewards.
 
 :::
 
-Once properly deployed, Network Builders are not required to do anything else with the Access Point,
-5G Hotspot or Radios to earn MOBILE.
-
 More than one Radio can be connected to a single 5G Hotspot to create a larger 5G coverage area,
-with 5G Hotspots able to support as many Radios as would saturate their bandwidth. Note that
-connecting more than one Radio may require an additional networking switch. Refer to the 5G Hotspot
-Maker installation guides for specific instructions.
+with 5G Hotspots able to support as many Radios as would saturate their bandwidth. However, rewards
+may be scaled if overlapping coverage is provided. See the
+[MOBILE Proof-of-Coverage](/mobile/proof-of-coverage) section for more details. Note thatconnecting
+more than one Radio may require an additional networking switch. Refer to the 5G Hotspot Maker
+installation guides for specific instructions.
 
 ---
 
@@ -79,8 +77,13 @@ Maker installation guides for specific instructions.
 As defined in [HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md) and
 [HIP-53](https://github.com/helium/HIP/blob/main/0053-mobile-dao.md#economics-overview), and
 [approved by community-wide votes](https://heliumvote.com/legacy/14rifUhocpzdwsrWaG5PDbdREDkzyesKe1hXuWzibv8h9DdqKLe),
-the Helium Foundation received an allocation of 50B (billion) of 250B MOBILE tokens in the form of a
-pre-mine.
+the Helium Foundation received an allocation of 50B (billion) of 230B MOBILE token (max token supply
+updated to 230B from 250B in
+[HIP](https://github.com/helium/HIP/blob/main/files/0077/token-emissions-as-of-solana-migration.pdf))
+in the form of a pre-mine.
+
+Information about token allocation can be found
+[here](https://docs.helium.com/tokens/mobile-token/#token-allocation)
 
 ### Genesis Period Rewards
 
@@ -129,7 +132,7 @@ subnetwork's treasury).
 further modified the emission schedule and started the programmatic minting of MOBILE on Feb
 1st 2023.
 
-|      | BEFORE: HIP-53 Emissions Schedule |               | AFTER: HIP-75 Emissions Schedule |
+|      | BEFORE: HIP-53 Emissions Schedule |               | AFTER: HIP-75 Emissions Schedule |               |
 | ---- | --------------------------------- | ------------- | -------------------------------- | ------------- |
 | Year | MOBILE at year start              | MOBILE minted | MOBILE at year start             | MOBILE minted |
 | 1    | 50B                               | 116B\*        | 50B                              | 80B\*         |
@@ -154,9 +157,10 @@ for all new subnetworks in Phase 2 of
 
 ## Managing Tokens with the Helium Wallet App
 
-A 5G Hotspot with an attached and properly registered Small Cell Radio will start earning MOBILE
-automatically as one "lump sum" to the associated Hotspot. Learn more about calculating MOBILE
-Rewards in the [MOBILE Proof-of-Coverage](/mobile/proof-of-coverage) documentation.
+A 5G Access Point or Hotspot with an attached and properly registered Small Cell Radio will start
+earning MOBILE automatically as one "lump sum" to the associated Hotspot. Learn more about
+calculating MOBILE Rewards in the [MOBILE Proof-of-Coverage](/mobile/proof-of-coverage)
+documentation.
 
 Interacting with MOBILE tokens is only possible using the
 [Helium Wallet App](/wallets/helium-wallet-app). Be sure to update the Helium Wallet App to the
