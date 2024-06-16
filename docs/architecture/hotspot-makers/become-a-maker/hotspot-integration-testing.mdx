@@ -32,14 +32,14 @@ payments, and burn HNT. It will also continue to support the original Helium Hot
 
 ## Starter App features
 
-- Supports deeplinking and transaction signing through the Helium app
+- Supports deeplinking and transaction signing through the Helium Wallet app
   - Simply put: users of the Maker app will not need to sign in with their 12 words, as long as they
-    are signed in with the Helium app
+    are signed in with the Helium Wallet app
 - Hotspot onboarding with Bluetooth
 - Hotspot onboarding with QR Code
 - Setting Wi-Fi credentials for Hotspots onboarded with Bluetooth
 - Assert Location (Bluetooth and QR Code)
-- Generating any required transactions for the Helium app to sign (`add_gateway`, `assert_location`,
+- Generating any required transactions for the Helium Wallet app to sign (`add_gateway`, `assert_location`,
   `transfer_hotspot_v2`)
 - Submit signed transactions to the blockchain
 - A settings menu with PIN code, language selector, and the linked Helium address displayed
@@ -88,7 +88,7 @@ to the Helium team.
 ## QR Code Onboarding
 
 QR Code Onboarding allows Makers to generate a partial `add_gateway` transaction outside of the
-Helium App. Users use the camera in the Helium App to add this type of Hotspot.
+Helium App. Users use the camera in the Helium Hotspot App to add this type of Hotspot.
 
 To select QR Onboarding, in the `hotspot.ts` file, specify `QR` in `onboardType`.
 
@@ -113,7 +113,7 @@ To select QR Onboarding, in the `hotspot.ts` file, specify `QR` in `onboardType`
 ## Web Onboarding
 
 Web Onboarding allows Makers to generate a partial `add_gateway` transaction outside of the Maker
-App. Makers generate a deep link back to the Helium App/Maker App to finish the `add_gateway`
+App. Makers generate a deep link back to the Helium Wallet App/Maker App to finish the `add_gateway`
 transaction. [Read more about deep linking](/deep-links-and-qr-codes).
 
 To select Web onboarding, in the `hotspot.ts` file, specify `web` in `onboardType`.
@@ -165,7 +165,7 @@ the blockchain, the transaction will be discarded as the payer address does not 
 blockchain’s `chain_var` of valid addresses. This ensures no Data Credits are spent on testing, but
 allows trial and error as Makers finish app integration.
 
-Once you have the transaction, you will pass it onto the Helium app to sign the transaction. Once
+Once you have the transaction, you will pass it onto the Helium Wallet app to sign the transaction. Once
 submitted, you can view the pending transaction using this API:
 
 - [https://api.helium.io/v1/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr/pending_transactions](https://api.helium.io/v1/accounts/138LbePH4r7hWPuTnK6HXVJ8ATM2QU71iVHzLTup1UbnPDvbxmr/pending_transactions)
@@ -184,7 +184,7 @@ The output is a JSON object:
 }
 ```
 
-The `txn` output is then passed onto the Helium App over BLE, in QR code format, or through a deep
+The `txn` output is then passed onto the Helium Wallet App over BLE, in QR code format, or through a deep
 link in this format: `helium://add_gateway/<txnoutput>?mac=<macaddress>`
 
 :::warning
