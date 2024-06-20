@@ -21,7 +21,8 @@ import { EventEmitter } from 'events'
 import google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb'
 import * as grpcWeb from 'grpc-web'
 import React, { useCallback, useEffect, useState } from 'react'
-import styles from "./build-a-device.module.css"
+import { Alert, AlertIcon } from '../../../src/theme/components/Alert'
+import styles from './build-a-device.module.css'
 
 const deviceEmitter = new EventEmitter()
 
@@ -87,7 +88,23 @@ const getRequestMeta = (jwt: string) => {
   return { authorization: `Bearer ${jwt}` }
 }
 
-export const CreateDevice = () => {
+const EnvChecker = ({ children }) => {
+  const {
+    siteConfig: { customFields },
+  } = useDocusaurusContext()
+  if (!customFields.EDU_API_URL || !customFields.EDU_EMAIL || !customFields.EDU_PW) {
+    return (
+      <Alert>
+        <AlertIcon />
+        <p>Please configure your .env file to use the Educational LNS features</p>
+      </Alert>
+    )
+  }
+
+  return children
+}
+
+const CreateDeviceComponent = () => {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext()
@@ -234,14 +251,24 @@ export const CreateDevice = () => {
         <DeviceInfoRow label="Join EUI" value={deviceInfo.joinEui} />
         <DeviceInfoRow label="Network Key" value={deviceInfo.networkKey} />
       </div>
-      <button className={styles.createDeviceButton} onClick={() => createDevice()} disabled={!!deviceInfo.devEui}>
+      <button
+        className={styles.createDeviceButton}
+        onClick={() => createDevice()}
+        disabled={!!deviceInfo.devEui}
+      >
         Create Device
       </button>
     </>
   )
 }
 
-export function DeviceEventLogger() {
+export const CreateDevice = () => (
+  <EnvChecker>
+    <CreateDeviceComponent />
+  </EnvChecker>
+)
+
+function DeviceEventLoggerComponent() {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext()
@@ -335,3 +362,9 @@ export function DeviceEventLogger() {
     </>
   )
 }
+
+export const DeviceEventLogger = () => (
+  <EnvChecker>
+    <DeviceEventLoggerComponent />
+  </EnvChecker>
+)
