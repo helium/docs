@@ -274,7 +274,6 @@ module.exports = {
       items: [
         'archive/blockchain/blockchain-primitives',
         'archive/blockchain/mining',
-        'network-iot/iot-transaction-fees',
       ],
       collapsed: true,
     },
