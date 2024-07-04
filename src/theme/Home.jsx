@@ -88,9 +88,6 @@ export const Home = () => (
           <a className="block" href="/iot/proof-of-coverage">
             <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Proof of Coverage
           </a>
-          <a className="block" href="/iot/transaction-fees">
-            <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Transaction Fees
-          </a>
         </div>
         <div class="col col--6 blockblue" style={{ marginBottom: 100 }}>
           <img className="homeicon" src={useBaseUrl('img/home/mineicon.png')} />
