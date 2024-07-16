@@ -108,6 +108,7 @@ const CreateDeviceComponent = () => {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext()
+  console.log('url', customFields.EDU_API_URL)
   const login = useLogin()
   const [deviceInfo, setDeviceInfo] = useState({ devEui: '', joinEui: '', networkKey: '' })
 
