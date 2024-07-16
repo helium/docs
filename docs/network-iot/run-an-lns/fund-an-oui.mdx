@@ -44,29 +44,6 @@ helpful visualization of DC usage of devices for a given period, check out the
 
 Only uplinks are charged on Helium. Downlinks and join requests are not billed.
 
-### Understanding Multibuy (`max_copies`)
-
-The Helium Network charges for each response for a given payload. This is known as "multibuy" or
-`max_copies`. Each Hotspot that reports a payload from a given device is eligible to be rewarded.
-The LNS operator has a choice of how many reports they would like to buy.
-
-Multibuy sets the maximum number of Hotspots that can deliver their receipt of a message. For
-instance, for a multibuy value of 10 on a device that only receives 8 reports, the OUI would be
-charged 8 DC ($0.00008 USD). This assumes the payload was less than 24b.
-
-Multibuy is helpful in several scenarios where knowing a wide selection of available Hotspots is
-valuable:
-
-- **Ensuring successful downlinks.**  
-  Helium reports Hotspots' responses in chronological order. This can be challenging in scheduling
-  downlinks because the first Hotspot to report may not necessarily be the closest or have the
-  strongest RSSI/SNR attributes. This is important for downlink scenarios such as Class-C devices,
-  ADR, confirmed uplinks, or standard downlinks on Class-A devices. Leveraging multibuy is an easy
-  way to ensure that there is a strong Hotspot available to deliver the downlink message.
-- **Multilateration.**  
-  For devices that do not have internal location-solving abilities (GPS), the metadata of the packet
-  report and Helium Network can be leveraged to solve for a device location.
-
 ## Tracking OUI Balance
 
 import { EscrowOUIWidget } from '@theme/EscrowOUIWidget'

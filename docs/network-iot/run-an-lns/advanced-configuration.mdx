@@ -48,25 +48,38 @@ packets, thus preventing the delivery of unwanted payloads (and their respective
 
 Given that LoRaWAN devices openly broadcast uplinks, it's common for multiple Hotspots to capture
 the same device uplink within the Helium Network. LNS operators can customize the number of
-duplicate uplinks they wish to receive and pay for by setting a max copies amount. Configuring the
-max copies setting offers two significant potential advantages for receiving identical uplinks from
-multiple Hotspots:
+duplicate uplinks they wish to receive and pay for by setting a max copies amount, also known as
+"multibuy." Configuring the `max_copies` setting offers several significant advantages:
 
-- Better downlink performance: if the max copies setting is 10, the LNS will receive up to 10 copies
-  of the same uplink, and the downlink will be sent by the Hotspot with the best RSSI of those 10.
-- Geolocation: It is possible to leverage Hotspot metadata to estimate the sensor location without
-  GPS or Wi-Fi.
+- **Better downlink performance:** If the max copies setting is 10, the LNS will receive up to 10
+  copies of the same uplink, and the downlink will be sent by the Hotspot with the best RSSI of
+  those 10, per the selection mechanism of the LNS.  
+  Helium reports Hotspots' responses in chronological order, which can be challenging for scheduling
+  downlinks because the first Hotspot to report may not necessarily be the closest or have the
+  strongest RSSI/SNR attributes. This is important for downlink scenarios such as Class-C devices,
+  ADR, confirmed uplinks, or standard downlinks on Class-A devices. Leveraging multibuy ensures that
+  there is a strong Hotspot available to deliver the downlink message.
+- **Geolocation:** It is possible to leverage Hotspot metadata to estimate the sensor location
+  without GPS or Wi-Fi.
+- **Multilateration:** For devices that do not have internal location-solving abilities (GPS), the
+  metadata of the packet report and Helium Network can be leveraged to solve for a device location.
 
-There are 2 levels of granularity for the max copies setting:
+The Helium Network charges for each response for a given payload. Each Hotspot that reports a
+payload from a given device is eligible to be rewarded. The LNS operator can choose how many reports
+they would like to buy. For instance, for a multibuy value of 10 on a device that only receives 8
+reports, the OUI would be charged 8 DC ($0.00008 USD). This assumes the payload was less than 24
+bytes.
 
-1. Route level: applies to all devices registered under the route
-2. SKF level: only applies to the device with the specified network session key (NwkSKey). This
-   configuration overrides the route-level max copies setting
+There are two levels of granularity for the max copies setting:
+
+1. **Route level:** Applies to all devices registered under the route.
+2. **SKF level:** Applies only to the device with the specified network session key (NwkSKey). This
+   configuration overrides the route-level max copies setting.
 
 As an example, if the LNS operator has a route that contains device A and B, and configures a
-route-level max copies setting of 2 and an SKF level max copies setting of 5 for device B. Then
-device A will inherit the route level max copies setting = 2, and device B will use its SKF-level
-max copies setting = 5.
+route-level max copies setting of 2 and an SKF level max copies setting of 5 for device B, then
+device A will inherit the route-level max copies setting of 2, and device B will use its SKF-level
+max copies setting of 5.
 
 ### Improve Join Performance
 
