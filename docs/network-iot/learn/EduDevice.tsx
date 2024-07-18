@@ -357,26 +357,30 @@ function DeviceEventLoggerComponent() {
         onChange={(event) => setDevEui(event.target.value)}
       />
       {!events.length && <p>No events yet.</p>}
-      <div>
-        {events.map((event) => (
-          <div key={event.id} className="event-frame">
-            <div className="event-header">
-              <p>
-                {event.description === 'join'
-                  ? '🔄 Joining'
-                  : event.description === 'up'
-                    ? '⬆️ Uplink'
-                    : event.description === 'down'
-                      ? '⬇️ Downlink'
-                      : event.description === 'status'
-                        ? '*️⃣ Status'
-                        : `🛜 ${event.description}`}
-              </p>
-              <p>{new Date(event.time?.seconds! * 1000).toLocaleString()}</p>
+      <div className={styles.eventsContainer}>
+        {events
+          .filter((event) => event.description !== 'log')
+          .map((event) => (
+            <div key={event.id} className={styles.eventFrame}>
+              <div className={styles.eventHeader}>
+                <p className={styles.eventType}>
+                  {event.description === 'join'
+                    ? '🔄 Joining'
+                    : event.description === 'up'
+                      ? '⬆️ Uplink'
+                      : event.description === 'down'
+                        ? '⬇️ Downlink'
+                        : event.description === 'status'
+                          ? '*️⃣ Status'
+                          : `🛜 ${event.description}`}
+                </p>
+                <p className={styles.eventTime}>
+                  {new Date(event.time?.seconds! * 1000).toLocaleString()}
+                </p>
+              </div>
+              <pre>{JSON.stringify(event.propertiesMap)}</pre>
             </div>
-            <pre>{JSON.stringify(event.propertiesMap)}</pre>
-          </div>
-        ))}
+          ))}
       </div>
     </>
   )
