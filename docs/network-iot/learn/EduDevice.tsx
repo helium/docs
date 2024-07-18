@@ -59,7 +59,7 @@ const DeviceInfoRow = ({ label, value }) => {
   return (
     <p className={styles.keybox}>
       <label>{label}</label>
-      <input readOnly value={getHexArray(value)} />
+      <input readOnly value={getHexArray(value)} onClick={(e) => e.target.select()} />
     </p>
   )
 }
@@ -111,8 +111,10 @@ const CreateDeviceComponent = () => {
   console.log('url', customFields.EDU_API_URL)
   const login = useLogin()
   const [deviceInfo, setDeviceInfo] = useState({ devEui: '', joinEui: '', networkKey: '' })
+  const [isLoading, setIsLoading] = useState(false)
 
   const createDevice = () => {
+    setIsLoading(true)
     let jwt = ''
     let tenants = []
     let applicationId = ''
@@ -212,6 +214,7 @@ const CreateDeviceComponent = () => {
 
         client.create(req, getRequestMeta(jwt), (error) => {
           if (error !== null) {
+            setIsLoading(false)
             return reject(error)
           }
 
@@ -223,6 +226,7 @@ const CreateDeviceComponent = () => {
           req.setDeviceKeys(deviceKeys)
 
           client.createKeys(req, getRequestMeta(jwt), (error) => {
+            setIsLoading(false)
             if (error !== null) {
               return reject(error)
             }
@@ -255,9 +259,9 @@ const CreateDeviceComponent = () => {
       <button
         className={styles.createDeviceButton}
         onClick={() => createDevice()}
-        disabled={!!deviceInfo.devEui}
+        disabled={isLoading || !!deviceInfo.devEui}
       >
-        Create Device
+        {isLoading ? 'Creating Device...' : 'Create Device'}
       </button>
     </>
   )
@@ -345,19 +349,33 @@ function DeviceEventLoggerComponent() {
 
   return (
     <>
-      <p>Device Event Logger</p>
-      <p>jwt: {jwt}</p>
+      {/* <p>Device Event Logger</p> */}
+      {/* <p>jwt: {jwt}</p> */}
       <input
         placeholder="Device EUI"
         value={devEui}
         onChange={(event) => setDevEui(event.target.value)}
       />
+      {!events.length && <p>No events yet.</p>}
       <div>
-        <p>EVENTS BELOW HERE vvv</p>
         {events.map((event) => (
-          <p key={event.id} className="mb-3">
-            {`${new Date(event.time?.seconds! * 1000)} ${event.description} ${event.propertiesMap}`}
-          </p>
+          <div key={event.id} className="event-frame">
+            <div className="event-header">
+              <p>
+                {event.description === 'join'
+                  ? '🔄 Joining'
+                  : event.description === 'up'
+                    ? '⬆️ Uplink'
+                    : event.description === 'down'
+                      ? '⬇️ Downlink'
+                      : event.description === 'status'
+                        ? '*️⃣ Status'
+                        : `🛜 ${event.description}`}
+              </p>
+              <p>{new Date(event.time?.seconds! * 1000).toLocaleString()}</p>
+            </div>
+            <pre>{JSON.stringify(event.propertiesMap)}</pre>
+          </div>
         ))}
       </div>
     </>
