@@ -10,20 +10,19 @@ export const Home = () => (
           <div class="row">
             <div class="col col--6">
               <h1 style={{ padding: '0 1rem 0 0' }}>
-                Get Started <br />
-                with Helium
+                Get Started with Helium
               </h1>
-              <p className="podtext" style={{ padding: '0 1rem 0 0' }}>
-                Build amazing connected solutions on the world's largest decentralized wireless
-                network.
-              </p>
             </div>
             <div class="col col--6">
-              <a className="quicklink quicklinkorange" href="/tokens/mine-iot">
+              <a className="quicklink quicklinkorange" href="/iot">
                 Learn about Mining IOT{' '}
                 <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
               </a>
-              <a className="quicklink quicklinkgreen" href="/iot">
+              <a className="quicklink quicklinkblue" href="/mobile/5g-on-helium">
+                Learn about Mining MOBILE{' '}
+                <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
+              </a>
+              <a className="quicklink quicklinkgreen" href="/iot/lorawan-network-servers">
                 Use the Network{' '}
                 <img className="quicklinkarrow" src={useBaseUrl('img/quicklinkarrow.svg')} />
               </a>
@@ -44,17 +43,14 @@ export const Home = () => (
         </div>
         <div class="col col--12">
           <p>
-            Helium is a global, distributed network of Hotspots that create public, long-range
-            wireless coverage for LoRaWAN-enabled IoT devices and cellular devices. LoRaWAN&trade;
-            Hotspots produce and are compensated in IOT, the native cryptocurrency of the Helium
-            blockchain. The Helium blockchain is a new, open-source, public blockchain created
-            entirely to incentivize the creation of physical, decentralized wireless networks.
-            Today, the Helium IoT Network, and its{' '}
-            <a href="https://explorer.helium.com/">hundreds of thousands of Hotspots</a>, provide
-            access to the largest LoRaWAN Network in the world.
+            The Helium Network powers a variety of wireless applications from long-range sensor tech
+            to cellular connectivity. Wireless gateways called "Hotspots", operated by Helium's
+            global community, provide low-cost wireless coverage. Hotspot owners are incentivized by
+            either the Helium IOT or MOBILE token depending on the wireless application. Both tokens
+            can be exchanged for HNT, which is the primary utility token to use the Helium Network.
           </p>
           <p>
-            If, at any time, you don't find what you need, join us in{' '}
+            If you can't find what you need, join us in{' '}
             <a href="https://discord.gg/helium">our Discord</a>.
           </p>
         </div>
