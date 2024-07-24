@@ -15,10 +15,8 @@ import TabItem from '@theme/TabItem'
 
 ## Introduction
 
-The Mappers API is a set of HTTP requests used for submitting data to the Mappers project. Data
-submitted is viewable on [mappers.helium.com](https://mappers.helium.com) and updated in real time.
-
----
+The Mappers API is used for submitting data to the Mappers project. Data submitted is viewable on
+[mappers.helium.com](https://mappers.helium.com) and updated in real-time.
 
 ### Authentication
 
@@ -30,26 +28,19 @@ There is currently no authentication required.
 POST https://mappers.helium.com/api/v1/ingest/uplink
 ```
 
-:::important Post-Console Migration Note
-
-Certain parameters are implicitly included from the legacy Console payload. The Mappers platform
-requires updates to accommodate payloads from other LNSs like ChirpStack.
-
-:::
-
-Submit geo tagged device uplink.
+Submit geo-tagged device uplink.
 
 `Content-Type: application/json`
 
-Requests are intended to be sent from an HTTP integration within Console. Metadata from the standard
-JSON message is used in addition to the required fields detailed below.
+Requests are intended to be sent from an HTTP integration within Console or ChirpStack. Metadata
+from the standard JSON message is used in addition to the required fields detailed below.
 
-All required fields are case sensitive and must be in the top level of the decoded payload section
+All required fields are case-sensitive and must be in the top level of the decoded payload section
 as shown below:
 
-```json
+```json title="Console Payload Example (Legacy)"
 "decoded": {
-  "payload" : {
+  "payload": {
     "accuracy": 2,
     "altitude": 2,
     "latitude": 38.811706,
@@ -58,7 +49,17 @@ as shown below:
 }
 ```
 
-All of the following fields are required `latitude`, `longitude`, `altitude` , `accuracy`.
+```json title="ChirpStack Payload Example"
+"object": {
+  "latitude": 38.811706,
+  "longitude": -121.607035,
+  "accuracy": 2.0,
+  "altitude": 2.0
+}
+```
+
+All of the following fields are required in the decoded payload `latitude`, `longitude`, `altitude`,
+`accuracy`.
 
 <Tabs
   block={true}
