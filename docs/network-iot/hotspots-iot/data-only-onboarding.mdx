@@ -275,9 +275,8 @@ The add command will generate the transaction that can be used in the onboarding
 Onboarding is done using the [Helium CLI Wallet](/wallets/cli-wallet).
 
 The Helium CLI Wallet will not automatically convert HNT to Data Credits. Make sure the paying
-account has at least 50,000 Data Credits available to complete the add transaction. The
-transactions take place on the Solana blockchain, so a small amount of SOL is also required to cover
-Solana fees.
+account has at least 50,000 Data Credits available to complete the add transaction. The transactions
+take place on the Solana blockchain, so a small amount of SOL is also required to cover Solana fees.
 
 ```sh
 helium-wallet hotspots add iot <Txn from gateway-rs> --commit
@@ -294,26 +293,14 @@ up using a Solana block explorer such as [Solana Explorer](https://explorer.sola
 }
 ```
 
-## Asserting Hotspot Location
-
-Asserting the location of the Hotspot can be performed with either the Helium Wallet App or the
-Helium CLI Wallet. Once onboarded to the network, asserting the location of a data-only Hotspot is
-the same experience as any other Hotspot.
-
-### Asserting Using the Helium Wallet App
-
-Once the Hotspot has been onboarded, it will be visible in the wallet for the account indicated with
-`--owner` in the previous `helium_gateway add` transaction. Follow the in-app steps to assert the
-location of the Hotspot.
-
-### Asserting Using the Helium CLI Wallet
+## Asserting With The Command Line Interface Wallet
 
 To assert the location of the Hotspot using the Helium CLI Wallet, use the command
-`helium-wallet hotspots assert`.
+`helium-wallet hotspots update`.
 
-Make sure the paying account has at least 50,000 Data Credits available to complete the assert
-transaction. The transactions take place on the Solana blockchain, so a small amount of SOL is also
-required to cover Solana fees.
+Make sure the paying account has at least 50,000 Data Credits available to complete the location
+assert transaction. The transactions take place on the Solana blockchain, so a small amount of SOL
+is also required to cover Solana fees.
 
 Before running the assert command, get the public key from the data-only Hotspot.
 
@@ -336,9 +323,9 @@ to the network. A utility such as [latlong.net](https://www.latlong.net) is help
 coordinates. Gain is set in dBm and elevation is set in meters.
 
 ```
-helium-wallet hotspots assert iot <Hotspot Public Key> --lat=37.771150 --lon=-122.419200 --gain 1.2 --elevation 7 --commit
+helium-wallet hotspots update iot <Hotspot Public Key> --lat=37.771150 --lon=-122.419200 --gain 1.2 --elevation 7 --commit
 ```
 
 `--elevation` and `--gain` are optional values and can be updated at any time without further fees
 as long as the lat/lon values remain the same. Use the built-in help command,
-`helium-wallet hotspots assert --help` for more info.
+`helium-wallet hotspots update --help` for more info.
