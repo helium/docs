@@ -316,6 +316,7 @@ function DeviceEventLoggerComponent() {
         let req = new StreamDeviceEventsRequest()
         req.setDevEui(devEui)
         var stream: grpcWeb.ClientReadableStream<LogItem> | undefined = undefined
+        let retryCount = 0
 
         let setup = () => {
           const client = new InternalServiceClient(customFields.EDU_API_URL)
@@ -323,10 +324,17 @@ function DeviceEventLoggerComponent() {
 
           stream = stream.on('data', (resp) => {
             callbackFunc(resp)
+            retryCount = 0 // reset retry count on successful data reception
           })
 
           stream = stream.on('end', function () {
-            setTimeout(setup, 1000)
+            retryCount++
+            setTimeout(setup, Math.min(1000 * 2 ** retryCount, 30000)) // exponential backoff with max delay
+          })
+
+          stream = stream.on('error', function () {
+            retryCount++
+            setTimeout(setup, Math.min(1000 * 2 ** retryCount, 30000)) // exponential backoff with max delay
           })
         }
 
@@ -351,12 +359,18 @@ function DeviceEventLoggerComponent() {
     <>
       {/* <p>Device Event Logger</p> */}
       {/* <p>jwt: {jwt}</p> */}
-      <input
-        placeholder="Device EUI"
-        value={devEui}
-        onChange={(event) => setDevEui(event.target.value)}
-      />
-      {!events.length && <p>No events yet.</p>}
+
+      {!events.length && (
+        <div className={styles.eventsContainerEmpty}>
+          <input
+            placeholder="Device EUI"
+            value={devEui}
+            onChange={(event) => setDevEui(event.target.value)}
+          />
+          <p>No events yet.</p>
+        </div>
+      )}
+
       <div className={styles.eventsContainer}>
         {events
           .filter((event) => event.description !== 'log')
@@ -378,7 +392,23 @@ function DeviceEventLoggerComponent() {
                   {new Date(event.time?.seconds! * 1000).toLocaleString()}
                 </p>
               </div>
-              <pre>{JSON.stringify(event.propertiesMap)}</pre>
+              <ul className={styles.eventProperties}>
+                {event.propertiesMap.map(([key, value], index) => (
+                  <li key={index}>
+                    <strong>
+                      {key === 'DR'
+                        ? 'Data Rate'
+                        : key === 'FCnt'
+                          ? 'Frame Count'
+                          : key === 'FPort'
+                            ? 'Frame Port'
+                            : key}
+                      :{' '}
+                    </strong>
+                    {value}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
       </div>
