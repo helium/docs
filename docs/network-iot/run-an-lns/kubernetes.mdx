@@ -1,0 +1,37 @@
+---
+id: kubernetes
+title: ChirpStack on Kubernetes
+pagination_label: ChirpStack on Kubernetes
+sidebar_label: On Kubernetes
+description: ChirpStack on Kubernetes
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/run-an-lns/kubernetes
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+This guide describes using Kubernetes to run ChirpStack in a production setting on AWS EKS with
+usage of AWS RDS Postgres and ElastiCache Redis.
+
+## GitHub Repository
+
+The [chirpstack-infrastructure](https://github.com/dewi-alliance/chirpstack-infrastructure) GitHub
+repository provides Terraform modules and Helm charts for a highly available Chirpstack V4
+deployment configured with Helium Network sidecar applications on AWS EKS.
+
+## AWS Architecture Diagram
+
+The AWS architecture diagram provided below shows ChirpStack, as deployed from the GitHub
+repository, in a high-availability configuration with redundancies for AWS availability zones, NAT
+gateway, RDS Postgres, and ElastiCache Redis. The repository also provides an example for a
+cost-optimized configuration without NAT gateway, RDS Postgres, and ElastiCache Redis redundancies.
+
+<figure className="screensnippet-wrapper">
+  <img
+    alt="AWS architecture diagram of ChirpStack on EKS"
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('/img/open-lns/chirpstack-aws-k8s-architecture.png')}
+  />
+  <figcaption>AWS architecture diagram of ChirpStack on EKS.</figcaption>
+</figure>
