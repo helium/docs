@@ -12,23 +12,43 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 import { DocslabCodeBlock } from 'docslab-docusaurus/lib/theme/DocslabCodeBlock'
 import { CreateDevice, DeviceEventLogger } from './EduDevice.tsx'
 
-How to provision a custom-built device on Helium and see the payloads:
+<div style={{ display: 'none' }}>
+  Notes: // Create a Device // Using an off-the-shelf development board. // distinction for
+  ready-to-use devices with pre-provisioned keys // Send data to the Helium Network // View the data
+  in the Console
+</div>
 
-- background on LoRaWAN ( keys, onboarding, etc)
-- Using an LNS to provision a device
-- Create a Device
-- Using an off-the-shelf development board.
-  - distinction for ready-to-use devices with pre-provisioned keys
-- Send data to the Helium Network
-- View the data in the Console
+Activating a commercially-produced device is often as simple as scanning a QR code or pairing with
+an app. However, knowing the fundamentals of how LoRaWAN devices are onboarded, programmed, and
+their data delivered helps to unlock the ideas and opportunities that come with these devices.
+Therefore, this guide details the less common, but important principles of creating a custom-built
+device on the Helium Network.
+
+## Provisioning a Device
+
+Many devices are pre-provisioned with keys. However, for this demonstration, we will create a new
+set of keys for a device. The keys are used to authenticate the device on the network and encrypt
+data. The keys are generated randomly in order to be unique to each device.
+
+Generate a set of keys below by clicking the "Create Device" button:
 
 <figure className="screensnippet-wrapper">
   <CreateDevice />
 </figure>
-<br/>
+<br />
+
+Behind the scenes, these keys have been submitted to a LoRaWAN Network Server (LNS) which also
+shares the Join EUI with the Helium Packet Router (HPR). With the Join EUI, HPR can receieve
+payloads from this device through any Hotspot in the world and route it to the appropriate LNS. Because these
+keys are unique to the device and LNS, only the device and the LNS can decrypt the data transferred
+between them.
+
+## Building a Device
 
 Consider the following code from
 [the helium/longfi-platformio repository](https://github.com/helium/longfi-platformio/blob/master/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp):
+
+Copy the keys generated above into the `devEui`, `appEui`, and `appKey` variables in the code below:
 
 <figure className="screensnippet-wrapper">
   <DocslabCodeBlock
@@ -40,15 +60,18 @@ Consider the following code from
     urlfile="https://raw.githubusercontent.com/helium/longfi-platformio/master/Heltec-CubeCell-Board/examples/cubecell-helium-us915-basic/src/main.cpp"
   />
 </figure>
-<br/>
+<br />
 
 Some more text over here maybe
 
 <figure className="screensnippet-wrapper">
   <DeviceEventLogger />
 </figure>
-<br/>
+<br />
 
-If uplinks are shown in the logger above, the device is successfully sending data to the Helium Network!
+If uplinks are shown in the logger above, the device is successfully sending data to the Helium
+Network!
 
-With the payloads received, the next step would be to send them to an application. LNSs typically support a number of integrations like HTTP, MQTT, or bespoke integrations with platforms like AWS IoT or Azure IoT.
+With the payloads received, the next step would be to send them to an application. LNSs typically
+support a number of integrations like HTTP, MQTT, or bespoke integrations with platforms like AWS
+IoT or Azure IoT.
