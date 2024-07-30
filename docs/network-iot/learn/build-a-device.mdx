@@ -73,5 +73,18 @@ If uplinks are shown in the logger above, the device is successfully sending dat
 Network!
 
 With the payloads received, the next step would be to send them to an application. LNSs typically
-support a number of integrations like HTTP, MQTT, or bespoke integrations with platforms like AWS
-IoT or Azure IoT.
+support several integrations like HTTP, MQTT, or bespoke integrations with platforms like AWS IoT or
+Azure IoT.
+
+## Practice
+
+Now that data is being sent to the Helium Network, experiment with the device.
+
+1. Try changing the data being sent by the device. How would you send the payload, "Hello, World!"?
+   The current payload is being sent in hexadecimal format. Tools like
+   [asciitohex.com](https://www.asciitohex.com/) can help convert data types.
+1. LoRaWAN provides the 'port' field which helps separate data types. For instance, multiple sensors
+   can run on the same device under different ports or status updates like battery level can be sent
+   on a different port than sensor data.
+1. The device is currently sending data every 30 seconds. Try changing the interval to 10 seconds.
+   How would this affect the battery life of the device?
