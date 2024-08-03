@@ -12,26 +12,76 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <img className="docsheader" src={useBaseUrl('img/lorawan-on-helium/lorawanheader.png')} />
 
-In typical LoRaWAN Networks, a central or regional LNS is managed by a single entity. Helium's
-design for a decentralized Network, however, means not only do we want gateways (referred to as
-Hotspots) to be independently owned and operated, but we want to enable the independent operation of
-the LNS.
+## Overview
 
-Without this, access to the Network would require permission from a single central entity, the LNS
-operator of the Network.
+The Helium Network has many points of distinction from a typical LoRaWAN network that are critical
+for understanding before deploying internet of things (IoT) applications on Helium.
 
-Therefore, we want to enable the multi-tenancy of LNSs on the same public LoRaWAN Network. Achieving
-this distinguishes Helium's LoRaWAN Network from all other LoRaWAN networks: public wireless
-infrastructure is now compatible with privately-run Network Servers.
+In conventional LoRaWAN networks, end devices, such as sensors or actuators, send LoRa wireless
+messages to physical gateway devices. These gateways, in turn, forward the messages from the end
+devices to central or regional LoRaWAN Network Servers (LNSs) which decompose the messages for
+processing in IoT applications. Typically, LoRaWAN networks are run by a central authority in either
+public or private configurations. In public configruations, the central authority allows multiple
+customers to leverage gateways and LNSs in developing end-to-end IoT applications. Conversely, in
+private configruations, a single entity uses the network and all of its networking components.
 
-The rest of this article will discuss the networking primitives. If you want to go ahead and run a
-Network Server, please check out our article about running a network server.
+The Helium Network takes a different approach with respect to LoRaWAN networks. Rather than have a
+centralized authority responsible for managing gateway devices (referred to as Hotspots in the
+Helium parlance) or LNSs that serves as a gatekeeper for deploying end devices, Helium allows for
+the decentralized operation of both Hotspots and LNSs with a completely permisionless achitecture.
+In practice, this means that anybody can run a Hotspot device and provide LoRaWAN coverage to the
+Helium Network. Similarly, anybody can operate an LNS and provide cloud connectivity and
+configuration for end devices. In turn, end devices operating on the Helium Network are able to tap
+into the global network of LoRaWAN connectivity powered by community operated Hotspots and gain
+access to the largest LoRaWAN network ever created.
+
+In the remainder of this section, a high-level overview of the architecture of the Helium Network
+will be provided, in addition to a discussion on terminology of networking primitives.
+
+## High-Level Architecture
+
+Given the unique architecture of the Helium Network in comparison to typical LoraWAN networks, it is
+helpful to understand how Helium manages a large, decentralized ecosystem of Hotspots and LNSs.
+
+In this regard, a first primary difference is that rather than having gateway devices directly
+communicate with LNSs, Helium introduces the concept of an intermediate routing service called
+[Helium Packet Router (HPR)](https://github.com/helium/helium-packet-router) that handles the
+connectivity between LNSs and Hotspots. As shown in the diagram below, end devices still send
+messages to Hotspots, but instead of the Hotspots subsequently forwarding the messages to directly
+to an LNS, the Hotspots send the messages to HPR. In doing so, HPR can identify the particular
+Hotspots that forwarded the message from the end device in order to properly credit the Hotspot
+with data transfer rewards on the Helium Network.
+
+A second primary difference is with the introduction of the
+[Helium IoT Config Service](https://github.com/helium/oracles/tree/main/iot_config) which serves as
+an interface for users for configuring routing rules relied on by HPR when determing where to
+forward messages from end devices to LNSs. Users can leverage tools including the
+[Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) for providing
+routing rule configurations to the Config Service (and in turn HPR).
+
+```mermaid
+graph LR
+    dev[Device] --> gateway[Hotspot]
+    gateway --> hpr[Helium Packet Router]
+    hpr --> lns[LoRaWAN Network Server]
+    hpr <--> ics[Helium IoT Config Service]
+    lns --> ics
+    lns --> i[Integrations]
+```
+
+<br />
+
+For a deeper understanding of the architecture of the Helium Network, users are encouraged to read
+documentation and review the open-source code for HPR and IoT Config Service:
+
+- [HPR](https://github.com/helium/helium-packet-router)
+- [Config Service](https://github.com/helium/oracles/tree/main/iot_config)
 
 ## The OUI
 
-Each LoRaWAN Network Server (LNS) on the Helium Network acquires an Organizationally Unique
-Identifier (OUI). This registers the LNS with the blockchain and allocates two very important
-routing objects owned and maintained by the OUI Operator:
+Each LNS on the Helium Network acquires an Organizationally Unique Identifier (OUI). This registers
+the LNS with the blockchain and allocates two very important routing objects owned and maintained by
+the OUI Operator:
 
 - one or more **slabs** of DevAddrs, reserving NwkAddr space for the OUI's devices on the Helium
   Network
