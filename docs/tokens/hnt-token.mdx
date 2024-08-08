@@ -56,16 +56,18 @@ The Network targeted the distribution of 5,000,000 HNT per month at launch. Foll
 approval of HIP-20, the Network uses a two-year halving schedule, resulting in a maximum HNT supply
 of 223,000,000 HNT.
 
-| Year |       Year Start | HNT at Year Start | Target HNT Emission |
-| :--: | ---------------: | ----------------: | ------------------: |
-|  1   | August 1st, 2019 |                 0 |          60,000,000 |
-|  2   | August 1st, 2020 |        60,000,000 |          60,000,000 |
-|  3   | August 1st, 2021 |       120,000,000 |          30,000,000 |
-|  4   | August 1st, 2022 |       150,000,000 |          30,000,000 |
-|  5   | August 1st, 2023 |       180,000,000 |          15,000,000 |
-|  6   | August 1st, 2024 |       195,000,000 |          15,000,000 |
-|  7   | August 1st, 2025 |       210,000,000 |           7,500,000 |
-|  8   | August 1st, 2026 |       217,500,000 |           7,500,000 |
+| Year |       Year Start | HNT at Year Start | Target HNT Emission | Target Daily Emission | 
+| :--: | ---------------: | ----------------: | ------------------: |  -------------------: |
+|  1   | August 1st, 2019 |                 0 |          60,000,000 |      164,383.56164384 |
+|  2   | August 1st, 2020 |        60,000,000 |          60,000,000 |      164,383.56164384 |
+|  3   | August 1st, 2021 |       120,000,000 |          30,000,000 |       82,191.78082191 |
+|  4   | August 1st, 2022 |       150,000,000 |          30,000,000 |       82,191.78082191 |
+|  5   | August 1st, 2023 |       180,000,000 |          15,000,000 |       40,983.60655738 |
+|  6   | August 1st, 2024 |       195,000,000 |          15,000,000 |       41,095.89041096 |
+|  7   | August 1st, 2025 |       210,000,000 |           7,500,000 |       20,547.94520548 |
+|  8   | August 1st, 2026 |       217,500,000 |           7,500,000 |       20,547.94520548 |
+|  7   | August 1st, 2027 |       225,000,000 |           3,750,000 |       10,245.90163934 |
+|  8   | August 1st, 2028 |       228,750,000 |           3,750,000 |       10,273.97260274 |
 
 > The full token emission schedule can be viewed in the HNT section of this document: [Token
 > Emissions as of Solana Migration][sol-emissions].
@@ -94,15 +96,20 @@ produced via Net Emissions do not add to the total outstanding, they do not viol
 However, to ensure that the deflationary pressure is still present, the Net Emission is capped at 1%
 of the epoch emission.
 
-For instance, in February 2024, the Net Emissions cap is 1,643.83561643 HNT per epoch, and the
+For instance, in July 2024, the Net Emissions cap is 1,643.83561643 HNT per epoch, and the
 up-to-date value can be verified
 [on chain](https://explorer.solana.com/address/BQ3MCuTT5zVBhNfQ4SjMh3NPVhFy73MPV8rjfq5d1zie/anchor-account).
 
-If less than 1,643.83561643 HNT is burned for DC within an epoch, the full amount burned will be
-re-minted and distributed into the subnetwork's Treasury for that epoch. However, if more than
+If less than 1,643.83561643 HNT is burned for DC within an epoch by all subnetworks, the full amount 
+burned will be re-minted and added to the HNT target emission for that epoch. However, if more than
 1,643.83561643 HNT is burned for DC within a single epoch, any HNT burn for DC over 1,643.83561643
-will be permanently burned and removed from the max supply, while 1,643.83561643 being re-minted and
-distributed to the subnetwork.
+will be permanently burned and removed from the max supply, while 1,643.83561643 is re-minted and
+and added to the HNT target emission.
+
+This 0 to 1,643.83561643 HNT from the Burn and Mint calculation and the HNT target emission are added
+togther and the total distributed according to (a) the schedule in [HIP 20](https://github.com/helium/HIP/blob/main/0020-hnt-max-supply.md#detailed-explanation) for founders rewards and (b) 
+the  remainder split to the subnetworks as calculated by the Utility score in the [HIP 51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md#omni-protocol-poc-incentive-model) Omni 
+Protocol PoC Incentive Model.
 
 Review the [complete Net Emissions discussion in the HIP][hip-20] for more information. Note that in
 HIP-20, the cap was 34.24 HNT because the epoch was every 30 minutes at the time HIP-20 was written.
