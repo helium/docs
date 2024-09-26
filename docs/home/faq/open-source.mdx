@@ -9,9 +9,6 @@ slug: /faq/open-source
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
 
 <img className="docsheader" src={useBaseUrl('img/open-source/opensource.png')} />
 
@@ -22,19 +19,28 @@ community to develop and contribute to all parts of the Network. Below is a subs
 plays an integral role in the Helium Network. The full list can be found on the official
 [Helium GitHub Organization](https://github.com/helium).
 
+## Solana Blockchain
+
+These are repos with code that was added after Helium Network migration to Solana.
+
+- [Helium Program Library](https://github.com/helium/helium-program-library) - A collection of
+solana programs used for Helium's Solana integration.
+
+You can see a full list of JS/Typescript packages available for Solana in the [Solana Introduction](/solana/#packages-jstypescript).
+
 ## Helium Blockchain
 
 These are the core libraries and repos that make up the Helium blockchain. Most things here are
 written in Erlang.
 
-- [Miner](https://github.com/helium/miner) - The Helium blockchain miner.
+- <s>[Miner](https://github.com/helium/miner) - The Helium blockchain miner</s> (depreciated).
 
 - [Blockchain Core](https://github.com/helium/blockchain-core) - The glue that ties together things
   like the `Helium miner` and the `blockchain api`.
 
-- [Blockchain API (deprecated)](https://github.com/helium/blockchain-api) - A full blockchain node
+- <s>[Blockchain API](https://github.com/helium/blockchain-api) - A full blockchain node
   that exposes a JSON API. It's ideal for supplying data to things like block explorers and mobile
-  apps.
+  apps</s> (deprecated).
 
 - [Erlang HoneyBadgerBFT](https://github.com/helium/erlang-hbbft) - An Erlang implementation of
   HoneyBadgerBFT's various protocols.
