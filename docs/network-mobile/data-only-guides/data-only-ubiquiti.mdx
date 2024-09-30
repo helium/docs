@@ -1,0 +1,222 @@
+---
+id: data-only-ubiquiti
+title: Ubiquiti Data-Only Guide
+pagination_label: Ubiquiti Data-Only Guide
+sidebar_label: Ubiquiti Data-Only Guide
+description: Helium Data-Only Hotspot Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/data-only-ubiquiti
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+Data-Only Mobile configuration requires the Passpoint protocol. Please ensure your Ubiquiti network
+is using UniFi Network Controller version 8.4.54 or higher, and AP firmware 6.6.75 / 7.0.63 or
+higher.
+
+## Obtain RadSec Certificates From The Helium Onboarding Portal
+
+Download preview RadSec Certificates: <a
+href={useBaseUrl('early_access_certs.zip')}>early_access_certs.zip</a>
+
+Unzip the following files from the archive:
+
+    - `client.pem`
+    - `key.pem`
+    - `ca-cert.pem`
+
+:::note
+
+These certificates are for early access only and will expire.
+
+:::
+
+## Configure UniFi Network Controller
+
+Configuring the network controller for Passpoint is a two-part process. First, create the RADIUS
+profile, then apply the profile to a newly created WiFi SSID called 'Helium Mobile'.
+
+Run the UniFi network controller locally or log into the cloud
+[UniFi Site Manager](https://unifi.ui.com/).
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/configure-controller.png')}
+    style={{ maxHeight: '400px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>UniFi Settings screen within the UniFi Site Manager.</figcaption>
+</figure>
+
+### Create a RADIUS Profile
+
+Configure a TLS connection to Helium Cloud AAA server (aka Radiator), which performs Authentication,
+Authorization and Accounting for the end customers. Enabling RADIUS communication over TLS (RadSec)
+increases the level of security for authentication that is carried out across the cloud network.
+
+In the sidebar, choose **Settings**, then **Profiles**, then **RADIUS**:
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/radius-settings.gif')}
+    style={{ maxHeight: '300px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Open RADIUS profiles.</figcaption>
+</figure>
+<br />
+
+:::note Reminder
+
+These configurations are for early access. Server addresses and keys will change in the near future.
+
+:::
+
+Press **Create New**.
+
+Specify a profile name, for example "**Helium Radsec**".
+
+Configure RADIUS properties:
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/radius-properties.png')}
+    style={{ maxHeight: '350px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Configure RADIUS settings.</figcaption>
+</figure>
+
+1. Check TLS box.
+2. Specify Authentication Servers IP Address:
+
+   Add these three servers:
+
+   1. Enter IP Address: `52.37.147.195` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   2. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   3. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+
+3. Press **Upload** next to **Client Certificate**, choose the path to `early_access_cert.pem`.
+4. Press **Upload** next to **Private Key**, choose the path to `early_access_key.pem`.
+5. Keep Private Key Password empty.
+6. Press **Upload** next to **CA Certificate**, choose the path to `early_access_ca.pem`.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/radius-keys.png')}
+    style={{ maxHeight: '300px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Load the keys from the `early_access_certificates.zip` file .</figcaption>
+</figure>
+<br />
+
+7. Check the **Accounting** checkbox. RADIUS Accounting Server settings will appear.
+
+8. Specify the following Accounting Servers:
+
+   1. Enter IP Address: `52.37.147.195` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   2. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   3. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/radius-accounting.png')}
+    style={{ maxHeight: '300px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>RADIUS accounting server settings.</figcaption>
+</figure>
+<br />
+
+9. Check **Interim Update Interval** box.
+10. Specify **Interim Update Interval** with **300 Sec**, standard for the Helium Network.
+
+Click **Apply Changes** to create the new RADIUS Profile.
+
+### Create The Helium Mobile SSID
+
+Navigate to the **Settings** on sidebar, choose **WiFi** then press **Create New**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/create-new-wifi.png')}
+    style={{ maxHeight: '300px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Create a new WiFi network.</figcaption>
+</figure>
+<br />
+
+Configure settings for the new network.
+
+1. Set the **Name** of the SSID to `Helium Mobile`. Leave the password blank.
+2. Set **Advanced** to **Manual**.
+3. Set **Hotspot 2.0** to `Passpoint`. Passpoint settings will appear below.
+4. Specify **Venue Name** to a name for your site.
+5. Specify **Venue Type** with the option that best matches your site.
+6. Set **Network Type** to `Chargeable Public Network`
+7. Set **IP Address Type Availability**:
+   1. IPv4 to `Double NATed private IPv4`.
+   2. IPv6 to `Unavailable`
+8. Add **NAI Realms** with the following two entries:
+   1. Name: `freedomfi.com` EAP Method: `EAP-TLS` Sub-Methods: `Certificate`.
+   2. Name: `hellohelium.com` EAP Method: `EAP-TLS` Sub-Methods: `Certificate`.
+9. Add **Domain List**: `freedomfi.com` or leave your home domain, if any. Press **Add**.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/main-wifi-settings.png')}
+    style={{ maxHeight: '600px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Create a new WiFi network.</figcaption>
+</figure>
+<br />
+
+10. Set **Security Protocol** to: `WPA3 Enterprise`
+
+11. Specify a **NAS-ID** matching the MAC address of your network controller. This value should be
+    equal to the one specified during onboarding to Helium network.
+
+    :::note
+
+         A NAS-ID matching the on-chain onboarding is not applicable for early access.
+
+    :::
+
+    In a new tab, navigate to **UniFi Devices**, choose your **Network Controller** and copy the
+    **MAC Address**.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/udm-mac-addr.png')}
+    style={{ maxHeight: '400px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Retrieve the MAC address of the network controller.</figcaption>
+</figure>
+<br />
+
+         3. Paste MAC to Custom field of **NAS-ID**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/nas-id-mac-addr.png')}
+    style={{ maxHeight: '400px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Identify the NAS ID using the MAC address.</figcaption>
+</figure>
+<br />
+
+12. Choose **Radius Profile**: `Helium Radsec`
+
+Press **Add WiFi Network**.
+
+Your Helium Mobile SSID is all set up. Verify access forgetting the existing network on your device
+and connecting to the new Helium Mobile network.
+
+Apply security settings to the network to ensure isolation from the existing network(s). See this
+[Ubiquiti guide on network and client isolation](https://help.ui.com/hc/en-us/articles/18965560820247-How-to-Implement-Network-and-Client-Isolation)
+for more information.

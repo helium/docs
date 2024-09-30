@@ -235,17 +235,16 @@ module.exports = {
   ],
 
   mobile_network: [
+    'network-mobile/5g-on-helium',
+    'network-mobile/mobile-proof-of-coverage',
+    'network-mobile/mobile-service-providers',
     {
       type: 'category',
-      label: '5G on Helium',
-      link: { type: 'doc', id: 'network-mobile/5g-on-helium' },
+      label: 'Data-Only Hotspots',
+      link: { type: 'doc', id: 'network-mobile/data-only-mobile' },
       items: [
-        'network-mobile/cbrs-radios',
-        'network-mobile/mobile-mappers',
-        'network-mobile/mobile-proof-of-coverage',
-        'network-mobile/mobile-service-providers',
+        'network-mobile/data-only-guides/data-only-ubiquiti',
       ],
-      collapsed: true,
     },
   ],
 
