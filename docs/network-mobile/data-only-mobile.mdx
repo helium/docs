@@ -1,6 +1,6 @@
 ---
 id: data-only-mobile
-title: 'Bring Your Own Fleet: Passpoint-Enabled Hotspots Overview'
+title: 'Bring Your Own Fleet'
 pagination_label: Bring Your Own Fleet
 sidebar_label: Bring Your Own Fleet
 description: Helium Data-Only Hotspot Documentation
@@ -14,33 +14,29 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 <br />
 <br />
 
-The 'Bring Your Own Fleet' process activates Passpoint-enabled hardware for cellular network data
-transfer on Helium. These onboarded fleets are represented through an on-chain rewardable entity.
-
-## What is Passpoint?
-
-Passpoint is a Wi-Fi Alliance protocol designed to streamline and secure Wi-Fi access. With
-Passpoint, users don't need to manually find and authenticate networks. When a user's device is
-provisioned to access a Passpoint-enabled network, it will automatically connect to that network
-without manual intervention.
-
-Furthermore, the protocol enables precise traffic accounting, perfectly aligning with the needs of
-carrier networks.
-
-## Why Bring Your Own Fleet?
+The Bring Your Own Fleet process activates Passpoint-enabled hardware for cellular network data
+transfer on Helium. In the cellular industry, these are known as 'Brownfield' deployments – where
+existing hardware is configured to operate a new network. These onboarded fleets are represented
+through an on-chain rewardable entity.
 
 Converting existing networks into Helium-compatible Hotspots benefits both network users and venue
-owners. Venue owners can extend Helium Mobile's coverage, appealing to users and carriers. Passpoint
-technology ensures users connect automatically without re-authentication, providing uninterrupted
-connectivity. Data transferred through the network is also eligible for network rewards, and
-Passpoint-enabled Hotspots can offload data traffic. This creates revenue for owners and helps
-carriers manage congestion.
+owners. Venue owners can extend Helium's Mobile coverage, appealing to users and carriers. The
+Passpoint specification ensures users connect automatically without re-authentication, providing
+uninterrupted connectivity. Data transferred through these deployments are also eligible for network
+rewards, as they can offload data traffic for carriers.
 
 Using existing infrastructure reduces costs, making it a practical solution for venue owners. When
 deciding between deploying a new Hotspot (Greenfield) or converting an existing network, consider
 Proof of Coverage rewards, deployment costs, and coverage needs. New Hotspots earn Proof of Coverage
 rewards and require new hardware, while existing networks have lower setup costs and can quickly
 increase coverage. Both options can complement each other in the Helium Mobile network.
+
+## Getting Started
+
+If you have compatible netwrok, integrating it with Helium Mobile is simple. Start by reviewing the
+manufacturer-specific guides:
+
+- [Ubiquiti Onboarding Guide](/mobile/data-only-ubiquiti)
 
 ## Deployment Requirements
 
@@ -51,14 +47,7 @@ integration involves network-level configurations for authentication, authorizat
 
 ### Enterprise Network Considerations
 
-Fleets are characterized by Helium as a public key on-chain which is paired with the RADIUS
+Fleets are characterized by Helium with a public on-chain key which is paired with the RADIUS
 certificates. The network expects each pubkey/cert pair to be attached to a single NAS-ID. If a
 single NAS-ID is shared among multiple locations, the 'Brownfield Inventory System' disambiguates
 multiple locations for the purposes of coverage availability representation.
-
-## Getting Started
-
-If you have a Passpoint-enabled network, integrating it with Helium Mobile is simple. Start by
-reviewing the manufacturer-specific guides:
-
-- [Ubiquiti Onboarding Guide](/mobile/data-only-ubiquiti)

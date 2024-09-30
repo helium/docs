@@ -10,21 +10,13 @@ slug: /mobile/data-only-ubiquiti
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-## Upgrade Your UniFi Network Controller And AP Firmware
-
 Data-Only Mobile configuration requires the Passpoint protocol. Please ensure your Ubiquiti network
 is using UniFi Network Controller version 8.4.54 or higher, and AP firmware 6.6.75 / 7.0.63 or
 higher.
 
-## Get Your RadSec Certificates From The Helium Onboarding Portal
+## Obtain RadSec Certificates From The Helium Onboarding Portal
 
-:::note
-
-These certificates are for early access only and will expire
-
-:::
-
-Download RadSec Certificates: <a
+Download preview RadSec Certificates: <a
 href={useBaseUrl('early_access_certs.zip')}>early_access_certs.zip</a>
 
 Unzip the following files from the archive:
@@ -32,6 +24,12 @@ Unzip the following files from the archive:
     - `client.pem`
     - `key.pem`
     - `ca-cert.pem`
+
+:::note
+
+These certificates are for early access only and will expire.
+
+:::
 
 ## Configure UniFi Network Controller
 
@@ -47,12 +45,12 @@ Run the UniFi network controller locally or log into the cloud
     style={{ maxHeight: '400px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
-  <figcaption>UniFi Settings Screen</figcaption>
+  <figcaption>UniFi Settings screen within the UniFi Site Manager.</figcaption>
 </figure>
 
 ### Create a RADIUS Profile
 
-Configure a TLS connection to Helium Cloud AAA server aka Radiator, which performs Authentication,
+Configure a TLS connection to Helium Cloud AAA server (aka Radiator), which performs Authentication,
 Authorization and Accounting for the end customers. Enabling RADIUS communication over TLS (RadSec)
 increases the level of security for authentication that is carried out across the cloud network.
 
@@ -94,9 +92,9 @@ Configure RADIUS properties:
 
    Add these three servers:
 
-   1. Enter IP Address: `52.42.184.190` Port: `2083` Shared Secret: `radsec`. Click **Add**.
-   2. Enter IP Address: `54.214.178.13` Port: `2083` Shared Secret: `radsec`. Click **Add**.
-   3. Enter IP Address: `44.228.171.160` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   1. Enter IP Address: `52.37.147.195` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   2. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   3. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
 
 3. Press **Upload** next to **Client Certificate**, choose the path to `early_access_cert.pem`.
 4. Press **Upload** next to **Private Key**, choose the path to `early_access_key.pem`.
@@ -117,9 +115,9 @@ Configure RADIUS properties:
 
 8. Specify the following Accounting Servers:
 
-   1. Enter IP Address: `52.42.184.190` Port: `2083` Shared Secret: `radsec`. Click **Add**.
-   2. Enter IP Address: `54.214.178.13` Port: `2083` Shared Secret: `radsec`. Click **Add**.
-   3. Enter IP Address: `44.228.171.160` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   1. Enter IP Address: `52.37.147.195` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   2. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   3. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -157,14 +155,14 @@ Configure settings for the new network.
 3. Set **Hotspot 2.0** to `Passpoint`. Passpoint settings will appear below.
 4. Specify **Venue Name** to a name for your site.
 5. Specify **Venue Type** with the option that best matches your site.
-6. Set **Network Type** to `Free Public Network`
+6. Set **Network Type** to `Chargeable Public Network`
 7. Set **IP Address Type Availability**:
    1. IPv4 to `Double NATed private IPv4`.
    2. IPv6 to `Unavailable`
 8. Add **NAI Realms** with the following two entries:
    1. Name: `freedomfi.com` EAP Method: `EAP-TLS` Sub-Methods: `Certificate`.
    2. Name: `hellohelium.com` EAP Method: `EAP-TLS` Sub-Methods: `Certificate`.
-9. Add **Domain List**: `freedomfi.com`. Press **Add**.
+9. Add **Domain List**: `freedomfi.com` or leave your home domain, if any. Press **Add**.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -178,28 +176,25 @@ Configure settings for the new network.
 
 10. Set **Security Protocol** to: `WPA3 Enterprise`
 
-11. Specify **NAS-ID** according to the following rules . This value should be equal to the one
-    specified during onboarding to Helium network.
+11. Specify a **NAS-ID** matching the MAC address of your network controller. This value should be
+    equal to the one specified during onboarding to Helium network.
 
     :::note
 
-         NAS-ID matching onboarding is not applicable for early access.
+         A NAS-ID matching the on-chain onboarding is not applicable for early access.
 
     :::
 
-        - If you use one Ubiquiti AP on your site, set **NAS-ID** = **AP MAC**
-            - Go to UniFi devices → Choose your AP → copy MAC Address
-
-        - If you have mesh network with **multiple** Ubiquiti APs at your site, select one AP as the NAS-ID.
-            - Go to **UniFi devices** → Pick a primary AP, usually facing ISP → Choose your AP → copy MAC.
+    In a new tab, navigate to **UniFi Devices**, choose your **Network Controller** and copy the
+    **MAC Address**.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/mobile-data-only/ubiquiti/select-ap-mac.png')}
-    style={{ maxHeight: '600px' }}
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/udm-mac-addr.png')}
+    style={{ maxHeight: '400px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
-  <figcaption>retrieve AP mac.</figcaption>
+  <figcaption>Retrieve the MAC address of the network controller.</figcaption>
 </figure>
 <br />
 
@@ -207,11 +202,11 @@ Configure settings for the new network.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('/img/mobile-data-only/ubiquiti/custom-nas-id.png')}
-    style={{ maxHeight: '600px' }}
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/nas-id-mac-addr.png')}
+    style={{ maxHeight: '400px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
-  <figcaption>nasid.</figcaption>
+  <figcaption>Identify the NAS ID using the MAC address.</figcaption>
 </figure>
 <br />
 
@@ -219,4 +214,5 @@ Configure settings for the new network.
 
 Press **Add WiFi Network**.
 
-Your Helium Mobile SSID is all set up.
+Your Helium Mobile SSID is all set up. Verify access forgetting the existing network on your device
+and connecting to the new Helium Mobile network.
