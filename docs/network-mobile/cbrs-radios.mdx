@@ -68,11 +68,8 @@ Once the 5G Hotspot is onboarded and a Small Cell Radio installation is complete
 Radio will automatically initialize and acquire a GPS lock. Once that is complete, the Small Cell
 Radio dashboard appears under the "Radio Dashboard" tab on the local IP address of the 5G Hotspot.
 
-- If you are using a FreedomFi gateway, you can access the miner and radio dashboard via the URL:
-  [http://freedomfi-gateway.local/](http://freedomfi-gateway.local/)
-
-- If you are using a Bobber 500 gateway, you can access the miner and radio dashboard via this URL:
-  [http://bobber-gateway.local/](http://bobber-gateway.local/)
+- You can access your 5G Hotspot Dashboard via the URL:
+  https://hotspots.hellohelium.com/auth/login/methods/helium-wallet
 
 5G Hotspot will appear on [explorer.helium.com](https://explorer.helium.com/) within five days,
 depending on how quickly it is registered in the SAS.
@@ -86,19 +83,17 @@ Small Cell Radios. However, Outdoor Small Cell Radios create a larger area of 5G
 requiring more planning when installing and maintaining.
 
 Outdoor Small Cell Radios require installation above ground level and require registration with the
-Spectrum Access System (SAS) to operate. Please evaluate your site location and ability to install
-these Small Cell Radios, and consider hiring a professional to ensure your installation is secure
-and meets all regulatory requirements.
-
-SAS registration is expected to be completed within five days of submission. Hotspot Owners will be
-contacted via email with a confirmation of successful registration or with a rejection reply and an
-explanation of what needs to be corrected.
+Spectrum Access System (SAS) to operate. In order to start receiving rewards, your Radio must be 
+registered with SAS by completing the CPI form within your [Radio Dashboard]( https://hotspots.hellohelium.com/auth/login/methods/helium-wallet). Please evaluate your site 
+location and ability to install these Small Cell Radios, and consider hiring a professional to ensure 
+your installation is secure and meets all regulatory requirements.
 
 ## Indoor Small Cell Radios
 
 Indoor Small Cell Radios are less powerful and are ideal for installations such as coffee shops,
 bars, grocery stores, etc. Indoor Small Cell Radios are generally easier to install and create a
-smaller, localized area of 5G coverage.
+smaller, localized area of 5G coverage. Indoor Small Cell Radios must be installed in a location in
+which it can receive a signal, or else it will not broadcast a signal.
 
 Indoor Small Cell Radios are physically smaller radios and can be installed at any height.
 **Installing an Indoor Small Cell Radio outdoors is not recommended as they are not weather
@@ -118,10 +113,18 @@ Gbps or your internet speed, whichever is lower.
 
 ### Confirm the Network is Working
 
-Visit the [FreedomFi Status page](https://status.helium.freedomfi.com/).
+Confirm your Radio's status within the [remote dashboard](https://hotspots.hellohelium.com/auth/login/methods/helium-wallet).
+Ensure the below status's show the following:
 
-This status page will provide the latest updates on important issues that impact users, like Device
-Onboarding, SAS services, or other significant events.
+(INSERT PICTURE)
+
+If any of the Health Metrics show Red/Offline, reboot the radio and the 5G Hotspot. Rebooting the 5G Hotspot 
+be as easy as clicking the reboot button within the remote dashboard.
+
+Power cycling a radio can be done by disconnecting power from the radio for 30 seconds, and powering it back on.
+
+If GPS Status within the "Location" field shows "Not Locked", ensure the Radio has a clear view of the sky, or in 
+instances of Indoor Small Cell Radios, that the GPS puck has a clear view of the sky.
 
 ### Spectrum Access on the 5G Hotspot Dashboard
 
