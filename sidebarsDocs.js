@@ -154,7 +154,15 @@ module.exports = {
               link: { type: 'doc', id: 'network-iot/run-an-lns/fund-an-oui' },
               items: ['tokens/data-credit-portal', 'network-iot/run-an-lns/fund-an-oui-using-hnt'],
             },
-            'network-iot/run-an-lns/configure-chirpstack',
+            {
+              type: 'category',
+              label: 'Configure ChirpStack',
+              link: { type: 'doc', id: 'network-iot/run-an-lns/configure-chirpstack' },
+              items: [
+                'network-iot/run-an-lns/docker-compose', 
+                'network-iot/run-an-lns/kubernetes'
+              ],
+            },
             'network-iot/run-an-lns/configure-routing-rules',
             'network-iot/run-an-lns/chirpstack-add-device',
             'network-iot/run-an-lns/chirpstack-add-device-grpc',

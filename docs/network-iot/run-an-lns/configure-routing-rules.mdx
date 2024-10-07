@@ -14,6 +14,17 @@ With ChirpStack up and running, OUI-specific routing and sensor configurations c
 [Helium Config Service](/oracles/data-transfer-oracles#config-service) to enable sensor data to be
 routed to the ChirpStack instance.
 
+:::info
+
+If ChirpStack was deployed with the Docker Compose configuration, routing rules will need to be 
+manually configured. 
+
+However, if ChirpStack was deployed with the Kubernetes configuration, routing rules are 
+programatically added via the Helium Network sidecar application and do not need to be manually 
+configured in the manner described below.
+
+:::
+
 ## Initialize Helium Config Service CLI
 
 First, initialize the Helium Config Service CLI by running `helium-config-service-cli env init`. A
