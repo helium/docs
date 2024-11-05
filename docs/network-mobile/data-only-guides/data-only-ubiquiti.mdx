@@ -18,8 +18,13 @@ slug: /mobile/data-only-ubiquiti
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 Data-Only Mobile configuration requires the Passpoint protocol. Please ensure your Ubiquiti network
-is using UniFi Network Controller version 8.4.54 or higher, and AP firmware 6.6.75 / 7.0.63 or
-higher.
+is using
+[UniFi Network Controller version 8.4.54](https://community.ui.com/releases/UniFi-Network-Application-8-4-59/d3ba4443-ad36-4566-b1e6-2d21d8b4f225)
+or higher and
+[AP firmware version 6.6.77](https://community.ui.com/releases/UniFi-Access-Point-6-6-77/1368d5eb-f4d7-4861-9eae-a317e2bebce9)
+or
+[AP firmware version 7.0.66](https://community.ui.com/releases/UniFi-Access-Point-7-0-66/edfb7cb4-c629-4e3b-a362-549eec2e0e1b)
+or higher, depending on hardware release track.
 
 ## Obtain RadSec Certificates From The Helium Onboarding Portal
 
@@ -41,7 +46,7 @@ These certificates are for early access only and will expire.
 ## Configure UniFi Network Controller
 
 Configuring the network controller for Passpoint is a two-part process. First, create the RADIUS
-profile, then apply the profile to a newly created WiFi SSID called 'Helium Mobile'.
+profile, then apply the profile to a newly created WiFi SSID called 'Helium'.
 
 Run the UniFi network controller locally or log into the cloud
 [UniFi Site Manager](https://unifi.ui.com/).
@@ -141,7 +146,7 @@ Configure RADIUS properties:
 
 Click **Apply Changes** to create the new RADIUS Profile.
 
-### Create The Helium Mobile SSID
+### Create The Helium SSID
 
 Navigate to the **Settings** on sidebar, choose **WiFi** then press **Create New**
 
@@ -157,7 +162,7 @@ Navigate to the **Settings** on sidebar, choose **WiFi** then press **Create New
 
 Configure settings for the new network.
 
-1. Set the **Name** of the SSID to `Helium Mobile`. Leave the password blank.
+1. Set the **Name** of the SSID to `Helium`. Leave the password blank.
 2. Set **Advanced** to **Manual**.
 3. Set **Hotspot 2.0** to `Passpoint`. Passpoint settings will appear below.
 4. Specify **Venue Name** to a name for your site.
@@ -183,8 +188,8 @@ Configure settings for the new network.
 
 10. Set **Security Protocol** to: `WPA3 Enterprise`
 
-11. Specify a **NAS-ID** matching the MAC address of your network controller. This value should be
-    equal to the one specified during onboarding to Helium network.
+11. Specify a **NAS-ID** matching the MAC address of your network controller or representative AP.
+    This value should be equal to the one specified during onboarding to Helium network.
 
     :::note
 
@@ -221,8 +226,9 @@ Configure settings for the new network.
 
 Press **Add WiFi Network**.
 
-Your Helium Mobile SSID is all set up. Verify access forgetting the existing network on your device
-and connecting to the new Helium Mobile network.
+Your Helium SSID is all set up. Verify access by forgetting the existing network on your device and
+connecting to the new network using a device with a supported carrier, such as
+[Helium Mobile](https://hellohelium.com).
 
 Apply security settings to the network to ensure isolation from the existing network(s). See this
 [Ubiquiti guide on network and client isolation](https://help.ui.com/hc/en-us/articles/18965560820247-How-to-Implement-Network-and-Client-Isolation)
