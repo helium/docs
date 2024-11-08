@@ -187,7 +187,7 @@ export const HstManagerImpl = ({ idl }: { idl: Fanout }) => {
   return (
     <Flex flexDirection="column" mt={5}>
       {error && (
-        <Alert status="error">
+        <Alert>
           <AlertIcon />
           <p>{error.message}</p>
         </Alert>
