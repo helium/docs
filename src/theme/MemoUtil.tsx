@@ -1,4 +1,3 @@
-// MemoExecutorImpl.tsx
 import { AnchorProvider } from '@coral-xyz/anchor'
 import { sendAndConfirmWithRetry, batchInstructionsToTxsWithPriorityFee } from '@helium/spl-utils'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
@@ -11,10 +10,8 @@ import { Button } from './components/Button'
 import { Flex } from './components/Flex'
 import { Wallet, WrapWithAccountProvider } from './components/Wallet'
 
-// Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css')
 
-// Constants and Helper Functions for Memo Validation
 const MEMO_MAX_BYTES = 566
 
 const encodeMemoString = (utf8Input: string | undefined): string | undefined => {
@@ -37,7 +34,7 @@ const getMemoStrValid = (memoStr?: string) => {
   }
 }
 
-export const MemoExecutorImpl = () => {
+export const MemoUtilImpl = () => {
   const [sig, setSig] = useState('')
   const [memo, setMemo] = useState('')
   const { publicKey, wallet } = useWallet()
@@ -100,7 +97,6 @@ export const MemoExecutorImpl = () => {
 
   return (
     <div className="display-legacy-wallet font-disable-calt">
-      {/* Display Error Alert */}
       {error && (
         <Alert status="error">
           <AlertIcon />
@@ -108,7 +104,13 @@ export const MemoExecutorImpl = () => {
         </Alert>
       )}
 
-      {/* Memo Input Field */}
+      {sig && (
+        <Alert status="success">
+          <AlertIcon />
+          <p>Memo transcribed successfully! Signature: {sig}</p>
+        </Alert>
+      )}
+
       <Flex flexDirection="column" mb={2}>
         <label htmlFor="memo" style={{ marginBottom: '8px', fontWeight: 'bold' }}>
           Memo
@@ -152,13 +154,6 @@ export const MemoExecutorImpl = () => {
         </Button>
       </Flex>
 
-      {sig && (
-        <Alert status="success">
-          <AlertIcon />
-          <p>Memo transcribed successfully! Signature: {sig}</p>
-        </Alert>
-      )}
-
       {!publicKey && (
         <p style={{ marginTop: '16px', textAlign: 'center' }}>
           Connect your wallet to transcribe a memo to the Solana blockchain.
@@ -168,11 +163,11 @@ export const MemoExecutorImpl = () => {
   )
 }
 
-export const MemoExecutor = () => {
+export const MemoUtil = () => {
   return (
     <Wallet>
       <WrapWithAccountProvider>
-        <MemoExecutorImpl />
+        <MemoUtilImpl />
       </WrapWithAccountProvider>
     </Wallet>
   )
