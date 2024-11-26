@@ -351,7 +351,7 @@ export const LedgerMigration = () => {
         component: (
           <VStack>
             {errorSolana && (
-              <Alert status="error">
+              <Alert>
                 <AlertIcon />
                 <p>
                   {errorSolana.message}. Please make sure you are connected to the Solana Ledger App
@@ -398,7 +398,7 @@ export const LedgerMigration = () => {
         component: (
           <VStack>
             {errorHelium && (
-              <Alert status="error">
+              <Alert>
                 <AlertIcon />
                 <p>
                   {errorHelium.message}. Please make sure you are connected to the Helium-Solana
@@ -429,7 +429,7 @@ export const LedgerMigration = () => {
         component: (
           <VStack>
             {errorSeed && (
-              <Alert status="error">
+              <Alert>
                 <AlertIcon />
                 {errorSeed.message}
               </Alert>
@@ -452,7 +452,7 @@ export const LedgerMigration = () => {
         component: (
           <VStack>
             {errorHeliumSign && (
-              <Alert status="error">
+              <Alert>
                 <AlertIcon />
                 {errorHeliumSign.message}. Please make sure you are connected to the Helium-Solana
                 Ledger App and have blind signing enabled.
@@ -476,7 +476,7 @@ export const LedgerMigration = () => {
         component: (
           <VStack>
             {errorSolanaSign && (
-              <Alert status="error">
+              <Alert>
                 <AlertIcon />
                 {errorSolanaSign.message}. Please make sure you are connected to the Solana Ledger
                 App and have blind signing enabled.
@@ -500,7 +500,7 @@ export const LedgerMigration = () => {
         component: (
           <VStack>
             {errorSendTransactions && (
-              <Alert status="error">
+              <Alert>
                 <AlertIcon />
                 {errorSendTransactions.message}
               </Alert>
