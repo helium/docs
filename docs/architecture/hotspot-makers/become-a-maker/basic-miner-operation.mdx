@@ -11,9 +11,13 @@ slug: /hotspot-makers/become-a-maker/basic-miner-operation
 ## Basic Miner Operation
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
 
-<LegacyContentBanner />
+The following documentation is detailing the operational use of Hotspots which most Hotspot 
+deployers on the network have no need to be concerned with. As their [IOT hotspots that perform 
+Proof of Coverage](https://docs.helium.com/iot/hotspots) or operate just in [Data-Only mode](https://docs.helium.com/iot/data-only-hotspots) do not usually require any configuration 
+for normal operation. 
+The essential requirement is that the Hotspots that are purchased must support the [LoRaWAN 
+Regional Frequency Plan](https://docs.helium.com/iot/lorawan-region-plans) that is operational in their country.
 
 As you can see below, the Miner is central in routing data across the Helium Network. It is one of
 three pieces:
@@ -84,15 +88,12 @@ Log in and out of your account to apply these changes. You are now ready to use 
 
 ### Port Forwarding
 
-Before launching the Miner, you will want to configure ports on your network to forward two ports:
+Before launching the Miner, you will want to configure ports on your network to forward the port:
 
-- **44158/TCP**: the Miner communicates to other Miners over this port. The networking logic knows
-  how to get around a lack of forwarding here, but you will get better performance by forwarding the
-  port
 - **1680/UDP**: the radio connects to the Miner over this port. You will not be able to forward
   packets or participate in Proof of Coverage without this
 
-"Forwarding" on the second port is less relevant if you are running a radio packet forwarder on the
+"Forwarding" is less relevant if you are running a radio packet forwarder on the
 same system at the miner \(both on a Raspberry Pi, for example\). But it is essential if you are
 running a Miner on the cloud for example.
 
