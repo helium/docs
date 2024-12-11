@@ -361,7 +361,7 @@ export const LedgerMigration = () => {
             )}
             <Text>
               Open the Solana App on your ledger. Be sure to{' '}
-              <a href="https://support.ledger.com/hc/en-us/articles/4499092909085-Allowing-blind-signing-in-the-Solana-SOL-app?support=true">
+              <a href="https://support.ledger.com/article/4499092909085-zd">
                 enable blind signing
               </a>{' '}
               in the Ledger Settings. Select the account number you would like to migrate. Then
