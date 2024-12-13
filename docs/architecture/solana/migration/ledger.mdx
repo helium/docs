@@ -7,10 +7,6 @@ description: Ledger Hardware Wallet User Documentation
 slug: /solana/migration/ledger
 ---
 
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
-
 ## Video Walkthrough
 
 import { YouTube } from 'mdx-embed'
@@ -21,7 +17,7 @@ import { YouTube } from 'mdx-embed'
 
 ## Installing the Helium-Solana App
 
-Update your Ledger firmware to at least 2.1.0 before you start.
+Update your Ledger firmware to at least 2.1.0, perferably 2.4.x before you start.
 
 As of now, we are still waiting on Ledger to release our app. Until then, to install you must follow
 these steps:
@@ -30,7 +26,7 @@ these steps:
 2. Go to Settings (top right corner)
 3. Click `Experimental Features`
 4. Enable `Developer Mode`
-5. Install the Helium-Solana app as you normally would.
+5. Install the [Helium-Solana Ledger App](https://github.com/helium/app-helium-solana) as you normally would.
 6. Close Ledger Live
 
 ---
@@ -54,12 +50,12 @@ works with Chrome, Brave, or other Chromium-based web browsers.
 
 - [Helium-Solana Ledger App](https://github.com/helium/app-helium-solana) now available from Ledger
   Live (ensure Developer Mode is enabled)
-- [Solana Ledger App](https://support.ledger.com/hc/en-us/articles/360016265659-Solana-SOL-?support=true)
+- [Solana Ledger App](https://support.ledger.com/article/360016265659-zd)
   using Ledger Live
 
 :::note Close Ledger Live
 
-Before starting these steps, close the Ledger Live application or the transactions will fail.
+**Before starting these steps, close the Ledger Live application or the transactions will fail.**
 
 :::
 
@@ -78,3 +74,5 @@ This means that, while seed phrases are the same, private keys are different on 
 In order to get around this, when you run the migration, the migration application will ask you to
 use the old derivation path to approve sending all of your Hotspots, tokens, etc. to the new
 derivation path.
+
+More information on Derivation paths: [Derivation Paths Explained](https://www.youtube.com/watch?v=9_9IObnJdEY) a Youtube video from [solandy.sol](https://www.youtube.com/@Solandy)
