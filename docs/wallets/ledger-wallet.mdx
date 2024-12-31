@@ -28,7 +28,53 @@ not directly in Ledger Live.
 Installation instructons for the Solana App are on [Ledger Solana support page.](https://support.ledger.com/article/360016265659-zd) 
 Remember to configure [blind signing.](https://support.ledger.com/article/4499092909085-zd)
 
-The recommendation is to use Solflare or Phantom to [access SOL/SPL tokens with Ledger.](https://support.ledger.com/article/7723954701469-zd)
+## Basic Setup Guide Using Helium Black Wallet App and Ledger
+1. Turn on Ledger by pressing left button
+2. Using on screen Guide to Setup as new device
+3. Set the access PIN for the ledger
+4. Record the 24 word recovery phrase (don't share this, store in safe place)
+5. Install desktop version of [Ledger Live App](https://www.ledger.com/ledger-live)
+6. Connect Ledger to your computer wtih USB cable
+7. Open Ledger Live Desktop App
+8. Click on "My Ledger" at the bottom of the left menu stack
+9. Approve the connection on Ledger device by clicking both buttons
+10. Look for banner at the top of the desktop Ledger Live window for FW update notifictation
+11. Approve updates on the ledger device as needed 
+>[!Warning]
+>It may take multiple serial updates to get your Ledger up to date
+12. In desktop Ledger Live window go to settings -> Developer Mode -> Enable
+13. In desktop Ledger Live window, find Solana App and click install
+14. On Ledger Device start Solana app by clicking both buttons
+15. On Ledger Device navigate to Settings in Solana App and enable "Allow Blind Signing"
+16. Open Helium Black Wallet App on smartphone
+17. In Black Wallet App navigate to Add/Import Wallet
+18. In Black Wallet App select Ledger from the options at the top
+19. In Black Wallet App select your Ledger device from the list (should be only one in most cases)
+20. In Black Wallet App select wallet to import (if more than one, import all for now)
+21. On Ledger Device approve the wallet import
+22. On Black Wallet App, you should now see your Helium friendly wallet with zero balance. 
+23. On Black Wallet App, tap the pub key / address above the wallet balance to copy your pub key to clipboard
+24. Save your wallet pubkey somewhere handy, this is destination for transfers into your cold wallet. 
+
+## Testing your Ledger Cold Wallet
+Before making any significant transfers into your new Ledger wallet, it is best to make a series of test transfers in and out of your wallet. 
+1. Open the Helium Black Wallet App on your smartphone
+2. Navigate to your Ledger Wallet from steps above
+3. Copy the pub key of your Ledger Wallet
+4. Make a test transfer of SOL into your new Ledger Wallet
+>[!Tip]
+>Transfers out of your wallet will require SOL to pay fees, so start by adding at little SOL e.g. .1 SOL to your wallet
+5. Copy the pub key of an external wallet (either Coinbase or other Black Wallet App native wallet)
+6. Make a test transfer of SOL out of your new Ledger Wallet
+>[!Note]
+>This will require your Ledger to be PIN unlocked and Solana App started and "ready" to complete
+7. Review and Approve the transaction on your Ledger Device when prompted
+8. Repeat the Process with HNT or IOT again with small amounts
+9. After your have tested transfers in and out of your Ledger wallet, you are ready for safe cold storage using your Ledger Wallet.
+
+## Using Third Party Wallet Apps
+
+Users may alternatively use Solflare or Phantom to [access SOL/SPL tokens with Ledger.](https://support.ledger.com/article/7723954701469-zd)
 
 Solflare, Phantom and other non-custodial wallets can import the private key from the Helium Wallet App.
 Follow the instructions on our using [Third Party Wallets](https://docs.helium.com/wallets/third-party-wallets#importing-helium-accounts-into-solana-wallets) documentation.
