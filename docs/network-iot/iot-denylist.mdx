@@ -43,8 +43,6 @@ honest Hotspots.
 **Bad Actors:** If your Hotspots are earning tokens without providing coverage, they are likely to
 appear on the Denylist and will stop earning token Rewards.
 
-<!-- TODO: proof of coverage oracles use the deny list -->
-
 ## Denylist Generation
 
 The current iteration of the denylist classifier is a step toward the long-term evolution of
@@ -66,18 +64,17 @@ appropriately asserted attributes, further analysis of the Hotspot can take plac
 Helium Community Discord channel,
 [#denylist](https://discord.com/channels/404106811252408320/984427647977283674).
 
-Hotspots physically located next to each other but asserted far apart from each other will trigger
-one or both of them to be denylisted.
-
-Setting the Antenna dBi in the Helium App to a value lower than its actual value can cause the 
-Hotspot to transmit at illegal higher powers and also be entered on the denylist.
+Setting the antenna gain (dBi) if the Hotspot to a value lower than its actual value can cause the
+Hotspot to transmit at higher powers than allowed by local law. These Hotspots would also be
+included on the Denylist.
 
 ### I've made changes to my Hotspot, how long before I'm removed from the denylist?
 
-Removal is not immediate, it may take 2-3 weeks if all your location and antenna parameters are
-now accurate and no other misuse classifiers are triggered.. Your hotspot can be seen to participate 
-in Proof-of-Coverage but will not earn tokens until the new data is validated by other non denied 
-Hotspots performing PoC activities. Denylist updates are posted on github in the [Denylist repository.](https://github.com/helium/denylist/pulls?q=is%3Apr+is%3Aclosed)
+Removal is not immediate. It may take 2-3 weeks if Hotspot parameters are updated to be accurate and
+no other misuse classifiers are triggered. Your Hotspot may participate in Proof-of-Coverage but
+will not earn tokens until the new data is validated by other non-denied Hotspots performing PoC
+activities. Denylist updates are posted on GitHub in the
+[Denylist repository.](https://github.com/helium/denylist/pulls?q=is%3Apr+is%3Aclosed)
 
 ### What if the denylist doesn't include all of the gaming Hotspots?
 
