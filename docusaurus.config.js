@@ -47,42 +47,7 @@ module.exports = {
         src: 'img/icons/logo_docs_black.svg',
         srcDark: 'img/icons/logo_docs_white.svg',
       },
-      items: [
-        {
-          to: 'tokens/hnt-token',
-          label: 'Tokens',
-          position: 'left',
-        },
-        {
-          to: 'wallets',
-          label: 'Wallets',
-          position: 'left',
-        },
-        {
-          to: 'iot',
-          label: 'IoT Network',
-          position: 'left',
-        },
-        {
-          to: 'mobile/5g-on-helium',
-          label: 'Mobile Network',
-          position: 'left',
-        },
-        // "more" dropdown for navbar
-        {
-          label: 'More',
-          position: 'left',
-          items: [
-            { label: 'Network Architecture', to: 'solana' },
-            { label: 'Community Governance', to: 'governance' },
-            { label: 'Dev Blog', to: 'devblog' },
-            {
-              href: 'https://github.com/helium',
-              label: 'Helium GitHub',
-            },
-          ],
-        },
-      ],
+      items: [],
     },
     footer: {
       style: 'dark',
