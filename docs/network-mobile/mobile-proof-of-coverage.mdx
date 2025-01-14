@@ -163,7 +163,7 @@ This new algorithm uses the location of the Radio to calculate MOBILE Rewards ba
 res12 hexes receiving coverage from a given Radio.
 
 The MOBILE Rewards Oracle will calculate a coverage model for each Radio by considering the physical
-location, antenna direction, radio max transmit power, and Obstruction Data Oracle inputs to
+location, antenna direction, radio max transmit power to
 calculate the number of res12 hexes receiving coverage from each Radio.
 
 Depending on the number of res12 hexes and the resulting signal power in each, the MOBILE Rewards
@@ -375,7 +375,7 @@ Test results must be collected before a Moving Average can be calculated.
 
 :::info Speed test impact on Radio rewards
 
-Each 5G Hotspot is given a `speedtest multiplier` of either `0.0`, `0.25`, `0.5` or `1.0`.
+Each 5G Hotspot is given a `speedtest multiplier` of either `0.0`, `0.25`, `0.5`, `0.75` or `1.0`.
 
 This multiplier is applied to all connected Radios in rewards calculations.
 
@@ -395,7 +395,8 @@ Speed Test results are categorized into one of four Tiers - `Acceptable`, `Degra
 
 | Speed Test Tier | Speedtest Multiplier | Requirement (speeds in Mbps, latency in ms)                  |
 | :-------------: | :------------------: | :----------------------------------------------------------- |
-| **Acceptable**  |       `1.00x`        | `100+` Download, **AND** `10+` Upload, **AND** `<50` Latency |
+|    **Good**     |       `1.00x`        | `100+` Download, **AND** `10+` Upload, **AND** `<50` Latency |
+| **Acceptable**  |       `0.75x`        | `75+` Download, **AND** `8+` Upload, **AND** `<60` Latency   |
 |  **Degraded**   |       `0.50x`        | `50+` Download, **AND** `5+` Upload, **AND** `<75` Latency   |
 |    **Poor**     |       `0.25x`        | `30+` Download, **AND** `2+` Upload, **AND** `<100` Latency  |
 |    **Fail**     |       `0.00x`        | `<30` Download, **OR** `<2` Upload, **OR** `>100` Latency    |
@@ -424,20 +425,20 @@ rewards.
 <TabItem value="all_acceptable" label="✅ All Acceptable" default>
 
 ```bash
-Download    200 ->  `Acceptable`
-Upload       40 ->  `Acceptable`
-Latency      15 ->  `Acceptable`
+Download    200 ->  `Good`
+Upload       40 ->  `Good`
+Latency      15 ->  `Good`
 ---------------------------------
-Speed Test Tier ->  `Acceptable`  -> 1.0x Multiplier
+Speed Test Tier ->  `Good`  -> 1.0x Multiplier
 ```
 
 </TabItem>
 <TabItem value="degraded upload" label="❎ Degraded Upload" default>
 
 ```bash
-Download    200 ->  `Acceptable`
+Download    200 ->  `Good`
 Upload        6 ->  `Degraded`
-Latency      15 ->  `Acceptable`
+Latency      15 ->  `Good`
 ---------------------------------
 Speed Test Tier ->  `Degraded`    -> 0.5x Multiplier
 ```
@@ -448,7 +449,7 @@ Speed Test Tier ->  `Degraded`    -> 0.5x Multiplier
 ```bash
 Download     40 ->  `Poor`
 Upload        6 ->  `Degraded`
-Latency      15 ->  `Acceptable`
+Latency      15 ->  `Good`
 ---------------------------------
 Speed Test Tier ->  `Poor`        -> 0.25x Multiplier
 ```
@@ -457,8 +458,8 @@ Speed Test Tier ->  `Poor`        -> 0.25x Multiplier
 <TabItem value="failed_latency" label="🆘 Failed Latency" default>
 
 ```bash
-Download    200 ->  `Acceptable`
-Upload       40 ->  `Acceptable`
+Download    200 ->  `Good`
+Upload       40 ->  `Good`
 Latency     150 ->  `Fail`
 ---------------------------------
 Speed Test Tier ->  `Fail`        -> 0.0x Multiplier
