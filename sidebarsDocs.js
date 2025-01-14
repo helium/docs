@@ -49,6 +49,22 @@ module.exports = {
               link: { type: 'doc', id: 'network-iot/run-an-lns/fund-an-oui' },
               items: ['tokens/data-credit-portal', 'network-iot/run-an-lns/fund-an-oui-using-hnt'],
             },
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Learn LoRaWAN',
+          link: { type: 'doc', id: 'network-iot/learn/understanding-lorawan' },
+          items: ['network-iot/learn/understanding-lorawan', 'network-iot/learn/build-a-device'],
+          collapsed: true,
+        },
+        {
+          type: 'category',
+          label: 'Use Helium LoRaWAN',
+          link: { type: 'doc', id: 'network-iot/lorawan-network-servers/lorawan-network-servers' },
+          items: [
+            'network-iot/lorawan-network-servers/lorawan-network-servers',
+            'network-iot/lorawan-network-servers/find-a-lns-provider',
             {
               type: 'category',
               label: 'Configure ChirpStack',
