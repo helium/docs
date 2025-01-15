@@ -11,6 +11,12 @@
     border-radius: 8px;
     box-shadow: 0 3px 8px -3px rgba(0, 0, 0, 0.08);
 }
+
+[data-theme='dark'] .dcEstTable,
+[data-theme='dark'] .interactiveBox {
+    background: rgba(255, 255, 255, 0.05);
+}
+
 .interactiveBox {
     display: block;
     padding: 16px 16px 0;
@@ -21,9 +27,11 @@
 .dcEstTable th {
     border: none;
 }
+
 .dcEstTable tr {
     border: none;
 }
+
 .dcEstTable th {
     font-weight: 500;
     background: #eaeff9;
@@ -31,18 +39,31 @@
     padding: 0.5em;
     border-right: 2px solid white;
 }
+
+[data-theme='dark'] .dcEstTable th {
+    background: rgba(255, 255, 255, 0.1);
+    color: #eee;
+    border-right: 2px solid rgba(19, 22, 46, 0.8);
+}
+
 .dcEstTable th:first-child {
     border-top-left-radius: 8px;
 }
+
 .dcEstTable th:last-child {
     border-top-right-radius: 8px;
     border: none;
 }
+
 .dcEstTable td {
     font-weight: bold;
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
+}
+
+[data-theme='dark'] .dcEstTable td {
+    color: #fff;
 }
 
 .inputContainer {
@@ -52,6 +73,11 @@
 
 .inputContainer input {
     flex: 1 1 auto;
+}
+
+[data-theme='dark'] .inputContainer input {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
 }
 
 .pricesContainer {
@@ -74,8 +100,16 @@
     transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
 
+[data-theme='dark'] .setToLivePriceButton {
+    color: #acb0c5;
+}
+
 .setToLivePriceButton:hover {
     color: rgb(18, 49, 103);
+}
+
+[data-theme='dark'] .setToLivePriceButton:hover {
+    color: #fff;
 }
 
 .textUnderline {
