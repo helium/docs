@@ -5,7 +5,7 @@ export const Home = () => (
   <>
     <div class="container" style={{ padding: 0 }}>
       <div class="row">
-        <div class="col col--12" style={{ paddingTop: 60 }}>
+        <div class="col col--12">
           <img className="homeicon" src={useBaseUrl('img/home/docsheader.png')} />
           <div class="row">
             <div class="col col--6">

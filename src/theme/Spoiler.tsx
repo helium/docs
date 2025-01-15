@@ -8,7 +8,6 @@ export const Spoiler = ({ children }) => {
       cursor: 'pointer',
     },
     containerObscured: {
-      backgroundColor: '#f5f7fd',
       cursor: 'pointer',
       position: 'relative',
       borderRadius: '24px',
@@ -22,7 +21,6 @@ export const Spoiler = ({ children }) => {
       display: 'inline-block',
     },
     clickableNoticeActive: {
-      backgroundColor: 'white',
       position: 'absolute',
       left: '50%',
       padding: '0.25em 1em',
