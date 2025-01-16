@@ -2,6 +2,8 @@ import { themes } from 'prism-react-renderer'
 import katex from 'rehype-katex'
 import math from 'remark-math'
 import webpack from 'webpack'
+require('dotenv').config()
+
 const darkCodeTheme = themes.dracula
 const lightCodeTheme = themes.github
 
@@ -96,6 +98,9 @@ module.exports = {
     MIGRATION_SERVICE_URL: 'https://migration.web.helium.io',
     SOLANA_URL: 'https://solana-rpc.web.helium.io/?session-key=Pluto',
     TOKENS_TO_RENT_SERVICE_URL: 'https://tokens-to-rent.web.helium.io',
+    EDU_EMAIL: process.env.EDU_EMAIL,
+    EDU_PW: process.env.EDU_PW,
+    EDU_API_URL: process.env.EDU_API_URL,
   },
   plugins: [
     function (context, options) {
