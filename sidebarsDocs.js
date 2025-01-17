@@ -206,7 +206,6 @@ module.exports = {
                 'architecture/solana/migration/blockchain-api',
                 'architecture/solana/migration/maker',
                 'architecture/solana/migration/hotspot-operator',
-                'architecture/solana/migration/maker-hotspot-software',
                 'architecture/solana/migration/ledger',
                 'architecture/solana/migration/validator-operator',
                 'architecture/solana/migration/wallet-user',
