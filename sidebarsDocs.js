@@ -204,7 +204,6 @@ module.exports = {
               items: [
                 'architecture/solana/migration-faq',
                 'architecture/solana/migration/blockchain-api',
-                'architecture/solana/migration/maker',
                 'architecture/solana/migration/hotspot-operator',
                 'architecture/solana/migration/ledger',
                 'architecture/solana/migration/validator-operator',
