@@ -885,38 +885,6 @@ module.exports = {
     },
   ],
 
-  // migration: [
-  //   {
-  //     type: 'category',
-  //     label: 'Solana Migration Overview',
-  //     link: { type: 'doc', id: 'architecture/solana/migration-overview' },
-  //     items: [],
-  //     collapsed: true,
-  //   },
-  //   'architecture/solana/migration-faq',
-  //   'architecture/solana/migration/hotspot-operator',
-  //   'architecture/solana/migration/validator-operator',
-  //   {
-  //     type: 'category',
-  //     label: 'Hotspot Maker',
-  //     items: [
-  //       'architecture/solana/migration/maker',
-  //       'architecture/solana/migration/maker-hotspot-software',
-  //     ],
-  //   },
-  //   'architecture/solana/migration/exchange',
-  //   'architecture/solana/migration/network-user',
-  //   'architecture/solana/migration/console-operator',
-  //   'architecture/solana/migration/application-builder',
-  //   'architecture/solana/migration/governance',
-  //   'architecture/solana/migration/blockchain-node',
-  //   'architecture/solana/migration/blockchain-api',
-  //   'architecture/solana/migration/blockchain-etl',
-  //   'architecture/solana/migration/wallet-user',
-  //   'architecture/solana/migration/ledger',
-  //   'architecture/solana/migration/hst',
-  // ],
-
   console: [
     {
       type: 'category',
