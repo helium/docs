@@ -1,0 +1,81 @@
+---
+id: blockchain-node
+title: Blockchain Node Migration Guide
+pagination_label: Blockchain Node
+sidebar_label: Blockchain Node
+description: Helium Blockchain Node Migration Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /solana/migration/blockchain-node
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
+
+<LegacyContentBanner />
+
+:::warning Updated for Solana Mainnet
+
+The description provided below has been updated to reflect Solana Mainnet.
+
+:::
+
+## Migrating wallet to Solana
+
+As of version [1.1.88](https://github.com/helium/blockchain-node/releases/tag/1.1.88) users can
+migrate their `blockchain-node` wallet to a Solana Paper Compatible Wallet. Follow the below
+instructions to migrate your wallet on mainnet.
+
+1. Unlock wallet.
+
+```
+% http -b :4467 jsonrpc=2.0 id=1 method=wallet_unlock params:='{"address": "13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5", "password": "[snipped]"}'
+{"id":"1","jsonrpc":"2.0","result":true}
+```
+
+2. Export secret. This exports your secret to a solana.json file.
+
+```
+$ http -b :4467 jsonrpc=2.0 id=1 method=wallet_export_secret params:='{"address": "13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5", "path": "/var/data/13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5.solana.json"}'
+{"id":"1","jsonrpc":"2.0","result":true}
+```
+
+3. Get your Solana address.
+
+```
+$ http -b https://migration.web.helium.io/helium/13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5
+{
+    "solanaAddress": "6ucMsEXv7KLW9V6dfGYAsx5PF4yy2hAB79nURwTuuzgN"
+}
+```
+
+4. Verify your Solana Public Key.
+
+```
+$ solana-keygen pubkey /var/data/13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5.solana.json
+6ucMsEXv7KLW9V6dfGYAsx5PF4yy2hAB79nURwTuuzgN
+```
+
+5. Get the list of serialized transactions, which should be sent to Solana:
+
+```
+$ http -b https://migration.web.helium.io/migrate/13cQ6QUDvebHAppdmLYu9KXJvNZS9voVQCn8XrMbBemiLJ3r8Z5?limit=1000&offset=0
+
+```
+
+6. Submit the transactions to Solana. You can see typescript code demonstrating how to use this
+   [here](https://github.com/helium/helium-program-library/blob/master/packages/migration-service/src/test-submit.ts#L37).
+
+Alternatively, you can use the
+[Migration Widget](/solana/migration/exchange#mapping-helium-wallets-to-solana-wallets) or
+[command line utility](https://github.com/helium/helium-program-library/releases/tag/v0.0.27-migration-cli)
+for steps 5-6. Example command provided below for the command line utility:
+
+```
+$ env MIGRATION_SERVICE_URL=https://migration.web.helium.io env SOLANA_URL=https:/api.mainnet-beta.solana.com env SOLANA_WSS_URL=wss://api.mainnet-beta.solana.com ./migration-tx-executor --wallet 6ucMsEXv7KLW9V6dfGYAsx5PF4yy2hAB79nURwTuuzgN
+```
+
+7. Verify your token balance on devnet using a public explorer. Solana Explorer listed below.
+
+```
+https://explorer.solana.com/address/6ucMsEXv7KLW9V6dfGYAsx5PF4yy2hAB79nURwTuuzgN
+```
