@@ -1,0 +1,50 @@
+---
+id: hst
+title: Helium Security Tokens on Solana
+pagination_label: HST Holder
+sidebar_label: HST Holder
+description: Helium Security Tokens on Solana, how to stake, unstake, and receive HNT.
+image: https://docs.helium.com/img/link-image.png
+slug: /solana/migration/hst
+---
+
+import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
+
+<LegacyContentBanner />
+
+HST on Solana is implemented via a programmatic Fanout Wallet.
+
+This technology ensures that when HNT is emitted for an epoch, the HST share of HNT emissions is
+subsequently distributed to HST holders. Further, a [clockwork](https://www.clockwork.xyz/) job runs
+at 12:30am UTC daily to ensure that epoch's HNT is distributed. This is entirely programmatic,
+meaning at no point does any party have custody of your HNT.
+
+The architecture of the fanout wallet has a few important considerations:
+
+1.  All HST tokens **MUST** be staked at the time of epoch completion in order to receive HNT for
+    that epoch.
+2.  HNT can be manually claimed at any time, regardless of whether the clockwork job runs. Solana
+    blockchain going down will not affect this, though it may affect when an epoch ends. If
+    clockwork misses a day, when it runs the next day you will receive HNT for all epochs missed.
+3.  Staked HST tokens will appear in your Wallet as an NFT Named "Staked HST". **DO NOT BURN THIS
+    NFT OR YOU WILL LOSE YOUR HST**. You can freely transfer this NFT between Wallets. HNT will flow
+    to the Wallet holding the receipt, and the Wallet holding the receipt is the only Wallet that
+    can unstake to receive the HST.
+4.  HST tokens must be unstaked in order to separate out tokens. Once unstaked, you can transfer
+    freely, and the new Wallet(s) can re-stake then.
+
+Knowing these considerations, if you wish to unstake your HST tokens, it is important that you
+**restake them before the epoch ends at UTC midnight**.
+
+All HST tokens were **pre-staked** when your balance was moved to Solana during the migration. If
+you do not wish to move them, you do not need to do anything. HNT should be claimable in your Wallet
+daily at 12:30am UTC.
+
+You can stake and unstake your HST below. This will prompt you with two transactions. The first will
+stake the HST. The second will set up a clockwork job for distributions with enough SOL to last 50
+years. You can connect any Solana compatible Wallet following the Wallet Standard, including the
+Helium Wallet App.
+
+import { HstManager } from '@theme/HstManager'
+
+<HstManager />
