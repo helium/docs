@@ -25,6 +25,7 @@ module.exports = {
               label: 'Introduction',
             },
             'network-mobile/data-only-guides/data-only-ubiquiti',
+            'network-mobile/data-only-guides/data-only-generic',
           ],
         },
       ],
