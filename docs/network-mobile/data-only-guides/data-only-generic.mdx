@@ -40,9 +40,7 @@ sequenceDiagram
 2. **NAI Realms**: For Helium Mobile, two realms must be configured:
    - `freedomfi.com` (EAP Method: `EAP-TLS`, Sub-Methods: `Certificate`)
    - `hellohelium.com` (EAP Method: `EAP-TLS`, Sub-Methods: `Certificate`)
-3. **OSU (Online Sign-Up)**: Some controllers require you to specify an OSU URL or provider name. If
-   necessary, consult Helium docs for exact OSU details.
-4. **RCOI (Roaming Consortium OI)**: Add the consortium identifier if provided by your Hotspot 2.0
+3. **RCOI (Roaming Consortium OI)**: Add the consortium identifier if provided by your Hotspot 2.0
    service.
 
 ### 2. SSID Profile
@@ -83,10 +81,10 @@ authentication.
 
 ### 4. Network & Firewall Rules
 
-1. **Domains & Ports**: Whitelist or allow traffic to any Helium OSU or AAA endpoints used by your
-   network. RadSec typically uses TCP port `2083`.
+1. **Domains & Ports**: Whitelist or allow traffic to any AAA endpoints used by your network. RadSec
+   typically uses TCP port `2083`.
 2. **Walled Garden**: If your controller enforces pre-auth access, ensure Helium domains or IP
-   ranges are reachable during OSU or AAA transactions.
+   ranges are reachable during AAA transactions.
 
 ### 5. VLAN Assignments
 
@@ -108,13 +106,13 @@ authentication.
 ## Platform-Specific Tips
 
 - **Aruba**: Look under WLAN Security settings in Mobility Controller or Aruba Central for “Hotspot
-  2.0.” Add the realms, OSU, and RCOI.
+  2.0.” Add the realms and RCOI.
 - **Cisco Meraki**: Enable Passpoint under “Wireless > Configure > Access control” with
   WPA2-Enterprise. Add the Helium realms to NAI.
 - **Ruckus**: Use the Hotspot 2.0 wizard in ZoneDirector or SmartZone. Provide the domain(s) and
   realm(s), then set EAP type in the AAA profile.
-- **Fortinet**: Within “Wireless Controller > SSID,” enable Passpoint. Enter the relevant AAA and
-  OSU details.
+- **Fortinet**: Within “Wireless Controller > SSID,” enable Passpoint. Enter the relevant AAA
+  details.
 - **Extreme**: Under VNS config, enable HS2.0/Passpoint. Configure realms, domain, and EAP.
 - **Ubiquiti**: Configure RadSec and SSID passpoint settings. Set realms to `freedomfi.com` and
   `hellohelium.com`; upload certificates; ensure you set WPA2/WPA3-Enterprise with EAP-TLS.
@@ -134,17 +132,12 @@ authentication.
 
 ## Conclusion
 
-Whether you’re using Aruba, Cisco Meraki, Ruckus, Fortinet, Extreme, or Ubiquiti, the Hotspot 2.0
+Whether you're using Aruba, Cisco Meraki, Ruckus, Fortinet, Extreme, or Ubiquiti, the Hotspot 2.0
 (Passpoint) setup follows the same general workflow:
 
 1. Enable Hotspot 2.0 on your AP or controller.
 2. Use WPA2/WPA3-Enterprise with 802.1X/EAP.
 3. Provide the RadSec server details, certificates, and realms (`freedomfi.com` /
    `hellohelium.com`).
-4. Allow traffic to relevant domains/IPs for OSU, RADIUS, or certificate checks.
+4. Allow traffic to relevant domains/IPs for RADIUS or certificate checks.
 5. Confirm end-to-end connectivity and logs.
-
-For Helium Mobile, refer to [Helium Mobile documentation](https://docs.helium.com/mobile) for exact
-OSU addresses, realms, certificates, and other details. For other providers, substitute their realms
-and AAA endpoints. With these steps and your vendor-specific documentation, you can deliver a
-seamless, secure Passpoint experience for your users.
