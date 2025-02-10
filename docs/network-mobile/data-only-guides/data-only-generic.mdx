@@ -9,18 +9,9 @@ slug: /mobile/data-only-generic
 ---
 
 This guide provides a high-level, brand-agnostic walkthrough of how to set up Hotspot 2.0
-(Passpoint) for Helium.
-
-## Core Configuration Steps
-
-While specific steps vary across vendors—Aruba, Cisco Meraki, Ruckus, Fortinet, Extreme, Ubiquiti,
-etc.—the Hotspot 2.0 (Passpoint) setup follows the same general workflow:
-
-1. Enable Hotspot 2.0 on your AP or controller.
-2. Use WPA2/WPA3-Enterprise with 802.1X/EAP.
-3. Provide the RadSec server details, certificates, and NAI Realms.
-4. Allow traffic to relevant domains/IPs for RADIUS or certificate checks.
-5. Confirm end-to-end connectivity and logs.
+(Passpoint) for Helium. While specific steps vary across vendors—Aruba, Cisco Meraki, Ruckus,
+Fortinet, Extreme, Ubiquiti, etc.—the Hotspot 2.0 (Passpoint) setup follows the same general
+workflow:
 
 ### 1. Hotspot 2.0 / Passpoint Enablement
 
@@ -35,29 +26,27 @@ etc.—the Hotspot 2.0 (Passpoint) setup follows the same general workflow:
 1. **Create a New SSID** (e.g., named `Helium`) or modify an existing one.
 2. **Security**: Configure WPA3-Enterprise for 802.1X/EAP.
 3. **Passpoint Advertising**: Under advanced or manual settings, enable Hotspot 2.0/Passpoint mode.
-4. **Venue & Network Type**: Some platforms allow you to specify a venue name/type (e.g.,
-   `Chargeable Public Network`).
+4. **Venue & Network Type**: Some platforms allow specification of a venue name/type. Use
+   `Chargeable Public Network` as type.
 5. **IP Address Type Availability**: If the controller supports it, set IPv4 to
    `Double NATed private IPv4` and IPv6 to `Unavailable`.
 6. **Add Realms**: Input `freedomfi.com` and `hellohelium.com` with EAP Method `EAP-TLS` and
    Sub-Method `Certificate`.
 7. **Domain List**: Include the domain names `freedomfi.com` and `hellohelium.com` in the domain
-   list. If you have existing Passpoint configurations, you may use those domains.
-8. **NAS-ID**: Enter the NAS-ID used during Helium Plus onboarding. Typically the MAC address of the
-   network controller or an AP on the onboarded network.
+   list. If there are existing Passpoint configurations, the Helium domains may be omitted in favor
+   of those domains.
+8. **NAS-ID**: Enter the NAS-ID used during Helium Self-Serve or Helium Plus onboarding. Typically
+   the MAC address of the network controller or an AP on the onboarded network.
 
 ### 3. AAA and RADIUS / RadSec Integration
 
-Hotspot 2.0 deployments with Helium generally use RADIUS over TLS (RadSec) for secure
-authentication.
+Hotspot 2.0 deployments with Helium use RADIUS over TLS (RadSec) for secure authentication.
 
-1. **Create RADIUS Profile**:
-
-RadSec (RADIUS over TLS) must be supported, or your network must have the ability to run a RadSec
-proxy within it.
+1. **Create RADIUS Profile**: RadSec (RADIUS over TLS) must be supported, or the network must have
+   the ability to run a RadSec proxy within it.
 
 - Enable TLS and upload the **Client Certificate**, **Private Key**, and **CA Certificate** provided
-  by the Helium Plus onboarding or your representative.
+  by the Helium Self-Serve onboarding or Helium Plus representative.
 - Enter the **RadSec Servers** and shared secrets:
   - `52.37.147.195:2083` (Shared Secret: `radsec`)
   - `44.229.62.214:2083` (Shared Secret: `radsec`)
@@ -70,9 +59,9 @@ proxy within it.
 
 ### 4. Network & Firewall Rules
 
-1. **Domains & Ports**: Whitelist or allow traffic to any AAA endpoints used by your network. RadSec
+1. **Domains & Ports**: Whitelist or allow traffic to any AAA endpoints used by the network. RadSec
    uses TCP port `2083`.
-2. **Walled Garden**: If your controller enforces pre-auth access, ensure Helium IP ranges are
+2. **Walled Garden**: If the controller enforces pre-auth access, ensure Helium IP ranges are
    reachable during AAA transactions.
 
 ### 5. VLAN Assignments
@@ -84,7 +73,7 @@ proxy within it.
 ### 6. Testing
 
 1. **Client Device**: Use a smartphone or laptop known to support Hotspot 2.0. It should discover
-   and automatically connect to your newly configured SSID.
+   and automatically connect to the newly configured SSID.
 2. **Logs & Controller**: Review logs for successful EAP authentication events.
 3. **Connectivity**: Verify that a connected device obtains the expected IP address, can access the
    internet, and is properly accounted for in RADIUS logs.
