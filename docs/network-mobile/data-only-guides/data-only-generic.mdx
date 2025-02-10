@@ -8,30 +8,19 @@ image: https://docs.helium.com/img/link-image.png
 slug: /mobile/data-only-generic
 ---
 
-# Overview
-
 This guide provides a high-level, brand-agnostic walkthrough of how to set up Hotspot 2.0
-(Passpoint) for Helium Mobile or any other Passpoint service. While specific steps vary across
-vendors—Aruba, Cisco Meraki, Ruckus, Fortinet, Extreme, Ubiquiti, etc.—the core configuration is
-similar. The sections below reflect details typically required for a Helium-compatible deployment.
-
-Below is a simplified flow of how Hotspot 2.0 typically operates:
-
-```mermaid
-sequenceDiagram
-    participant Admin as Network Admin
-    participant AP as Access Point
-    participant Helium as Helium Network
-
-    Admin->>AP: Configure Hotspot 2.0 settings
-    AP->>Helium: Establish Passpoint realm authentication
-    Helium-->>AP: Confirm credentials & policy
-    AP-->>Admin: Network is ready for HS2.0
-```
-
----
+(Passpoint) for Helium.
 
 ## Core Configuration Steps
+
+While specific steps vary across vendors—Aruba, Cisco Meraki, Ruckus, Fortinet, Extreme, Ubiquiti,
+etc.—the Hotspot 2.0 (Passpoint) setup follows the same general workflow:
+
+1. Enable Hotspot 2.0 on your AP or controller.
+2. Use WPA2/WPA3-Enterprise with 802.1X/EAP.
+3. Provide the RadSec server details, certificates, and NAI Realms.
+4. Allow traffic to relevant domains/IPs for RADIUS or certificate checks.
+5. Confirm end-to-end connectivity and logs.
 
 ### 1. Hotspot 2.0 / Passpoint Enablement
 
@@ -40,51 +29,51 @@ sequenceDiagram
 2. **NAI Realms**: For Helium Mobile, two realms must be configured:
    - `freedomfi.com` (EAP Method: `EAP-TLS`, Sub-Methods: `Certificate`)
    - `hellohelium.com` (EAP Method: `EAP-TLS`, Sub-Methods: `Certificate`)
-3. **RCOI (Roaming Consortium OI)**: Add the consortium identifier if provided by your Hotspot 2.0
-   service.
 
 ### 2. SSID Profile
 
 1. **Create a New SSID** (e.g., named `Helium`) or modify an existing one.
-2. **Security**: Configure WPA2-Enterprise or WPA3-Enterprise for 802.1X/EAP.
+2. **Security**: Configure WPA3-Enterprise for 802.1X/EAP.
 3. **Passpoint Advertising**: Under advanced or manual settings, enable Hotspot 2.0/Passpoint mode.
 4. **Venue & Network Type**: Some platforms allow you to specify a venue name/type (e.g.,
    `Chargeable Public Network`).
 5. **IP Address Type Availability**: If the controller supports it, set IPv4 to
-   `Double NATed private IPv4` and IPv6 to `Unavailable` if that matches your environment.
+   `Double NATed private IPv4` and IPv6 to `Unavailable`.
 6. **Add Realms**: Input `freedomfi.com` and `hellohelium.com` with EAP Method `EAP-TLS` and
    Sub-Method `Certificate`.
-7. **Domain List**: Optionally include the domain names `freedomfi.com` and `hellohelium.com` in the
-   domain list.
-8. **NAS-ID**: If your provider requires a NAS-ID, you can set it to the MAC address of your
-   controller or AP.
+7. **Domain List**: Include the domain names `freedomfi.com` and `hellohelium.com` in the domain
+   list. If you have existing Passpoint configurations, you may use those domains.
+8. **NAS-ID**: Enter the NAS-ID used during Helium Plus onboarding. Typically the MAC address of the
+   network controller or an AP on the onboarded network.
 
 ### 3. AAA and RADIUS / RadSec Integration
 
 Hotspot 2.0 deployments with Helium generally use RADIUS over TLS (RadSec) for secure
 authentication.
 
-1. **Create/Configure RADIUS Profile**:
+1. **Create RADIUS Profile**:
 
-   - Upload a **Client Certificate**, **Private Key**, and **CA Certificate**. These are typically
-     provided by Helium for early-access or production environments.
-   - Enter the **RadSec Servers** and shared secrets:
-     - `52.37.147.195:2083` (Shared Secret: `radsec`)
-     - `44.229.62.214:2083` (Shared Secret: `radsec`)
-     - `44.241.107.197:2083` (Shared Secret: `radsec`)
-   - Enable **RADIUS Accounting** and configure the same servers if required.
-   - (Optional) Set an **Interim Update Interval**, such as 300 seconds.
+RadSec (RADIUS over TLS) must be supported, or your network must have the ability to run a RadSec
+proxy within it.
 
-2. **Certificate Validation**:
-   - Ensure the CA chain is trusted by client devices.
-   - Keep track of certificate expiration to avoid service disruption.
+- Enable TLS and upload the **Client Certificate**, **Private Key**, and **CA Certificate** provided
+  by the Helium Plus onboarding or your representative.
+- Enter the **RadSec Servers** and shared secrets:
+  - `52.37.147.195:2083` (Shared Secret: `radsec`)
+  - `44.229.62.214:2083` (Shared Secret: `radsec`)
+  - `44.241.107.197:2083` (Shared Secret: `radsec`)
+- Enable **RADIUS Accounting** and configure the same servers.
+  - `52.37.147.195:2083` (Shared Secret: `radsec`)
+  - `44.229.62.214:2083` (Shared Secret: `radsec`)
+  - `44.241.107.197:2083` (Shared Secret: `radsec`)
+- Set an **Interim Update Interval** of 300 seconds.
 
 ### 4. Network & Firewall Rules
 
 1. **Domains & Ports**: Whitelist or allow traffic to any AAA endpoints used by your network. RadSec
-   typically uses TCP port `2083`.
-2. **Walled Garden**: If your controller enforces pre-auth access, ensure Helium domains or IP
-   ranges are reachable during AAA transactions.
+   uses TCP port `2083`.
+2. **Walled Garden**: If your controller enforces pre-auth access, ensure Helium IP ranges are
+   reachable during AAA transactions.
 
 ### 5. VLAN Assignments
 
@@ -96,48 +85,14 @@ authentication.
 
 1. **Client Device**: Use a smartphone or laptop known to support Hotspot 2.0. It should discover
    and automatically connect to your newly configured SSID.
-2. **Logs & Controller**: Review logs for successful EAP authentication events. Confirm correct
-   realm usage (`freedomfi.com` / `hellohelium.com`).
+2. **Logs & Controller**: Review logs for successful EAP authentication events.
 3. **Connectivity**: Verify that a connected device obtains the expected IP address, can access the
    internet, and is properly accounted for in RADIUS logs.
-
----
-
-## Platform-Specific Tips
-
-- **Aruba**: Look under WLAN Security settings in Mobility Controller or Aruba Central for “Hotspot
-  2.0.” Add the realms and RCOI.
-- **Cisco Meraki**: Enable Passpoint under “Wireless > Configure > Access control” with
-  WPA2-Enterprise. Add the Helium realms to NAI.
-- **Ruckus**: Use the Hotspot 2.0 wizard in ZoneDirector or SmartZone. Provide the domain(s) and
-  realm(s), then set EAP type in the AAA profile.
-- **Fortinet**: Within “Wireless Controller > SSID,” enable Passpoint. Enter the relevant AAA
-  details.
-- **Extreme**: Under VNS config, enable HS2.0/Passpoint. Configure realms, domain, and EAP.
-- **Ubiquiti**: Configure RadSec and SSID passpoint settings. Set realms to `freedomfi.com` and
-  `hellohelium.com`; upload certificates; ensure you set WPA2/WPA3-Enterprise with EAP-TLS.
-
----
 
 ## Best Practices
 
 - **Keep AP Firmware Updated**: Use a version that fully supports Passpoint (HS2.0) features.
-- **Validate Certificates**: Use trusted CA certs for RADIUS/EAP to avoid client-side warnings.
 - **Segment Traffic**: A dedicated VLAN or subnet for Passpoint traffic enhances security.
-- **Test Multiple OSes**: Different devices can behave differently with Passpoint.
+- **Test Multiple OSes**: Different end-user devices can behave differently with Passpoint.
 - **Monitor Logs**: Authentication or certificate issues typically appear in RADIUS or controller
   logs.
-
----
-
-## Conclusion
-
-Whether you're using Aruba, Cisco Meraki, Ruckus, Fortinet, Extreme, or Ubiquiti, the Hotspot 2.0
-(Passpoint) setup follows the same general workflow:
-
-1. Enable Hotspot 2.0 on your AP or controller.
-2. Use WPA2/WPA3-Enterprise with 802.1X/EAP.
-3. Provide the RadSec server details, certificates, and realms (`freedomfi.com` /
-   `hellohelium.com`).
-4. Allow traffic to relevant domains/IPs for RADIUS or certificate checks.
-5. Confirm end-to-end connectivity and logs.
