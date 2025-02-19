@@ -9,6 +9,7 @@ slug: /tokens/data-credit
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import BrowserOnly from '@docusaurus/BrowserOnly'
 import { PayloadSize } from './DataCredit'
 import { TopLedgerEmbed } from '@site/src/theme/TopLedgerEmbed'
 
@@ -32,7 +33,9 @@ DC conversion based on the Oracle price of HNT.
 import { HntToDcSimulator } from '@theme/HntToDcSimulator'
 
 <div className="screensnippet-wrapper">
-  <HntToDcSimulator />
+  <BrowserOnly fallback={<div>Loading Data Credit simulator...</div>}>
+    {() => <HntToDcSimulator />}
+  </BrowserOnly>
 </div>
 
 ## Data Credit Usage

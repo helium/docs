@@ -114,6 +114,9 @@ module.exports = {
                 assert: false,
                 crypto: false,
                 stream: false,
+                http: false,
+                https: false,
+                url: false,
               },
             },
           }
