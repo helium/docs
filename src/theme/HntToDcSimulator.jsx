@@ -1,47 +1,58 @@
-import { PythConnection } from '@pythnetwork/client'
-import { Connection, PublicKey } from '@solana/web3.js'
-import React, { useEffect, useState } from 'react'
-import styles from "./HntToDcSimulator.module.css"
+import React, { useEffect, useRef, useState } from 'react'
+import { PriceServiceConnection } from '@pythnetwork/price-service-client'
+import styles from './HntToDcSimulator.module.css'
 
-const DC_PRICE = 0.00001;
-const RPC_ENDPOINT = 'https://api.devnet.solana.com';
-const PROGRAM_KEY = 'gSbePebfvPy7tRqimPoVecS2UsBvYv46ynrzWocc92s';
+const DC_PRICE = 0.00001 // 1 DC = $0.00001
+const HNT_PRICE_ID = '0x649fdd7ec08e8e2a20f425729854e90293dcbe2376abc47197a14da6ff339756'
+const HERMES_ENDPOINT = 'https://hermes.pyth.network'
 
-const calculateDc = (price) => price / DC_PRICE;
-const getRoundedPrice = (price) => Math.round(price * 100) / 100;
-
+function calculateDc(price) {
+  return price / DC_PRICE
+}
+function getRoundedPrice(price) {
+  return Math.round(price * 100) / 100
+}
 
 export const HntToDcSimulator = () => {
   const [liveHntPrice, setLiveHntPrice] = useState(0)
   const [simulatedHntPrice, setSimulatedHntPrice] = useState(1)
   const [sliderRange, setSliderRange] = useState({ min: 0, max: 5 })
-  const isInitialPriceSet = !!liveHntPrice
-  const dcAmount = calculateDc(simulatedHntPrice)
+  const initialPriceSetRef = useRef(false)
 
   useEffect(() => {
-    const connection = new Connection(RPC_ENDPOINT)
-    const programKey = new PublicKey(PROGRAM_KEY)
-
-    const pythConnection = new PythConnection(connection, programKey)
-    pythConnection.onPriceChange((product, price) => {
-      if (product.symbol === 'Crypto.HNT/USD' && price.price) {
-        setLiveHntPrice(price.price)
-        if (!isInitialPriceSet) {
-          setInitialSliderValues(price.price)
-        }
-      }
+    const connection = new PriceServiceConnection(HERMES_ENDPOINT, {
+      priceFeedRequestConfig: { binary: false },
     })
 
-    pythConnection.start()
-    return () => pythConnection.stop()
-  }, [isInitialPriceSet])
+    const handlePriceUpdate = (priceFeed) => {
+      const { price, expo } = priceFeed.price
+      const rawPrice = parseInt(price, 10)
+      const scaledPrice = rawPrice * 10 ** expo
+
+      if (scaledPrice > 0) {
+        setLiveHntPrice(scaledPrice)
+
+        if (!initialPriceSetRef.current) {
+          setInitialSliderValues(scaledPrice)
+          initialPriceSetRef.current = true
+        }
+      }
+    }
+
+    connection.subscribePriceFeedUpdates([HNT_PRICE_ID], handlePriceUpdate)
+
+    return () => {
+      connection.closeWebSocket()
+    }
+  }, [])
 
   const setInitialSliderValues = (price) => {
-    // based on queried price, update the initial position and min/max of the input
-    setSimulatedHntPrice(getRoundedPrice(price))
+    const roundedPrice = getRoundedPrice(price)
+    setSimulatedHntPrice(roundedPrice)
+
     const upperLimit = Math.ceil(price / 5) * 5 + 5
     let lowerLimit = Math.max(0, Math.floor(price / 5) * 5 - 5)
-    if (lowerLimit == 0) {
+    if (lowerLimit === 0) {
       lowerLimit = 0.01
     }
     setSliderRange({ min: lowerLimit, max: upperLimit })
@@ -53,10 +64,10 @@ export const HntToDcSimulator = () => {
   }
 
   const handleSetToLivePrice = () => {
-    const roundedPrice = getRoundedPrice(liveHntPrice)
-    setSimulatedHntPrice(roundedPrice)
+    setSimulatedHntPrice(liveHntPrice)
   }
 
+  const dcAmount = Math.round(calculateDc(simulatedHntPrice))
   const hntForTenDollars = 10 / simulatedHntPrice
 
   return (
@@ -75,6 +86,7 @@ export const HntToDcSimulator = () => {
           </tr>
         </tbody>
       </table>
+
       <div className={styles.interactiveBox}>
         <div className={styles.inputContainer}>
           <input
@@ -86,21 +98,15 @@ export const HntToDcSimulator = () => {
             onChange={handleSliderChange}
           />
         </div>
-        <div className={styles.pricesContainer} >
+
+        <div className={styles.pricesContainer}>
           <p>Simulated HNT Oracle Price: ${simulatedHntPrice.toFixed(2)}</p>
-          {
-            !!liveHntPrice && (
-              <button
-                onClick={handleSetToLivePrice}
-                className={styles.setToLivePriceButton}
-              >
-                <span className={styles.textUnderline}>
-                  Set Live Oracle Price
-                </span>
-                <span>: ${liveHntPrice.toFixed(6)}</span>
-              </button>
-            )
-          }
+          {liveHntPrice !== 0 && (
+            <button onClick={handleSetToLivePrice} className={styles.setToLivePriceButton}>
+              <span className={styles.textUnderline}>Set Live Oracle Price</span>
+              <span>: ${liveHntPrice.toFixed(6)}</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
