@@ -26,32 +26,43 @@ or
 [AP firmware version 7.0.66](https://community.ui.com/releases/UniFi-Access-Point-7-0-66/edfb7cb4-c629-4e3b-a362-549eec2e0e1b)
 or higher, depending on hardware release track.
 
-## Obtain RadSec Certificates From The Helium Onboarding Portal
+## Obtain RadSec Certificates
 
-Download preview RadSec Certificates: <a
-href={useBaseUrl('early_access_certs.zip')}>early_access_certs.zip</a>
+Each onboarded network requires a unique NAS-ID. For Ubiquiti networks, it is recommended to use the
+MAC address of the network controller as the NAS-ID.
 
-Unzip the following files from the archive:
+Run the UniFi network controller locally or log into the cloud
+[UniFi Site Manager](https://unifi.ui.com/).
 
-    - `early_acc_cert.pem`
-    - `early_acc_key.pem`
-    - `early_acc_ca.pem`
+Navigate to **UniFi Devices**, choose your **Network Controller** and copy the **MAC Address**.
 
-:::note
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('/img/mobile-data-only/ubiquiti/udm-mac-addr.png')}
+    style={{ maxHeight: '400px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Retrieve the MAC address of the network controller.</figcaption>
+</figure>
+<br />
 
-These certificates are for early access only and will expire on April 28, 2025.
+Use this NAS-ID in the [Data-Only Onboarding](/mobile/data-only-onboarding) flow and return to this
+guide after the network is onboarded and certificates have been delivered.
 
-Please ensure your deployment is using the latest trial certs. Previous trial certs have expired.
+:::important If updating from older RadSec certificates:
+
+If early access certificates were previously deployed on the network, a Ubiquiti bug may prevent new
+certificates from propagating.  
+Restart all APs on the network after updating the certificates, and the new certificates should be
+applied.
 
 :::
 
 ## Configure UniFi Network Controller
 
-Configuring the network controller for Passpoint is a two-part process. First, create the RADIUS
-profile, then apply the profile to a newly created WiFi SSID called 'Helium'.
-
-Run the UniFi network controller locally or log into the cloud
-[UniFi Site Manager](https://unifi.ui.com/).
+After retrieving onboarded certificates, configuring the network controller for Passpoint is a
+two-part process. First, create the RADIUS profile, then apply the profile to a newly created WiFi
+SSID called 'Helium'.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -65,7 +76,7 @@ Run the UniFi network controller locally or log into the cloud
 ### Create a RADIUS Profile
 
 Configure a TLS connection to Helium Cloud AAA server (aka Radiator), which performs Authentication,
-Authorization and Accounting for the end customers. Enabling RADIUS communication over TLS (RadSec)
+Authorization, and Accounting for the end customers. Enabling RADIUS communication over TLS (RadSec)
 increases the level of security for authentication that is carried out across the cloud network.
 
 In the sidebar, choose **Settings**, then **Profiles**, then **RADIUS**:
@@ -79,12 +90,6 @@ In the sidebar, choose **Settings**, then **Profiles**, then **RADIUS**:
   <figcaption>Open RADIUS profiles.</figcaption>
 </figure>
 <br />
-
-:::note Reminder
-
-These configurations are for early access. Server addresses and keys will change in the near future.
-
-:::
 
 Press **Create New**.
 
@@ -100,20 +105,13 @@ Configure RADIUS properties:
   />
   <figcaption>Configure RADIUS settings.</figcaption>
 </figure>
+<br />
 
-1. Check TLS box.
-2. Specify Authentication Servers IP Address:
-
-   Add these three servers:
-
-   1. Enter IP Address: `52.37.147.195` Port: `2083` Shared Secret: `radsec`. Click **Add**.
-   2. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
-   3. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
-
-3. Press **Upload** next to **Client Certificate**, choose the path to `early_acc_cert.pem`.
-4. Press **Upload** next to **Private Key**, choose the path to `early_acc_key.pem`.  
-   Keep Private Key Password empty.
-5. Press **Upload** next to **CA Certificate**, choose the path to `early_acc_ca.pem`.
+1. Under **Radius Settings**, check the **TLS** box.
+   1. Press **Upload** next to **Client Certificate**, choose the path to `<HotspotKey>.cer`.
+   2. Press **Upload** next to **Private Key**, choose the path to `<HotspotKey>.pk`.  
+      Keep Private Key Password empty.
+   3. Press **Upload** next to **CA Certificate**, choose the path to `data-only.ca`.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -121,36 +119,34 @@ Configure RADIUS properties:
     style={{ maxHeight: '300px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
-  <figcaption>Load the keys from the `early_access_certificates.zip` file .</figcaption>
+  <figcaption>Load the certificates from the network onboarding.</figcaption>
 </figure>
 <br />
 
-7. Check the **Accounting** checkbox. RADIUS Accounting Server settings will appear.
+2. Specify **Authentication Servers**:
 
-8. Specify the following Accounting Servers:
+   Add these three servers:
 
    1. Enter IP Address: `52.37.147.195` Port: `2083` Shared Secret: `radsec`. Click **Add**.
    2. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
    3. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/mobile-data-only/ubiquiti/radius-accounting.png')}
-    style={{ maxHeight: '300px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-  <figcaption>RADIUS accounting server settings.</figcaption>
-</figure>
-<br />
+3. Check the **Accounting** checkbox. RADIUS Accounting Server settings will appear.
 
-9. Check **Interim Update Interval** box.
-10. Specify **Interim Update Interval** with **300 Sec**, standard for the Helium Network.
+4. Specify the following Accounting Servers:
+
+   1. Enter IP Address: `52.37.147.195` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   2. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+   3. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+
+5. Check **Interim Update Interval** box.
+6. Specify **Interim Update Interval** with **300 Sec**, standard for the Helium Network.
 
 Click **Apply Changes** to create the new RADIUS Profile.
 
 ### Create The Helium SSID
 
-Navigate to the **Settings** on sidebar, choose **WiFi** then press **Create New**
+Navigate to the **Settings** in the sidebar, choose **WiFi**, then press **Create New**
 
 <figure className="screensnippet-wrapper">
   <img
@@ -190,29 +186,7 @@ Configure settings for the new network.
 
 10. Set **Security Protocol** to: `WPA3 Enterprise`
 
-11. Specify a **NAS-ID** matching the MAC address of your network controller or representative AP.
-    This value should be equal to the one specified during onboarding to Helium network.
-
-    :::note
-
-         A NAS-ID matching the on-chain onboarding is not applicable for early access.
-
-    :::
-
-    In a new tab, navigate to **UniFi Devices**, choose your **Network Controller** and copy the
-    **MAC Address**.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('/img/mobile-data-only/ubiquiti/udm-mac-addr.png')}
-    style={{ maxHeight: '400px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-  <figcaption>Retrieve the MAC address of the network controller.</figcaption>
-</figure>
-<br />
-
-    Paste the MAC address to the **Custom** field of **NAS-ID**.
+11. Enter the NAS-ID used during onboarding to Helium in the **Custom** field of **NAS-ID**.
 
 <figure className="screensnippet-wrapper">
   <img
