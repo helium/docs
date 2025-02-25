@@ -14,31 +14,57 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 <br />
 <br />
 
-Networks onboarded to Helium are eligible to earn HNT for handling carrier traffic. At this time,
-only Helium Mobile traffic is rewardable on Wi-Fi radio networks onboarded through this page. If you
-are interested in handling other carrier traffic through your commercial or other high-traffic
-venue, please leverage the [Helium Plus](https://www.helium.com/plus) program.
+Wi-Fi networks onboarded to Helium are eligible to earn HNT for handling carrier traffic.
 
-1. Create and onboard the Rewardable Entity NFT
-2. Get the Passpoint Certificate and private key for the created rewardable entity
+At this time, only [Helium Mobile](https://hellohelium.com/) traffic is rewardable on networks
+onboarded through self-serve tooling. If you are interested in handling other carrier traffic
+through your commercial or other high-traffic deployment, please use the
+[Helium Plus](https://www.helium.com/plus) program.
 
-Download and configure the [Helium Wallet CLI](/wallets/cli-wallet) with a new Solana account or an
-existing account you own. The following steps require release candidate `2.0.2.rc1` or newer.
+## Considerations for Entity Creation
 
-## Create and onboard data-only Hotspot
+Each Mobile network onboard will represent a single pin on the coverage map, regardless of how many
+Hotspots (APs) it may contain. The entity representing this network will also hold any rewards
+earned from data transfer until they are claimed. When considering entity creation, try to constrain
+the scope of the onboarded deployment to the size of one building or smaller.
 
-To create a Data-Only Hotspot we need to create the Hotspot key and then create and onboard the
-Rewardable Entity NFT.
+Self-serve onboards will be counted as a single Hotspot in Helium Network metrics. Networks
+onboarded through the Helium Plus program carry additional metadata which represents the total
+number of Hotspots in a given deployment. For large network deployments, please use the Helium Plus
+program.
 
-- Create the Hotspot key by creating an onboarding token
+## Prepare Wallet
 
-```sh title="Create an onboarding token."
-helium-wallet --url d hotspots add mobile token
+Download and configure the [Helium Wallet CLI](/wallets/cli-wallet) with a new or existing Solana
+account. The following steps require Helium Wallet CLI `2.1.1` or newer.
+
+Onboarding a new Wi-Fi Network requires a token fee per network or location. Ensure the account has
+these minimum balances.
+
+| Token                               | Amount          |                                              |
+| ----------------------------------- | --------------- | -------------------------------------------- |
+| [Data Credits](/tokens/data-credit) | 100,000 ($1.00) | Mobile entity onboarding cost.               |
+| [MOBILE](/tokens/mobile-token)      | $1.00           | Mobile entity onboarding cost.               |
+| [SOL](/tokens/sol-token)            | ~0.005          | Solana blockchain fees and NFT creation.[^1] |
+
+[^1]:
+    _At the time of writing, onboarding required 0.003778 SOL; however, the fee will fluctuate based
+    on network conditions._
+
+## Create and Onboard Data-Only Hotspot
+
+The process for creating a Data-Only Hotspot begins by generating the Hotspot key and then creating
+and onboarding the Rewardable Entity NFT using the Helium Wallet CLI.
+
+Create the Hotspot key by creating an onboarding token:
+
+```sh title="Generate an onboarding token."
+helium-wallet hotspots add mobile token
 ```
 
-which will return a response looking like this:
+The `token` command will return a response looking like this:
 
-```json
+```json title="Example generated entity and token."
 {
   "hotspot": {
     "key": "14WaYzPtgvs3sranGNBxTSj9d4f36J6c6mjRWKqRwDr8NirmrmL",
@@ -48,49 +74,51 @@ which will return a response looking like this:
 }
 ```
 
-The token represents the onboarding token for the Hotspot with the displayed new Hotspot public key
-and name.
+Onboard the created Hotspot using the given token:
 
-- Onboard the created Hotspot using the given token
+Use the "token" value along with the Hotspot's physical latitude and longitude to assert its
+location to the network. A utility such as [https://www.latlong.net/](latlong.net) is helpful for
+looking up coordinates.
 
 ```sh title="Onboard the Rewardable Entity (Hotspot)"
-helium-wallet --url d hotspots add mobile onboard <TOKEN> --commit
+helium-wallet hotspots add mobile onboard <TOKEN> --lat=37.779930 --lon=-122.387906 --commit
 ```
 
-where `<TOKEN>` is the value of the issued token in step 1 This will request the cli wallet password
-sign the transaction and submit it to the blockchain. A result will print a successful transaction
-hash.
+Here, `<TOKEN>` represents the token generated in step 1. The command prompts for the CLI wallet
+password, signs the transaction, and submits it to the blockchain. A result will print as a
+successful transaction hash.
 
-Note that you can also pass in lat/lon information to the onboard command which puts the Hotspot
-location on chain. This is is recommended practice.
+If any errors are returned during the onboarding, double check token balances and retry the
+onboarding transaction.
 
-## Get Cert for data-only Hotspot
+## Hotspot RADIUS Certificates
 
-The last step is to create the certificate for the Hotspot.
+The last step is to create the certificates for the Hotspot. Certificates are created uniquely for
+each onboard.
 
-- Create a json file called something like “location.json” and edit it to include details around the
-  NAS-ID, address and lat/lon of the Hotspot.
-
-```sh title="Create and open location.json"
-touch location.json && nano location.json
+```sh
+helium-wallet hotspots add mobile cert <HOTSPOT_KEY> --nas-id xx:xx:xx:xx:xx --address "South Beach Yacht Club, 899 2nd St, San Francisco, CA 94107"
 ```
 
-```json title="Enter the information about your network."
+`<HOTSPOT_KEY>` is the key from first step (e.g. `14Wa...mrmL`).
+
+`--nas-id` must match the NAS-ID being broadcast from the SSID. Use a MAC address from the onboarded
+network as the NAS-ID.
+
+`--address` should best represent the installed location of the network. If a business, include the
+business name. If residential, a street address is sufficient.
+
+This command will create the Hotspot certs and save them in the active directory.
+
+```json title="Certificate response delivered from the CLI command."
 {
-  "address": "Wi-Fi Network Location",
-  "lat": 12.0878587,
-  "lon": -68.8808494,
-  "nas_id": "xx:xx:xx:xx:xx"
+  "expiration": "2028-02-21T23:10:51Z",
+  "private_key": "14WaYzPtgvs3sranGNBxTSj9d4f36J6c6mjRWKqRwDr8NirmrmL.pk",
+  "certificate": "14WaYzPtgvs3sranGNBxTSj9d4f36J6c6mjRWKqRwDr8NirmrmL.cer",
+  "ca_chain": "data-only.ca"
 }
 ```
 
-- Then get the certificate using
-
-`helium-wallet --url d hotspots add mobile cert <HOTSPOT> <INFO> --commit`
-
-Where `<HOTSPOT>` is the key from the issued token in the creation steps, and `<INFO>` is the
-filename in the json file created above. This will get and create the Hotspot cert and save the cert
-in `<HOTSPOT>.cer` and the private key in `<HOTSPOT>.pk.`
-
-Note that the `--url d` is required for all wallet commands since this is not deployed on mainnet
-yet.
+When the `cert` command is executed with both the NAS-ID and address, any existing certificates for
+the specified Hotspot are retrieved. Should certificate files already exist in the active directory,
+the command returns an error; the `--force` flag may be used to overwrite existing files.
