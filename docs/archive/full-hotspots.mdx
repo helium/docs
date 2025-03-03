@@ -1,30 +1,26 @@
 ---
 id: full-hotspots
-title: Full Hotspots
-pagination_label: Full Hotspots
-sidebar_label: Full Hotspots
+title: IoT Hotspots
+pagination_label: IoT Hotspots
+sidebar_label: IoT Hotspots
 description: Helium Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /network-iot/hotspots-iot/full-hotspots
 ---
 
-# Full Hotspots
+# IoT Hotspots
 
-import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
+In comparison to an IoT [Data-Only Hotspot](/iot/data-only-hotspots), which only gets rewarded for
+data transfer activity, Proof-of-Coverage enabled Hotspots are eligible for rewards from coverage
+beaconing and witnessing as well as data transfer rewards.
 
-<LegacyContentBanner />
-
-Full Hotspots are Helium coverage providers that can participate in all potential reward activity
-available to Hotspots. Compared to a [Data Only Hotspots](/iot/data-only-hotspots), Full Hotspots
-are eligible for [Proof-of-Coverage](/iot/proof-of-coverage) Rewards.
-
-Full Hotspots may only be manufactured by approved **Makers**. These are hardware vendors that have
-been approved by the Helium community and the [Helium Foundation](https://helium.foundation). This
+Hotspots may only be manufactured by approved **Makers**. These are hardware vendors that have been
+approved by the Helium community and the [Helium Foundation](https://helium.foundation). This
 process is governed via
 [Helium Improvement Proposal 19 (HIP-19)](https://github.com/helium/HIP/blob/master/0019-third-party-manufacturers.md).
+Makers have been unapproved when they fail to comply with HIP 19 and contractual requirements.
 
-## Approved Makers
+## Current Approved Makers
 
 Nova Labs (formerly known as Helium Systems, Inc) was the first Hotspot manufacturer. Starting in
 early 2019, they produced the first hardware capable of mining HNT and providing LoRaWAN wireless
@@ -37,19 +33,24 @@ approved Makers have been added. Each approved Maker is given a unique onboardin
 Helium blockchain where they are required to burn data credits to onboard their unique Hotspots
 before they are granted access to the blockchain.
 
-| Maker Name                                             | HIP-19 Application                                                                                           | Date Approved | Onboarding Maker Address                            |
-| :----------------------------------------------------- | :----------------------------------------------------------------------------------------------------------- | :------------ | :-------------------------------------------------- |
-| [Helium Systems, Inc.](https://helium.com)             | N/A                                                                                                          | NA            | 13daGGWvDQyTyHFDCPz8zDSVTWgPNNfJ4oh31Teec4TRWfjMx53 |
-| [Nebra Ltd](https://www.nebra.com/)                    | [Nebra](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/nebra-ltd.md)          | 2020-12-10    | 13Zni1he7KY9pUmkXMhEhTwfUpL9AcEV1m2UbbvFsrU9QPTMgE3 |
-| [SyncroB.it](https://syncrob.it/)                      | [SyncroB.it](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/syncrobit.md)     | 2020-12-14    | 14rb2UcfS9U89QmKswpZpjRCUVCVu1haSyqyGY486EvsYtvdJmR |
-| [RAKwireless/CalChip](https://www.calchipconnect.com/) | [RAK/CalChip](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/rak-wireless.md) | 2020-12-29    | 13ENbEQPAvytjLnqavnbSAzurhGoCSNkGECMx7eHHDAfEaDirdY |
-| [EasyLinkin/Bobcat](https://www.bobcatminer.com)       | [EasyLinkin](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/easylinkin.md)    | 2021-01-12    | 14sKWeeYWQWrBSnLGq79uRQqZyw3Ldi7oBdxbF6a54QboTNBXDL |
-| [Kerlink](https://www.kerlink.com)                     | [Kerlink](https://github.com/dewi-alliance/hotspot-manufacturers/tree/main/applications/kerlink)             | 2021-02-24    | 13Mpg5hCNjSxHJvWjaanwJPBuTXu1d4g5pGvGBkqQe3F8mAwXhK |
-| [HeNet BV/LongAP](https://www.longap.com)              | [HeNet BV/LongAP](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/henet.md)    | 2021-03-16    | 12zX4jgDGMbJgRwmCfRNGXBuphkQRqkUTcLzYHTQvd4Qgu8kiL4 |
-| [Smart Mimic](https://smartmimic.com)                  | [Smart Mimic](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/smart-mimic.md)  | 2021-03-25    | 13MS2kZHU4h6wp3tExgoHdDFjBsb9HB9JBvcbK9XmfNyJ7jqzVv |
-| [Seeed/SenseCap](https://www.sensecapmx.com/)          | [Seeed/SenseCap](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/seeed.md)     | 2021-06-15    | 14NBXJE5kAAZTMigY4dcjXSMG4CSqjYwvteQWwQsYhsu2TKN6AF |
-| [ClodPi](https://clodpi.io/)                           | [ClodPi](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/clodpi.md)            | 2021-07-30    | 13XuP2DjHEHVkKguDDZD2ev5AeqMLuJ8UQ44efEcDmVTnBcvc6F |
-| [E-sun Electronics/ Panther](https://panther.global/)  | [PantherX](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/pantherx.md)        | 2021-09-24    | 13v9iGhjvQUtVaZXcFFRCEbL1nPR4R8QJowBgMUcaGM2v1aV6mn |
+Currently, approved Makers are
+
+| Maker Name                                                            | HIP-19 Application                                                                                                                      | Date Approved | Solana Onboarding Maker Address                     |
+| :-------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- | :------------ | :-------------------------------------------------- |
+| [Helium Systems, Inc.](https://helium.com)                            | N/A                                                                                                                                     | NA            | 762bAGFtTj7L5UM92Rgz8YNtR7Rz6JmCZpUWxEDa5MfN        |
+| [RAKwireless/MNTD](https://www.getmntd.com/)                          | [RAK/CalChip](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/rak-wireless.md)                            | 2020-12-29    | GUnni1pcVJjA6paJDvHxBixiJMdMCKYVX2YotBpXPUP1        |
+| [Kerlink](https://www.kerlink.com)                                    | [Kerlink](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/kerlink.md)                                     | 2021-02-24    | 4gQwHW4Sy9SGfjrNn1ALgVcHYcbBHA1p2F4NWVmoqRkN        |
+| [Smart Mimic (Finestra)](https://thefinestra.com/)                    | [Smart Mimic](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/smart-mimic.md)                             | 2021-03-25    | 4cxEWUVc9awGNU35CN9zxYzQBCXKie44KcrsjPyD1JhE        |
+| [FreedomFi](https://freedomfi.com/)                                   | [FreedomFi](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/freedomfi.md)                                 | 2021-04-27    | A4QTuD3bFUCnBfBaxazJs65dcQbA1yDaAmooWSiVz1P8        |
+| [Seeed (SenseCap)](https://www.sensecapmx.com/)                       | [Seeed/SenseCap](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/seeed.md)                                | 2021-06-15    | Dbgjonwh5kzaQ4N9QFghC6UvFjQrMx1d9gRVf7ZWJTAT        |
+| [Osprey](https://www.ospreyelectronics.io)                            | [Osprey](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/Ingenious-Technology.md)                                      | 2022-08-08    | BYGWtbHPgh95Ceof8e1pLX64hFoddEWg1VBXoutpA2xA        |
+| [ResIOT](https://www.resiot.io)                                       | [ResIOT](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/ResIOT%20X1%20Full-Miner.md)                     | 2022-09-27    | DXLHbh34wg3WfwigZ9QGax6qV33KqMMpLASHXdyfCKnJ        |
+| [Clod-Pi](https://clodpi.io)                                          | [Clod-Pi](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/clodpi.md)                                      | 2023-02-17    | 13XuP2DjHEHVkKguDDZD2ev5AeqMLuJ8UQ44efEcDmVTnBcvc6F |
+| [EdaTec](https://www.eda-iot.com)                                     | [EdaTec](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/edatec-light.md)                                 | 2023-02-17    | 2L6HuhKcFJWHgQrfc9S2QLEvBzRkGx86Dy18uhn1yRbb        |
+| [Browan (MerryIOT)](https://www.browan.com/)                          | [Browan](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/MerryIoT%20Light%20Hotspot%20V2.md)              | 2023-02-27    | GgPBDKKCARqehPH8JCU5tZLFbRR86hLH1f2KPSXfrfPX        |
+| [Smart Harvest](https://smartharvest.ca)                              | [Smart Harvest](https://github.com/SmartHarvestInstruments/HIP/blob/master/0019-third-party-manufacturers/smart-harvest-instruments.md) | 2023-03-02    | 8NM1ZHof9r7cAtEUSV5NKWirq8DWtADM58drodaVX5mc        |
+| [Dragino](https://www.dragino.com/products/lora-lorawan-gateway.html) | [Dragino](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/dragino-light-hotspot.md)                       | 2023-03-10    | 7YkWs3SGiB1KuXp2G3HUwSQMCtwDMiKZBVEaCgh7NMyB        |
+| [RisingHF](https://www.risinghf.com)                                  | [RisingHF](https://github.com/dewi-alliance/hotspot-manufacturers/blob/main/applications/risinghf.md)                                   | 2023-03-10    | AjDr19KeFdD94vQJ4FLaqJ1s1MGY6KfYFHq4wrPnbonB        |
 
 ## Becoming a Maker
 
@@ -60,5 +61,4 @@ before they are granted access to the blockchain.
 - [Hotspot BLE Services](/hotspot-makers/become-a-maker/hotspot-ble-services)
 - [Hotspot WiFi Configuration](/hotspot-makers/become-a-maker/hotspot-wifi-configuration)
 - [Burning HNT to your Maker Wallet](/hotspot-makers/become-a-maker/burn-hnt-to-maker-wallet)
-- [Create a Maker App](/hotspot-makers/become-a-maker/maker-app-requirements)
 - [Radio Certification (FCC, CE)](/hotspot-makers/hotspot-audit-process#radio-certifications)
