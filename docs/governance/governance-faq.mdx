@@ -8,35 +8,36 @@ image: https://docs.helium.com/img/link-image.png
 slug: /governance/faq
 ---
 
-import useBaseUrl from '@docusaurus/useBaseUrl'
-import LegacyContentBanner from '@site/src/theme/LegacyContentBanner'
-
-<LegacyContentBanner />
-
 ## What Is veHNT?
 
 veHNT represents the voting power of the Helium Network.
 
 In the Helium ecosystem, HNT holders can receive veHNT by locking their HNT on-chain for a specified
-period in exchange for voting rights and voting power in the HeliumDAO as defined in
-[HIP-51](https://github.com/helium/HIP/issues/336).
+period in exchange for voting rights and voting power in all areas of the Helium Network as defined 
+in [HIP-51](https://github.com/helium/HIP/issues/336).
 
-Additionally, this provides other benefits, such as earning MOBILE or IOT tokens, if the holder
-delegates their veHNT to those subnetworks, respectively. After the lock-up period ends, the same
-amount of HNT is released back to the owner's wallet and is now transferable, if needed.
+Additionally, this provides other benefits such as earning HNT tokens, requiring the holder to delegate 
+their veHNT to those subnetworks and additionally regularly voting in Network proposals. 
+After the lock-up period ends, the same amount of HNT is released back to the owner's wallet and is now 
+transferable or tradeable as before.
 
-## What Are The Benefits of Staking HNT after the subnetworks launch?
+## What are the requirements for earning HNT tokens with locked up HNT
 
-Now the Solana migration has been completed, stakers can use their staked veHNT to vote on proposals
-in the HeliumDAO and help the DAO make collective decisions, influencing the future of the Network.
+People who lock up their HNT can use this staked veHNT to vote on proposals in the Helium Network and 
+help the Network make collective decisions influencing the future of the Network. It is a requirement
+that owners of locked up tokens vote for at least 2 of the most recent 4 veHNT votes or lose staking 
+income, or alternatively they can assign a proxy to vote on their behalf.
 
-Stakers will additionally be able to delegate veHNT to a subnetwork for token rewards. Delegating
-veHNT to a subnetwork will count towards the DAO Utility Score, the `V` value referenced in
-[HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md#omni-protocol-poc-incentive-model).
+Additionally, people who lock up their HNT are required to delegate their veHNT to a subnetwork to 
+receive HNT token rewards. Delegating veHNT to a subnetwork is now the sole variable affecting the Network 
+Utility Score that decides the split of HNT that gets distributed to the IoT and Mobile token emissions 
+recipients as described in [HIP 141.](https://github.com/helium/HIP/blob/main/0141-single-token-governance-and-release-proposals.md)
+Delegation of veHNT to a subnetwork earns the same for the staker no matter which subtoken they delegate 
+towards.
 
-## Where Does My HNT Go if I Stake veHNT?
+## Where does my HNT Go if I Stake veHNT?
 
-If you lock up your HNT for veHNT, your HNT will become veHNT and remain entirely in your wallet's
+If you lock up your HNT for veHNT, your HNT will appear as veHNT and remain entirely in your wallet's
 custody. veHNT ownership is represented by a non-transferable Solana NFT held in your wallet. At the
 end of the lock-up period, any received tokens need to be claimed, the position undelegated, and
 then after a close position action is taken you will receive HNT back to your wallet 1:1 for the HNT
@@ -54,8 +55,8 @@ with shorter-term interests in the governance of the Network.
 
 ## What is Voting Power?
 
-Voting power is the weight of your vote towards decisions made by the DAO or subnetwork. The more
-veHNT you have, the more weight your vote has.
+Voting power is the weight of your vote towards decisions made by the Network. The more veHNT you 
+have, the more weight your vote has.
 
 You can only increase your voting power by staking more HNT or extending an existing veHNT lock-up
 period for longer.
@@ -64,14 +65,15 @@ period for longer.
 
 [HIP-51](https://github.com/helium/HIP/blob/main/0051-helium-dao.md#omni-protocol-poc-incentive-model)
 defines that all subnetworks return a maximum of 6% of their earnings to their veHNT delegators and
-is designed to be an equal maximum reward level across all subnetworks so that no subnetwork can buy
-their way to a higher DAO Utility score.
+was designed to be an equal maximum reward level across all subnetworks so that no subnetwork can buy
+their way to a higher Network Utility score. 
 
-Returns can be lower than 6% in subnetwork tokens if the subnetwork votes to provide a lower token
-return in return for other benefits or similar.
+[HIP-141](https://github.com/helium/HIP/blob/main/0141-single-token-governance-and-release-proposals.md) updated the operation of this score.
 
-As more veHNT is delegated to a subnetwork, the DAO Utility Score improves, among other factors
-defined in HIP-51, which drives greater earnings of HNT for the subnetwork.
+As more veHNT is delegated to a subnetwork, the Network Utility Score improves, as defined in HIP-141, 
+which drives greater earnings of HNT for the subnetwork participants. But the income from delegation
+of your veHNT now remains dependant on the total emissions and delegations and is no longer dependant
+on which specific network you are delegated towards.
 
 As more veHNT holders delegate to a particular subnetwork, individual holder earnings will reduce
 the amount of net subnetwork token earnings as delegators share the 6% subnetwork token emissions.
@@ -85,17 +87,13 @@ veHNT delegated, the more veHNT holders the 6% will have to be shared between.
 Anyone can stake any amount of HNT and lock it up for 1 day to 1461 days ( 48 months). You choose
 your unstaking date at the time of lock-up or decide to keep it on a rolling lock-up period, called
 "constant lock-up" before initiating the start or the veHNT decay process. The HNT staked is
-exchanged for veHNT, which provides two benefits:
+exchanged for veHNT, which currently provides two benefits:
 
-- Voting in the Helium DAO on new subnetwork proposals and Participating in the Governance.
-- Receiving an income if the veHNT is delegated to a subnetwork.
+- Voting in the Helium Network on new proposals and Participating in the Governance.
+- Receiving an income if the veHNT is delegated to a subnetwork and voter participation.
 
-Anyone can delegate veHNT to a subnetwork, it's one component of a subnetwork's Utility Score.
-Delegating veHNT to a subnetwork allows the holder to earn subnetwork token rewards proportionally
-based on the subnetworks rules.
-
-> For example: If I delegate some veHNT to MOBILE subnetwork, I proportionally earn MOBILE rewards
-> allocated to veHNT stakers.
+Anyone can delegate veHNT to a subnetwork, it's now the only component of a subnetwork's Utility 
+Score. 
 
 The Helium Network encourages your long-term participation in voting and governance. Those who stake
 HNT for 1 day will exchange 1:0.06844627 HNT to veHNT. Those that stake veHNT for 48 months will
@@ -103,22 +101,19 @@ receive an exchange of 1:100 HNT to veHNT. Any period in between will be treated
 from 0.0684462 to 100.
 
 > For example, I choose to lock up 10 HNT for six months. I receive 125 veHNT. If I decide to
-> unstake immediately, after six months, my veHNT decays to 0 until my 10 HNT unlocks and is
+> unstake immediately, after six months, my veHNT decays to 0 until my 10 HNT is unlocked and is
 > available to me for use in my wallet.
 
 A combination of an amount of HNT locked up for a specified duration and the assigned veHNT is
 called a "Position". It is possible to own multiple Positions in your wallet. Actions taken on a
 Position - like e.g. on the lock-up duration, delegating the veHNT, voting with the veHNT - are all
-or nothing options. If a Position owner would like to receive rewards from two subnetworks, then the
-HNT-veHNT Position would need to be split into two Positions - by transferring some HNT to a second
-position within the same wallet. Then each position could delegate to a different subnetwork.
-Similarly, wishing to extend the lock-up duration on parts of a Position requires a similar split by
-transfer.
+or nothing options. Each position could delegate to a different subnetwork. Similarly, wishing to 
+extend the lock-up duration on parts of a Position requires a similar split by transfer.
 
 ## How Can I Obtain veHNT?
 
-Staking HNT for veHNT will be done on [Realms](https://realms.heliumvote.com/dao/hnt) See the
-[Staking veHNT on Realms](/governance/staking-with-helium-vote) documentation
+Locking up HNT for veHNT can be performed in the Helium Wallet App under the Governance Icon. 
+Or at https://heliumvote.com/hnt and connecting your wallet.
 
 ## Is There a Staking "Genesis" Period?
 
@@ -141,22 +136,14 @@ For example:
 
 ## Will I Earn HNT by Staking For veHNT?
 
-**No.** HNT staked to veHNT will not earn more HNT, it will only return what they staked at the end
-of their selected lock-up period.
-
-However, when you stake HNT into veHNT, you can delegate your veHNT into one or more subnetworks
-(such as IOT or MOBILE), and the subnetworks allocate up to 6% of their token emissions to the veHNT
-owners delegating to that subnetwork.
-
-> For example: When you delegate your veHNT to the IOT subnetwork, you receive IOT every epoch that
-> is claimable in your Helium Wallet. If you choose, this IOT can then be burned at the IOT
-> subnetwork treasury for HNT, or you may hold your IOT tokens, or stake them into veIOT.
+**Yes.** Since the implementation of HIP-141 rewards are now received in HNT and no longer in IOT or
+MOBILE tokens.
 
 ## How much veHNT will I get for each lock-up period?
 
 The table below shows the approximate HNT to veHNT multiplier for example months of staking
 
-This value is multiplied by 3x during the first 10 days after the Solana transition and this
+This value was multiplied by 3x during the first 10 days after the Solana transition and this
 multiplier lasts as long as the last lock-up period selected in the first 10 days after the Solana
 migration.
 
@@ -179,19 +166,18 @@ migration.
 ## Do I Have to Delegate My veHNT to a subnetwork?
 
 No. You can hold your veHNT as is or delegate to a subnetwork at any time.
+But you will NOT receive HNT for locking your position if you do not delegate and vote.
 
 :::note
 
-Changing delegation is allowed, but any delegation changes within a Solana Epoch will void any
-delegation rewards within that Epoch. A Solana Epoch is 24 hours long and starts and ends at
-00:00:00 UTC time.
-
+Changing delegation is allowed, but you must be delegated at the end of an Epoch to earn 
+rewards for that Epoch. If you undelegate ensure you redelegate to continue earning rewards.
 :::
 
 ## How Granular Is The veHNT Linear Decrease?
 
-The veHNT decay countdown starts when initiated from the Wallet app/Realms, either immediately in
-"decay" mode or after a "constant lockup" is unlocked and cooldown started.
+The veHNT decay countdown starts when initiated from the Wallet app/Modular Governance, either 
+immediately in "decay" mode or after a "constant lockup" is unlocked and cooldown started.
 
 veHNT quantity decay is granulated per second even though the Epoch period is 24 hours.
 
@@ -210,75 +196,73 @@ remaining 48 months until it hits zero.
 
 Yes. You can increase your lock-up period by extending it to a maximum of 48 months at any time, and
 the increase activates at the start of the next epoch. If the veHNT is delegated you must
-undelegate, change the period, redelegate, and lose delegation rewards within that 24 hour Epoch. If
-those three actions take longer than an epoch or are split over two epochs then delegation rewards
-are lost for two Epochs.
+undelegate, change the period, redelegate. This operation no longer loses a days rewards if the 
+undelegate/redelegate operation is performed within the same epoch period.
 
 ## Can I Decrease My Staking Period For Fast Access to My HNT and Take a Penalty?
 
 No. You define your lock-up period at the time of staking and cannot unstake or decrease the lock-up
 period for any reason.
 
+## What do I need to do to close a decayed veHNT position?
+
+To completely close a position the following is required:
+
+- Claim all rewards - you may need to keep claiming until the claim button is disabled.
+- Undelegate your position 
+- Close the position in the right epoch - You may need to wait until after the epoch has ended that the position closed in.
+- Ensure there is a HNT account in your wallet - it is possible that the HNT account in the wallet has
+been deleted. It can be recreated by transfering HNT into the wallet or swapping other tokens for any 
+amount of HNT.
+
 ## Can I Automate Re-Staking?
 
 Yes, a constant rolling lock-up period is available called Constant Lock-up. The decay countdown
 start point will need positive action to start the lock-up cooldown period.
 
-> Staking 10 HNT for 4 years will get approx 1000 veHNT and this will be a rolling 4 year period and
-> will remain at 1000 veHNT until the decay countdown is activated and this will then decrease
-> linearly over 4 years to 0 veHNT and the HNT is returned.
+> Staking 10 HNT for 4 years will get approx 1000 veHNT (10x100) and this will be a rolling 4 year 
+> period and will remain at 1000 veHNT until the decay countdown is activated and this will then 
+> decrease linearly over 4 years to 0 veHNT and then the HNT can be claimed back.
 
 ## Can I Transfer my veHNT or any of the veDNTs to Someone Else?
 
 No. veHNT and the like are fully non-transferable and represent your voting power in the Network. It
 is not a token. It is represented in the wallet by a non-transferable NFT.
 
-## How Do I Buy veHNT or Any of the veDNTs?
+## How Do I Buy veHNT 
 
-You cannot buy veHNT, veIOT, or veMOBILE. They are not tradable tokens. veHNT can only be obtained
-by staking HNT with a lock-up period. Likewise, for veIOT or veMOBILE.
+You cannot buy veHNT or move it between wallets. They are not tradable tokens. veHNT can only be obtained
+by staking HNT with a lock-up period. 
 
 veHNT and veDNTs have no price in the larger crypto markets.
 
-## What Is the DAO Utility Score?
+## What Is the Network Utility Score?
 
-The DAO Utility score is described in [HIP-51](https://github.com/helium/HIP/issues/336) and was updated with [HIP-88](https://github.com/helium/HIP/issues/707)
+The Network Utility score was described in [HIP-51](https://github.com/helium/HIP/issues/336) as the DAO Utility score and was updated with [HIP-88,](https://github.com/helium/HIP/issues/707) and was then reduced in complexity with [HIP 141.](https://github.com/helium/HIP/blob/main/0141-single-token-governance-and-release-proposals.md#migrating-to-a-protocol-score-based-only-on-delegation)
 
-Every epoch, a fixed amount of HNT is allocated to all subnetworks. Each subnetwork receives a share
-of this fixed amount. The sizes of the shares are determined by the Utility Scores of each
-subnetwork of Helium.
+Every epoch, a specific amount of HNT is allocated to all subnetworks. Each subnetwork receives a share
+of this fixed amount. The sizes of the shares are determined by the Utility Scores (also known as the 
+Protocol score) of each subnetwork of Helium.
 
-The higher the Utility Score of a subnetwork is in relation to the Utility Scores of all other
-subnetworks combined, the higher its share of the total HNT allocated to all subnetworks. As the DAO
-Utility Scores are calculated each epoch anew, the share of HNT a subnetwork receives may change
-from epoch to epoch.
+The new Protocol Score is derived from the share of veHNT delegated to each subnetwork (formerly 
+represented by the V component of the Utility Score), as a percentage of total delegated veHNT. 
+It determines the subnetwork’s percentage of total HNT emissions.
 
-Delegating veHNT to IOT or MOBILE increases the `V` value in the
-[HIP-51 DAO Utility Score](https://github.com/helium/HIP/blob/main/0051-helium-dao.md#omni-protocol-poc-incentive-model)
-calculation.
+All locked veHNT positions will receive a share in the 6% of HNT emissions allocated to locked
+HNT holders based on the proportion of veHNT they have to the total of veHNT held by everyone.
 
-The two other ways the DAO Utility score can be increased are:
-
-1. Increasing the amount of data usage on the subnetwork, i.e., the Data Credits burned. This
-   increases the `D` value in the Utility Score.
-2. Increasing the Data Credits used to onboard the number of Hotspots for that subnetwork. This
-   increases the `A` value in the Utility Score.
-
-## Will My Subnetwork Earnings Remain The Same Over The Time Period Lock-Up?
-
-No, they are calculated and paid to the lock-up position per epoch - daily. They may increase when:
-
-- More veHNT is delegated in the subnetwork you delegated to - your treasury gets more HNT.
-- More Hotspot onboarding fees are burned in the subnetwork you delegated to.
-- More data is transferred and burned in the subnetwork you delegated to.
+They are calculated daily and assigned to the lock-up position per epoch - daily. But can be claimed
+to the wallet as convenient.
 
 They may decrease when:
 
-- More veHNT is delegated in the subnetwork you delegated to - your share is reduced
-- More veHNT is delegated to other subnetworks - other treasuries get more HNT.
-- Your delegated veHNT decays over time after you entered the cooldown.
-- More Hotspots are online in other subnetworks with a non-zero onboarding fee.
-- More data is transferred and burned in other subnetworks.
+- HNT emissions are halved at the regular 2 year period (Next is 1st August 2025).
+- More HNT is locked up or HNT that is locked up is locked for longer increasing the total veHNT.
+- The daily Net Emissions total of HNT is decreasing.
 
-Thus it can be observed that delegating more or all of your veHNT to a specific subnetwork has the
-opportunity to both increase or decrease your subnetwork earnings from delegation.
+They may increase when:
+
+- Less HNT is locked up or HNT that is locked up is decaying decreasing the total veHNT.
+- The daily Net Emissions total of HNT is increasing due to large HNT burns for data use.
+
+
