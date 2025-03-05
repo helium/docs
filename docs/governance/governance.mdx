@@ -17,31 +17,34 @@ import { TopLedgerEmbed } from '@site/src/theme/TopLedgerEmbed'
 
 Helium governance exists to manage the process by which the network can be modified, whether in its
 technical architecture, the token's economic model, or meta-governance changes. It is governed by
-the global community of owners of Helium tokens ([HNT](/tokens/hnt-token),
-[MOBILE](/tokens/mobile-token), or [IOT](/tokens/iot-token)). These token owners include Hotspot
-deployers, network users, wireless network operators, hardware manufacturers, and more. Tokens must
-be locked for voting on network changes, ensuring long-term stakeholder alignment.
+the global community of owners of Helium ([HNT](/tokens/hnt-token) tokens.
 
-Anyone can submit a Helium Improvement Proposal ([HIP](/governance/hip)) as a first step to
-modifying the network. All HIPs are published in the public Helium GitHub repository, then discussed
-and debated in public forums, including the Helium community Discord server, and on monthly
-community calls. Any Helium token owner is eligible to vote on HIPs within the domain of that
-specific token. To vote, a Helium token owner must first lock their tokens for a period of time, up
-to four years, which grants the owner voting power determined by the number of locked tokens and the
-lock duration.
+These token owners include Hotspot deployers, network users, wireless network operators, hardware 
+manufacturers, network mappers and more. Tokens must be locked for voting on network changes, ensuring 
+long-term stakeholder alignment.
 
-As Helium is a network of networks, there are currently three different jurisdictions for
-governance:
 
-1. Locking HNT allows for voting on HIPs governing the <u>Helium network as a whole</u>.
-1. Locking IOT enables voting on HIPs governing the <u>IoT subnetwork</u>.
-1. Locking MOBILE enables voting on HIPs governing the <u>mobile subnetwork</u>.
+Since the implementation of [HIP-141](https://github.com/helium/HIP/blob/main/0141-single-token-governance-and-release-proposals.md#votes-with-code) the governance process has changed. In the future the Helium Community 
+will vote with veHNT on a periodic basis (initially monthly) to approve upcoming protocol upgrades proposed 
+by the Protocol Developers. This evolution of the HIP process may be characterized as a Helium Release Process
+(HPR). 
+
+All changes under this process must come with audited and deployable code. Each Release Vote will be inititalised 
+at the existing Helium Monthly [Community Call](https://helium.foundation/community-call), and will apply to new code deployed across the Helium network. 
+Emergency or security-related deployments that are necessary for protocol safety, as well as bug fixes, may be 
+deployed on an ad-hoc basis, but must be announced and ratified through subsequent Release Votes.
+
+Anyone can submit a Github PR to the latest [HRP](https://github.com/helium/helium-release-proposals) before
+the community call but must submit such requests with completed and audited code for the implementation request.
+
+Helium is a network of networks, all managed with one token for governance. Locking HNT allows for voting on 
+governance of the top level Helium network and the subnetworks of IOT and MOBILE with a single token.
 
 The Helium Foundation serves as a steward for the governance process. The Foundation established the
 initial framework and manages the open Helium GitHub repositories. The Foundation does not vote on
-HIPs but does vet proposals for compliance with the law and technical feasibility. The Foundation's
-role is to provide expert advice and guidance and to guide implementation of the HIPs after they
-have passed.
+changes but does vet proposals for compliance with the law and technical feasibility. The Foundation's
+role is to provide expert advice and guidance and to guide implementation of the results of votes after
+they have passed.
 
 Information about governance is subject to change as the Helium Network constantly evolves. It is
 led by the open-source community that continues to build it.
@@ -67,8 +70,8 @@ links and resources.
 1. **Discord**: The [Helium Discord](https://discord.gg/helium) platform serves as the primary
    communication channel for the Helium Network Community. It offers real-time discussions, support,
    and engagement opportunities.
-2. **GitHub Repository**: The [HIP GitHub](https://github.com/helium/HIP) repository provides access
-   to the Helium Improvement Proposals and related discussions.
+2. **GitHub Repository**: The [HRP GitHub](https://github.com/helium/helium-release-proposals) repository and previous [HIP GitHub](https://github.com/helium/HIP) repository provides access
+   to the Helium Release Proposals, Helium Improvement Proposals and related discussions.
 3. **Social Media and Ecosystem Voices**: The Helium Foundation and various influencers on platforms
    like Twitter, Discord, and YouTube provide updates, debates, and explanations of HIPs and
    governance-related matters.
