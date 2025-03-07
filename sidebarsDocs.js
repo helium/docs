@@ -12,8 +12,10 @@ module.exports = {
       link: { type: 'doc', id: 'network-mobile/5g-on-helium' },
       items: [
         'network-mobile/5g-on-helium',
+        'network-mobile/network-architecture',
         'network-mobile/mobile-proof-of-coverage',
         'network-mobile/mobile-service-providers',
+        'network-mobile/deprecated-content',
         {
           type: 'category',
           label: 'Data-Only Hotspots',
