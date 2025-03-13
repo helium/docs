@@ -15,7 +15,6 @@ module.exports = {
         'network-mobile/network-architecture',
         'network-mobile/mobile-proof-of-coverage',
         'network-mobile/mobile-service-providers',
-        'network-mobile/deprecated-content',
         {
           type: 'category',
           label: 'Data-Only Hotspots',
