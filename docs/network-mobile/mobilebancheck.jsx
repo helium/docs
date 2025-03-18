@@ -109,6 +109,7 @@ function formatHotspotName(name) {
 
 export function BanCheck() {
   const [bannedHotspots, setBannedHotspots] = useState([])
+  const [fetchError, setFetchError] = useState(false)
 
   // This is the raw typed string including possible dashes.
   const [typedInput, setTypedInput] = useState('')
@@ -123,14 +124,16 @@ export function BanCheck() {
   const [lastValidDashed, setLastValidDashed] = useState('')
 
   useEffect(() => {
-    fetch('https://assets.codepen.io/69025/banned.json')
+    fetch('https://helium-banned-mobile-hotspots.s3.us-west-2.amazonaws.com/banned.json')
       .then((res) => res.json())
       .then((data) => {
         setBannedHotspots(data)
+        setFetchError(false)
       })
       .catch((err) => {
         console.error('Error fetching banned hotspots:', err)
         setBannedHotspots([])
+        setFetchError(true)
       })
   }, [])
 
@@ -277,7 +280,7 @@ export function BanCheck() {
         <div role="status" aria-live="polite" className={styles.isBanned_container}>
           <p className={styles.header}>
             The Hotspot <strong>{matchedHotspot && formatHotspotName(matchedHotspot.name)}</strong>{' '}
-            is marked as banned. This action is irrevocable.
+            is marked as permanently banned.
           </p>
           <p className={styles.publicKey}>
             <strong>Public Key:</strong>{' '}
@@ -290,8 +293,14 @@ export function BanCheck() {
         </div>
       )}
 
-      {showValidNotice && (
+      {showValidNotice && !fetchError && (
         <p className={styles.successNotice}>This Hotspot serial appears valid and is not banned.</p>
+      )}
+
+      {fetchError && (
+        <p role="alert" className={styles.fetchError}>
+          Unable to load banned Hotspot data. Please try again later.
+        </p>
       )}
     </div>
   )
