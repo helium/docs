@@ -263,7 +263,7 @@ export function BanCheck() {
         />
       </div>
 
-      {suggestion && (
+      {suggestion && !showBannedUi && (
         <span
           onClick={applySuggestion}
           aria-label={`Click to replace the serial prefix with ${suggestion}`}
