@@ -244,62 +244,54 @@ export function BanCheck() {
   const showValidNotice = !showBannedUi && isSerialValid && displayValue.length > 0
 
   return (
-    <div>
-      <label htmlFor="hotspotSerial" style={{ display: 'block', fontWeight: 'bold' }}>
-        Enter Hotspot Serial:
-      </label>
+    <div className={styles.bancheckContainer}>
+      <div className={styles.inputGroup}>
+        <label htmlFor="hotspotSerial" className={styles.inputLabel}>
+          Enter Hotspot Serial:
+        </label>
 
-      <input
-        id="hotspotSerial"
-        type="text"
-        size={20}
-        maxLength={20}
-        value={displayValue}
-        onChange={handleChange}
-        aria-describedby="hotspotSerialHelp"
-        placeholder="ATI6-2412-00014971"
-        className={styles.hotspotInput}
-      />
+        <input
+          id="hotspotSerial"
+          type="text"
+          size={20}
+          maxLength={20}
+          value={displayValue}
+          onChange={handleChange}
+          aria-describedby="hotspotSerialHelp"
+          placeholder="ATI6-2412-00014971"
+          className={styles.hotspotInput}
+        />
+      </div>
 
       {suggestion && (
-        <small
+        <span
           onClick={applySuggestion}
           aria-label={`Click to replace the serial prefix with ${suggestion}`}
-          style={{
-            marginBottom: '1rem',
-            display: 'block',
-            appearance: 'none',
-            cursor: 'pointer',
-          }}
+          className={styles.inputSuggestion}
         >
-          Did you mean <strong style={{ color: 'blue' }}>{suggestion}</strong>?
-        </small>
+          Did you mean <strong>{suggestion}</strong>?
+        </span>
       )}
 
       {showBannedUi && (
         <div role="status" aria-live="polite" className={styles.isBanned_container}>
-          <h2 className={styles.header}>Hotspot Marked as Banned</h2>
-          <p className={styles.name}>
-            <strong>Name:</strong> {matchedHotspot && formatHotspotName(matchedHotspot.name)}
+          <p className={styles.header}>
+            The Hotspot <strong>{matchedHotspot && formatHotspotName(matchedHotspot.name)}</strong>{' '}
+            is marked as banned. This action is irrevocable.
           </p>
-          <p className={styles.isBanned_pk}>
+          <p className={styles.publicKey}>
             <strong>Public Key:</strong>{' '}
             <span className={styles.publicKeyTruncate}>{matchedHotspot?.public_key}</span>
           </p>
-          <p>
+          <p className={styles.serial}>
             <strong>Serial:</strong>{' '}
             <span style={{ fontFamily: 'courier, mono' }}>{matchedHotspot?.serial}</span>
-          </p>
-          <p>
-            This Hotspot is <strong>marked as banned</strong>. This action is <em>irrevocable</em>.
           </p>
         </div>
       )}
 
       {showValidNotice && (
-        <div className={styles.successNotice} style={{ marginTop: '1rem' }}>
-          <p style={{ margin: 0 }}>This Hotspot serial appears valid and is not banned.</p>
-        </div>
+        <p className={styles.successNotice}>This Hotspot serial appears valid and is not banned.</p>
       )}
     </div>
   )
