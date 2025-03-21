@@ -12,27 +12,27 @@ Each LoRaWAN Network Server (LNS) on the Helium Network is managed using an Orga
 Identifier (OUI). This registers the LNS with the network and manages the
 [devAddrs](#devaddr-explained), [Data Credits](/tokens/data-credit), and routes for device traffic.
 
-Currently, the purchasing of OUIs and devAddrs must be done by contacting the Helium Foundation. 
-In the future, these registrations will be self-service.
+Currently, the purchasing of OUIs and devAddrs must be done by contacting the Helium Foundation. In
+the future, these registrations will be self-service.
 
-As an alternate to purchasing a devAddr slab, it is also an option to obtain a NetID from the LoRa 
-Alliance and use it in a roaming configuration. An OUI and data credits are required in either 
+As an alternate to purchasing a devAddr slab, it is also an option to obtain a NetID from the LoRa
+Alliance and use it in a roaming configuration. An OUI and data credits are required in either
 scenario.
 
 ## Pricing
 
-The minimum cost to deploy an LNS to the Helium Network is $235 USD. This cost is divided into three
-parts.
+The minimum cost to deploy an LNS to the Helium Network is \$235 USD. This cost is divided into
+three parts.
 
-The cost of an OUI is US$100. This is a one-time fee.
+The cost of an OUI is US\$100. This is a one-time fee.
 
-DevAddrs are issued in blocks of 8 and cost US$12.50 per devAddr for a total of $100. DevAddrs are
+DevAddrs are issued in blocks of 8 and cost US\$12.50 per devAddr for a total of \$100. DevAddrs are
 also purchased as a one-time fee. DevAddrs are only required if a NetID is not already obtained from
 the LoRa Alliance.
 
-A minimum of 3,500,000 Data Credits ($35 USD) must be held in the escrow account associated with the
-OUI. DC are consumed in proportion to the network traffic transferred[^1]. If the DC balance drops
-below 3.5M, device traffic to the routes associated with the OUI will halt.
+A minimum of 3,500,000 Data Credits (\$35 USD) must be held in the escrow account associated with
+the OUI. DC are consumed in proportion to the network traffic transferred[^1]. If the DC balance
+drops below 3.5M, device traffic to the routes associated with the OUI will halt.
 
 | Item                | Fee               |
 | ------------------- | ----------------- |
@@ -66,8 +66,8 @@ In doing so, a Helium wallet will be generated with key pairs in the native Sola
 The OUI configuration process currently leverages public keys in a format from the legacy Helium L1
 blockchain. To convert a Solana public key into the legacy format, use the conversion tool below.
 
-To use the tool, simply paste your Helium wallet public key in the Solana format into the top
-"Enter Helium or Solana Wallet Address" field and copy the result from the "Helium Address" field.
+To use the tool, simply paste your Helium wallet public key in the Solana format into the top "Enter
+Helium or Solana Wallet Address" field and copy the result from the "Helium Address" field.
 
 **This value will be the Helium wallet public key in the legacy format required for purchasing an
 OUI**.
@@ -169,10 +169,10 @@ helium-config-service-cli env info --keypair <key file name>.bin
 }
 ```
 
-The `.bin` files should be kept safe and never shared. 
+The `.bin` files should be kept safe and never shared.
 
-**The public keys of the owner and delegate key pairs are required for purchasing an
-OUI and are the only part that should be shared.**
+**The public keys of the owner and delegate key pairs are required for purchasing an OUI and are the
+only part that should be shared.**
 
 ## Purchasing OUI and devAddr Slab
 
