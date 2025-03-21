@@ -1,9 +1,9 @@
 ---
 id: data-only-mobile
-title: 'Bring Your Own Fleet'
-pagination_label: Bring Your Own Fleet
+title: 'Convert WiFi Networks'
+pagination_label: Convert WiFi Networks
 sidebar_label: Introduction
-description: Helium Data-Only Hotspot Documentation
+description: Helium Network Conversion Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /mobile/data-only-mobile
 ---
@@ -14,40 +14,38 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 <br />
 <br />
 
-The Bring Your Own Fleet process activates Passpoint-enabled hardware for cellular network data
+The network conversion process activates Passpoint-enabled hardware for cellular network data
 transfer on Helium. In the cellular industry, these are known as 'Brownfield' deployments – where
-existing hardware is configured to operate a new network. These onboarded fleets are represented
-through an on-chain rewardable entity.
-
-Converting existing networks into Helium-compatible Hotspots benefits both network users and venue
-owners. Venue owners can extend Helium's Mobile coverage, appealing to users and carriers. The
-Passpoint specification ensures users connect automatically without re-authentication, providing
-uninterrupted connectivity. Data transferred through these deployments are also eligible for network
-rewards, as they can offload data traffic for carriers.
+existing hardware is configured to operate a new network. Converted networks continue to work with
+existing SSIDs. The Helium Network configurations are additive to other configurations and do not
+impact existing network function.
 
 Using existing infrastructure reduces costs, making it a practical solution for venue owners. When
 deciding between deploying a new Hotspot (Greenfield) or converting an existing network, consider
-Proof of Coverage rewards, deployment costs, and coverage needs. New Hotspots earn Proof of Coverage
-rewards and require new hardware, while existing networks have lower setup costs and can quickly
-increase coverage. Both options can complement each other in the Helium Mobile network.
+Proof of Coverage rewards, deployment costs, and coverage needs. Both options can complement each
+other in the Helium Mobile network.
 
 ## Getting Started
 
-If you have compatible network, integrating it with Helium Mobile is simple. Start by reviewing the
+For compatible networks, integrating with Helium Mobile is simple. Start by reviewing the
 manufacturer-specific guides:
 
 - [Ubiquiti Onboarding Guide](/mobile/data-only-ubiquiti)
 
+Or refer to the generic deployment reference for guidance with other manufacturers:
+
+- [General Conversion Guide](/mobile/data-only-generic)
+
 ## Deployment Requirements
 
-Existing Wi-Fi networks must have Passpoint-enabled access points, which are typically supported by
+Existing WiFi networks must have Passpoint-enabled access points, which are typically supported by
 manufacturers like Ubiquiti, Cisco, and Aruba. Additionally, these access points need to integrate
 with the Helium MOBILE Network to handle traffic and qualify for data transfer rewards. This
 integration involves network-level configurations for authentication, authorization, and accounting.
 
 ### Enterprise Network Considerations
 
-Fleets are characterized by Helium with a public on-chain key which is paired with the RADIUS
-certificates. The network expects each pubkey/cert pair to be attached to a single NAS-ID. If a
-single NAS-ID is shared among multiple locations, the 'Brownfield Inventory System' disambiguates
-multiple locations for the purposes of coverage availability representation.
+Fleets are characterized on Helium with a public on-chain key which is paired with the RADIUS
+certificates. The entities created from the self-serve tooling expect each pubkey/cert pair to be
+attached to a single NAS-ID. Via the [Helium Plus](http://helium.com/plus) program, multiple NAS-IDs
+may be onboarded to a single certificate set.

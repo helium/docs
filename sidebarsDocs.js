@@ -17,7 +17,7 @@ module.exports = {
         'network-mobile/mobile-service-providers',
         {
           type: 'category',
-          label: 'Data-Only Hotspots',
+          label: 'Convert WiFi Networks',
           link: { type: 'doc', id: 'network-mobile/data-only-mobile' },
           items: [
             {

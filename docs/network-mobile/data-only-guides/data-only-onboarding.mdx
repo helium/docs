@@ -1,9 +1,9 @@
 ---
 id: data-only-onboarding
-title: Data-Only Onboarding
-pagination_label: Data-Only Onboarding
-sidebar_label: Data-Only Onboarding
-description: Helium Data-Only Hotspot Onboarding Documentation
+title: Onboard Converted Networks
+pagination_label: Onboard Converted Networks
+sidebar_label: WiFi Conversion Onboarding
+description: Helium Network Conversion Onboarding Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /mobile/data-only-onboarding
 ---
@@ -14,7 +14,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 <br />
 <br />
 
-Wi-Fi networks onboarded to Helium are eligible to earn HNT for handling carrier traffic.
+WiFi networks onboarded to Helium are eligible to earn HNT for handling carrier traffic.
 
 At this time, only [Helium Mobile](https://hellohelium.com/) traffic is rewardable on networks
 onboarded through self-serve tooling. If you are interested in handling other carrier traffic
@@ -38,7 +38,7 @@ program.
 Download and configure the [Helium Wallet CLI](/wallets/cli-wallet) with a new or existing Solana
 account. The following steps require Helium Wallet CLI `2.1.1` or newer.
 
-Onboarding a new Wi-Fi Network requires a token fee per network or location. Ensure the account has
+Onboarding a new WiFi Network requires a token fee per network or location. Ensure the account has
 these minimum balances.
 
 | Token                               | Amount          |                                              |
@@ -50,10 +50,10 @@ these minimum balances.
     _At the time of writing, onboarding required 0.003778 SOL; however, the fee will fluctuate based
     on network conditions._
 
-## Create and Onboard Data-Only Hotspot
+## Create and Onboard Networks
 
-The process for creating a Data-Only Hotspot begins by generating the Hotspot key and then creating
-and onboarding the Rewardable Entity NFT using the Helium Wallet CLI.
+The process for converting a network begins by generating a Hotspot key and then creating and
+onboarding a Rewardable Entity NFT using the Helium Wallet CLI.
 
 Create the Hotspot key by creating an onboarding token:
 
@@ -63,7 +63,7 @@ helium-wallet hotspots add mobile token
 
 The `token` command will return a response looking like this:
 
-```json title="Example generated entity and token."
+```json {6} title="Example generated entity and token."
 {
   "hotspot": {
     "key": "14WaYzPtgvs3sranGNBxTSj9d4f36J6c6mjRWKqRwDr8NirmrmL",
@@ -73,19 +73,16 @@ The `token` command will return a response looking like this:
 }
 ```
 
-Onboard the created Hotspot using the given token:
-
-Use the "token" value along with the Hotspot's physical latitude and longitude to assert its
-location to the network. A utility such as [latlong.net](https://www.latlong.net/) is helpful for
-looking up coordinates.
+Use the "token" value (highlighted above) along with the Hotspot's physical latitude and longitude
+to assert its location to the network. A utility such as [latlong.net](https://www.latlong.net/) is
+helpful for looking up coordinates.
 
 ```sh title="Onboard the Rewardable Entity (Hotspot)"
 helium-wallet hotspots add mobile onboard <TOKEN> --lat=37.779930 --lon=-122.387906 --commit
 ```
 
-Here, `<TOKEN>` represents the token generated in step 1. The command prompts for the CLI wallet
-password, signs the transaction, and submits it to the blockchain. A result will print as a
-successful transaction hash.
+The command prompts for the CLI wallet password, signs the transaction, and submits it to the
+blockchain. A result will print as a successful transaction hash.
 
 If any errors are returned during the onboarding, double check token balances and retry the
 onboarding transaction.
