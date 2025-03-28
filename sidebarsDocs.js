@@ -27,6 +27,7 @@ module.exports = {
             },
             'network-mobile/data-only-guides/data-only-onboarding',
             'network-mobile/data-only-guides/data-only-ubiquiti',
+            'network-mobile/data-only-guides/data-only-aruba',
             'network-mobile/data-only-guides/data-only-generic',
           ],
         },
