@@ -17,17 +17,21 @@ the Helium Network through the community proposal [HIP-52][hip-52] and was furth
 subsequent HIPs<sup>(</sup>[^1]<sup>,</sup>[^2]<sup>)</sup>. The first IOT tokens were minted
 following the Solana migration on April 18, 2023.
 
-### On January 15, 2025 in accordance with [HIP-138][hip-138] all IOT emissions ceased.
+:::important IOT emissions ceased on January 15, 2025, in accordance with [HIP-138][hip-138].
 
-**And network participants will be directly rewarded in HNT tokens in the percentages defined in the
-IOT emissions schedule, from the HNT awarded to the IOT network by the Utility score, initially 
-defined in [HIP-51][hip-51], and subsequently updated in [HIP-141][hip-141]**
+Network participants are directly rewarded in HNT tokens from the HNT awarded to the IOT Network by
+the utility score.
+
+IOT Tokens remain redeemable for HNT via the Subnetwork Treasury pool allocated during the IOT
+emission period.
+
+:::
 
 ## Token Brief
 
 The IOT token was earned by LoRaWAN Hotspots through both data transfer proceeds as well as Proof of
 Coverage. IOT tokens could also optionally be earned from locking HNT tokens to participate in
-Helium IOT network governance.
+Helium IOT Network governance.
 
 The mint address for IOT is [`iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns`][iot-mint-address] on the
 Solana blockchain.
@@ -39,13 +43,18 @@ to issuing HNT rewards directly. To enable this, each network within the Helium 
 a pool of HNT based on the Network Utility Score.
 
 The redemption ratio is set algorithmically by treasury swap contracts. It can be calculated easily
-by dividing the [current total amount of IOT tokens in existence](https://solscan.io/token/iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns) by the current amount of [HNT in the IOT network treasury](https://solscan.io/account/CpyoYpaEZc8DvmkNWNZWfkQDFvGAvHp5mhtEhwGQhkTk). The result tells how many IOT is required to be burned to receive each HNT token from the network treasury.
+by dividing the
+[current total amount of IOT tokens in existence](https://solscan.io/token/iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns)
+by the current amount of
+[HNT in the IOT Network treasury](https://solscan.io/account/CpyoYpaEZc8DvmkNWNZWfkQDFvGAvHp5mhtEhwGQhkTk).
+The result tells how many IOT is required to be burned to receive each HNT token from the network
+treasury.
 
 $$\text{IOT per HNT} = \frac{\text{Total amount of IOT tokens existing}}{\text{Total amount of HNT in IOT treasury}}$$
 
-Now that the IOT token has ceased minting and there is no distribution of HNT to the IOT treasury then 
-the redemption or floor rate of IOT to HNT is stabilized. And for as long as there is HNT in the
-IOT treasury then the IOT token will have a value.
+Now that the IOT token has ceased minting and there is no distribution of HNT to the IOT treasury
+then the redemption or floor rate of IOT to HNT is stabilized. And for as long as there is HNT in
+the IOT treasury then the IOT token will have a value.
 
 No automatic or required migration from IOT to HNT is planned.
 
@@ -64,8 +73,8 @@ The issuance was scheduled to have halvings every 2 years, aligning with HNT iss
 January 2025 the emissions percentages will remain the same but rewards will be directly in the HNT
 Token.
 
-The emissions schedule was created in [HIP-52][hip-52-emisions] and confirmed in
-[HIP-77][hip-77-emisions] and is as follows:
+The emissions schedule was created in [HIP-52][hip-52-emissions] and confirmed in
+[HIP-77][hip-77-emissions] and is as follows:
 
 | Year       | IOT at Year Start | IOT Minted | Proof of Coverage <sup>(</sup>[^3]<sup>)</sup> | Data Transfer <sup>(</sup>[^3]<sup>)</sup> | Oracles <sup>(</sup>[^4]<sup>)</sup> | Operations Fund | veHNT Stakes |
 | ---------- | ----------------- | ---------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------ | --------------- | ------------ |
@@ -87,10 +96,10 @@ The emissions schedule was created in [HIP-52][hip-52-emisions] and confirmed in
 [^4]: Oracles are not rewarded until additional Oracle operators deploy services.
 
 [github]: https://github.com/helium
-[hip-52-emisions]: https://github.com/helium/HIP/blob/main/0052-iot-dao.md#emissions-curve
+[hip-52-emissions]: https://github.com/helium/HIP/blob/main/0052-iot-dao.md#emissions-curve
 [hip-52]: https://github.com/helium/HIP/blob/main/0052-iot-dao.md
 [hip-70]: https://github.com/helium/HIP/blob/main/0070-scaling-helium.md
-[hip-77-emisions]:
+[hip-77-emissions]:
   https://github.com/helium/HIP/blob/main/0077-solana-parameters.md#emission-schedules
 [hip-77]: https://github.com/helium/HIP/blob/main/0077-solana-parameters.md
 [iot-mint-address]: https://explorer.solana.com/address/iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns
@@ -98,7 +107,7 @@ The emissions schedule was created in [HIP-52][hip-52-emisions] and confirmed in
 [migration-emissions]:
   https://github.com/helium/HIP/blob/main/files/0077/token-emissions-as-of-solana-migration.pdf
 [wallet-app]: /wallets/helium-wallet-app
-[explorer-stats]: https://explorer.helium.com/stats
 [hip-138]: https://github.com/helium/HIP/blob/main/0138-return-to-hnt.md
 [hip-51]: https://github.com/helium/HIP/blob/main/0051-helium-dao.md
-[hip-141]: https://github.com/helium/HIP/blob/main/0141-single-token-governance-and-release-proposals.md#migrating-to-a-protocol-score-based-only-on-delegation
+[hip-141]:
+  https://github.com/helium/HIP/blob/main/0141-single-token-governance-and-release-proposals.md#migrating-to-a-protocol-score-based-only-on-delegation
