@@ -33,6 +33,20 @@ module.exports = {
             'network-mobile/data-only-guides/data-only-generic',
           ],
         },
+        {
+          type: 'category',
+          label: 'Onboarding',
+          link: { type: 'doc', id: 'network-mobile/onboarding' },
+          items: [
+            {
+              type: 'doc',
+              id: 'network-mobile/onboarding',
+              label: 'Onboarding',
+            },
+            'network-mobile/indoor-hmh-onboarding',
+            'network-mobile/outdoor-hmh-onboarding',
+          ],
+        },
       ],
     },
     {
