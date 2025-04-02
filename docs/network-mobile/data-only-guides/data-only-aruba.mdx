@@ -1,9 +1,9 @@
 ---
 id: data-only-aruba
-title: Aruba Data-Only Guide
-pagination_label: Aruba Data-Only Guide
-sidebar_label: Aruba Data-Only Guide
-description: Helium Data-Only Hotspot Documentation
+title: Aruba Conversion Guide
+pagination_label: Aruba Conversion Guide
+sidebar_label: Aruba Conversion Guide
+description: Helium Network Conversion Documentation
 image: https://docs.helium.com/img/link-image.png
 slug: /mobile/data-only-aruba
 ---
@@ -20,8 +20,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - Guide assumes the network is using an on-prem Aruba Mobility Controller.
 - Aruba system has AP(s) linked to the Mobility Controller.
 - Aruba system has basic traffic routing working with existing SSID(s).
-- An Intel-based host is required in the network to run [RadSecProxy](https://radsecproxy.github.io)
-  container.
+- An Intel-based host is required in the network to run the
+  [RadSecProxy](https://radsecproxy.github.io) container.
 
 # High Level Steps
 
@@ -45,8 +45,8 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
 
 ## Prerequisites
 
-- An intel based machine with Docker installed.
-- The intel based machine has a private IP in your network reachable from your Aruba Mobility
+- An Intel-based machine with Docker installed.
+- The Intel-based machine has a private IP in your network reachable from your Aruba Mobility
   Controller
 - ACLs or Firewalls allow Aruba Mobility Controller and Docker Container to communicate UDP on port
   1812 and 1813
@@ -54,50 +54,56 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
 
 ## Container Deployment
 
-1. Un-zip and untar the Helium_RadSec_Docker.tag.gz file into the directory of your choice on the
+1. Un-zip and untar the `Helium_RadSec_Docker.tag.gz` file into the directory of your choice on the
    host machine. This will unpack the following items:
-   1. Dockerfile \- The docker instructions on how to build the container
-   2. Radsecproxy.conf \- The radsecproxy config file prepopulated to connect to Helium Network AAA
-      servers
-   3. docker-compose.yml \- file to start and stop the container as a daemon.
+   1. `Dockerfile` \- The docker instructions on how to build the container
+   2. `Radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
+      Network AAA servers
+   3. `docker-compose.yml` \- File to start and stop the container as a daemon.
 
-```
-# tar -xvzf  Helium_RadSec_Docker.tag.gz
+```bash
+tar -xvzf  Helium_RadSec_Docker.tag.gz
 ```
 
 2. Into the same directory copy the 3 certificates obtained from Helium Network
-   1. ca.pem \- the root CA certificate
-   2. cert.pem \- the user certificate
-   3. key.pem \- the key file matched to the certificate
+   1. `ca.pem` \- the root CA certificate
+   2. `cert.pem` \- the user certificate
+   3. `key.pem` \- the key file matched to the certificate
 3. Start the container using:
 
-```
-# sudo docker compose up -d
+```bash
+sudo docker compose up -d
 ```
 
 4. If/when needed, stop the container using:
 
-```
-# sudo docker compose down
+```bash
+sudo docker compose down
 ```
 
-#
-
-# Build Aruba Helium Passpoint SSID
+## Build Aruba Helium Passpoint SSID
 
 The following steps will configure your Aruba Mobility Controller and AP to broadcast an SSID with
 the needed Passpoint and RADIUS configurations to support Helium Mobile user offload.
 
 To start login to your Mobility Controller GUI in your browser, this will be our starting point for
-all major steps below
+all major steps below.
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image16.png')}
-  style={{ width: '800px', height: 'auto' }}
-/>
-**NOTE\! In the following steps we will only mention mandatory fields to set. Most windows will have
-many other parameters with default values set. Leave any unmentioned parameter at it’s default value.**
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/5g-on-helium/Aruba-image16.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+:::important In the following steps we will only mention mandatory fields to set.
+
+Most windows will have many other parameters with default values set. Leave any unmentioned
+parameter at it's default value.
+
+:::
 
 ## Build RADIUS Authentication Servers
 
@@ -107,11 +113,13 @@ many other parameters with default values set. Leave any unmentioned parameter a
 4. Choose **RADIUS** as the Type
 5. Enter the IP address of the RadSecProxy Container host
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image7.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/5g-on-helium/Aruba-image7.png')}
+    style={{ maxHeight: '280px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
 
 6. Click **Submit**
 7. Click on the Server name in the table to enter further configuration
@@ -120,71 +128,91 @@ many other parameters with default values set. Leave any unmentioned parameter a
 10. Enter “**Mysecret**” as the shared key and retype key
 11. Enter the **NAS-ID** used during onboarding with Helium Network
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image8.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/5g-on-helium/Aruba-image8.png')}
+    style={{ maxHeight: '575px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
 
 12. Click **Submit**
 13. Click **Pending Changes** in the top right corner.
 14. Click **Deploy Changes** in the pop up.
 
-NOTE: Redundancy is good, if you deploy 2 containers on 2 hosts, repeat these steps for a second
+:::note
+
+Redundancy is good. If you deploy two containers on two hosts, repeat these steps for a second
 RadSec server called Radsec-2.
+
+:::
 
 ## Build WLAN
 
 1. Click on the arrow next to Mobility Controller in the top left corner of the window and select
    the controller you want to configure.
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image13.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/5g-on-helium/Aruba-image13.png')}
+    style={{ maxHeight: '300px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
 
 2. Click on **Configuration** and **WLAN** in the left menu column.
-3. Click the \+ in the bottom left of the box to add a new WLAN
+3. Click the **\+** in the bottom left of the box to add a new WLAN
 4. Enter Name (SSID) \= “**Helium**”
 5. Edit Broadcast on AP group and Forwarding mode based on your network configuration. In this
    example we use All APs and Tunnel mode.
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image2.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '300px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image2.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 6. Click **Next**
 7. Configure the VLAN settings based on your network configuration. In this example we have a VLAN
    called “LAN” that we use.
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image3.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '300px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image3.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 8. Click **Next**
 9. Select **WPA3-Enterprise** for **Key Management**
-10. Click \+ In Auth Servers and select Radsec-1 (and Radsec-2 if you have 2\)
+10. Click \+ in Auth Servers and select Radsec-1 (and Radsec-2 if you have two)
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image6.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '450px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image6.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 11. Click **Next**
 12. Select the Default Role based on your network configuration. In this example we use a
     “allow-all” rule that is wide open and allows-all user traffic.
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image15.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '300px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image15.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 13. Click **Finish**
 
@@ -196,11 +224,14 @@ RadSec server called Radsec-2.
 4. Click on **RADIUS Accounting Server Group**
 5. Select **Heium_dot1_svg** from drop down menu next to **Server Group**
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image1.png')}
-  style={{ width: '800px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '500px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image1.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 6. Click **Submit**
 7. Click **Pending Changes** in the top right corner.
@@ -215,11 +246,14 @@ RadSec server called Radsec-2.
 3. Click the **\+** next to **Wireless LAN** and scroll down to find **ANQP Domain Name**
 4. Click the **\+** in the area to the right to build a new **ANQP Domain Name Profile**
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image10.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '300px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image10.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 5. Enter “**Helium_Domain**” for Profile Name and “**Hellohelium.com**” for Domain Name
 6. Click **Submit**
@@ -234,11 +268,14 @@ RadSec server called Radsec-2.
    Availability**
 4. Click the **\+** in the area to the right to build a new **ANQP IP Address Availability Profile**
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image14.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '300px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image14.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 5. Enter “Helium_IP” for profile name, select appropriate values for IPv4 and IPv6 availability. If
    unsure, select “**private-double-nated**” and “**not-available**”.
@@ -253,11 +290,14 @@ RadSec server called Radsec-2.
 3. Click the **\+** next to **Wireless LAN** and scroll down to find **ANQP NAI Realm**
 4. Click the **\+** in the area to the right to build a new **ANQP NAI Realm Profile**
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image17.png')}
-  style={{ width: '500px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '450px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image17.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 5. Enter “**Helium_realm**” for Profile Name and “**hellohelium.com**” for NAI Realm Name.
 6. In the drop down for NAI Realm EAP Method 1 chose “**eap-tls**” and below that click the **\+**
@@ -274,11 +314,14 @@ RadSec server called Radsec-2.
 3. Click the **\+** next to **Wireless LAN** and scroll down to find **ANQP Venue Name**
 4. Click the **\+** in the area to the right to build a new **ANQP Venue Name Profile**
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image12.png')}
-  style={{ width: '500px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '450px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image12.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 5. Enter “Helium_venue” in Profile Name, select the best fitting Venue Group e.g. “**business**” and
    best fitting Venue Type e.g. “**assembly-restaurant**” and supply a Venue Name which can be the
@@ -294,11 +337,14 @@ RadSec server called Radsec-2.
 3. Click the **\+** next to **Wireless LAN** and scroll down to find **Advertisement Profile**
 4. Click the **\+** in the area to the right to build a new **Advertisement Profile**
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image9.png')}
-  style={{ width: '400px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '300px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image9.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 5. Enter “Helium_adv_prof” as Profile name
 6. Click **Submit**
@@ -314,11 +360,14 @@ RadSec server called Radsec-2.
 5. Select **ANQP Domain Name** from the list and click on the **\+** in the box to the right and
    select “**Helium_Domain**” from the list.
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image18.png')}
-  style={{ width: '600px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '400px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image18.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 6. Click **OK**
 7. Click **Submit**
@@ -329,26 +378,33 @@ RadSec server called Radsec-2.
     2. ANQP NAI Realm
     3. ANQP Venue name
 
-NOTE: you must do each parameter individually and deploy changes each time.
+:::important
 
-## Build Hotspot2.0 Profile
+You must do each parameter individually and deploy changes each time.
+
+:::
+
+## Build Hotspot 2.0 Profile
 
 1. Click on **Configuration** and **System** in the left menu column.
 2. Click on **Profiles** in the menu bar across the top
-3. Click the **\+** next to **Wireless LAN** and scroll down to find **Hotspot2.0**
-4. Click the **\+** in the area to the right to build a new **Hotspot2.0 Profile**
+3. Click the **\+** next to **Wireless LAN** and scroll down to find **Hotspot 2.0**
+4. Click the **\+** in the area to the right to build a new **Hotspot 2.0 Profile**
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image11.png')}
-  style={{ width: '600px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '500px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image11.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 5. Enter “**Helium_hs20**” for Profile name
 6. Check the box for **Advertise Hotspot 2.0 Capability**
 7. Select **Access Network Type** \= **Public chargeable**
 8. Select best fitting **Venue Group Type** e.g. **assembly**
-9. Select Best fitting **Venue Typ**e e.g. **assembly-restaurant**
+9. Select Best fitting **Venue Type** e.g. **assembly-restaurant**
 10. Check the box next to **RADIUS Chargeable User Identity(RFC4372)**
 11. Check the box next to **RADIUS Location Data (RFC5580)**
 12. When complete the form should look like above.
@@ -356,19 +412,22 @@ NOTE: you must do each parameter individually and deploy changes each time.
 14. Click **Pending Changes** in the top right corner.
 15. Click **Deploy Changes** in the pop up.
 
-## Link Advertisement Profile to Hotspot2.0 Profile
+## Link Advertisement Profile to Hotspot 2.0 Profile
 
 1. Click on **Configuration** and **System** in the left menu column.
 2. Click on **Profiles** in the menu bar across the top
-3. Click the **\+** next to **Wireless LAN** and scroll down to find **Hotspot2.0**
-4. Click the **\+** next to the **Helium** Hotspot2.0 profile
+3. Click the **\+** next to **Wireless LAN** and scroll down to find **Hotspot 2.0**
+4. Click the **\+** next to the **Helium** Hotspot 2.0 profile
 5. Click on **Advertisement**
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image5.png')}
-  style={{ width: '600px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '300px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image5.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 6. Select **Helium_adv_prof** from the drop down menu
 7. Click **Submit**
@@ -384,19 +443,22 @@ NOTE: you must do each parameter individually and deploy changes each time.
 5. Click on **Hotspot 2.0**
 6. Select **Helium_hs20** from drop down menu next to **Hotspot 2.0 Profile** at the top
 
-<img
-  className="docsheader"
-  src={useBaseUrl('img/5g-on-helium/Aruba-image4.png')}
-  style={{ width: '600px', height: 'auto' }}
-/>
+<figure className="screensnippet-wrapper">
+  <img
+    style={{ maxHeight: '350px' }}
+    src={useBaseUrl('img/5g-on-helium/Aruba-image4.png')}
+    className="add-border-radius add-shadow
+add-shadow-margin"
+  />
+</figure>
 
 7. Click **Submit**
 8. Click **Pending Changes** in the top right corner.
 9. Click **Deploy Changes** in the pop up.
 
-# Troubleshooting
+## Troubleshooting
 
-## Look for incoming RADUS packets in RadSec Logs
+### Look for incoming RADUS packets in RadSec Logs
 
 ```
 radsec@radsec:~$ sudo docker ps
@@ -417,9 +479,9 @@ Follow logs from the container and look for Accept or Rejects for any reasons.
   - Make sure NAS_ID has been onboarded to Helium Network
   - Double check ANQP profile creation steps
 
-## Inspect RADIUS AVP contents
+### Inspect RADIUS AVP contents
 
-```
+```bash
 ssh radsec@192.168.10.209 -- sudo tcpdump -i any  -U -s0 -w - port 1813 or 1812 or 2083 | /Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -
 ```
 
