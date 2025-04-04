@@ -1,0 +1,237 @@
+---
+id: data-only-meraki
+title: Meraki Conversion Guide
+pagination_label: Meraki Conversion Guide
+sidebar_label: Meraki Conversion Guide
+description: Helium Network Conversion Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/data-only-meraki
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Prerequisites
+
+- Meraki system must be running
+  [14.0](https://documentation.meraki.com/General_Administration/Firmware_Upgrades/Cisco_Meraki_Firmware_FAQ)
+  or later.
+- Guide assumes the network is using an on-prem Meraki MX Controller.
+- Meraki system has AP(s) linked to the MX Controller.
+- Meraki system has basic traffic routing working with existing SSID(s).
+- An Intel-based host is required in the network to run the
+  [RadSecProxy](https://radsecproxy.github.io) container.
+
+# High Level Steps
+
+1. Deploy RadSecProxy container and record IP address of host
+2. Build Meraki Helium Passpoint SSID
+   1. Build a new SSID
+   2. Configure SSID to use RADIUS
+   3. Build Hotspot 2.0 Profile
+
+# Deploy RadSecProxy Container
+
+RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
+over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
+the UDP is then converted to a TLS protected TCP connection to the Helium Network core AAA servers.
+
+## Prerequisites
+
+- An intel based machine with Docker installed.
+- The intel based machine has a private IP in your network reachable from your Meraki Mobility
+  Controller
+- ACLs or Firewalls allow Meraki Mobility Controller and Docker Container to communicate UDP on port
+  1812 and 1813
+- ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802\.
+
+## Container Deployment
+
+1. Un-zip and untar the Helium_RadSec_Docker.tag.gz file into the directory of your choice on the
+   host machine. This will unpack the following items:
+   1. Dockerfile \- The docker instructions on how to build the container
+   2. Radsecproxy.conf \- The radsecproxy config file prepopulated to connect to Helium Network AAA
+      servers
+   3. docker-compose.yml \- file to start and stop the container as a daemon.
+
+```
+# tar -xvzf  Helium_RadSec_Docker.tag.gz
+```
+
+2. Into the same directory copy the 3 certificates obtained from Helium Network
+   1. ca.pem \- the root CA certificate
+   2. cert.pem \- the user certificate
+   3. key.pem \- the key file matched to the certificate
+3. Start the container using:
+
+```
+# sudo docker compose up -d
+```
+
+4. If/when needed, stop the container using:
+
+```
+# sudo docker compose down
+```
+
+# Build Meraki Helium Passpoint SSID
+
+The following steps will configure your Meraki system to broadcast an SSID with the needed Passpoint
+and RADIUS configurations to support Helium Mobile user offload.
+
+To start login to your Meraki Dashboard in your browser, this will be our starting point for all
+major steps below
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-1.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+**NOTE\! In the following steps we will only mention mandatory fields to set. Most windows will have
+many other parameters with default values set. Leave any unmentioned parameter at it’s default
+value.**{' '}
+
+## Build a new SSID
+
+1. Click on **Wireless** and then **SSID** in the left menu column
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-2.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+2. Look for a “**Unconfigured SSID X**”
+3. Click on **rename**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-3.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+   <br />
+4. Enter “**Helium**”
+5. Select **Enabled**
+6. Click **Save Changes**
+
+## Configure Helium SSID for RADIUS Access Control
+
+1. Click **Edit Settings**
+2. Under **Security** heading toggle the circle **Enterprise with**
+3. Select **my RADIUS Server**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-4.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+4. Scroll down to **RADIUS** and click the arrow on the right to expand
+5. Click add server and add the following configurations
+   1. Enter IP Address: **\<ip of your radsecproxy container host\>** Port: **1812** Secret:
+      **mysecret**. Click **Done**.
+   2. Add a second server if desired for HA redundancy.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-5.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+6. Repeat those steps to add the same server to the RADIUS Accounting Servers list using **port
+   1813\.**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-6.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+7. Select the check box next to **Radius CoA Support**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-7.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+8. Click on the arrow to expand the **Advanced RADIUS settings** section
+9. Change the number 1 drop down for **NAS ID** to **Custom** and enter the NAS-ID you got during
+   onboarding
+10. Click the x to remove number 2 in that list which says **SSID Number**
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-8.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+    <br />
+11. Click **Save**
+
+## Build Hotspot2.0 Config
+
+1. Click on **Wireless** and navigate to **Hotspot2.0**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-10.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+2. Change the toggle for **Hotspot2.0** to **Enabled**
+3. Enter **Operator Name** to be “**Helium**”
+4. Enter **Venue Name** to be the street address of your location
+5. Choose the best fitting **Venue Type** from the drop down
+6. Choose **Chargeable public network** from the drop down
+7. In domain list enter both **FreedomFi.com** and **Hellohelium.com**
+8. Click **Create Realm**
+   1. Enter **freedomfi.com** as the name
+   2. Select **Add EAP Method**
+   3. Select **Method ID** to be **13 EAP-TLS**
+   4. Select **Authentication Methods** to be **Certificate** under
+   5. Click **Create realm**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-11.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+9. Repeat for realm name **Hellohelium.com** with matching settings.
+10. Final Hotspot2.0 settings should look like this:
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-12.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+11. Click **Save Changes**
