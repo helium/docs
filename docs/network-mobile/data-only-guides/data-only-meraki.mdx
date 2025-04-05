@@ -124,6 +124,17 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 
 ## Configure Helium SSID for RADIUS Access Control
 
+:::note
+
+Helium is aware that Meraki has some native support for RadSec. Unfortunately, the Meraki
+implementation is not scalable for a network like Helium. Meraki builds a CA certificate specific to
+each group of APs and ask for it to be loaded on the AAA. That does not scale and there is no way to
+load the client certificate and key Helium produces during onboarding into the Meraki RadSec client.
+So for now the guide below uses our RadSecProxy container and plain RADIUS configuration on the
+Meraki devices.
+
+:::
+
 1. Click **Edit Settings**
 2. Under **Security** heading toggle the circle **Enterprise with**
 3. Select **my RADIUS Server**
