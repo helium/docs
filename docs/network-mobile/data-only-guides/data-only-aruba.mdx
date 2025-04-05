@@ -19,7 +19,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - Aruba system has AP(s) linked to the Mobility Controller.
 - Aruba system has basic traffic routing working with existing SSID(s).
 - An Intel-based host is required in the network to run the
-  [RadSecProxy](https://radsecproxy.github.io) container.
+  [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
 
 # High Level Steps
 
@@ -52,7 +52,7 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
 
 ## Container Deployment
 
-1. Un-zip and untar the `Helium_RadSec_Docker.tag.gz` file into the directory of your choice on the
+1. Un-zip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
    host machine. This will unpack the following items:
    1. `Dockerfile` \- The docker instructions on how to build the container
    2. `Radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
@@ -60,7 +60,7 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
    3. `docker-compose.yml` \- File to start and stop the container as a daemon.
 
 ```bash
-tar -xvzf  Helium_RadSec_Docker.tag.gz
+tar -xvzf  Helium_RadSec_Docker.tar.gz
 ```
 
 2. Into the same directory copy the 3 certificates obtained from Helium Network
@@ -125,7 +125,7 @@ parameter at it's default value.
 7. Click on the Server name in the table to enter further configuration
 8. Enter **Auth Port** \= **1812**
 9. Enter **Acct Port** \= **1813**
-10. Enter “**Mysecret**” as the shared key and retype key
+10. Enter “**mysecret**” as the shared key and retype key
 11. Enter the **NAS-ID** used during onboarding with Helium Network
 
 <figure className="screensnippet-wrapper">
