@@ -23,17 +23,13 @@ Blockchain on April 18, 2023.
 The mint address for HNT is [`hntyVP6YFm1Hg25TN9WGLqM12b8TQmcknKrdu1oxWux`][hnt-mint-addr] on the
 Solana blockchain.
 
-Navigate to [https://explorer.helium.com/stats][explorer-stats] for up-to-date information on
-Network tokens.
-
 ## HNT Usage
 
 HNT serves the needs of the two primary parties in the Helium Ecosystem:
 
-1. **Hotspot Hosts and Operators**. Hosts are rewarded in network tokens like [IOT][iot] or
-   [MOBILE][mobile] while deploying and maintaining network coverage. These network tokens are
-   redeemable for HNT.
-2. **Enterprises and Developers use the Helium Network** to connect devices and build IoT
+1. **Hotspot Hosts and Operators**. Hosts are rewarded in HNT network tokens while deploying and 
+    maintaining network coverage. Operators, and some network mappers are also rewarded in HNT.
+2. **Enterprises and Developers use the Helium Network** to connect devices and build Network
    applications. [Data Credits][datacredit], which are a \$USD-pegged utility token derived from
    HNT, are used to pay transaction fees for wireless data transmissions on the Network.
 
@@ -54,11 +50,12 @@ needs and relatively scarce, with a known maximum.
 
 The Network targeted the distribution of 5,000,000 HNT per month at launch. Following the community
 approval of HIP-20, the Network uses a two-year halving schedule, resulting in a maximum HNT supply
-of 223,000,000 HNT.
+of 240,000,000 HNT, **but slow blockchain times in year 1 resulted in emissions of ~43,000,000
+resulting in a max supply of ~223,000,000 HNT.
 
 | Year |       Year Start | HNT at Year Start | Target HNT Emission |
 | :--: | ---------------: | ----------------: | ------------------: |
-|  1   | August 1st, 2019 |                 0 |          60,000,000 |
+|  1   | August 1st, 2019 |                 0 |        **60,000,000 |
 |  2   | August 1st, 2020 |        60,000,000 |          60,000,000 |
 |  3   | August 1st, 2021 |       120,000,000 |          30,000,000 |
 |  4   | August 1st, 2022 |       150,000,000 |          30,000,000 |
@@ -66,6 +63,8 @@ of 223,000,000 HNT.
 |  6   | August 1st, 2024 |       195,000,000 |          15,000,000 |
 |  7   | August 1st, 2025 |       210,000,000 |           7,500,000 |
 |  8   | August 1st, 2026 |       217,500,000 |           7,500,000 |
+|  7   | August 1st, 2027 |       225,000,000 |           3,750,000 |
+|  8   | August 1st, 2028 |       228,750,000 |           3,750,000 |
 
 > The full token emission schedule can be viewed in the HNT section of this document: [Token
 > Emissions as of Solana Migration][sol-emissions].
@@ -94,25 +93,78 @@ produced via Net Emissions do not add to the total outstanding, they do not viol
 However, to ensure that the deflationary pressure is still present, the Net Emission is capped at 1%
 of the epoch emissions at the time when HIP 20 was approved.
 
-For instance, in October 2024, the Net Emissions cap is 1,643.83561643 HNT per epoch, and the
-up-to-date value can be verified
-[on chain at](https://solscan.io/account/BQ3MCuTT5zVBhNfQ4SjMh3NPVhFy73MPV8rjfq5d1zie#data). Move
-decimal point 8 positions left to measure in HNT.
-
-If less than 1,643.83561643 HNT is burned for DC within an epoch, the full amount burned will be
-re-minted and added to the day's usual scheduled emissions for that day's epoch. However, if more
-than 1,643.83561643 HNT is burned for DC within a single epoch, any HNT burn for DC over
-1,643.83561643 will be permanently burned and removed from the max supply, while 1,643.83561643 will
-be re-minted and distributed in scheduled emissions.
+Specifically, Net Emissions counts only HNT burned for Data Credits and does not count HNT 
+programmatically burned for any other reason.
 
 Review the [complete Net Emissions discussion in the HIP][hip-20] for more information. Note that in
 HIP-20, the cap was 34.24 HNT because the epoch was every 30 minutes at the time HIP-20 was written.
 The current epoch is only 24 hour basis, yielding a cap of 1,643.83561643 HNT.
 
+The up-to-date value can be verified
+[on chain at.](https://explorer.solana.com/address/BQ3MCuTT5zVBhNfQ4SjMh3NPVhFy73MPV8rjfq5d1zie/anchor-account) Move
+the decimal point 8 positions left to measure `Net Emissions Cap` in HNT.
+
+HIP-20 proposed a Net Emissions Pool, which would smooth out the effects of large individual burn 
+events occurring infrequently over several days. Without smoothing, large HNT burns for DC would 
+be extremely capped as the burn and cap would happen only on one day. This pool was implemented 
+as part of [HRP 2025-03][hrp-2025-03] using a similar smoothing calcuation to that for the 
+Utility Score described in [HIP-141][hip-141].
+
+The smoothing calculation multiplies yesterdays uncapped and smoothed HNT burned for DC amount 
+number and multiplies it by 6/7 and then adds it to todays actual HNT burned for DC amount multiplied 
+by 1/7 and the resulting number then has the Net Emissions Cap applied to provide the calculated Net 
+Emission HNT number for today. This has an effect that large burns on one day can increase Net 
+Emissions over several days rather than just one day.
+
+```
+net_emissions_target(today) = net_emissions_target(yesterday) * 6/7 + hnt_burn(today) * 1/7
+
+hnt_net_emissions(today) = min(net_emissions_target(today), 1,643.83561643)
+```
+
+#### Example 1
+
+If yesterday's smoothed HNT burn for DC number was 400 HNT `net_emissions_target(yesterday)` and 
+today's HNT burned for DC is 10,0000 HNT `hnt_burn(today)`, then the result is: (400 x 6/7) + 
+(10,000 x 1/7) = 1,771.429 `net_emissions_target(today)`, but will be Max capped at 1,643.83561643 
+HNT and become `hnt_net_emissions(today)`.
+
+Therefore, 1,643.83561643 is today's actual HNT Net Emissions and as 10,000 - 1,643.83561643 
+= 8,356.164384 then the net result is 8,356.164384 HNT will be burned today.
+
+Tomorrow, the uncapped number `net_emissions_target(today)`(1,771.429) will become yesterday's 
+smoothed HNT burn for DC number `net_emissions_target(yesterday)`. 
+
+#### Example 2
+
+If yesterday's smoothed HNT burn for DC number was 1,650 HNT and today's HNT burned for DC is 200 
+HNT, then the result is: (1,650 x 6/7) + (200 x 1/7) = 1,442.857143 and is under the cap.
+
+Therefore, 1,442.857143 is today's actual HNT Net Emissions, and as 200 is less than today's 
+emissions, the net result is no HNT is burned.
+
+Smoothing the HNT burn for DC from previous days to today has resulted in more HNT Net Emissions 
+today than were HNT burned for DC today.
+
+Tomorrow, the uncapped number (1,442.857143) will become yesterday's smoothed HNT burn for DC number.
+
+
+#### Example 3
+
+If yesterday's smoothed HNT burn for DC number was 1,440 HNT and today's HNT burned for DC is 
+2,000 HNT, then the result is: (1,440 x 6/7) + (2,000 x 1/7) = 1,520 HNT and is under the cap
+
+Therefore, 1,520 is today's actual Net Emission,s and 2,000 - 1,520 = 480 HNT will be burned 
+today.
+
+
+Tomorrow, the uncapped number (1,520) will become yesterday's smoothed HNT burn for DC number.
+
 [bme]: https://multicoin.capital/2018/02/13/new-models-utility-tokens/
 [datacredit]: /tokens/data-credit
-[explorer-stats]: https://explorer.helium.com/stats
 [hip-20]: https://github.com/helium/HIP/blob/master/0020-hnt-max-supply.md#net-emissions
+[hip-141]: https://github.com/helium/HIP/blob/main/0141-single-token-governance-and-release-proposals.md#smoothing-function
+[hrp-2025-03]: https://github.com/helium/helium-release-proposals/blob/main/releases/20250312-core-devs.md#1-hnt-token-net-emissions-smoothing
 [iot]: /tokens/iot-token
 [mobile]: /tokens/mobile-token
 [sol-emissions]:
