@@ -50,13 +50,13 @@ needs and relatively scarce, with a known maximum.
 
 The Network targeted the distribution of 5,000,000 HNT per month at launch. Following the community
 approval of HIP-20, the Network uses a two-year halving schedule, resulting in an initial maximum HNT 
-supply of 240,000,000 HNT, **but slow blockchain times in year 1 "resulted in an issuance that was 
+supply of 240,000,000 HNT, but slow blockchain times in year 1 "resulted in an issuance that was 
 ~17,000,000 HNT less than the schedule targeted. Thus, at the time HIP 20 was approved, max supply had 
 decreased to ~223,000,000 HNT.
 
 | Year |       Year Start | HNT at Year Start | Target HNT Emission |
 | :--: | ---------------: | ----------------: | ------------------: |
-|  1   | August 1st, 2019 |                 0 |        **60,000,000 |
+|  1   | August 1st, 2019 |                 0 |          60,000,000 |
 |  2   | August 1st, 2020 |        60,000,000 |          60,000,000 |
 |  3   | August 1st, 2021 |       120,000,000 |          30,000,000 |
 |  4   | August 1st, 2022 |       150,000,000 |          30,000,000 |
@@ -110,12 +110,12 @@ HIP-20 proposed a Net Emissions Pool, which would smooth out the effects of larg
 occurring infrequently over several days. Without smoothing, large HNT burns for DC would be extremely 
 capped as the burn and cap would happen only on one day. This pool was implemented as part of 
 [HRP 2025-03][hrp-2025-03] using a similar smoothing calculation to that for the Utility Score described 
-in [HIP-141][hip-141]. With smoothing this has an effect that large burns on one day can increase Net 
+in [HIP-141][hip-141]. With smoothing, this has an effect that large burns on one day can increase Net 
 Emissions over several days, rather than just one day.
 
 Every day, a Net Emissions Target is calculated, which takes into account the daily burn of HNT, and 
-the Net Emissions Target of the previous day and smoothes it. The target amount of HNT is then re-emitted as 
-Net Emissions, up to the cap of 1,643.83561643 HNT.
+the Net Emissions Target of the previous day and smoothes it. The target amount of HNT is then re-emitted 
+as Net Emissions, up to the cap of 1,643.83561643 HNT.
 
 The smoothing calculation multiplies yesterday's uncapped and smoothed HNT burned amount number and 
 multiplies it by 6/7 and then adds it to today's actual HNT burned amount, multiplied by 1/7 and the 
@@ -150,7 +150,7 @@ Therefore, 1,442.857143 is today's actual HNT Net Emissions, and as 200 is less 
 emissions, the net result is no HNT is burned.
 
 Smoothing the HNT burn from previous days to today has resulted in more HNT Net Emissions today 
-than were HNT burned today. These came from yesterday's pooled' number.
+than were HNT burned today. These came from yesterday's pooled number.
 
 Tomorrow, the uncapped number (1,442.857143) will become yesterday's smoothed HNT burn number.
 
@@ -159,7 +159,7 @@ Tomorrow, the uncapped number (1,442.857143) will become yesterday's smoothed HN
 If yesterday's smoothed HNT burn number was 1,440 HNT and today's HNT burned is 2,000 HNT, 
 then the result is: (1,440 x 6/7) + (2,000 x 1/7) = 1,520 HNT and is under the cap
 
-Therefore, 1,520 is today's actual Net Emission,s and 2,000 - 1,520 = 480 HNT will be burned 
+Therefore, 1,520 is today's actual Net Emission's and 2,000 - 1,520 = 480 HNT will be burned 
 today.
 
 Tomorrow, the uncapped number (1,520) will become yesterday's smoothed HNT burn number.
