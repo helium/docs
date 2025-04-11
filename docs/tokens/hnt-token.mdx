@@ -110,13 +110,17 @@ HIP-20 proposed a Net Emissions Pool, which would smooth out the effects of larg
 occurring infrequently over several days. Without smoothing, large HNT burns for DC would be extremely 
 capped as the burn and cap would happen only on one day. This pool was implemented as part of 
 [HRP 2025-03][hrp-2025-03] using a similar smoothing calculation to that for the Utility Score described 
-in [HIP-141][hip-141].
+in [HIP-141][hip-141]. With smoothing this has an effect that large burns on one day can increase Net 
+Emissions over several days, rather than just one day.
+
+Every day, a Net Emissions Target is calculated, which takes into account the daily burn of HNT, and 
+the Net Emissions Target of the previous day and smoothes it. The target amount of HNT is then re-emitted as 
+Net Emissions, up to the cap of 1,643.83561643 HNT.
 
 The smoothing calculation multiplies yesterday's uncapped and smoothed HNT burned amount number and 
-multiplies it by 6/7 and then adds it to today's actual HNT burned amount, multiplied  by 1/7 and the 
+multiplies it by 6/7 and then adds it to today's actual HNT burned amount, multiplied by 1/7 and the 
 resulting number then has the Net Emissions Cap applied to provide the calculated Net Emission HNT 
-number for today. This has an effect that large burns on one day can increase Net Emissions over 
-several days rather than just one day.
+number for today. 
 
 ```
 net_emissions_target(today) = net_emissions_target(yesterday) * 6/7 + hnt_burn(today) * 1/7
@@ -126,7 +130,7 @@ hnt_net_emissions(today) = min(net_emissions_target(today), 1,643.83561643)
 
 #### Example 1
 
-If yesterday's smoothed HNT burn fnumber was 400 HNT `net_emissions_target(yesterday)` and today's 
+If yesterday's smoothed HNT burn number was 400 HNT `net_emissions_target(yesterday)` and today's 
 HNT burned is 10,0000 HNT `hnt_burn(today)`, then the result is: 
 (400 x 6/7) +  (10,000 x 1/7) = 1,771.429 `net_emissions_target(today)`, 
 but will be Max capped at 1,643.83561643 HNT and become `hnt_net_emissions(today)`.
