@@ -1,0 +1,347 @@
+---
+id: data-only-ruckus
+title: Ruckus Conversion Guide
+pagination_label: Ruckus Conversion Guide
+sidebar_label: Ruckus Conversion Guide
+description: Helium Network Conversion Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/data-only-ruckus
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Prerequisites
+
+- Ruckus SmartZone must be running version 6.1 or later
+- Guide assumes SmartZone Ruckus Mobility Controller
+- Ruckus system has AP(s) linked to your SmartZone Controller
+- Ruckus system has basic traffic routing working with existing SSID(s)
+
+# High Level Steps
+
+1. Build Ruckus Helium Passpoint SSID
+   1. Install Certs
+   2. Setup RadSec Proxy
+   3. Configuration HS2.0 Profile
+   4. Build New SSID
+
+# Build Ruckus Helium Passpoint SSID
+
+The following steps will configure your Ruckus system to broadcast an SSID with the needed Passpoint
+and RADIUS configurations to support Helium Mobile user offload.
+
+To start login to your Ruckus Dashboard in your browser, this will be our starting point for all
+major steps below
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-1.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+:::note
+
+In the following steps we will only mention mandatory fields to set. Most windows will have many
+other parameters with default values set. Leave any unmentioned parameter at it's default value.
+
+:::
+
+## Install RadSec Certs:
+
+1. Click on **Administration\>System\>Certificates\>SZ Trusted CA Certificates/Chain(External)**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-2.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+2. Click **Import**
+3. Load the **interim.pem, ca.pem,** and **root.pem** certificates from your local directory.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-3.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+4. Click **Validate** then **OK**
+5. Next on sub-menu bar select **SZ as Client Certificate** tab
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-4.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+6. Click **import**
+7. Enter **Name** as **Helium_radsec_client**
+8. Add **cert.pem** and **key.pem**
+9. Click **Validate** then **OK**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-5.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+## Configure RadSec Authentication Proxy:
+
+1. Click on **Security\>Authentication\>Proxy(SZ Authenticator)**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-6.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+2. Click on **Create**
+3. Fill in **Helium_Radsec** as **Name**
+4. Click the toggle **Encryption** to **TLS On**
+5. Enter **CN/SAN Identity** as **radius.stage.wifi.freedomfi.com**
+6. Select **Client Certificate** from drop down to be **Helium_radsec_client**
+7. Enter **IP Address/FQDN** to be **52.37.147.195**
+8. Ensure **Port** is **2083**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-7.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+9. Click **OK**
+
+## Configure RadSec Accounting Proxy:
+
+1. Click on **Security\>Accounting\>Proxy**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-8.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+2. Click **Create**
+3. Enter **Name** as **Helium_radsec_acct**
+4. Enable the toggle for **Encryption** to **ON TLS**
+5. Enter **CN/SAN Identity** as **radius.stage.wifi.freedomfi.com**
+6. Select **Client Certificate** from drop down to be **Helium_radsec_client**
+7. Enter **IP Address/FQDN** to be **52.37.147.195**
+8. Ensure **Port** is **2083**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-9.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+9. Click **OK**
+
+## Build Hotspot2.0 Profile:
+
+1. Click **Services\>Hotspots\&Portals\>Hotspot 2.0**
+2. Under **Wi-Fi Operator** click **Create**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-10.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+3. Configure:
+   1. **Name** as **Helium_Operator**
+   2. Enter **Domain Name** as **FreedomFi.com** and click **\+ADD**
+   3. Repeat for **Domain Name** as **Hellohelium.com**
+   4. Enter **Friendly Name** as **Helium** and click **\+ADD**
+4. Click **OK**
+5. Under **Identity Provider** click **Create**
+   1. Fill in **Name** as **Helium_IDP**
+   2. In the **Realms** section, enter **Name** as **Hellohelium.com** and click **\+Add**
+   3. In the drop down for **EAP Method** select **EAP-TLS** and click Create,
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-11.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+4. Choose **Auth Info** to be **Credential Type** and **Auth Type** to be **Certificate** and click
+   **OK.**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-12.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+5.  Click **\+Add**
+6.  Repeat steps 5.b-5.e for Realm **FreedomFi.com** with all matching settings.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-13.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+6. Click Next
+7. Leave online signup disabled, click Next
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-14.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+8. In **Authentication** for both **no-match** and **unspecified**:
+   1. Click on the Realm name to Select
+   2. Click configure
+   3. Choose Helium_Radsec from drop down
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-15.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+9. When done you should see this:
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-16.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+10. Repeat these steps for Accounting for both **no-match** and **unspecified**:
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-17.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+11. Config should match this screen
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-18.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+12. Review and make sure it matches below
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-19.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+13. Click OK.
+
+## Build a new SSID
+
+1. Click on **Network\>Wireless LANS**
+2. Select your Zone
+3. Lick on **Create**
+4. Name **Helium**
+5. Select **Authentication Type** to be **Hotspot2.0 Access**
+6. Under **Encryption** for **Method Choose WPA3**
+7. **Under Hotspots 2.0 Profile** in **Hotspot 2.0 profile** click **\+**
+   1. For **Name** enter **Helium**
+   2. For **Operator** select **Helium_operator**
+   3. For **IDP** select **Helium_IDP** click **\+Add**
+   4. **Advanced**
+   5. Set **Access Network Type** to **Chargeable Public Network**
+   6. Select **IPv4 Double NATed private address** (or applicable to your network)
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-20.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+8. Click **OK** and you should see configuration like the image below.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-21.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+9. Under **RADIUS Options**
+   1. **NAS-ID \-\> User-Defined \>** enter your NAS-ID per Helium onboarding spreadsheet.
+   2. For **Called Station ID** set to **AP MAC**
+   3. **Enable** the toggle for **Single Session ID accounting**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/ruckus/Ruckus-22.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+10. Click OK
