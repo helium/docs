@@ -33,6 +33,15 @@ module.exports = {
             'network-mobile/data-only-guides/data-only-generic',
           ],
         },
+        {
+          type: 'category',
+          label: 'Helium Hotspot Onboarding',
+          link: { type: 'doc', id: 'network-mobile/onboarding' },
+          items: [
+            'network-mobile/hmh-onboarding-indoor',
+            'network-mobile/hmh-onboarding-outdoor',
+          ],
+        },
       ],
     },
     {
