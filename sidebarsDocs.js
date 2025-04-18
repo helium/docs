@@ -35,16 +35,11 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Onboarding',
+          label: 'Helium Hotspot Onboarding',
           link: { type: 'doc', id: 'network-mobile/onboarding' },
           items: [
-            {
-              type: 'doc',
-              id: 'network-mobile/onboarding',
-              label: 'Onboarding',
-            },
-            'network-mobile/indoor-hmh-onboarding',
-            'network-mobile/outdoor-hmh-onboarding',
+            'network-mobile/hmh-onboarding-indoor',
+            'network-mobile/hmh-onboarding-outdoor',
           ],
         },
       ],
