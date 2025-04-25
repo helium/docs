@@ -54,7 +54,6 @@ module.exports = {
           id: 'network-iot/iot',
           label: 'Introduction',
         },
-        'tokens/mine-iot',
         {
           type: 'category',
           label: 'Proof of Coverage',

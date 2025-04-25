@@ -93,9 +93,6 @@ export const IOTPage = () => (
             <img className="quicklinkarrow" src={useBaseUrl('img/icons/linkarrow.svg')} />
           </a>
           <h5>Quick Links</h5>
-          <a className="block" href="/tokens/mine-iot/">
-            <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Mine IOT
-          </a>
           <a className="block" href="/iot/hotspots">
             <img className="docicon" src={useBaseUrl('img/icons/docicon.svg')} /> Learn about IoT
             Hotspots
