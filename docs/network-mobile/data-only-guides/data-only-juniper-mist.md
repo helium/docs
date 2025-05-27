@@ -54,6 +54,8 @@ RADIUS messages used to authenticate users and to perform session accounting are
    * `cert.pem` – User certificate
    * `key.pem` – Private key matching **cert.pem**
 
+   The keys may have different file names depending on their source. Rename the keys or edit `radsecproxy.conf`
+
 3. Start the container:
 
    ```bash
