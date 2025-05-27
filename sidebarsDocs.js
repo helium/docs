@@ -31,6 +31,7 @@ module.exports = {
             'network-mobile/data-only-guides/data-only-meraki',
             'network-mobile/data-only-guides/data-only-ruckus',
             'network-mobile/data-only-guides/data-only-generic',
+            'network-mobile/data-only-guides/data-only-juniper-mist',
           ],
         },
         {
