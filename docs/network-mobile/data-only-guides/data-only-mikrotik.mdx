@@ -1,0 +1,171 @@
+---
+id: data-only-mikrotik
+title: MikroTik Conversion Guide
+pagination_label: MikroTik Conversion Guide
+sidebar_label: MikroTik Conversion Guide
+description: Helium Network Conversion Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/data-only-mikrotik
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Prerequisites
+
+- **RouterOS v7** device (tested on **7.18.1**)
+- [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container running in your network.
+- For self-serve, CLI wallet prepared for onboarding:
+  [https://docs.helium.com/mobile/data-only-onboarding/](https://docs.helium.com/mobile/data-only-onboarding/)
+- For Helium Plus, certificates ( `ca.pem`, `cert.pem`, `key.pem` ) supplied by the Helium Plus team
+  and copied into the RadSecProxy directory.
+- UDP ports **1812/1813** open between MikroTik and the RadSecProxy host.
+- Bridge interface already created and used as the datapath for Wi-Fi traffic.
+
+## High-Level Steps
+
+1. Deploy the RadSecProxy container and note its IP.
+2. Create a **RADIUS** profile that points to the RadSecProxy.
+3. Build a **Wi-Fi configuration profile** for the Helium Passpoint SSID.
+4. Apply the profile to an interface (or create a virtual AP).
+5. Verify operation and troubleshoot, if necessary.
+
+### 1. Deploy RadSecProxy
+
+At time of writing, RouterOS does not support RadSec natively, download the
+[RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container and run it in a Docker.
+
+1. Un-zip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
+   host machine. This will unpack the following items:
+   1. `Dockerfile` \- The docker instructions on how to build the container
+   2. `Radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
+      Network AAA servers
+   3. `docker-compose.yml` \- File to start and stop the container as a daemon.
+
+```bash
+tar -xvzf  Helium_RadSec_Docker.tar.gz
+```
+
+2. Into the same directory copy the 3 certificates obtained from Helium Network
+   1. `ca.pem` \- the root CA certificate
+   2. `cert.pem` \- the user certificate
+   3. `key.pem` \- the key file matched to the certificate
+3. Start the container using:
+
+```bash
+sudo docker compose up -d
+```
+
+4. If/when needed, stop the container using:
+
+```bash
+sudo docker compose down
+```
+
+Once the container is running, make sure you can **ping** it from the MikroTik router.
+
+### 2. Add a RADIUS Profile
+
+In **Wireless → RADIUS** add a new entry:
+
+| Field                   | Value               |
+| ----------------------- | ------------------- |
+| **Comment**             | `Helium AAA`        |
+| **Service**             | `wireless`          |
+| **Address**             | _IP_of_RadSecProxy_ |
+| **Protocol**            | `udp`               |
+| **Secret**              | `mysecret`          |
+| **Authentication Port** | `1812` (default)    |
+| **Accounting Port**     | `1813` (default)    |
+| **Timeout**             | `300 s`             |
+| **Enabled**             | ☑︎                  |
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/mikrotik/new-radius.png')}
+    style={{ maxHeight: '575px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+### 3. Create a AP Configuration Profile
+
+Navigate to **WiFi → Configuration** and click **Add (+)**.
+
+#### Configuration Tab
+
+| Field       | Value              |
+| ----------- | ------------------ |
+| **Name**    | `helium-passpoint` |
+| **Enabled** | ☑︎                 |
+| **Mode**    | `ap`               |
+| **SSID**    | `Helium`           |
+
+#### Channel Tab
+
+Select the band and channel width appropriate for your deployment. Leave **Frequency** blank for
+automatic channel selection.
+
+#### Security Tab
+
+Check WPA2 or WPA3 EAP under Authentication Types.
+
+#### EAP Tab
+
+Check EAP Accounting to be enabled.
+
+#### AAA Tab
+
+Paste a MAC address of the WAN interface (usually ether1 by default) from menu Interfaces. Or enter
+the NAS-ID provided during Helium Plus onboarding.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/mikrotik/edit-aaa.png')}
+    style={{ maxHeight: '575px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+#### Datapath Tab
+
+| Setting    | Value                                  |
+| ---------- | -------------------------------------- |
+| **Bridge** | `bridge1` (or the bridge used for LAN) |
+
+#### Interworking Tab
+
+Fill in as shown:
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/mikrotik/interworking.png')}
+    style={{ maxHeight: '575px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+### 4. Attach the Profile to an Interface
+
+Assign the configuration profile to the desired WiFi interface. Either click **New** (this will
+create a virtual AP) or **Edit** an existing master interface.
+
+Make sure to select a correct 5/2.4 interface according to the band defined in the configuration
+profile.
+
+Enable it on the General tab.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/mikrotik/add-radsec.png')}
+    style={{ maxHeight: '575px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+### 5. Verification
+
+- Confirm that the `Helium` SSID is visible.
+- In logs, watch for successful `radius` authentication messages.
+- On the RadSecProxy host use `docker logs -f radsecproxy` to ensure TCP/TLS sessions are
+  established.
+- On a compatible handset, ensure automatic connection with the carrier profile.
