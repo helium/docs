@@ -64,7 +64,7 @@ In the WLAN settings locate the **Passpoint** section and set:
 
 ### Advanced Settings
 
-* **Domain Name**: `freedomfi.com`& 'hellohelium.com'
+* **Domain Name**: `freedomfi.com` & `hellohelium.com`
 
 ### NAI Realms
 
@@ -125,7 +125,7 @@ This NAS Identifier must match the identifier used during onboarding through sel
       Open the CA file in a text editor; note that it contains three separate CA certs.
       Copy and paste the first CA cert, including the **-----BEGIN CERTIFICATE-----** and **-----END CERTIFICATE-----** header and footer, and click the **Add** button.
       Repeat this process for the other two CA certs in the file.
-   Under **AP RadSec Certificiate**, click the **View Certificate** link.
+   Under **AP RadSec Certificate**, click the **View Certificate** link.
       Open the key.pem (or similarly named) file in a text editor, then copy and paste the contents into the **Private Key** field
       Open the cert.pem (or similarly named) file in a text editor, then copy and paste the contents (including the header & footer) into the **Signed Certificate** field
       Apply / Save as applicable
