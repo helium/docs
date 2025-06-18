@@ -112,7 +112,7 @@ described in [HIP-141][hip-141]. With smoothing, this has an effect that large b
 increase Net Emissions over several days, rather than just one day.
 
 Every day, a Net Emissions Target is calculated, which takes into account the daily burn of HNT, and
-the Net Emissions Target of the previous day and smoothes it. The target amount of HNT is then
+the Net Emissions Target of the previous day and smooths it. The target amount of HNT is then
 re-emitted as Net Emissions, up to the cap of 1,643.83561643 HNT.
 
 The smoothing calculation multiplies yesterday's uncapped and smoothed HNT burned amount number and
@@ -128,40 +128,11 @@ $$
 \text{HNT Net Emissions}_{\text{Today}} = \min\left( \text{Net Emissions Target}_{\text{Today}},\ 1643.83561643 \right)
 $$
 
-#### Example 1
+import { NetEmissions } from './NetEmissions'
 
-If yesterday's smoothed HNT burn number was 400 HNT `net_emissions_target(yesterday)` and today's
-HNT burned is 10,000 HNT `hnt_burn(today)`, then the result is: (400 x 6/7) + (10,000 x 1/7) =
-1,771.429 `net_emissions_target(today)`, but will be Max capped at 1,643.83561643 HNT and become
-`hnt_net_emissions(today)`.
-
-Therefore, 1,643.83561643 is today's actual HNT Net Emissions and as 10,000 - 1,643.83561643 =
-8,356.164384 then the net result is 8,356.164384 HNT will be burned today.
-
-Tomorrow, the uncapped number `net_emissions_target(today)`(1,771.429) will become yesterday's
-smoothed HNT burn for DC number `net_emissions_target(yesterday)`.
-
-#### Example 2
-
-If yesterday's smoothed HNT burn number was 1,650 HNT and today's HNT burned is 200 HNT, then the
-result is: (1,650 x 6/7) + (200 x 1/7) = 1,442.857143 and is under the cap.
-
-Therefore, 1,442.857143 is today's actual HNT Net Emissions, and as 200 is less than today's
-emissions, the net result is no HNT is burned.
-
-Smoothing the HNT burn from previous days to today has resulted in more HNT Net Emissions today than
-were HNT burned today. These came from yesterday's pooled number.
-
-Tomorrow, the uncapped number (1,442.857143) will become yesterday's smoothed HNT burn number.
-
-#### Example 3
-
-If yesterday's smoothed HNT burn number was 1,440 HNT and today's HNT burned is 2,000 HNT, then the
-result is: (1,440 x 6/7) + (2,000 x 1/7) = 1,520 HNT and is under the cap
-
-Therefore, 1,520 is today's actual Net Emission's and 2,000 - 1,520 = 480 HNT will be burned today.
-
-Tomorrow, the uncapped number (1,520) will become yesterday's smoothed HNT burn number.
+<figure className="screensnippet-wrapper">
+  <NetEmissions />
+</figure>
 
 [bme]: https://multicoin.capital/2018/02/13/new-models-utility-tokens/
 [datacredit]: /tokens/data-credit
