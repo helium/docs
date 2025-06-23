@@ -148,7 +148,6 @@ module.exports = {
           },
           items: [
             'architecture/hotspot-makers/hotspot-makers',
-            'architecture/hotspot-makers/mobile-cbrs/5g-hardware-specification',
             'architecture/hotspot-makers/mcc/compliance-committee',
             'architecture/hotspot-makers/mcc/maker-ethics',
             'architecture/hotspot-makers/become-a-maker/on-chain-maker-creation',
