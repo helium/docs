@@ -26,6 +26,7 @@ module.exports = {
               label: 'Introduction',
             },
             'network-mobile/data-only-guides/data-only-onboarding',
+            'network-mobile/data-only-guides/data-only-radsecproxy',
             'network-mobile/data-only-guides/data-only-aruba',
             'network-mobile/data-only-guides/data-only-juniper-mist',
             'network-mobile/data-only-guides/data-only-meraki',

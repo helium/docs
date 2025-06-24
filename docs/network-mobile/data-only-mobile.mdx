@@ -54,3 +54,19 @@ Fleets are characterized on Helium with a public on-chain key which is paired wi
 certificates. The entities created from the self-serve tooling expect each pubkey/cert pair to be
 attached to a single NAS-ID. Via the [Helium Plus](http://helium.com/plus) program, multiple NAS-IDs
 may be onboarded to a single certificate set.
+
+### RadSecProxy Deployment options
+
+RADIUS is a UDP protocol meant for use inside an operators secure network. RADIUS in standard form
+is not meant to traverse the open internet as this would expose private user identity data to the
+open internet. To address this the industry created a RADIUS over TLS protocol called RadSec. Using
+RadSec RADIUS contents are encrypted and packaged into a TCP session which makes it suitable to
+traverse the open internet safely.
+
+If your Wi-Fi OEM does not natively support RadSec in the network you want to convert, deployers
+must choose one of two main options:
+
+- Deploy local RadSecProxy within the deployer controlled secure domain
+- Establish a secure IPsec VPN to the Helium hosted cloud RadSecProxy instance
+
+[More details about RadSecProxy can be found here.](/mobile/data-only-radsecproxy)
