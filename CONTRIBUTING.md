@@ -14,7 +14,7 @@ our way or a bug to report:
   detail as you can. At the very least you'll include steps to
   reproduce the problem.
 
-# Contibuting a Helium Improvement Proposal (HIP) #
+# Contributing a Helium Improvement Proposal (HIP) #
 
 HIPs are modeled off Bitcoin Improvement Proposals (BIPs) and has become a standard in the crypto world for open source development on both technical and economic issues.
 
