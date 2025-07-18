@@ -36,7 +36,7 @@ export const EscrowOUIWidget = () => {
       <input
         type="text"
         name="wallet"
-        placeholder="Enter Payer or Router Key"
+        placeholder="Enter OUI Payer Key"
         value={wallet}
         onChange={(e) => setWallet(e.target.value)}
       />
