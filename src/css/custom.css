@@ -849,11 +849,17 @@ html[data-theme='dark'] .badge--secondary:hover {
 }
 
 .screensnippet-wrapper .add-shadow {
-  box-shadow: 0px 1.4px 5.2px -10px rgba(0, 0, 0, 0.004), 0px 2.3px 8.2px -10px rgba(0, 0, 0, 0.006),
-    0px 3px 10.5px -10px rgba(0, 0, 0, 0.008), 0px 3.5px 12.6px -10px rgba(0, 0, 0, 0.009),
-    0px 4px 14.7px -10px rgba(0, 0, 0, 0.01), 0px 4.4px 16.8px -10px rgba(0, 0, 0, 0.011),
-    0px 5px 19.1px -10px rgba(0, 0, 0, 0.012), 0px 5.8px 21.8px -10px rgba(0, 0, 0, 0.014),
-    0px 7px 25.6px -10px rgba(0, 0, 0, 0.016), 0px 10px 36px -10px rgba(0, 0, 0, 0.02);
+  box-shadow:
+    0px 1.4px 5.2px -10px rgba(0, 0, 0, 0.004),
+    0px 2.3px 8.2px -10px rgba(0, 0, 0, 0.006),
+    0px 3px 10.5px -10px rgba(0, 0, 0, 0.008),
+    0px 3.5px 12.6px -10px rgba(0, 0, 0, 0.009),
+    0px 4px 14.7px -10px rgba(0, 0, 0, 0.01),
+    0px 4.4px 16.8px -10px rgba(0, 0, 0, 0.011),
+    0px 5px 19.1px -10px rgba(0, 0, 0, 0.012),
+    0px 5.8px 21.8px -10px rgba(0, 0, 0, 0.014),
+    0px 7px 25.6px -10px rgba(0, 0, 0, 0.016),
+    0px 10px 36px -10px rgba(0, 0, 0, 0.02);
 }
 
 .screensnippet-wrapper:has(.add-shadow-margin) {
@@ -868,15 +874,16 @@ html[data-theme='dark'] .badge--secondary:hover {
   border-radius: 18px;
 }
 
-.docslabEditor {
-  width: 70%;
-  height: 300px;
+.screensnippet-wrapper:has(.docslabEditor) > div {
+  width: 100%;
+}
+
+.screensnippet-wrapper .docslabEditor {
+  width: 100%;
+  max-height: 550px;
+  height: 50vh;
 }
 
 .font-disable-calt {
-  font-feature-settings: 'calt' 0, 'calt' 0;
-}
-
-.footer {
-  background-color: #13162e;
+  font-feature-settings:'calt' 0,'calt'0;
 }
