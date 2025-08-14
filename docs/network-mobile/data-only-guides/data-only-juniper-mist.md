@@ -15,58 +15,18 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 * Juniper Mist system running the latest firmware.
 * Juniper Mist Access Points (APs) linked to the Mist Dashboard.
 * Basic traffic routing working with existing SSID(s).
-* Some compute capacity in your network to run a [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
-* Docker software installed.
-* The RadSecProxy container has a private IP reachable from your Juniper Mist APs.
-* ACLs or firewalls allow Juniper Mist APs and the Docker container to communicate over UDP ports **1812** (RADIUS authentication) and **1813** (RADIUS accounting).
+* ACLs or firewalls allow Juniper Mist APs to communicate over TCP ports **2083** RadSec.
 * Access to the cloud‑hosted Juniper Mist Dashboard.
 
 ## High‑Level Steps
 
-1. Deploy the RadSecProxy container and record the host’s IP address.
-2. Build a Helium Passpoint SSID on Juniper Mist.
+1. Build a Helium Passpoint SSID on Juniper Mist.
 
    1. Create a new SSID.
    2. Configure Passpoint settings.
-   3. Add RADIUS servers.
-3. Apply the configuration to your sites and access points.
-4. Verify operation and troubleshoot as needed.
-
-# Deploy RadSecProxy Container
-
-RADIUS messages used to authenticate users and to perform session accounting are transmitted unsecured over UDP by default. By directing these messages internally in your secure network to a RadSecProxy, the UDP traffic is converted into a TLS‑protected TCP connection to the Helium Network core AAA servers.
-
-## Container Deployment
-
-1. Un‑zip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the host machine. This will unpack:
-
-   * `Dockerfile` – Build instructions for the container
-   * `Radsecproxy.conf` – Pre‑populated configuration to connect to Helium AAA servers
-   * `docker-compose.yml` – Used to start or stop the container as a daemon
-
-   ```bash
-   tar -xvzf Helium_RadSec_Docker.tar.gz
-   ```
-
-2. Copy the three certificates obtained from the Helium Network into the same directory:
-
-   * `ca.pem` – Root CA certificate
-   * `cert.pem` – User certificate
-   * `key.pem` – Private key matching **cert.pem**
-
-   The keys may have different file names depending on their source. Rename the keys or edit `radsecproxy.conf`
-
-3. Start the container:
-
-   ```bash
-   sudo docker compose up -d
-   ```
-
-4. Stop the container when necessary:
-
-   ```bash
-   sudo docker compose down
-   ```
+   3. Add RadSec servers.
+2. Apply the configuration to your sites and access points.
+3. Verify operation and troubleshoot as needed.
 
 # Configure Juniper Mist for Helium Mobile
 
@@ -121,24 +81,20 @@ In the WLAN settings locate the **Passpoint** section and set:
 </figure>
 <br />
 
+## Add RadSec Servers
 
-## Add RADIUS Servers
-
-1. Navigate to **Organization → Wireless → RADIUS**.
-
-2. Click **Add RADIUS Server** under **Authentication Servers** and enter:
+1. Under **Authentication Servers**, choose RadSec from the dropdown.
+2. In the **Server Name** field, enter `radius.stage.wifi.freedomfi.com`
+3. Click **Add Server** under **Server Addresses** and enter:
 
    | Field          | Value                      |
    | -------------- | -------------------------- |
-   | **IP Address** | IP of the RadSecProxy host |
-   | **Port**       | `1812`                     |
-   | **Secret**     | `mysecret`                 |
+   | **hostname**   | `44.229.62.214`            |
+   | **Port**       | `2083`                     |
 
-3. Repeat the process under **Accounting Servers** with **Port** set to `1813`.
+   Repeat this process for Helium's RadSec servers `52.37.147.195` and `44.241.107.197`
 
-4. Set the interim accounting interval to `300`.
-
-5. **NAS Identifier**: use either a static MAC address (e.g. `a8:53:7d:0b:fb:d0`) or the token `{{DEVICE_MAC}}` to insert the AP’s MAC address.  
+4. **NAS Identifier**: use either a static MAC address (e.g. `a8:53:7d:0b:fb:d0`) or the token `{{DEVICE_MAC}}` to insert the AP’s MAC address.  
 This NAS Identifier must match the identifier used during onboarding through self-serve or Helium Plus.
 
 <figure className="screensnippet-wrapper">
@@ -149,6 +105,31 @@ This NAS Identifier must match the identifier used during onboarding through sel
   />
 </figure>
 
+## Other WLAN Settings
+   These instructions include the minimum steps required to authenticate a client via the Helium network.
+   Most venue operators will want to take additional security precautions, such as placing Helium clients into their own VLAN / subnet which is segmented from other WLANs.
+   The steps to accomplish this are outside the scope of this document, but should be considered achieve a healthy security posture for both the venue operator and mobile users.
+
+## Upload Certificates
+   
+   Save the three certificates obtained from the Helium Network into a directory for safekeeping and reference.
+
+   * `ca.pem` – Root CA certificate
+   * `cert.pem` – User certificate
+   * `key.pem` – Private key matching **cert.pem**
+
+   The keys may have different file names depending on their source.
+
+   Navigate to **Organization** > **Settings**
+   Under **RadSec Certificates**, click the **Add a RadSec Certificate** link
+      Open the CA file in a text editor; note that it contains three separate CA certs.
+      Copy and paste the first CA cert, including the **-----BEGIN CERTIFICATE-----** and **-----END CERTIFICATE-----** header and footer, and click the **Add** button.
+      Repeat this process for the other two CA certs in the file.
+   Under **AP RadSec Certificate**, click the **View Certificate** link.
+      Open the key.pem (or similarly named) file in a text editor, then copy and paste the contents into the **Private Key** field
+      Open the cert.pem (or similarly named) file in a text editor, then copy and paste the contents (including the header & footer) into the **Signed Certificate** field
+      Apply / Save as applicable
+   
 ## Apply the Configuration
 
 1. Navigate to **Sites** and select the desired site.
@@ -174,11 +155,9 @@ This NAS Identifier must match the identifier used during onboarding through sel
 | Symptom                     | Checks                                                                                                                                                              |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **SSID not broadcasting**   | Verify the WLAN Template is assigned and pushed; confirm AP connectivity to the Mist Dashboard.                                                                     |
-| **Authentication failures** | Ensure the RadSecProxy container is running and reachable; verify UDP ports 1812/1813; capture packets on the container; increase `LogLevel` in `radsecproxy.conf`. |
 | **Certificate errors**      | Confirm the AP trusts the RADIUS certificate and the AAA trusts the RadSec client certificate.                                                                      |
 | **Clients fail to connect** | Check Passpoint parameters; verify device support for Passpoint; confirm Helium AAA approves the request.                                                           |
 
 ## Notes
 
-* Juniper Mist may introduce native RadSec support in future releases. Until that implementation scales appropriately for Helium, this guide relies on RadSecProxy and plain RADIUS.
 * Juniper Mist does not list Helium as a Passpoint Operator. Use preset Passpoint Operator configurations only after receiving approval from the Helium Plus team.
