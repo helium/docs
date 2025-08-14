@@ -64,7 +64,7 @@ In the WLAN settings locate the **Passpoint** section and set:
 
 ### Advanced Settings
 
-* **Domain Name**: `freedomfi.com` & `hellohelium.com`
+* **Domain Name**: `freedomfi.com`
 
 ### NAI Realms
 
