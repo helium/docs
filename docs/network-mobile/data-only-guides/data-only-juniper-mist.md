@@ -132,7 +132,7 @@ This NAS Identifier must match the identifier used during onboarding through sel
   <img
     src={useBaseUrl('img/mobile-data-only/juniper-mist/juniper_mist_root_ca_cert.png')}
     style={{ maxHeight: '500px' }}
-    className="add-shadow add-shadow-margin"
+    className="add-border-radius add-shadow add-shadow-margin"
   />
 </figure>
 <br />
@@ -149,7 +149,7 @@ This NAS Identifier must match the identifier used during onboarding through sel
   <img
     src={useBaseUrl('img/mobile-data-only/juniper-mist/juniper_mist_rad_sec_ap_cert.png')}
     style={{ maxHeight: '500px' }}
-    className="add-shadow add-shadow-margin"
+    className="add-border-radius add-shadow add-shadow-margin"
   />
 </figure>
 <br />
