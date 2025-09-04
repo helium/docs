@@ -120,15 +120,42 @@ This NAS Identifier must match the identifier used during onboarding through sel
 
    The keys may have different file names depending on their source.
 
-   Navigate to **Organization** > **Settings**
-   Under **RadSec Certificates**, click the **Add a RadSec Certificate** link
-      Open the CA file in a text editor; note that it contains three separate CA certs.
-      Copy and paste the first CA cert, including the **-----BEGIN CERTIFICATE-----** and **-----END CERTIFICATE-----** header and footer, and click the **Add** button.
-      Repeat this process for the other two CA certs in the file.
-   Under **AP RadSec Certificate**, click the **View Certificate** link.
-      Open the key.pem (or similarly named) file in a text editor, then copy and paste the contents into the **Private Key** field
-      Open the cert.pem (or similarly named) file in a text editor, then copy and paste the contents (including the header & footer) into the **Signed Certificate** field
-      Apply / Save as applicable
+   First add the root CA in 3 parts:
+
+   1. Navigate to **Organization** > **Settings**
+   2. Under **RadSec Certificates**, click the **Add a RadSec Certificate** link
+   3. Open the CA file in a text editor; note that it contains **three** separate CA certs.
+   4. Copy and paste the **first** CA cert, including the **-----BEGIN CERTIFICATE-----** and **-----END CERTIFICATE-----** header and footer into the text box, and click the **Add** button.
+   5. Repeat this process for the other two CA certs in the file.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/juniper-mist/juniper_mist_root_ca_cert.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+
+   Next add the Cert and Key 
+   1. Under **AP RadSec Certificate**, click the **View Certificate** link.
+   2. Open the key.pem (or similarly named) file in a text editor, then copy and paste the contents into the **Private Key** field
+   3. Open the cert.pem (or similarly named) file in a text editor, then copy and paste the contents (including the header & footer) into the **Signed Certificate** field
+
+   NOTE: you may need to delete existing keys and certs that in boxes when you open this popup. If wanted you can save these to a local file on your computer incase you need them in the future. 
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/juniper-mist/juniper_mist_rad_sec_ap_cert.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+
+  4. Apply / Save as applicable
    
 ## Apply the Configuration
 
