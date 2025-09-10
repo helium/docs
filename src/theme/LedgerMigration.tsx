@@ -1,7 +1,7 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { bulkSendRawTransactions } from '@helium/spl-utils'
 import { LedgerWalletAdapter } from '@solana/wallet-adapter-ledger'
-import { Connection, PublicKey, Transaction } from '@solana/web3.js'
+import { Connection, PublicKey, VersionedTransaction } from '@solana/web3.js'
 import axios from 'axios'
 import React, { useMemo, useState } from 'react'
 import { useAsyncCallback } from 'react-async-hook'
@@ -188,7 +188,7 @@ const Steps: React.FunctionComponent<{
 }
 
 export const LedgerMigration = () => {
-  const { nextStep, prevStep, reset, activeStep } = useSteps({
+  const { nextStep, prevStep, activeStep } = useSteps({
     initialStep: 0,
   })
   const { siteConfig } = useDocusaurusContext()
@@ -273,8 +273,7 @@ export const LedgerMigration = () => {
     }
     const txs = await getTxs()
     const txBuffers = txs.map((tx: any) => Buffer.from(tx))
-    const deserialized = txBuffers.map((tx: Buffer) => Transaction.from(tx))
-    const signed = await heliumWallet!.signAllTransactions(deserialized)
+    const deserialized = txs.map((tx: Buffer) => VersionedTransaction.deserialize(tx)) as VersionedTransaction[]
     // Disconnect so we can connect the helium ledger
     await heliumWallet.disconnect()
 
@@ -286,9 +285,11 @@ export const LedgerMigration = () => {
     error: errorSolanaSign,
     loading: loadingSolanaSign,
   } = useAsyncCallback(async () => {
-    const [needSign, dontNeedSign] = partitionBy(heliumSignResult!, (tx) =>
-      tx.signatures.some((sig) => sig.publicKey.equals(solanaPubkey!)),
-    )
+    const [needSign, dontNeedSign] = partitionBy(heliumSignResult!, (tx) => {
+      const userKeyIndex = tx.message.staticAccountKeys.findIndex(k => k.equals(solanaPubkey!))
+      const signingRequired = typeof userKeyIndex !== "undefined" && tx.message.isAccountSigner(userKeyIndex)
+      return signingRequired
+    })
     await solanaWallet.connect()
     if (needSign.length > 0) {
       console.log(needSign)
