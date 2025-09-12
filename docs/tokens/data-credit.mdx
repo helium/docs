@@ -27,8 +27,8 @@ For further reading on DCs place in the overall mechanics of the Helium network,
 **One Data Credit equals $0.00001 USD.**
 
 The amount of DC produced by burning one HNT will fluctuate based on the USD price of HNT as
-reported by the [Pyth](https://insights.pyth.network/price-feeds/Crypto.HNT%2FUSD). The tool below
-demonstrates the HNT to DC conversion based on the price of HNT.
+reported by the price provider, [Pyth](https://pyth.network). The tool below demonstrates the
+HNT-to-DC conversion rate based on the price of HNT.
 
 import { HntToDcSimulator } from '@theme/HntToDcSimulator'
 
@@ -59,6 +59,29 @@ cannot be redelegated.
   visualizationId="14472"
   apiKey="nPc8FdcKG69aM0Ne2C4FYHArO3LzpLPEPbnEYfsK"
 />
+
+---
+
+## Data Credits and Mobile {#dc-and-mobile}
+
+The Helium Mobile Network leverages DCs as the sole mechanism of billing and fee management. The
+Mobile Network charges data at a rate of **$0.50 per 1 gigabyte** (50,000 DC).
+
+On cellular networks, it is customary that network operators bill for bulk data rather than for
+individual packets. By setting the data cost to \$0.50 per gigabyte, the Helium Mobile network
+positions itself competitively in the marketplace while preserving valuable rewards for the Mobile
+Hotspot operator.
+
+### Mobile Protocol Fees
+
+Fees related to onboarding and location assert were defined through community governance through
+[HIP-89](https://github.com/helium/HIP/blob/main/0089-mobile-network-onboard-fees.md).
+
+| Action                                                  | Fee   |
+| ------------------------------------------------------- | ----- |
+| WiFi Indoor Onboard <sub>(Included with Hotspot)</sub>  | $20   |
+| WiFi Outdoor Onboard <sub>(Included with Hotspot)</sub> | $30   |
+| [Converted Network Onboard](/mobile/data-only-mobile)   | $2.00 |
 
 ## Data Credits and IoT {#dc-and-iot}
 
@@ -104,29 +127,6 @@ In addition to network data transfer, DCs are also utilized for certain network-
     [HIP-116](https://github.com/helium/HIP/blob/main/0116-lorawan-device-address-price-adjustment.md)
     reduced the fees for DevAddr purchasing and set a path to utilize the IOT token for DevAddr and
     OUI purchases instead of DC.
-
-## Data Credits and Mobile {#dc-and-mobile}
-
-In much the same design as the Helium IoT Network, the Helium Mobile Network leverages DCs as the
-sole mechanism of billing and fee management. However, as a separate protocol, different pricing
-mechanics apply. While the Helium IoT Network charges data at a rate of \$0.00001 per 24-byte
-message, the Helium Mobile Network charges data at a rate of **$0.50 per 1 gigabyte** (50,000 DC).
-
-On cellular networks, it is customary that network operators bill for bulk data rather than for
-individual packets. By setting the data cost to \$0.50 per gigabyte, the Helium Mobile network
-positions itself competitively in the marketplace while preserving valuable rewards for the Mobile
-Hotspot operator.
-
-### Mobile Protocol Fees
-
-Fees related to onboarding and location assert were defined through community governance through
-[HIP-89](https://github.com/helium/HIP/blob/main/0089-mobile-network-onboard-fees.md).
-
-| Action                                                   | Fee   |
-| -------------------------------------------------------- | ----- |
-| WiFi Indoor Onboard                                      | $20   |
-| WiFi Outdoor Onboard                                     | $30   |
-| [Converted Network Onboarding](/mobile/data-only-mobile) | $2.00 |
 
 ## Acquiring Data Credits
 
