@@ -16,11 +16,11 @@ routed to the ChirpStack instance.
 
 :::info
 
-If ChirpStack was deployed with the Docker Compose configuration, routing rules will need to be 
-manually configured. 
+If ChirpStack was deployed with the Docker Compose configuration, routing rules will need to be
+manually configured.
 
-However, if ChirpStack was deployed with the Kubernetes configuration, routing rules are 
-programmatically added via the Helium Network sidecar application and do not need to be manually 
+However, if ChirpStack was deployed with the Kubernetes configuration, routing rules are
+programmatically added via the Helium Network sidecar application and do not need to be manually
 configured in the manner described below.
 
 :::
@@ -297,7 +297,7 @@ shown below, the command will perform a "dry run" if the `--commit` flag isn't p
 
 Here, the `--start-addr` and `--end-addr` values correspond to the results from the
 `helium-config-service-cli org get --oui <OUI>` command described in detail in
-[Gather Helium DevAddr Subnet Information for OUI](/iot/run-an-lns/configure-chirpstack#gather-helium-devaddr-subnet-information-for-oui)
+[Gather Helium DevAddr Subnet Information for OUI](/iot/run-an-lns/docker-compose/#gather-helium-devaddr-subnet-information-for-oui)
 
 ```bash
 helium-config-service-cli route devaddrs add --start-addr <start devAddr> --end-addr <end devAddr> --route-id <route-id>
