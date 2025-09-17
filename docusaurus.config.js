@@ -51,7 +51,7 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} Helium Foundation`,
+      copyright: `Copyright © ${new Date().getFullYear()} Helium`,
     },
     prism: {
       theme: lightCodeTheme,

@@ -11,8 +11,7 @@ slug: /iot/run-an-lns/configure-routing-rules
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 With ChirpStack up and running, OUI-specific routing and sensor configurations can be added to the
-[Helium Config Service](/oracles/data-transfer-oracles#config-service) to enable sensor data to be
-routed to the ChirpStack instance.
+Helium Config Service to enable sensor data to be routed to the ChirpStack instance.
 
 :::info
 
@@ -61,11 +60,10 @@ export HELIUM_MAX_COPIES=15
 
 ## Generate Route in Helium Config Service
 
-Routes contain the necessary information for the
-[Helium Packet Router](/oracles/data-transfer-oracles#packet-router-service) to know how to route a
-packet sent from a sensor to the proper LNS. In particular, Helium Packet Router leverages
-information provided in a generated route such as DevEUI+AppEUI (for routing join requests), DevAddr
-range (for routing uplinks), and LNS endpoint to inform routing decisions.
+Routes contain the necessary information for the Helium Packet Router to know how to route a packet
+sent from a sensor to the proper LNS. In particular, Helium Packet Router leverages information
+provided in a generated route such as DevEUI+AppEUI (for routing join requests), DevAddr range (for
+routing uplinks), and LNS endpoint to inform routing decisions.
 
 To generate a route via the Helium Config Service CLI, run the `helium-config-service-cli route new`
 command. As shown below, the command will perform a "dry run" if the `--commit` flag isn't provided.
@@ -260,7 +258,7 @@ return here when complete.
 
 Now that the device is successfully created on ChirpStack, Helium Config Service needs to be
 configured to know about the device. In doing so, the Helium Config Service CLI will be used to
-associate the device EUIs and devArrs with the route.
+associate the device EUIs and devAddrs with the route.
 
 ### Add Device EUIs to Route
 
