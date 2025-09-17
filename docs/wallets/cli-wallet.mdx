@@ -167,3 +167,17 @@ input when the Wallet was created.)
 
 The `export` command will display the seed phrase associated with the given account. This seed
 phrase can be used with the Helium Wallet App or other Solana ecosystem wallets.
+
+# Helium L1 Migration to Solana
+
+If you have a wallet from before the migration to Solana (April 18th, 2023), you can migrate it using this widget:
+
+import { MigrateWallet } from '@theme/MigrateWallet'
+
+<MigrateWallet />
+
+Once this is done, the wallet should work on Solana. You can see a mapping from the Helium L1 address to the Solana Address:
+
+import { DisplayLegacyWallet } from '@theme/DisplayLegacyWallet'
+
+<DisplayLegacyWallet />
