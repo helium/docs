@@ -9,6 +9,7 @@ module.exports = {
         {
           type: 'category',
           label: 'Convert WiFi Networks',
+          collapsed: false,
           link: { type: 'doc', id: 'network-mobile/data-only-mobile' },
           items: [
             {
@@ -19,6 +20,7 @@ module.exports = {
             'network-mobile/data-only-guides/data-only-onboarding',
             'network-mobile/data-only-guides/data-only-radsecproxy',
             'network-mobile/data-only-guides/data-only-aruba',
+            'network-mobile/data-only-guides/data-only-fortinet',
             'network-mobile/data-only-guides/data-only-juniper-mist',
             'network-mobile/data-only-guides/data-only-meraki',
             'network-mobile/data-only-guides/data-only-mikrotik',
