@@ -1,0 +1,186 @@
+---
+id: data-only-fortinet
+title: Fortinet Conversion Guide
+pagination_label: Fortinet Conversion Guide
+sidebar_label: Fortinet Conversion Guide
+description: Helium Network Conversion Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/data-only-fortinet
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+### Prerequisites
+
+**On an Intel-based Machine with Docker Installed:**
+
+- The Intel-based machine has a private IP in your network reachable from your Fortinet FortiGate
+  box.
+- ACLs or Firewalls allow Fortinet FortiGate box and Docker Container to communicate UDP on port
+  1812 and 1813.
+- ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802.
+
+#### RadSecProxy Container Deployment
+
+1. Un-zip and untar the [`Helium_RadSec_Docker.tar.gz`](https://github.com/novalabsxyz/radsec-proxy)
+   file into the directory of your choice on the host machine.
+
+```shell
+tar -xvzf  Helium_RadSec_Docker.tar.gz
+```
+
+This will unpack the following items:
+
+    1. Dockerfile - The docker instructions on how to build the container
+    1. Radsecproxy.conf - The radsecproxy config file is pre-populated to connect to Helium Network AAA servers
+    1. docker-compose.yml - File to start and stop the container as a daemon.
+
+Into the same directory, copy the 3 certificates obtained from Helium
+
+- ca.pem - the root CA certificate
+- cert.pem - the user certificate
+- key.pem - the key file matched to the certificate
+
+Start the container using `sudo docker compose up -d`. If/when needed, stop the container using:
+`sudo docker compose down`.
+
+### Configure Fortinet FortiGate
+
+On the FortiGate CLI with FortiOS 7.0.2+
+
+1. Add the local RadSecProxy as the RADIUS server by replacing the \<radsecproxy-ip-addr\> to the
+   current RadSecProxy container IP address. Also, use the NAS ID used during onboarding to Helium
+   for \<radsecproxy-ip-addr\>
+
+```shell
+config user radius
+    edit "Helium RadSecProxy"
+        set server "<radsecproxy-ip-addr>"
+        set secret mysecret
+        set nas-id-type custom
+        set nas-id "<custom-nas-id>"
+        set radius-coa enable
+        set radius-port 1812
+        config accounting-server
+            edit 1
+                set status enable
+                set server "<radsecproxy-ip-addr>"
+                set secret mysecret
+                set port 1813
+            next
+        end
+    next
+end
+```
+
+2. Set the type of IP address available to subscribers connecting to your Hotspot 2.0 network.
+
+```shell
+config wireless-controller hotspot20 anqp-ip-address-type
+    edit "ipv4-single-NATed-private"
+        set ipv4-address-type single-NATed-private
+    next
+end
+```
+
+3. Define a Venue Name and configure its duple by replacing \<any-venue-name\> to the desired value.
+
+```shell
+config wireless-controller hotspot20 anqp-venue-name
+    edit "<any-venue-name>"
+        config value-list
+            edit 1
+                set value "<any-venue-name>"
+            next
+        end
+    next
+end
+```
+
+4. Define “Helium” as the Operator Name.
+
+```shell
+config wireless-controller hotspot20 h2qp-operator-name
+    edit "Helium"
+        config value-list
+            edit 1
+                set value "Helium"
+            next
+        end
+    next
+end
+```
+
+5. Add Helium Mobile's NAI Realms.
+
+```shell
+config wireless-controller hotspot20 anqp-nai-realm
+    edit "Helium_NAI_Realm"
+        config nai-list
+            edit "freedomfi.com"
+                set nai-realm "freedomfi.com"
+                config eap-method
+                    edit 1
+                        set method eap-tls
+                        config auth-param
+                            edit 1
+                                set id credential
+                                set val cred-certificate
+                            next
+                        end
+                    next
+                end
+            next
+            edit "hellohelium.com"
+                set nai-realm "hellohelium.com"
+                config eap-method
+                    edit 1
+                        set method eap-tls
+                        config auth-param
+                            edit 1
+                                set id credential
+                                set val cred-certificate
+                            next
+                        end
+                    next
+                end
+            next
+        end
+    next
+end
+```
+
+6. Configure the Passpoint Profile by linking the previously added NAI Realms, 3GPP Cellular
+   Networks, and the type of IP address available to subscribers connecting to your Hotspot 2.0,
+   among other parameters.
+
+```shell
+config wireless-controller hotspot20 hs-profile
+    edit "Helium"
+        set access-network-type chargeable-public-network
+        set access-network-internet enable
+        set venue-group business
+        set domain-name "freedomfi.com"
+        set venue-name "<any-venue-name>"
+        set nai-realm "Helium_NAI_Realm"
+        set ip-addr-type "ipv4-single-NATed-private"
+    next
+end
+```
+
+7. As the final step, set a Virtual Access Point (VAP) by linking the previously added “Helium
+   RadSecProxy” RADIUS server, and the “Helium” Passpoint Profile, among other parameters.
+
+```shell
+config wireless-controller vap
+    edit "Helium"
+        set ssid "Helium"
+        set security wpa2-only-enterprise
+        set auth radius
+        set radius-server "Helium RadSecProxy"
+        set intra-vap-privacy enable
+        set schedule "always"
+        set hotspot20-profile "Helium"
+    next
+end
+```
