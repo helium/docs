@@ -100,5 +100,12 @@ module.exports = {
       ],
       collapsed: true,
     },
+    {
+      type: 'category',
+      label: 'Network Data',
+      link: { type: 'doc', id: 'network-data/network-data' },
+      items: ['network-data/oracle-data', 'network-data/legacy-blockchain-data'],
+      collapsed: true,
+    },
   ],
 }
