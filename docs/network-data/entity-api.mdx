@@ -1,0 +1,687 @@
+---
+id: entity-api
+title: Entity API Documentation
+pagination_label: Entity API
+sidebar_label: Entity API
+description: Helium Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /network-data/entity-api
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Entity API
+
+The Entity API is provided free of charge by Helium. The data provided focuses on infrequently
+changing attributes of Hotspots such as their owner and asserted location. This API is provided
+without any guarantees of uptime or support, and is intended for light use cases.For more in-depth
+analysis, refer to [Oracles](/network-data/oracle-data) and
+[Solana on-chain data](/solana/rewardable-entites).
+
+In the interest of anonymity, the latitude/longitude data provided by the API is obfuscated to
+[H3](https://h3geo.org/docs/core-library/restable/) resolution 8 rather than resolution 12 stored
+on-chain on Solana.
+
+Active/Inactive status is deprecated for this API and will return `false` for all Hotspots.
+
+## Wallet Info by Wallet Public Key
+
+```
+GET https://entities.nft.helium.io/v2/wallet/:walletPublicKey
+```
+
+Get wallet information by wallet public key including Hotspot count, list of Hotspot records, and
+token account balances.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
+>
+<TabItem value="request">
+
+`Path Parameters`
+
+| Param                        | Type     | Note                                     |
+| ---------------------------- | -------- | ---------------------------------------- |
+| Wallet public key (required) | _string_ | Solana public key/address for the wallet |
+
+</TabItem>
+<TabItem value="response">
+
+`200: OK`
+
+```json
+{
+  "hotspots_count": 1,
+  "hotspots": [
+    {
+      "name": "string",
+      "description": "string",
+      "image": "string",
+      "asset_id": "string",
+      "key_to_asset_key": "string",
+      "entity_key_b64": "string",
+      "key_serialization": "string",
+      "entity_key_str": "string",
+      "hotspot_infos": {
+        "iot": {
+          "address": "string", // Solana address
+          "street": "string",
+          "city": "string",
+          "state": "string",
+          "country": "string",
+          "is_active": "boolean", //Deprecated, always false
+          "location": "string", // Obfuscated
+          "dc_onboarding_fee_paid": "string",
+          "elevation": 0,
+          "gain": 0,
+          "created_at": "string",
+          "asset": "string",
+          "lat": 0, // Obfuscated
+          "long": 0 // Obfuscated
+        },
+        "mobile": {
+          "location": null
+        }
+      },
+      "attributes": [
+        {
+          "trait_type": "ecc_compact",
+          "value": "string"
+        },
+        {
+          "trait_type": "entity_key_string",
+          "value": "string"
+        },
+        {
+          "trait_type": "entity_key",
+          "value": "string"
+        },
+        {
+          "trait_type": "rewardable",
+          "value": "boolean"
+        },
+        {
+          "trait_type": "networks",
+          "value": ["string"]
+        },
+        {
+          "trait_type": "iot_city",
+          "value": "string"
+        },
+        {
+          "trait_type": "iot_state",
+          "value": "string"
+        },
+        {
+          "trait_type": "iot_country",
+          "value": "string"
+        },
+        {
+          "trait_type": "iot_lat", // Obfuscated
+          "value": 0
+        },
+        {
+          "trait_type": "iot_long", // Obfuscated
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "balances": [
+    {
+      "mint": "hntyVP6YFm1Hg25TN9WGLqM12b8TQmcknKrdu1oxWux",
+      "balance": "0"
+    },
+    {
+      "mint": "mb1eu7TzEc71KxDpsmsKoucSSuuoGLv1drys1oP2jh6",
+      "balance": "0"
+    },
+    {
+      "mint": "iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns",
+      "balance": "0"
+    },
+    {
+      "mint": "dcuc8Amr83Wz27ZkQ2K9NS6r8zRpf1J6cvArEBDZDmm",
+      "balance": "0"
+    }
+  ]
+}
+```
+
+`500: Error`
+
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "string"
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Hotspot Pagination Metadata
+
+```
+GET https://entities.nft.helium.io/v2/hotspots/pagination-metadata?subnetwork=<subnetwork>
+```
+
+Get general information about the pagination of Hotspots in a particular subnetwork including
+pagination page size, total number of Hotspots, and total number of pages.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
+>
+<TabItem value="request">
+
+`Query Parameters`
+
+| Param                 | Type     | Note                                  |
+| --------------------- | -------- | ------------------------------------- |
+| Subnetwork (required) | _string_ | Name of subnetwork (iot, mobile, etc) |
+
+</TabItem>
+<TabItem value="response">
+
+`200: OK`
+
+```json
+{
+  "pageSize": 0,
+  "totalItems": 0,
+  "totalPages": 0
+}
+```
+
+`400: Error`
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "string"
+}
+```
+
+`500: Error`
+
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "string"
+}
+```
+
+</TabItem>
+</Tabs>
+
+## List Hotspots by Subnetwork
+
+```
+GET https://entities.nft.helium.io/v2/hotspots?subnetwork=<subnetwork>&cursor=<cursor>
+```
+
+Get a list of key-value pairs denoting Hotspots in a particular subnetwork. If the returned `cursor`
+field is a non-null value, more results are available. If no cursor is provided (e.g., if the URL
+does not include the `&cursor=<cursor>` query string component), then the first page of results is
+returned along with a cursor value for the subsequent page.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
+>
+<TabItem value="request">
+
+`Query Parameters`
+
+| Param                 | Type     | Note                                          |
+| --------------------- | -------- | --------------------------------------------- |
+| Subnetwork (required) | _string_ | Name of subnetwork (iot, mobile, etc.)        |
+| Cursor (optional)     | _string_ | Cursor for the next page of Hotspots to fetch |
+
+</TabItem>
+<TabItem value="response">
+
+`200: OK`
+
+```json
+{
+  "cursor": "string", // Or null if there are no more Hotspots to fetch
+  "items": [
+    {
+      "key_to_asset_key": "string",
+      "entity_key_str": "string",
+      "is_active": "boolean", //Deprecated, always false
+      "lat": 0,
+      "long": 0
+    },
+    {
+      "key_to_asset_key": "string",
+      "entity_key_str": "string",
+      "is_active": "boolean", //Deprecated, always false
+      "lat": 0,
+      "long": 0
+    },
+    {
+      "key_to_asset_key": "string",
+      "entity_key_str": "string",
+      "is_active": "boolean", //Deprecated, always false
+      "lat": 0,
+      "long": 0
+    }
+  ]
+}
+```
+
+`400: Error`
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "string"
+}
+```
+
+`500: Error`
+
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "string"
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Hotspot Info by Key to Asset Key
+
+```
+GET https://entities.nft.helium.io/v1/:keyToAssetKey
+```
+
+```
+GET https://entities.nft.helium.io/v2/hotspot/:keyToAssetKey
+```
+
+Get Hotspot records based on the key to asset value. Both the `/v1` and `/v2/hotspot` routes return
+identical results and are merely provided for backward compatibility.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
+>
+<TabItem value="request">
+
+`Path Parameters`
+
+| Param                   | Type     | Note                                         |
+| ----------------------- | -------- | -------------------------------------------- |
+| Key to asset (required) | _string_ | Public key of on-chain `KeyToAssetV0` struct |
+
+</TabItem>
+<TabItem value="response">
+
+`200: OK`
+
+```json
+{
+  "name": "string",
+  "description": "string",
+  "image": "string",
+  "asset_id": "string",
+  "key_to_asset_key": "string",
+  "entity_key_b64": "string",
+  "key_serialization": "string",
+  "entity_key_str": "string",
+  "hotspot_infos": {
+    "iot": {
+      "address": "string", // Solana address
+      "street": "string",
+      "city": "string",
+      "state": "string",
+      "country": "string",
+      "is_active": "boolean", // Deprecated, always false
+      "location": "string", // Obfuscated
+      "dc_onboarding_fee_paid": "string",
+      "elevation": 0,
+      "gain": 0,
+      "created_at": "string",
+      "asset": "string",
+      "lat": 0, // Obfuscated
+      "long": 0 // Obfuscated
+    },
+    "mobile": {
+      "location": null
+    }
+  },
+  "attributes": [
+    {
+      "trait_type": "ecc_compact",
+      "value": "string"
+    },
+    {
+      "trait_type": "entity_key_string",
+      "value": "string"
+    },
+    {
+      "trait_type": "entity_key",
+      "value": "string"
+    },
+    {
+      "trait_type": "rewardable",
+      "value": "boolean"
+    },
+    {
+      "trait_type": "networks",
+      "value": ["string"]
+    },
+    {
+      "trait_type": "iot_city",
+      "value": "string"
+    },
+    {
+      "trait_type": "iot_state",
+      "value": "string"
+    },
+    {
+      "trait_type": "iot_country",
+      "value": "string"
+    },
+    {
+      "trait_type": "iot_lat", // Obfuscated
+      "value": 0
+    },
+    {
+      "trait_type": "iot_long", // Obfuscated
+      "value": 0
+    }
+  ]
+}
+```
+
+`404: Error`
+
+```json
+{
+  "statusCode": 404,
+  "error": "Not Found",
+  "message": "string"
+}
+```
+
+`500: Error`
+
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "string"
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Hotspot Info by Entity/ECC Compact Key
+
+```
+GET https://entities.nft.helium.io/:eccCompact
+```
+
+Get Hotspot records based on the entity / ECC compact key value.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
+>
+<TabItem value="request">
+
+`Path Parameters`
+
+| Param                    | Type     | Note                                    |
+| ------------------------ | -------- | --------------------------------------- |
+| Entity / ECC compact key | _string_ | Legacy Helium L1 address of the Hotspot |
+
+</TabItem>
+<TabItem value="response">
+
+`200: OK`
+
+```json
+{
+  "name": "string",
+  "description": "string",
+  "image": "string",
+  "asset_id": "string",
+  "key_to_asset_key": "string",
+  "entity_key_b64": "string",
+  "key_serialization": "string",
+  "entity_key_str": "string",
+  "hotspot_infos": {
+    "iot": {
+      "address": "string", // Solana address
+      "street": "string",
+      "city": "string",
+      "state": "string",
+      "country": "string",
+      "is_active": "boolean", // Deprecated, always false
+      "location": "string", // Obfuscated
+      "dc_onboarding_fee_paid": "string",
+      "elevation": 0,
+      "gain": 0,
+      "created_at": "string",
+      "asset": "string",
+      "lat": 0, // Obfuscated
+      "long": 0 // Obfuscated
+    },
+    "mobile": {
+      "location": null
+    }
+  },
+  "attributes": [
+    {
+      "trait_type": "ecc_compact",
+      "value": "string"
+    },
+    {
+      "trait_type": "entity_key_string",
+      "value": "string"
+    },
+    {
+      "trait_type": "entity_key",
+      "value": "string"
+    },
+    {
+      "trait_type": "rewardable",
+      "value": "boolean"
+    },
+    {
+      "trait_type": "networks",
+      "value": ["string"]
+    },
+    {
+      "trait_type": "iot_city",
+      "value": "string"
+    },
+    {
+      "trait_type": "iot_state",
+      "value": "string"
+    },
+    {
+      "trait_type": "iot_country",
+      "value": "string"
+    },
+    {
+      "trait_type": "iot_lat", // Obfuscated
+      "value": 0
+    },
+    {
+      "trait_type": "iot_long", // Obfuscated
+      "value": 0
+    }
+  ]
+}
+```
+
+`404: Error`
+
+```json
+{
+  "statusCode": 404,
+  "error": "Not Found",
+  "message": "string"
+}
+```
+
+`500: Error`
+
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "string"
+}
+```
+
+</TabItem>
+</Tabs>
+
+## List OUI Organization Info
+
+```
+GET https://entities.nft.helium.io/v2/oui/all
+```
+
+Get a list of OUIs registered on the Helium Network and corresponding organization info.
+
+<Tabs
+  block={true}
+  defaultValue="response"
+  values={[{"label":"Response","value":"response"}]}
+>
+<TabItem value="response">
+
+`200: OK`
+
+```json
+{
+  "orgs": [
+    {
+      "oui": 1,
+      "owner": "string", // Org admin key
+      "payer": "string", // Key only used for DC payments
+      "escrow": "string", // Escrow account key
+      "delegate_keys": [
+        // List of keys allowed some specific actions, see services.
+        "string"
+      ],
+      "locked": "boolean" // Is org locked because of no payment
+    },
+    {
+      "oui": 2,
+      "owner": "string",
+      "payer": "string",
+      "escrow": "string",
+      "delegate_keys": ["string"],
+      "locked": "boolean"
+    },
+    {
+      "oui": 3,
+      "owner": "string",
+      "payer": "string",
+      "escrow": "string",
+      "delegate_keys": ["string"],
+      "locked": "boolean"
+    }
+  ]
+}
+```
+
+`500: Error`
+
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "string"
+}
+```
+
+</TabItem>
+</Tabs>
+
+## OUI Organization Info by OUI ID
+
+```
+GET https://entities.nft.helium.io/v2/oui/:id
+```
+
+Get an OUI registered on the Helium Network and corresponding organization info by the OUI ID.
+
+<Tabs
+  block={true}
+  defaultValue="request"
+  values={[{"label":"Request","value":"request"},{"label":"Response","value":"response"}]}
+>
+<TabItem value="request">
+
+`Path Parameters`
+
+| Param             | Type     | Note                                     |
+| ----------------- | -------- | ---------------------------------------- |
+| OUI ID (required) | _string_ | ID of the OUI (e.g., 1) for getting info |
+
+</TabItem>
+<TabItem value="response">
+
+`200: OK`
+
+```json
+{
+  "oui": 1, // OUI ID
+  "owner": "string", // Org admin key
+  "payer": "string", // Key only used for DC payments
+  "escrow": "string", // Escrow account key
+  "delegate_keys": [
+    // List of keys allowed some specific actions, see services.
+    "string"
+  ],
+  "locked": "boolean" // Is org locked because of no payment
+}
+```
+
+`400: Error`
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "string"
+}
+```
+
+`500: Error`
+
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "string"
+}
+```
+
+</TabItem>
+</Tabs>

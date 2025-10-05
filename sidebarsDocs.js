@@ -105,7 +105,12 @@ module.exports = {
       label: 'Network Data',
       link: { type: 'doc', id: 'network-data/network-data' },
       items: [
-        'network-data/api-providers',
+        {
+          type: 'category',
+          label: 'API Providers',
+          link: { type: 'doc', id: 'network-data/api-providers' },
+          items: ['network-data/entity-api'],
+        },
         'network-data/oracle-data',
         'network-data/legacy-blockchain-data',
       ],
