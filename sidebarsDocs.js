@@ -112,6 +112,7 @@ module.exports = {
           items: ['network-data/entity-api'],
         },
         'network-data/oracle-data',
+        'network-data/solana-data',
         'network-data/legacy-blockchain-data',
       ],
       collapsed: true,
