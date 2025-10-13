@@ -100,5 +100,22 @@ module.exports = {
       ],
       collapsed: true,
     },
+    {
+      type: 'category',
+      label: 'Network Data',
+      link: { type: 'doc', id: 'network-data/network-data' },
+      items: [
+        {
+          type: 'category',
+          label: 'API Providers',
+          link: { type: 'doc', id: 'network-data/api-providers' },
+          items: ['network-data/entity-api'],
+        },
+        'network-data/oracle-data',
+        'network-data/solana-data',
+        'network-data/legacy-blockchain-data',
+      ],
+      collapsed: true,
+    },
   ],
 }
