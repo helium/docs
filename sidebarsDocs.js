@@ -73,6 +73,7 @@ module.exports = {
             'network-iot/hotspots-iot/data-only-hotspots-onboarding',
             'network-iot/hotspots-iot/data-only/balena-data-only-hotspot',
             'network-iot/hotspots-iot/data-only/dragino-data-only-hotspot',
+            'network-iot/hotspots-iot/data-only/kerlink-data-only-hotspot',
             'network-iot/hotspots-iot/data-only/rak-concentrators',
           ],
         },
