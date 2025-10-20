@@ -143,7 +143,7 @@ This NAS Identifier must match the identifier used during onboarding through sel
    2. Open the key.pem (or similarly named) file in a text editor, then copy and paste the contents into the **Private Key** field
    3. Open the cert.pem (or similarly named) file in a text editor, then copy and paste the contents (including the header & footer) into the **Signed Certificate** field
 
-   NOTE: you may need to delete existing keys and certs that in boxes when you open this popup. If wanted you can save these to a local file on your computer incase you need them in the future. 
+   NOTE: you may need to delete existing keys and certs that in boxes when you open this popup. If wanted you can save these to a local file on your computer in case you need them in the future. 
 
 <figure className="screensnippet-wrapper">
   <img
