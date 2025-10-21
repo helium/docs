@@ -1,0 +1,371 @@
+---
+id: rewardable-entities
+title: Rewardable Entities
+pagination_label: Rewardable Entities
+sidebar_label: Hotspots on Solana
+description: Helium Rewardable Entities Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /network-data/solana/rewardable-entities
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+All actors in the network that receive tokens are considered "Rewardable Entities."
+
+A rewardable entity on the Helium Network is represented on Solana as an NFT (Non-Fungible Token).
+
+NFTs are ideal for this job as they represent ownership in a way that is easily transferrable and
+recognized by all major wallets.
+
+## Fetching Rewardable Entities
+
+All rewardable entities are created by the `helium-entity-manager` program. Further, they exist
+under a collection that is managed by the Maker of that entity. The easiest way to fetch all Helium
+entities for a given wallet is to filter by the `helium-entity-manager-creator`
+
+We can get this address by running
+
+<!-- prettier-ignore -->
+```js
+import { daoKey } from "@helium/helium-sub-daos-sdk";
+import { entityCreatorKey } from "@helium/helium-entity-manager-sdk";
+
+const hntMint = new PublicKey('...hnt mint...')
+const dao = daoKey(hntMint)[[0]]
+const creator = entityCreatorKey(dao)[0]
+```
+
+This should output: `Fv5hf1Fg58htfC7YEXKNEfkpuogUUQDDTLgjGWxxv48H`
+
+Now, we can use the Metaplex Digital Asset API to get rewardable entities my wallet
+(`BcJzP2hEYgzjUwpHEtS6RhuqGfEJVx8Rq3MejujAAWrR`) owns:
+
+```bash
+curl --request POST \
+     --url https://rpc-devnet.aws.metaplex.com/ \
+     --header 'Content-Type: application/json' \
+     --data '{
+      "jsonrpc": "2.0",
+      "method": "search_assets",
+      "id": "get-assets-op-1",
+      "params": {
+        "ownerAddress": "BcJzP2hEYgzjUwpHEtS6RhuqGfEJVx8Rq3MejujAAWrR",
+        "page": 0,
+        "creatorAddress": "Fv5hf1Fg58htfC7YEXKNEfkpuogUUQDDTLgjGWxxv48H",
+        "creatorVerified": true,
+        "sortBy": {"sortBy": "created", "sortDirection": "asc"}
+      }
+    }'
+```
+
+### Hotspots and ECC Compact Keys
+
+Hotspots on the Helium Network currently are uniquely identified by their ECC Compact Public Keys.
+
+At onboarding time, Hotspots can sign an onboard transaction proving physical ownership of the
+device.
+
+As such, the Helium Solana implementation enforces that all NFTs are unique by ECC Compact keys.
+
+If you have an asset id of an NFT on Solana, you can get the ECC Compact Key by fetching the digital
+asset and pulling out the last value from the content.json_uri.
+
+For example:
+
+<!-- prettier-ignore -->
+```js
+import { getAsset } from "@helium/spl-utils";
+
+const asset = await getAsset(rpcUrl, new PublicKey("...asset id..."));
+
+const eccCompactKey = asset.content.json_uri.split("/").slice(-1)[0];
+```
+
+If you have only an ECC Compact key and would like to find the NFT, you can use the `KeyToAssetV0`
+struct that is stored on-chain:
+
+<!-- prettier-ignore -->
+```js
+import { daoKey } from "@helium/helium-sub-daos-sdk"
+import { keyToAssetKey, init } from "@helium/helium-entity-manager-sdk"
+
+// Declare constants
+const hntMint = new PublicKey("...hnt mint...")
+const dao = daoKey(hntMint)[0]
+const eccKey = "...ecc compact key..."
+
+// Init program
+const program = await init(provider);
+
+// Get the asset id from the KeyToAssetV0 account on-chain
+const keyToAssetPkey = keyToAssetKey(dao, eccKey)[0]
+const keyToAssetAcc = await program.account.keyToAssetV0.fetch(keyToAssetPkey);
+const assetId = keyToAssetAcc.asset;
+
+// Now get the asset from the metaplex asset api
+const asset = await getAsset(rpcUrl, assetId)
+```
+
+## Onboarding Rewardable Entities
+
+The onboarding flow for an entity is generally that a customer purchases the hardware from a Maker,
+and then self-onboards to the network. Because all hardware is created by approved Makers, the
+onboard transaction must be approved by the Maker. This uses a similar flow to the legacy
+onboarding-server of the Helium blockchain.
+
+Makers are approved for specific subnetworks. A maker that creates IoT Hotspots cannot necessarily
+onboard Mobile Hotspots. Each network subnetwork must approve makers to issue rewardable entities.
+
+The following test shows the full flow of onboarding a Hotspot using the onboarding server.
+
+The [React Native Helium](https://github.com/helium/react-native-helium) SDK should greatly simplify
+this process.
+
+<!-- TODO: Add examples for the maker SDK (really, throughout this doc) -->
+
+<!-- prettier-ignore -->
+```js
+import Address from "@helium/address";
+import { Keypair } from "@helium/crypto";
+import { sendAndConfirmWithRetry } from "@helium/spl-utils";
+import { AddGatewayV1 } from "@helium/transactions";
+import { accountProviders } from "@metaplex-foundation/mpl-bubblegum";
+import {
+  Connection,
+  PublicKey,
+  Transaction,
+  Keypair as SolanaKeypair,
+} from "@solana/web3.js";
+import axios from "axios";
+import { BN } from "bn.js";
+
+function random(len: number): string {
+  return new Array(len).join().replace(/(.|$)/g, function () {
+    return ((Math.random() * 36) | 0).toString(36);
+  });
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+describe("onboarding server", () => {
+  let me: Keypair;
+  let gateway: Keypair;
+  const maker = Address.fromB58(
+    "ENTER YOUR MAKER ADDRESS"
+  );
+  let onboardingKey: string;
+
+  let base = "https://onboarding.web.test-helium.com";
+  before(async () => {
+    me = await Keypair.makeRandom();
+    gateway = await Keypair.makeRandom();
+    onboardingKey = gateway.address.b58;
+    const result = await axios.post(
+      `${base}/api/v2/hotspots`,
+      {
+        onboardingKey,
+        macWlan0: random(10),
+        macEth0: random(10),
+        rpiSerial: random(10),
+        heliumSerial: random(10),
+        batch: "example-batch",
+      },
+      {
+        headers: {
+          authorization: "ENTER YOUR MAKER AUTH KEYS"
+        },
+      }
+    );
+
+    await sleep(2000);
+  });
+
+  it("should run issue txs", async () => {
+    const hotspot = (
+      await axios.get(`${base}/api/v2/hotspots/${onboardingKey}`)
+    ).data.data;
+    console.log(hotspot);
+    console.log(me.privateKey);
+    const solanaKeypair = SolanaKeypair.fromSecretKey(me.privateKey);
+    console.log("Solana pubkey: ", solanaKeypair.publicKey.toBase58())
+
+    await sleep(2000);
+
+    const result = await axios.post(
+      `${base}/api/v3/transactions/create-hotspot`,
+      {
+        location: new BN(1).toString(),
+        transaction: (
+          await new AddGatewayV1({
+            owner: me.address,
+            gateway: gateway.address,
+            payer: maker,
+          }).sign({
+            gateway,
+          })
+        ).toString(),
+      }
+    );
+
+    const connection = new Connection("https://api.devnet.solana.com");
+    const { solanaTransactions } = result.data.data;
+    for (const solanaTransaction of solanaTransactions) {
+      const txid = await sendAndConfirmWithRetry(
+        connection,
+        Buffer.from(solanaTransaction),
+        { skipPreflight: true },
+        "confirmed"
+      );
+      console.log(txid.txid);
+    }
+
+    let tries = 0;
+    let onboardResult: any;
+    while (tries < 10 && !onboardResult) {
+      try {
+        onboardResult = await axios.post(
+              `${base}/api/v3/transactions/mobile/onboard`,
+              {
+                entityKey: onboardingKey,
+              }
+            );
+      } catch {
+        console.log(`Hotspot may not exist yet ${tries}`);
+        tries++;
+        await sleep(2000); // Wait for Hotspot to be indexed into asset api
+      }
+    }
+
+
+    for (const solanaTransaction of onboardResult!.data.data
+      .solanaTransactions) {
+      const tx = Transaction.from(Buffer.from(solanaTransaction));
+      tx.partialSign(solanaKeypair)
+      const txid = await sendAndConfirmWithRetry(
+        connection,
+        tx.serialize(),
+        { skipPreflight: true },
+        "confirmed"
+      );
+      console.log(txid.txid);
+    }
+
+    const updateResult = await axios.post(
+      `${base}/api/v3/transactions/mobile/update-metadata`,
+      {
+        entityKey: onboardingKey,
+        location: new BN(1).toString(),
+        elevation: 2,
+        gain: 11,
+        wallet: solanaKeypair.publicKey.toBase58()
+      }
+    );
+
+    for (const solanaTransaction of updateResult.data.data.solanaTransactions) {
+      const tx = Transaction.from(Buffer.from(solanaTransaction));
+      tx.partialSign(solanaKeypair)
+      const txid = await sendAndConfirmWithRetry(
+        connection,
+        tx.serialize(),
+        { skipPreflight: true },
+        "confirmed"
+      );
+      console.log(txid.txid);
+    }
+  });
+});
+```
+
+## Claiming Rewards on Rewardable Entities
+
+A system of oracles keeps track of the rewards owed to each Rewardable Entity. For example, in the
+IoT network there are oracles that keep track of the HNT tokens earned by each Hotspot for PoC.
+
+These oracles are responsible ONLY for tracking the total lifetime rewards associated with a
+Hotspot. This frees the oracles from any kind of dependence on the blockchain. They don't care about
+the issuance or movement of tokens.
+
+The `lazy-distributor` program keeps track of, for each Hotspot, how much of the total lifetime
+rewards have been claimed. Claiming rewards, then, consists of two steps:
+
+1. Ask oracles to update the on-chain state to reflect the latest lifetime rewards for this Hotspot.
+2. Issue the difference between the total lifetime rewards and total claimed rewards to the Hotspot
+   owner.
+
+In practice, we have made it so that this can all happen in a singular transaction for PoC rewards.
+Staking rewards will happen in transactions combining up to 4 days of rewards.
+
+### Finding Current Rewards
+
+Oracles work off of a restful API that involves
+
+1. Grabbing lifetime rewards for all oracles.
+2. Constructing a transaction to set the rewards and passing the transaction to each oracle to
+   partially sign.
+3. Submitting the fully signed transaction to Solana.
+
+The SDK simplifies this process into two functions, `getCurrentRewards` and `formTransaction`.
+
+If you have interest in using the REST api, you can see the relatively simple client code
+[here](https://github.com/helium/helium-program-library/blob/master/packages/distributor-oracle/src/client.ts)
+
+To fetch rewards across all oracles for a given asset id:
+
+<!-- prettier-ignore -->
+```js
+import { init, lazyDistributorKey } from "@helium/lazy-distributor-sdk";
+import { getCurrentRewards } from "@helium/distributor-oracle";
+import * as anchor from "@coral-xyz/anchor";
+
+anchor.setProvider(anchor.AnchorProvider.local("...rpc url..."));
+const provider = anchor.getProvider() as anchor.AnchorProvider;
+const program = await init(provider)
+
+const iotMint = new PublicKey("...iot mint...")
+const assetId = new PublicKey("...asset id...")
+const lazyDistributorPkey = lazyDistributorKey(iotMint)[0];
+const rewards = await getCurrentRewards(program, lazyDistributorPkey, assetId);
+
+rewards.map(reward => {
+  console.log(`Oracle ${reward.oracleKey} stating lifetime rewards of ${reward.currentRewards}`);
+})
+```
+
+### Claiming Rewards
+
+:::info
+
+The claim example in this section requires a connection to an RPC node (provider) that understands
+compressed NFTs. This is an advanced feature that is not yet supported by Solana's public RPC
+servers. **This example will not work unless you use an appropriate RPC provider such as
+[Helius](https://www.helius.xyz/).**
+
+:::
+
+You can then get a transaction to submit to the Solana blockchain using those rewards:
+
+<!-- prettier-ignore -->
+```js
+
+import { formTransaction } from "@helium/distributor-oracle";
+import { sendAndConfirmWithRetry } from "@helium/spl-utils";
+
+const tx = await formTransaction({
+  program,
+  provider,
+  rewards, // from above
+  hotspot: assetId,
+  lazyDistributor: lazyDistributorPkey,
+})
+
+const signed = await provider.wallet.signTransaction(tx);
+
+await sendAndConfirmWithRetry(
+  provider.connection,
+  Buffer.from(signed.serialize()),
+  { skipPreflight: true },
+  'confirmed',
+);
+```

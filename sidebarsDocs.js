@@ -112,7 +112,16 @@ module.exports = {
           items: ['network-data/entity-api'],
         },
         'network-data/oracle-data',
-        'network-data/solana-data',
+        {
+          type: 'category',
+          label: 'Solana Data',
+          link: { type: 'doc', id: 'network-data/solana-data' },
+          items: [
+            'network-data/solana/rewardable-entities',
+            'network-data/solana/compression-nfts',
+            'network-data/solana/helium-program-library',
+          ],
+        },
         'network-data/legacy-blockchain-data',
       ],
       collapsed: true,
