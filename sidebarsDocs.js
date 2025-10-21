@@ -101,5 +101,31 @@ module.exports = {
       ],
       collapsed: true,
     },
+    {
+      type: 'category',
+      label: 'Network Data',
+      link: { type: 'doc', id: 'network-data/network-data' },
+      items: [
+        {
+          type: 'category',
+          label: 'API Providers',
+          link: { type: 'doc', id: 'network-data/api-providers' },
+          items: ['network-data/entity-api'],
+        },
+        'network-data/oracle-data',
+        {
+          type: 'category',
+          label: 'Solana Data',
+          link: { type: 'doc', id: 'network-data/solana-data' },
+          items: [
+            'network-data/solana/rewardable-entities',
+            'network-data/solana/compression-nfts',
+            'network-data/solana/helium-program-library',
+          ],
+        },
+        'network-data/legacy-blockchain-data',
+      ],
+      collapsed: true,
+    },
   ],
 }

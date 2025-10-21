@@ -1,0 +1,326 @@
+---
+id: solana-data
+title: Helium Data on Solana
+pagination_label: Solana Data
+sidebar_label: Solana Data
+description: Helium Data on Solana Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /network-data/solana-data
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+<img className="docsheader" src={useBaseUrl('img/solana/solanaheader.png')} />
+
+This guide exists to give an overview of Helium data on Solana, and some general Solana programming
+semantics. For a more in-depth guide, check out
+[The Solana Cookbook](https://solanacookbook.com/core-concepts/accounts.html)
+
+## Reading Data
+
+At its core, Solana is just a giant Key/Value store. A public key is the key, and there's some blob
+of data at that value. That blob of data is called an Account. You can imagine Public Keys like a
+primary key in a traditional database.
+
+For example, let's consider this public key: `6r4x69WHPPDzUuMpJ7vwSUiU6e73KJqeoPyZ8nHQTmFP`
+
+If we check the
+[Solana Explorer, under Anchor Data](https://explorer.solana.com/address/6r4x69WHPPDzUuMpJ7vwSUiU6e73KJqeoPyZ8nHQTmFP/anchor-account?cluster=devnet)
+for this account, we can see that this is a `DaoV0` on the devnet `helium-sub-daos` contract.
+
+![Dao in Explorer](/img/solana/dao-in-explorer.png)
+
+Scrolling up we can see that it is, in fact, owned by the Helium subnetwork's program:
+
+![Program Owner](/img/solana/program-owner.png)
+
+This means that only the `helium-sub-daos` program can make changes to this account. On other
+chains, a Program may be called a Smart Contract. Accounts are either owned by a program or owned by
+the system program. An account owned by the System Program is generally either a Wallet (holding
+SOL), or an account that has yet to be initialized.
+
+On Solana, a Wallet is just an account with some amount of SOL tokens in it, owned by the system
+program. The owner of that Wallet controls the private key to that account, and so can sign
+transactions as that public key.
+
+### PDAs
+
+Program Derived Addresses (PDAs) are home to accounts that are designed to be controlled by a
+specific program. With PDAs, programs can programmatically sign for certain addresses without
+needing a private key. PDAs serve as the foundation for Cross-Program Invocation, which allows
+Solana apps to be composable with one another.
+
+A PDA is a Public Key that is derived from some set of seeds and a given program ID. Think of it as
+a one-way hashing to a new address. So, for example,
+
+<!-- prettier-ignore -->
+```js
+getProgramAddress([Buffer.from("helium", "utf8")], helium_sub_daos.programId)
+```
+
+will always return the same address. Better yet, the `helium_sub_daos` is able to sign transactions
+as if it held the private key to this PDA.
+
+As you will see, the Helium programming model depends heavily on PDAs as indexes into the
+blockchain.
+
+If you imagine the world of Helium Data on Solana as a Graph, PDAs let us hook into particular
+subgraphs.
+
+A great example of this is the relationship between the Helium `dao` and the `hnt` mint address. The
+`DaoV0` definition from earlier exists at address:
+
+<!-- prettier-ignore -->
+```js
+import { daoKey } from "@helium/helium-sub-daos-sdk"
+
+const daoAddr = daoKey(new PublicKey("...hnt mint..."))[0];
+```
+
+:::note Helium PDAs and Mints
+
+You'll notice that if you trace the graph of Helium PDAs, they always lead back to the address of
+either the HNT token mint, or the subnetwork token mint.
+
+This design is intentional. Rather than making DAOs, subnetworks, etc global, we opted to make them
+dependent on the specific mints being used. This allows us to set up testing scenarios in which we
+use a testing token alongside the real tokens. This design also allows for easier reuse of our
+contracts throughout the Solana community.
+
+:::
+
+### Aside - Tokens
+
+To understand the Helium model on Solana, it's important to understand how tokens work on Solana.
+
+You might imagine a Wallet is some kind of account (data struct) holding all of your tokens. This is
+not the case!
+
+Instead, a Wallet is really a collection of `TokenAccount`s (Accounts whose data is a
+`TokenAccount`). The token account itself has a reference to its owner, which is the Wallet. Note
+that `TokenAccount.owner` is different than the `Account.owner`. In this case, the Program that is
+allowed to make changes to a token account is the Token Program. That is the `Account.owner`.
+Whereas the owning wallet of the `TokenAccount` is the `TokenAccount.owner`. You can see a token
+account for a testing token we created
+[here](https://explorer.solana.com/address/BM9kx8NZGNThVr6HnBJo1CR5Jvk5Zc3EEy7wWztaJHS2?cluster=devnet)
+
+Every token, whether it be USDC, HNT, or MOBILE has a definition. This is called the token `Mint`.
+You can also see this key on the token account above. This includes definitions like current supply,
+mint authority, freeze authority, and decimals.
+
+A common confusion on Solana is understanding Accounts vs Token Accounts, owners vs Token Account
+owners.
+
+#### Associated Token Accounts
+
+Associated token accounts are often the first use of PDAs you will see as a developer on Solana.
+
+Given the above model, it is possible for a given wallet to have multiple token accounts for the
+same token. That is both messy and hard to index. Early in the days of Solana, a program called
+`associated-token` emerged. `Associated-token` says that the account for a given Wallet and mint can
+be derived by:
+
+<!-- prettier-ignore -->
+```js
+ PublicKey.findProgramAddress(
+    [wallet.toBuffer(), TOKEN_PROGRAM_ID.toBuffer(), mint.toBuffer()],
+    ASSOCIATED_TOKEN_PROGRAM_ID
+  )
+```
+
+Generally, token accounts are created through the `associated-token` program so that they can be
+guaranteed to be accessed at an easy-to-find address.
+
+### Fetching Data
+
+The classic way of fetching data on Solana is to use @solana/web3.js connection object.
+
+<!-- prettier-ignore -->
+```js
+import { PublicKey, Connection } from "@solana/web3.js"
+
+const connection = new Connection("...rpc url...")
+const account = await connection.getAccountInfo(new PublicKey("..."))
+
+console.log(account.data)
+```
+
+This will get you the binary data of any account stored on chain; however, you will need to decode
+the data yourself. Most programs come with their own SDKs for reading and deserializing data. For
+example, SPL Token (the token program), comes with @solana/spl-token
+
+<!-- prettier-ignore -->
+```js
+import { PublicKey } from "@solana/web3.js"
+import { getAccount, getAssociatedTokenAddressSync } from "@solana/spl-token"
+
+const mint = new PublicKey("...wallet...")
+const wallet = new PublicKey("...wallet...")
+const tokenAddress = getAssociatedTokenAddressSync(mint, wallet)
+const tokenAccount = await getAccount(connection, tokenAddress)
+
+console.log(tokenAcount.amount, tokenAccount.owner)
+```
+
+In the case of Helium programs, they all use a framework called
+[Anchor](https://github.com/coral-xyz/anchor), which amongst other things generate SDKs for us.
+
+You can use the SDKs as follows:
+
+<!-- prettier-ignore -->
+```js
+import { init } from "@helium/helium-sub-daos-sdk";
+import * as anchor from "@coral-xyz/anchor";
+
+anchor.setProvider(anchor.AnchorProvider.local("...rpc url..."));
+const provider = anchor.getProvider() as anchor.AnchorProvider;
+const program = await init(provider)
+
+const daoAccount = await program.account.daoV0.fetch(new PublicKey("...dao key..."))
+```
+
+## Sending Transactions
+
+Transactions are how we modify data on Solana. All Helium SDKs use the standard
+[Anchor](https://github.com/coral-xyz/anchor) SDK.
+
+That means the interface to all instructions are predictable. You should be able to look at either
+our IDLs, or the programs themselves, and see what accounts need to be passed to generate
+instructions.
+
+The best way to understand how to take certain actions against Helium on Solana is to look at
+[our tests](https://github.com/helium/helium-program-library/tree/master/tests).
+
+For example, to submit a Data Credit delegation, the code may look something like this:
+
+<!-- prettier-ignore -->
+```js
+import { subDaoKey } from "@helium/helium-sub-daos-sdk";
+import { init as initDc } from "@helium/data-credits-sdk";
+import * as anchor from "@coral-xyz/anchor";
+
+anchor.setProvider(anchor.AnchorProvider.local("...rpc url..."));
+const provider = anchor.getProvider() as anchor.AnchorProvider;
+
+const iotMint = new PublicKey("...iot mint...");
+const iotSubDao = subDaoKey(iotMint)[0]
+
+const dcProgram = await initDc(provider)
+
+await program.methods
+    .delegateDataCreditsV0({
+      amount: toBN(10, 0),
+      routerKey: "router key",
+    })
+    .accounts({
+      subDao: iotSubDao,
+    })
+    .rpc();
+```
+
+## RPC & RPC Nodes
+
+An RPC is an application's gateway to the Solana cluster. RPC Nodes do not participate in consensus
+and instead are dedicated to data requests.
+
+All the RPCs used in the Solana Migration follow the Solana chain and will index the NFT data that
+Core Developers created in Compression NFTs. This is one reason the Helium Network can mint a
+million or more NFTs on Solana.
+
+You may need to run an RPC service to access public Solana clusters. Many services are free, and
+others are paid. The Foundation uses Helius as their RPC Provider, and it’s useful to use a PRC
+provider that is familiar with compression. They will all support this at some point.
+
+You can read more about RPC & RPC Nodes [here](https://solana.com/rpc).
+
+## Helium Programs on Solana
+
+The code for all of these Programs is open source, and available in the
+[helium-program-library](https://github.com/helium/helium-program-library) repository on Github.
+
+:::info Program Audits
+
+The Helium Programs have been audited by [sec3](https://www.sec3.dev/). The audit report was
+published March 20, 2023. The audit report is available from sec3 on their
+[GitHub reports repo](https://github.com/sec3-service/reports/blob/master/reports/sec3_helium_program_library_report.pdf).
+
+:::
+
+#### circuit_breaker
+
+- Program ID: `circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g`
+- Generic program wrapping sensitive mint authorities and token accounts in the Helium system to
+  prevent large movements in the case of an exploit or bug.
+
+#### data_credits
+
+- Program ID: `credMBJhYFzfn7NxBMdU4aUqFggAjgztaCcv2Fo6fPT`
+- Manages the purchase, delegation, and burning of data credits.
+
+#### helium_entity_manager
+
+- Program ID: `hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8`
+- Handles the issuance of NFTs representing entities that are rewardable on the Helium network, such
+  as Hotspots and mappers.
+
+#### helium_sub_daos
+
+- Program ID: `hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR`
+- Manages the DAO/subnetwork structure proposed in HIP-51, including the minting of tokens to
+  subnetworks, HST holders, and the `lazy_distributor` for PoC earnings.
+
+#### lazy_distributor
+
+- Program ID: `1azyuavdMyvsivtNxPoz6SucD18eDHeXzFCUPq5XU7w`
+- Allows off-chain Oracles to distribute PoC rewards to rewardable assets (such as Hotspots) that
+  are represented as NFTs.
+
+#### lazy_transactions
+
+- Program ID: `1atrmQs3eq1N2FEYWu6tyTXbCjP4uQwExpjtnhXtS8h`
+- Used in the initial migration to Solana, this program allows compressing many transactions into a
+  merkle root to be executed lazily. This guarantees all transactions are executed exactly once.
+
+#### treasury_management
+
+- Program ID: `treaf4wWBBty3fHdyBpo35Mz84M8k3heKXmjmi9vFt5`
+- Manages the treasury of each subnetwork as proposed in HIP-51, allowing DNT tokens to be swapped
+  for HNT according to a formula.
+
+#### voter_stake_registry
+
+- Program ID: `hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8`
+- Handles voting power via veHNT in Helium Governance.
+
+---
+
+## Packages (JS/Typescript)
+
+| Name                                                                                                                                 | Description                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| [@helium/circuit-breaker-sdk](https://github.com/helium/helium-program-library/tree/master/packages/circuit-breaker-sdk)             | SDK to circuit breaker program                                                     |
+| [@helium/data-credits-sdk](https://github.com/helium/helium-program-library/tree/master/packages/data-credits-sdk)                   | SDK to the data credits program                                                    |
+| [@helium/distributor-oracle](https://github.com/helium/helium-program-library/tree/master/packages/distributor-oracle)               | SDK for interacting with the lazy-distributor oracles to claim rewards             |
+| [@helium/helium-entity-manager-sdk](https://github.com/helium/helium-program-library/tree/master/packages/helium-entity-manager-sdk) | SDK to the Helium entity manager program                                           |
+| [@helium/helium-sub-daos-sdk](https://github.com/helium/helium-program-library/tree/master/packages/helium-sub-daos-sdk)             | SDK to Helium sub daos program                                                     |
+| [@helium/idls](https://github.com/helium/helium-program-library/tree/master/packages/idls)                                           | IDLs containing the typescript definitions for the raw anchor SDKs of our programs |
+| [@helium/lazy-distributor-sdk](https://github.com/helium/helium-program-library/tree/master/packages/lazy-distributor-sdk)           | SDK to the lazy distributor program                                                |
+| [@helium/lazy-transactions-sdk](https://github.com/helium/helium-program-library/tree/master/packages/lazy-transactions-sdk)         | SDK to lazy transactions program                                                   |
+| [@helium/spl-utils](https://github.com/helium/helium-program-library/tree/master/packages/spl-utils)                                 | General utils for interacting with Solana, tokens, etc                             |
+| [@helium/treasury-management-sdk](https://github.com/helium/helium-program-library/tree/master/packages/treasury-management-sdk)     | SDK to the treasury management program                                             |
+| [@helium/voter-stake-registry-sdk](https://github.com/helium/helium-program-library/tree/master/packages/voter-stake-registry-sdk)   | SDK to the voter stake registry program                                            |
+
+---
+
+## Important Addresses and Links
+
+All the tokens are on the `TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA` Program.
+
+The mint IDs are as follows:
+
+| Name   | ID                                          |
+| ------ | ------------------------------------------- |
+| HNT    | hntyVP6YFm1Hg25TN9WGLqM12b8TQmcknKrdu1oxWux |
+| MOBILE | mb1eu7TzEc71KxDpsmsKoucSSuuoGLv1drys1oP2jh6 |
+| IOT    | iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns |
+| DC     | dcuc8Amr83Wz27ZkQ2K9NS6r8zRpf1J6cvArEBDZDmm |
