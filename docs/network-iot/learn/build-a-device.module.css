@@ -1,0 +1,119 @@
+/*CreateDevice*/
+.DeviceKeys {
+  width: 100%;
+  padding: 0.5em;
+}
+
+.keybox {
+  display: flex;
+  flex-direction: column;
+}
+
+.keybox label {
+  font-weight: 500;
+  color: #53627c;
+  font-size: small;
+  background-color: #eaeff9;
+  line-height: 1em;
+  padding: 1em 1rem calc(1em + 6px);
+  border-radius: 8px 8px 0 0;
+}
+
+.keybox input {
+  display: table;
+  background: white;
+  width: 100%;
+  table-layout: fixed;
+  border: none;
+  border-radius: 0 0 8px 8px;
+  padding: 1rem;
+  margin-top: -8px;
+  box-shadow: 0 3px 8px -3px rgba(0, 0, 0, 0.08);
+  font-size: 1rem;
+}
+
+.keybox input:focus {
+  outline-color: rgb(47, 98, 192);
+}
+
+.keybox input::placeholder {
+  color: #aaadb4;
+}
+
+.keybox input:focus:placeholder {
+  outline: none;
+}
+
+.createDeviceButton {
+  appearance: none;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 3px 6px -3px #0000001a;
+  font-size: 1em;
+  margin-bottom: 1em;
+  padding: 0.5em;
+}
+
+.createDeviceButton:disabled {
+  background-color: #e8e8e8;
+}
+
+/*DeviceEventLogger*/
+.eventsContainer {
+  width: 100%;
+  max-height: 50vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem 1rem;
+  margin: -0.5rem;
+  scroll-snap-type: y proximity;
+}
+
+.eventFrame {
+  background: white;
+  box-shadow: 0 3px 8px -3px rgba(0, 0, 0, 0.08);
+  border-radius: 0.5em;
+  overflow: scroll;
+  margin: 0 0.5rem 1rem;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  scroll-snap-margin: 1rem;
+}
+
+.eventHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 1rem;
+  background: #eaeff9;
+}
+
+.eventTime,
+.eventType {
+  color: #53627c;
+  font-size: small;
+  padding: 0;
+  margin: 0;
+}
+
+.eventType {
+  font-weight: 500;
+}
+
+.eventTime {
+  color: #6a748c;
+}
+
+.eventProperties {
+  list-style: none;
+  padding: 0.5rem 0 0.55rem;
+  margin: 0;
+  /* display: inline-flex; */
+}
+
+.eventProperties li {
+  margin-top: 0 !important;
+  padding: 0 1rem;
+}
