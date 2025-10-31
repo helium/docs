@@ -1,0 +1,213 @@
+---
+id: data-only-Cisco-WLC-5520
+title: Cisco Catalyst 5520 Conversion Guide
+pagination_label: Cisco Catalyst 5520 Conversion Guide
+sidebar_label: Cisco Catalyst 5520 Conversion Guide
+description: Helium Network Conversion Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/data-only-Cisco-WLC-5520
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Prerequisites
+
+- Cisco AireOS system must be running 8.5 or later.
+- Guide assumes the network is using an on-prem 5520 Controller.
+- Wi-Fi system has AP(s) linked to the 5520 WLC Controller.
+- Cisco system has basic traffic routing working with existing SSID(s).
+- An Intel-based host is required in the network to run the
+  [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
+
+# High Level Steps
+
+1. Deploy RadSecProxy container and record IP address of host
+2. Build WLAN Helium Passpoint SSID
+   1. Build an SSID for Helium
+   2. Configure Security and RADIUS Connections
+   3. Configure 802.11u
+   4. Build Hotspot 2.0 Profile
+   5. Enable Hotspot 2.0
+
+# Deploy RadSecProxy Container
+
+RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
+over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
+the UDP is then converted to a TLS protected TCP connection to the Helium Network core AAA servers.
+
+## Prerequisites
+
+- An intel based machine with Docker installed.
+- The intel based machine has a private IP in your network reachable from your 5520 WLC Controller
+- ACLs or Firewalls allow 5520 WLC Controller and Docker Container to communicate UDP on port 1812
+  and 1813
+- ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802\.
+
+## Container Deployment
+
+1. Un-zip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
+   host machine. This will unpack the following items:
+   1. `Dockerfile` \- The docker instructions on how to build the container
+   2. `Radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
+      Network AAA servers
+   3. `docker-compose.yml` \- File to start and stop the container as a daemon.
+
+```bash
+tar -xvzf Helium_RadSec_Docker.tar.gz
+```
+
+2. Into the same directory copy the 3 certificates obtained from Helium Network
+   1. ca.pem \- the root CA certificate
+   2. cert.pem \- the user certificate
+   3. key.pem \- the key file matched to the certificate
+3. Start the container using:
+
+```bash
+sudo docker compose up -d
+```
+
+4. If/when needed, stop the container using:
+
+```bash
+sudo docker compose down
+```
+
+# Build an SSID for Helium
+
+This guide outlines how to configure a Cisco 5520 Wireless LAN Controller (WLC) running AireOS 8.5
+for integration with the Helium Network using a local Docker-based RadSecProxy. This enables
+Passpoint (Hotspot 2.0) authentication through Helium’s secure RADIUS infrastructure.
+
+To start login to your Cisco 5520 Dashboard in your browser, this will be our starting point for all
+major steps below
+
+1. Log into your WLC Dashboard → click **Advanced** → **WLANs**
+2. Click **Create New** → **Go**.
+3. Enter Profile Name: **Helium**
+4. Enter SSID: **Helium**.
+5. Set ID: any available value.
+6. Click 'Apply' → then select the WLAN ID to edit
+
+:::note
+
+In the following steps we will only mention mandatory fields to set. Most windows will have many
+other parameters with default values set. Leave any unmentioned parameter at it's default value.
+
+:::
+
+## Configure Security and RADIUS Connections
+
+1. Under the **General** tab, check the **Status** box to Enable
+2. Check the box to **Broadcast SSID**
+3. Configure the **NAS-ID** to the value shared to you by Helium
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/cisco-5520/Cisco-5520-1.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+2. Under the **Security -> Layer2** tabs configure the following parameters:
+3. In **Layer 2 Security** dropdown choose **WPA2 + WPA3**
+4. Check the boxes for **WPA2** and **WPA3** Policy
+5. For **Encryption Cipher** check the box for **CCM128(AES)**
+
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-5520/Cisco-5520-2.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+
+6. Under the **Security -> AAA** tabs configure the following parameters:
+7. Configure **Authentication Server IP** to be the **IP of your local RadSecProxy**
+8. Configure **Authentication Port** to be **1812**
+9. Configure **shared secret** to **mysecret**
+10. Configure **Accounting Server IP** to be the **IP of your local RadSecProxy**
+11. Configure **Accounting Port** to be **1813**
+12. Configure **shared secret** to **mysecret**
+13. Configure **Interim Interval** to **300 seconds**
+
+# Configure 802.11u
+
+1. From the main WLANs view, select the blue down arrow to the right of the WLAN description and
+   select **802.11u** from the dropdown menu
+
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-5520/Cisco-5520-3.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+
+2. In the configuration page that opens configure the following parameters:
+3. Check the box for **802.11u Status** to Enable to view more configurable parameters
+4. Check the box for **Internet Access** to **Enabled**
+5. In the dropdown for **Network Type** choose **Chargable Public**
+6. In the dropdown for **IPv4 Type** choose **Single NATed Private** or most applicable option for
+   your network
+7. In the dropdown for **IPv4 Type** choose **Not Available** or most applicable option for your
+   network
+8. In the **Realm List** enter **hellohelium.com** and click **Add**
+9. Repeat adding to **Realm List** and enter **freedomfi.com** and click **Add**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-5520/Cisco-5520-4.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+
+:::note
+
+You can see in the bottom right of the screenshot where you will add the carrier codes that will be
+sent from the Helium team.
+
+:::
+
+10. **Click** on the **hellohelium.com** realm you just created
+11. Set **EAP Method** to **EAP-TLS**, then click on **Ad**. The EAP method appears in the EAP
+    Index. If it asks for sub-method choose **Certificate**
+12. Repeat the steps for the freedomfi.com realm
+13. In the **Domain List** enter **hellohelium.com** and click **Add**
+14. **Save** configuration
+
+# Build Hotspot 2.0 Profile
+
+1. From the main WLANs view, select the blue down arrow to the right of the WLAN description and
+   select **Hotspot 2.0** from the dropdown menu
+
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-5520/Cisco-5520-5.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+
+2. Check the box to **Enable** Hotspot 2.0.
+3. Set **WAN Link Status** to **Link Up**
+4. Click **Apply -> Save Configuration**
+
+# Verification
+
+1. After saving, attempt to connect using a Helium Mobile SIM or eSIM device.
+2. Monitor the proxy logs with:
+
+```bash
+   docker logs -f radsecproxy
+```
+
+3. Successful authentication will display lines similar to:
+
+```bash
+   Received Access-Request from 192.168.x.x
+   Access-Accept for user anonymous@<random>.hellohelium.com
+```
+
+4. You can also confirm in the WLC Dashboard → Monitor → Clients that the device is connected via
+   802.1X authentication.
