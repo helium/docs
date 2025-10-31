@@ -1,0 +1,449 @@
+---
+id: data-only-Cisco-WLC-9800
+title: Cisco Catalyst 9800 Conversion Guide
+pagination_label: Cisco Catalyst 9800 Conversion Guide
+sidebar_label: Cisco Catalyst 9800 Conversion Guide
+description: Helium Network Conversion Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/data-only-Cisco-WLC-9800
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Prerequisites
+
+- Cisco IOS XE system must be running
+  [17.9](https://documentation.meraki.com/General_Administration/Firmware_Upgrades/Cisco_Meraki_Firmware_FAQ)
+  or later.
+- Guide assumes the network is using an on-prem 9800 Controller.
+- Wi-Fi system has AP(s) linked to the 9800 WLC Controller.
+- Cisco system has basic traffic routing working with existing SSID(s).
+- An Intel-based host is required in the network to run the
+  [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
+
+# High Level Steps
+
+1. Deploy RadSecProxy container and record IP address of host
+2. Build WLAN Helium Passpoint SSID
+   1. Build a RADIUS Server and Group
+   2. Create a AAA Method List
+   3. Add the NAS-ID to the WLAN AAA Policy
+   4. Build Hotspot 2.0 Profile
+   5. Build the Helium SSID
+   6. Apply Policy and Hotspot Profile to the SSID
+   7. Create Policy Tag
+   8. Apply Tag to APs
+
+# Deploy RadSecProxy Container
+
+RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
+over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
+the UDP is then converted to a TLS protected TCP connection to the Helium Network core AAA servers.
+
+## Prerequisites
+
+- An intel based machine with Docker installed.
+- The intel based machine has a private IP in your network reachable from your 9800 WLC Controller
+- ACLs or Firewalls allow 9800 WLC Controller and Docker Container to communicate UDP on port 1812
+  and 1813
+- ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802\.
+
+## Container Deployment
+
+1. Un-zip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
+   host machine. This will unpack the following items:
+   1. `Dockerfile` \- The docker instructions on how to build the container
+   2. `Radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
+      Network AAA servers
+   3. `docker-compose.yml` \- File to start and stop the container as a daemon.
+
+```bash
+tar -xvzf Helium_RadSec_Docker.tar.gz
+```
+
+2. Into the same directory copy the 3 certificates obtained from Helium Network
+   1. ca.pem \- the root CA certificate
+   2. cert.pem \- the user certificate
+   3. key.pem \- the key file matched to the certificate
+3. Start the container using:
+
+```bash
+sudo docker compose up -d
+```
+
+4. If/when needed, stop the container using:
+
+```bash
+sudo docker compose down
+```
+
+# Build Meraki Helium Passpoint SSID
+
+The following steps will configure your Cisco 9800 WLC system to broadcast an SSID with the needed
+Passpoint and RADIUS configurations to support Helium Mobile user offload.
+
+To start login to your Cisco 9800 Dashboard in your browser, this will be our starting point for all
+major steps below
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-1.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+:::note
+
+In the following steps we will only mention mandatory fields to set. Most windows will have many
+other parameters with default values set. Leave any unmentioned parameter at it's default value.
+
+:::
+
+## Build a RADIUS Profile
+
+1. Click on **Configuration -> Security -> AAA** in the left menu column
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-2.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+2. Confirm RADIUS is selected in left column and Click **+Add** in the top left
+3. Enter a **Name** e.g. Helium_AAA
+4. Enter a **Server Address** with the IP of the RadSecProxy you installed earlier.
+5. Enter the **Key** and **Confirm Key** fields equal to "mysecret" (modify if you have modified
+   during the RadSecProxy container installtion)
+6. Confirm the **Auth Port** and **Acct Port** are 1812 and 1813 respectively
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-3.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+7. Click **Apply to Device**
+
+**NOTE** If you have installed multiple RadSecProxy instances for redundancy, repeat the server
+creation for each instance incrementing the names with an integer e.g. Helium_AAA_1
+
+8. Click on **Server Group**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-4.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+9. Click on **+Add**
+10. Enter a **Name** e.g. "Helium_svg"
+11. Select your AAA servers and use the arrows to move them into the **Assigned Servers** list
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-5.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+12. Click **Apply to Device**
+
+## Create a AAA Method List
+
+1. Click **AAA Method List**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-6.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+2. Click **+Add** in the lower box
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-7.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+3. Enter a **Name** e.g. Helium-aaa-meth-list
+4. In **Type** dropdown select **dot1x**
+5. Select your Server Group in the list and use the arrows to move it to **Assigned Server Groups**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-8.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+6. Click **Apply to Device**
+7. From the left column select **Accounting** and then click **+Add**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-9.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+8. In **Method List Name** enter **Helium_meth_list_acct**
+9. In the **Type** dropdown select **Identity**
+10. Select your Server Group and use the arrows to move it into the **Assigned Server Group**
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-10.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+11. Click **Apply to Device**
+
+# Add the NAS-ID to the WLAN AAA Policy
+
+1. Click on **Configuration -> Security -> Wireless AAA Policy**
+
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-11.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+
+2. Click on **+Add**
+3. Enter a **Name** e.g. Helium_aaa_policy
+4. In the **NAS-ID Option 1** drop down select **Custom**
+5. Enter the NAS_ID shared with you by Helium
+
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-12.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+
+6. Click **Apply to Device**
+
+# Build Hotspot 2.0 Profile
+
+1. Click on **Configuration -> Wireless -> Hotspot/OpenRoaming**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-13.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+2. Click **+Add** under **ANQP Servers**
+3. Enter **Name** as **Helium**
+4. Enter **Description** as **Helium**
+5. Check the box for **Internet Access**
+6. In the **Network Type** drop down select **Chargable Public**
+
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-14.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+
+7. Click **+Add** under **NAI Realm**
+8. Enter **NAI Realm Name** as **helloheium.com**
+9. Click to **Enable** the **EAP-TLS** option
+10. Check the box for **certificate**
+11. Click **Save**
+12. Click **Apply to Device**
+
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-15.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+
+13. Repeat the steps to add a second NAI realm for **freedomfi.com**
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-16.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+14. At the top of the window select **Server Settings**
+15. In the drop down for **IPv4 Type** select **Double NAT Private** (or option that appropriately
+    describes your network)
+16. In the drop down for **IPv6 Type** select **Not Available**
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-17.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+17. Click **Apply to Device**
+
+# Build the Helium SSID
+
+1. Click on **Configuration -> Wireless -> WLANs**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-18.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+2. Click on **+Add**
+3. Enter **Name** as **Helium**
+4. Enter **SSID** as **Helium**
+5. Enter **WLAN ID** as your next availabel integer e.g. 4
+6. Select **Enable** to turn the ssid on
+7. Select Enable/Discable for 6GHz as you hardware supports
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-19.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+8. Select **Security** at the top of the window
+9. Select **Layer2** in the row below that
+10. Ensure the following boxes are **checked** including **WPA2 Policy**, **AES(CCMP128)**,
+    **802.1x**
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-20.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+11. Select **AAA** at the top of the window
+12. In the **Authentication List** drop down select **Helium_aaa_meth_list**
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-21.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+13. Click **Apply to Device**
+
+# Apply Policy and Hotspot Profile to the SSID
+
+1. Click on **Configuration -> Tags & Profiles -> Policy**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-22.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+2. Enter **Name** as **Helium**
+3. Enter **Description** as **Helium**
+4. Toggle **Status** to **Enabled**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-23.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+5. Across the top, select **Access Policies**
+6. Select the **VLAN/VLAN Group** configured for Helium users (NOTE: This is typically a Guest type
+   network with access to internet only)
+
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-24.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+
+7. Across the top, select **Advanced**
+8. **Uncheck** the box next to **Client Exclusion Timeout**
+9. In the **Hotspot Server** drop down select **Helium**
+10. **Check** the box for **Allow AAA Override**
+11. In the **Policy Name** drop down select **Helium_aaa_policy**
+12. In the **Accounting List** drop down select **Helium_meth_list_acct**
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-25.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+13. Click **Apply to Device**
+
+# Create Policy Tag
+
+1. Click on **Configuration -> Tags & Profiles -> Tags**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-26.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+2. Enter **Name** as **Helium**
+3. Enter **Description** as **Helium**
+4. Click **+Add** below **WLAN-POLICY**
+5. In both **WLAN Profile** and **Policy Profile** drop down menus select **Helium**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-27.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+6. Click the **checkmark**
+7. Click **Apply to Device**
+
+# Apply Helium Tag to AP(s)
+
+1. Click on **Configuration -> Wireless Setup -> Advanced**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-28.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+2. Click on **Start Now**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-29.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+3. Click on the selector box next to **Tag APs** in the bottom right
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-30.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+4. **Check** the box next to the APs you want to broadcast the Helium SSID
+5. Click **+Add** when you have you APs selected
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-31.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+6. In the **Policy** Drop down select **Helium**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-32.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+7. Click **Apply to Device**

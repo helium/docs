@@ -30,6 +30,7 @@ module.exports = {
             'network-mobile/data-only-guides/data-only-aruba',
             'network-mobile/data-only-guides/data-only-juniper-mist',
             'network-mobile/data-only-guides/data-only-meraki',
+            'network-mobile/data-only-guides/data-only-Cisco-WLC-9800',
             'network-mobile/data-only-guides/data-only-mikrotik',
             'network-mobile/data-only-guides/data-only-ruckus',
             'network-mobile/data-only-guides/data-only-ubiquiti',
