@@ -1,11 +1,11 @@
 ---
-id: data-only-juniper-mist
+id: helium-plus-juniper-mist
 title: Juniper Mist Conversion Guide
 pagination_label: Juniper Mist Conversion Guide
 sidebar_label: Juniper Mist Conversion Guide
 description: Helium Network Conversion Documentation
 image: https://docs.helium.com/img/link-image.png
-slug: /mobile/data-only-juniper-mist
+slug: /mobile/helium-plus-juniper-mist
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
