@@ -39,6 +39,15 @@ module.exports = {
       label: 'IoT Network',
       link: { type: 'doc', id: 'network-iot/lorawan-network-servers/lorawan-network-servers' },
       items: [
+        {
+          type: 'category',
+          label: 'Learn LoRaWAN',
+          collapsed: true,
+          items: [
+            'network-iot/learn/understanding-lorawan',
+            'network-iot/learn/build-a-device',
+          ],
+        },
         'network-iot/lorawan-network-servers/find-a-lns-provider',
         {
           type: 'category',

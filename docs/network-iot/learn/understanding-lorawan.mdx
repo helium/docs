@@ -8,38 +8,63 @@ image: https://docs.helium.com/img/link-image.png
 slug: /network-iot/learn/understanding-lorawan
 ---
 
+LoRaWAN is a wireless protocol built around a simple tradeoff: sacrifice bandwidth for range and
+power efficiency. A LoRaWAN device can transmit small packets (sensor readings, GPS coordinates,
+status updates) over several kilometers while running on a battery for years.
 
-LoRaWAN is a wireless communication protocol designed for long-range, low-power, and low-bandwidth applications. It is a critical technology for IoT (Internet of Things) networks, enabling devices to communicate over large distances with minimal energy consumption.
+This makes LoRaWAN ideal for applications where devices need to report data infrequently and operate
+unattended: agricultural sensors, asset trackers, smart meters, environmental monitors.
+
+## How Data Flows
+
+A LoRaWAN device doesn't connect directly to the internet. Instead, it broadcasts a radio signal
+that any nearby gateway can receive. The gateway forwards the message to a LoRaWAN Network Server
+(LNS), which authenticates the device, decrypts the payload, and delivers it to your application.
 
 ```mermaid
-graph TB;
-    A["LoRaWAN"]
-
-    subgraph LR0["Long-Range"]
-        B1(Supports distances over several kilometers)
-        B2(Suitable for urban and rural areas)
-    end
-
-    subgraph LB["Low-Bandwidth"]
-        C1(Optimized for small data transfers)
-        C2(Examples include sensor readings and status updates)
-    end
-
-    subgraph LP["Low-Power"]
-        D1(Designed for battery-operated devices)
-        D2(Extends operational life up to several years)
-    end
-
-    A --> LR0
-    A --> LB
-    A --> LP
+graph LR
+    device[Device] -->|LoRa radio| gateway[Gateway]
+    gateway -->|IP| lns[Network Server]
+    lns --> app[Your Application]
 ```
-The primary properties of LoRaWAN encompass long-range capabilities, allowing data transmission over several kilometers, making it suitable for both urban and rural deployments. It also supports low-power operations, designed for battery-operated devices, thus extending their operational life up to several years without the need for frequent recharging. Additionally, LoRaWAN is optimized for low-bandwidth applications that require small amounts of data transfer, such as sensor readings and status updates.
 
-LoRaWAN is versatile and can be used in various applications. In smart cities, it enables connectivity for street lighting, waste management, and parking solutions. In agriculture, it facilitates soil moisture monitoring, livestock tracking, and irrigation control. Industrial IoT benefits from LoRaWAN through predictive maintenance, asset tracking, and environmental monitoring in factories. Smart homes also utilize LoRaWAN for efficient control of home automation devices and security systems.
+Multiple gateways can receive the same transmission. The network server deduplicates these messages
+and selects the best one based on signal quality. This redundancy improves reliability without
+requiring anything special from the device.
 
-Understanding the background of LoRaWAN involves several key components, including keys and security measures to ensure secure communications by using unique keys for device authentication and data encryption. The onboarding process for devices requires registering and commissioning end devices onto the network, which may involve configuring parameters and device keys.
+## Device Keys
 
-Provisioning a device through a LoRaWAN Network Server (LNS) is essential. The LNS manages the network by handling tasks such as device authentication, validating each device's identity to allow secure network access. It also manages data routing, directing data traffic between end devices and application servers, and optimizes network performance by handling join requests and maintaining device connectivity.
+Every LoRaWAN device is provisioned with cryptographic keys that authenticate it to the network and
+encrypt its data. Every device, custom built or off the shelf, has three identifiers:
 
-Helium Hotspots play a fundamental role in providing coverage for LoRaWAN devices. Hotspots act as gateways that bridge the communication between end nodes (LoRaWAN devices) and the internet. By deploying Helium Hotspots, individuals and businesses contribute to a decentralized network, expanding the coverage area and enabling more devices to connect and communicate reliably. The relationship between gateways (Helium Hotspots) and end nodes (LoRaWAN devices) is that gateways transmit and receive data packets from multiple end nodes, providing the infrastructure necessary for widespread IoT applications.
+**DevEUI**: A unique 64-bit address that identifies the device globally, similar to a MAC address.
+
+**JoinEUI**: Identifies which network server should handle the device's join request. On Helium,
+this is how the Packet Router knows where to send your device's traffic.
+
+**AppKey**: A secret root key shared between the device and network server. During the join process,
+both sides use this key to derive session keys for encrypting data.
+
+These keys ensure that even though your device's radio signals are received by public gateways, only
+your network server can read the contents.
+
+## On the Helium Network
+
+Helium Hotspots are LoRaWAN gateways. When a device transmits, any Hotspot in range receives it and
+forwards the packet to the [Helium Packet Router][hpr]. The router uses the JoinEUI to determine
+which LNS should receive the data, then delivers it there.
+
+This architecture means a single device can roam across the entire Helium network without
+configuration changes. Any Hotspot will pick up its signal and route it correctly.
+
+:::note
+
+For deeper technical details on LoRaWAN, see [The Things Network Learn][ttn-learn] or the [LoRa
+Alliance LoRaWAN 1.0.2 Specification][lora-spec].
+
+:::
+
+[hpr]: https://github.com/helium/helium-packet-router
+[ttn-learn]: https://www.thethingsnetwork.org/docs/lorawan/
+[lora-spec]:
+  https://resources.lora-alliance.org/technical-specifications/lorawan-specification-v1-0-2
