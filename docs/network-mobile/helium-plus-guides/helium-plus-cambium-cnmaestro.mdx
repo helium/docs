@@ -77,6 +77,15 @@ sudo docker compose down
 ## Create AP Group
 
 1. From the **home** view of your cnMaestro controller, go to **Configuration → Wi-Fi Profiles**
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/cambium/cambium-home-page.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
 2. In _Wi-Fi Profiles_, select **AP Groups** → **Add New**.
 3. Under **Basic Settings**, scroll down and click **Create WLAN**.
 
@@ -90,19 +99,28 @@ sudo docker compose down
 
 ## Build WLAN
 
-1. In **WLAN settings**, under _Basic Information_, set:
+1. In **WLAN settings** set:
 
    - **Name:** `Helium Enterprise` (or your preferred name)
+   - **WiFi-Offload type:** `Custom`
    - **SSID:** `Helium`
    - **Security:** `WPA3 Enterprise`
    - **Client Isolation:** `Network Wide`
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/cambium/cambium-wlan-settings.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
 
 2. On the left panel, go to **AAA Servers**.
 
 3. Under **Authentication Server**:
 
    - **Host:** IP of your RadSecProxy host (e.g., `192.168.1.203`)
-   - **Secret:** `mysecret` (must match `radsecproxy.conf`)
+   - **Secret:** `mysecret` (must match `radsecproxy.conf` which has the default secret 'mysecret')
    - **Port:** `1812`
 
 4. Under **Accounting Server**, repeat the steps above but set **Port = 1813**.
@@ -130,7 +148,7 @@ sudo docker compose down
 2. Set **Access Network Type:** `Chargeable Public`
 3. Fill in **Venue Group** and **Venue Type** with your venue details.
 
-4. Under **Domain Names**, click **Add New** and enter:
+4. Scroll down, under **Domain Names**, click **Add New** and enter:
 
    - `freedomfi.com`
 
@@ -141,14 +159,13 @@ sudo docker compose down
    - **Authentication:** `Credential Type → Certificate`
    - Click **Save**
 
-6. Repeat the process for:
+   Add new again for the next NAI Realm:
 
-   - **Domain:** `hellohelium.com`
+   - **Name:** `hellohelium.com`
    - **EAP:** `2`
    - **Method:** `EAP-TLS`
    - **Authentication 1:** `Credential Type → Certificate`
-
-7. Save the configuration again.
+   - Click **Save**
 
 <figure className="screensnippet-wrapper">
   <img
@@ -158,21 +175,30 @@ sudo docker compose down
   />
 </figure>
 
+7. Save the configuration again.
+
 8. Scroll down to **IP Address Type Information**:
    - **IPv4 Type:** `Double NAT`
    - **IPv6 Type:** `Not Available`
 
-## Assign APs to the New Group
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/cambium/cambium-ipv.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+## Assign the WLAN to the AP Group
 
 1. Go to **Monitor and Manage → AP Groups**
-2. Select your new AP group (`Helium`)
-3. Click on an AP under this group.
-4. Go to the **Configuration** tab.
-5. Scroll to **Device Configuration** and assign it to the AP group `Helium`.
+2. Select your new AP group `Helium`
+3. Go to the **Configuration** tab.
+4. Scroll down to **WLAN** add the `Helium Enterprise` WLAN we created if it's not already there.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/cambium/cambium-ap-assignment.png')}
+    src={useBaseUrl('img/mobile-data-only/cambium/cambium-final-step.png')}
     style={{ maxHeight: '500px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
