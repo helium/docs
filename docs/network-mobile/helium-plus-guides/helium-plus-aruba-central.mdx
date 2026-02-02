@@ -1,0 +1,243 @@
+---
+title: Aruba Central Conversion Guide
+description: Convert Aruba WLANs to support Helium Mobile offload using RadSec and Passpoint.
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Prerequisites
+
+Before starting, confirm the following:
+
+- Aruba system is running AOS 8.10.x.x or later
+- Network uses an on-prem Aruba Mobility Controller
+- APs are adopted and serving traffic
+- Existing SSIDs are functional
+- Aruba infrastructure has outbound internet access to Helium AAA endpoints
+
+---
+
+## High-Level Steps
+
+1. Upload Helium RadSec Certificates
+2. Configure SSID for RadSec
+3. Configure Passpoint Settings
+4. Connect and Validate
+
+---
+
+Note: This guide applies to "Classic Central". If your Aruba dashboard shows a "Classic Central"
+toggle, enable it.
+
+## Upload Helium RadSec Certificates
+
+Helium requires RADIUS traffic to be secured using RadSec (RADIUS over TLS).
+
+Download the following from the Helium onboarding process (either from the WiFi Conversion process
+or sent to you by your Helium Plus contact):
+
+- RadSec Server CA (ca.pem)
+- RadSec Client Certificate (combine cert.pem and key.pem into a single PEM file; for example:
+  `cat cert.pem key.pem > client_combined.pem`)
+
+Navigate to:
+
+**Global → Organization → Network Structure → Certificates**
+
+---
+
+### Upload Server CA
+
+Navigate to 'Organization' then 'Certificates'
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/1-navigate-to-certs.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+Create a new certificate with the following values:
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/2-certs-page.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+- Name: `Helium Server CA` (example)
+- Type: CA Certificate
+- Format: PEM
+- File: RadSec Server CA
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/3-insert-certs.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+---
+
+### Upload Client Certificate
+
+Create another certificate:
+
+- Name: `Helium Client Certificate` (example)
+- Type: Server Certificate
+- Format: PEM
+- File: Combined cert and key
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/4-insert-server-cert.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+---
+
+## Configure SSID for RadSec
+
+Navigate to:
+
+**Devices → WLANs**
+
+Note: Ensure you've selected your AP first or the WLAN options won't show.
+
+Click **Add SSID** and enter the SSID name.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/5-ssid-wlan.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+---
+
+### SSID General Configuration
+
+Set the following values:
+
+- Under 'General', set the SSID name to 'Helium'.
+
+Click **Next**.
+
+- Configure VLAN and IP assignment as required for your deployment
+
+Click **Next**.
+
+- Under Security, set Security Level to Enterprise
+- Set Key Management to WPA3-Enterprise
+
+Click **Add** next to **Primary Server** and create a new authentication server.
+
+---
+
+### Create RadSec Authentication Server
+
+Configure the authentication server with the following values:
+
+- Server Name: `Helium-RadSec`
+- Server Type: RADIUS
+- Enable RadSec: enabled
+- IP Address: radius-bf.wifi.hellohelium.com
+- RadSec Port: 2083
+- RadSec Keepalive Type: TCP Keepalive
+
+Click **OK**.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/6-radius-server.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+---
+
+### Complete SSID Settings
+
+Verify the following:
+
+- Security Level: Enterprise
+- Key Management: WPA3-Enterprise
+- Server Group: Primary and backup only
+- Primary Server: `Helium-RadSec`
+- Under Advanced Settings, go to `Passpoint Service Profile` and click `Manage Passpoint Services`.
+  - Click **Add Profile**.
+  - Under `Access Network`:
+    - Name the profile `Helium Passpoint`.
+    - Enable the `Internet` slider.
+    - Set Domain Name to `freedomfi.com`.
+    - Set Network Type to `Chargeable Public`.
+    - Set IPv4 to `Double NAT Private`.
+    - Set IPv6 to `None`.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/7-passpoint-settings.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+- Under `Identity Provider` > `NAI Realms`:
+  - Click **Add NAI Realm**.
+  - Set NAI Realm to `freedomfi.com`.
+  - Set EAP Method to `EAP-TLS`.
+  - Set Authentication parameter to `Certificate`.
+  - Click **OK**, then repeat to add `hellohelium.com` with the same settings.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/8-nai-realms.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/9-nai-realms-2.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+- Back on the SSID settings under `Accounting` tab:
+  - Set accounting interval to `5 minutes`
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/10-advanced-settings.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+## Troubleshooting
+
+If authentication fails, check the following:
+
+- Certificates: verify the Server CA and the combined client certificate were uploaded correctly and
+  assigned to the device.
+- Network: ensure outbound TCP 2083 to the Helium RadSec endpoint is allowed from your Aruba
+  infrastructure.
+- Logs: check Aruba controller logs and the Helium RADIUS logs for Access-Request / Access-Accept
+  messages.
+
+## Connect and Validate
+
+Connect a client device to the newly created SSID.
+
+Verify successful authentication.
+
+---
