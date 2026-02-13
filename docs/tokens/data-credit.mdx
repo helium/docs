@@ -86,8 +86,9 @@ Fees related to onboarding and location assert were defined through community go
 ## Data Credits and IoT {#dc-and-iot}
 
 On the Helium IoT network, the primary utility of DCs is for network data transfer. Data transfer is
-billed in 24-byte increments, per message. Data transfer is only billed if the message is delivered
-through the Helium network.
+billed in 24-byte increments based on the application payload size only. LoRaWAN protocol overhead
+(headers, MIC, etc.) does not count toward the DC cost. Data transfer is only billed if the message
+is delivered through the Helium network.
 
 Network users also have the choice to purchase multiple reports of the same packet. These additional
 reports each account for their own cost. For instance, if three 24-byte copies are returned for a
@@ -124,9 +125,9 @@ In addition to network data transfer, DCs are also utilized for certain network-
 
 [^1]:
     DevAddrs must be purchased in slabs of 8.  
-    [HIP-116](https://github.com/helium/HIP/blob/main/0116-lorawan-device-address-price-adjustment.md)
-    reduced the fees for DevAddr purchasing and set a path to utilize the IOT token for DevAddr and
-    OUI purchases instead of DC.
+    [HIP-116](https://github.com/helium/HIP/blob/main/0116-lorawan-device-address-price-adjustment.md) reduced
+    the fees for DevAddr purchasing and set a path to utilize the IOT token for DevAddr and OUI
+    purchases instead of DC.
 
 ## Acquiring Data Credits
 
