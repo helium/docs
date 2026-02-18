@@ -18,6 +18,7 @@ module.exports = {
               label: 'Introduction',
             },
             'network-mobile/helium-plus-guides/helium-plus-onboarding',
+            'network-mobile/brownfield-security-faq',
             'network-mobile/helium-plus-guides/helium-plus-radsecproxy',
             'network-mobile/helium-plus-guides/helium-plus-aruba',
             'network-mobile/helium-plus-guides/helium-plus-aruba-central',
