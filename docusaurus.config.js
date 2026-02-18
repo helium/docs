@@ -150,6 +150,18 @@ module.exports = {
         authorsMapPath: 'authors.yaml',
       },
     ],
+    [
+      'docusaurus-plugin-llms',
+      {
+        generateLLMsFullTxt: false,
+        generateMarkdownFiles: true,
+        excludeImports: true,
+        title: 'Helium Documentation',
+        description:
+          'Documentation for the Helium Network — covering IoT (LoRaWAN), Mobile (5G/WiFi), tokens (HNT, DC, SOL), wallets, and network data.',
+        includeBlog: false,
+      },
+    ],
   ],
   markdown: {
     mermaid: true,
