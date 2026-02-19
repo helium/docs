@@ -42,7 +42,7 @@ Helium manages the certificate lifecycle for RADIUS authentication. Certificates
 
 ### RADIUS Authentication
 
-Helium operates RADIUS servers that authenticate Passpoint clients. Your network sends authentication requests over RadSec (RADIUS over TLS) to Helium's infrastructure. The same security model applies whether you deploy a local RadSec proxy or use Helium-hosted RadSec with VPN.
+Helium operates RADIUS servers that authenticate Passpoint clients. Your network sends authentication requests over RadSec (RADIUS over TLS) to Helium's infrastructure. Both deployment options—local RadSec proxy and Helium-hosted RadSec with VPN—ultimately deliver RADIUS traffic to Helium over TLS. However, the encryption boundaries differ: a local proxy encrypts RADIUS at your site, while the hosted option relies on an IPsec VPN tunnel to carry unencrypted RADIUS to the cloud proxy, which then forwards over TLS.
 
 ## Customer Responsibilities and Best Practices
 
