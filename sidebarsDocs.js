@@ -31,6 +31,7 @@ module.exports = {
             'network-mobile/helium-plus-guides/helium-plus-ruckus',
             'network-mobile/helium-plus-guides/helium-plus-ubiquiti',
             'network-mobile/helium-plus-guides/helium-plus-generic',
+            'network-mobile/helium-plus-security-faq',
           ],
         },
       ],

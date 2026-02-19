@@ -1,0 +1,146 @@
+---
+id: helium-plus-security-faq
+title: WiFi Conversion Security FAQ
+pagination_label: WiFi Conversion Security FAQ
+sidebar_label: WiFi Conversion Security FAQ
+description: Security considerations and best practices for converted WiFi networks on Helium
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/helium-plus-security-faq
+---
+
+Converted (brownfield) WiFi networks use existing infrastructure to provide Helium Mobile
+connectivity. While Helium manages several security features centrally, deployers retain
+responsibility for network-level security at their sites. This guide explains the security model and
+best practices for brownfield deployments.
+
+## Security Feature Comparison
+
+| Feature                   | Greenfield (HMH)   | Brownfield                 |
+| ------------------------- | ------------------ | -------------------------- |
+| Protocol (WPA3)           | ✅ Helium enforced | ✅ Helium enforced         |
+| Passpoint Authentication  | ✅ Helium enforced | ✅ Helium enforced         |
+| Certificate Lifecycle     | ✅ Helium managed  | ✅ Helium managed          |
+| RADIUS Transport (RadSec) | ✅ Helium provided | ✅ Helium provided         |
+| VLAN Isolation            | — N/A (single AP)  | ⚠️ Customer responsibility |
+| WAN Traffic Rejection     | — N/A              | ⚠️ Customer responsibility |
+| Client Isolation          | — N/A              | ⚠️ Customer responsibility |
+
+## Features Managed by Helium
+
+### WPA3 and Passpoint
+
+Helium enforces WPA3 and Passpoint with EAP-TLS for both greenfield and brownfield deployments. The
+authentication flow uses certificate-based EAP-TLS, ensuring strong encryption and mutual
+authentication between client devices and the network.
+
+### Certificate Lifecycle
+
+Helium manages the certificate lifecycle for RADIUS authentication. Certificates are generated
+during onboarding and must be installed on your RadSec proxy or WiFi controller. Certificate
+expiration dates are provided at creation time; plan for renewal before expiration.
+
+### RADIUS Authentication
+
+Helium operates RADIUS servers that authenticate Passpoint clients. Your network sends
+authentication requests over RadSec (RADIUS over TLS) to Helium's infrastructure. Both deployment
+options—local RadSec proxy and Helium-hosted RadSec with VPN—ultimately deliver RADIUS traffic to
+Helium over TLS. However, the encryption boundaries differ: a local proxy encrypts RADIUS at your
+site, while the hosted option relies on an IPsec VPN tunnel to carry unencrypted RADIUS to the cloud
+proxy, which then forwards over TLS.
+
+## Customer Responsibilities and Best Practices
+
+### VLAN Isolation
+
+Segment Passpoint traffic on a dedicated VLAN or subnet. Do not mix Helium Mobile traffic with
+internal corporate or guest networks. This limits blast radius if a client is compromised and
+prevents lateral movement between network segments.
+
+### Reject WAN Traffic
+
+Configure your network so that Passpoint clients cannot reach your internal LAN or WAN resources.
+Passpoint users should only have internet access through the designated VLAN. Use firewall rules to
+block access to internal IP ranges and sensitive services.
+
+### Client Isolation
+
+Enable client isolation (also called AP isolation or wireless client isolation) on the Passpoint
+SSID when supported by your hardware. This prevents connected devices from communicating with each
+other, reducing the risk of device-to-device attacks.
+
+## RadSec: Securing RADIUS Authentication
+
+### Why Standard RADIUS Is Not Suitable
+
+RADIUS is a UDP protocol designed for use inside an operator's secure network. Standard RADIUS
+traffic is unencrypted and contains user identity data. Sending RADIUS over the open internet would
+expose this sensitive information. For brownfield deployments that must reach Helium's cloud RADIUS
+servers, a secure transport is required.
+
+### RadSec (RADIUS over TLS)
+
+The industry solution is RadSec—RADIUS encapsulated in TLS. RadSec encrypts RADIUS messages and runs
+over TCP, making it suitable for traversing the internet. Helium requires RadSec for all brownfield
+RADIUS connectivity.
+
+### Shared Secret Note
+
+When configuring RadSec to Helium's servers, you will use a shared secret (e.g., `radsec`). This
+secret authenticates your proxy to Helium's RADIUS endpoints. The shared secret is used in
+conjunction with TLS client certificates. Keep your certificates and configuration secure; do not
+expose them in public repositories or documentation.
+
+### Deployment Options
+
+You have two main deployment options:
+
+1. **Local RadSec Proxy**: Deploy RadSecProxy within your secure domain. Your APs send RADIUS to the
+   local proxy over your internal network; the proxy encrypts and forwards traffic to Helium over
+   RadSec. This is the recommended approach when you have a central site or can deploy a proxy at
+   each remote location.
+
+2. **Helium-Hosted RadSec with VPN**: If you cannot run a local RadSec proxy, you can use Helium's
+   hosted RadSecProxy. In this case, you must establish an IPsec VPN from your network to the Helium
+   cloud instance. Unencrypted RADIUS must never traverse the open internet—the VPN provides the
+   secure tunnel.
+
+[More details about RadSecProxy deployment options can be found here.](/mobile/helium-plus-radsecproxy)
+
+### Hosted Environment Security
+
+If using Helium-hosted RadSecProxy, your RADIUS traffic is encrypted over the VPN. Helium operates
+the RadSecProxy in a secure cloud environment. Ensure your VPN configuration uses strong
+authentication and encryption (e.g., IPsec with IKEv2).
+
+## Brownfield Security FAQ
+
+### Is my existing WiFi network less secure if I convert it to Helium?
+
+Converting to Helium does not reduce the security of your existing network. Helium configurations
+are additive. You add a Passpoint SSID and RadSec integration; your existing SSIDs and policies
+remain unchanged. Follow the best practices in this guide to keep the Passpoint segment secure.
+
+### Do I need to use RadSec, or can I send RADIUS directly to Helium?
+
+You must use RadSec (RADIUS over TLS). Standard RADIUS over UDP is not supported for connectivity to
+Helium's cloud. If your WiFi equipment does not support RadSec natively, deploy RadSecProxy locally
+or use the VPN option with Helium-hosted RadSecProxy.
+
+### What happens if my RADIUS certificates expire?
+
+Expired certificates will cause authentication failures. Clients will not be able to connect to the
+Passpoint SSID. Monitor certificate expiration dates and renew before they expire. Use the Helium
+Wallet CLI to generate new certificates when needed.
+
+### Should I put Passpoint traffic on the same VLAN as my guest WiFi?
+
+No. Use a dedicated VLAN for Passpoint traffic. Isolating Passpoint from guest and internal networks
+improves security and simplifies troubleshooting. Apply firewall rules to restrict Passpoint clients
+to internet-only access.
+
+### Can I use the same NAS-ID for multiple locations?
+
+Each onboarded network should use a unique NAS-ID that matches the MAC address (or configured
+NAS-ID) of the deployed equipment. Sharing NAS-IDs across locations can cause accounting and reward
+attribution issues. For large deployments with multiple NAS-IDs, consider the
+[Helium Plus](https://www.helium.com/plus) program.
