@@ -160,6 +160,7 @@ module.exports = {
         description:
           'Documentation for the Helium Network — covering IoT (LoRaWAN), Mobile (5G/WiFi), tokens (HNT, DC, SOL), wallets, and network data.',
         includeBlog: false,
+        ignoreFiles: ['**/style-guide.*'],
       },
     ],
   ],
