@@ -3,7 +3,8 @@ id: helium-plus-cambium-cnmaestro
 title: Cambium cnMaestro Conversion Guide
 pagination_label: Cambium cnMaestro Conversion Guide
 sidebar_label: Cambium cnMaestro
-description: Helium Network Conversion Documentation
+description:
+  Configure Cambium cnMaestro with RadSecProxy, WPA3 Enterprise, and Passpoint for Helium Mobile.
 image: https://docs.helium.com/img/link-image.png
 slug: /mobile/helium-plus-cambium-cnmaestro
 ---
@@ -100,7 +101,6 @@ sudo docker compose down
 ## Build WLAN
 
 1. In **WLAN settings** set:
-
    - **Name:** `Helium Enterprise` (or your preferred name)
    - **WiFi-Offload type:** `Custom`
    - **SSID:** `Helium`
@@ -118,7 +118,6 @@ sudo docker compose down
 2. On the left panel, go to **AAA Servers**.
 
 3. Under **Authentication Server**:
-
    - **Host:** IP of your RadSecProxy host (e.g., `192.168.1.203`)
    - **Secret:** `mysecret` (must match `radsecproxy.conf` which has the default secret 'mysecret')
    - **Port:** `1812`
@@ -149,18 +148,15 @@ sudo docker compose down
 3. Fill in **Venue Group** and **Venue Type** with your venue details.
 
 4. Scroll down, under **Domain Names**, click **Add New** and enter:
-
    - `freedomfi.com`
 
 5. Under **NAI Realm List**, click **Add New**:
-
    - **Name:** `freedomfi.com`
    - **Method:** `EAP-TLS`
    - **Authentication:** `Credential Type → Certificate`
    - Click **Save**
 
    Add new again for the next NAI Realm:
-
    - **Name:** `hellohelium.com`
    - **EAP:** `2`
    - **Method:** `EAP-TLS`
