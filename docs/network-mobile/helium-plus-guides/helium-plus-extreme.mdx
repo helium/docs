@@ -3,7 +3,8 @@ id: helium-plus-extreme
 title: Extreme ExtremeCloud IQ Conversion Guide
 pagination_label: Extreme ExtremeCloud IQ Conversion Guide
 sidebar_label: Extreme
-description: Helium Network Conversion Documentation
+description:
+  Configure ExtremeCloud IQ with RadSecProxy, Passpoint, and Hotspot 2.0 for Helium Mobile.
 slug: /mobile/helium-plus-extreme
 image: https://docs.helium.com/img/link-image.png
 ---
@@ -146,20 +147,20 @@ The Network Policy list is shown.
   />
 </figure>
 <br />
-3. Set an **SSID Name** for internal use (e.g. `Helium`) and a **Broadcast Name** for clients;
-   these can match.
+3. Set an **SSID Name** for internal use (e.g. `Helium`) and a **Broadcast Name** for clients; these
+can match.
 
 4. Set **SSID Usage** to **Enterprise** (instead of Private Pre-Shared Key). For **Key Management**,
    choose **WPA3-802.1X** and for **Encryption Method**, choose **CCMP (AES)**.
 
 ### Add RadSec Authentication Servers to the Network Policy
 
-The controller will talk to your RadSecProxy; RadSecProxy then sends RADIUS over TLS to Helium.
-Use the RadSecProxy host’s private IP or hostname from
+The controller will talk to your RadSecProxy; RadSecProxy then sends RADIUS over TLS to Helium. Use
+the RadSecProxy host’s private IP or hostname from
 [Deploy RadSecProxy Container](#deploy-radsecproxy-container).
 
-Add a RADIUS server group and add your RadSec server(s) to it. Your Extreme controller must
-support RadSec (RADIUS over TLS).
+Add a RADIUS server group and add your RadSec server(s) to it. Your Extreme controller must support
+RadSec (RADIUS over TLS).
 
 1. On the **Wireless Networks** screen, scroll to **Authentication Settings**.
 2. Under **Authenticate via RADIUS Server**, click **+** to create a RADIUS server group. The
@@ -169,20 +170,19 @@ support RadSec (RADIUS over TLS).
    update interval** to `300` seconds, then click **Save RADIUS Settings**. You are back in
    Configure RADIUS Servers.
 5. Click **+** under **External RADIUS Server**. A **New External RADIUS Server** block appears.
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/extreme/extreme-configureradius.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-<br />
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/extreme/extreme-configureradius.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+   <br />
 6. Set a **Name** (e.g. `primary_radius`).
 7. Click **+** beside **IP/Host Name**, choose **IP Address**, and in the **New IP Address or Host
    Name** dialog set an object **Name** (e.g. `Primary`).
-8. In **IP/Host Name**, enter your RadSecProxy address and port `1812` (e.g.
-   `192.168.1.100`). Click **Save IP Object**. The new server section now shows that IP/host
-   object.
+8. In **IP/Host Name**, enter your RadSecProxy address and port `1812` (e.g. `192.168.1.100`). Click
+   **Save IP Object**. The new server section now shows that IP/host object.
 9. Set **Shared Secret** to `mysecret` (the default in the Helium RadSecProxy container).
 10. Click **Save External RADIUS**. Back on Configure RADIUS Servers, the new server (e.g.
     `primary_radius`) is listed.
@@ -208,8 +208,8 @@ Prepare the CLI in a text file first so you can paste it when you enable the sup
 
 ### Compose Your CLI
 
-Put the following in a text file so you can paste it into the Supplemental CLI later. These
-commands tie your network policy to Hotspot 2.0.
+Put the following in a text file so you can paste it into the Supplemental CLI later. These commands
+tie your network policy to Hotspot 2.0.
 
 1. **Hotspot profile and network type**  
    Create a profile (e.g. `Helium-profile`) with an ANQP domain ID and network type. Use
@@ -327,7 +327,7 @@ commands tie your network policy to Hotspot 2.0.
       />
     </figure>
     <br />
-11. Under **Update Network Policy and Configuration**, choose **Complete Configuration Update**
-    (not Delta).
+11. Under **Update Network Policy and Configuration**, choose **Complete Configuration Update** (not
+    Delta).
 12. Click **Perform Update** (bottom right). The APs reboot; wait a few minutes. A success message
     appears when deployment finishes.
