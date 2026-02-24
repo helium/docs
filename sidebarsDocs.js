@@ -22,6 +22,7 @@ module.exports = {
             'network-mobile/helium-plus-guides/helium-plus-aruba',
             'network-mobile/helium-plus-guides/helium-plus-aruba-central',
             'network-mobile/helium-plus-guides/helium-plus-cambium-cnmaestro',
+            'network-mobile/helium-plus-guides/helium-plus-extreme',
             'network-mobile/helium-plus-guides/helium-plus-fortinet',
             'network-mobile/helium-plus-guides/helium-plus-juniper-mist',
             'network-mobile/helium-plus-guides/helium-plus-meraki',
