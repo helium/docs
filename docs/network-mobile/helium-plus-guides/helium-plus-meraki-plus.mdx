@@ -1,0 +1,195 @@
+---
+id: helium-plus-meraki-plus
+title: Meraki (Helium Plus) Conversion Guide
+pagination_label: Meraki (Helium Plus) Conversion Guide
+sidebar_label: Meraki (Helium Plus)
+description: Helium Network Conversion Documentation
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/helium-plus-meraki-plus
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Prerequisites
+
+- Meraki system must be running
+  [14.0](https://documentation.meraki.com/General_Administration/Firmware_Upgrades/Cisco_Meraki_Firmware_FAQ)
+  or later.
+- Guide assumes the network is using an on-prem Meraki MX Controller.
+- Meraki system has AP(s) linked to the MX Controller.
+- Meraki system has basic traffic routing working with existing SSID(s).
+- Must have the Meraki specific certificate used for the Helium Plus Meraki onboarding process.
+
+# High Level Steps
+
+1. Build Meraki Helium Passpoint SSID
+   1. Import Helium CA certificate and export Meraki CA certificate to Helium team
+   2. Build a new SSID
+   3. Configure SSID to use RADIUS
+   4. Build Hotspot 2.0 Profile
+
+# Import and Export CA certificates
+
+   1. Login to your Meraki Dashboard in your browser
+   2. Click on **Organizations** in the left menu column
+   3. Click on **Certificates**
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-1.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+   4. Select the **RADSEC** tab
+   5. Click on **Upload CA certificate** and upload the Helium CA certificate file sent to you by Helium team
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-2.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+   6. Scroll down to **RadSec AP Certificates** and click **Download CA** and **Trust CA**
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-3.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+   7. Send the downloaded CA certificate to the Helium team
+
+
+
+# Build Meraki Helium Passpoint SSID
+
+The following steps will configure your Meraki system to broadcast an SSID with the needed Passpoint
+and RADIUS configurations to support Helium Mobile user offload.
+
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-1.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+<br />
+
+## Build a new SSID
+
+1. Click on **Wireless** and then **SSID** in the left menu column
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-2.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+</figure>
+
+2. Look for a “**Unconfigured SSID X**”
+3. Click on **rename**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-3.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+4. Enter “**Helium**”
+5. Select **Enabled**
+6. Click **Save Changes**
+
+## Configure Helium SSID for RADIUS Access Control
+
+1. Click **Edit Settings**
+2. Under **Security** heading toggle the circle **Enterprise with**
+3. Select **my RADIUS Server**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-4.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+4. Scroll down to **RADIUS** and click the arrow on the right to expand
+5. Click add server and add the following configurations
+   1. Enter IP Address: **16.145.124.242** Port: **2083** Secret:
+      **radsec**. Click **Done**.
+
+6. Repeat those steps to add the same server to the RADIUS Accounting Servers list using **port
+   2083\.**
+
+    <figure className="screensnippet-wrapper">
+        <img
+          src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-4.png')}
+          style={{ maxHeight: '500px' }}
+          className="add-border-radius add-shadow add-shadow-margin"
+        />
+      </figure>
+
+7. Select the check box next to **Radius CoA Support**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-7.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+8. Click on the arrow to expand the **Advanced RADIUS settings** section
+9. Change the number 1 drop down for **NAS ID** to **Custom** and enter the NAS-ID you got during
+   onboarding
+10. Click the **×** to remove number 2 in that list which says **SSID Number**
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-8.png')}
+        style={{ maxHeight: '450px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+11. Click **Save**
+
+## Build Hotspot 2.0 Config
+
+1. Click on **Wireless** and navigate to **Hotspot 2.0**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-10.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
+2. Change the toggle for **Hotspot 2.0** to **Enabled**
+3. Enter **Operator Name** to be “**Helium**”
+4. Enter **Venue Name** to be the street address of your location
+5. Choose the best fitting **Venue Type** from the drop down
+6. Choose **Chargeable public network** from the drop down
+7. In domain list enter both **FreedomFi.com** and **Hellohelium.com**
+8. Click **Create Realm**
+   1. Enter **freedomfi.com** as the name
+   2. Select **Add EAP Method**
+   3. Select **Method ID** to be **13 EAP-TLS**
+   4. Select **Authentication Methods** to be **Certificate** 
+   5. Click **Create realm**
+      <figure className="screensnippet-wrapper">
+        <img
+          src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-11.png')}
+          style={{ maxHeight: '400px' }}
+          className="add-border-radius add-shadow add-shadow-margin"
+        />
+      </figure>
+9. Repeat for realm name **Hellohelium.com** with matching settings.
+10. Final Hotspot 2.0 settings should look like this:
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-12.png')}
+        style={{ maxHeight: '600px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+11. Click **Save Changes**
