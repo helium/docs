@@ -2,7 +2,7 @@
 id: helium-plus-Cisco-WLC-9800
 title: Cisco Catalyst 9800 Conversion Guide
 pagination_label: Cisco Catalyst 9800 Conversion Guide
-sidebar_label: Cisco Catalyst 9800
+sidebar_label: Catalyst 9800
 description:
   Configure a Cisco Catalyst 9800 (IOS XE) controller with RADIUS, Passpoint, and Hotspot 2.0 for
   Helium Mobile.
@@ -44,8 +44,8 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
 
 ## Prerequisites
 
-- An intel based machine with Docker installed.
-- The intel based machine has a private IP in your network reachable from your 9800 WLC Controller
+- An Intel-based machine with Docker installed.
+- The Intel-based machine has a private IP in your network reachable from your 9800 WLC Controller
 - ACLs or Firewalls allow 9800 WLC Controller and Docker Container to communicate UDP on port 1812
   and 1813
 - ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802\.
@@ -79,7 +79,7 @@ sudo docker compose up -d
 sudo docker compose down
 ```
 
-# Build Meraki Helium Passpoint SSID
+# Build Cisco 9800 Helium Passpoint SSID
 
 The following steps will configure your Cisco 9800 WLC system to broadcast an SSID with the needed
 Passpoint and RADIUS configurations to support Helium Mobile user offload.
@@ -99,7 +99,7 @@ major steps below
 :::note
 
 In the following steps we will only mention mandatory fields to set. Most windows will have many
-other parameters with default values set. Leave any unmentioned parameter at it's default value.
+other parameters with default values set. Leave any unmentioned parameter at its default value.
 
 :::
 
@@ -243,7 +243,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
 3. Enter **Name** as **Helium**
 4. Enter **Description** as **Helium**
 5. Check the box for **Internet Access**
-6. In the **Network Type** drop down select **Chargable Public**
+6. In the **Network Type** drop down select **Chargeable Public**
 
    <figure className="screensnippet-wrapper">
      <img
@@ -254,7 +254,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
    </figure>
 
 7. Click **+Add** under **NAI Realm**
-8. Enter **NAI Realm Name** as **helloheium.com**
+8. Enter **NAI Realm Name** as **hellohelium.com**
 9. Click to **Enable** the **EAP-TLS** option
 10. Check the box for **certificate**
 11. Click **Save**
@@ -304,7 +304,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
 4. Enter **SSID** as **Helium**
 5. Enter **WLAN ID** as your next available integer e.g. 4
 6. Select **Enable** to turn the ssid on
-7. Select Enable/Discable for 6GHz as you hardware supports
+7. Select Enable/Disable for 6GHz as you hardware supports
    <figure className="screensnippet-wrapper">
      <img
        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-19.png')}
@@ -432,7 +432,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
      />
    </figure>
 4. **Check** the box next to the APs you want to broadcast the Helium SSID
-5. Click **+Add** when you have you APs selected
+5. Click **+Add** when you have your APs selected
    <figure className="screensnippet-wrapper">
      <img
        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-31.png')}
