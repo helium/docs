@@ -39,8 +39,8 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
 
 ## Prerequisites
 
-- An intel based machine with Docker installed.
-- The intel based machine has a private IP in your network reachable from your 5520 WLC Controller
+- An Intel-based machine with Docker installed.
+- The Intel-based machine has a private IP in your network reachable from your 5520 WLC Controller
 - ACLs or Firewalls allow 5520 WLC Controller and Docker Container to communicate UDP on port 1812
   and 1813
 - ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802\.
@@ -93,7 +93,7 @@ major steps below
 :::note
 
 In the following steps we will only mention mandatory fields to set. Most windows will have many
-other parameters with default values set. Leave any unmentioned parameter at it's default value.
+other parameters with default values set. Leave any unmentioned parameter at its default value.
 
 :::
 
@@ -149,10 +149,10 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 2. In the configuration page that opens configure the following parameters:
 3. Check the box for **802.11u Status** to Enable to view more configurable parameters
 4. Check the box for **Internet Access** to **Enabled**
-5. In the dropdown for **Network Type** choose **Chargable Public**
+5. In the dropdown for **Network Type** choose **Chargeable Public**
 6. In the dropdown for **IPv4 Type** choose **Single NATed Private** or most applicable option for
    your network
-7. In the dropdown for **IPv4 Type** choose **Not Available** or most applicable option for your
+7. In the dropdown for **IPv6 Type** choose **Not Available** or most applicable option for your
    network
 8. In the **Realm List** enter **hellohelium.com** and click **Add**
 9. Repeat adding to **Realm List** and enter **freedomfi.com** and click **Add**
@@ -172,7 +172,7 @@ sent from the Helium team.
 :::
 
 10. **Click** on the **hellohelium.com** realm you just created
-11. Set **EAP Method** to **EAP-TLS**, then click on **Ad**. The EAP method appears in the EAP
+11. Set **EAP Method** to **EAP-TLS**, then click on **Add**. The EAP method appears in the EAP
     Index. If it asks for sub-method choose **Certificate**
 12. Repeat the steps for the freedomfi.com realm
 13. In the **Domain List** enter **hellohelium.com** and click **Add**
