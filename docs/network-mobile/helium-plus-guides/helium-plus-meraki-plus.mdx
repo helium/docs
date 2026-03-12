@@ -30,46 +30,45 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Import and Export CA certificates
 
-   1. Login to your Meraki Dashboard in your browser
-   2. Click on **Organizations** in the left menu column
-   3. Click on **Certificates**
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-1.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-<br />
+1.  Login to your Meraki Dashboard in your browser
+2.  Click on **Organizations** in the left menu column
+3.  Click on **Certificates**
 
-   4. Select the **RADSEC** tab
-   5. Click on **Upload CA certificate** and upload the Helium CA certificate file sent to you by Helium team
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-2.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-<br />
-   6. Scroll down to **RadSec AP Certificates** and click **Download CA** and **Trust CA**
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-3.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-<br />
-   7. Send the downloaded CA certificate to the Helium team
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-1.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+    <br />
 
-
+4.  Select the **RADSEC** tab
+5.  Click on **Upload CA certificate** and upload the Helium CA certificate file sent to you by
+    Helium team
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-2.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+    <br />
+6.  Scroll down to **RadSec AP Certificates** and click **Download CA** and **Trust CA**
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-3.png')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+    </figure>
+    <br />
+7.  Send the downloaded CA certificate to the Helium team
 
 # Build Meraki Helium Passpoint SSID
 
 The following steps will configure your Meraki system to broadcast an SSID with the needed Passpoint
 and RADIUS configurations to support Helium Mobile user offload.
-
 
 <figure className="screensnippet-wrapper">
   <img
@@ -119,19 +118,18 @@ and RADIUS configurations to support Helium Mobile user offload.
    </figure>
 4. Scroll down to **RADIUS** and click the arrow on the right to expand
 5. Click add server and add the following configurations
-   1. Enter IP Address: **16.145.124.242** Port: **2083** Secret:
-      **radsec**. Click **Done**.
+   1. Enter IP Address: **16.145.124.242** Port: **2083** Secret: **radsec**. Click **Done**.
 
 6. Repeat those steps to add the same server to the RADIUS Accounting Servers list using **port
    2083\.**
 
-    <figure className="screensnippet-wrapper">
-        <img
-          src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-4.png')}
-          style={{ maxHeight: '500px' }}
-          className="add-border-radius add-shadow add-shadow-margin"
-        />
-      </figure>
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/meraki/meraki-plus-4.png')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+   </figure>
 
 7. Select the check box next to **Radius CoA Support**
    <figure className="screensnippet-wrapper">
@@ -174,7 +172,7 @@ and RADIUS configurations to support Helium Mobile user offload.
    1. Enter **freedomfi.com** as the name
    2. Select **Add EAP Method**
    3. Select **Method ID** to be **13 EAP-TLS**
-   4. Select **Authentication Methods** to be **Certificate** 
+   4. Select **Authentication Methods** to be **Certificate**
    5. Click **Create realm**
       <figure className="screensnippet-wrapper">
         <img
