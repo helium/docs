@@ -27,14 +27,26 @@ module.exports = {
             'network-mobile/helium-plus-guides/helium-plus-juniper-mist',
             {
               type: 'category',
-              label: 'Meraki',
+              label: 'Cisco',
               items: [
-                'network-mobile/helium-plus-guides/helium-plus-meraki',
-                'network-mobile/helium-plus-guides/helium-plus-meraki-plus',
+                {
+                  type: 'category',
+                  label: 'Meraki',
+                  items: [
+                    'network-mobile/helium-plus-guides/helium-plus-meraki',
+                    'network-mobile/helium-plus-guides/helium-plus-meraki-plus',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Catalyst WLC',
+                  items: [
+                    'network-mobile/helium-plus-guides/helium-plus-Cisco-WLC-9800',
+                    'network-mobile/helium-plus-guides/helium-plus-Cisco-WLC-5520',
+                  ],
+                },
               ],
             },
-            'network-mobile/helium-plus-guides/helium-plus-Cisco-WLC-9800',
-            'network-mobile/helium-plus-guides/helium-plus-Cisco-WLC-5520',
             'network-mobile/helium-plus-guides/helium-plus-mikrotik',
             'network-mobile/helium-plus-guides/helium-plus-ruckus',
             'network-mobile/helium-plus-guides/helium-plus-ubiquiti',
