@@ -80,8 +80,8 @@ Configure a TLS connection to Helium Cloud AAA server (aka Radiator), which perf
 Authorization, and Accounting for the end customers. Enabling RADIUS communication over TLS (RadSec)
 increases the level of security for authentication that is carried out across the cloud network.
 
-In the sidebar, choose **Settings**, then **Networks**, then scroll to the bottom to **Radius Servers**.
-
+In the sidebar, choose **Settings**, then **Networks**, then scroll to the bottom to **Radius
+Servers**.
 
 <br />
 <figure className="screensnippet-wrapper">
@@ -124,6 +124,7 @@ Configure RADIUS properties:
    3. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
 
 3. Check the **Accounting** checkbox. RADIUS Accounting Server settings will appear.
+
 :::note
 
 If the Accounting Servers checkbox is greyed out as in the image below, create the RADIUS profile
@@ -136,18 +137,22 @@ Servers. This is a current Ubiquiti UI bug.
     style={{ maxHeight: '300px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
-  <figcaption>Accounting checkbox greyed out—workaround: save and reopen the RADIUS profile.</figcaption>
+  <figcaption>
+    Accounting checkbox greyed out—workaround: save and reopen the RADIUS profile.
+  </figcaption>
 </figure>
 <br />
 
 :::
-4. Specify the following Accounting Servers:
-   1. Enter IP Address: `52.37.147.195` Port: `2083` Shared Secret: `radsec`. Click **Add**.
-   2. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
-   3. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
 
-5. Check **Interim Update Interval** box.
-6. Set **Interim Update Interval** to **300** seconds (standard for the Helium Network).
+4. Specify the following Accounting Servers:
+
+1. Enter IP Address: `52.37.147.195` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+1. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+1. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
+
+1. Check **Interim Update Interval** box.
+1. Set **Interim Update Interval** to **300** seconds (standard for the Helium Network).
 
 <figure className="screensnippet-wrapper">
   <img
@@ -204,7 +209,6 @@ Configure settings for the new network.
 
 11. Choose **External RADIUS Profile**: **Helium RadSec**.
 
-
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/mobile-data-only/ubiquiti/ssid-settings-2.png')}
@@ -215,7 +219,8 @@ Configure settings for the new network.
 </figure>
 <br />
 
-12. Under ***NAS ID*** Enter the NAS-ID used during Helium onboarding in the **Custom** field of **NAS-ID**.
+12. Under **_NAS ID_** Enter the NAS-ID used during Helium onboarding in the **Custom** field of
+    **NAS-ID**.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -227,8 +232,9 @@ Configure settings for the new network.
 </figure>
 <br />
 13. Ensure **Client Device Isolation** is checked for secure networking. See the Ubiquiti guide on
-    [network and client isolation](https://help.ui.com/hc/en-us/articles/18965560820247-How-to-Implement-Network-and-Client-Isolation)
-    for more information.
+[network and client
+isolation](https://help.ui.com/hc/en-us/articles/18965560820247-How-to-Implement-Network-and-Client-Isolation)
+for more information.
 
 Click **Add WiFi Network**.
 
