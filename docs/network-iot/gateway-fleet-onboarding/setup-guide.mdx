@@ -1,0 +1,197 @@
+---
+id: gateway-fleet-onboarding-setup
+title: Multi-Gateway Setup Guide
+pagination_label: Setup Guide
+sidebar_label: Setup Guide
+description: >-
+  Step-by-step guide to install, configure, and run the Helium multi-gateway aggregator server for
+  LoRaWAN gateways.
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/gateway-fleet-onboarding/setup
+---
+
+## Prerequisites
+
+- A Linux server (Ubuntu 22.04 or 24.04 recommended)
+- UDP port open for gateway connections (default 1680)
+- TCP port open for the REST API (default 4468)
+- A static IP address or DNS hostname that gateways can reach
+
+## Installation
+
+Download the latest `.deb` package from the
+[GitHub releases page](https://github.com/helium/multi-gateway/releases) and install it:
+
+```bash title="Install from .deb"
+sudo dpkg -i helium-multi-gateway_*_amd64.deb
+```
+
+This installs the binary at `/usr/bin/helium-multi-gateway`, a default configuration at
+`/etc/helium-multi-gateway/settings.toml`, and a systemd service unit.
+
+:::note
+
+To build from source, you need a Rust toolchain, `protobuf-compiler`, and `musl-tools`. Clone the
+repository and run `cargo build --release`.
+
+:::
+
+## Configuration
+
+Edit `/etc/helium-multi-gateway/settings.toml`:
+
+```toml title="settings.toml"
+keys_dir = "/var/lib/helium-multi-gateway/keys"
+region = "US915"
+api_addr = "0.0.0.0:4468"
+read_api_key = "your-read-key-here"
+write_api_key = "your-write-key-here"
+
+[gwmp]
+addr = "0.0.0.0"
+port = 1680
+
+[router]
+uri = "http://mainnet-router.helium.io:8080/"
+queue = 100
+
+[log]
+level = "info"
+```
+
+### Settings Reference
+
+| Setting         | Description                                                         |
+| --------------- | ------------------------------------------------------------------- |
+| `keys_dir`      | Directory where gateway keypairs are stored. Created automatically. |
+| `region`        | LoRaWAN region plan. Must match your gateways.                      |
+| `api_addr`      | REST API listen address. Use `0.0.0.0` for external access.         |
+| `read_api_key`  | Optional. Protects read endpoints (list, get, metrics).             |
+| `write_api_key` | Optional. Protects write endpoints (signing).                       |
+| `gwmp.addr`     | UDP listen address for gateway connections.                         |
+| `gwmp.port`     | UDP listen port (default 1680).                                     |
+| `router.uri`    | Helium packet router gRPC endpoint.                                 |
+| `router.queue`  | Maximum packets to buffer per gateway before sending (default 100). |
+| `log.level`     | Log verbosity: `trace`, `debug`, `info`, `warn`, or `error`.        |
+
+## Running
+
+Start the service and enable it on boot:
+
+```bash title="Start with systemd"
+sudo systemctl start helium-multi-gateway
+sudo systemctl enable helium-multi-gateway
+```
+
+Check status:
+
+```bash
+sudo systemctl status helium-multi-gateway
+```
+
+## Connecting Gateways
+
+Configure each LoRaWAN gateway's packet forwarder to point at your server. In the gateway's
+`global_conf.json` or equivalent configuration:
+
+```json title="Packet forwarder configuration"
+{
+  "server_address": "your-server-ip-or-hostname",
+  "serv_port_up": 1680,
+  "serv_port_down": 1680
+}
+```
+
+On the first connection from a new gateway, the server automatically provisions a keypair and
+initiates a session with the Helium Packet Router infrastructure.
+
+:::warning
+
+Each gateway must have a **unique Gateway EUI**. The server uses the EUI to identify gateways. If
+two gateways share the same EUI, they will conflict.
+
+Some packet forwarders ship with a default EUI (e.g. `AA555A0000000101`). Replace this with your
+concentrator's actual hardware EUI in the packet forwarder configuration before connecting.
+
+:::
+
+## Verifying
+
+Once a gateway is connected, check the API:
+
+```bash title="List connected gateways"
+curl -H "X-API-Key: your-read-key" http://localhost:4468/gateways
+```
+
+```json title="Example response"
+{
+  "gateways": [
+    {
+      "mac": "AA555A0000000101",
+      "public_key": "136qprQPU2KntQdkYfi18Hn1gB8SXywD9fYCH5w5vo1ayCFC3nE",
+      "connected": true,
+      "connected_seconds": 3600,
+      "last_uplink_seconds_ago": 5,
+      "uplink_count": 1024,
+      "downlink_count": 12
+    }
+  ],
+  "total": 1,
+  "connected": 1
+}
+```
+
+Prometheus metrics are available at `/metrics` for monitoring integration.
+
+## Multi-Region Deployment
+
+When running multiple LoRaWAN regions, it is recommended to run a separate instance of the
+multi-gateway server for each region.
+
+Localization of the multi-gateway client limits the round-trip time for gateway connections and
+improves overall performance. The Helium Packet Router infrastructure is already deployed in
+multiple regions globally. Deploying the multi-gateway server in proximity of the AWS regions
+`us-west-2` (Oregon), `eu-central-1` (Frankfurt), `sa-east-1` (Sao Paulo), `ap-southeast-2`
+(Sydney), or `ap-southeast-1` (Singapore) will provide optimal performance for gateways in those
+regions.
+
+---
+
+To run multiple LoRaWAN regions on a single server, use systemd template units with per-region
+configuration.
+
+### Setup
+
+Create per-region configuration directories and settings files:
+
+```bash title="Create region configs"
+sudo mkdir -p /etc/helium-multi-gateway/{us915,eu868}
+sudo mkdir -p /var/lib/helium-multi-gateway/keys/{us915,eu868}
+```
+
+Each region's `settings.toml` uses the appropriate region, ports, and keys directory.
+
+Create a systemd template unit at `/lib/systemd/system/helium-multi-gateway@.service`:
+
+```ini title="helium-multi-gateway@.service"
+[Unit]
+Description=Helium Multi-Gateway (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/helium-multi-gateway \
+  --config /etc/helium-multi-gateway/%i/settings.toml run
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start each region:
+
+```bash
+sudo systemctl enable --now helium-multi-gateway@us915
+sudo systemctl enable --now helium-multi-gateway@eu868
+```
