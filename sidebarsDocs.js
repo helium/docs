@@ -111,6 +111,15 @@ module.exports = {
             'network-iot/hotspots-iot/data-only/rak-concentrators',
           ],
         },
+        {
+          type: 'category',
+          label: 'Gateway Fleet Onboarding',
+          link: {
+            type: 'doc',
+            id: 'network-iot/gateway-fleet-onboarding/gateway-fleet-onboarding',
+          },
+          items: ['network-iot/gateway-fleet-onboarding/gateway-fleet-onboarding-setup'],
+        },
       ],
       collapsed: true,
     },
