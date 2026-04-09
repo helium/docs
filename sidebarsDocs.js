@@ -92,7 +92,14 @@ module.exports = {
             'network-iot/run-an-lns/configure-routing-rules',
             'network-iot/run-an-lns/chirpstack-add-device',
             'network-iot/run-an-lns/chirpstack-add-device-grpc',
-            'network-iot/run-an-lns/advanced-configuration',
+            {
+              type: 'category',
+              label: 'Advanced Configuration',
+              link: { type: 'doc', id: 'network-iot/run-an-lns/advanced-configuration' },
+              items: [
+                'network-iot/run-an-lns/custom-multibuy',
+              ],
+            },
             'network-iot/run-an-lns/common-issues',
           ],
         },

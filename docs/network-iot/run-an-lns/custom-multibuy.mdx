@@ -1,0 +1,257 @@
+---
+id: custom-multibuy
+title: Custom MultiBuy Service
+pagination_label: Custom MultiBuy Service
+sidebar_label: Custom MultiBuy
+description:
+  Run your own MultiBuy service to make per-Hotspot and per-region packet delivery decisions on your
+  routes.
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/run-an-lns/custom-multibuy
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+The MultiBuy service coordinates packet delivery across Helium Packet Router (HPR) instances. For
+each packet, HPR calls MultiBuy's `inc` RPC to get a global count (for max copies enforcement) and a
+`denied` flag (for Hotspot-level filtering).
+
+By default, all routes use a shared MultiBuy service that does not perform any Hotspot filtering.
+Running your own instance lets you implement custom logic on the data HPR provides in each request,
+including the Hotspot's public key, the packet hash, and the LoRaWAN region. This does not require
+access to device session keys.
+
+## Interface
+
+The MultiBuy service exposes a single gRPC method, `inc`, defined in
+[`multi_buy.proto`](https://github.com/helium/proto/blob/master/src/service/multi_buy.proto):
+
+```protobuf
+service multi_buy {
+  rpc inc(multi_buy_inc_req_v1) returns (multi_buy_inc_res_v1);
+}
+
+message multi_buy_inc_req_v1 {
+  string key = 1;
+  bytes hotspot_key = 2;
+  region region = 3;
+}
+
+message multi_buy_inc_res_v1 {
+  uint32 count = 1;
+  bool denied = 2;
+}
+```
+
+### Request fields
+
+| Field         | Type     | Description                                                                                                                            |
+| ------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`         | `string` | Hex-encoded SHA-256 hash of the packet hash and the route's LNS address. Unique per (packet, route endpoint). Used for dedup counting. |
+| `hotspot_key` | `bytes`  | The Hotspot's public key, encoded as a base58 string in the byte field. These are the same identifiers visible in the Helium Explorer. |
+| `region`      | `region` | LoRaWAN region enum (e.g., `US915`, `EU868`, `AU915`).                                                                                 |
+
+### Response fields
+
+| Field    | Type     | Description                                                                                                                                                                 |
+| -------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `count`  | `uint32` | Global counter for this `key` across all HPR instances. HPR compares this against the route's `max_copies` setting. If `count` exceeds `max_copies`, the packet is dropped. |
+| `denied` | `bool`   | If `true`, HPR drops the packet immediately regardless of count. This is the mechanism for Hotspot-level blocking.                                                          |
+
+Your service can implement any logic to decide the `denied` flag based on the request fields.
+
+## Failover behavior
+
+When a route has a custom MultiBuy configured, HPR manages connections with exponential backoff (1
+second to 5 minutes). The `fail_on_unavailable` flag on the route controls what happens when your
+service is unreachable:
+
+- **`false` (default):** HPR falls back to the shared default MultiBuy service. Packets are not
+  dropped due to your service being down.
+- **`true`:** HPR drops the packet. There is no fallback. Use this if you require all traffic to
+  pass through your filtering logic.
+
+The gRPC timeout is 5 seconds, matching the default LoRaWAN RX window.
+
+## Reference implementation
+
+A reference implementation with Hotspot and region deny lists is available at
+[macpie/multibuy-service](https://github.com/macpie/multibuy-service). It extends the base
+[helium/multibuy-service](https://github.com/helium/multibuy-service) with a `DenyLists` module that
+checks each request's `hotspot_key` and `region` against configured sets.
+
+This is a starting point. The gRPC interface is simple enough to implement in any language or to
+extend with custom logic (allow lists, time-based rules, dynamic updates, etc.).
+
+### Build from source
+
+**Build dependencies** (Debian/Ubuntu):
+
+```bash
+sudo apt-get install -y \
+  build-essential pkg-config libssl-dev clang lld cmake \
+  unzip protobuf-compiler curl
+```
+
+For other distributions, install the equivalent packages for GCC, pkg-config, OpenSSL development
+headers, Clang, LLD, CMake, and the Protocol Buffers compiler.
+
+**Rust toolchain:**
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source ~/.cargo/env
+```
+
+**Build:**
+
+```bash
+git clone https://github.com/macpie/multibuy-service.git
+cd multibuy-service
+AWS_LC_SYS_CMAKE_BUILDER=1 cargo build --release
+```
+
+The binary is output to `target/release/multi_buy_service`.
+
+### Configure
+
+Create a `settings.toml` file:
+
+```toml
+log = "multibuy_service=info"
+grpc_listen = "0.0.0.0:6080"
+cleanup_timeout = "30 minutes"
+
+[metrics]
+endpoint = "0.0.0.0:19011"
+
+denied_hotspots = [
+  "11aBC...exampleKey1",
+  "112dE...exampleKey2"
+]
+denied_regions = []
+```
+
+All settings can be overridden with environment variables prefixed with `MB__`:
+
+```bash
+export MB__DENIED_HOTSPOTS=11aBC...exampleKey1,112dE...exampleKey2
+export MB__DENIED_REGIONS=EU868
+```
+
+An empty list means no filtering for that category. Deny lists are read at startup; restart the
+service to apply changes.
+
+### Run with systemd
+
+Create a unit file at `/etc/systemd/system/multibuy.service`:
+
+```ini
+[Unit]
+Description=MultiBuy Service
+After=network.target
+
+[Service]
+Type=simple
+User=multibuy
+ExecStart=/opt/multibuy-service/multi_buy_service \
+  -c /etc/multibuy-service/settings.toml server
+Restart=on-failure
+RestartSec=5
+Environment=MB__DENIED_HOTSPOTS=
+Environment=MB__DENIED_REGIONS=
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl enable --now multibuy
+```
+
+## Deployment
+
+### Server sizing
+
+At time of writing, the shared MultiBuy service handling the entire Helium network runs on a
+c6a.large (2 vCPU, 4 GB RAM) at 2-3% CPU utilization. A single OUI's traffic is a fraction of that.
+The smallest available compute instance in your provider of choice should be more than adequate.
+
+### Firewall
+
+Open inbound TCP on the gRPC port (default `6080`). Optionally open `19011` for Prometheus metrics
+scraping.
+
+### TLS
+
+The reference implementation does not terminate TLS. For encrypted transport, place a reverse proxy
+(nginx, Caddy, etc.) in front of the service and use `--protocol https` when configuring the route.
+For testing, `--protocol http` works without additional setup.
+
+### Server placement
+
+The MultiBuy service sits in the request path between HPR and your LNS. It should be colocated as
+close as possible to the HPR infrastructure in the region you operate in (e.g., proximity to
+`us-west-2` for US traffic, `eu-central-1` for EU traffic).
+
+## Set the route
+
+Install [helium-config-service-cli](https://github.com/helium/helium-config-service-cli/releases)
+version 0.2.3 or later. The CLI requires your operator signing keypair to be configured (owner or
+delegate key).
+
+Preview the change with a dry run (omit `--commit`):
+
+```bash
+helium-config-service-cli route update set-multi-buy \
+  --route-id <ROUTE_ID> \
+  --protocol http \
+  --host <YOUR_SERVER_IP> \
+  --port 6080
+```
+
+Commit the change:
+
+```bash
+helium-config-service-cli route update set-multi-buy \
+  --route-id <ROUTE_ID> \
+  --protocol http \
+  --host <YOUR_SERVER_IP> \
+  --port 6080 \
+  --commit
+```
+
+Add `--fail-on-unavailable` if you want HPR to drop packets when your service is unreachable instead
+of falling back to the default.
+
+:::note
+
+The `--protocol` flag accepts `http` or `https`. There is no separate `grpc` value. HPR uses gRPC
+over the specified transport.
+
+:::
+
+## Monitor
+
+The reference implementation exposes Prometheus metrics at `http://<host>:19011/metrics`:
+
+| Metric                          | Description                      |
+| ------------------------------- | -------------------------------- |
+| `multi_buy_hit_total`           | Total gRPC requests received     |
+| `multi_buy_denied_total`        | Requests denied by the deny list |
+| `multi_buy_cache_size`          | Current dedup cache entries      |
+| `multi_buy_request_duration_ms` | Request latency summary          |
+
+```bash
+curl -s http://localhost:19011/metrics | grep -E "hit_total|denied_total|cache_size"
+```
+
+## Revert
+
+Remove the custom MultiBuy from your route to return to HPR's default service:
+
+```bash
+helium-config-service-cli route update remove-multi-buy \
+  --route-id <ROUTE_ID> \
+  --commit
+```
