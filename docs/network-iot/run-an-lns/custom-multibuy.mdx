@@ -45,11 +45,11 @@ message multi_buy_inc_res_v1 {
 
 ### Request fields
 
-| Field         | Type     | Description                                                                                                                            |
-| ------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`         | `string` | Hex-encoded SHA-256 hash of the packet hash and the route's LNS address. Unique per (packet, route endpoint). Used for dedup counting. |
-| `hotspot_key` | `bytes`  | The Hotspot's public key, encoded as a base58 string in the byte field. These are the same identifiers visible in the Helium Explorer. |
-| `region`      | `region` | LoRaWAN region enum (e.g., `US915`, `EU868`, `AU915`).                                                                                 |
+| Field         | Type     | Description                                                                                                                                      |
+| ------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `key`         | `string` | Hex-encoded SHA-256 hash of the packet hash and the route's LNS address. Unique per (packet, route endpoint). Used for dedup counting.           |
+| `hotspot_key` | `bytes`  | The Hotspot's public key as a base58 string encoded into the byte field (not raw binary). Decode as UTF-8 to get the b58 address.                |
+| `region`      | `region` | LoRaWAN region enum defined in [`region.proto`](https://github.com/helium/proto/blob/master/src/region.proto) (e.g., `US915`, `EU868`, `AU915`). |
 
 ### Response fields
 
@@ -60,7 +60,10 @@ message multi_buy_inc_res_v1 {
 
 Your service can implement any logic to decide the `denied` flag based on the request fields.
 
-## Failover behavior
+## Route configuration
+
+Each route can have its own custom MultiBuy endpoint. This allows different filtering logic per
+route if needed.
 
 When a route has a custom MultiBuy configured, HPR manages connections with exponential backoff (1
 second to 5 minutes). The `fail_on_unavailable` flag on the route controls what happens when your
