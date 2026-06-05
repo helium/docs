@@ -1,20 +1,17 @@
-# Cloudflare Pages redirects
+# Cloudflare Pages redirects  —  GENERATED FILE, DO NOT EDIT BY HAND
 # ---------------------------------------------------------------------------
-# Redirect rules for the Helium docs site, served by Cloudflare Pages.
-# Docusaurus copies static/ to the build root, where Cloudflare Pages parses
-# this file and applies the rules to asset responses.
+# Source of truth: redirects.json  (edit there, then rebuild).
+# Regenerated automatically by "yarn build"; or run "yarn build-redirects".
 #
-# IMPORTANT - trailing slashes:
-#   Cloudflare matches the source path EXACTLY, including the trailing slash,
-#   so every rule is listed in BOTH slash forms (`/x` and `/x/`), and each
-#   splat rule also gets a bare-path entry so `/prefix` (no slash) redirects
-#   like `/prefix/...`.
+# Served by Cloudflare Pages — Docusaurus copies static/ to the build root.
 #
-#   All rules are 301. Static rules precede the splat rules at the bottom.
+# Trailing slashes: Cloudflare matches the source path EXACTLY, so each rule
+# is emitted in BOTH forms (/x and /x/), and every splat also gets a bare-path
+# entry. Rules default to 301.
 #
-# NOT INCLUDED - the developer.helium.com -> docs.helium.com cross-domain
-#   redirect. `_redirects` matches on path, not host, so this must live as a
-#   zone-level Redirect Rule in the Cloudflare dashboard, not in this file.
+# NOT INCLUDED — the developer.helium.com -> docs.helium.com cross-domain
+#   redirect lives as a zone-level Redirect Rule in Cloudflare (_redirects
+#   matches on path, not host).
 # ---------------------------------------------------------------------------
 
 # --- Exact redirects (listed in both slash forms) --------------------------
