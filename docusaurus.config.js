@@ -70,7 +70,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebarsDocs.js'),
           routeBasePath: '/',
           // Please change this to your repo.
-          editUrl: 'https://github.com/helium/docs/edit/master',
+          editUrl: 'https://github.com/helium/docs/edit/main',
           remarkPlugins: [math],
           rehypePlugins: [katex],
         },
