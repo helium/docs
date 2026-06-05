@@ -1,13 +1,27 @@
 import { themes } from 'prism-react-renderer'
 import katex from 'rehype-katex'
 import math from 'remark-math'
-import webpack from 'webpack'
 require('dotenv').config()
 
 const darkCodeTheme = themes.dracula
 const lightCodeTheme = themes.github
 
 module.exports = {
+  future: {
+    experimental_faster: {
+      swcJsLoader: true,
+      swcJsMinimizer: true,
+      swcHtmlMinimizer: true,
+      lightningCssMinimizer: true,
+      rspackBundler: true,
+      rspackPersistentCache: true,
+      mdxCrossCompilerCache: true,
+      ssgWorkerThreads: true,
+    },
+    v4: {
+      removeLegacyPostBuildHeadAttribute: true,
+    },
+  },
   title: 'Helium Documentation',
   tagline: 'Documentation for the Helium Network',
   url: 'https://docs.helium.com',
@@ -107,10 +121,10 @@ module.exports = {
       return {
         name: 'webpack-plugin',
         // eslint-disable-next-line
-        configureWebpack(config, isServer, utils) {
+        configureWebpack(config, isServer, { currentBundler }) {
           return {
             plugins: [
-              new webpack.ProvidePlugin({
+              new currentBundler.instance.ProvidePlugin({
                 process: require.resolve('process/browser'),
               }),
             ],
