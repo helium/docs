@@ -1,20 +1,20 @@
 # Cloudflare Pages redirects
 # ---------------------------------------------------------------------------
-# Cloudflare Pages equivalent of the [[redirects]] tree in netlify.toml.
+# Redirect rules for the Helium docs site, served by Cloudflare Pages.
 # Docusaurus copies static/ to the build root, where Cloudflare Pages parses
 # this file and applies the rules to asset responses.
 #
 # IMPORTANT - trailing slashes:
-#   Cloudflare matches the source path EXACTLY, including the trailing slash
-#   (Netlify matched both forms). To preserve the old behavior, every rule is
-#   listed in BOTH slash forms (`/x` and `/x/`), and each splat rule also gets
-#   a bare-path entry so `/prefix` (no slash) redirects like `/prefix/...`.
+#   Cloudflare matches the source path EXACTLY, including the trailing slash,
+#   so every rule is listed in BOTH slash forms (`/x` and `/x/`), and each
+#   splat rule also gets a bare-path entry so `/prefix` (no slash) redirects
+#   like `/prefix/...`.
 #
 #   All rules are 301. Static rules precede the splat rules at the bottom.
 #
-# NOT INCLUDED - the cross-domain developer.helium.com rules from netlify.toml.
-#   `_redirects` matches on path, not host, so recreate those as a zone-level
-#   Redirect Rule in the Cloudflare dashboard.
+# NOT INCLUDED - the developer.helium.com -> docs.helium.com cross-domain
+#   redirect. `_redirects` matches on path, not host, so this must live as a
+#   zone-level Redirect Rule in the Cloudflare dashboard, not in this file.
 # ---------------------------------------------------------------------------
 
 # --- Exact redirects (listed in both slash forms) --------------------------
