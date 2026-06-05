@@ -1,84 +1,117 @@
-# Cloudflare Pages redirects
+# Cloudflare Pages redirects  —  GENERATED FILE, DO NOT EDIT BY HAND
 # ---------------------------------------------------------------------------
-# Cloudflare Pages equivalent of the [[redirects]] tree in netlify.toml.
-# Docusaurus copies everything in static/ to the build output root, where
-# Cloudflare Pages parses this file and applies the rules to asset responses.
+# Source of truth: redirects.json  (edit there, then rebuild).
+# Regenerated automatically by "yarn build"; or run "yarn build-redirects".
 #
-# Format:  <from-path>   <to-path-or-url>   <status>
-#   - Every rule uses 301 (permanent), matching the previous Netlify config.
-#   - Cloudflare always follows these redirects regardless of whether a static
-#     asset exists at the source path, so Netlify's `force = true` behavior is
-#     preserved without any extra flag.
-#   - Static rules are listed before the dynamic (splat) rules at the bottom,
-#     per Cloudflare's matching guidance.
+# Served by Cloudflare Pages — Docusaurus copies static/ to the build root.
 #
-# NOT INCLUDED — cross-domain rules from netlify.toml:
-#     http(s)://developer.helium.com/*  ->  http(s)://docs.helium.com/:splat
-#   `_redirects` matches on path only, so a host-scoped rule cannot live here
-#   without also catching docs.helium.com. Recreate these as a zone-level
-#   Bulk Redirect / Redirect Rule in the Cloudflare dashboard during cutover.
+# Trailing slashes: Cloudflare matches the source path EXACTLY, so each rule
+# is emitted in BOTH forms (/x and /x/), and every splat also gets a bare-path
+# entry. Rules default to 301.
+#
+# NOT INCLUDED — the developer.helium.com -> docs.helium.com cross-domain
+#   redirect lives as a zone-level Redirect Rule in Cloudflare (_redirects
+#   matches on path, not host).
 # ---------------------------------------------------------------------------
 
-# --- Tokens ----------------------------------------------------------------
-/tokens                                      /tokens/hnt-token                               301
-/hnt-token                                   /tokens/hnt-token                               301
-/helium-tokens/hnt                           /tokens/hnt-token                               301
-/blockchain/helium-token                     /tokens/hnt-token                               301
-/blockchain/hnt-token                        /tokens/hnt-token                               301
-/blockchain/mining/                          /tokens/hnt-token                               301
-/tokens/mobile-token/                        /tokens/hnt-token                               301
-/data-credit                                 /tokens/data-credit                             301
-/data-credit-portal                          /tokens/data-credit-portal                      301
+# --- Exact redirects (listed in both slash forms) --------------------------
+/tokens                                    /tokens/hnt-token                      301
+/tokens/                                   /tokens/hnt-token                      301
+/wallets/ledger                            /wallets/ledger-wallet                 301
+/wallets/ledger/                           /wallets/ledger-wallet                 301
+/wallets/app-wallet/transaction-failures   /wallets/helium-wallet-app             301
+/wallets/app-wallet/transaction-failures/  /wallets/helium-wallet-app             301
+/hotspot-makers/iot/data-only-hotspots     /iot/data-only-hotspots                301
+/hotspot-makers/iot/data-only-hotspots/    /iot/data-only-hotspots                301
+/mine-hnt/data-only-hotspots               /iot/data-only-hotspots                301
+/mine-hnt/data-only-hotspots/              /iot/data-only-hotspots                301
+/data-credit                               /tokens/data-credit                    301
+/data-credit/                              /tokens/data-credit                    301
+/data-credit-portal                        /tokens/data-credit-portal             301
+/data-credit-portal/                       /tokens/data-credit-portal             301
+/helium-tokens/hnt                         /tokens/hnt-token                      301
+/helium-tokens/hnt/                        /tokens/hnt-token                      301
+/hnt-token                                 /tokens/hnt-token                      301
+/hnt-token/                                /tokens/hnt-token                      301
+/blockchain/helium-token                   /tokens/hnt-token                      301
+/blockchain/helium-token/                  /tokens/hnt-token                      301
+/blockchain/hnt-token                      /tokens/hnt-token                      301
+/blockchain/hnt-token/                     /tokens/hnt-token                      301
+/iot/run-a-lns                             /iot/run-an-lns                        301
+/iot/run-a-lns/                            /iot/run-an-lns                        301
+/iot/buy-an-oui                            /iot/run-an-lns/buy-an-oui             301
+/iot/buy-an-oui/                           /iot/run-an-lns/buy-an-oui             301
+/iot/open-lns                              /iot/lorawan-network-servers           301
+/iot/open-lns/                             /iot/lorawan-network-servers           301
+/console/hosting-providers                 /iot/find-a-lns-provider               301
+/console/hosting-providers/                /iot/find-a-lns-provider               301
+/find-a-lns-provider                       /iot/find-a-lns-provider               301
+/find-a-lns-provider/                      /iot/find-a-lns-provider               301
+/solana/migration/wallet-user              /wallets/l1-migrate                    301
+/solana/migration/wallet-user/             /wallets/l1-migrate                    301
+/mobile/data-only-mobile                   /mobile/helium-plus-mobile             301
+/mobile/data-only-mobile/                  /mobile/helium-plus-mobile             301
+/mobile/data-only-aruba                    /mobile/helium-plus-aruba              301
+/mobile/data-only-aruba/                   /mobile/helium-plus-aruba              301
+/mobile/data-only-fortinet                 /mobile/helium-plus-fortinet           301
+/mobile/data-only-fortinet/                /mobile/helium-plus-fortinet           301
+/mobile/data-only-juniper-mist             /mobile/helium-plus-juniper-mist       301
+/mobile/data-only-juniper-mist/            /mobile/helium-plus-juniper-mist       301
+/mobile/data-only-meraki                   /mobile/helium-plus-meraki             301
+/mobile/data-only-meraki/                  /mobile/helium-plus-meraki             301
+/mobile/data-only-mikrotik                 /mobile/helium-plus-mikrotik           301
+/mobile/data-only-mikrotik/                /mobile/helium-plus-mikrotik           301
+/mobile/data-only-ruckus                   /mobile/helium-plus-ruckus             301
+/mobile/data-only-ruckus/                  /mobile/helium-plus-ruckus             301
+/mobile/data-only-ubiquiti                 /mobile/helium-plus-ubiquiti           301
+/mobile/data-only-ubiquiti/                /mobile/helium-plus-ubiquiti           301
+/mobile/data-only-generic                  /mobile/helium-plus-generic            301
+/mobile/data-only-generic/                 /mobile/helium-plus-generic            301
+/mobile/helium-plus-onboarding             /mobile/wifi-conversion-onboarding     301
+/mobile/helium-plus-onboarding/            /mobile/wifi-conversion-onboarding     301
+/mobile/data-only-onboarding               /mobile/wifi-conversion-onboarding     301
+/mobile/data-only-onboarding/              /mobile/wifi-conversion-onboarding     301
+/mobile/data-only-radsecproxy              /mobile/helium-plus-radsecproxy        301
+/mobile/data-only-radsecproxy/             /mobile/helium-plus-radsecproxy        301
+/mobile/data-only-cambium-cnmaestro        /mobile/helium-plus-cambium-cnmaestro  301
+/mobile/data-only-cambium-cnmaestro/       /mobile/helium-plus-cambium-cnmaestro  301
+/mobile/data-only-Cisco-WLC-9800           /mobile/helium-plus-Cisco-WLC-9800     301
+/mobile/data-only-Cisco-WLC-9800/          /mobile/helium-plus-Cisco-WLC-9800     301
+/mobile/data-only-Cisco-WLC-5520           /mobile/helium-plus-Cisco-WLC-5520     301
+/mobile/data-only-Cisco-WLC-5520/          /mobile/helium-plus-Cisco-WLC-5520     301
+/iot/coverage-mapping                      /iot/lorawan-network-servers           301
+/iot/coverage-mapping/                     /iot/lorawan-network-servers           301
+/api/blockchain/introduction               /network-data/legacy-blockchain-data   301
+/api/blockchain/introduction/              /network-data/legacy-blockchain-data   301
+/hotspot-makers                            /iot/data-only-hotspots                301
+/hotspot-makers/                           /iot/data-only-hotspots                301
+/troubleshooting/network-troubleshooting   https://hardware.hellohelium.com/      301
+/troubleshooting/network-troubleshooting/  https://hardware.hellohelium.com/      301
+/troubleshooting/replace-sd-card           https://hardware.hellohelium.com/      301
+/troubleshooting/replace-sd-card/          https://hardware.hellohelium.com/      301
+/iot/denylist                              /iot/lorawan-network-servers           301
+/iot/denylist/                             /iot/lorawan-network-servers           301
+/console/integrations/json-schema          /iot/lorawan-network-servers           301
+/console/integrations/json-schema/         /iot/lorawan-network-servers           301
+/tokens/mobile-token                       /tokens/hnt-token                      301
+/tokens/mobile-token/                      /tokens/hnt-token                      301
+/wallets/app-wallet/transfer-hotspot       /wallets/helium-wallet-app             301
+/wallets/app-wallet/transfer-hotspot/      /wallets/helium-wallet-app             301
+/iot/lorawan-region-plans                  /iot/lorawan-network-servers           301
+/iot/lorawan-region-plans/                 /iot/lorawan-network-servers           301
+/blockchain/mining                         /tokens/hnt-token                      301
+/blockchain/mining/                        /tokens/hnt-token                      301
+/iot/lorawan-frequency-plans               /iot/lorawan-network-servers           301
+/iot/lorawan-frequency-plans/              /iot/lorawan-network-servers           301
+/console                                   /iot/lorawan-network-servers           301
+/console/                                  /iot/lorawan-network-servers           301
+/faq/helium-network                        /                                      301
+/faq/helium-network/                       /                                      301
 
-# --- Wallets ---------------------------------------------------------------
-/wallets/ledger                              /wallets/ledger-wallet                          301
-/wallets/app-wallet/transaction-failures/    /wallets/helium-wallet-app                      301
-/wallets/app-wallet/transfer-hotspot/        /wallets/helium-wallet-app                      301
-/solana/migration/wallet-user                /wallets/l1-migrate                             301
+# --- Bare-path entries for the splat rules below ---------------------------
+/helium-tokens                             /tokens/hnt-token                      301
+/devblog                                   /                                      301
 
-# --- IoT / LoRaWAN ---------------------------------------------------------
-/hotspot-makers/iot/data-only-hotspots       /iot/data-only-hotspots                         301
-/mine-hnt/data-only-hotspots                 /iot/data-only-hotspots                         301
-/iot/run-a-lns                               /iot/run-an-lns                                 301
-/iot/buy-an-oui                              /iot/run-an-lns/buy-an-oui                      301
-/iot/open-lns                                /iot/lorawan-network-servers                    301
-/console/hosting-providers                   /iot/find-a-lns-provider                        301
-/find-a-lns-provider                         /iot/find-a-lns-provider                        301
-/iot/coverage-mapping                        /network-iot                                    301
-/iot/denylist                                /network-iot                                    301
-/iot/lorawan-region-plans                    /network-iot                                    301
-/iot/lorawan-frequency-plans                 /network-iot                                    301
-/console/integrations/json-schema            /network-iot/lorawan-network-servers            301
-/console                                     /network-iot/lorawan-network-servers            301
-/hotspot-makers/                             /network-iot/hotspots-iot/data-only-hotspots    301
-
-# --- Mobile (Data-Only -> Helium+ rename) ----------------------------------
-/mobile/data-only-mobile                     /mobile/helium-plus-mobile                      301
-/mobile/data-only-aruba                      /mobile/helium-plus-aruba                       301
-/mobile/data-only-fortinet                   /mobile/helium-plus-fortinet                    301
-/mobile/data-only-juniper-mist               /mobile/helium-plus-juniper-mist                301
-/mobile/data-only-meraki                     /mobile/helium-plus-meraki                      301
-/mobile/data-only-mikrotik                   /mobile/helium-plus-mikrotik                    301
-/mobile/data-only-ruckus                     /mobile/helium-plus-ruckus                      301
-/mobile/data-only-ubiquiti                   /mobile/helium-plus-ubiquiti                     301
-/mobile/data-only-generic                    /mobile/helium-plus-generic                     301
-/mobile/data-only-radsecproxy                /mobile/helium-plus-radsecproxy                 301
-/mobile/data-only-cambium-cnmaestro          /mobile/helium-plus-cambium-cnmaestro           301
-/mobile/data-only-Cisco-WLC-9800             /mobile/helium-plus-Cisco-WLC-9800              301
-/mobile/data-only-Cisco-WLC-5520             /mobile/helium-plus-Cisco-WLC-5520              301
-/mobile/helium-plus-onboarding               /mobile/wifi-conversion-onboarding              301
-/mobile/data-only-onboarding                 /mobile/wifi-conversion-onboarding              301
-
-# --- Network data ----------------------------------------------------------
-/api/blockchain/introduction/                /network-data/legacy-blockchain-data            301
-
-# --- Misc / home -----------------------------------------------------------
-/faq/helium-network/                         /home                                           301
-
-# --- External (hardware troubleshooting moved off-site) --------------------
-/troubleshooting/network-troubleshooting/    https://hardware.hellohelium.com/               301
-/troubleshooting/replace-sd-card/            https://hardware.hellohelium.com/               301
-
-# --- Dynamic / splat rules (must stay after the static rules above) --------
-/helium-tokens/*                             /tokens/hnt-token                               301
-/devblog/*                                   /home                                           301
+# --- Splat redirects (dynamic; must stay after the static rules) -----------
+/helium-tokens/*                           /tokens/hnt-token                      301
+/devblog/*                                 /                                      301
