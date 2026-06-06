@@ -4,10 +4,14 @@ Docusaurus documentation site for the Helium Network.
 
 ## Local Development
 
+This repo uses **Yarn 4 (Berry)** (managed by Corepack) and the Node version pinned in `.nvmrc`:
+
 ```sh
-npm install
-npm run start          # starts on port 3000
-npm run build          # production build
+nvm use                # Node version from .nvmrc
+corepack enable        # one-time: activates the pinned Yarn (yarn@4.x)
+yarn install
+yarn start             # starts on port 3000
+yarn build             # production build
 ```
 
 ## Project Structure
@@ -22,13 +26,13 @@ npm run build          # production build
 All `.mdx` files are formatted with **Prettier** on save. Before committing, run:
 
 ```sh
-npx prettier --check 'docs/**/*.mdx'
+yarn dlx prettier --check 'docs/**/*.mdx'
 ```
 
 To auto-fix:
 
 ```sh
-npx prettier --write 'docs/**/*.mdx'
+yarn dlx prettier --write 'docs/**/*.mdx'
 ```
 
 Prettier config (`.prettierrc`):

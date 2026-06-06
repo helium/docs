@@ -4,9 +4,9 @@ Documentation for the Helium network.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/en/download) version >= 10.15.1
+- [Node.js](https://nodejs.org/en/download) — use the version pinned in [`.nvmrc`](.nvmrc) (run `nvm use`)
 
-- [Yarn](https://yarnpkg.com/getting-started/install) version >= 1.5
+- [Yarn](https://yarnpkg.com/) 4 (Berry) — managed automatically by [Corepack](https://nodejs.org/api/corepack.html), which ships with Node. Run `corepack enable` once; no separate Yarn install needed.
 
 ## Helium Documentation Installation Guide
 
@@ -21,7 +21,7 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more instructions.
 ## Creating a New Doc
 
 When authoring a new doc, be sure to apply `prettier` to it during review. For example:
-`npx prettier --write --prose-wrap always docs/blockchain/new_doc.mdx`
+`yarn dlx prettier --write --prose-wrap always docs/blockchain/new_doc.mdx`
 
 It will apply appropriate line wraps and other formatting niceties.
 
