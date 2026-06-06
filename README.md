@@ -8,9 +8,17 @@ Documentation for the Helium network.
 
 - [Yarn](https://yarnpkg.com/) 4 (Berry) — managed automatically by [Corepack](https://nodejs.org/api/corepack.html), which ships with Node. Run `corepack enable` once; no separate Yarn install needed.
 
-## Helium Documentation Installation Guide
+## Running the docs locally
 
-- [Installation Guide](https://docs.helium.com/faq/docs-installation/)
+```sh
+git clone https://github.com/helium/docs.git
+cd docs
+nvm use                # Node version from .nvmrc
+corepack enable        # one-time: activates the pinned Yarn (yarn@4.x)
+yarn install
+yarn start             # dev server at http://localhost:3000
+yarn build             # production build
+```
 
 ## Contributing
 
@@ -21,7 +29,7 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more instructions.
 ## Creating a New Doc
 
 When authoring a new doc, be sure to apply `prettier` to it during review. For example:
-`yarn dlx prettier --write --prose-wrap always docs/blockchain/new_doc.mdx`
+`yarn dlx prettier --write --prose-wrap always docs/network-iot/new-doc.mdx`
 
 It will apply appropriate line wraps and other formatting niceties.
 
@@ -34,10 +42,10 @@ changes and make review more difficult.
 Instead, from time to time, `prettier` will be run against the documents and those unimportant
 commits will be added to `.git-blame-ignore-revs`
 
-Use the style guide found [here](docs/style-guide.md) to learn what markdown syntax is available.
+Use the style guide found [here](docs/home/style-guide.mdx) to learn what markdown syntax is available.
 
 For more advanced content consider using
-[JSX](https://v2.docusaurus.io/docs/markdown-features/#embedding-react-components-with-mdx).
+[JSX](https://docusaurus.io/docs/markdown-features/#embedding-react-components-with-mdx).
 
 ## Linking to Other Docs
 
@@ -115,7 +123,7 @@ slug: network-iot/devices
 ## Sidebar Links
 
 Learn how to create sidebar links
-[here](https://v2.docusaurus.io/docs/docs-introduction/#sidebar-object).
+[here](https://docusaurus.io/docs/docs-introduction/#sidebar-object).
 
 ### Category Type
 
@@ -123,5 +131,5 @@ When adding items use the raw id path, slug paths will not work.
 
 ## Attribution
 
-This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website
+This website is built using [Docusaurus](https://docusaurus.io/), a modern static website
 generator.
