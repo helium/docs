@@ -8,7 +8,7 @@ const lightCodeTheme = themes.github
 
 module.exports = {
   future: {
-    experimental_faster: {
+    faster: {
       swcJsLoader: true,
       swcJsMinimizer: true,
       swcHtmlMinimizer: true,
@@ -79,6 +79,7 @@ module.exports = {
     [
       '@docusaurus/preset-classic',
       {
+        blog: false,
         docs: {
           breadcrumbs: false,
           sidebarPath: require.resolve('./sidebarsDocs.js'),
