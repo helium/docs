@@ -1,13 +1,13 @@
 ---
-id: gateway-fleet-onboarding
-title: Gateway Fleet Onboarding
-pagination_label: Gateway Fleet Onboarding
-sidebar_label: Overview
+id: server-onboarding
+title: Server Onboarding
+pagination_label: Server Onboarding
+sidebar_label: On a Server (multi-gateway)
 description: >-
   Aggregate multiple LoRaWAN gateways behind a single multi-gateway server that manages keypairs and
-  routes packets through the Helium network.
+  routes packets through the Helium network. Best for fleets.
 image: https://docs.helium.com/img/link-image.png
-slug: /iot/gateway-fleet-onboarding
+slug: /iot/onboard-a-hotspot/server
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
@@ -19,6 +19,9 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 multiple LoRaWAN gateways using the Semtech UDP (GWMP) protocol. It automatically provisions a
 keypair for each gateway on first connection and maintains a dedicated gRPC stream to the Helium
 packet router per gateway. Each gateway appears as an independent Hotspot on the Helium network.
+
+Running multi-gateway on a server is how you onboard a fleet of Hotspots from one place. To set up a
+single Hotspot instead, see [on-device onboarding](/iot/onboard-a-hotspot/on-device).
 
 This enables operators to manage fleets of Hotspots from a single server, with centralized key
 management, monitoring, and a REST API for integration.

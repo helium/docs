@@ -107,25 +107,27 @@ module.exports = {
 
         {
           type: 'category',
-          label: 'Data-Only Hotspots',
-          link: { type: 'doc', id: 'network-iot/hotspots-iot/data-only-hotspots' },
+          label: 'Onboard a Hotspot',
+          link: { type: 'doc', id: 'network-iot/hotspots-iot/onboard-a-hotspot' },
           items: [
-            'network-iot/hotspots-iot/data-only-hotspots',
-            'network-iot/hotspots-iot/data-only-hotspots-onboarding',
-            'network-iot/hotspots-iot/data-only/balena-data-only-hotspot',
-            'network-iot/hotspots-iot/data-only/dragino-data-only-hotspot',
-            'network-iot/hotspots-iot/data-only/kerlink-data-only-hotspot',
-            'network-iot/hotspots-iot/data-only/rak-concentrators',
+            'network-iot/hotspots-iot/on-device-onboarding',
+            {
+              type: 'category',
+              label: 'On a Server (multi-gateway)',
+              link: { type: 'doc', id: 'network-iot/hotspots-iot/server-onboarding' },
+              items: ['network-iot/hotspots-iot/server-setup'],
+            },
+            {
+              type: 'category',
+              label: 'Packet Forwarder Setup',
+              items: [
+                'network-iot/hotspots-iot/packet-forwarders/dragino',
+                'network-iot/hotspots-iot/packet-forwarders/rak-concentrators',
+                'network-iot/hotspots-iot/packet-forwarders/balena',
+                'network-iot/hotspots-iot/packet-forwarders/kerlink',
+              ],
+            },
           ],
-        },
-        {
-          type: 'category',
-          label: 'Gateway Fleet Onboarding',
-          link: {
-            type: 'doc',
-            id: 'network-iot/gateway-fleet-onboarding/gateway-fleet-onboarding',
-          },
-          items: ['network-iot/gateway-fleet-onboarding/gateway-fleet-onboarding-setup'],
         },
       ],
       collapsed: true,

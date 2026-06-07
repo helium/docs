@@ -1,0 +1,87 @@
+---
+id: onboard-a-hotspot
+title: Onboard a Hotspot
+pagination_label: Onboard a Hotspot
+sidebar_label: Overview
+description:
+  How to add a LoRaWAN gateway to the Helium IoT Network as a Hotspot — on-device with gateway-rs,
+  or on a server with multi-gateway.
+image: https://docs.helium.com/img/link-image.png
+slug: /iot/onboard-a-hotspot
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+<img className="docsheader" src={useBaseUrl('img/network-iot/data-only-header.png')} />
+<br />
+<br />
+
+Any LoRaWAN gateway can join the Helium IoT Network as a Hotspot and earn HNT for the device data it
+carries. Onboarding is permissionless: link the gateway's key to a wallet and assert its location,
+and it starts earning for the traffic it relays.
+
+## Two ways to onboard
+
+Choose based on how many gateways you're bringing online.
+
+- **On-device with gateway-rs.** Run the lightweight gateway-rs client on the gateway itself, next
+  to its packet forwarder. Best for a single Hotspot or a handful. See
+  [On-Device Onboarding](/iot/onboard-a-hotspot/on-device).
+- **On a server with multi-gateway.** Point many gateways at one server that provisions and manages
+  a key per gateway. Best for fleets. See [Server Onboarding](/iot/onboard-a-hotspot/server).
+
+## Architecture
+
+[gateway-rs](https://github.com/helium/gateway-rs) is a lightweight client that runs on the gateway,
+next to its packet forwarder.
+
+```mermaid
+graph LR;
+  subgraph Gateway["Helium-Enabled Gateway (Hotspot)"]
+    PacketForwarder["Packet<br>Forwarder"]
+    HeliumGateway["Helium<br>Gateway-rs"]
+
+    PacketForwarder -- "Semtech GWMP<br>over UDP" --> HeliumGateway
+  end
+
+  HeliumRouter["Helium<br>Packet Router"]
+  LNS["LoRaWAN<br>Network Server"]
+
+  HeliumGateway -- "gRPC" --> HeliumRouter
+  HeliumRouter --> LNS
+```
+
+The packet forwarder sends LoRaWAN packets to gateway-rs over Semtech GWMP. Gateway-rs signs each
+packet and forwards it to the Helium Packet Router, which routes it to a LoRaWAN Network Server
+(LNS). For the latest releases and build notes, see the gateway-rs
+[readme](https://github.com/helium/gateway-rs/blob/main/README.md).
+
+## Packet forwarder setup
+
+Gateway-rs runs alongside a [Semtech packet forwarder](https://github.com/helium/packet_forwarder).
+If the hardware does not already have one, follow a hardware guide below.
+
+- [Dragino LPS8/DLOS8](/iot/packet-forwarders/dragino)
+- [RAKwireless Concentrator (RAK2245/RAK2247/RAK2287) + Raspberry Pi](/iot/packet-forwarders/rak-concentrators)
+  - [Using Balena: RAKwireless RAK2287 Concentrator + Raspberry Pi](/iot/packet-forwarders/balena)
+- [RAKwireless WisGate Edge Lite 2](https://github.com/HoBoWAN/Helium-Data-Only-Hotspot/blob/main/README.md)
+- [Seeed Studio SenseCAP M2](https://wiki.seeedstudio.com/Network/SenseCAP_Network/SenseCAP_M2_Data_Only-Helium_gateway/SenseCAP_M2_Data_Only_Quick_Start/)
+
+## Cost
+
+Two transactions bring a Hotspot online. The **Add Hotspot** transaction links the Hotspot's key
+(`swarm_key`) to a [wallet](/wallets) and makes the Hotspot known to the network. The **Assert
+Location** transaction provides the physical location (lat/long), elevation (in meters), and antenna
+EIRP (in dBi). A Hotspot must be onboarded before its location can be asserted.
+
+- **Add Hotspot**: 50,000 Data Credits (USD \$0.50)
+- **Assert Location**: 50,000 Data Credits (USD \$0.50)
+
+These fees are paid using [Data Credits](/tokens/data-credit).
+
+Transactions are submitted using the [CLI Wallet](/wallets/cli-wallet). The CLI Wallet should
+**not** be installed on the gateway, doing so could expose account keys to the open internet if the
+gateway is not properly secured. Existing accounts generated using the Helium Wallet App can be
+[imported to the CLI](/wallets/cli-wallet#import-seed-phrase-account-into-cli).
+
+For the step-by-step, see [On-Device Onboarding](/iot/onboard-a-hotspot/on-device).

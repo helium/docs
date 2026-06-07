@@ -1,21 +1,19 @@
 ---
 id: rak-concentrators
-title: RAK Concentrator + Raspberry Pi Data-Only Tutorial
-pagination_label: RAK Concentrator Data-Only Tutorial
-sidebar_label: RAK Concentrator Data-Only Tutorial
+title: RAK Concentrator + Raspberry Pi
+pagination_label: RAK Concentrator
+sidebar_label: RAK Concentrator
 description:
-  Guide for setting up a RAKwireless concentrator with a Raspberry Pi as a Helium data-only Hotspot.
+  Guide for setting up a RAKwireless concentrator with a Raspberry Pi as a Helium IoT Hotspot.
 image: https://docs.helium.com/img/link-image.png
-slug: /iot/data-only/rak-concentrators
+slug: /iot/packet-forwarders/rak-concentrators
 ---
-
-# Data-Only Hotspot Setup with RAKwireless Concentrator + Raspberry Pi
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { YouTube } from 'mdx-embed'
 
-This guide covers the steps needed to set up a Data-Only Hotspot using a WisLink RAK LPWAN
-concentrator module and a Raspberry Pi.
+This guide covers the steps needed to set up a Hotspot using a WisLink RAK LPWAN concentrator module
+and a Raspberry Pi.
 
 ## Requirements
 
@@ -40,9 +38,9 @@ with the SPI interface.
 
 ## Packet Forwarder Preparation
 
-To prepare the hardware to become a Helium Data-Only Hotspot, it first must be configured to handle
-LoRaWAN messages. To get started, install an operating system and set up the packet forwarder as
-outlined in one of the two options below.
+To prepare the hardware to become a Helium Hotspot, it first must be configured to handle LoRaWAN
+messages. To get started, install an operating system and set up the packet forwarder as outlined in
+one of the two options below.
 
 LoRaWAN gateways are generally 'headless' computers. The
 [Raspberry Pi Headless](https://www.raspberrypi.com/documentation/computers/configuration.html#setting-up-a-headless-raspberry-pi)
@@ -308,7 +306,7 @@ commands to test and monitor.
 
 The region configuration for gateway-rs is a default. The on-chain asserted location of the Gateway
 will override the definition in `settings.toml`. Updating the region in settings is optional as long
-as the Data-Only Hotspot location is asserted..
+as the Hotspot location is asserted.
 
 ## Verifying the Installation
 
@@ -321,9 +319,9 @@ following command:
 sudo tail -f /var/log/syslog | grep helium_gateway
 ```
 
-### Getting some Information about the Data-Only Hotspot
+### Get Information About the Hotspot
 
-Use the following command to get the public key address and animal name of your Data-Only Hotspot:
+Use the following command to get the public key address and animal name of your Hotspot:
 
 ```
 ./helium_gateway -c ~/settings.toml key info
@@ -341,9 +339,9 @@ This command should give you an output like the following one:
 
 #### Backup the gateway_key
 
-The `gateway_key.bin` file stores the information used to identify the Data-Only Hotspot on the
-Helium IoT Network. It's highly advised to backup this file, especially if you need to recover it
-later after the onboarding process.
+The `gateway_key.bin` file stores the information used to identify the Hotspot on the Helium IoT
+Network. It's highly advised to backup this file, especially if you need to recover it later after
+the onboarding process.
 
 Using SCP could be an option to do the backup; that would be something like this:
 
@@ -354,10 +352,10 @@ scp pi@<gateway ip>:/etc/helium_gateway/gateway_key.bin <destination directory>
 If using Windows, a tool like [WinSCP](https://winscp.net/eng/index.php) will enable this
 functionality.
 
-## Onboard the Data-Only Hotspot
+## Onboard the Hotspot
 
-Refer to the [Data-Only Hotspot Onboarding](/iot/data-only-hotspots-onboarding) section to complete
-the onboarding of the fully-configured Data-Only Hotspot.
+Refer to the [on-device onboarding guide](/iot/onboard-a-hotspot/on-device) section to complete the
+onboarding of the fully-configured Hotspot.
 
 ## Video Guide for Setup
 

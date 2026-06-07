@@ -1,34 +1,33 @@
 ---
-id: data-only-hotspots-onboarding
-title: Data-Only Hotspot Onboarding
-pagination_label: Data-Only Hotspot Onboarding
-sidebar_label: Data-Only Hotspot Onboarding
+id: on-device-onboarding
+title: On-Device Onboarding
+pagination_label: On-Device Onboarding
+sidebar_label: On-Device (gateway-rs)
 description:
-  Step-by-step guide for onboarding a data-only Hotspot using gateway-rs and the Helium CLI Wallet.
+  Onboard a single Hotspot by running gateway-rs on the gateway and submitting the add and
+  assert-location transactions with the Helium CLI Wallet.
 image: https://docs.helium.com/img/link-image.png
-slug: /iot/data-only-hotspots-onboarding
+slug: /iot/onboard-a-hotspot/on-device
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
-
-# Data-Only Hotspot Onboarding
 
 <img className="docsheader" src={useBaseUrl('img/network-iot/data-only-onboarding-header.png')} />
 <br />
 <br />
 
-This guide walks through the process of onboarding a Data-Only Hotspot to the Helium Network. The
-onboarding procedure expects a gateway configured with the Semtech Packet Forwarder and Helium
-Gateway-rs.
+This guide onboards a single Hotspot by running gateway-rs directly on the gateway. It assumes the
+gateway already has the Semtech packet forwarder and gateway-rs installed. To onboard a fleet, see
+[server onboarding](/iot/onboard-a-hotspot/server).
 
 ## Prerequisites
 
 - LoRaWAN Gateway with Gateway-rs installed.
 - Helium Wallet CLI with a funded account imported.
-- Token balances to onboard a Data-Only Hotspot.
+- Token balances to onboard a Hotspot.
   - 100,000 ($1) Data Credits (DCs) comprised of
-    - 50,000 ($0.50) Data-Only Onboard
-    - 50,000 ($0.50) Data-Only Location Assert
+    - 50,000 ($0.50) to add a Hotspot
+    - 50,000 ($0.50) to assert its location
   - SOL (Solana's native cryptocurrency) to cover transaction fees (~0.01 Sol)
 
 ## Installing Gateway-rs
@@ -292,7 +291,7 @@ Make sure the paying account has at least 50,000 Data Credits available to compl
 assert transaction. The transactions take place on the Solana blockchain, so a small amount of SOL
 is also required to cover Solana fees.
 
-Before running the assert command, get the public key from the Data-Only Hotspot.
+Before running the assert command, get the public key from the Hotspot.
 
 ```sh
 helium_gateway key info
