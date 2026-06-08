@@ -20,11 +20,16 @@ multiple LoRaWAN gateways using the Semtech UDP (GWMP) protocol. It automaticall
 keypair for each gateway on first connection and maintains a dedicated gRPC stream to the Helium
 packet router per gateway. Each gateway appears as an independent Hotspot on the Helium network.
 
-Running multi-gateway on a server is how you onboard a fleet of Hotspots from one place. To set up a
-single Hotspot instead, see [on-device onboarding](/iot/onboard-a-hotspot/on-device).
+Running multi-gateway on a server lets operators manage a fleet of Hotspots from one place, with
+centralized key management, monitoring, and a REST API. To set up a single Hotspot instead, see
+[On-Device Onboarding](/iot/onboard-a-hotspot/on-device).
 
-This enables operators to manage fleets of Hotspots from a single server, with centralized key
-management, monitoring, and a REST API for integration.
+## Onboard each Hotspot
+
+Connecting a gateway provisions a key for it and starts forwarding data. To earn rewards, each
+Hotspot must also be onboarded on-chain — added to a wallet and its location asserted with the
+[CLI Wallet](/wallets/cli-wallet). This is the same on-chain onboarding as the
+[gateway-rs method](/iot/onboard-a-hotspot/on-device), except the server holds each gateway's key.
 
 ## Architecture
 

@@ -17,18 +17,20 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 <br />
 
 Any LoRaWAN gateway can join the Helium IoT Network as a Hotspot and earn HNT for the device data it
-carries. Onboarding is permissionless: link the gateway's key to a wallet and assert its location,
-and it starts earning for the traffic it relays.
+carries. Onboarding is permissionless and the same for every Hotspot: add it to a wallet and assert
+its location with the [CLI Wallet](/wallets/cli-wallet).
 
-## Two ways to onboard
+## Two ways to run a Hotspot
 
-Choose based on how many gateways you're bringing online.
+What differs between setups is where the Helium gateway software runs, and which client holds the
+key that signs the add transaction. Choose based on how many gateways you're bringing online.
 
-- **On-device with gateway-rs.** Run the lightweight gateway-rs client on the gateway itself, next
-  to its packet forwarder. Best for a single Hotspot or a handful. See
+- **gateway-rs, on the gateway.** The client runs on the gateway itself, next to its packet
+  forwarder, and the key lives on the device. Best for a single Hotspot or a handful. See
   [On-Device Onboarding](/iot/onboard-a-hotspot/on-device).
-- **On a server with multi-gateway.** Point many gateways at one server that provisions and manages
-  a key per gateway. Best for fleets. See [Server Onboarding](/iot/onboard-a-hotspot/server).
+- **multi-gateway, on a server.** One server fronts many gateways and holds a key for each. The
+  gateways run a standard packet forwarder pointed at the server. Best for fleets. See
+  [Server Onboarding](/iot/onboard-a-hotspot/server).
 
 ## Architecture
 
@@ -58,8 +60,10 @@ packet and forwards it to the Helium Packet Router, which routes it to a LoRaWAN
 
 ## Packet forwarder setup
 
-Gateway-rs runs alongside a [Semtech packet forwarder](https://github.com/helium/packet_forwarder).
-If the hardware does not already have one, follow a hardware guide below.
+A Hotspot needs a [Semtech packet forwarder](https://github.com/helium/packet_forwarder) on the
+gateway. If the hardware does not already have one, follow a hardware guide below. These guides
+point the packet forwarder at gateway-rs on the same device; for the server method, point it at your
+multi-gateway server instead.
 
 - [Dragino LPS8/DLOS8](/iot/packet-forwarders/dragino)
 - [RAKwireless Concentrator (RAK2245/RAK2247/RAK2287) + Raspberry Pi](/iot/packet-forwarders/rak-concentrators)

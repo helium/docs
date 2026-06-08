@@ -16,9 +16,11 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 <br />
 <br />
 
-This guide onboards a single Hotspot by running gateway-rs directly on the gateway. It assumes the
-gateway already has the Semtech packet forwarder and gateway-rs installed. To onboard a fleet, see
-[server onboarding](/iot/onboard-a-hotspot/server).
+This guide covers onboarding with gateway-rs, where the client runs on the gateway itself and holds
+the key. It assumes the gateway already has the Semtech packet forwarder and gateway-rs installed.
+The add and assert-location steps below are the on-chain onboarding, and they are the same for every
+Hotspot — here the gateway-rs key on the device signs the add transaction. To run the software on a
+server for a fleet instead, see [Server Onboarding](/iot/onboard-a-hotspot/server).
 
 ## Prerequisites
 
