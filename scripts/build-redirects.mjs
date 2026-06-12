@@ -6,6 +6,7 @@
 // every splat (/x/*) also gets a bare-path entry (/x). This lets the source
 // list stay single-form (one line per rule) while the deployed file covers
 // both. Runs automatically via `yarn build`; or run `yarn build-redirects`.
+// The output is gitignored — every deploy regenerates it from redirects.json.
 
 import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
