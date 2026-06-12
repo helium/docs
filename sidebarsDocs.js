@@ -81,7 +81,7 @@ module.exports = {
               type: 'category',
               label: 'Fund an Organizationally Unique Identifier',
               link: { type: 'doc', id: 'network-iot/run-an-lns/fund-an-oui' },
-              items: ['tokens/data-credit-portal', 'network-iot/run-an-lns/fund-an-oui-using-hnt'],
+              items: ['network-iot/run-an-lns/fund-an-oui-using-hnt'],
             },
             {
               type: 'category',
