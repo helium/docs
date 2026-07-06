@@ -4,15 +4,15 @@ title: Helium Oracle Data
 pagination_label: Oracle Data
 sidebar_label: Oracle Data
 description:
-  How to access and decode Helium Oracle PoC and reward data files stored in AWS S3, with protobuf
+  How to access and decode Helium Oracle reward and data files stored in AWS S3, with protobuf
   schemas and code examples.
 image: https://docs.helium.com/img/link-image.png
 slug: /network-data/oracle-data
 ---
 
-The Helium Network operates Oracles that perform various tasks backing data transfer and
-Proof-of-Coverage across the Helium subnetworks. These Oracles provide extensive logs for analysis
-of the Helium subnetworks.
+The Helium Network operates Oracles that perform various tasks backing data transfer and rewards
+across the Helium subnetworks. These Oracles provide extensive logs for analysis of the Helium
+subnetworks.
 
 The Helium Oracles handle all data about the network, except for transactions handled by the
 [Helium Program Libraries](https://github.com/helium/helium-program-library) on Solana.
@@ -43,13 +43,13 @@ guide provided by AWS.
 | `foundation-mobile-price`           |
 | `foundation-mobile-verified`        |
 
-Under each top-level data category prefix, the related PoC data files are provided in the prefix
+Under each top-level data category prefix, the related data files are provided in the prefix
 structure noted below:
 
 `s3://foundation-poc-data-requester-pays/<top-level-data-category-prefix>/<file_prefix>.<unix_ms_timestamp>.gz`
 
 When working with this bucket, keeping data in `us-west-2` and being pragmatic about which AWS S3
-access patterns are used will greatly reduce the cost burden for accessing the PoC data.
+access patterns are used will greatly reduce the cost burden for accessing the data.
 
 Regarding access patterns, one approach to minimize the quantity of S3 API calls over time - and
 save money - is to use the `aws s3api list-objects-v2` command and specify the `--start-after` and
@@ -74,11 +74,19 @@ file list.
 
 ## Oracle Data File Format
 
-The raw PoC data stored in the `foundation-poc-data-requester-pays` bucket is in encoded protobuf
-format in `.gz` compressed files. The table below provides the top-level data category prefixes, the
-file types comprised within each data category prefix, the file prefixes beginning each filename,
-the filename patterns for each of the file types, and links to the corresponding protobuf used to  
+The raw data stored in the `foundation-poc-data-requester-pays` bucket is in encoded protobuf format
+in `.gz` compressed files. The table below provides the top-level data category prefixes, the file
+types comprised within each data category prefix, the file prefixes beginning each filename, the
+filename patterns for each of the file types, and links to the corresponding protobuf used to  
 decode the data.
+
+:::warning Proof-of-Coverage data is deprecated
+
+Proof of Coverage has been removed from the Helium networks as of June 9, 2026. The
+Proof-of-Coverage data types listed below — such as IoT beacon, witness, and entropy reports — are
+deprecated and kept here for historical reference. Existing files remain accessible in the bucket.
+
+:::
 
 | Category                            | File Type                                | File Prefix                                   | Filename                                                             | Protobuf Definition                                                                                                                                                                                                   |
 | :---------------------------------- | :--------------------------------------- | :-------------------------------------------- | :------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
