@@ -4,8 +4,8 @@ title: Onboard a Hotspot
 pagination_label: Onboard a Hotspot
 sidebar_label: Overview
 description:
-  How to add a LoRaWAN gateway to the Helium IoT Network as a Hotspot — on-device with gateway-rs,
-  or on a server with multi-gateway.
+  How to add a LoRaWAN gateway to the Helium IoT Network as a Hotspot, either on-device with
+  gateway-rs or on a server with multi-gateway.
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/onboard-a-hotspot
 ---
@@ -22,11 +22,11 @@ its location with the [CLI Wallet](/wallets/cli-wallet).
 
 ## Two ways to run a Hotspot
 
-What differs between setups is where the Helium gateway software runs, and which client holds the
-key that signs the add transaction. Choose based on how many gateways you're bringing online.
+The difference is where the Helium gateway software runs, and which client holds the key that signs
+the add transaction. Choose based on how many gateways you're bringing online.
 
 - **gateway-rs, on the gateway.** The client runs on the gateway itself, next to its packet
-  forwarder, and the key lives on the device. Best for a single Hotspot or a handful. See
+  forwarder, and the key lives on the device. Best for a single Hotspot or a few. See
   [On-Device Onboarding](/iot/onboard-a-hotspot/on-device).
 - **multi-gateway, on a server.** One server fronts many gateways and holds a key for each. The
   gateways run a standard packet forwarder pointed at the server. Best for fleets. See
