@@ -1,14 +1,12 @@
 ---
-id: dragino-data-only-hotspot
-title: Dragino LPS80/DLOS8 Data-Only Tutorial
-pagination_label: Dragino Data-Only Tutorial
-sidebar_label: Dragino Data-Only Tutorial
-description: How to configure a Dragino LPS8 or DLOS8 gateway as a Helium IoT data-only Hotspot.
+id: dragino
+title: Dragino LPS8/DLOS8
+pagination_label: Dragino
+sidebar_label: Dragino LPS8/DLOS8
+description: How to configure a Dragino LPS8 or DLOS8 gateway as a Helium IoT Hotspot.
 image: https://docs.helium.com/img/link-image.png
-slug: /iot/data-only/dragino-data-only-hotspot
+slug: /iot/packet-forwarders/dragino
 ---
-
-# Dragino LoRaWAN Gateway Setup
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { YouTube } from 'mdx-embed'
@@ -118,15 +116,13 @@ configured correctly. By default, the LoRaWAN Server settings are configured for
 which will also provide acknowledgment. However, the absence of acknowledgment could indicate that
 the LoRaWAN settings are not correct per the above.
 
-## Onboard as Data-Only Hotspot
+## Onboard the Hotspot
 
-As part of the Hotspot project, a new class of Hotspots called "Data-Only Hotspots" can be added to
-the Helium IoT Network, meaning Dragino LPS80/DLOS8 Hotspots can be added to the network. These
-data-only Hotspots reward IOT tokens for transferring data but never for Proof-of-Coverage. This
-onboarding process will require using the [Helium CLI Wallet](/wallets/cli-wallet/) to submit the
-onboarding and assert location transactions. See
-[Prepare the Helium Wallet CLI and further information](/iot/data-only-hotspots-onboarding#prepare-the-helium-wallet-cli)
-for specific details on Hotspot onboarding.
+Once the gateway is forwarding packets, add it to the Helium IoT Network as a Hotspot. Onboarding
+uses the [Helium CLI Wallet](/wallets/cli-wallet/) to submit the add and assert-location
+transactions. See the
+[on-device onboarding guide](/iot/onboard-a-hotspot/on-device#prepare-the-helium-wallet-cli) for the
+full walkthrough.
 
 ### Video Guide for Setup
 

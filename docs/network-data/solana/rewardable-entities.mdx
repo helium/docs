@@ -283,7 +283,8 @@ describe("onboarding server", () => {
 ## Claiming Rewards on Rewardable Entities
 
 A system of oracles keeps track of the rewards owed to each Rewardable Entity. For example, in the
-IoT network there are oracles that keep track of the HNT tokens earned by each Hotspot for PoC.
+IoT network there are oracles that keep track of the HNT tokens earned by each Hotspot for
+transferring data.
 
 These oracles are responsible ONLY for tracking the total lifetime rewards associated with a
 Hotspot. This frees the oracles from any kind of dependence on the blockchain. They don't care about
@@ -296,8 +297,8 @@ rewards have been claimed. Claiming rewards, then, consists of two steps:
 2. Issue the difference between the total lifetime rewards and total claimed rewards to the Hotspot
    owner.
 
-In practice, we have made it so that this can all happen in a singular transaction for PoC rewards.
-Staking rewards will happen in transactions combining up to 4 days of rewards.
+In practice, we have made it so that this can all happen in a singular transaction for reward
+claims. Staking rewards will happen in transactions combining up to 4 days of rewards.
 
 ### Finding Current Rewards
 
