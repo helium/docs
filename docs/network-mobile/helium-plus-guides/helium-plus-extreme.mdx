@@ -49,14 +49,14 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
 
 ### RadSecProxy Container Deployment
 
-1. Un-zip and untar the `Helium_RadSec_Docker.tar.gz` file into a directory of your choice on the
+1. Un-zip and untar the `radsec-proxy-main.tar.gz` file into a directory of your choice on the
    host machine. This will unpack:
    - `Dockerfile` - The Docker instructions to build the container
-   - `Radsecproxy.conf` - Pre-populated to connect to Helium Network AAA servers
+   - `radsecproxy.conf` - Pre-populated to connect to Helium Network AAA servers
    - `docker-compose.yml` - File to start and stop the container as a daemon
 
    ```bash
-   tar -xvzf Helium_RadSec_Docker.tar.gz
+   tar -xvzf radsec-proxy-main.tar.gz
    ```
 
 2. Into the same directory, copy the 3 certificates obtained from Helium Network:
