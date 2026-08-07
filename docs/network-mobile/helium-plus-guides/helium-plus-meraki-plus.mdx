@@ -10,6 +10,23 @@ slug: /mobile/helium-plus-meraki-plus
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
+:::important
+
+**This method is not self-serve.** It does not apply to networks onboarded through self-serve
+tooling, and requires a Helium Plus agreement.
+
+Unlike vendors that connect straight to the Helium AAA, Meraki builds a CA certificate for each
+group of APs, and that certificate must be loaded on the Helium AAA by the Helium team. Because of
+this requirement, your APs authenticate through a FreeRADIUS instance that Helium hosts and operates
+on your behalf. **Extra charges apply for this service** — contact the Helium team to confirm terms
+before starting.
+
+If you would rather host the connection yourself and avoid these charges, follow the
+[Cisco Meraki RadSecProxy Conversion Guide](/mobile/helium-plus-meraki) instead, which runs the
+RadSecProxy container on your own hardware.
+
+:::
+
 ## Prerequisites
 
 - Meraki system must be running
@@ -18,7 +35,10 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - Guide assumes the network is using an on-prem Meraki MX Controller.
 - Meraki system has AP(s) linked to the MX Controller.
 - Meraki system has basic traffic routing working with existing SSID(s).
-- Must have the Meraki specific certificate used for the Helium Plus Meraki onboarding process.
+- Must have the Meraki specific certificate used for the Helium Plus Meraki onboarding process
+  (`helium_bfmeraki_ca.pem`, shown as `bf_meraki…` in the Meraki dashboard). This is a different
+  file from the general `ca.pem` used for all other Helium Plus deployments — request it from the
+  Helium team.
 
 # High Level Steps
 
