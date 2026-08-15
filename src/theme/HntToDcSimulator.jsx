@@ -8,7 +8,10 @@ import styles from './HntToDcSimulator.module.css'
 
 const DC_PRICE = 0.00001 // 1 DC = $0.00001
 const HNT_PRICE_FEED_ID = '649fdd7ec08e8e2a20f425729854e90293dcbe2376abc47197a14da6ff339756'
-const POLL_INTERVAL_MS = 30_000
+
+// Streams the on-chain oracle price (snapshot on connect, then a frame only when
+// the price changes). EventSource reconnects on its own per the server's retry hint.
+const STREAM_URL = 'https://api.heliumtools.org/hnt-price/sse'
 
 // DataCreditsV0 layout: 8-byte discriminator, dc_mint (32), hnt_mint (32),
 // authority (32), then hnt_price_oracle at bytes 104..136.
@@ -53,10 +56,14 @@ function parsePriceUpdateV2(data) {
   }
 }
 
-// Reads the oracle account address from the on-chain DataCreditsV0 account on
-// every poll, so the widget keeps working if the oracle is rotated again.
+// Fallback for when the stream never delivers a price: a single read of the same
+// oracle straight from the chain. Resolves the oracle address from the on-chain
+// DataCreditsV0 account so it stays correct if the oracle is rotated again.
 async function fetchOracleHntPrice(endpoint) {
   try {
+    if (!endpoint) {
+      return null
+    }
     const connection = new Connection(endpoint)
     const dataCredits = await connection.getAccountInfo(dataCreditsKey(DC_MINT)[0])
     if (!dataCredits || dataCredits.data.length < HNT_PRICE_ORACLE_OFFSET + 32) {
@@ -81,14 +88,11 @@ export const HntToDcSimulator = () => {
 
   useEffect(() => {
     const endpoint = siteConfig.customFields.SOLANA_URL
-    if (!endpoint) {
-      return
-    }
     let cancelled = false
+    let fallbackFired = false
 
-    const poll = async () => {
-      const price = await fetchOracleHntPrice(endpoint)
-      if (cancelled || price === null) {
+    const applyPrice = (price) => {
+      if (cancelled || typeof price !== 'number' || !Number.isFinite(price) || price <= 0) {
         return
       }
       setLiveHntPrice(price)
@@ -98,12 +102,34 @@ export const HntToDcSimulator = () => {
       }
     }
 
-    poll()
-    const interval = setInterval(poll, POLL_INTERVAL_MS)
+    const source = new EventSource(STREAM_URL)
+    source.onmessage = (event) => {
+      try {
+        // Full /current-shaped snapshot; spot can be null, so read oracle defensively.
+        applyPrice(JSON.parse(event.data)?.oracle?.usd)
+      } catch {
+        // Ignore malformed frames; the next snapshot or the fallback covers us.
+      }
+    }
+    source.onerror = () => {
+      // EventSource reconnects on its own after network-level failures (a fatal
+      // HTTP response closes it for good). Either way, the one-time on-chain read
+      // covers the case where the stream has never delivered a price at all.
+      if (fallbackFired || initialPriceSetRef.current) {
+        return
+      }
+      fallbackFired = true
+      fetchOracleHntPrice(endpoint).then((price) => {
+        // A reconnected stream may have delivered a fresher price in the meantime.
+        if (!initialPriceSetRef.current) {
+          applyPrice(price)
+        }
+      })
+    }
 
     return () => {
       cancelled = true
-      clearInterval(interval)
+      source.close()
     }
   }, [])
 
