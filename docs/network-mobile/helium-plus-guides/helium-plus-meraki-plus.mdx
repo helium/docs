@@ -175,14 +175,17 @@ The NAS-ID Meraki transmits must match the NAS-ID registered with Helium exactly
 character. A difference in separators alone is enough to fail authentication, so leave the number 1
 drop down on **Custom** and enter the NAS-ID from onboarding.
 
-If you build the NAS ID from the AP MAC address instead, be aware that Meraki formats the MAC
-differently depending on how it is selected:
+If you select **AP MAC address** as the NAS ID instead, be aware that the format Meraki transmits
+depends on how the SSID itself was built:
 
-- Used as part of a **template**, the MAC is sent dash-separated: `AA-BB-CC-DD-EE-FF`
-- Selected on its own, **not** as a template, the MAC is sent with no separators at all:
-  `AABBCCDDEEFF`
+- On an SSID applied from a **template** across multiple sites, the MAC is sent dash-separated and
+  upper case: `E0-CB-BC-48-BC-76`
+- On a normal, single-site SSID, the same AP sends the MAC with no separators at all:
+  `E0CBBC48BC76`
 
-Either format works, but whichever one you configure must be the one registered with Helium.
+Either format works, but the one your SSID actually sends has to be the one registered with Helium.
+Moving an SSID between the two afterwards changes the NAS-ID, and the new value has to be
+re-registered before those APs will authenticate.
 
 :::
 
