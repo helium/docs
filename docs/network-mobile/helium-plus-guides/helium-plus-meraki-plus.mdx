@@ -35,10 +35,7 @@ RadSecProxy container on your own hardware.
 - Guide assumes the network is using an on-prem Meraki MX Controller.
 - Meraki system has AP(s) linked to the MX Controller.
 - Meraki system has basic traffic routing working with existing SSID(s).
-- Must have the Meraki specific certificate used for the Helium Plus Meraki onboarding process
-  (`helium_bfmeraki_ca.pem`, shown as `bf_meraki…` in the Meraki dashboard). This is a different
-  file from the general `ca.pem` used for all other Helium Plus deployments — request it from the
-  Helium team.
+- Must have the Meraki specific certificate used for the Helium Plus Meraki onboarding process.
 
 # High Level Steps
 
@@ -171,6 +168,23 @@ and RADIUS configurations to support Helium Mobile user offload.
       />
     </figure>
 11. Click **Save**
+
+:::warning
+
+The NAS-ID Meraki transmits must match the NAS-ID registered with Helium exactly, character for
+character. A difference in separators alone is enough to fail authentication, so leave the number 1
+drop down on **Custom** and enter the NAS-ID from onboarding.
+
+If you build the NAS ID from the AP MAC address instead, be aware that Meraki formats the MAC
+differently depending on how it is selected:
+
+- Used as part of a **template**, the MAC is sent dash-separated: `AA-BB-CC-DD-EE-FF`
+- Selected on its own, **not** as a template, the MAC is sent with no separators at all:
+  `AABBCCDDEEFF`
+
+Either format works, but whichever one you configure must be the one registered with Helium.
+
+:::
 
 ## Build Hotspot 2.0 Config
 
