@@ -51,6 +51,10 @@ matches and its uplinks are dropped, which is the symptom described in
 In practice, SKFs are kept in sync programmatically by the LNS. See the tools in
 [Automated EUI and SKF Route Updates](#automated-eui-and-skf-route-updates).
 
+Any SKF updater implementation should remove old session keys, not just add new ones. Stale SKFs
+accumulate on the route, and the Packet Router keeps buying uplinks that match an old key, such as
+from a device that was deleted from the LNS but is still transmitting.
+
 :::
 
 ### Managing SKFs
