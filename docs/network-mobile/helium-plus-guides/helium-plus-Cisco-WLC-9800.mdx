@@ -15,7 +15,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 ## Prerequisites
 
 - Cisco IOS XE system must be running
-  [17.9 or later.](https://documentation.meraki.com/General_Administration/Firmware_Upgrades/Cisco_Meraki_Firmware_FAQ)
+  [17.9 or later](https://documentation.meraki.com/General_Administration/Firmware_Upgrades/Cisco_Meraki_Firmware_FAQ).
 - Guide assumes the network is using an on-prem 9800 Controller.
 - Wi-Fi system has AP(s) linked to the 9800 WLC Controller.
 - Cisco system has basic traffic routing working with existing SSID(s).
@@ -37,23 +37,24 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # Deploy RadSecProxy Container
 
-RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
+RADIUS messages used for user authentication and session accounting are transmitted unsecured and
 over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
-the UDP is then converted to a TLS protected TCP connection to the Helium Network core AAA servers.
+the UDP traffic is then converted to a TLS-protected TCP connection to the Helium Network core AAA
+servers.
 
 ## Prerequisites
 
 - An Intel-based machine with Docker installed.
 - The Intel-based machine has a private IP in your network reachable from your 9800 WLC Controller
-- ACLs or Firewalls allow 9800 WLC Controller and Docker Container to communicate UDP on port 1812
-  and 1813
-- ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802\.
+- ACLs or firewalls allow the 9800 WLC Controller and Docker container to communicate over UDP on
+  ports 1812 and 1813
+- ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802\.
 
 ## Container Deployment
 
-1. Un-zip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
+1. Unzip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
    host machine. This will unpack the following items:
-   1. `Dockerfile` \- The docker instructions on how to build the container
+   1. `Dockerfile` \- The Docker instructions on how to build the container
    2. `Radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
       Network AAA servers
    3. `docker-compose.yml` \- File to start and stop the container as a daemon.
@@ -62,7 +63,7 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
 tar -xvzf Helium_RadSec_Docker.tar.gz
 ```
 
-2. Into the same directory copy the 3 certificates obtained from Helium Network
+2. Into the same directory, copy the 3 certificates obtained from the Helium Network
    1. ca.pem \- the root CA certificate
    2. cert.pem \- the user certificate
    3. key.pem \- the key file matched to the certificate
@@ -83,8 +84,8 @@ sudo docker compose down
 The following steps will configure your Cisco 9800 WLC system to broadcast an SSID with the needed
 Passpoint and RADIUS configurations to support Helium Mobile user offload.
 
-To start login to your Cisco 9800 Dashboard in your browser, this will be our starting point for all
-major steps below
+To start, log in to your Cisco 9800 Dashboard in your browser. This will be our starting point for
+all major steps below.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -114,10 +115,10 @@ other parameters with default values set. Leave any unmentioned parameter at its
   />
 </figure>
 
-2. Confirm RADIUS is selected in left column and Click **+Add** in the top left
-3. Enter a **Name** e.g. Helium_AAA
+2. Confirm RADIUS is selected in the left column and click **+Add** in the top left
+3. Enter a **Name**, e.g. Helium_AAA
 4. Enter a **Server Address** with the IP of the RadSecProxy you installed earlier.
-5. Enter the **Key** and **Confirm Key** fields equal to "mysecret" (modify if you have modified
+5. Enter the **Key** and **Confirm Key** fields equal to "mysecret" (modify if you have modified it
    during the RadSecProxy container installation)
 6. Confirm the **Auth Port** and **Acct Port** are 1812 and 1813 respectively
    <figure className="screensnippet-wrapper">
@@ -130,7 +131,7 @@ other parameters with default values set. Leave any unmentioned parameter at its
 7. Click **Apply to Device**
 
 **NOTE** If you have installed multiple RadSecProxy instances for redundancy, repeat the server
-creation for each instance incrementing the names with an integer e.g. Helium_AAA_1
+creation for each instance, incrementing the names with an integer, e.g. Helium_AAA_1
 
 8. Click on **Server Group**
    <figure className="screensnippet-wrapper">
@@ -141,7 +142,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
      />
    </figure>
 9. Click on **+Add**
-10. Enter a **Name** e.g. "Helium_svg"
+10. Enter a **Name**, e.g. "Helium_svg"
 11. Select your AAA servers and use the arrows to move them into the **Assigned Servers** list
     <figure className="screensnippet-wrapper">
       <img
@@ -170,7 +171,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
        className="add-border-radius add-shadow add-shadow-margin"
      />
    </figure>
-3. Enter a **Name** e.g. Helium-aaa-meth-list
+3. Enter a **Name**, e.g. Helium-aaa-meth-list
 4. In **Type** dropdown select **dot1x**
 5. Select your Server Group in the list and use the arrows to move it to **Assigned Server Groups**
    <figure className="screensnippet-wrapper">
@@ -214,9 +215,9 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
    </figure>
 
 2. Click on **+Add**
-3. Enter a **Name** e.g. Helium_aaa_policy
-4. In the **NAS-ID Option 1** drop down select **Custom**
-5. Enter the NAS_ID shared with you by Helium
+3. Enter a **Name**, e.g. Helium_aaa_policy
+4. In the **NAS-ID Option 1** drop-down select **Custom**
+5. Enter the NAS-ID shared with you by Helium
 
    <figure className="screensnippet-wrapper">
      <img
@@ -242,7 +243,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
 3. Enter **Name** as **Helium**
 4. Enter **Description** as **Helium**
 5. Check the box for **Internet Access**
-6. In the **Network Type** drop down select **Chargeable Public**
+6. In the **Network Type** drop-down select **Chargeable Public**
 
    <figure className="screensnippet-wrapper">
      <img
@@ -276,9 +277,9 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
       />
     </figure>
 14. At the top of the window select **Server Settings**
-15. In the drop down for **IPv4 Type** select **Double NAT Private** (or option that appropriately
-    describes your network)
-16. In the drop down for **IPv6 Type** select **Not Available**
+15. In the drop-down for **IPv4 Type** select **Double NAT Private** (or the option that
+    appropriately describes your network)
+16. In the drop-down for **IPv6 Type** select **Not Available**
     <figure className="screensnippet-wrapper">
       <img
         src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-17.png')}
@@ -301,9 +302,9 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
 2. Click on **+Add**
 3. Enter **Name** as **Helium**
 4. Enter **SSID** as **Helium**
-5. Enter **WLAN ID** as your next available integer e.g. 4
-6. Select **Enable** to turn the ssid on
-7. Select Enable/Disable for 6GHz as you hardware supports
+5. Enter **WLAN ID** as your next available integer, e.g. 4
+6. Select **Enable** to turn the SSID on
+7. Select Enable/Disable for 6GHz as your hardware supports
    <figure className="screensnippet-wrapper">
      <img
        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-19.png')}
@@ -313,7 +314,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
    </figure>
 8. Select **Security** at the top of the window
 9. Select **Layer2** in the row below that
-10. Ensure the following boxes are **checked** including **WPA2 Policy**, **AES(CCMP128)**,
+10. Ensure the following boxes are **checked**, including **WPA2 Policy**, **AES(CCMP128)**,
     **802.1x**
     <figure className="screensnippet-wrapper">
       <img
@@ -323,7 +324,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
       />
     </figure>
 11. Select **AAA** at the top of the window
-12. In the **Authentication List** drop down select **Helium_aaa_meth_list**
+12. In the **Authentication List** drop-down select **Helium_aaa_meth_list**
     <figure className="screensnippet-wrapper">
       <img
         src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-21.png')}
@@ -355,7 +356,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
    </figure>
 5. Across the top, select **Access Policies**
 6. Select the **VLAN/VLAN Group** configured for Helium users (NOTE: This is typically a Guest type
-   network with access to internet only)
+   network with access to the internet only)
 
    <figure className="screensnippet-wrapper">
      <img
@@ -367,10 +368,10 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
 
 7. Across the top, select **Advanced**
 8. **Uncheck** the box next to **Client Exclusion Timeout**
-9. In the **Hotspot Server** drop down select **Helium**
+9. In the **Hotspot Server** drop-down select **Helium**
 10. **Check** the box for **Allow AAA Override**
-11. In the **Policy Name** drop down select **Helium_aaa_policy**
-12. In the **Accounting List** drop down select **Helium_meth_list_acct**
+11. In the **Policy Name** drop-down select **Helium_aaa_policy**
+12. In the **Accounting List** drop-down select **Helium_meth_list_acct**
     <figure className="screensnippet-wrapper">
       <img
         src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-25.png')}
@@ -393,7 +394,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
 2. Enter **Name** as **Helium**
 3. Enter **Description** as **Helium**
 4. Click **+Add** below **WLAN-POLICY**
-5. In both **WLAN Profile** and **Policy Profile** drop down menus select **Helium**
+5. In both **WLAN Profile** and **Policy Profile** drop-down menus select **Helium**
    <figure className="screensnippet-wrapper">
      <img
        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-27.png')}
@@ -439,7 +440,7 @@ creation for each instance incrementing the names with an integer e.g. Helium_AA
        className="add-border-radius add-shadow add-shadow-margin"
      />
    </figure>
-6. In the **Policy** Drop down select **Helium**
+6. In the **Policy** drop-down select **Helium**
    <figure className="screensnippet-wrapper">
      <img
        src={useBaseUrl('img/mobile-data-only/cisco-9800/Cisco-9800-32.png')}

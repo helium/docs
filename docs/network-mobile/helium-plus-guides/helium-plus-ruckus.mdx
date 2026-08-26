@@ -22,8 +22,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 1. Build Ruckus Helium Passpoint SSID
    1. Install Certs
-   2. Setup RadSec Proxy
-   3. Configuration HS2.0 Profile
+   2. Set Up RadSec Proxy
+   3. Configure HS2.0 Profile
    4. Build New SSID
 
 # Build Ruckus Helium Passpoint SSID
@@ -31,8 +31,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 The following steps will configure your Ruckus system to broadcast an SSID with the needed Passpoint
 and RADIUS configurations to support Helium Mobile user offload.
 
-To start login to your Ruckus Dashboard in your browser, this will be our starting point for all
-major steps below
+To start, log in to your Ruckus Dashboard in your browser. This will be our starting point for all
+major steps below.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -46,11 +46,11 @@ major steps below
 :::note
 
 In the following steps we will only mention mandatory fields to set. Most windows will have many
-other parameters with default values set. Leave any unmentioned parameter at it's default value.
+other parameters with default values set. Leave any unmentioned parameter at its default value.
 
 :::
 
-## Install RadSec Certs:
+## Install RadSec Certs
 
 1. Click on **Administration\>System\>Certificates\>SZ Trusted CA Certificates/Chain(External)**
 
@@ -76,7 +76,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 <br />
 
 4. Click **Validate** then **OK**
-5. Next on sub-menu bar select **SZ as Client Certificate** tab
+5. Next, on the sub-menu bar, select the **SZ as Client Certificate** tab
 
 <figure className="screensnippet-wrapper">
   <img
@@ -101,7 +101,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 </figure>
 <br />
 
-## Configure RadSec Authentication Proxy:
+## Configure RadSec Authentication Proxy
 
 1. Click on **Security\>Authentication\>Proxy(SZ Authenticator)**
 
@@ -118,7 +118,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 3. Fill in **Helium_Radsec** as **Name**
 4. Click the toggle **Encryption** to **TLS On**
 5. Enter **CN/SAN Identity** as **radius.stage.wifi.freedomfi.com**
-6. Select **Client Certificate** from drop down to be **Helium_radsec_client**
+6. Select **Client Certificate** from the drop-down to be **Helium_radsec_client**
 7. Enter **IP Address/FQDN** to be **52.37.147.195**
 8. Ensure **Port** is **2083**
 
@@ -133,7 +133,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 
 9. Click **OK**
 
-## Configure RadSec Accounting Proxy:
+## Configure RadSec Accounting Proxy
 
 1. Click on **Security\>Accounting\>Proxy**
 
@@ -150,7 +150,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 3. Enter **Name** as **Helium_radsec_acct**
 4. Enable the toggle for **Encryption** to **ON TLS**
 5. Enter **CN/SAN Identity** as **radius.stage.wifi.freedomfi.com**
-6. Select **Client Certificate** from drop down to be **Helium_radsec_client**
+6. Select **Client Certificate** from the drop-down to be **Helium_radsec_client**
 7. Enter **IP Address/FQDN** to be **52.37.147.195**
 8. Ensure **Port** is **2083**
 
@@ -165,7 +165,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 
 9. Click **OK**
 
-## Build Hotspot2.0 Profile:
+## Build Hotspot2.0 Profile
 
 1. Click **Services\>Hotspots\&Portals\>Hotspot 2.0**
 2. Under **Wi-Fi Operator** click **Create**
@@ -188,7 +188,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 5. Under **Identity Provider** click **Create**
    1. Fill in **Name** as **Helium_IDP**
    2. In the **Realms** section, enter **Name** as **Hellohelium.com** and click **\+Add**
-   3. In the drop down for **EAP Method** select **EAP-TLS** and click Create,
+   3. In the drop-down for **EAP Method**, select **EAP-TLS** and click Create.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -200,7 +200,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 <br />
 
 4. Choose **Auth Info** to be **Credential Type** and **Auth Type** to be **Certificate** and click
-   **OK.**
+   **OK**.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -224,7 +224,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 <br />
 
 6. Click Next
-7. Leave online signup disabled, click Next
+7. Leave online signup disabled, then click Next
 
 <figure className="screensnippet-wrapper">
   <img
@@ -238,7 +238,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 8. In **Authentication** for both **no-match** and **unspecified**:
    1. Click on the Realm name to Select
    2. Click configure
-   3. Choose Helium_Radsec from drop down
+   3. Choose Helium_Radsec from the drop-down
 
 <figure className="screensnippet-wrapper">
   <img
@@ -249,7 +249,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 </figure>
 <br />
 
-9. When done you should see this:
+9. When done, you should see this:
 
 <figure className="screensnippet-wrapper">
   <img
@@ -271,7 +271,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 </figure>
 <br />
 
-11. Config should match this screen
+11. Config should match this screen.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -282,7 +282,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 </figure>
 <br />
 
-12. Review and make sure it matches below
+12. Review and make sure it matches the image below.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -299,17 +299,17 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 
 1. Click on **Network\>Wireless LANS**
 2. Select your Zone
-3. Lick on **Create**
+3. Click on **Create**
 4. Name **Helium**
 5. Select **Authentication Type** to be **Hotspot2.0 Access**
-6. Under **Encryption** for **Method Choose WPA3**
-7. **Under Hotspots 2.0 Profile** in **Hotspot 2.0 profile** click **\+**
+6. Under **Encryption**, for **Method** choose **WPA3**
+7. Under **Hotspots 2.0 Profile**, in **Hotspot 2.0 profile** click **\+**
    1. For **Name** enter **Helium**
    2. For **Operator** select **Helium_operator**
    3. For **IDP** select **Helium_IDP** click **\+Add**
    4. **Advanced**
    5. Set **Access Network Type** to **Chargeable Public Network**
-   6. Select **IPv4 Double NATed private address** (or applicable to your network)
+   6. Select **IPv4 Double NATed private address** (or as applicable to your network)
 
 <figure className="screensnippet-wrapper">
   <img
@@ -320,7 +320,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 </figure>
 <br />
 
-8. Click **OK** and you should see configuration like the image below.
+8. Click **OK** and you should see a configuration like the image below.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -332,7 +332,7 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 <br />
 
 9. Under **RADIUS Options**
-   1. **NAS-ID \-\> User-Defined \>** enter your NAS-ID per Helium onboarding spreadsheet.
+   1. **NAS-ID \-\> User-Defined \>** enter your NAS-ID per the Helium onboarding spreadsheet.
    2. For **Called Station ID** set to **AP MAC**
    3. **Enable** the toggle for **Single Session ID accounting**
 
@@ -345,4 +345,4 @@ other parameters with default values set. Leave any unmentioned parameter at it'
 </figure>
 <br />
 
-10. Click OK
+10. Click OK.

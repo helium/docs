@@ -15,9 +15,9 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 - **RouterOS v7** device running CAPsMAN 2 (tested on **7.18.1**)
 - [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container running in your network.
-- For self-serve, CLI wallet prepared for onboarding:
+- For self-serve, a CLI wallet prepared for onboarding:
   [https://docs.helium.com/mobile/wifi-conversion-onboarding/](https://docs.helium.com/mobile/wifi-conversion-onboarding/)
-- For Helium Plus, certificates ( `ca.pem`, `cert.pem`, `key.pem` ) supplied by the Helium Plus team
+- For Helium Plus, certificates (`ca.pem`, `cert.pem`, `key.pem`) supplied by the Helium Plus team
   and copied into the RadSecProxy directory.
 - UDP ports **1812/1813** open between MikroTik and the RadSecProxy host.
 - Bridge interface already created and used as the datapath for Wi-Fi traffic.
@@ -32,24 +32,24 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ### 1. Deploy RadSecProxy
 
-At time of writing, RouterOS does not support RadSec natively, download the
-[RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container and run it in a Docker.
+At the time of writing, RouterOS does not support RadSec natively. Download the
+[RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container and run it in Docker.
 
-1. Un-zip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
+1. Unzip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
    host machine. This will unpack the following items:
-   1. `Dockerfile` \- The docker instructions on how to build the container
-   2. `Radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
-      Network AAA servers
-   3. `docker-compose.yml` \- File to start and stop the container as a daemon.
+   1. `Dockerfile` - The Docker instructions on how to build the container
+   2. `Radsecproxy.conf` - The radsecproxy config file is pre-populated to connect to Helium Network
+      AAA servers
+   3. `docker-compose.yml` - File to start and stop the container as a daemon.
 
 ```bash
 tar -xvzf  Helium_RadSec_Docker.tar.gz
 ```
 
-2. Into the same directory copy the 3 certificates obtained from Helium Network
-   1. `ca.pem` \- the root CA certificate
-   2. `cert.pem` \- the user certificate
-   3. `key.pem` \- the key file matched to the certificate
+2. Into the same directory copy the 3 certificates obtained from the Helium Network
+   1. `ca.pem` - the root CA certificate
+   2. `cert.pem` - the user certificate
+   3. `key.pem` - the key file matched to the certificate
 3. Start the container using:
 
 ```bash
@@ -112,12 +112,12 @@ Check WPA2 or WPA3 EAP under Authentication Types.
 
 #### EAP Tab
 
-Check EAP Accounting to be enabled.
+Check EAP Accounting to enable it.
 
 #### AAA Tab
 
-Paste a MAC address of the WAN interface (usually ether1 by default) from menu Interfaces. Or enter
-the NAS-ID provided during Helium Plus onboarding.
+Paste the MAC address of the WAN interface (usually ether1 by default) from the Interfaces menu, or
+enter the NAS-ID provided during Helium Plus onboarding.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -147,10 +147,10 @@ Fill in as shown:
 
 ### 4. Attach the Profile to an Interface
 
-Assign the configuration profile to the desired WiFi interface. Either click **New** (this will
+Assign the configuration profile to the desired Wi-Fi interface. Either click **New** (this will
 create a virtual AP) or **Edit** an existing master interface.
 
-Make sure to select a correct 5/2.4 interface according to the band defined in the configuration
+Make sure to select the correct 5/2.4 interface according to the band defined in the configuration
 profile.
 
 Enable it on the General tab.

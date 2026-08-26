@@ -34,34 +34,34 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
 over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
-the UDP is then converted to a TLS protected TCP connection to the Helium Network core AAA servers.
+the UDP is then converted to a TLS-protected TCP connection to the Helium Network core AAA servers.
 
 ## Prerequisites
 
 - An Intel-based machine with Docker installed.
 - The Intel-based machine has a private IP in your network reachable from your Meraki Mobility
-  Controller
-- ACLs or Firewalls allow Meraki Mobility Controller and Docker Container to communicate UDP on port
-  1812 and 1813
-- ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802\.
+  Controller.
+- ACLs or firewalls allow the Meraki Mobility Controller and Docker container to communicate over
+  UDP on ports 1812 and 1813.
+- ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802.
 
 ## Container Deployment
 
-1. Un-zip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
+1. Unzip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
    host machine. This will unpack the following items:
-   1. `Dockerfile` \- The docker instructions on how to build the container
-   2. `Radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
-      Network AAA servers
-   3. `docker-compose.yml` \- File to start and stop the container as a daemon.
+   1. `Dockerfile` - The Docker instructions on how to build the container
+   2. `Radsecproxy.conf` - The radsecproxy config file is pre-populated to connect to Helium Network
+      AAA servers
+   3. `docker-compose.yml` - File to start and stop the container as a daemon.
 
 ```bash
 tar -xvzf Helium_RadSec_Docker.tar.gz
 ```
 
-2. Into the same directory copy the 3 certificates obtained from Helium Network
-   1. ca.pem \- the root CA certificate
-   2. cert.pem \- the user certificate
-   3. key.pem \- the key file matched to the certificate
+2. Into the same directory copy the 3 certificates obtained from the Helium Network
+   1. ca.pem - the root CA certificate
+   2. cert.pem - the user certificate
+   3. key.pem - the key file matched to the certificate
 3. Start the container using:
 
 ```bash
@@ -79,8 +79,8 @@ sudo docker compose down
 The following steps will configure your Meraki system to broadcast an SSID with the needed Passpoint
 and RADIUS configurations to support Helium Mobile user offload.
 
-To start login to your Meraki Dashboard in your browser, this will be our starting point for all
-major steps below
+To start, log in to your Meraki Dashboard in your browser. This will be our starting point for all
+major steps below.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -110,7 +110,7 @@ other parameters with default values set. Leave any unmentioned parameter at its
   />
 </figure>
 
-2. Look for an “**Unconfigured SSID X**”
+2. Look for an "**Unconfigured SSID X**"
 3. Click on **rename**
    <figure className="screensnippet-wrapper">
      <img
@@ -119,7 +119,7 @@ other parameters with default values set. Leave any unmentioned parameter at its
        className="add-border-radius add-shadow add-shadow-margin"
      />
    </figure>
-4. Enter “**Helium**”
+4. Enter "**Helium**"
 5. Select **Enabled**
 6. Click **Save Changes**
 
@@ -129,15 +129,15 @@ other parameters with default values set. Leave any unmentioned parameter at its
 
 Helium is aware that Meraki has some native support for RadSec. Unfortunately, the Meraki
 implementation is not scalable for a network like Helium. Meraki builds a CA certificate specific to
-each group of APs and ask for it to be loaded on the AAA. That does not scale and there is no way to
-load the client certificate and key Helium produces during onboarding into the Meraki RadSec client.
-So for now the guide below uses our RadSecProxy container and plain RADIUS configuration on the
-Meraki devices.
+each group of APs and asks for it to be loaded on the AAA. That does not scale and there is no way
+to load the client certificate and key Helium produces during onboarding into the Meraki RadSec
+client. So for now the guide below uses our RadSecProxy container and plain RADIUS configuration on
+the Meraki devices.
 
 :::
 
 1. Click **Edit Settings**
-2. Under **Security** heading toggle the circle **Enterprise with**
+2. Under the **Security** heading, toggle the circle **Enterprise with**
 3. Select **my RADIUS Server**
    <figure className="screensnippet-wrapper">
      <img
@@ -148,7 +148,7 @@ Meraki devices.
    </figure>
 4. Scroll down to **RADIUS** and click the arrow on the right to expand
 5. Click add server and add the following configurations
-   1. Enter IP Address: **\<ip of your radsecproxy container host\>** Port: **1812** Secret:
+   1. Enter IP Address: **\<ip of your radsecproxy container host\>**, Port: **1812**, Secret:
       **mysecret**. Click **Done**.
    2. Add a second server if desired for HA redundancy.
       <figure className="screensnippet-wrapper">
@@ -158,8 +158,8 @@ Meraki devices.
           className="add-border-radius add-shadow add-shadow-margin"
         />
       </figure>
-6. Repeat those steps to add the same server to the RADIUS Accounting Servers list using **port
-   1813\.**
+6. Repeat those steps to add the same server to the RADIUS Accounting Servers list using
+   **port 1813.**
    <figure className="screensnippet-wrapper">
      <img
        src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-6.png')}
@@ -176,9 +176,9 @@ Meraki devices.
      />
    </figure>
 8. Click on the arrow to expand the **Advanced RADIUS settings** section
-9. Change the number 1 drop down for **NAS ID** to **Custom** and enter the NAS-ID you got during
+9. Change the number 1 dropdown for **NAS ID** to **Custom** and enter the NAS-ID you got during
    onboarding
-10. Click the **×** to remove number 2 in that list which says **SSID Number**
+10. Click the **×** to remove number 2 in that list, which says **SSID Number**
     <figure className="screensnippet-wrapper">
       <img
         src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-8.png')}
@@ -199,11 +199,11 @@ Meraki devices.
      />
    </figure>
 2. Change the toggle for **Hotspot 2.0** to **Enabled**
-3. Enter **Operator Name** to be “**Helium**”
+3. Enter **Operator Name** to be "**Helium**"
 4. Enter **Venue Name** to be the street address of your location
-5. Choose the best fitting **Venue Type** from the drop down
-6. Choose **Chargeable public network** from the drop down
-7. In domain list enter both **FreedomFi.com** and **Hellohelium.com**
+5. Choose the best fitting **Venue Type** from the dropdown
+6. Choose **Chargeable public network** from the dropdown
+7. In the domain list, enter both **FreedomFi.com** and **Hellohelium.com**
 8. Click **Create Realm**
    1. Enter **freedomfi.com** as the name
    2. Select **Add EAP Method**

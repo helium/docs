@@ -23,9 +23,9 @@ recognized by all major wallets.
 
 All rewardable entities are created by the `helium-entity-manager` program. Further, they exist
 under a collection that is managed by the Maker of that entity. The easiest way to fetch all Helium
-entities for a given wallet is to filter by the `helium-entity-manager-creator`
+entities for a given wallet is to filter by the `helium-entity-manager-creator`.
 
-We can get this address by running
+We can get this address by running:
 
 <!-- prettier-ignore -->
 ```js
@@ -62,7 +62,7 @@ curl --request POST \
 
 ### Hotspots and ECC Compact Keys
 
-Hotspots on the Helium Network currently are uniquely identified by their ECC Compact Public Keys.
+Hotspots on the Helium Network are currently uniquely identified by their ECC Compact Public Keys.
 
 At onboarding time, Hotspots can sign an onboard transaction proving physical ownership of the
 device.
@@ -115,8 +115,8 @@ and then self-onboards to the network. Because all hardware is created by approv
 onboard transaction must be approved by the Maker. This uses a similar flow to the legacy
 onboarding-server of the Helium blockchain.
 
-Makers are approved for specific subnetworks. A maker that creates IoT Hotspots cannot necessarily
-onboard Mobile Hotspots. Each network subnetwork must approve makers to issue rewardable entities.
+Makers are approved for specific subnetworks. A Maker that creates IoT Hotspots cannot necessarily
+onboard Mobile Hotspots. Each subnetwork must approve Makers to issue rewardable entities.
 
 The following test shows the full flow of onboarding a Hotspot using the onboarding server.
 
@@ -297,12 +297,12 @@ rewards have been claimed. Claiming rewards, then, consists of two steps:
 2. Issue the difference between the total lifetime rewards and total claimed rewards to the Hotspot
    owner.
 
-In practice, we have made it so that this can all happen in a singular transaction for reward
-claims. Staking rewards will happen in transactions combining up to 4 days of rewards.
+In practice, we have made it so that this can all happen in a single transaction for reward claims.
+Staking rewards will happen in transactions combining up to 4 days of rewards.
 
 ### Finding Current Rewards
 
-Oracles work off of a restful API that involves
+Oracles work off of a RESTful API that involves:
 
 1. Grabbing lifetime rewards for all oracles.
 2. Constructing a transaction to set the rewards and passing the transaction to each oracle to
@@ -311,8 +311,8 @@ Oracles work off of a restful API that involves
 
 The SDK simplifies this process into two functions, `getCurrentRewards` and `formTransaction`.
 
-If you have interest in using the REST api, you can see the relatively simple client code
-[here](https://github.com/helium/helium-program-library/blob/master/packages/distributor-oracle/src/client.ts)
+If you are interested in using the REST API, you can see the relatively simple
+[client code](https://github.com/helium/helium-program-library/blob/master/packages/distributor-oracle/src/client.ts).
 
 To fetch rewards across all oracles for a given asset id:
 

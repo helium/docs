@@ -5,7 +5,7 @@ pagination_label: LoRaWAN On Helium
 sidebar_label: LoRaWAN On Helium
 description:
   Technical overview of Helium's decentralized LoRaWAN architecture, including OUIs, the Packet
-  Router, DevAddr slabs, and frame routing.
+  Router, devAddr slabs, and frame routing.
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/lorawan-on-helium
 ---
@@ -17,7 +17,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 ## Overview
 
 The Helium Network has many points of distinction from a typical LoRaWAN network that are critical
-for understanding before deploying internet of things (IoT) applications on Helium.
+to understand before deploying Internet of Things (IoT) applications on Helium.
 
 In conventional LoRaWAN networks, end devices, such as sensors or actuators, send LoRa wireless
 messages to physical gateway devices. These gateways, in turn, forward the messages from the end
@@ -28,17 +28,17 @@ customers to leverage gateways and LNSs in developing end-to-end IoT application
 private configurations, a single entity uses the network and all of its networking components.
 
 The Helium Network takes a different approach with respect to LoRaWAN networks. Rather than have a
-centralized authority responsible for managing gateway devices (referred to as Hotspots in the
-Helium parlance) or LNSs that serves as a gatekeeper for deploying end devices, Helium allows for
-the decentralized operation of both Hotspots and LNSs with a completely permisionless architecture.
-In practice, this means that anybody can run a Hotspot device and provide LoRaWAN coverage to the
+centralized authority responsible for managing gateway devices (referred to as Hotspots in Helium
+parlance) or LNSs that serves as a gatekeeper for deploying end devices, Helium allows for the
+decentralized operation of both Hotspots and LNSs with a completely permissionless architecture. In
+practice, this means that anybody can run a Hotspot device and provide LoRaWAN coverage to the
 Helium Network. Similarly, anybody can operate an LNS and provide cloud connectivity and
 configuration for end devices. In turn, end devices operating on the Helium Network are able to tap
-into the global network of LoRaWAN connectivity powered by community operated Hotspots and gain
+into the global network of LoRaWAN connectivity powered by community-operated Hotspots and gain
 access to the largest LoRaWAN network ever created.
 
 In the remainder of this section, a high-level overview of the architecture of the Helium Network
-will be provided, in addition to a discussion on terminology of networking primitives.
+will be provided, in addition to a discussion on the terminology of networking primitives.
 
 ## High-Level Architecture
 
@@ -49,17 +49,17 @@ In this regard, a first primary difference is that rather than having gateway de
 communicate with LNSs, Helium introduces the concept of an intermediate routing service called
 [Helium Packet Router (HPR)](https://github.com/helium/helium-packet-router) that handles the
 connectivity between LNSs and Hotspots. As shown in the diagram below, end devices still send
-messages to Hotspots, but instead of the Hotspots subsequently forwarding the messages to directly
-to an LNS, the Hotspots send the messages to HPR. In doing so, HPR can identify the particular
-Hotspots that forwarded the message from the end device in order to properly credit the Hotspot with
-data transfer rewards on the Helium Network.
+messages to Hotspots, but instead of the Hotspots subsequently forwarding the messages directly to
+an LNS, the Hotspots send the messages to HPR. In doing so, HPR can identify the particular Hotspots
+that forwarded the message from the end device in order to properly credit the Hotspots with data
+transfer rewards on the Helium Network.
 
-A second primary difference is with the introduction of the
-[Helium IoT Config Service](https://github.com/helium/oracles/tree/main/iot_config) which serves as
-an interface for users for configuring routing rules relied on by HPR when determining where to
-forward messages from end devices to LNSs. Users can leverage tools including the
-[Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) for providing
-routing rule configurations to the Config Service (and in turn HPR).
+A second primary difference is the introduction of the
+[Helium IoT Config Service](https://github.com/helium/oracles/tree/main/iot_config), which serves as
+an interface for users to configure routing rules relied on by HPR when determining where to forward
+messages from end devices to LNSs. Users can leverage tools including the
+[Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) to provide routing
+rule configurations to the Config Service (and in turn HPR).
 
 ```mermaid
 graph LR
@@ -85,24 +85,24 @@ Each LNS on the Helium Network acquires an Organizationally Unique Identifier (O
 the LNS with the blockchain and allocates two very important routing objects owned and maintained by
 the OUI Operator:
 
-- one or more **slabs** of DevAddrs, reserving NwkAddr space for the OUI's devices on the Helium
+- one or more **slabs** of devAddrs, reserving NwkAddr space for the OUI's devices on the Helium
   Network
 
-A device defined by (AppEUI, DevEUI) can be allocated to any of the DevAddrs owned by the OUI. It is
-even possible to multiplex many devices on the same DevAddr at the same time, using the Message
+A device defined by (AppEUI, DevEUI) can be allocated to any of the devAddrs owned by the OUI. It is
+even possible to multiplex many devices on the same devAddr at the same time, using the Message
 Integrity Check (MIC) to disambiguate.
 
 Starting in 2023, Helium will be utilizing an OpenLNS Initiative to allow more choice and increase
 usability. You can read more about the OpenLNS Initiative at the [Helium Foundation
-Blog][foundation-blog] or read more in the [Use Helium LoraWAN](/iot/lorawan-network-servers)
+Blog][foundation-blog] or read more in the [Use Helium LoRaWAN](/iot/lorawan-network-servers)
 section.
 
 ## Organizationally Unique Identifier
 
 Organizationally Unique Identifiers (OUIs) are registered identities on the Helium Blockchain. To
-send and receive packets to an end-device, a network user needs to be serviced an OUI.
+send and receive packets to an end device, a network user needs to be serviced by an OUI.
 
-An OUI has some specificities related to LoRaWAN and packet routing, as
+An OUI has some specifics related to LoRaWAN and packet routing, as
 [documented above](/iot/lorawan-on-helium#the-oui), but with respect to the blockchain, what's
 important is that
 [only libp2p addresses registered as endpoints for the OUI](https://github.com/helium/proto/blob/master/src/blockchain_txn_oui_v1.proto#L6)
@@ -116,10 +116,10 @@ OUIs are purchased and numbered in incrementing order.
 
 :::info
 
-Based on the latest benchmarking tests the upper limit for a Devaddr `1024` slab is approximately
+Based on the latest benchmarking tests, the upper limit for a devAddr `1024` slab is approximately
 5800 devices, but results still need to be replicated and bracketed. Community members are
-encouraged to run their own benchmarking tests. Requires basic familiarity with Linux and Bash
-command line.
+encouraged to run their own benchmarking tests. Running these tests requires basic familiarity with
+Linux and the Bash command line.
 
 :::
 
@@ -127,7 +127,7 @@ command line.
 
 A Join Request frame has the following unencrypted header:
 
-```bash
+```text
 +---------------------------------------------------------+
 |   Size (octets)  |      8     |      8     |      8     |
 +------------------+------------+------------+------------+
@@ -135,21 +135,21 @@ A Join Request frame has the following unencrypted header:
 +---------------------------------------------------------+
 ```
 
-From the gateway's perspective, the (AppEUI, DevEUI) may be used to figure out if one or more OUI's
+From the gateway's perspective, the (AppEUI, DevEUI) may be used to figure out if one or more OUIs
 are interested in the Join Request.
 
 This is done by querying every filter maintained and written to the blockchain by every OUI. The
-filters themselves are _xorhash_ tables, thus the AppEui and DevEui cannot be extracted. Only with
-the AppEui and DevEui in hand can the gateway run it through the table to see if it's there.
+filters themselves are _xorhash_ tables, so the AppEUI and DevEUI cannot be extracted. Only with the
+AppEUI and DevEUI in hand can the gateway run them through the table to see if they're there.
 
 In response to the Join Request, a Join Accept is sent down, assigning the NwkAddr. Due to the
-multi-tenancy on the Helium Network, the LNS may only assign NwkAddrs within its DevAddr slab(s).
+multi-tenancy on the Helium Network, the LNS may only assign NwkAddrs within its devAddr slab(s).
 
-### Data Frames and DevAddr Slabs
+### Data Frames and devAddr Slabs
 
 Data packets have the following unencrypted header (FHDR):
 
-```bash
+```text
 +----------------------------------------------------------------------+
 |   Size (octets)  |     4      |      1     |      2     |    0..15   |
 +------------------+------------+------------+------------+------------+
@@ -157,9 +157,9 @@ Data packets have the following unencrypted header (FHDR):
 +----------------------------------------------------------------------+
 ```
 
-Within DevAddr, there is the NwkAddr of a device:
+Within devAddr, there is the NwkAddr of a device:
 
-```bash
+```text
 +------------------------------------------------+
 |                     DevAddr                    |
 +------------------------+-----------------------+
@@ -170,9 +170,9 @@ Within DevAddr, there is the NwkAddr of a device:
 +-----------+--------------------+---------------+
 ```
 
-From the gateway's perspective, it can use DevAddr to determine the OUI of Data frames. A quick
-query can say which OUI owns this DevAddr slab. This look-up and routing by DevAddr instead of by
-\(AppEUI, DevEUI\) via _xorhash_ filters is generally much quicker.
+From the gateway's perspective, it can use devAddr to determine the OUI of Data frames. A quick
+query can say which OUI owns this devAddr slab. This look-up and routing by devAddr instead of by
+(AppEUI, DevEUI) via _xorhash_ filters is generally much quicker.
 
 [foundation-blog]:
   https://medium.com/helium-foundation/scaling-iot-growth-with-heliums-open-lns-initiative-c906e6953d6d

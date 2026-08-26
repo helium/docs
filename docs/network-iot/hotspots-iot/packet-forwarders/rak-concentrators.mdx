@@ -17,7 +17,7 @@ and a Raspberry Pi.
 
 ## Requirements
 
-- **Raspberry Pi:** Multiple families are supported, however, not all the models have been tested.
+- **Raspberry Pi:** Multiple families are supported; however, not all the models have been tested.
   It's recommended to follow this guide with a Pi 3 or Pi 4.
 
 - **LoRaWAN Concentrator:** The concentrator module and Pi HAT to interface it with the Raspberry
@@ -31,14 +31,14 @@ and a Raspberry Pi.
 
 :::important
 
-To use the concentrator module with a Raspberry Pi HAT, you must make sure to order the variation
-with the SPI interface.
+To use the concentrator module with a Raspberry Pi HAT, you must order the variation with the SPI
+interface.
 
 :::
 
 ## Packet Forwarder Preparation
 
-To prepare the hardware to become a Helium Hotspot, it first must be configured to handle LoRaWAN
+To prepare the hardware to become a Helium Hotspot, it must first be configured to handle LoRaWAN
 messages. To get started, install an operating system and set up the packet forwarder as outlined in
 one of the two options below.
 
@@ -56,7 +56,7 @@ if you are already familiar with the Raspberry Pi and the RAK concentrator modul
 
 Follow the Quick Start Guide for your concentrator on the
 [RAK Documentation Center](https://docs.rakwireless.com/Product-Categories/WisLink/#wislink-lpwan).
-If using Wi-Fi for initial setup, it is recommended to initially configure the Raspberry Pi using
+If using Wi-Fi for initial setup, it is recommended to configure the Raspberry Pi using
 [Raspberry Pi Imager](https://www.youtube.com/watch?v=ntaXWS8Lk34).
 
 - [RAK2287 Quickstart](https://docs.rakwireless.com/Product-Categories/WisLink/RAK2287/Quickstart/)
@@ -86,7 +86,7 @@ choose the proper plan according to your country. To finish, press OK.
 </figure>
 <br />
 
-### Verify If The Packet Forwarder Is Running
+### Verify If the Packet Forwarder Is Running
 
 When the LoRa packet forwarder is running as a service, some log messages are recorded in the
 syslog. To inspect the logs, run the following command:
@@ -132,7 +132,7 @@ RAK concentrators; this is a "legacy name" that doesn't change when using differ
 ### Edit the Packet Forwarder Settings
 
 You will need to edit some basic options in the packet forwarder configuration to forward the
-packets to the address and port the helium_gateway service is listening to.
+packets to the address and port the helium_gateway service is listening on.
 
 Select the option _Edit packet-forwarder config_ within the _gateway-config_ interface. This option
 will open the `global_conf.json` file using the nano editor. Then, set the `server_address` to
@@ -149,7 +149,7 @@ will open the `global_conf.json` file using the nano editor. Then, set the `serv
 </figure>
 <br />
 
-Close the editor by pressing CTRL + X simultaneously, press ENTER to save the file.
+Close the editor by pressing CTRL + X simultaneously, then press ENTER to save the file.
 
 Restart the packet forwarder to apply the changes by selecting the option _Restart packet-forwarder_
 within the _gateway-config_ interface.
@@ -168,12 +168,12 @@ is changed later.
 
 Download the latest release from the [gateway-rs](https://github.com/helium/gateway-rs) repository
 on GitHub, and set the `<version>` according to
-[the latest release](https://github.com/helium/gateway-rs/releases). You can download it in any
+[the latest release](https://github.com/helium/gateway-rs/releases). You can download it to any
 directory, for example `/tmp`.
 
 #### Option 1
 
-Get from the repo directly to the Raspberry Pi by running the following commands:
+Download it from the repo directly to the Raspberry Pi by running the following commands:
 
 ```sh
 cd /tmp
@@ -223,9 +223,9 @@ sudo apt-get update && sudo apt-get install protobuf-compiler
 git clone https://github.com/helium/gateway-rs.git
 ```
 
-[Increase Raspberry Pi Swap Space](https://pimylifeup.com/raspberry-pi-swap-file/) A clean Raspberry
-Pi OS install may not have enough available RAM or swap space to build gateway-rs. Increase the swap
-space of the Pi for a smooth build.
+A clean Raspberry Pi OS install may not have enough available RAM or swap space to build gateway-rs.
+[Increase the swap space of the Pi](https://pimylifeup.com/raspberry-pi-swap-file/) for a smooth
+build.
 
 ```sh title="Build gateway-rs"
 cd gateway-rs/
@@ -241,9 +241,9 @@ After obtaining or building gateway-rs, move the `helium_gateway` executable fil
 
 The `settings.toml` file handles the location of the keyfile used to sign messages as well as the
 default region configuration for the Helium IoT Network. It is recommended to make a copy of the
-settings.toml file that otherwise exists within the `gateway-rs/config/` folder.
+`settings.toml` file that exists within the `gateway-rs/config/` folder.
 
-For simplicity in this guide, place the `settings.toml`file at the home path.
+For simplicity in this guide, place the `settings.toml` file at the home path.
 
 ```sh title="Make a copy of settings.toml"
 cp gateway-rs/config/settings.toml ~/settings.toml
@@ -297,8 +297,8 @@ sudo systemctl start gateway-rs.service
 sudo journalctl -fu gateway-rs
 ```
 
-If there are errors in running the service edit it by first stopping the service
-(`systemctl stop gateway-rs.service`), then editing it
+If there are errors in running the service, first stop the service
+(`systemctl stop gateway-rs.service`), then edit it
 (`sudo nano /etc/systemd/system/gateway-rs.service`). After changes are made, rerun the above
 commands to test and monitor.
 
@@ -312,7 +312,7 @@ as the Hotspot location is asserted.
 
 ### Inspecting the Service Logs
 
-The service starts after installation automatically. You can check the execution logs by running the
+The service starts automatically after installation. You can check the execution logs by running the
 following command:
 
 ```
@@ -340,10 +340,10 @@ This command should give you an output like the following one:
 #### Backup the gateway_key
 
 The `gateway_key.bin` file stores the information used to identify the Hotspot on the Helium IoT
-Network. It's highly advised to backup this file, especially if you need to recover it later after
-the onboarding process.
+Network. It's highly advised to back up this file, especially if you need to recover it after the
+onboarding process.
 
-Using SCP could be an option to do the backup; that would be something like this:
+Using SCP is one option for the backup; that would look something like this:
 
 ```
 scp pi@<gateway ip>:/etc/helium_gateway/gateway_key.bin <destination directory>
@@ -354,8 +354,8 @@ functionality.
 
 ## Onboard the Hotspot
 
-Refer to the [on-device onboarding guide](/iot/onboard-a-hotspot/on-device) section to complete the
-onboarding of the fully-configured Hotspot.
+Refer to the [on-device onboarding guide](/iot/onboard-a-hotspot/on-device) to complete the
+onboarding of the fully configured Hotspot.
 
 ## Video Guide for Setup
 

@@ -24,13 +24,13 @@ on a server for a fleet instead, see [Server Onboarding](/iot/onboard-a-hotspot/
 
 ## Prerequisites
 
-- LoRaWAN Gateway with Gateway-rs installed.
+- LoRaWAN gateway with gateway-rs installed.
 - Helium Wallet CLI with a funded account imported.
 - Token balances to onboard a Hotspot.
-  - 100,000 ($1) Data Credits (DCs) comprised of
+  - 100,000 ($1) Data Credits (DCs) consisting of
     - 50,000 ($0.50) to add a Hotspot
     - 50,000 ($0.50) to assert its location
-  - SOL (Solana's native cryptocurrency) to cover transaction fees (~0.01 Sol)
+  - SOL (Solana's native cryptocurrency) to cover transaction fees (~0.01 SOL)
 
 ## Installing Gateway-rs
 
@@ -124,7 +124,7 @@ on-chain. The Hotspot will not transfer data unless one of these criteria is met
 ```
 
 Determine the region plan that should be used. The selected region plan must match the region plan
-in the Semtech Packet Forwarder.
+in the Semtech packet forwarder.
 
 #### [Optional] Define `gateway_key.bin` Location
 
@@ -142,7 +142,7 @@ found.
 keypair = "/etc/helium_gateway/gateway_key.bin"
 ```
 
-It's advised to backup the `gateway_key.bin` file, especially if it needs to be recovered after the
+It's advised to back up the `gateway_key.bin` file in case it needs to be recovered after the
 onboarding process.
 
 ### First Run
@@ -165,7 +165,7 @@ sudo helium_gateway server
 
 ### Continued Operation
 
-Gateway-rs will not automatically run at system start. To make gateway-rs automatically run, create
+Gateway-rs will not automatically run at system start. To make gateway-rs run automatically, create
 a system service.
 
 ```sh title="Create a service file for gateway-rs"
@@ -174,7 +174,7 @@ sudo nano /etc/systemd/system/gateway-rs.service
 
 Define the system user to execute the service (Line 9).
 
-```service {9} showLineNumbers title="Create this service at /etc/systemd/system/gateway-rs.service"
+```ini {9} showLineNumbers title="Create this service at /etc/systemd/system/gateway-rs.service"
 # /etc/systemd/system/gateway-rs.service
 [Unit]
 Description=Helium Gateway
@@ -203,14 +203,13 @@ sudo systemctl start gateway-rs.service
 sudo journalctl -fu gateway-rs
 ```
 
-If there are errors in the service, edit it by first stopping the service
-(`systemctl stop gateway-rs.service`), then editing it
-(`sudo nano /etc/systemd/system/gateway-rs.service`). After changes are made, rerun the above
+If there are errors in the service, first stop it (`systemctl stop gateway-rs.service`), then edit
+it (`sudo nano /etc/systemd/system/gateway-rs.service`). After changes are made, rerun the above
 commands to test and monitor.
 
 ## Prepare the Helium Wallet CLI
 
-The Helium Wallet CLI will be used to sign and submit the transaction generated. The Helium Wallet
+The Helium Wallet CLI will be used to sign and submit the generated transaction. The Helium Wallet
 CLI should not be installed on the Hotspot.
 
 For details on setting up the Helium Wallet CLI and using an existing account, see the
@@ -245,9 +244,8 @@ for the `<OWNER>` and `<PAYER>` fields.
 helium_gateway add --owner <OWNER> --payer <PAYER>
 ```
 
-The owner and payer accounts can both be the same. To onboard the Hotspot, the payer account will
-need to sign the transaction and pay the DC onboarding fee. The owner will be the recipient of the
-Hotspot.
+The owner and payer can be the same account. To onboard the Hotspot, the payer account will need to
+sign the transaction and pay the DC onboarding fee. The owner will be the recipient of the Hotspot.
 
 The add command will generate the transaction that can be used in the onboarding step.
 
@@ -261,7 +259,7 @@ The add command will generate the transaction that can be used in the onboarding
 }
 ```
 
-## Onboarding With The Command Line Interface Wallet
+## Onboarding With the Command Line Interface Wallet
 
 Onboarding is done using the [Helium CLI Wallet](/wallets/cli-wallet).
 
@@ -284,7 +282,7 @@ up using a Solana block explorer such as [Solana Explorer](https://explorer.sola
 }
 ```
 
-## Asserting With The Command Line Interface Wallet
+## Asserting With the Command Line Interface Wallet
 
 To assert the location of the Hotspot using the Helium CLI Wallet, use the command
 `helium-wallet hotspots update`.
@@ -299,7 +297,7 @@ Before running the assert command, get the public key from the Hotspot.
 helium_gateway key info
 ```
 
-The `key info` command will return the Hotspot's 'animal name' along with the Hotspot's public key.
+The `key info` command will return the Hotspot's 'animal name' along with its public key.
 
 ```json
 {
@@ -319,11 +317,11 @@ helium-wallet hotspots update iot <Hotspot Public Key> --lat=37.771150 --lon=-12
 
 `--elevation` and `--gain` are optional values and can be updated at any time without further fees
 as long as the lat/lon values remain the same. Use the built-in help command,
-`helium-wallet hotspots update --help` for more info.
+`helium-wallet hotspots update --help`, for more info.
 
 :::important Location Availability
 
-While Hotspot metadata like RSSI or pubkey are reported immediately, it may take up to 24 hours for
+While Hotspot metadata like RSSI or pubkey is reported immediately, it may take up to 24 hours for
 the location information to be processed and reflected in the LNS.
 
 :::

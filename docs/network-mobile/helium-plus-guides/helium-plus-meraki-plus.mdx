@@ -18,19 +18,19 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - Guide assumes the network is using an on-prem Meraki MX Controller.
 - Meraki system has AP(s) linked to the MX Controller.
 - Meraki system has basic traffic routing working with existing SSID(s).
-- Must have the Meraki specific certificate used for the Helium Plus Meraki onboarding process.
+- Must have the Meraki-specific certificate used for the Helium Plus Meraki onboarding process.
 
 # High Level Steps
 
 1. Build Meraki Helium Passpoint SSID
-   1. Import Helium CA certificate and export Meraki CA certificate to Helium team
+   1. Import Helium CA certificate and export Meraki CA certificate to the Helium team
    2. Build a new SSID
    3. Configure SSID to use RADIUS
    4. Build Hotspot 2.0 Profile
 
-# Import and Export CA certificates
+# Import and Export CA Certificates
 
-1.  Login to your Meraki Dashboard in your browser
+1.  Log in to your Meraki Dashboard in your browser
 2.  Click on **Organizations** in the left menu column
 3.  Click on **Certificates**
 
@@ -44,7 +44,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
     <br />
 
 4.  Select the **RADSEC** tab
-5.  Click on **Upload CA certificate** and upload the Helium CA certificate file sent to you by
+5.  Click on **Upload CA certificate** and upload the Helium CA certificate file sent to you by the
     Helium team
     <figure className="screensnippet-wrapper">
       <img
@@ -91,7 +91,7 @@ and RADIUS configurations to support Helium Mobile user offload.
   />
 </figure>
 
-2. Look for an “**Unconfigured SSID X**”
+2. Look for an "**Unconfigured SSID X**"
 3. Click on **rename**
    <figure className="screensnippet-wrapper">
      <img
@@ -100,14 +100,14 @@ and RADIUS configurations to support Helium Mobile user offload.
        className="add-border-radius add-shadow add-shadow-margin"
      />
    </figure>
-4. Enter “**Helium**”
+4. Enter "**Helium**"
 5. Select **Enabled**
 6. Click **Save Changes**
 
 ## Configure Helium SSID for RADIUS Access Control
 
 1. Click **Edit Settings**
-2. Under **Security** heading toggle the circle **Enterprise with**
+2. Under the **Security** heading, toggle the circle **Enterprise with**
 3. Select **my RADIUS Server**
    <figure className="screensnippet-wrapper">
      <img
@@ -118,10 +118,10 @@ and RADIUS configurations to support Helium Mobile user offload.
    </figure>
 4. Scroll down to **RADIUS** and click the arrow on the right to expand
 5. Click add server and add the following configurations
-   1. Enter IP Address: **16.145.124.242** Port: **2083** Secret: **radsec**. Click **Done**.
+   1. Enter IP Address: **16.145.124.242**, Port: **2083**, Secret: **radsec**. Click **Done**.
 
-6. Repeat those steps to add the same server to the RADIUS Accounting Servers list using **port
-   2083\.**
+6. Repeat those steps to add the same server to the RADIUS Accounting Servers list using
+   **port 2083.**
 
    <figure className="screensnippet-wrapper">
      <img
@@ -140,9 +140,9 @@ and RADIUS configurations to support Helium Mobile user offload.
      />
    </figure>
 8. Click on the arrow to expand the **Advanced RADIUS settings** section
-9. Change the number 1 drop down for **NAS ID** to **Custom** and enter the NAS-ID you got during
+9. Change the number 1 dropdown for **NAS ID** to **Custom** and enter the NAS-ID you got during
    onboarding
-10. Click the **×** to remove number 2 in that list which says **SSID Number**
+10. Click the **×** to remove number 2 in that list, which says **SSID Number**
     <figure className="screensnippet-wrapper">
       <img
         src={useBaseUrl('img/mobile-data-only/meraki/Meraki-figure-8.png')}
@@ -163,11 +163,11 @@ and RADIUS configurations to support Helium Mobile user offload.
      />
    </figure>
 2. Change the toggle for **Hotspot 2.0** to **Enabled**
-3. Enter **Operator Name** to be “**Helium**”
+3. Enter **Operator Name** to be "**Helium**"
 4. Enter **Venue Name** to be the street address of your location
-5. Choose the best fitting **Venue Type** from the drop down
-6. Choose **Chargeable public network** from the drop down
-7. In domain list enter both **FreedomFi.com** and **Hellohelium.com**
+5. Choose the best fitting **Venue Type** from the dropdown
+6. Choose **Chargeable public network** from the dropdown
+7. In the domain list, enter both **FreedomFi.com** and **Hellohelium.com**
 8. Click **Create Realm**
    1. Enter **freedomfi.com** as the name
    2. Select **Add EAP Method**

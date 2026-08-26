@@ -26,7 +26,7 @@ or higher and
 [AP firmware version 6.6.77](https://community.ui.com/releases/UniFi-Access-Point-6-6-77/1368d5eb-f4d7-4861-9eae-a317e2bebce9)
 or
 [AP firmware version 7.0.66](https://community.ui.com/releases/UniFi-Access-Point-7-0-66/edfb7cb4-c629-4e3b-a362-549eec2e0e1b)
-or higher, depending on hardware release track.
+or higher, depending on the hardware release track.
 
 ## Obtain RadSec Certificates
 
@@ -63,7 +63,7 @@ applied.
 ## Configure UniFi Network Controller
 
 After retrieving certificates, configuration is a two-part process: create the RADIUS profile, then
-apply it to a new WiFi SSID named **Helium**.
+apply it to a new Wi-Fi SSID named **Helium**.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -76,9 +76,10 @@ apply it to a new WiFi SSID named **Helium**.
 
 ### Create a RADIUS Profile
 
-Configure a TLS connection to Helium Cloud AAA server (aka Radiator), which performs Authentication,
-Authorization, and Accounting for the end customers. Enabling RADIUS communication over TLS (RadSec)
-increases the level of security for authentication that is carried out across the cloud network.
+Configure a TLS connection to the Helium Cloud AAA server (aka Radiator), which performs
+Authentication, Authorization, and Accounting for the end customers. Enabling RADIUS communication
+over TLS (RadSec) increases the level of security for authentication that is carried out across the
+cloud network.
 
 In the sidebar, choose **Settings**, then **Networks**, then scroll to the bottom to **Radius
 Servers**.
@@ -138,7 +139,7 @@ Servers. This is a current Ubiquiti UI bug.
     className="add-border-radius add-shadow add-shadow-margin"
   />
   <figcaption>
-    Accounting checkbox greyed out—workaround: save and reopen the RADIUS profile.
+    Accounting checkbox greyed out. Workaround: save and reopen the RADIUS profile.
   </figcaption>
 </figure>
 <br />
@@ -151,7 +152,7 @@ Servers. This is a current Ubiquiti UI bug.
 1. Enter IP Address: `44.229.62.214` Port: `2083` Shared Secret: `radsec`. Click **Add**.
 1. Enter IP Address: `44.241.107.197` Port: `2083` Shared Secret: `radsec`. Click **Add**.
 
-1. Check **Interim Update Interval** box.
+1. Check the **Interim Update Interval** box.
 1. Set **Interim Update Interval** to **300** seconds (standard for the Helium Network).
 
 <figure className="screensnippet-wrapper">
@@ -167,7 +168,7 @@ Click **Apply Changes** to create the new RADIUS profile.
 
 ### Create the Helium SSID
 
-Navigate to **Settings** in the sidebar, choose **WiFi**, then click **Create New**
+Navigate to **Settings** in the sidebar, choose **WiFi**, then click **Create New**.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -175,7 +176,7 @@ Navigate to **Settings** in the sidebar, choose **WiFi**, then click **Create Ne
     style={{ maxHeight: '300px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
-  <figcaption>Create a new WiFi network.</figcaption>
+  <figcaption>Create a new Wi-Fi network.</figcaption>
 </figure>
 <br />
 
@@ -186,10 +187,10 @@ Configure settings for the new network.
 3. Under **Hotspot Type** select `Passpoint`. Passpoint settings will appear below.
 4. Specify **Venue Name** to a name for your site.
 5. Specify **Venue Type** with the option that best matches your site.
-6. Set **Network Type** to `Chargeable Public Network`
+6. Set **Network Type** to `Chargeable Public Network`.
 7. Set **IP Address Type Availability**:
    1. IPv4 to `Double NATed private IPv4`.
-   2. IPv6 to `Unavailable`
+   2. IPv6 to `Unavailable`.
 8. Add **NAI Realms** with the following two entries:
    1. Name: `freedomfi.com` EAP Method: `EAP-TLS` Sub-Methods: `Certificate`.
    2. Name: `hellohelium.com` EAP Method: `EAP-TLS` Sub-Methods: `Certificate`.
@@ -201,11 +202,11 @@ Configure settings for the new network.
     style={{ maxHeight: '600px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
-  <figcaption>Create a new WiFi network.</figcaption>
+  <figcaption>Create a new Wi-Fi network.</figcaption>
 </figure>
 <br />
 
-10. Set **Security Protocol** to: `WPA3 Enterprise`
+10. Set **Security Protocol** to `WPA3 Enterprise`.
 
 11. Choose **External RADIUS Profile**: **Helium RadSec**.
 
@@ -219,7 +220,7 @@ Configure settings for the new network.
 </figure>
 <br />
 
-12. Under **_NAS ID_** Enter the NAS-ID used during Helium onboarding in the **Custom** field of
+12. Under **_NAS ID_**, enter the NAS-ID used during Helium onboarding in the **Custom** field of
     **NAS-ID**.
 
 <figure className="screensnippet-wrapper">

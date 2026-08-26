@@ -8,7 +8,7 @@ image: https://docs.helium.com/img/link-image.png
 slug: /mobile/helium-plus-security-faq
 ---
 
-Converted (brownfield) WiFi networks use existing infrastructure to provide Helium Mobile
+Converted (brownfield) Wi-Fi networks use existing infrastructure to provide Helium Mobile
 connectivity. While Helium manages several security features centrally, deployers retain
 responsibility for network-level security at their sites. This guide explains the security model and
 best practices for brownfield deployments.
@@ -36,14 +36,14 @@ authentication between client devices and the network.
 ### Certificate Lifecycle
 
 Helium manages the certificate lifecycle for RADIUS authentication. Certificates are generated
-during onboarding and must be installed on your RadSec proxy or WiFi controller. Certificate
+during onboarding and must be installed on your RadSec proxy or Wi-Fi controller. Certificate
 expiration dates are provided at creation time; plan for renewal before expiration.
 
 ### RADIUS Authentication
 
 Helium operates RADIUS servers that authenticate Passpoint clients. Your network sends
 authentication requests over RadSec (RADIUS over TLS) to Helium's infrastructure. Both deployment
-options—local RadSec proxy and Helium-hosted RadSec with VPN—ultimately deliver RADIUS traffic to
+options, local RadSec proxy and Helium-hosted RadSec with VPN, ultimately deliver RADIUS traffic to
 Helium over TLS. However, the encryption boundaries differ: a local proxy encrypts RADIUS at your
 site, while the hosted option relies on an IPsec VPN tunnel to carry unencrypted RADIUS to the cloud
 proxy, which then forwards over TLS.
@@ -79,9 +79,9 @@ servers, a secure transport is required.
 
 ### RadSec (RADIUS over TLS)
 
-The industry solution is RadSec—RADIUS encapsulated in TLS. RadSec encrypts RADIUS messages and runs
-over TCP, making it suitable for traversing the internet. Helium requires RadSec for all brownfield
-RADIUS connectivity.
+The industry solution is RadSec, which is RADIUS encapsulated in TLS. RadSec encrypts RADIUS
+messages and runs over TCP, making it suitable for traversing the internet. Helium requires RadSec
+for all brownfield RADIUS connectivity.
 
 ### Shared Secret Note
 
@@ -101,7 +101,7 @@ You have two main deployment options:
 
 2. **Helium-Hosted RadSec with VPN**: If you cannot run a local RadSec proxy, you can use Helium's
    hosted RadSecProxy. In this case, you must establish an IPsec VPN from your network to the Helium
-   cloud instance. Unencrypted RADIUS must never traverse the open internet—the VPN provides the
+   cloud instance. Unencrypted RADIUS must never traverse the open internet; the VPN provides the
    secure tunnel.
 
 [More details about RadSecProxy deployment options can be found here.](/mobile/helium-plus-radsecproxy)
@@ -123,7 +123,7 @@ remain unchanged. Follow the best practices in this guide to keep the Passpoint 
 ### Do I need to use RadSec, or can I send RADIUS directly to Helium?
 
 You must use RadSec (RADIUS over TLS). Standard RADIUS over UDP is not supported for connectivity to
-Helium's cloud. If your WiFi equipment does not support RadSec natively, deploy RadSecProxy locally
+Helium's cloud. If your Wi-Fi equipment does not support RadSec natively, deploy RadSecProxy locally
 or use the VPN option with Helium-hosted RadSecProxy.
 
 ### What happens if my RADIUS certificates expire?

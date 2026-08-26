@@ -11,7 +11,7 @@ slug: /mobile/helium-plus-mobile
 ---
 
 The network conversion process activates Passpoint-enabled hardware for cellular network data
-transfer on Helium. In the cellular industry, these are known as 'Brownfield' deployments – where
+transfer on Helium. In the cellular industry, these are known as 'Brownfield' deployments, where
 existing hardware is configured to operate a new network. Converted networks continue to work with
 existing SSIDs. The Helium Network configurations are additive to other configurations and do not
 impact existing network function.
@@ -19,23 +19,23 @@ impact existing network function.
 Using existing infrastructure reduces costs, making it a practical solution for venue owners. When
 deciding between deploying a new Hotspot (Greenfield) or converting an existing network, consider
 deployment costs and coverage needs. Both options can complement each other in the Helium Mobile
-network.
+Network.
 
 ## Getting Started
 
 For compatible networks, integrating with Helium Mobile is simple. Start by reviewing the
-manufacturer-specific guides or refer to the generic deployment reference for guidance with other
-manufacturers:
+manufacturer-specific guides or referring to the generic deployment reference for guidance with
+other manufacturers:
 
 - [General Conversion Guide](/mobile/helium-plus-generic)
-- [Helium Plus Security FAQ](/mobile/helium-plus-security-faq) — Security considerations and best
+- [Helium Plus Security FAQ](/mobile/helium-plus-security-faq): Security considerations and best
   practices for converted networks
 
 ## Deployment Requirements
 
-Existing WiFi networks must have Passpoint-enabled access points, which are typically supported by
+Existing Wi-Fi networks must have Passpoint-enabled access points, which are typically supported by
 manufacturers like Ubiquiti, Cisco, and Aruba. Additionally, these access points need to integrate
-with the Helium MOBILE Network to handle traffic and qualify for data transfer rewards. This
+with the Helium Mobile Network to handle traffic and qualify for data transfer rewards. This
 integration involves network-level configurations for authentication, authorization, and accounting.
 
 ### Enterprise Network Considerations
@@ -45,18 +45,18 @@ certificates. The entities created from the self-serve tooling expect each pubke
 attached to a single NAS-ID. Via the [Helium Plus](http://helium.com/plus) program, multiple NAS-IDs
 may be onboarded to a single certificate set.
 
-### RadSecProxy Deployment options
+### RadSecProxy Deployment Options
 
-RADIUS is a UDP protocol meant for use inside an operators secure network. RADIUS in standard form
-is not meant to traverse the open internet as this would expose private user identity data to the
-open internet. To address this the industry created a RADIUS over TLS protocol called RadSec. Using
-RadSec RADIUS contents are encrypted and packaged into a TCP session which makes it suitable to
-traverse the open internet safely.
+RADIUS is a UDP protocol meant for use inside an operator's secure network. RADIUS in standard form
+is not meant to traverse the open internet, as this would expose private user identity data. To
+address this, the industry created a RADIUS over TLS protocol called RadSec. Using RadSec, RADIUS
+contents are encrypted and packaged into a TCP session, which makes it suitable to traverse the open
+internet safely.
 
-If your WiFi OEM does not natively support RadSec in the network you want to convert, deployers must
+If your Wi-Fi OEM does not natively support RadSec in the network you want to convert, you must
 choose one of two main options:
 
-- Deploy local RadSecProxy within the deployer controlled secure domain
-- Establish a secure IPsec VPN to the Helium hosted cloud RadSecProxy instance
+- Deploy local RadSecProxy within the deployer-controlled secure domain
+- Establish a secure IPsec VPN to the Helium-hosted cloud RadSecProxy instance
 
 [More details about RadSecProxy can be found here.](/mobile/helium-plus-radsecproxy)

@@ -20,7 +20,7 @@ The Helium Oracles handle all data about the network, except for transactions ha
 ## Accessing Oracle Data
 
 Data is directly accessible from the `foundation-poc-data-requester-pays` bucket in AWS `us-west-2`
-under the top-level data category prefixes listed below. All data in the S3 bucket uses 'Requestor
+under the top-level data category prefixes listed below. All data in the S3 bucket uses 'Requester
 Pays', meaning you pay for data transfer and AWS API costs. Amazon will charge you for:
 
 1. Storage costs on any destination buckets
@@ -51,12 +51,12 @@ structure noted below:
 When working with this bucket, keeping data in `us-west-2` and being pragmatic about which AWS S3
 access patterns are used will greatly reduce the cost burden for accessing the data.
 
-Regarding access patterns, one approach to minimize the quantity of S3 API calls over time - and
-save money - is to use the `aws s3api list-objects-v2` command and specify the `--start-after` and
+Regarding access patterns, one approach to minimize the quantity of S3 API calls over time, and save
+money, is to use the `aws s3api list-objects-v2` command and specify the `--start-after` and
 `--prefix` parameters. In particular, the `aws s3api list-objects-v2` command can be invoked
 iteratively over time with the `--start-after` parameter set to the
 `top-level data category prefix` + `filename` of the last file received and the `--prefix` parameter
-set to the `top-level data category` + `file prefix` of desired file, as indicated below:
+set to the `top-level data category` + `file prefix` of the desired file, as indicated below:
 
 ```bash
 aws s3api list-objects-v2 --bucket foundation-poc-data-requester-pays  --start-after <top-level-data-category-prefix/filename> --prefix <top-level-data-category-prefix/file_prefix> --request-payer requester
@@ -76,9 +76,9 @@ file list.
 
 The raw data stored in the `foundation-poc-data-requester-pays` bucket is in encoded protobuf format
 in `.gz` compressed files. The table below provides the top-level data category prefixes, the file
-types comprised within each data category prefix, the file prefixes beginning each filename, the
-filename patterns for each of the file types, and links to the corresponding protobuf used to  
-decode the data.
+types contained within each data category prefix, the file prefixes beginning each filename, the
+filename patterns for each of the file types, and links to the corresponding protobuf used to decode
+the data.
 
 :::warning Proof-of-Coverage data is deprecated
 
@@ -101,7 +101,7 @@ deprecated and kept here for historical reference. Existing files remain accessi
 | `foundation-iot-verified-rewards`   | `IotPoc`                                 | `iot_poc`                                     | `iot_poc.<unix_ms_timestamp>.gz`                                     | [`service/poc_lora.proto`<br />(Line 216: `lora_poc_v1`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_lora.proto#L216)                                              |
 | `foundation-iot-verified-rewards`   | `IotInvalidBeaconReport`                 | `iot_invalid_beacon`                          | `iot_invalid_beacon.<unix_ms_timestamp>.gz`                          | [`service/poc_lora.proto`<br />(Line 153: `lora_invalid_beacon_report_v1`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_lora.proto#L153)                            |
 | `foundation-iot-verified-rewards`   | `IotInvalidWitnessReport`                | `iot_invalid_witness`                         | `iot_invalid_witness.<unix_ms_timestamp>.gz`                         | [`service/poc_lora.proto`<br />(Line 173: `lora_invalid_witness_report_v1`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_lora.proto#L173)                           |
-| `foundation-iot-verified-rewards`   | `GatewayRewardShare`                     | `gateway_reward_share`(Deprecated 4/18/23)    | `gateway_reward_share.<unix_ms_timestamp>.gz`                        | [`service/poc_lora.proto`<br />(Line 171: `gateway_reward_share`)](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L171)                                     |
+| `foundation-iot-verified-rewards`   | `GatewayRewardShare`                     | `gateway_reward_share` (Deprecated 4/18/23)   | `gateway_reward_share.<unix_ms_timestamp>.gz`                        | [`service/poc_lora.proto`<br />(Line 171: `gateway_reward_share`)](https://github.com/helium/proto/blob/149997d2a74e08679e56c2c892d7e46f2d0d1c46/src/service/poc_lora.proto#L171)                                     |
 | `foundation-iot-verified-rewards`   | `RewardManifest`                         | `reward_manifest`                             | `reward_manifest.<unix_ms_timestamp>.gz`                             | [`reward_manifest.proto`<br />(Line 5: `reward_manifest`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/reward_manifest.proto#L5)                                                |
 | `foundation-iot-verified-rewards`   | `NonRewardablePacket`                    | `non_rewardable_packet`                       | `non_rewardable_packet.<unix_ms_timestamp>.gz`                       | [`service/poc_lora.proto`<br />(Line 47: `non_rewardable_packet`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_lora.proto#L47)                                      |
 | `foundation-mobile-ingest`          | `CellHeartbeatIngestReport`              | `cell_heartbeat`                              | `cell_heartbeat.<unix_ms_timestamp>.gz`                              | [`service/poc_mobile.proto`<br />(Line 65: `cell_heartbeat_ingest_report_v1`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_mobile.proto#L65)                        |
@@ -114,8 +114,8 @@ deprecated and kept here for historical reference. Existing files remain accessi
 | `foundation-mobile-packet-verifier` | `ValidDataTransferSession`               | `valid_data_transfer_session`                 | `valid_data_transfer_session.<unix_ms_timestamp>.gz`                 | [`service/packet_verifier.proto`<br />(Line 24: `valid_data_transfer_session`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/packet_verifier.proto#L24)                  |
 | `foundation-mobile-price`           | `PriceReport`                            | `price_report`                                | `price_report.<unix_ms_timestamp>.gz`                                | [`price_report.proto`<br />(Line 7: `price_report_v1`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/price_report.proto#L7)                                                      |
 | `foundation-mobile-verified`        | `ValidatedHeartbeat`                     | `validated_heartbeat`                         | `validated_heartbeat.<unix_ms_timestamp>.gz`                         | [`service/poc_mobile.proto`<br />(Line 181: `heartbeat`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_mobile.proto#L181)                                            |
-| `foundation-mobile-verified`        | `SpeedtestAvg`                           | `speedtest_avg`                               | `speedtest_avg.<unix_ms_timestamp>.gz`                               | [`service/poc_mobile.proto`<br />(Line L226: `speedtest_avg`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_mobile.proto#L226)                                       |
-| `foundation-mobile-verified`        | `VerifiedSpeedtest`                      | `verified_speedtest`                          | `verified_speedtest.<unix_ms_timestamp>.gz`                          | [`service/poc_mobile.proto`<br />(Line L36: `verified_speedtest`)](https://github.com/helium/proto/blob/6cfd6dc952349e31187c7071dbbcd86780eb97e6/src/service/poc_mobile.proto#L36)                                    |
+| `foundation-mobile-verified`        | `SpeedtestAvg`                           | `speedtest_avg`                               | `speedtest_avg.<unix_ms_timestamp>.gz`                               | [`service/poc_mobile.proto`<br />(Line 226: `speedtest_avg`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_mobile.proto#L226)                                        |
+| `foundation-mobile-verified`        | `VerifiedSpeedtest`                      | `verified_speedtest`                          | `verified_speedtest.<unix_ms_timestamp>.gz`                          | [`service/poc_mobile.proto`<br />(Line 36: `verified_speedtest`)](https://github.com/helium/proto/blob/6cfd6dc952349e31187c7071dbbcd86780eb97e6/src/service/poc_mobile.proto#L36)                                     |
 | `foundation-mobile-verified`        | `VerifiedSubscriberLocationIngestReport` | `verified_subscriber_location_report`         | `verified_subscriber_location_report.<unix_ms_timestamp>.gz`         | [`service/poc_mobile.proto`<br />(Line 140: `verified_subscriber_location_ingest_report_v1`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_mobile.proto#L140)        |
 | `foundation-mobile-verified`        | `RadioRewardShare`                       | `radio_reward_share`                          | `radio_reward_share.<unix_ms_timestamp>.gz`                          | [`service/poc_mobile.proto`<br />(Line 247: `radio_reward_share`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_mobile.proto#L247)                                   |
 | `foundation-mobile-verified`        | `MobileRewardShare`                      | `mobile_reward_share`                         | `mobile_reward_share.<unix_ms_timestamp>.gz`                         | [`service/poc_mobile.proto`<br />(Line 295: `mobile_reward_share`)](https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_mobile.proto#L295)                                  |
@@ -139,7 +139,7 @@ the entire file.
 **Important Note:** Simply trying to pass the contents of the uncompressed files into the protobuf
 decoder will fail.
 
-### Javascript Example
+### JavaScript Example
 
 ```protobuf
 // poc_mobile.proto

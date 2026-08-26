@@ -11,8 +11,8 @@ slug: /mobile/helium-plus-generic
 ---
 
 This guide provides a high-level, brand-agnostic walkthrough of how to set up Hotspot 2.0
-(Passpoint) for Helium. While specific steps vary across vendors—Aruba, Cisco Meraki, Ruckus,
-Fortinet, Extreme, Ubiquiti, etc.—the setup follows the same general workflow:
+(Passpoint) for Helium. While specific steps vary across vendors (Aruba, Cisco Meraki, Ruckus,
+Fortinet, Extreme, Ubiquiti, etc.), the setup follows the same general workflow:
 
 ### 1. Hotspot 2.0 / Passpoint Enablement
 
@@ -28,7 +28,7 @@ Fortinet, Extreme, Ubiquiti, etc.—the setup follows the same general workflow:
 2. **Security**: Configure WPA3-Enterprise for 802.1X/EAP.
 3. **Passpoint Advertising**: Under advanced or manual settings, enable Hotspot 2.0/Passpoint mode.
 4. **Venue & Network Type**: Some platforms allow specification of a venue name/type. Use
-   `Chargeable Public Network` as type.
+   `Chargeable Public Network` as the type.
 5. **IP Address Type Availability**: If the controller supports it, set IPv4 to
    `Double NATed private IPv4` and IPv6 to `Unavailable`.
 6. **Add Realms**: Input `freedomfi.com` and `hellohelium.com` with EAP Method `EAP-TLS` and
@@ -36,8 +36,8 @@ Fortinet, Extreme, Ubiquiti, etc.—the setup follows the same general workflow:
 7. **Domain List**: Include the domain names `freedomfi.com` and `hellohelium.com` in the domain
    list. If there are existing Passpoint configurations, the Helium domains may be omitted in favor
    of those domains.
-8. **NAS-ID**: Enter the NAS-ID used during Helium Self-Serve or Helium Plus onboarding. Typically
-   the MAC address of the network controller or an AP on the onboarded network.
+8. **NAS-ID**: Enter the NAS-ID used during Helium Self-Serve or Helium Plus onboarding. This is
+   typically the MAC address of the network controller or an AP on the onboarded network.
 
 ### 3. AAA and RADIUS / RadSec Integration
 
