@@ -188,6 +188,25 @@ Meraki devices.
     </figure>
 11. Click **Save**
 
+:::warning
+
+The NAS-ID Meraki transmits must match the NAS-ID registered with Helium exactly, character for
+character. A difference in separators alone is enough to fail authentication, so leave the number 1
+drop down on **Custom** and enter the NAS-ID from onboarding.
+
+If you select **AP MAC address** as the NAS ID instead, be aware that the format Meraki transmits
+depends on how the SSID itself was built:
+
+- On an SSID applied from a **template** across multiple sites, the MAC is sent dash-separated and
+  upper case: `E0-CB-BC-48-BC-76`
+- On a normal, single-site SSID, the same AP sends the MAC with no separators at all: `E0CBBC48BC76`
+
+Either format works, but the one your SSID actually sends has to be the one registered with Helium.
+Moving an SSID between the two afterwards changes the NAS-ID, and the new value has to be
+re-registered before those APs will authenticate.
+
+:::
+
 ## Build Hotspot 2.0 Config
 
 1. Click on **Wireless** and navigate to **Hotspot 2.0**
