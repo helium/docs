@@ -17,7 +17,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 A Session Key Filter (SKF) is a device address (devAddr) and network session key (NwkSKey) pair
 stored on a route. When a Hotspot reports an uplink on a devAddr that has one or more SKFs, the
 Helium Packet Router verifies the packet's Message Integrity Code (MIC) against the stored keys
-before buying it. Packets that fail the check are dropped before purchase — they never reach the LNS
+before buying it. Packets that fail the check are dropped before purchase. They never reach the LNS
 and incur no Data Credit cost.
 
 SKFs matter because devAddrs are not globally unique. Every LoRaWAN network assigns devAddrs from
@@ -31,10 +31,10 @@ Two settings determine how the Packet Router treats an uplink: whether the packe
 SKFs on the route, and the route's `ignore_empty_skf` flag. SKFs are added per devAddr;
 `ignore_empty_skf` is a single flag set for the entire route.
 
-| devAddr on the route | `ignore_empty_skf: false`                      | `ignore_empty_skf: true`                      |
-| -------------------- | ---------------------------------------------- | --------------------------------------------- |
-| Has one or more SKFs | Delivered only if the MIC matches a stored key | Same — the flag has no effect when SKFs exist |
-| Has no SKFs          | Delivered without any MIC check                | Dropped                                       |
+| devAddr on the route | `ignore_empty_skf: false`                      | `ignore_empty_skf: true`                     |
+| -------------------- | ---------------------------------------------- | -------------------------------------------- |
+| Has one or more SKFs | Delivered only if the MIC matches a stored key | Same. The flag has no effect when SKFs exist |
+| Has no SKFs          | Delivered without any MIC check                | Dropped                                      |
 
 A devAddr can hold multiple SKFs, and the Packet Router checks the MIC against each of them. This
 supports LNS platforms such as ChirpStack that assign the same devAddr to multiple devices.
@@ -46,9 +46,9 @@ dropped.
 :::warning Keep SKFs up to date
 
 OTAA devices derive a new NwkSKey on every join. Once a device rejoins, its existing SKF no longer
-matches and its uplinks are dropped — the symptom described in
+matches and its uplinks are dropped, which is the symptom described in
 [Device Able to Join but Not Uplink](/iot/run-an-lns/common-issues#device-able-to-join-but-not-uplink).
-In practice, SKFs are kept in sync programmatically by the LNS — see the tools in
+In practice, SKFs are kept in sync programmatically by the LNS. See the tools in
 [Automated EUI and SKF Route Updates](#automated-eui-and-skf-route-updates).
 
 :::
@@ -103,7 +103,7 @@ Enable enforcement:
 helium-config-service-cli route update ignore-empty-skf --route-id <route-id> --ignore --commit
 ```
 
-To disable it, run the same command without `--ignore`. The flag sets the value by its presence —
+To disable it, run the same command without `--ignore`. The flag sets the value by its presence;
 there is no `--ignore true` or `--ignore false` form.
 
 ## Max Copies {#max-copies}
