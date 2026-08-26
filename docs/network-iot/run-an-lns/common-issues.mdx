@@ -57,8 +57,9 @@ on adding Helium functionality to any existing LoRaWAN gateway.
 ## Device able to join but not uplink
 
 If the join process is successful but no further data is delivered, a common issue is that the
-Session Key Filter is enabled for the route, but the session key of the specific device has not been
-submitted. This effectively blocks all downlink activity for the omitted device.
+Session Key Filter is enabled for the route, but the session key of the specific device is missing
+or out of date — OTAA devices derive a new session key on every join. The Packet Router drops the
+device's uplinks before they reach the LNS.
 
 Check if your route has enabled
 [Session Key Filter](/iot/run-an-lns/advanced-configuration#session-key-filter). If so, check if the

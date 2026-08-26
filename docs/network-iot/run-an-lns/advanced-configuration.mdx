@@ -14,37 +14,97 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Session Key Filter (SKF) {#session-key-filter}
 
-Session Key Filters (SKF) regulate device traffic on specific devAddrs by utilizing LoRaWAN device
-session keys. They establish conditions to either permit or restrict data flow based on the
-configured session keys. It essentially allows the LNS operators to accept and reject traffic on a
-device (session) level.
+A Session Key Filter (SKF) is a device address (devAddr) and network session key (NwkSKey) pair
+stored on a route. When a Hotspot reports an uplink on a devAddr that has one or more SKFs, the
+Helium Packet Router verifies the packet's Message Integrity Code (MIC) against the stored keys
+before buying it. Packets that fail the check are dropped before purchase — they never reach the LNS
+and incur no Data Credit cost.
 
-In this example scenario, consider two device addresses (devAddr) 1 and 2:
+SKFs matter because devAddrs are not globally unique. Every LoRaWAN network assigns devAddrs from
+the same 32-bit space, so a device on an entirely unrelated network can transmit on a devAddr that
+falls in a Helium route. Without an SKF, the Packet Router cannot verify such packets and delivers
+them anyway, charging the DC cost to the OUI owner.
 
-- **Provided Session Key for devAddr 1 and "ignore empty skf" = false:**  
-  Only allows traffic through devAddr 1 if it passes Message Integrity Code (MIC) checks.
-- **No Session Key for devAddr 2 and "ignore empty skf" = false:**  
-  All traffic is allowed through devAddr 2 without MIC checks.
-- **No Session Key for devAddr 2 and "ignore empty skf" = true:**  
-  All traffic through devAddr 2 is blocked.
+### SKF Behavior
 
-The SKF will regulate traffic based on session key availability and the "ignore empty skf" flag,
-independently per devAddr.
+Two settings determine how the Packet Router treats an uplink: whether the packet's devAddr has any
+SKFs on the route, and the route's `ignore_empty_skf` flag. SKFs are added per devAddr;
+`ignore_empty_skf` is a single flag set for the entire route.
 
-Check the SKF flag for a route by running
+| devAddr on the route | `ignore_empty_skf: false`                      | `ignore_empty_skf: true`                      |
+| -------------------- | ---------------------------------------------- | --------------------------------------------- |
+| Has one or more SKFs | Delivered only if the MIC matches a stored key | Same — the flag has no effect when SKFs exist |
+| Has no SKFs          | Delivered without any MIC check                | Dropped                                       |
+
+A devAddr can hold multiple SKFs, and the Packet Router checks the MIC against each of them. This
+supports LNS platforms such as ChirpStack that assign the same devAddr to multiple devices.
+
+Join requests are not filtered by SKFs. They are matched by DevEUI/AppEUI pair and carry no devAddr,
+which is why a device with a missing or stale SKF can join successfully while its uplinks are
+dropped.
+
+:::warning Keep SKFs up to date
+
+OTAA devices derive a new NwkSKey on every join. Once a device rejoins, its existing SKF no longer
+matches and its uplinks are dropped — the symptom described in
+[Device Able to Join but Not Uplink](/iot/run-an-lns/common-issues#device-able-to-join-but-not-uplink).
+In practice, SKFs are kept in sync programmatically by the LNS — see the tools in
+[Automated EUI and SKF Route Updates](#automated-eui-and-skf-route-updates).
+
+:::
+
+### Managing SKFs
+
+The commands below use the Config Service CLI with an owner or delegate keypair configured, as
+described in [Config Service Interaction](#config-service-interaction). As with other route
+commands, omitting `--commit` performs a dry run that prints the change without applying it.
+
+List the SKFs on a route:
+
+```bash
+helium-config-service-cli route skfs list --route-id <route-id>
+```
+
+Add an SKF. The devAddr is eight hex characters with no `0x` prefix, and the session key is the
+device's hex-encoded NwkSKey (in ChirpStack, found in the device's Activation tab):
+
+```bash
+helium-config-service-cli route skfs add --route-id <route-id> --devaddr <devaddr> --session-key <nwkskey> --commit
+```
+
+An SKF can also carry a per-device max copies value via `--max-copies`. When the flag is omitted,
+the SKF is created with `max_copies` set to 1. A value of `0` falls back to the route-level setting.
+See [Max Copies](#max-copies) for how the SKF-level value overrides the route-level setting.
+
+Remove an SKF:
+
+```bash
+helium-config-service-cli route skfs remove --route-id <route-id> --devaddr <devaddr> --session-key <nwkskey> --commit
+```
+
+For bulk changes, `route skfs update --route-id <route-id> --update-file <file> --commit` applies a
+JSON file of add and remove actions, limited to 100 updates per request.
+
+### Enforcing SKFs
+
+By default (`ignore_empty_skf: false`), a devAddr with no SKFs accepts all traffic unchecked.
+Enabling the route's `ignore_empty_skf` flag closes this gap: the Packet Router drops all traffic on
+any devAddr that has no SKFs, so only devices with registered session keys get through.
+
+Check the current value by looking for the `ignore_empty_skf` field in the output of:
 
 ```bash
 helium-config-service-cli route get --route-id <route-id>
 ```
 
-### Importance of Configuring Session Key Filters
+Enable enforcement:
 
-Configuring SKFs for devices introduces an additional layer of security on the Helium network. In
-instances where SKFs are not established, the network relies on the devAddr to associate packets
-with the respective OUI, potentially attributing unauthorized packet costs to the OUI owner.
+```bash
+helium-config-service-cli route update ignore-empty-skf --route-id <route-id> --ignore --commit
+```
 
-Implementing SKFs counteracts this risk by empowering the Helium Packet Router to authenticate
-packets, thus preventing the delivery of unwanted payloads (and their respective DC cost).
+To disable it, run the same command without `--ignore`. The flag sets the value by its presence —
+there is no `--ignore true` or `--ignore false` form.
 
 ## Max Copies {#max-copies}
 
