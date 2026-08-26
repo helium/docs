@@ -20,10 +20,11 @@ Helium Packet Router verifies the packet's Message Integrity Code (MIC) against 
 before buying it. Packets that fail the check are dropped before purchase. They never reach the LNS
 and incur no Data Credit cost.
 
-SKFs matter because devAddrs are not globally unique. Every LoRaWAN network assigns devAddrs from
-the same 32-bit space, so a device on an entirely unrelated network can transmit on a devAddr that
-falls in a Helium route. Without an SKF, the Packet Router cannot verify such packets and delivers
-them anyway, charging the DC cost to the OUI owner.
+SKFs ensure that a route purchases and forwards only the payloads its operator intends to receive.
+Device addresses are not globally unique: every LoRaWAN network assigns devAddrs from the same
+32-bit space, so a device on an unrelated network can transmit on a devAddr that falls within a
+Helium route. Without SKFs, the Packet Router cannot verify these packets, and the OUI pays for
+payloads that may not correlate to any device the operator intends to receive data from.
 
 ### SKF Behavior
 
@@ -110,6 +111,20 @@ helium-config-service-cli route update ignore-empty-skf --route-id <route-id> --
 To disable it, run the same command without `--ignore`. The flag sets the value by its presence;
 there is no `--ignore true` or `--ignore false` form.
 
+## Automated EUI and SKF Route Updates
+
+As the ecosystem of LNS operators grows, an increasing number of developers have open-sourced their
+tooling for running a Helium-enabled LNS. These tools enable functionality such as EUI and SKF
+automation to per-tenant Data Credit accounting.
+
+A selection of the tools are outlined below. All of them run alongside a ChirpStack deployment.
+
+| Tool                                                                              | Capabilities                                                                        | Documentation                                                                                                                |
+| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| [Helium Route Updater](https://github.com/thisisdevelopment/helium-route-updater) | Automates adding and removing EUIs, and enables and maintains SKFs for your devices | [ChirpStack Docker Compose setup](https://github.com/thisisdevelopment/helium-route-updater#chirpstack-docker-compose-usage) |
+| [Disk91 Helium Chirpstack](https://github.com/disk91/helium-chirpstack-community) | EUI management and per-tenant Data Credit accounting                                | [Repository readme](https://github.com/disk91/helium-chirpstack-community#readme)                                            |
+| [Chirpstack-hpr](https://github.com/ccall48/chirpstack-hpr) by Bones              | EUI and SKF management                                                              | [Getting started guide](https://ccall48.github.io/chirpstack-hpr.github.io/)                                                 |
+
 ## Max Copies {#max-copies}
 
 Given that LoRaWAN devices openly broadcast uplinks, it's common for multiple Hotspots to capture
@@ -164,40 +179,6 @@ As an example, the LNS operator can define a route-level max copies setting of 2
 max copies setting of 1. This will have the effect of allowing up to 20 copies of join requests and
 1 copy of uplink. This way, the devices will have a much better chance to join, without consuming
 extra DC from the uplinks once joined.
-
-## Automated EUI and SKF Route Updates
-
-As the ecosystem of LNS operators grows, an increasing number of developers have open-sourced their
-tooling for running a Helium-enabled LNS. These tools enable functionality such as EUI and SKF
-automation to per-tenant Data Credit accounting.
-
-A selection of the tools are outlined below.
-
-### Helium Route Updater
-
-The Helium Route Updater service is a third-party service that can be run alongside a ChirpStack
-deployment to automate the adding/removing of EUIs as well as enabling session key filters on
-devices to block traffic from devices that are not yours.
-
-You can find the service on GitHub
-[here](https://github.com/thisisdevelopment/helium-route-updater). There is also a section in the
-readme that details how to easily add it to your ChirpStack docker compose, found
-[here](https://github.com/thisisdevelopment/helium-route-updater#chirpstack-docker-compose-usage).
-
-### Disk91 Helium Chirpstack
-
-This service includes several utilities including EUI management and per-tenant accounting.
-
-Find the service on GitHub [here](https://github.com/disk91/helium-chirpstack-community)
-
-### Chirpstack-hpr by Bones
-
-This service includes several utilities including EUI and SKF management.
-
-Find the service on GitHub [here](https://github.com/ccall48/chirpstack-hpr).
-
-Documentation on getting started can be found
-[here](https://ccall48.github.io/chirpstack-hpr.github.io/).
 
 ## Config Service Interaction
 
