@@ -17,12 +17,12 @@ This guide describes using Docker Compose to run ChirpStack in a non-production 
 ## Infrastructure Requirements
 
 The infrastructure requirements noted below are sufficient for getting a ChirpStack instance up and
-running for experimentation purposes, but are not suggested for use in a mission critical,
+running for experimentation purposes, but are not recommended for use in a mission-critical,
 production setting.
 
 - 4 vCPU
 - 8GB RAM
-- 100GB SSD hard drive
+- 100GB SSD
 - CPU with x86 architecture
 - Ubuntu 22.04
 
@@ -67,7 +67,7 @@ git clone https://github.com/chirpstack/chirpstack-docker.git
 ## ChirpStack Port Accessibility
 
 For the configuration described in this guide, the following ports need to be accessible on the
-server running the ChirpStack instance. In an AWS parlance, a Security Group needs to be attached to
+server running the ChirpStack instance. In AWS parlance, a Security Group needs to be attached to
 the underlying EC2 instance running ChirpStack with inbound rules for the noted ports.
 
 1. TCP `8080`
@@ -105,7 +105,7 @@ the LNS. In ChirpStack, the subnet masks will be referred to as `dev_addr_prefix
 To do so, first retrieve the `DevAddr` constraints for the OUI. The relevant values are each of the
 `start_addr` and `end_addr` groups provided in the `devaddr_constraints` array.
 
-```sh"
+```sh
 helium-config-service-cli org get --oui <OUI>
 ```
 
@@ -116,7 +116,7 @@ helium-config-service-cli org get --oui <OUI>
     "owner": <Owner Public Key>,
     "payer": <Payer Public Key>,
     "delegate_keys": [
-      <Deletgate Public Key>
+      <Delegate Public Key>
     ],
     "locked": <Locked status>
   },
@@ -130,11 +130,11 @@ helium-config-service-cli org get --oui <OUI>
 }
 ```
 
-Next, using the `start_addr` and `end_addr` values, identify the `DevAddr` subnet masks, (e.g.,
-labeled as `subnets` in the returned JSON). If there are multiple, non-contiguous
-`devaddr_constraints`, this will need to be done for each set of constraints.
+Next, using the `start_addr` and `end_addr` values, identify the `DevAddr` subnet masks (labeled as
+`subnets` in the returned JSON). If there are multiple, non-contiguous `devaddr_constraints`, this
+will need to be done for each set of constraints.
 
-```sh"
+```sh
 helium-config-service-cli subnet-mask <Starting DevAddr> <Ending DevAddr>
 ```
 
@@ -163,7 +163,7 @@ Modify the following sections of `chirpstack.toml`. All other sections can be le
     - As an illustrative example, if the `helium-config-service-cli subnet-mask` command indicated a
       subnet mask of `00000000/29`, then add `dev_addr_prefixes=["00000000/29"]`.
     - If the OUI has multiple non-sequential `DevAddr` ranges, separate the corresponding subnet
-      masks by comma. For instance, `dev_addr_prefixes=["00000000/29", "00000010/29"]`.
+      masks with commas. For instance, `dev_addr_prefixes=["00000000/29", "00000010/29"]`.
   - Update the `enabled_regions` array to include the desired regions.
     - Multiple regions can be enabled simultaneously.
     - Each added region must match the `id` parameter of the `[[regions]]` configuration in the
@@ -173,12 +173,12 @@ Modify the following sections of `chirpstack.toml`. All other sections can be le
 - Under `[api]`:
   - Update the `secret` value used for generating login and API tokens.
   - Make sure this value is never exposed.
-- Create a new, top level `[gateway]` section:
+- Create a new, top-level `[gateway]` section:
   - Below, add `allow_unknown_gateways=true`
 
 An example of the above-mentioned modified sections of `chirpstack.toml` is provided below. Please
-note that the these values are exemplary and need to be filled in with the correct information for
-your ChirpStack configuration. Again, all other sections in `chirpstack.toml` can be left as is.
+note that these values are examples and need to be filled in with the correct information for your
+ChirpStack configuration. Again, all other sections in `chirpstack.toml` can be left as is.
 
 ```toml
 # Network related configuration.
@@ -234,8 +234,8 @@ Second, visit the [ChirpStack Docker Hub Image Repository](https://hub.docker.co
 identify the most recent version tags for
 [chirpstack](https://hub.docker.com/r/chirpstack/chirpstack/tags) and
 [chirpstack-gateway-bridge](https://hub.docker.com/r/chirpstack/chirpstack-gateway-bridge/tags). At
-the time of writing this manual, the current version of `chirpstack` is `4.7` and
-`chirpstack-gateway-bridge` was `4.0` so these version will be used moving forward.
+the time of writing this guide, the current version of `chirpstack` was `4.7` and
+`chirpstack-gateway-bridge` was `4.0`, so these versions will be used moving forward.
 
 Third, update `image` definitions for `chirpstack` and `chirpstack-gateway-bridge` with the most
 recent version tags found in Docker Hub as noted below:
@@ -244,11 +244,11 @@ recent version tags found in Docker Hub as noted below:
 - `image: chirpstack/chirpstack-gateway-bridge:4.0`
 
 Fourth, to support every region beyond the default EU868 defined in the `enabled_regions` noted
-above in the `settings.toml` file, add `chirpstack-gateway-bridge` service definitions for each
-additional LoRaWAN region. Although this tutorial demonstrates adding support for US915 and EU868
+above in the `chirpstack.toml` file, add `chirpstack-gateway-bridge` service definitions for each
+additional LoRaWAN region. Although this tutorial demonstrates adding support for US915 and EU868,
 these steps can be adapted for other regions.
 
-To do so, amend the `chirpstack-gateway-bridge` label to be `chirpstack-gateway-bridge-eu868` then
+To do so, amend the `chirpstack-gateway-bridge` label to be `chirpstack-gateway-bridge-eu868`, then
 create a new service definition for `chirpstack-gateway-bridge-us915` as provided below:
 
 ```yml
@@ -271,7 +271,8 @@ chirpstack-gateway-bridge-us915:
 
 See the
 [ChirpStack Gateway Bridge documentation](https://www.chirpstack.io/docs/chirpstack-gateway-bridge/configuration.html)
-for full description on the configuration possibilities for the `chirpstack-gateway-bridge` service.
+for a full description of the configuration possibilities for the `chirpstack-gateway-bridge`
+service.
 
 An example of a complete `docker-compose.yaml` file is provided below:
 
@@ -359,10 +360,10 @@ services:
 
 From the root of the `chirpstack-docker` directory, run `docker compose up --detach` to start the
 containers defining the ChirpStack instance in the background. Container logs can be accessed by
-running `docker compose logs --follow` and the ChirpStack instance can be taken down by running
-`docker compose down`
+running `docker compose logs --follow`, and the ChirpStack instance can be taken down by running
+`docker compose down`.
 
-The ChirpStack web console will now be accessible at `http://<public_ip_address>:8080`. Utilize the
+The ChirpStack web console will now be accessible at `http://<public_ip_address>:8080`. Use the
 default credentials to log in:
 
 Username: admin  

@@ -12,20 +12,18 @@ slug: /iot/run-an-lns/common-issues
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-# Troubleshooting Common Issues
-
 ## Data transfer stopped {#device-transfer-stopped}
 
 If data transfer was working before but stopped suddenly, please check the
-[status page](https://status.helium.com/) and see if there is any ongoing incident with Helium
+[status page](https://status.helium.com/) and see if there is any ongoing incident with the Helium
 Packet Router.
 
 If there was no incident, please check if your OUI was locked due to insufficient DC balance. Lock
-status can be verified by checking whether the "locked" field for each of your route is `true` or
-`false`. Query your routes by running
+status can be verified by checking whether the "locked" field for each of your routes is `true` or
+`false`. Query your routes by running:
 
 ```bash
-$ helium-config-service-cli route list --commit
+helium-config-service-cli route list --commit
 ```
 
 OUI DC balance can be checked with the
@@ -44,38 +42,39 @@ Review the [routing configuration](configure-routing-rules) guides.
 
 ## LNS receives Join Requests but device unable to join
 
-Device may have issue joining the Network if the RSSI/SNR values are sub-optimal. In practice,
-difficulty to join tends to show up when the RSSI value is worse than -120.
+A device may have issues joining the Network if the RSSI/SNR values are sub-optimal. In practice,
+difficulty joining tends to show up when the RSSI value is worse than -120.
 
-As outlined in the [Understanding Max Copies](/iot/run-an-lns/advanced-configuration#max-copies)
-section, join performance can be improved with max copies setting.
+As outlined in the [Max Copies](/iot/run-an-lns/advanced-configuration#max-copies) section, join
+performance can be improved with the max copies setting.
 
-If RSSI/SNR values continue to be low even after the max copies setting, it may be necessary to
-deploy additional coverage. Review the [Hotspot onboarding](/iot/onboard-a-hotspot) guides for steps
-on adding Helium functionality to any existing LoRaWAN gateway.
+If RSSI/SNR values continue to be low even after adjusting the max copies setting, it may be
+necessary to deploy additional coverage. Review the [Hotspot onboarding](/iot/onboard-a-hotspot)
+guides for steps on adding Helium functionality to any existing LoRaWAN gateway.
 
 ## Device able to join but not uplink
 
 If the join process is successful but no further data is delivered, a common issue is that the
-Session Key Filter is enabled for the route, but the session key of the specific device has not been
-submitted. This effectively blocks all downlink activity for the omitted device.
+Session Key Filter is enabled for the route, but the session key of the specific device is missing
+or out of date, since OTAA devices derive a new session key on every join. The Packet Router drops
+the device's uplinks before they reach the LNS.
 
-Check if your route has enabled
+Check if your route has enabled a
 [Session Key Filter](/iot/run-an-lns/advanced-configuration#session-key-filter). If so, check if the
-device's Network Session Key is registered in that route by running
+device's Network Session Key is registered in that route by running:
 
 ```bash
 helium-config-service-cli route skfs list --route-id <route-id>
 ```
 
-You can find your device's Network Session Key in Chirpstack in the device's Activation tab.
+You can find your device's Network Session Key in ChirpStack in the device's Activation tab.
 
 ## Cannot perform routing changes
 
-If you cannot perform routing changes such as updating EUI list, SKF list, max copy setting OR if
-all of your old devices are sending data but not your newly provisioned devices. Please check the
-[status page](https://status.helium.com/) and see if there is any ongoing incident with
-Configuration Service.
+If you cannot perform routing changes such as updating the EUI list, SKF list, or max copies
+setting, or if all of your old devices are sending data but your newly provisioned devices are not,
+please check the [status page](https://status.helium.com/) and see if there is any ongoing incident
+with the Configuration Service.
 
 ## Community Support
 
