@@ -31,14 +31,14 @@ configured in the manner described below.
 First, initialize the Helium Config Service CLI by running `helium-config-service-cli env init`. A
 series of prompts, as noted below, will be provided in the terminal session.
 
-1. For `Config Service Host`, press enter to use the default value (e.g.,
+1. For `Config Service Host`, press Enter to use the default value (i.e.,
    `https://config.iot.mainnet.helium.io:6080`).
 2. For `Keypair Location`, provide the location of the delegate keypair in the local filesystem.
 3. For `Net ID`, provide `00003C`.
 4. For `Assigned OUI`, provide your assigned OUI number.
-5. For `Default Max Copies`, press enter to use the default value (e.g., `15`).
+5. For `Default Max Copies`, press Enter to use the default value (i.e., `15`).
 
-After providing the initialization information, an output similar to the below will be provided:
+After providing the initialization information, output similar to the following will be displayed:
 
 ```sh
 Put these in your environment
@@ -49,9 +49,8 @@ HELIUM_OUI=<OUI_ID>
 HELIUM_MAX_COPIES=15
 ```
 
-Second, as suggested in the output, export the suggested environment variables into the terminal
-session. This needs to be done manually. To do so, just add `export` to each line in the manner
-provided below and run the commands:
+Second, as suggested in the output, export the environment variables into the terminal session. This
+needs to be done manually. To do so, add `export` to each line as shown below and run the commands:
 
 ```sh title="Setting environment variables in a terminal window."
 export HELIUM_KEYPAIR_BIN=<./your/path/to/delegate/keypair.bin>
@@ -64,15 +63,14 @@ export HELIUM_MAX_COPIES=15
 
 Routes contain the necessary information for the Helium Packet Router to know how to route a packet
 sent from a sensor to the proper LNS. In particular, Helium Packet Router leverages information
-provided in a generated route such as DevEUI+AppEUI (for routing join requests), DevAddr range (for
+provided in a generated route such as DevEUI+AppEUI (for routing join requests), devAddr range (for
 routing uplinks), and LNS endpoint to inform routing decisions.
 
 To generate a route via the Helium Config Service CLI, run the `helium-config-service-cli route new`
 command. As shown below, the command will perform a "dry run" if the `--commit` flag isn't provided.
-In such cases when the `--commit` flag isn't provided, the command will show what would have been
-transmitted to the Helium Config Service (e.g., a configuration service which informs routing
-behavior of the Helium Packet Router). In this way, you can review the route information prior to
-formally submitting.
+In such cases, the command will show what would have been transmitted to the Helium Config Service
+(i.e., a configuration service which informs routing behavior of the Helium Packet Router). In this
+way, you can review the route information before formally submitting it.
 
 ```sh
 helium-config-service-cli route new
@@ -160,7 +158,7 @@ Updated <route id>
 }
 ```
 
-Once the result looks as desired, simply re-run the command with the ` --commit` to update the
+Once the result looks as desired, simply re-run the command with the `--commit` flag to update the
 route.
 
 ### Add LoRaWAN Region-Specific Routing Configuration
@@ -169,12 +167,12 @@ To add LoRaWAN region-specific routing configuration, use the Helium Config Serv
 `helium-config-service-cli route update add-gwmp-region` command. As shown below, the command will
 perform a "dry run" if the `--commit` flag isn't provided.
 
-In preparing the command, the LoRaWAN region is proceeded by the port to be used for the region. For
-example, in the example command below, the region `us915` is proceeded by `<us915 port>`. Here, the
+In preparing the command, the LoRaWAN region is followed by the port to be used for the region. In
+the example command below, the region `us915` is followed by `<us915 port>`. Here, the
 `<us915 port>` value will mirror the port bound to the `chirpstack-gateway-bridge-us915` container
 (e.g., `1701`).
 
-Please note that the command will also need to be run for the `eu868` region for port `1700`.
+Please note that the command will also need to be run for the `eu868` region with port `1700`.
 
 ```sh
 helium-config-service-cli route update add-gwmp-region --route-id <route-id> us915 <us915 port>
@@ -223,7 +221,7 @@ Updated <route id>
 ```
 
 After adding the LoRaWAN region-specific routing configuration for `US915` and `EU868`, the
-configuration should look similar to the below:
+configuration should look similar to the following:
 
 ```sh
 {
@@ -250,7 +248,7 @@ configuration should look similar to the below:
 
 ## Add Device to ChirpStack
 
-To add a device in Chirpstack, please follow the documentation in either of the guides below and
+To add a device in ChirpStack, please follow the documentation in either of the guides below and
 return here when complete.
 
 - [Add Device to ChirpStack via Console](/iot/run-an-lns/chirpstack-add-device)
@@ -267,11 +265,12 @@ associate the device EUIs and devAddrs with the route.
 To add device EUIs to the route, run the `helium-config-service-cli route euis add` command. As
 shown below, the command will perform a "dry run" if the `--commit` flag isn't provided.
 
-In preparing the command, the `--route-id` flag corresponds to the id of the route created above,
-the `--dev-eui` flag corresponds to the device EUI generated entered in ChirpStack, and the
-`--app-eui` flag corresponds to the join EUI also entered in ChirpStack.
+In preparing the command, the `--route-id` flag corresponds to the ID of the route created above,
+the `--dev-eui` flag corresponds to the device EUI entered in ChirpStack, and the `--app-eui` flag
+corresponds to the join EUI also entered in ChirpStack.
 
-Please refer to the red-boxed portion of image below to find the device and join EUIs in ChirpStack.
+Please refer to the red-boxed portion of the image below to find the device and join EUIs in
+ChirpStack.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -287,24 +286,24 @@ Please refer to the red-boxed portion of image below to find the device and join
 helium-config-service-cli route euis add --route-id <route-id> --dev-eui <dev-eui> --app-eui <app-eui>
 ```
 
-Once the result looks as desired, simply re-run the command with the ` --commit` to add the device
-to the route.
+Once the result looks as desired, simply re-run the command with the `--commit` flag to add the
+device to the route.
 
-### Add DevAddr to Route
+### Add devAddr to Route
 
-To add DevAddrs to the route, run the `helium-config-service-cli route devaddrs add` command. As
+To add devAddrs to the route, run the `helium-config-service-cli route devaddrs add` command. As
 shown below, the command will perform a "dry run" if the `--commit` flag isn't provided.
 
 Here, the `--start-addr` and `--end-addr` values correspond to the results from the
 `helium-config-service-cli org get --oui <OUI>` command described in detail in
-[Gather Helium DevAddr Subnet Information for OUI](/iot/run-an-lns/docker-compose/#gather-helium-devaddr-subnet-information-for-oui)
+[Gather Helium DevAddr Subnet Information for OUI](/iot/run-an-lns/docker-compose/#gather-helium-devaddr-subnet-information-for-oui).
 
 ```bash
 helium-config-service-cli route devaddrs add --start-addr <start devAddr> --end-addr <end devAddr> --route-id <route-id>
 ```
 
-Again, once the result looks as desired, simply re-run the command with the ` --commit` to add the
-DevAddr to the route.
+Again, once the result looks as desired, simply re-run the command with the `--commit` flag to add
+the devAddr to the route.
 
 ## Next Steps
 
