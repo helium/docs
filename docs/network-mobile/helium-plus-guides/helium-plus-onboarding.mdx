@@ -10,7 +10,7 @@ image: https://docs.helium.com/img/link-image.png
 slug: /mobile/wifi-conversion-onboarding
 ---
 
-WiFi networks onboarded to Helium are eligible to earn HNT for handling carrier traffic.
+Wi-Fi networks onboarded to Helium are eligible to earn HNT for handling carrier traffic.
 
 At this time, only [Helium Mobile](https://hellohelium.com/) traffic is rewardable on networks
 onboarded through self-serve tooling. If you are interested in handling other carrier traffic
@@ -34,7 +34,7 @@ program.
 Download and configure the [Helium Wallet CLI](/wallets/cli-wallet) with a new or existing Solana
 account. The following steps require Helium Wallet CLI `2.1.1` or newer.
 
-Onboarding a new WiFi Network requires a token fee per network or location. Ensure the account has
+Onboarding a new Wi-Fi network requires a token fee per network or location. Ensure the account has
 these minimum balances.
 
 | Token                               | Amount          |                                              |
@@ -51,7 +51,7 @@ these minimum balances.
 The process for converting a network begins by generating a Hotspot key and then creating and
 onboarding a Rewardable Entity NFT using the Helium Wallet CLI.
 
-Create the Hotspot key by creating an onboarding token:
+Create the Hotspot key by generating an onboarding token:
 
 ```sh title="Generate an onboarding token."
 helium-wallet hotspots add mobile token
@@ -80,7 +80,7 @@ helium-wallet hotspots add mobile onboard <TOKEN> --lat=37.779930 --lon=-122.387
 The command prompts for the CLI wallet password, signs the transaction, and submits it to the
 blockchain. A result will print as a successful transaction hash.
 
-If any errors are returned during the onboarding, double check token balances and retry the
+If any errors are returned during the onboarding, double-check token balances and retry the
 onboarding transaction.
 
 ## Hotspot RADIUS Certificates
@@ -92,7 +92,7 @@ each onboard.
 helium-wallet hotspots add mobile cert <HOTSPOT_KEY> --nas-id xx:xx:xx:xx:xx --address "South Beach Yacht Club, 899 2nd St, San Francisco, CA 94107"
 ```
 
-`<HOTSPOT_KEY>` is the key from first step (e.g. `14Wa...mrmL`).
+`<HOTSPOT_KEY>` is the key from the first step (e.g. `14Wa...mrmL`).
 
 `--nas-id` must match the NAS-ID being broadcast from the SSID. Use a MAC address from the onboarded
 network as the NAS-ID.

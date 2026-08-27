@@ -19,7 +19,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - An **Intel-based host** is required in the network to run the
   [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
 
-# High Level Steps
+## High-Level Steps
 
 1. Deploy RadSecProxy container and record IP address of host
 2. Create AP Group
@@ -31,8 +31,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Deploy RadSecProxy Container
 
-RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
-over UDP by default. By directing these messages internally within your secure network to a
+RADIUS messages used to authenticate users and for session accounting are transmitted unsecured over
+UDP by default. By directing these messages internally within your secure network to a
 **RadSecProxy**, UDP traffic is converted to a **TLS-protected TCP connection** to the Helium
 Network core AAA servers.
 
@@ -53,15 +53,15 @@ tar -xvzf radsec-proxy-main.tar.gz
 
 This will unpack:
 
-- `Dockerfile` — Docker build instructions
-- `radsecproxy.conf` — preconfigured to connect to Helium AAA servers
-- `docker-compose.yml` — to start/stop the container as a daemon
+- `Dockerfile` - Docker build instructions
+- `radsecproxy.conf` - preconfigured to connect to Helium AAA servers
+- `docker-compose.yml` - to start/stop the container as a daemon
 
 Copy the three Helium-provided certificates into the same directory:
 
-- `ca.pem` — root CA certificate
-- `cert.pem` — user certificate
-- `key.pem` — private key paired with the certificate
+- `ca.pem` - root CA certificate
+- `cert.pem` - user certificate
+- `key.pem` - private key paired with the certificate
 
 Start the container:
 
@@ -100,7 +100,7 @@ sudo docker compose down
 
 ## Build WLAN
 
-1. In **WLAN settings** set:
+1. In **WLAN settings**, set:
    - **Name:** `Helium Enterprise` (or your preferred name)
    - **WiFi-Offload type:** `Custom`
    - **SSID:** `Helium`
@@ -119,12 +119,12 @@ sudo docker compose down
 
 3. Under **Authentication Server**:
    - **Host:** IP of your RadSecProxy host (e.g., `192.168.1.203`)
-   - **Secret:** `mysecret` (must match `radsecproxy.conf` which has the default secret 'mysecret')
+   - **Secret:** `mysecret` (must match `radsecproxy.conf`, which has the default secret 'mysecret')
    - **Port:** `1812`
 
 4. Under **Accounting Server**, repeat the steps above but set **Port = 1813**.
 
-5. Under **Accounting Mode**, click the drop down and select **Start-Interim-Stop**
+5. Under **Accounting Mode**, click the drop-down and select **Start-Interim-Stop**.
 
 6. At the bottom, set **Interim Update Interval = 300**.
 
@@ -156,7 +156,7 @@ sudo docker compose down
    - **Authentication:** `Credential Type → Certificate`
    - Click **Save**
 
-   Add new again for the next NAI Realm:
+   Click **Add New** again for the next NAI Realm:
    - **Name:** `hellohelium.com`
    - **EAP:** `2`
    - **Method:** `EAP-TLS`
@@ -171,9 +171,9 @@ sudo docker compose down
   />
 </figure>
 
-7. Save the configuration again.
+6. Save the configuration again.
 
-8. Scroll down to **IP Address Type Information**:
+7. Scroll down to **IP Address Type Information**:
    - **IPv4 Type:** `Double NAT`
    - **IPv6 Type:** `Not Available`
 
@@ -190,7 +190,8 @@ sudo docker compose down
 1. Go to **Monitor and Manage → AP Groups**
 2. Select your new AP group `Helium`
 3. Go to the **Configuration** tab.
-4. Scroll down to **WLAN** add the `Helium Enterprise` WLAN we created if it's not already there.
+4. Scroll down to **WLAN** and add the `Helium Enterprise` WLAN we created if it's not already
+   there.
 
 <figure className="screensnippet-wrapper">
   <img

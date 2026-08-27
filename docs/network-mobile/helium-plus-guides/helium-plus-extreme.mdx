@@ -25,7 +25,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## High-Level Steps
 
-1. Deploy the RadSecProxy container and note the host’s IP address.
+1. Deploy the RadSecProxy container and note the host's IP address.
 2. Set up the wireless LAN: create an SSID and add RADIUS (RadSec) servers.
 3. Configure Hotspot 2.0 for Passpoint.
 4. Deploy the configuration to your access points.
@@ -35,22 +35,23 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Deploy RadSecProxy Container
 
-RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
-over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
-the UDP is then converted to a TLS protected TCP connection to the Helium Network core AAA servers.
+RADIUS messages used to authenticate users and for session accounting are transmitted unsecured over
+UDP by default. By directing these messages internally in your secure network to a RadSecProxy, the
+UDP traffic is then converted to a TLS-protected TCP connection to the Helium Network core AAA
+servers.
 
 ### RadSecProxy Prerequisites
 
 - An Intel-based machine with Docker installed.
 - The Intel-based machine has a private IP in your network reachable from your Extreme controller.
-- ACLs or Firewalls allow Extreme controller and Docker container to communicate UDP on port 1812
-  and 1813.
-- ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802.
+- ACLs or firewalls allow the Extreme controller and Docker container to communicate via UDP on
+  ports 1812 and 1813.
+- ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802.
 
 ### RadSecProxy Container Deployment
 
-1. Un-zip and untar the `radsec-proxy-main.tar.gz` file into a directory of your choice on the
-   host machine. This will unpack:
+1. Unzip and untar the `radsec-proxy-main.tar.gz` file into a directory of your choice on the host
+   machine. This will unpack:
    - `Dockerfile` - The Docker instructions to build the container
    - `radsecproxy.conf` - Pre-populated to connect to Helium Network AAA servers
    - `docker-compose.yml` - File to start and stop the container as a daemon
@@ -59,7 +60,7 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
    tar -xvzf radsec-proxy-main.tar.gz
    ```
 
-2. Into the same directory, copy the 3 certificates obtained from Helium Network:
+2. Into the same directory, copy the three certificates obtained from Helium Network:
    - `ca.pem` - The root CA certificate
    - `cert.pem` - The user certificate
    - `key.pem` - The key file matched to the certificate
@@ -156,7 +157,7 @@ can match.
 ### Add RadSec Authentication Servers to the Network Policy
 
 The controller will talk to your RadSecProxy; RadSecProxy then sends RADIUS over TLS to Helium. Use
-the RadSecProxy host’s private IP or hostname from
+the RadSecProxy host's private IP or hostname from
 [Deploy RadSecProxy Container](#deploy-radsecproxy-container).
 
 Add a RADIUS server group and add your RadSec server(s) to it. Your Extreme controller must support
@@ -202,7 +203,7 @@ Wireless LAN and policy setup are done.
 
 ## Configure Hotspot 2.0
 
-Hotspot 2.0 (Passpoint) lets devices automatically connect to your WiFi when they are in range.
+Hotspot 2.0 (Passpoint) lets devices automatically connect to your Wi-Fi when they are in range.
 ExtremeCloud IQ uses the supplemental CLI for Hotspot 2.0; you type or paste commands in the GUI.
 Prepare the CLI in a text file first so you can paste it when you enable the supplemental CLI.
 

@@ -17,13 +17,13 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 - The Intel-based machine has a private IP in your network reachable from your Fortinet FortiGate
   box.
-- ACLs or Firewalls allow Fortinet FortiGate box and Docker Container to communicate UDP on port
-  1812 and 1813.
-- ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802.
+- ACLs or firewalls allow the Fortinet FortiGate box and Docker container to communicate via UDP on
+  ports 1812 and 1813.
+- ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802.
 
 #### RadSecProxy Container Deployment
 
-1. Un-zip and untar the [`radsec-proxy-main.tar.gz`](https://github.com/novalabsxyz/radsec-proxy)
+1. Unzip and untar the [`radsec-proxy-main.tar.gz`](https://github.com/novalabsxyz/radsec-proxy)
    file into the directory of your choice on the host machine.
 
 ```shell
@@ -32,26 +32,27 @@ tar -xvzf  radsec-proxy-main.tar.gz
 
 This will unpack the following items:
 
-    1. Dockerfile - The docker instructions on how to build the container
-    1. radsecproxy.conf - The radsecproxy config file is pre-populated to connect to Helium Network AAA servers
-    1. docker-compose.yml - File to start and stop the container as a daemon.
+- Dockerfile - The Docker instructions on how to build the container
+- radsecproxy.conf - The radsecproxy config file is pre-populated to connect to Helium Network AAA
+  servers
+- docker-compose.yml - File to start and stop the container as a daemon.
 
-Into the same directory, copy the 3 certificates obtained from Helium
+Into the same directory, copy the three certificates obtained from Helium:
 
 - ca.pem - the root CA certificate
 - cert.pem - the user certificate
 - key.pem - the key file matched to the certificate
 
-Start the container using `sudo docker compose up -d`. If/when needed, stop the container using:
+Start the container using `sudo docker compose up -d`. If/when needed, stop the container using
 `sudo docker compose down`.
 
 ### Configure Fortinet FortiGate
 
-On the FortiGate CLI with FortiOS 7.0.2+
+On the FortiGate CLI with FortiOS 7.0.2+:
 
-1. Add the local RadSecProxy as the RADIUS server by replacing the \<radsecproxy-ip-addr\> to the
+1. Add the local RadSecProxy as the RADIUS server by replacing \<radsecproxy-ip-addr\> with the
    current RadSecProxy container IP address. Also, use the NAS ID used during onboarding to Helium
-   for \<radsecproxy-ip-addr\>
+   for \<radsecproxy-ip-addr\>.
 
 ```shell
 config user radius
@@ -84,7 +85,8 @@ config wireless-controller hotspot20 anqp-ip-address-type
 end
 ```
 
-3. Define a Venue Name and configure its duple by replacing \<any-venue-name\> to the desired value.
+3. Define a Venue Name and configure its duple by replacing \<any-venue-name\> with the desired
+   value.
 
 ```shell
 config wireless-controller hotspot20 anqp-venue-name
@@ -98,7 +100,7 @@ config wireless-controller hotspot20 anqp-venue-name
 end
 ```
 
-4. Define “Helium” as the Operator Name.
+4. Define "Helium" as the Operator Name.
 
 ```shell
 config wireless-controller hotspot20 h2qp-operator-name
@@ -152,8 +154,8 @@ end
 ```
 
 6. Configure the Passpoint Profile by linking the previously added NAI Realms, 3GPP Cellular
-   Networks, and the type of IP address available to subscribers connecting to your Hotspot 2.0,
-   among other parameters.
+   Networks, and the type of IP address available to subscribers connecting to your Hotspot 2.0
+   network, among other parameters.
 
 ```shell
 config wireless-controller hotspot20 hs-profile
@@ -169,8 +171,8 @@ config wireless-controller hotspot20 hs-profile
 end
 ```
 
-7. As the final step, set a Virtual Access Point (VAP) by linking the previously added “Helium
-   RadSecProxy” RADIUS server, and the “Helium” Passpoint Profile, among other parameters.
+7. As the final step, set a Virtual Access Point (VAP) by linking the previously added "Helium
+   RadSecProxy" RADIUS server and the "Helium" Passpoint Profile, among other parameters.
 
 ```shell
 config wireless-controller vap

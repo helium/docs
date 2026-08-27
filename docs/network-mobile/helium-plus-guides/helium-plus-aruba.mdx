@@ -23,7 +23,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - An Intel-based host is required in the network to run the
   [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
 
-# High Level Steps
+## High Level Steps
 
 1. Deploy RadSecProxy container and record the IP address of the host
 2. Build Helium Passpoint SSID
@@ -37,26 +37,27 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
    8. Link Advertisement Profile to Hotspot 2.0 Profile
    9. Link Hotspot 2.0 Profile to Virtual AP
 
-# Deploy RadSecProxy Container
+## Deploy RadSecProxy Container
 
-RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
+RADIUS messages used for user authentication and session accounting are transmitted unsecured and
 over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
-the UDP is then converted to a TLS protected TCP connection to the Helium Network core AAA servers.
+the UDP traffic is then converted to a TLS-protected TCP connection to the Helium Network core AAA
+servers.
 
-## Prerequisites
+### Prerequisites
 
 - An Intel-based machine with Docker installed.
 - The Intel-based machine has a private IP in your network reachable from your Aruba Mobility
   Controller
-- ACLs or Firewalls allow Aruba Mobility Controller and Docker Container to communicate UDP on port
-  1812 and 1813
-- ACLs or Firewalls allow container/host to reach the internet on TCP ports 2083 and 3802\.
+- ACLs or firewalls allow the Aruba Mobility Controller and Docker container to communicate over UDP
+  on ports 1812 and 1813
+- ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802\.
 
-## Container Deployment
+### Container Deployment
 
-1. Un-zip and untar the `radsec-proxy-main.tar.gz` file into the directory of your choice on the
-   host machine. This will unpack the following items:
-   1. `Dockerfile` \- The docker instructions on how to build the container
+1. Unzip and untar the `radsec-proxy-main.tar.gz` file into the directory of your choice on the host
+   machine. This will unpack the following items:
+   1. `Dockerfile` \- The Docker instructions on how to build the container
    2. `radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
       Network AAA servers
    3. `docker-compose.yml` \- File to start and stop the container as a daemon.
@@ -65,7 +66,7 @@ the UDP is then converted to a TLS protected TCP connection to the Helium Networ
 tar -xvzf  radsec-proxy-main.tar.gz
 ```
 
-2. Into the same directory copy the 3 certificates obtained from Helium Network
+2. Into the same directory, copy the 3 certificates obtained from the Helium Network
    1. `ca.pem` \- the root CA certificate
    2. `cert.pem` \- the user certificate
    3. `key.pem` \- the key file matched to the certificate
@@ -88,8 +89,8 @@ sudo docker compose down
 The following steps will configure your Aruba Mobility Controller and AP to broadcast an SSID with
 the needed Passpoint and RADIUS configurations to support Helium Mobile user offload.
 
-To start login to your Mobility Controller GUI in your browser, this will be our starting point for
-all major steps below.
+To start, log in to your Mobility Controller GUI in your browser. This will be our starting point
+for all major steps below.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -103,7 +104,7 @@ all major steps below.
 :::important In the following steps we will only mention mandatory fields to set.
 
 Most windows will have many other parameters with default values set. Leave any unmentioned
-parameter at it's default value.
+parameter at its default value.
 
 :::
 
@@ -111,7 +112,7 @@ parameter at it's default value.
 
 1. Click on **Configuration** and then **Authentication** in the left menu column.
 2. Click the **\+** in the **All Servers** box to add a server
-3. Enter “**RadSec-1**” as the Name
+3. Enter "**RadSec-1**" as the Name
 4. Choose **RADIUS** as the Type
 5. Enter the IP address of the RadSecProxy Container host
 
@@ -127,7 +128,7 @@ parameter at it's default value.
 7. Click on the Server name in the table to enter further configuration
 8. Enter **Auth Port** \= **1812**
 9. Enter **Acct Port** \= **1813**
-10. Enter “**mysecret**” as the shared key and retype key
+10. Enter "**mysecret**" as the shared key and retype key
 11. Enter the **NAS-ID** used during onboarding with Helium Network
 
 <figure className="screensnippet-wrapper">
@@ -164,7 +165,7 @@ RadSec server called Radsec-2.
 
 2. Click on **Configuration** and **WLAN** in the left menu column.
 3. Click the **\+** in the bottom left of the box to add a new WLAN
-4. Enter Name (SSID) \= “**Helium**”
+4. Enter Name (SSID) \= "**Helium**"
 5. Edit Broadcast on AP group and Forwarding mode based on your network configuration. In this
    example we use All APs and Tunnel mode.
 
@@ -179,7 +180,7 @@ add-shadow-margin"
 
 6. Click **Next**
 7. Configure the VLAN settings based on your network configuration. In this example we have a VLAN
-   called “LAN” that we use.
+   called "LAN" that we use.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -204,8 +205,8 @@ add-shadow-margin"
 </figure>
 
 11. Click **Next**
-12. Select the Default Role based on your network configuration. In this example we use a
-    “allow-all” rule that is wide open and allows-all user traffic.
+12. Select the Default Role based on your network configuration. In this example we use an
+    "allow-all" rule that is wide open and allows all user traffic.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -224,7 +225,7 @@ add-shadow-margin"
 2. Click on **AAA Profiles** in the top menu bar
 3. Click the **\+** next to **AAA** and **\+** next to **Helium_aaa_prof**
 4. Click on **RADIUS Accounting Server Group**
-5. Select **Heium_dot1_svg** from drop down menu next to **Server Group**
+5. Select **Heium_dot1_svg** from the drop-down menu next to **Server Group**
 
 <figure className="screensnippet-wrapper">
   <img
@@ -257,7 +258,7 @@ add-shadow-margin"
   />
 </figure>
 
-5. Enter “**Helium_Domain**” for Profile Name and “**Hellohelium.com**” for Domain Name
+5. Enter "**Helium_Domain**" for Profile Name and "**Hellohelium.com**" for Domain Name
 6. Click **Submit**
 7. Click **Pending Changes** in the top right corner.
 8. Click **Deploy Changes** in the pop up.
@@ -279,8 +280,8 @@ add-shadow-margin"
   />
 </figure>
 
-5. Enter “Helium_IP” for profile name, select appropriate values for IPv4 and IPv6 availability. If
-   unsure, select “**private-double-nated**” and “**not-available**”.
+5. Enter "Helium_IP" for profile name, then select appropriate values for IPv4 and IPv6
+   availability. If unsure, select "**private-double-nated**" and "**not-available**".
 6. Click **Submit**
 7. Click **Pending Changes** in the top right corner.
 8. Click **Deploy Changes** in the pop up.
@@ -301,8 +302,8 @@ add-shadow-margin"
   />
 </figure>
 
-5. Enter “**Helium_realm**” for Profile Name and “**hellohelium.com**” for NAI Realm Name.
-6. In the drop down for NAI Realm EAP Method 1 chose “**eap-tls**” and below that click the **\+**
+5. Enter "**Helium_realm**" for Profile Name and "**hellohelium.com**" for NAI Realm Name.
+6. In the drop-down for NAI Realm EAP Method 1, choose "**eap-tls**" and below that click the **\+**
    to set ID \= **Credential Type** and Value \= **cred-cert**
 7. Click **OK**
 8. Click **Submit**
@@ -325,9 +326,9 @@ add-shadow-margin"
   />
 </figure>
 
-5. Enter “Helium_venue” in Profile Name, select the best fitting Venue Group e.g. “**business**” and
-   best fitting Venue Type e.g. “**assembly-restaurant**” and supply a Venue Name which can be the
-   street address of your venue e.g. “**303 Elk Ave**”
+5. Enter "Helium_venue" in Profile Name, select the best-fitting Venue Group, e.g. "**business**",
+   and the best-fitting Venue Type, e.g. "**assembly-restaurant**", and supply a Venue Name, which
+   can be the street address of your venue, e.g. "**303 Elk Ave**"
 6. Click **Submit**
 7. Click **Pending Changes** in the top right corner.
 8. Click **Deploy Changes** in the pop up.
@@ -348,7 +349,7 @@ add-shadow-margin"
   />
 </figure>
 
-5. Enter “Helium_adv_prof” as Profile name
+5. Enter "Helium_adv_prof" as Profile name
 6. Click **Submit**
 7. Click **Pending Changes** in the top right corner.
 8. Click **Deploy Changes** in the pop up.
@@ -360,7 +361,7 @@ add-shadow-margin"
 3. Click the **\+** next to **Wireless LAN** and scroll down to find **Advertisement**
 4. Click the **\+** next to **Advertisement** and click on the **\+** next to **Helium_adv_profile**
 5. Select **ANQP Domain Name** from the list and click on the **\+** in the box to the right and
-   select “**Helium_Domain**” from the list.
+   select "**Helium_Domain**" from the list.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -378,7 +379,7 @@ add-shadow-margin"
 10. Repeat steps 1-9 to add:
     1. ANQP IP Address Availability
     2. ANQP NAI Realm
-    3. ANQP Venue name
+    3. ANQP Venue Name
 
 :::important
 
@@ -402,14 +403,14 @@ add-shadow-margin"
   />
 </figure>
 
-5. Enter “**Helium_hs20**” for Profile name
+5. Enter "**Helium_hs20**" for Profile name
 6. Check the box for **Advertise Hotspot 2.0 Capability**
 7. Select **Access Network Type** \= **Public chargeable**
-8. Select best fitting **Venue Group Type** e.g. **assembly**
-9. Select Best fitting **Venue Type** e.g. **assembly-restaurant**
+8. Select the best-fitting **Venue Group Type**, e.g. **assembly**
+9. Select the best-fitting **Venue Type**, e.g. **assembly-restaurant**
 10. Check the box next to **RADIUS Chargeable User Identity(RFC4372)**
 11. Check the box next to **RADIUS Location Data (RFC5580)**
-12. When complete the form should look like above.
+12. When complete, the form should look like the screenshot above.
 13. Click **Submit**
 14. Click **Pending Changes** in the top right corner.
 15. Click **Deploy Changes** in the pop up.
@@ -431,7 +432,7 @@ add-shadow-margin"
   />
 </figure>
 
-6. Select **Helium_adv_prof** from the drop down menu
+6. Select **Helium_adv_prof** from the drop-down menu
 7. Click **Submit**
 8. Click **Pending Changes** in the top right corner.
 9. Click **Deploy Changes** in the pop up.
@@ -443,7 +444,7 @@ add-shadow-margin"
 3. Click the **\+** next to **Wireless LAN** and scroll down to find **Virtual AP**
 4. Click the **\+** next to **Virtual AP** and click the **\+** next to **Helium**
 5. Click on **Hotspot 2.0**
-6. Select **Helium_hs20** from drop down menu next to **Hotspot 2.0 Profile** at the top
+6. Select **Helium_hs20** from the drop-down menu next to **Hotspot 2.0 Profile** at the top
 
 <figure className="screensnippet-wrapper">
   <img
@@ -470,16 +471,16 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED        STATUS    
 radsec@radsec:~$ sudo docker logs -f 4cefb87fb8cc
 ```
 
-Follow logs from the container and look for Accept or Rejects for any reasons.
+Follow logs from the container and look for Accepts or Rejects for any reason.
 
-- No Radius when phone is trying means:
+- No RADIUS when the phone is trying means:
   - Aruba setup is not forwarding or not forwarding the right ports
-  - Network is blocking, check for ACLs or Firewall in network path
-  - Container host network is blocking it being sent to container check for firewall services on
-    host
-- Radius arrives but you are getting rejects means:
-  - Make sure NAS_ID has been onboarded to Helium Network
-  - Double check ANQP profile creation steps
+  - Network is blocking; check for ACLs or firewalls in the network path
+  - Container host network is blocking it from being sent to the container; check for firewall
+    services on the host
+- RADIUS arrives but you are getting rejects means:
+  - Make sure the NAS-ID has been onboarded to the Helium Network
+  - Double-check ANQP profile creation steps
 
 ### Inspect RADIUS AVP contents
 
@@ -487,8 +488,8 @@ Follow logs from the container and look for Accept or Rejects for any reasons.
 ssh radsec@192.168.10.209 -- sudo tcpdump -i any  -U -s0 -w - port 1813 or 1812 or 2083 | /Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -
 ```
 
-Wireshark/TCPdump on host for port 1812, 1813, 2083, 3802\.  
-User on host must have “sudo nopasswd” privileges.
+Wireshark/tcpdump on host for ports 1812, 1813, 2083, 3802\.  
+User on host must have "sudo nopasswd" privileges.
 
 Look for:
 

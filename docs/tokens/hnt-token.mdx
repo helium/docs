@@ -3,8 +3,8 @@ id: hnt-token
 title: The Helium Network Token
 pagination_label: Helium Network Token
 sidebar_label: Helium Network Token (HNT)
-description:
-  The HNT token — max supply cap, halving schedule, burn-and-mint economics, and net emissions
+description: >-
+  The HNT token: max supply cap, halving schedule, burn-and-mint economics, and net emissions
   mechanism.
 image: https://docs.helium.com/img/link-image.png
 slug: /tokens/hnt-token
@@ -19,7 +19,7 @@ The Helium Network Token (HNT) is the native cryptocurrency and protocol token o
 Network. The first HNT was emitted on July 29th, 2019. There was no pre-mine of HNT before the
 launch of the Network.
 
-The Helium network migrated from its own purpose-built blockchain to the Solana Blockchain on April
+The Helium Network migrated from its own purpose-built blockchain to the Solana blockchain on April
 18, 2023. The mint address for HNT is [`hntyVP6YFm1Hg25TN9WGLqM12b8TQmcknKrdu1oxWux`][hnt-mint-addr]
 on the Solana blockchain.
 
@@ -28,8 +28,8 @@ on the Solana blockchain.
 HNT serves the needs of the two primary parties in the Helium Ecosystem:
 
 1. **Hotspot Hosts and Operators**. Hosts are rewarded in HNT network tokens while deploying and
-   maintaining network coverage. Operators, and some network mappers are also rewarded in HNT.
-2. **Enterprises and Developers use the Helium Network** to connect devices and build Network
+   maintaining network coverage. Operators are also rewarded in HNT.
+2. **Enterprises and Developers** use the Helium Network to connect devices and build Network
    applications. [Data Credits][datacredit], which are a \$USD-pegged utility token derived from
    HNT, are used to pay transaction fees for wireless data transmissions on the Network.
 
@@ -51,7 +51,7 @@ needs and relatively scarce, with a known maximum.
 The Network targeted the distribution of 5,000,000 HNT per month at launch. Following the community
 approval of HIP-20, the Network uses a two-year halving schedule, resulting in an initial maximum
 HNT supply of 240,000,000 HNT, but slow blockchain times in year 1 resulted in an issuance that was
-~17,000,000 HNT less than the schedule targeted. Thus, at the time HIP 20 was approved, max supply
+~17,000,000 HNT less than the schedule targeted. Thus, at the time HIP-20 was approved, max supply
 had decreased to ~223,000,000 HNT.
 
 | Year |       Year Start | HNT at Year Start | Target HNT Emission |
@@ -76,51 +76,50 @@ had decreased to ~223,000,000 HNT.
 
 ### Burn and Mint Economics {#burn-and-mint-economics}
 
-[Data Credits][datacredit] (DC) are a $USD-pegged utility token derived from HNT and is used to pay
+[Data Credits][datacredit] (DC) are a $USD-pegged utility token derived from HNT and are used to pay
 fees on the Helium Network. DC is only produced by burning HNT. This HNT to DC relationship is based
-on a design commonly called a [burn and mint equilibrium][bme] and intends to allow for the supply
-of HNT to respond to network usage trends.
+on a design commonly called a [burn and mint equilibrium][bme] and is intended to allow for the
+supply of HNT to respond to network usage trends.
 
 ### Net Emissions
 
 As the halving schedule progresses, it is possible that the HNT minted per epoch is not sufficiently
-divisible for data transfer rewards. Therefore, in order to ensure that miners are incentivized to
-continue transmitting data and ensure a healthy, robust network, the Net Emissions mechanism was
-instituted in August 2021.
+divisible for data transfer rewards. Therefore, to ensure that miners are incentivized to continue
+transmitting data and ensure a healthy, robust network, the Net Emissions mechanism was instituted
+in August 2021.
 
 Net Emissions give the protocol enough HNT for rewards in perpetuity by monitoring the number of HNT
 burned in a given epoch and adding that to the number of HNT to mint that epoch. Because HNT
 produced via Net Emissions do not add to the total outstanding, they do not violate max supply.
 However, to ensure that the deflationary pressure is still present, the Net Emission is capped at 1%
-of the epoch emissions at the time when HIP 20 was approved.
+of the epoch emissions at the time HIP-20 was approved.
 
-Initially, Net Emissions counted only HNT burned for Data Credits but now accounts for all HNT
-burned, but does not include HNT not emitted.
+Initially, Net Emissions counted only HNT burned for Data Credits but now account for all HNT
+burned, though they do not include HNT not emitted.
 
 Review the [complete Net Emissions discussion in the HIP][hip-20] for more information. Note that in
 HIP-20, the cap was 34.24 HNT because the epoch was every 30 minutes at the time HIP-20 was written.
-The current epoch is only 24 hour basis, yielding a cap of 1,643.83561643 HNT. The cap is not
-affected by the 2 year emissions halvings.
+The current epoch is on a 24-hour basis, yielding a cap of 1,643.83561643 HNT. The cap is not
+affected by the two-year emissions halvings.
 
 The up-to-date value can be verified
-[on chain at.](https://explorer.solana.com/address/BQ3MCuTT5zVBhNfQ4SjMh3NPVhFy73MPV8rjfq5d1zie/anchor-account)
+[on chain](https://explorer.solana.com/address/BQ3MCuTT5zVBhNfQ4SjMh3NPVhFy73MPV8rjfq5d1zie/anchor-account).
 Move the decimal point 8 positions left to measure `Net Emissions Cap` in HNT.
 
 HIP-20 proposed a Net Emissions Pool, which would smooth out the effects of large individual burn
 events occurring infrequently over several days. Without smoothing, large HNT burns for DC would be
 extremely capped as the burn and cap would happen only on one day. This pool was implemented as part
 of [HRP 2025-03][hrp-2025-03] using a similar smoothing calculation to that for the Utility Score
-described in [HIP-141][hip-141]. With smoothing, this has an effect that large burns on one day can
-increase Net Emissions over several days, rather than just one day.
+described in [HIP-141][hip-141]. With smoothing, large burns on one day can increase Net Emissions
+over several days, rather than just one day.
 
-Every day, a Net Emissions Target is calculated, which takes into account the daily burn of HNT, and
-the Net Emissions Target of the previous day and smooths it. The target amount of HNT is then
+Every day, a Net Emissions Target is calculated, which takes into account the daily burn of HNT and
+the Net Emissions Target of the previous day, and smooths it. The target amount of HNT is then
 re-emitted as Net Emissions, up to the cap of 1,643.83561643 HNT.
 
-The smoothing calculation multiplies yesterday's uncapped and smoothed HNT burned amount number and
-multiplies it by 6/7 and then adds it to today's actual HNT burned amount, multiplied by 1/7 and the
-resulting number then has the Net Emissions Cap applied to provide the calculated Net Emission HNT
-number for today.
+The smoothing calculation takes yesterday's uncapped and smoothed HNT burned amount, multiplies it
+by 6/7, and then adds today's actual HNT burned amount multiplied by 1/7; the resulting number then
+has the Net Emissions Cap applied to provide the calculated Net Emission HNT number for today.
 
 $$
 \text{Net Emissions Target}_{\text{Today}} = \text{Net Emissions Target}_{\text{Yesterday}} \cdot \frac{6}{7} + \text{HNT Burn}_{\text{Today}} \cdot \frac{1}{7}
