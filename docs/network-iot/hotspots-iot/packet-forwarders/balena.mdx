@@ -82,26 +82,34 @@ To check that the Hotspot has been generated correctly, go to the `Terminal` and
 
 And you will get something like this:
 
-`{ "address": <hotspot address>, "name": <hotspot name> }`
+```json
+{
+  "name": "angry-purple-tiger",
+  "key": "11TL62V8NYvSTXmV5CZCjaucskvNR1Fdar1Pg4Hzmzk5tk2JBac",
+  "onboarding": "11TL62V8NYvSTXmV5CZCjaucskvNR1Fdar1Pg4Hzmzk5tk2JBac"
+}
+```
 
 At this point, your Hotspot is ready to join the Helium IoT Network.
 
 ### Join the Helium IoT Network
 
-At the moment, only the Helium CLI Wallet can be used to join the Helium IoT Network. The Helium
-Wallet App is still not compatible. Follow
-[these instructions](https://github.com/mpous/helium-data-hotspot/#join-the-helium-blockchain-with-your-data-only-hotspot)
-to add your Hotspot to the Helium IoT Network.
+Use the Helium CLI Wallet to add this Hotspot to the network. The Helium Wallet App onboards
+Hotspots over Bluetooth and requires an approved maker, so it cannot onboard a self-built Hotspot
+like this one.
+
+Follow [On-Device Onboarding](/iot/onboard-a-hotspot/on-device) to issue the Hotspot on-chain and
+assert its location.
 
 ## Check the Hotspot
 
 Now that the Hotspot has been added to the Helium IoT Network, it should be visible in the Helium
 Wallet.
 
-If you create a Helium Device, then go to the [Helium Console](https://console.helium.com) and
-inspect packets from your device to confirm that the Hotspot is the one that relays the data from
-your devices. You will also be able to see in the balenaCloud logs that UPLINK messages have been
-relayed to the Helium OUI.
+Once you have a device registered with an LNS, inspect packets from that device in your LNS to
+confirm that this Hotspot is the one relaying the data. You will also be able to see in the
+balenaCloud logs that UPLINK messages have been relayed. See
+[LoRaWAN Network Servers](/iot/lorawan-network-servers) if you do not have an LNS yet.
 
 ## Manage your gateway_key
 
