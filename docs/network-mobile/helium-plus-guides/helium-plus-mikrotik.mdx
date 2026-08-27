@@ -35,15 +35,15 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 At the time of writing, RouterOS does not support RadSec natively. Download the
 [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container and run it in Docker.
 
-1. Unzip and untar the `Helium_RadSec_Docker.tar.gz` file into the directory of your choice on the
-   host machine. This will unpack the following items:
-   1. `Dockerfile` - The Docker instructions on how to build the container
-   2. `Radsecproxy.conf` - The radsecproxy config file is pre-populated to connect to Helium Network
-      AAA servers
-   3. `docker-compose.yml` - File to start and stop the container as a daemon.
+1. Unzip and untar the `radsec-proxy-main.tar.gz` file into the directory of your choice on the host
+   machine. This will unpack the following items:
+   1. `Dockerfile` \- The Docker instructions on how to build the container
+   2. `radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
+      Network AAA servers
+   3. `docker-compose.yml` \- File to start and stop the container as a daemon.
 
 ```bash
-tar -xvzf  Helium_RadSec_Docker.tar.gz
+tar -xvzf  radsec-proxy-main.tar.gz
 ```
 
 2. Into the same directory copy the 3 certificates obtained from the Helium Network
@@ -135,7 +135,10 @@ enter the NAS-ID provided during Helium Plus onboarding.
 
 #### Interworking Tab
 
-Fill in as shown:
+The Interworking (Passpoint / Hotspot 2.0) profile is what advertises the Helium realms and carrier
+network identifiers over ANQP. If this profile is incomplete, handsets will see the SSID but
+silently fail to associate — so make sure the domain names, NAI realms, and 3GPP cellular network
+information are all present.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -144,6 +147,68 @@ Fill in as shown:
     className="add-border-radius add-shadow add-shadow-margin"
   />
 </figure>
+
+Fill in the profile as follows:
+
+| Field               | Value                                                 |
+| ------------------- | ----------------------------------------------------- |
+| **ANQP Domain ID**  | `0`                                                   |
+| **Network Type**    | `2` (chargeable public network), access to internet   |
+| **Operator Name**   | `Helium-Operator` (language code `eng`)               |
+| **IP Address Type** | IPv4 available (`ip-type ipv4 2`), IPv6 not available |
+| **Domain Names**    | `freedomfi.com`, `hellohelium.com`                    |
+
+**NAI Realms** — the Helium-issued credentials use EAP-TLS (`13`):
+
+| Realm             | EAP method   |
+| ----------------- | ------------ |
+| `freedomfi.com`   | `13` EAP-TLS |
+| `hellohelium.com` | `13` EAP-TLS |
+
+Add a further realm for each carrier your site is approved to offload. Those are SIM-based, so they
+use EAP-AKA (`23`) and take the form `wlan.mnc<mnc>.mcc<mcc>.3gppnetwork.org`. The realms and their
+MCC / MNC values are provided to you during Helium Plus onboarding.
+
+**3GPP Cellular Network Information** (PLMN, MCC / MNC):
+
+Add one PLMN entry per approved carrier, using the same MCC / MNC pairs as the realms above. Reach
+out to your Helium Plus contact if you do not have them.
+
+##### Equivalent RouterOS CLI
+
+The same profile can be applied from the CLI. This is a known-good Helium Passpoint profile —
+substitute your onboarding `NAS-Identifier` on the `aaa attribute` line, and your onboarding carrier
+realms and MCC / MNC pairs on the `nai-realm` and `3gpp-plmn` lines:
+
+```
+hotspot profile Helium-profile
+hotspot profile Helium-profile anqp-domain-id 0
+hotspot profile Helium-profile network-type 2 access-internet
+hotspot profile Helium-profile operator-name Helium-Operator language-code eng
+hotspot profile Helium-profile ip-type ipv4 2 ipv6 0
+hotspot profile Helium-profile domain-name freedomfi.com
+hotspot profile Helium-profile domain-name hellohelium.com
+hotspot profile Helium-profile nai-realm freedomfi.com encoding-type 0
+hotspot profile Helium-profile nai-realm freedomfi.com eap-method 13
+hotspot profile Helium-profile nai-realm hellohelium.com encoding-type 0
+hotspot profile Helium-profile nai-realm hellohelium.com eap-method 13
+# Then, per approved carrier, using the realm and MCC / MNC from your onboarding:
+hotspot profile Helium-profile nai-realm wlan.mnc<mnc>.mcc<mcc>.3gppnetwork.org encoding-type 0
+hotspot profile Helium-profile nai-realm wlan.mnc<mnc>.mcc<mcc>.3gppnetwork.org eap-method 23
+hotspot profile Helium-profile 3gpp-plmn mcc <mcc> mnc <mnc>
+security-object Helium security protocol-suite wpa3-aes-8021x
+aaa attribute NAS-Identifier <your-nas-id>
+ssid Helium hotspot-profile Helium-profile
+save configuration
+```
+
+:::note Native RadSec + Orion Wi-Fi
+
+Newer RouterOS releases support RadSec natively (removing the need for the RadSecProxy container in
+step 1) and document the matching Passpoint / Orion Wi-Fi setup. See MikroTik's
+[Interworking Profiles — Configuration guide using native RadSec and Orion Wi-Fi](https://help.mikrotik.com/docs/spaces/ROS/pages/7962628/Interworking+Profiles#InterworkingProfiles-ConfigurationguideusingnativeRadSecandOrionWifi).
+
+:::
 
 ### 4. Attach the Profile to an Interface
 
