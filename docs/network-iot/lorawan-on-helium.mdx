@@ -55,9 +55,9 @@ that forwarded the message from the end device in order to properly credit the H
 transfer rewards on the Helium Network.
 
 A second primary difference is the introduction of the
-[Helium IoT Config Service](https://github.com/helium/oracles/tree/main/iot_config), which serves as
-an interface for users to configure routing rules relied on by HPR when determining where to forward
-messages from end devices to LNSs. Users can leverage tools including the
+[Helium IoT Config Service](https://github.com/helium/oracles-iot/tree/main/iot_config), which
+serves as an interface for users to configure routing rules relied on by HPR when determining where
+to forward messages from end devices to LNSs. Users can leverage tools including the
 [Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) to provide routing
 rule configurations to the Config Service (and in turn HPR).
 
@@ -77,7 +77,7 @@ For a deeper understanding of the architecture of the Helium Network, users are 
 documentation and review the open-source code for HPR and IoT Config Service:
 
 - [HPR](https://github.com/helium/helium-packet-router)
-- [Config Service](https://github.com/helium/oracles/tree/main/iot_config)
+- [Config Service](https://github.com/helium/oracles-iot/tree/main/iot_config)
 
 ## The OUI
 
@@ -100,20 +100,18 @@ more in the [Use Helium LoRaWAN](/iot/lorawan-network-servers) section.
 
 ## Organizationally Unique Identifier
 
-Organizationally Unique Identifiers (OUIs) are registered identities on the Helium Blockchain. To
-send and receive packets to an end device, a network user needs to be serviced by an OUI.
+Organizationally Unique Identifiers (OUIs) are the registered identities of LNS operators. To send
+and receive packets to an end device, a network user needs to be serviced by an OUI.
 
-An OUI has some specifics related to LoRaWAN and packet routing, as
-[documented above](/iot/lorawan-on-helium#the-oui), but with respect to the blockchain, what's
-important is that
-[only libp2p addresses registered as endpoints for the OUI](https://github.com/helium/proto/blob/master/src/blockchain_txn_oui_v1.proto#L6)
-may open and close state channels on behalf of an OUI.
+An OUI is a record held by the Config Service rather than an on-chain object. Each record pairs the
+OUI number with an owner key, a payer key, and any delegate keys the owner has authorized. The owner
+key manages delegate keys, and owner and delegate keys sign the Config Service requests that create
+and update routes, EUI pairs, devAddr ranges, and session key filters. The one on-chain component is
+the OUI's Data Credit escrow on Solana, which is derived from the payer key and funded as described
+in [Fund an OUI](/iot/run-an-lns/fund-an-oui).
 
-For example, the account `13tyMLKRFYURNBQqLSqNJg9k41maP1A7Bh8QYxR13oWv7EnFooc` purchased the first
-OUI on the Helium Blockchain. The address `112qB3YaH5bZkCnKA5uRH7tBtGNv2Y5B4smv1jsmvGUzgKT71QpE`
-operates the OUI on behalf of the owner.
-
-OUIs are purchased and numbered in incrementing order.
+OUI numbers are assigned in incrementing order as records are created. Acquiring one is not
+self-service; see [Buy an OUI](/iot/run-an-lns/buy-an-oui) for the process and costs.
 
 :::info
 
@@ -124,7 +122,7 @@ Linux and the Bash command line.
 
 :::
 
-### Join Request Frames and Filters
+### Join Request Frames and EUI Pairs
 
 A Join Request frame has the following unencrypted header:
 
@@ -136,15 +134,18 @@ A Join Request frame has the following unencrypted header:
 +---------------------------------------------------------+
 ```
 
-From the gateway's perspective, the (AppEUI, DevEUI) may be used to figure out if one or more OUIs
-are interested in the Join Request.
+The (AppEUI, DevEUI) pair determines which OUIs are interested in the Join Request. Hotspots make no
+routing decision of their own; they forward every packet they hear to HPR, and HPR performs the
+lookup.
 
-This is done by querying every filter maintained and written to the blockchain by every OUI. The
-filters themselves are _xorhash_ tables, so the AppEUI and DevEUI cannot be extracted. Only with the
-AppEUI and DevEUI in hand can the gateway run them through the table to see if they're there.
+An OUI registers the (AppEUI, DevEUI) pairs it expects against one of its routes in the Config
+Service, and HPR receives those pairs over its route stream. When a Join Request arrives, HPR
+matches the pair directly and forwards the request to every route that claims it. Registering a
+DevEUI of `0000000000000000` acts as a wildcard, matching every DevEUI under that AppEUI.
 
-In response to the Join Request, a Join Accept is sent down, assigning the NwkAddr. Due to the
-multi-tenancy on the Helium Network, the LNS may only assign NwkAddrs within its devAddr slab(s).
+In response to the Join Request, a Join Accept is sent down, assigning the devAddr. Due to the
+multi-tenancy on the Helium Network, the LNS may only assign devAddrs within its slab(s), and it
+registers them with the Config Service so that HPR can route the device's later uplinks.
 
 ### Data Frames and devAddr Slabs
 
@@ -158,22 +159,30 @@ Data packets have the following unencrypted header (FHDR):
 +----------------------------------------------------------------------+
 ```
 
-Within devAddr, there is the NwkAddr of a device:
+Within a devAddr, the high bits identify the network and the low bits identify the device. Helium's
+NetID, `0x00003C`, is a LoRaWAN Type 0 NetID, so its NwkID is six bits and each device is addressed
+by a 25-bit NwkAddr:
 
 ```text
 +------------------------------------------------+
 |                     DevAddr                    |
 +------------------------+-----------------------+
-|   NwkID (bits 31–25)   |  NwkAddr (bits 24–0)  |
-+-----------+--------------------+---------------+
-|     Helium Network     |   allocated by slab   |
-|(‘H’ / 0b1001000 / 0x48)|      to OUIs          |
-+-----------+--------------------+---------------+
+|   AddrPrefix (31-25)   |    NwkAddr (24-0)     |
++--------+---------------+-----------------------+
+|  Type  |     NwkID     |   allocated by slab   |
+| bit 31 |  bits 30-25   |        to OUIs        |
+|  0b0   |   0b111100    |                       |
++------------------------------------------------+
 ```
 
-From the gateway's perspective, it can use devAddr to determine the OUI of Data frames. A quick
-query can say which OUI owns this devAddr slab. This look-up and routing by devAddr instead of by
-(AppEUI, DevEUI) via _xorhash_ filters is generally much quicker.
+That gives Helium the devAddr range `0x78000000` to `0x79FFFFFF`, written `78000000/7`, which is
+subdivided into the slabs allocated to OUIs.
+
+HPR routes Data frames by devAddr. It matches the devAddr against the ranges each OUI has registered
+with the Config Service and forwards the frame to every route whose range contains it. Where an
+operator has added [Session Key Filters](/iot/run-an-lns/advanced-configuration#session-key-filter),
+HPR also verifies the frame's MIC against the stored session keys before buying the packet,
+narrowing delivery to the route that owns the device session.
 
 [foundation-blog]:
   https://medium.com/helium-foundation/scaling-iot-growth-with-heliums-open-lns-initiative-c906e6953d6d
