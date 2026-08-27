@@ -57,7 +57,7 @@ a one-way hashing to a new address. So, for example,
 
 <!-- prettier-ignore -->
 ```js
-getProgramAddress([Buffer.from("helium", "utf8")], helium_sub_daos.programId)
+PublicKey.findProgramAddressSync([Buffer.from("helium", "utf8")], helium_sub_daos.programId)
 ```
 
 will always return the same address. Better yet, the `helium_sub_daos` is able to sign transactions
@@ -123,7 +123,7 @@ be derived by:
 
 <!-- prettier-ignore -->
 ```js
- PublicKey.findProgramAddress(
+ PublicKey.findProgramAddressSync(
     [wallet.toBuffer(), TOKEN_PROGRAM_ID.toBuffer(), mint.toBuffer()],
     ASSOCIATED_TOKEN_PROGRAM_ID
   )
@@ -155,12 +155,12 @@ example, SPL Token (the token program) comes with @solana/spl-token.
 import { PublicKey } from "@solana/web3.js"
 import { getAccount, getAssociatedTokenAddressSync } from "@solana/spl-token"
 
-const mint = new PublicKey("...wallet...")
+const mint = new PublicKey("...mint...")
 const wallet = new PublicKey("...wallet...")
 const tokenAddress = getAssociatedTokenAddressSync(mint, wallet)
 const tokenAccount = await getAccount(connection, tokenAddress)
 
-console.log(tokenAcount.amount, tokenAccount.owner)
+console.log(tokenAccount.amount, tokenAccount.owner)
 ```
 
 In the case of Helium programs, they all use a framework called
@@ -198,6 +198,8 @@ For example, to submit a Data Credit delegation, the code may look something lik
 ```ts
 import { subDaoKey } from "@helium/helium-sub-daos-sdk";
 import { init as initDc } from "@helium/data-credits-sdk";
+import { toBN } from "@helium/spl-utils";
+import { PublicKey } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 
 anchor.setProvider(anchor.AnchorProvider.local("...rpc url..."));
@@ -208,7 +210,7 @@ const iotSubDao = subDaoKey(iotMint)[0]
 
 const dcProgram = await initDc(provider)
 
-await program.methods
+await dcProgram.methods
     .delegateDataCreditsV0({
       amount: toBN(10, 0),
       routerKey: "router key",

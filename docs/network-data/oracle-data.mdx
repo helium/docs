@@ -143,7 +143,7 @@ decoder will fail.
 
 ```protobuf
 // poc_mobile.proto
-// copied from https://github.com/helium/proto/blob/master/src/service/poc_mobile.proto#L31
+// copied from https://github.com/helium/proto/blob/953da03fd03f1f655e7c27328f068fa9654d1954/src/service/poc_mobile.proto#L43
 
 syntax = "proto3";
 
@@ -169,10 +169,13 @@ message cell_heartbeat_req_v1 {
 ```js
 // oracle-data-reader-example.js
 
+const fs = require('fs')
+const protobuf = require('protobufjs')
+
 // assumes you've downloaded and unzipped the below file
 const fileBuffer = fs.readFileSync('./cell_heartbeat.1667919103443')
 
-protobuf.load('mobile.proto', function (err, root) {
+protobuf.load('poc_mobile.proto', function (err, root) {
   if (err) throw err
 
   // Obtain a message type
@@ -223,8 +226,7 @@ tokio = { version = "1", default-features = false, features = [
 tokio-util = "0"
 ```
 
-```rust
-# main.rs
+```rust title="main.rs"
 use anyhow::Result;
 use file_store::{heartbeat::CellHeartbeat, traits::MsgDecode, file_source};
 use futures::{ StreamExt};

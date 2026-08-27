@@ -82,20 +82,21 @@ documentation and review the open-source code for HPR and IoT Config Service:
 ## The OUI
 
 Each LNS on the Helium Network acquires an Organizationally Unique Identifier (OUI). This registers
-the LNS with the blockchain and allocates two very important routing objects owned and maintained by
+the LNS with the network and establishes two very important routing objects owned and maintained by
 the OUI Operator:
 
 - one or more **slabs** of devAddrs, reserving NwkAddr space for the OUI's devices on the Helium
   Network
+- one or more **routes**, each pairing an LNS endpoint with the (AppEUI, DevEUI) pairs used to route
+  Join Requests to that LNS
 
 A device defined by (AppEUI, DevEUI) can be allocated to any of the devAddrs owned by the OUI. It is
 even possible to multiplex many devices on the same devAddr at the same time, using the Message
-Integrity Check (MIC) to disambiguate.
+Integrity Code (MIC) to disambiguate.
 
-Starting in 2023, Helium will be utilizing an OpenLNS Initiative to allow more choice and increase
-usability. You can read more about the OpenLNS Initiative at the [Helium Foundation
-Blog][foundation-blog] or read more in the [Use Helium LoRaWAN](/iot/lorawan-network-servers)
-section.
+Since 2023, Helium has used the OpenLNS Initiative to allow more choice and increase usability. You
+can read more about the OpenLNS Initiative at the [Helium Foundation Blog][foundation-blog] or read
+more in the [Use Helium LoRaWAN](/iot/lorawan-network-servers) section.
 
 ## Organizationally Unique Identifier
 
