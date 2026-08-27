@@ -21,7 +21,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - An Intel-based host is required in the network to run the
   [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
 
-# High Level Steps
+## High Level Steps
 
 1. Deploy RadSecProxy container and record IP address of host
 2. Build WLAN Helium Passpoint SSID
@@ -31,14 +31,14 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
    4. Build Hotspot 2.0 Profile
    5. Enable Hotspot 2.0
 
-# Deploy RadSecProxy Container
+## Deploy RadSecProxy Container
 
 RADIUS messages used for user authentication and session accounting are transmitted unsecured and
 over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
 the UDP traffic is then converted to a TLS-protected TCP connection to the Helium Network core AAA
 servers.
 
-## Prerequisites
+### Prerequisites
 
 - An Intel-based machine with Docker installed.
 - The Intel-based machine has a private IP in your network reachable from your 5520 WLC Controller
@@ -46,7 +46,7 @@ servers.
   ports 1812 and 1813
 - ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802\.
 
-## Container Deployment
+### Container Deployment
 
 1. Unzip and untar the `radsec-proxy-main.tar.gz` file into the directory of your choice on the host
    machine. This will unpack the following items:
@@ -75,7 +75,7 @@ sudo docker compose up -d
 sudo docker compose down
 ```
 
-# Build an SSID for Helium
+## Build an SSID for Helium
 
 This guide outlines how to configure a Cisco 5520 Wireless LAN Controller (WLC) running AireOS 8.5
 for integration with the Helium Network using a local Docker-based RadSecProxy. This enables
@@ -98,7 +98,7 @@ other parameters with default values set. Leave any unmentioned parameter at its
 
 :::
 
-## Configure Security and RADIUS Connections
+### Configure Security and RADIUS Connections
 
 1. Under the **General** tab, check the **Status** box to Enable
 2. Check the box to **Broadcast SSID**
@@ -134,7 +134,7 @@ other parameters with default values set. Leave any unmentioned parameter at its
 12. Configure **shared secret** to **mysecret**
 13. Configure **Interim Interval** to **300 seconds**
 
-# Configure 802.11u
+## Configure 802.11u
 
 1. From the main WLANs view, select the blue down arrow to the right of the WLAN description and
    select **802.11u** from the dropdown menu
@@ -179,7 +179,7 @@ sent by the Helium team.
 13. In the **Domain List** enter **hellohelium.com** and click **Add**
 14. **Save** configuration
 
-# Build Hotspot 2.0 Profile
+## Build Hotspot 2.0 Profile
 
 1. From the main WLANs view, select the blue down arrow to the right of the WLAN description and
    select **Hotspot 2.0** from the dropdown menu
@@ -196,7 +196,7 @@ sent by the Helium team.
 3. Set **WAN Link Status** to **Link Up**
 4. Click **Apply -> Save Configuration**
 
-# Verification
+## Verification
 
 1. After saving, attempt to connect using a Helium Mobile SIM or eSIM device.
 2. Monitor the proxy logs with:

@@ -22,7 +22,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - An Intel-based host is required in the network to run the
   [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
 
-# High Level Steps
+## High Level Steps
 
 1. Deploy RadSecProxy container and record IP address of host
 2. Build Meraki Helium Passpoint SSID
@@ -30,13 +30,13 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
    2. Configure SSID to use RADIUS
    3. Build Hotspot 2.0 Profile
 
-# Deploy RadSecProxy Container
+## Deploy RadSecProxy Container
 
 RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
 over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
 the UDP is then converted to a TLS-protected TCP connection to the Helium Network core AAA servers.
 
-## Prerequisites
+### Prerequisites
 
 - An Intel-based machine with Docker installed.
 - The Intel-based machine has a private IP in your network reachable from your Meraki Mobility
@@ -45,7 +45,7 @@ the UDP is then converted to a TLS-protected TCP connection to the Helium Networ
   UDP on ports 1812 and 1813.
 - ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802.
 
-## Container Deployment
+### Container Deployment
 
 1. Unzip and untar the `radsec-proxy-main.tar.gz` file into the directory of your choice on the host
    machine. This will unpack the following items:
@@ -74,7 +74,7 @@ sudo docker compose up -d
 sudo docker compose down
 ```
 
-# Build Meraki Helium Passpoint SSID
+## Build Meraki Helium Passpoint SSID
 
 The following steps will configure your Meraki system to broadcast an SSID with the needed Passpoint
 and RADIUS configurations to support Helium Mobile user offload.
@@ -98,7 +98,7 @@ other parameters with default values set. Leave any unmentioned parameter at its
 
 :::
 
-## Build a new SSID
+### Build a new SSID
 
 1. Click on **Wireless** and then **SSID** in the left menu column
 
@@ -123,7 +123,7 @@ other parameters with default values set. Leave any unmentioned parameter at its
 5. Select **Enabled**
 6. Click **Save Changes**
 
-## Configure Helium SSID for RADIUS Access Control
+### Configure Helium SSID for RADIUS Access Control
 
 :::note
 
@@ -207,7 +207,7 @@ re-registered before those APs will authenticate.
 
 :::
 
-## Build Hotspot 2.0 Config
+### Build Hotspot 2.0 Config
 
 1. Click on **Wireless** and navigate to **Hotspot 2.0**
    <figure className="screensnippet-wrapper">

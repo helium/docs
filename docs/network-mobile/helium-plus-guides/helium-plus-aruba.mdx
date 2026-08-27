@@ -23,7 +23,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - An Intel-based host is required in the network to run the
   [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
 
-# High Level Steps
+## High Level Steps
 
 1. Deploy RadSecProxy container and record the IP address of the host
 2. Build Helium Passpoint SSID
@@ -37,14 +37,14 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
    8. Link Advertisement Profile to Hotspot 2.0 Profile
    9. Link Hotspot 2.0 Profile to Virtual AP
 
-# Deploy RadSecProxy Container
+## Deploy RadSecProxy Container
 
 RADIUS messages used for user authentication and session accounting are transmitted unsecured and
 over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
 the UDP traffic is then converted to a TLS-protected TCP connection to the Helium Network core AAA
 servers.
 
-## Prerequisites
+### Prerequisites
 
 - An Intel-based machine with Docker installed.
 - The Intel-based machine has a private IP in your network reachable from your Aruba Mobility
@@ -53,7 +53,7 @@ servers.
   on ports 1812 and 1813
 - ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802\.
 
-## Container Deployment
+### Container Deployment
 
 1. Unzip and untar the `radsec-proxy-main.tar.gz` file into the directory of your choice on the host
    machine. This will unpack the following items:

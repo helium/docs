@@ -22,7 +22,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 - An Intel-based host is required in the network to run the
   [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
 
-# High Level Steps
+## High Level Steps
 
 1. Deploy RadSecProxy container and record IP address of host
 2. Build WLAN Helium Passpoint SSID
@@ -35,14 +35,14 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
    7. Create Policy Tag
    8. Apply Tag to APs
 
-# Deploy RadSecProxy Container
+## Deploy RadSecProxy Container
 
 RADIUS messages used for user authentication and session accounting are transmitted unsecured and
 over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
 the UDP traffic is then converted to a TLS-protected TCP connection to the Helium Network core AAA
 servers.
 
-## Prerequisites
+### Prerequisites
 
 - An Intel-based machine with Docker installed.
 - The Intel-based machine has a private IP in your network reachable from your 9800 WLC Controller
@@ -50,7 +50,7 @@ servers.
   ports 1812 and 1813
 - ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802\.
 
-## Container Deployment
+### Container Deployment
 
 1. Unzip and untar the `radsec-proxy-main.tar.gz` file into the directory of your choice on the host
    machine. This will unpack the following items:
@@ -79,7 +79,7 @@ sudo docker compose up -d
 sudo docker compose down
 ```
 
-# Build Cisco 9800 Helium Passpoint SSID
+## Build Cisco 9800 Helium Passpoint SSID
 
 The following steps will configure your Cisco 9800 WLC system to broadcast an SSID with the needed
 Passpoint and RADIUS configurations to support Helium Mobile user offload.
@@ -103,7 +103,7 @@ other parameters with default values set. Leave any unmentioned parameter at its
 
 :::
 
-## Build a RADIUS Profile
+### Build a RADIUS Profile
 
 1. Click on **Configuration -> Security -> AAA** in the left menu column
 
@@ -153,7 +153,7 @@ creation for each instance, incrementing the names with an integer, e.g. Helium_
     </figure>
 12. Click **Apply to Device**
 
-## Create a AAA Method List
+### Create a AAA Method List
 
 1. Click **AAA Method List**
    <figure className="screensnippet-wrapper">
@@ -202,7 +202,7 @@ creation for each instance, incrementing the names with an integer, e.g. Helium_
     </figure>
 11. Click **Apply to Device**
 
-# Add the NAS-ID to the WLAN AAA Policy
+## Add the NAS-ID to the WLAN AAA Policy
 
 1. Click on **Configuration -> Security -> Wireless AAA Policy**
 
@@ -229,7 +229,7 @@ creation for each instance, incrementing the names with an integer, e.g. Helium_
 
 6. Click **Apply to Device**
 
-# Build Hotspot 2.0 Profile
+## Build Hotspot 2.0 Profile
 
 1. Click on **Configuration -> Wireless -> Hotspot/OpenRoaming**
    <figure className="screensnippet-wrapper">
@@ -289,7 +289,7 @@ creation for each instance, incrementing the names with an integer, e.g. Helium_
     </figure>
 17. Click **Apply to Device**
 
-# Build the Helium SSID
+## Build the Helium SSID
 
 1. Click on **Configuration -> Wireless -> WLANs**
    <figure className="screensnippet-wrapper">
@@ -334,7 +334,7 @@ creation for each instance, incrementing the names with an integer, e.g. Helium_
     </figure>
 13. Click **Apply to Device**
 
-# Apply Policy and Hotspot Profile to the SSID
+## Apply Policy and Hotspot Profile to the SSID
 
 1. Click on **Configuration -> Tags & Profiles -> Policy**
    <figure className="screensnippet-wrapper">
@@ -381,7 +381,7 @@ creation for each instance, incrementing the names with an integer, e.g. Helium_
     </figure>
 13. Click **Apply to Device**
 
-# Create Policy Tag
+## Create Policy Tag
 
 1. Click on **Configuration -> Tags & Profiles -> Tags**
    <figure className="screensnippet-wrapper">
@@ -405,7 +405,7 @@ creation for each instance, incrementing the names with an integer, e.g. Helium_
 6. Click the **checkmark**
 7. Click **Apply to Device**
 
-# Apply Helium Tag to AP(s)
+## Apply Helium Tag to AP(s)
 
 1. Click on **Configuration -> Wireless Setup -> Advanced**
    <figure className="screensnippet-wrapper">

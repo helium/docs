@@ -30,12 +30,12 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 2. Apply the configuration to your sites and access points.
 3. Verify operation and troubleshoot as needed.
 
-# Configure Juniper Mist for Helium Mobile
+## Configure Juniper Mist for Helium Mobile
 
 To begin, sign in to the Juniper Mist Dashboard at
 [https://manage.mist.com](https://manage.mist.com).
 
-## Create a New SSID
+### Create a New SSID
 
 1. Navigate to **Organization → WLAN Templates**.
 2. Click **Create WLAN Template** or select an existing template.
@@ -59,17 +59,17 @@ To begin, sign in to the Juniper Mist Dashboard at
 </figure>
 <br />
 
-## Configure Passpoint Settings
+### Configure Passpoint Settings
 
 In the WLAN settings locate the **Passpoint** section and set:
 
 - **Venue Name**: _(The venue name or the name provided by the Helium Plus team)_
 
-### Advanced Settings
+#### Advanced Settings
 
 - **Domain Name**: `freedomfi.com`
 
-### NAI Realms
+#### NAI Realms
 
 - `freedomfi.com (EAP‑TLS)`
 - `hellohelium.com (EAP‑TLS)`
@@ -83,7 +83,7 @@ In the WLAN settings locate the **Passpoint** section and set:
 </figure>
 <br />
 
-## Add RadSec Servers
+### Add RadSec Servers
 
 1. Under **Authentication Servers**, choose RadSec from the dropdown.
 2. In the **Server Name** field, enter `radius.stage.wifi.freedomfi.com`.
@@ -109,7 +109,7 @@ In the WLAN settings locate the **Passpoint** section and set:
   />
 </figure>
 
-## Other WLAN Settings
+### Other WLAN Settings
 
 These instructions include the minimum steps required to authenticate a client via the Helium
 Network. Most venue operators will want to take additional security precautions, such as placing
@@ -117,7 +117,7 @@ Helium clients into their own VLAN/subnet which is segmented from other WLANs. T
 accomplish this are outside the scope of this document, but should be considered to achieve a
 healthy security posture for both the venue operator and mobile users.
 
-## Upload Certificates
+### Upload Certificates
 
 Save the three certificates obtained from the Helium Network into a directory for safekeeping and
 reference.
@@ -169,13 +169,13 @@ future.
 
 4. Apply / Save as applicable
 
-## Apply the Configuration
+### Apply the Configuration
 
 1. Navigate to **Sites** and select the desired site.
 2. Assign the updated **WLAN Template** to the site.
 3. Click **Apply Changes** to push the configuration to all APs.
 
-# Verify Configuration
+## Verify Configuration
 
 - Confirm that the **Helium** SSID is broadcasting on your Juniper Mist APs.
 - Connect a Passpoint-enabled device and verify authentication through RadSecProxy to the Helium
@@ -190,7 +190,7 @@ future.
   />
 </figure>
 
-## Troubleshooting
+### Troubleshooting
 
 | Symptom                     | Checks                                                                                                    |
 | --------------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -198,7 +198,7 @@ future.
 | **Certificate errors**      | Confirm the AP trusts the RADIUS certificate and the AAA trusts the RadSec client certificate.            |
 | **Clients fail to connect** | Check Passpoint parameters; verify device support for Passpoint; confirm Helium AAA approves the request. |
 
-## Notes
+### Notes
 
 - Juniper Mist does not list Helium as a Passpoint Operator. Use preset Passpoint Operator
   configurations only after receiving approval from the Helium Plus team.

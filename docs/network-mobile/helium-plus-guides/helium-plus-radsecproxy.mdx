@@ -12,8 +12,6 @@ slug: /mobile/helium-plus-radsecproxy
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-# RadSecProxy
-
 radsecproxy is a generic open source RADIUS proxy that, in addition to the usual RADIUS UDP
 transport, also supports TLS (RadSec).
 
@@ -37,13 +35,13 @@ APs) deployments.
 - Ensure these ports are open and accessible outbound from the proxy.
 - If using RADIUS/TLS, also ensure ports 1812 (UDP/TCP) and 1813 (UDP for accounting) are open.
 
-# Local Deployment Options
+## Local Deployment Options
 
 The typical deployment used by converted Helium networks is to deploy an instance of RadSecProxy
 locally within the deployer-controlled network. This can take two forms depending on how the
 deployer-controlled network is structured.
 
-## Secured Remote Sites - Local
+### Secured Remote Sites - Local
 
 <figure className="screensnippet-wrapper">
   <img
@@ -61,7 +59,7 @@ central office where common infrastructure is housed. In this case, the RADIUS f
 remote sites is secured back to the central office where an instance of RadSecProxy can be deployed.
 This one instance of RadSecProxy can then be used by all the APs in remote sites 1-4.
 
-## Unsecured Remote Sites - Local
+### Unsecured Remote Sites - Local
 
 <figure className="screensnippet-wrapper">
   <img
@@ -79,14 +77,14 @@ to the internet with no secure link back to a central office location. In this s
 of RadSecProxy can be deployed locally at each site to securely proxy RADIUS traffic to Helium over
 the open internet.
 
-# Cloud Deployment Options
+## Cloud Deployment Options
 
 If the deployer is unable to deploy an instance of RadSecProxy locally using the options above,
 another option is to purchase access to a cloud instance of RadSecProxy hosted by Helium. In this
 deployment model each deployer site must be connected via IPsec VPN to the cloud instance to ensure
 safe transport of unencrypted RADIUS to the proxy.
 
-## Secured Remote Sites - VPN
+### Secured Remote Sites - VPN
 
 <figure className="screensnippet-wrapper">
   <img
@@ -105,7 +103,7 @@ local instance of RadSecProxy. Instead the Deployer can purchase access to a clo
 of RadSecProxy managed by Helium. The Deployer then establishes an IPsec-based VPN link to the cloud
 RadSecProxy.
 
-## Unsecured Remote Sites - VPN
+### Unsecured Remote Sites - VPN
 
 <figure className="screensnippet-wrapper">
   <img
