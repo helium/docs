@@ -4,36 +4,35 @@ title: Buy An Organizationally Unique Identifier
 pagination_label: Buy An Organizationally Unique Identifier
 sidebar_label: Buy an Organizationally Unique Identifier
 description:
-  How to purchase a Helium OUI and DevAddr slab, including pricing, key generation, and DevAddr
+  How to purchase a Helium OUI and devAddr slab, including pricing, key generation, and devAddr
   multiplexing.
 image: https://docs.helium.com/img/link-image.png
 slug: /iot/run-an-lns/buy-an-oui
 ---
 
-Each LoRaWAN Network Server (LNS) on the Helium Network is managed using an Organizationally Unique
-Identifier (OUI). This registers the LNS with the network and manages the
-[devAddrs](#devaddr-explained), [Data Credits](/tokens/data-credit), and routes for device traffic.
+Each LoRaWAN Network Server (LNS) on the Helium Network is registered with an Organizationally
+Unique Identifier (OUI), which holds the [devAddrs](#devaddr-explained),
+[Data Credits](/tokens/data-credit), and routes for the LNS's device traffic.
 
-OUIs and devAddrs are purchased by contacting Helium.
+OUIs and devAddrs are [purchased by contacting Helium](#purchase-an-oui-and-devaddr-slab).
 
-As an alternative to purchasing a devAddr slab, it is also possible to obtain a NetID from the LoRa
-Alliance and use it in a roaming configuration. An OUI and Data Credits are required in either
-scenario.
+Operators that hold their own LoRa Alliance NetID do not need a devAddr slab and should use
+[roaming](/iot/lorawan-roaming) instead. An OUI and Data Credits are required in either case.
 
 ## Pricing
 
-The minimum cost to deploy an LNS to the Helium Network is \$235 USD. This cost is divided into
-three parts.
+The minimum cost to deploy an LNS to the Helium Network using Helium devAddrs is \$235 USD, divided
+into three parts. Operators with their own LoRa Alliance NetID skip the devAddr slab, so their
+minimum is \$135.
 
 The cost of an OUI is \$100. This is a one-time fee.
 
-devAddrs are issued in blocks of 8 and cost \$12.50 per devAddr for a total of \$100. devAddrs are
-also purchased as a one-time fee. devAddrs are only required if a NetID is not already obtained from
-the LoRa Alliance.
+devAddrs are issued in slabs of 8 at \$12.50 per devAddr, a one-time fee of \$100 per slab.
 
 A minimum of 3,500,000 Data Credits (\$35) must be held in the escrow account associated with the
 OUI. DC are consumed in proportion to the network traffic transferred[^1]. If the DC balance drops
-below 3.5M, device traffic to the routes associated with the OUI will halt.
+below this minimum, device traffic to the routes associated with the OUI will halt until the balance
+is topped up. See [Minimum Balance](/iot/run-an-lns/fund-an-oui#minimum-balance) for details.
 
 | Item                | Fee                 |
 | ------------------- | ------------------- |
@@ -41,7 +40,11 @@ below 3.5M, device traffic to the routes associated with the OUI will halt.
 | devAddr             | \$12.50 × 8 (\$100) |
 | Data Credit Minimum | \$35                |
 
-[^1]: [Data Credits and IoT network traffic explained.](/tokens/data-credit#dc-and-iot)
+The OUI and devAddr fees are paid to Helium as part of the purchase. The Data Credit minimum is not
+a fee collected by Helium. It is a balance funded by the operator after the OUI is issued, as
+described in [Fund an OUI](/iot/run-an-lns/fund-an-oui).
+
+[^1]: [Data Credits and IoT network traffic explained](/tokens/data-credit#dc-and-iot).
 
 ## Prerequisites
 
@@ -52,13 +55,14 @@ The steps provided below outline how to do so:
 
 1. [Create Helium Wallet in Solana Format](#create-wallet)
 2. [Convert Solana Formatted Public Key to Legacy Helium Format](#convert-wallet)
-3. [Install The Config Service CLI](#install-cli)
+3. [Install the Helium Config Service CLI](#install-cli)
 4. [Generate OUI Keys](#generate-keys)
 
 ### 1. Create Helium Wallet in Solana Format {#create-wallet}
 
-To create a Helium wallet, you can follow the guide for
-[creating a new Helium Account](/wallets/helium-wallet-app).
+To create a Helium wallet, follow
+[Creating a New Account](/wallets/helium-wallet-app#creating-a-new-account) in the Helium Wallet App
+guide, or create one with the [Helium CLI Wallet](/wallets/cli-wallet#create-wallet).
 
 In doing so, a Helium wallet will be generated with key pairs in the native Solana format.
 
@@ -71,7 +75,7 @@ To use the tool, simply paste your Helium wallet public key in the Solana format
 Helium or Solana Wallet Address" field and copy the result from the "Helium Address" field.
 
 **This value will be the Helium wallet public key in the legacy format required for purchasing an
-OUI**.
+OUI.**
 
 import { DisplayLegacyWallet } from '@theme/DisplayLegacyWallet'
 
@@ -79,29 +83,41 @@ import { DisplayLegacyWallet } from '@theme/DisplayLegacyWallet'
   <DisplayLegacyWallet />
 </div>
 
-### 3. Install The Config Service CLI {#install-cli}
+### 3. Install the Helium Config Service CLI {#install-cli}
 
 The [Helium Config Service CLI](https://github.com/helium/helium-config-service-cli) will be used to
-generate the key pairs used for the OUI. Run the following commands to pull and build the Config
-Service CLI:
+generate the key pairs used for the OUI.
 
-```bash title="Copy the latest source code from GitHub."
+#### Running From a Release
+
+Download the archive for your platform from the
+[latest release](https://github.com/helium/helium-config-service-cli/releases/latest), unpack it,
+and place the `helium-config-service-cli` binary somewhere on your `$PATH`, such as
+`/usr/local/bin`. Prebuilt binaries are published for Apple Silicon macOS, x86-64 Linux, and x86-64
+Windows.
+
+#### Building From Source
+
+If a prebuilt binary is not available for your platform, build the CLI from source. Run the
+following commands to pull and build the Config Service CLI:
+
+```bash title="Copy the latest source code from GitHub"
 git clone https://github.com/helium/helium-config-service-cli.git
 ```
 
 To build the copied code, the Rust compiler must be installed.
 
-```bash title="Install the Rust toolchain."
+```bash title="Install the Rust toolchain"
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-```bash title="Add Rust to path."
+```bash title="Add Rust to path"
 source "$HOME/.cargo/env"
 ```
 
 Add the protobuf library, which will be used during the compile process.
 
-```bash title="Install protobuf (Mac)"
+```bash title="Install protobuf (macOS)"
 brew update && brew install protobuf
 ```
 
@@ -115,14 +131,10 @@ With the build toolchain installed, compile the CLI.
 cd helium-config-service-cli && cargo build --release
 ```
 
-The built binary file `helium-config-service-cli` can be found under `target/release/` inside the
-`helium-config-service-cli` directory.
+The built binary is at `target/release/helium-config-service-cli`. Copy it into `/usr/local/bin` so
+it is available on the command line:
 
-Now that we have the CLI binary, let's put a copy in the local bin folder for simplicity's sake.
-Just copy `helium-config-service-cli` into `/usr/local/bin`. Files added to the bin folder will
-automatically be available to your command line.
-
-```bash
+```bash title="Install the CLI binary"
 sudo cp target/release/helium-config-service-cli /usr/local/bin/
 ```
 
@@ -133,14 +145,14 @@ These keys are implemented such that only you can create, modify, and delete rou
 
 After this step you will have two key pairs:
 
-- **Delegate Key Pair**: The delegate key is actively used to create and manage routes. In case it
-  is ever compromised, it can be updated using the owner key. Note that an OUI can have multiple
-  delegate key pairs. Guidance on how to manage delegate key pairs can be found in the
-  [advanced configuration](/iot/run-an-lns/advanced-configuration).
-
 - **Owner Key Pair**: The owner key is irreplaceable and should be kept safe, secure, and private at
   all times. If lost or compromised, you could lose your OUI. The owner key pair is used for
   delegate key management.
+
+- **Delegate Key Pair**: The delegate key is actively used to create and manage routes. In case it
+  is ever compromised, it can be updated using the owner key. Note that an OUI can have multiple
+  delegate key pairs. Guidance on managing delegate key pairs is in
+  [Add and Remove Delegate Keys](/iot/run-an-lns/advanced-configuration#add-and-remove-delegate-keys).
 
 Run the generate key pair command twice: first for the owner key pair and second for the delegate
 key pair. Name the files accordingly.
@@ -155,7 +167,7 @@ Print out the public key of the key pair by running:
 helium-config-service-cli env info --keypair <key file name>.bin
 ```
 
-```json {9} title="Example response from the info command highlighting the key pair."
+```json {9} title="Example response from the info command highlighting the key pair"
 {
   "arguments": {
     "config_host": "unset",
@@ -166,65 +178,81 @@ helium-config-service-cli env info --keypair <key file name>.bin
     "oui": null,
     "public_key_from_keypair": "13eY9uE5fjMzKC7PZ1nsDigiyurhXhV3bbj8pxbD2KtQTSC1ZHP"
   },
-  {/* env vars will be discussed later */}
+  "environment": {
+    "HELIUM_CONFIG_HOST": "unset",
+    "HELIUM_KEYPAIR_BIN": "unset",
+    "HELIUM_MAX_COPIES": "unset",
+    "HELIUM_NET_ID": "unset",
+    "HELIUM_OUI": "unset",
+    "key_type_from_keypair": "unset",
+    "public_key_from_keypair": "unset"
+  }
 }
 ```
+
+The `environment` values are `unset` until the environment variables are exported in
+[Initialize Helium Config Service CLI](/iot/run-an-lns/configure-routing-rules#initialize-helium-config-service-cli).
 
 The `.bin` files should be kept safe and never shared.
 
 **The public keys of the owner and delegate key pairs are required for purchasing an OUI and are the
 only parts that should be shared.**
 
-## Purchasing OUI and devAddr Slab
+## Purchase an OUI and devAddr Slab {#purchase-an-oui-and-devaddr-slab}
 
-Direct purchase of OUIs and devAddrs is not currently available on-chain. Send an email to
-[iot@helium.com](mailto:iot@helium.com) containing the following information:
+To purchase an OUI and devAddrs, email [iot@helium.com](mailto:iot@helium.com) with the following
+information:
 
-- The Helium wallet address
-- The public key of your owner key pair
-- The public key of your delegate key pair
-- The number of devAddrs you want or your non-Helium NetID
+- Your Helium wallet address in the legacy format from [step 2](#convert-wallet). This becomes the
+  OUI's payer key, from which the OUI's Data Credit escrow is derived. See
+  [Tracking OUI Balance](/iot/run-an-lns/fund-an-oui#tracking-oui-balance).
+- The public key of your owner key pair.
+- The public key of your delegate key pair.
+- The number of devAddrs you want, in slabs of 8 (see
+  [How Many devAddrs Are Needed?](#how-many-devaddrs-are-needed)), or your non-Helium NetID.
 
 Once you receive your OUI, the next step is to fund it. There are several options in the
-[Fund an OUI](/iot/run-an-lns/fund-an-oui/) guide.
+[Fund an OUI](/iot/run-an-lns/fund-an-oui) guide.
 
-## Share The LNS With The Community
+## Share the LNS With the Community
 
-- **Add the LNS to the 'Well Known' list.**  
+- **Add the LNS to the "Well Known" list.**  
   Helium operates as a permissionless network, which means it is possible to leverage the network
   with complete anonymity. In the interest of making the network more transparent, an LNS can be
-  added to the [Well Known](https://github.com/helium/well-known) list.
+  added to the [Well Known](https://github.com/helium/well-known) list by opening a pull request
+  that adds the OUI to `lists/ouis.json`.
 
   This list is used to label OUIs with a human-readable name on public Helium Foundation
   [dashboards](https://dune.com/helium-foundation/helium-data-credits) and other community-run
-  dashboards. Consider adding your LNS to this resource.
+  dashboards.
 
-- **Add the LNS to the public providers page.**  
-  If the OUI is being used for publicly accessible operations, let the community know that business
-  is open! Add the LNS to the [Find an LNS Provider](/iot/find-a-lns-provider) page.
+- **Add the LNS to the LNS Providers list.**  
+  If the OUI is being used for publicly accessible operations, open a pull request adding the
+  business to the
+  [LNS Providers](https://github.com/helium/well-known/tree/main/lists/lns-providers) list, which
+  populates the [Find an LNS Provider](/iot/find-a-lns-provider) page. Eligible providers have
+  onboarded 200+ sensors, offer a commercially ready service to the public, and have a website
+  describing their Helium offering.
 
 ---
 
-## devAddr Explained
+## devAddr Explained {#devaddr-explained}
 
-Device addresses or `DevAddr` are assigned to a device by the LNS during the join procedure as
+Device addresses (devAddrs) are assigned to a device by the LNS during the join procedure, as
 defined in the
 [LoRaWAN 1.0.3 Specification](https://lora-alliance.org/resource_hub/lorawan-specification-v1-0-3/).
-A device, defined by `(AppEUI, DevEUI)`, can be allocated any of the devAddrs owned by the OUI. It
-is even possible to multiplex many devices on the same devAddr at the same time, using the Message
-Integrity Code (MIC) to disambiguate.
+A device, identified by its `(AppEUI, DevEUI)` pair, can be allocated any of the devAddrs owned by
+the OUI.
 
-devAddrs purchased through the methods outlined above are issued under the Helium Foundation's
-NetID, 0x00003C, which was assigned on May 2, 2023, as part of the Helium Foundation's membership in
-the LoRa Alliance.
+devAddrs purchased from Helium are issued under NetID 0x00003C, which was assigned to the Helium
+Foundation on May 2, 2023, through its LoRa Alliance membership.
 
-| NetID (hex) | NetID (decimal) | NwkID (bits) | DevAddr Subnet |
+| NetID (hex) | NetID (decimal) | NwkID (bits) | devAddr Subnet |
 | ----------- | --------------- | ------------ | -------------- |
-| 0x00003C    | 60              | 6b'111100    | 78000000/7     |
+| 0x00003C    | 60              | 0b111100     | 78000000/7     |
 
-Customers using their own NetID don't need devAddrs from the Helium Foundation. Those with their own
-NetID assigned by the LoRa Alliance should implement [roaming](/iot/lorawan-roaming) to allow their
-devices to use the Helium Network.
+Operators with their own LoRa Alliance NetID do not use Helium devAddrs. They connect their devices
+through [roaming](/iot/lorawan-roaming) instead.
 
 ### Multiplexing With devAddrs
 
@@ -232,9 +260,9 @@ Multiplexing in LoRaWAN, specifically devAddr multiplexing, refers to the proces
 devices share the same device address (devAddr). It's a way to manage the limited available range of
 devAddrs and allows more devices to join the network.
 
-ChirpStack randomly assigns a devAddr at join or re-join to the device from the available range and
-then multiplexes each devAddr as needed. The ChirpStack platform does this through the assignment of
-the Network Session Key.
+[ChirpStack](/iot/run-an-lns/configure-chirpstack) randomly assigns a devAddr at join or re-join to
+the device from the available range and then multiplexes each devAddr as needed. It does this
+through the assignment of the network session key (NwkSKey).
 
 In the event of devAddr collisions, i.e., when two or more devices have the same devAddr, the
 network server (LNS) uses a Message Integrity Code (MIC) check to identify the real device behind
@@ -244,9 +272,9 @@ receiving an uplink on that devAddr, the LNS will attempt a MIC check with each 
 session keys, and the uplink will be attributed to the device whose network session key was
 successfully validated.
 
-The computational overhead of these MIC checks is not heavy in most scenarios, as these checks are
-designed to be performed on low-power devices. However, in high-traffic scenarios, it may be best to
-allocate a larger set of devAddrs rather than additional compute.
+Each MIC check is cheap, since the computation is designed to run on low-power devices. The LNS
+repeats it once per network session key registered on the devAddr, so in high-traffic scenarios it
+may be best to allocate a larger set of devAddrs rather than additional compute.
 
 ```mermaid
 graph LR
@@ -256,7 +284,7 @@ graph LR
         D3[Device 3]
         D4[Device 4]
     end
-    subgraph OpenLNS
+    subgraph HPR[Helium Packet Router]
         PR[Packet Routing]
     end
     subgraph LNS
@@ -268,22 +296,22 @@ graph LR
             DI4[Device 4 Identified]
         end
     end
-    D1 -->|Packet with Shared DevAddr| PR
-    D2 -->|Packet with Shared DevAddr| PR
-    D3 -->|Packet with Shared DevAddr| PR
-    D4 -->|Packet with Shared DevAddr| PR
+    D1 -->|Packet with shared devAddr| PR
+    D2 -->|Packet with shared devAddr| PR
+    D3 -->|Packet with shared devAddr| PR
+    D4 -->|Packet with shared devAddr| PR
     PR --> MC
-    MC -->|MIC checked with DevAddr and NwkSKey| DI1
-    MC -->|MIC checked with DevAddr and NwkSKey| DI2
-    MC -->|MIC checked with DevAddr and NwkSKey| DI3
-    MC -->|MIC checked with DevAddr and NwkSKey| DI4
+    MC -->|MIC checked with devAddr and NwkSKey| DI1
+    MC -->|MIC checked with devAddr and NwkSKey| DI2
+    MC -->|MIC checked with devAddr and NwkSKey| DI3
+    MC -->|MIC checked with devAddr and NwkSKey| DI4
 ```
 
-### How many devAddrs are needed?
+### How Many devAddrs Are Needed? {#how-many-devaddrs-are-needed}
 
-An allocation of 8 devAddrs is enough for all operators to get started and scale their services. The
-demands of devices usually won't become apparent until tens of thousands of frequently uplinking
-devices are onboarded. The need for more devAddrs depends on a few factors:
+A slab of 8 devAddrs is enough for all operators to get started. Additional devAddrs are rarely
+needed until tens of thousands of frequently uplinking devices are onboarded, and the exact need
+depends on:
 
 1. Number of devices.
 1. Frequency of uplink.
@@ -292,4 +320,6 @@ devices are onboarded. The need for more devAddrs depends on a few factors:
 
 In practice, some deployers are able to successfully support 100k+ devices with 32 devAddrs.
 
-More devAddrs can be allocated at any time, and LNSs generally accommodate non-sequential ranges.
+More devAddrs can be purchased at any time by
+[contacting Helium](#purchase-an-oui-and-devaddr-slab), and LNSs generally accommodate
+non-sequential ranges.
