@@ -54,8 +54,8 @@ navigate to **Settings \> WiFi**.
 1. Press **Add new**.
 2. Enter a **WiFi Network Name** e.g. `Helium`, and confirm **Enabled** is switched on.
 3. Under **WiFi Security**, select **Enterprise**.
-4. Under **Radius Server**, set **IP Address** to `127.0.0.1`, **Secret** to `radsec`, **Auth. Port**
-   to `1812`, and **Acct. Port** to `1813`.
+4. Under **Radius Server**, set **IP Address** to `127.0.0.1`, **Secret** to `radsec`, **Auth.
+   Port** to `1812`, and **Acct. Port** to `1813`.
 5. Under **Sites**, select the site(s) that will broadcast the SSID.
 
 <figure className="screensnippet-wrapper">
@@ -70,8 +70,8 @@ navigate to **Settings \> WiFi**.
 :::important
 
 Use `127.0.0.1`, not the Helium AAA address. The access point runs its own RadSec proxy, which
-forwards authentication to Helium over an encrypted connection. Pointing this field at the AAA
-skips that proxy and authentication fails.
+forwards authentication to Helium over an encrypted connection. Pointing this field at the AAA skips
+that proxy and authentication fails.
 
 :::
 
@@ -80,12 +80,13 @@ skips that proxy and authentication fails.
 ## Apply the Power-User Configuration
 
 1. Scroll down to **Advanced**.
-2. Set **NAS ID** to **Custom**, and enter the NAS-ID used during Helium network onboarding.
-3. Confirm **PSK Offload** is switched off.
-4. Switch **Power-User** on. A **Power-User Settings** field appears below.
-5. Paste the configuration below into that field, replacing each `-----BEGIN ...-----` block with
+2. Set **WPA3** to **On**.
+3. Set **NAS ID** to **Custom**, and enter the NAS-ID used during Helium network onboarding.
+4. Confirm **PSK Offload** is switched off.
+5. Switch **Power-User** on. A **Power-User Settings** field appears below.
+6. Paste the configuration below into that field, replacing each `-----BEGIN ...-----` block with
    the matching PEM from the onboarding bundle and setting `venue_name` to a name for the site.
-6. Press **Save**.
+7. Press **Save**.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -104,6 +105,10 @@ ignored.
 | ------------------------------------------ | ------------ | -------- |
 | DigiCert Global G2 TLS RSA SHA256 2020 CA1 | `9f4c149e.0` | Mar 2031 |
 | DigiCert Global Root G2                    | `607986c7.0` | Jan 2038 |
+
+The onboarding bundle's `ca.pem` may hold more certificates than these two. Match each block to the
+table by its subject. If you cannot tell them apart, ask the Helium Plus team for the two
+certificates named as above.
 
 ```json
 {
@@ -134,7 +139,8 @@ ignored.
 Leave **PSK Offload** off. It conflicts with Enterprise security, and clients will be prompted for a
 password instead of connecting through Passpoint.
 
-Keep the line breaks inside each PEM. A certificate pasted onto a single line will not parse.
+Write each line break inside a PEM as `\n`, exactly as the example shows. Each certificate is a
+single JSON string.
 
 :::
 
