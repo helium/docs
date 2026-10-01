@@ -15,7 +15,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 ## Prerequisites
 
 - Alta Labs AP running firmware 2.2g or later.
-- Access point(s) adopted into [Alta NMS](https://manage.alta.inc/).
+- Access point(s) adopted into [Alta Control](https://manage.alta.inc/).
 - Existing SSID(s) already have basic traffic routing in place.
 - Certificates (`ca.pem`, `cert.pem`, `key.pem`) delivered from Helium network onboarding.
 - Outbound TCP port 2083 permitted from the access point to the Helium AAA.
@@ -33,10 +33,10 @@ required.
 
 ---
 
-## Open the WiFi Settings
+## Create the Helium SSID
 
-Log in to [Alta NMS](https://manage.alta.inc/), select the site where Helium will be enabled, and
-navigate to **Settings \> WiFi**.
+Log in to [Alta Control](https://manage.alta.inc/), select the site where Helium will be enabled,
+and navigate to **Settings \> WiFi**.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -44,12 +44,8 @@ navigate to **Settings \> WiFi**.
     style={{ maxHeight: '500px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
-  <figcaption>The WiFi settings screen in Alta NMS.</figcaption>
+  <figcaption>The WiFi settings screen in Alta Control.</figcaption>
 </figure>
-
----
-
-## Create the Helium SSID
 
 1. Press **Add new**.
 2. Enter a **WiFi Network Name** e.g. `Helium`, and confirm **Enabled** is switched on.
@@ -79,36 +75,8 @@ that proxy and authentication fails.
 
 ## Apply the Power-User Configuration
 
-1. Scroll down to **Advanced**.
-2. Set **WPA3** to **On**.
-3. Set **NAS ID** to **Custom**, and enter the NAS-ID used during Helium network onboarding.
-4. Confirm **PSK Offload** is switched off.
-5. Switch **Power-User** on. A **Power-User Settings** field appears below.
-6. Paste the configuration below into that field, replacing each `-----BEGIN ...-----` block with
-   the matching PEM from the onboarding bundle and setting `venue_name` to a name for the site.
-7. Press **Save**.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/alta/power-user-field.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-  <figcaption>Advanced settings with Power-User enabled.</figcaption>
-</figure>
-
-Use the `cacerts` key names below exactly as written. Each one becomes a filename on the access
-point, and the proxy looks certificates up by that name. Change them and the certificates are
-ignored.
-
-| Subject                                    | Key name     | Expires  |
-| ------------------------------------------ | ------------ | -------- |
-| DigiCert Global G2 TLS RSA SHA256 2020 CA1 | `9f4c149e.0` | Mar 2031 |
-| DigiCert Global Root G2                    | `607986c7.0` | Jan 2038 |
-
-The onboarding bundle's `ca.pem` may hold more certificates than these two. Match each block to the
-table by its subject. If you cannot tell them apart, ask the Helium Plus team for the two
-certificates named as above.
+This is the configuration to paste. Replace each `-----BEGIN ...-----` block with the matching PEM
+from the onboarding bundle, and set `venue_name` to a name for the site.
 
 ```json
 {
@@ -134,21 +102,53 @@ certificates named as above.
 }
 ```
 
-:::important
+Use the `cacerts` key names exactly as written. Each one becomes a filename on the access point, and
+the proxy looks certificates up by that name. Change them and the certificates are ignored.
 
-Leave **PSK Offload** off. It conflicts with Enterprise security, and clients will be prompted for a
-password instead of connecting through Passpoint.
+| Subject                                    | Key name     | Expires  |
+| ------------------------------------------ | ------------ | -------- |
+| DigiCert Global G2 TLS RSA SHA256 2020 CA1 | `9f4c149e.0` | Mar 2031 |
+| DigiCert Global Root G2                    | `607986c7.0` | Jan 2038 |
+
+The onboarding bundle's `ca.pem` may hold more certificates than these two. Match each block to the
+table by its subject. If you cannot tell them apart, ask the Helium Plus team for the two
+certificates named as above.
+
+Two more details to watch:
+
+- The client certificate and key use the names `cert` and `key`, not `cert.pem` and `key.pem`.
+- Every CA belongs inside `cacerts`.
+
+:::important
 
 Write each line break inside a PEM as `\n`, exactly as the example shows. Each certificate is a
 single JSON string.
 
 :::
 
-Two details to watch in the JSON:
+With that ready, apply it to the SSID:
 
-- The client certificate and key use the names `cert` and `key`, not `cert.pem` and `key.pem`.
-- Every CA belongs inside `cacerts`.
+1. Scroll down to **Advanced**.
+2. Set **WPA3** to **On**.
+3. Set **NAS ID** to **Custom**, and enter the NAS-ID used during Helium network onboarding.
+4. Leave **PSK Offload** off. It conflicts with Enterprise security, and clients are prompted for a
+   password instead of connecting through Passpoint.
+5. Switch **Power-User** on. A **Power-User Settings** field appears below.
+6. Paste the configuration above into that field.
+7. Press **Save**.
 
-Your Helium SSID is all set up. Verify access by forgetting the existing network on your device and
-connecting to the new network using a device with a supported carrier, such as
-[Helium Mobile](https://hellohelium.com).
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/alta/power-user-field.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Advanced settings with Power-User enabled.</figcaption>
+</figure>
+
+---
+
+## Verify the Connection
+
+Forget the existing network on your device, then connect to the new network using a device with a
+supported carrier, such as [Helium Mobile](https://hellohelium.com).
