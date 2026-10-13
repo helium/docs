@@ -1,0 +1,222 @@
+---
+id: mobile-network-data
+title: Helium Mobile Network Data
+pagination_label: Mobile Network Data
+sidebar_label: Mobile Network Data
+description: >-
+  Query Helium Mobile network data with SQL. Data transfer sessions, heartbeats, speedtests, bans,
+  and rewards are published as public Apache Iceberg tables you can read with Trino, PyIceberg, or
+  Spark.
+image: https://docs.helium.com/img/link-image.png
+slug: /network-data/mobile-network-data
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+Helium Mobile network data is published as [Apache Iceberg](https://iceberg.apache.org/) tables that
+anyone can query with SQL. The tables are stored as Parquet files in Cloudflare R2 and served
+through a public Iceberg REST catalog. Point Trino, PyIceberg, Spark, or any other Iceberg-aware
+engine at the catalog to query data transfer sessions, Hotspot heartbeats, speedtests, bans, and
+rewards.
+
+The catalog needs no credentials, and R2 does not charge egress, so reads are not billed. The only
+cost is the compute for your own query engine.
+
+:::note Migration in progress
+
+Helium is moving Mobile network data from gzipped protobuf files in S3
+([Oracle Data](/network-data/oracle-data)) to these Iceberg tables. The switch-over is due to
+complete on November 1, 2026. Until then, some tables are written to both places while the new
+pipeline is validated against the old one.
+
+These tables cover the Mobile network only. IoT network data is not included.
+
+:::
+
+For background on why the data moved and how the pipeline works, read
+[Rebuilding how Helium stores and queries network data](https://www.helium.com/blog/rebuilding-how-helium-stores-and-queries-network-data)
+on the Helium blog.
+
+## How It Works
+
+The stack has three parts:
+
+- **Apache Iceberg** is the table format. Data lands as immutable Parquet files in object storage,
+  alongside metadata that describes the columns, the partitioning, and which files belong to each
+  committed snapshot.
+- **An Iceberg REST catalog** tracks which tables exist and where each table's current metadata
+  lives. Writers and readers both go through it, so they always agree on what a table contains.
+- **[Trino](https://trino.io/)** is the SQL query engine Helium runs. Any engine with Iceberg
+  support can read the same tables.
+
+The Mobile Oracles commit to these tables directly, so the data you query is the same data the
+rewarder reads. Iceberg commits are atomic, so a reader never sees a partially written batch.
+
+## Available Tables
+
+Tables are grouped into three namespaces, each matching a stage of the pipeline that produces it.
+
+| Table                                     | What a row is                                                                            | Partitioned by                   |
+| :---------------------------------------- | :--------------------------------------------------------------------------------------- | :------------------------------- |
+| `data_transfer.sessions`                  | An offload session as ingested: pubkey, carrier, upload/download/rewardable bytes, payer | `day(report_received_timestamp)` |
+| `data_transfer.burned_sessions`           | One Hotspot's DC burn: rewardable bytes, DC count, HIP-150 multiplier, burn time         | `day(burn_timestamp)`            |
+| `data_transfer.multiplier_ticket_history` | Every HIP-150 multiplier ticket seen, accepted or refused (append-only)                  | `bucket(hotspot_pubkey, 4)`      |
+| `hotspots.heartbeats`                     | A validated heartbeat: pubkey, position, location trust multiplier, location source      | `day(received_timestamp)`        |
+| `hotspots.speedtests`                     | One speedtest result                                                                     | `day(received_timestamp)`        |
+| `hotspots.speedtest_avgs`                 | A Hotspot's rolling speedtest average                                                    | `day(timestamp)`                 |
+| `hotspots.bans`                           | A ban applied to a Hotspot                                                               | `day(received_timestamp)`        |
+| `rewards.data_transfer`                   | A Hotspot's payout for a period: DC transfer reward, rewardable bytes, price used        | `day(start_period)`              |
+| `rewards.service_provider`                | A service provider payout for a period                                                   | `day(start_period)`              |
+| `rewards.unallocated`                     | Emissions not allocated to any entity in a period                                        | `day(start_period)`              |
+
+The catalog holds more than the tables listed above, such as `invalid_*` tables for records that
+failed validation. To list every table and see the current schema, ask the catalog:
+
+```sql
+SHOW TABLES IN mobile.hotspots;
+DESCRIBE mobile.hotspots.heartbeats;
+SELECT * FROM mobile.information_schema.columns WHERE table_schema = 'hotspots';
+```
+
+### Filter on the Partition Column
+
+Always filter on a table's partition column. That predicate lets Iceberg skip files that cannot
+match. Without it, a query reads the whole table, however narrow the result looks.
+
+```sql
+SELECT hotspot_pubkey, count(*)
+FROM mobile.hotspots.heartbeats
+WHERE received_timestamp >= TIMESTAMP '2026-09-21 00:00:00 UTC'
+  AND received_timestamp <  TIMESTAMP '2026-09-22 00:00:00 UTC'
+GROUP BY hotspot_pubkey
+```
+
+The filter must be on the partition column itself. Filtering on a different timestamp in the same
+row prunes nothing, even when the two values move together.
+
+`data_transfer.multiplier_ticket_history` is the exception. It is bucketed by `hotspot_pubkey`, so a
+filter on the pubkey prunes it and a date range does not.
+
+## Connecting to the Catalog
+
+The catalog is a standard Iceberg REST endpoint. Every client needs the same values:
+
+| Setting          | Value                                          |
+| :--------------- | :--------------------------------------------- |
+| Catalog URI      | `https://catalog.mobile.helium.io/api/catalog` |
+| Warehouse        | `mobile`                                       |
+| Storage endpoint | `https://helium.io`                            |
+| Storage region   | `us-east-1`                                    |
+| Path-style       | `false`                                        |
+| Access key       | `anonymous`                                    |
+| Secret key       | `anonymous`                                    |
+
+These are the live values, not placeholders. The catalog is unauthenticated, and the storage
+credentials are the literal string `anonymous`, so there is nothing to request or keep secret.
+
+<Tabs>
+<TabItem value="trino" label="Trino" default>
+
+Add a catalog file to your Trino server. See the Trino
+[Iceberg connector](https://trino.io/docs/current/connector/iceberg.html) docs for every available
+property, and [Deploying Trino](https://trino.io/docs/current/installation/deployment.html) to stand
+up a server.
+
+```properties title="etc/catalog/mobile.properties"
+connector.name=iceberg
+iceberg.catalog.type=rest
+iceberg.rest-catalog.uri=https://catalog.mobile.helium.io/api/catalog
+iceberg.rest-catalog.security=NONE
+iceberg.rest-catalog.warehouse=mobile
+iceberg.rest-catalog.vended-credentials-enabled=false
+iceberg.security=READ_ONLY
+fs.native-s3.enabled=true
+s3.region=us-east-1
+s3.endpoint=https://helium.io
+s3.path-style-access=false
+s3.aws-access-key=anonymous
+s3.aws-secret-key=anonymous
+```
+
+Tables are then addressed with the catalog name in front, for example `mobile.hotspots.heartbeats`.
+A second `.properties` file adds a second catalog, and Trino can join across them, so you can query
+this data alongside your own in a single statement.
+
+</TabItem>
+<TabItem value="pyiceberg" label="PyIceberg">
+
+[PyIceberg](https://py.iceberg.apache.org/) is the lightest option and needs no cluster. Define the
+catalog in `~/.pyiceberg.yaml`:
+
+```yaml title="~/.pyiceberg.yaml"
+catalog:
+  mobile:
+    type: rest
+    uri: https://catalog.mobile.helium.io/api/catalog
+    warehouse: mobile
+    s3.endpoint: https://helium.io
+    s3.region: us-east-1
+    s3.path-style-access: false
+    s3.access-key-id: anonymous
+    s3.secret-access-key: anonymous
+```
+
+Or pass the same properties inline:
+
+```python
+from pyiceberg.catalog import load_catalog
+
+catalog = load_catalog("mobile", **{
+    "type": "rest",
+    "uri": "https://catalog.mobile.helium.io/api/catalog",
+    "warehouse": "mobile",
+    "s3.endpoint": "https://helium.io",
+    "s3.region": "us-east-1",
+    "s3.path-style-access": "false",
+    "s3.access-key-id": "anonymous",
+    "s3.secret-access-key": "anonymous",
+})
+
+table = catalog.load_table("hotspots.heartbeats")
+df = table.scan(limit=10).to_arrow()
+```
+
+PyIceberg addresses tables within the loaded catalog (`hotspots.heartbeats`), while Trino puts the
+catalog name in front (`mobile.hotspots.heartbeats`).
+
+</TabItem>
+<TabItem value="spark" label="Spark">
+
+Set the catalog as `spark.sql.catalog.*` properties in `spark-defaults.conf` or as `--conf` flags:
+
+```properties title="spark-defaults.conf"
+spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
+spark.sql.catalog.mobile=org.apache.iceberg.spark.SparkCatalog
+spark.sql.catalog.mobile.type=rest
+spark.sql.catalog.mobile.uri=https://catalog.mobile.helium.io/api/catalog
+spark.sql.catalog.mobile.warehouse=mobile
+spark.sql.catalog.mobile.io-impl=org.apache.iceberg.aws.s3.S3FileIO
+spark.sql.catalog.mobile.s3.endpoint=https://helium.io
+spark.sql.catalog.mobile.s3.region=us-east-1
+spark.sql.catalog.mobile.s3.path-style-access=false
+spark.sql.catalog.mobile.s3.access-key-id=anonymous
+spark.sql.catalog.mobile.s3.secret-access-key=anonymous
+```
+
+Then query with `spark.sql("SELECT * FROM mobile.hotspots.heartbeats LIMIT 10")`.
+
+You need both `iceberg-spark-runtime` and `iceberg-aws-bundle` on the classpath. Without the AWS
+bundle, the catalog resolves but every read fails at the storage layer.
+
+</TabItem>
+</Tabs>
+
+### Things to Know
+
+- **The catalog connects but lists no tables.** Check that `warehouse` is set to `mobile`. It is the
+  warehouse name the REST catalog knows, not a bucket name.
+- **Vended credentials are off.** The catalog does not return per-table storage credentials, so your
+  client must supply the storage settings above for every table it reads.
+- **Requests are rejected.** The catalog is rate-limited. Open does not mean unmetered, so a client
+  that sends too many requests will be throttled.

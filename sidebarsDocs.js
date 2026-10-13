@@ -165,6 +165,7 @@ module.exports = {
           link: { type: 'doc', id: 'network-data/api-providers' },
           items: ['network-data/entity-api'],
         },
+        'network-data/mobile-network-data',
         'network-data/oracle-data',
         {
           type: 'category',

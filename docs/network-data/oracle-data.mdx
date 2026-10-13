@@ -17,6 +17,15 @@ subnetworks.
 The Helium Oracles handle all data about the network, except for transactions handled by the
 [Helium Program Libraries](https://github.com/helium/helium-program-library) on Solana.
 
+:::tip Query Mobile data with SQL
+
+Helium Mobile network data is moving from the gzipped protobuf files described on this page to
+public Apache Iceberg tables you can query with Trino, PyIceberg, or Spark at no cost per read. The
+switch-over is due to complete on November 1, 2026. See
+[Mobile Network Data](/network-data/mobile-network-data).
+
+:::
+
 ## Accessing Oracle Data
 
 Data is directly accessible from the `foundation-poc-data-requester-pays` bucket in AWS `us-west-2`
