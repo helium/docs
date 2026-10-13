@@ -5,7 +5,8 @@ pagination_label: Oracle Data
 sidebar_label: Oracle Data
 description:
   How to access and decode Helium Oracle reward and data files stored in AWS S3, with protobuf
-  schemas and code examples.
+  schemas and code examples. Much of the Mobile Network data is also available as public Iceberg
+  tables.
 image: https://docs.helium.com/img/link-image.png
 slug: /network-data/oracle-data
 ---
@@ -16,6 +17,16 @@ subnetworks.
 
 The Helium Oracles handle all data about the network, except for transactions handled by the
 [Helium Program Libraries](https://github.com/helium/helium-program-library) on Solana.
+
+:::tip Use the Iceberg tables for Mobile Network data
+
+For Helium Mobile Network data, use the public Apache Iceberg tables instead of the files on this
+page wherever a table covers the data you need. You can query them with Trino, PyIceberg, or Spark
+at no cost per read, with no protobuf decoding. Mobile Network data is moving from the gzipped
+protobuf files described on this page to those tables. The switch-over is due to complete on
+November 1, 2026. See [Mobile Network Data](/network-data/mobile-network-data).
+
+:::
 
 ## Accessing Oracle Data
 
@@ -42,6 +53,12 @@ guide provided by AWS.
 | `foundation-mobile-packet-verifier` |
 | `foundation-mobile-price`           |
 | `foundation-mobile-verified`        |
+
+The `foundation-mobile-*` prefixes hold Mobile Network data. Data transfer sessions, Hotspot
+heartbeats, speedtests, bans, and rewards are also published as
+[Mobile Network Data](/network-data/mobile-network-data) tables. Query those instead of reading the
+matching files. For Mobile Network data without a table, such as price reports, keep reading these
+prefixes.
 
 Under each top-level data category prefix, the related data files are provided in the prefix
 structure noted below:
