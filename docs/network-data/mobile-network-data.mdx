@@ -4,7 +4,7 @@ title: Helium Mobile Network Data
 pagination_label: Mobile Network Data
 sidebar_label: Mobile Network Data
 description: >-
-  Query Helium Mobile network data with SQL. Data transfer sessions, heartbeats, speedtests, bans,
+  Query Helium Mobile Network data with SQL. Data transfer sessions, heartbeats, speedtests, bans,
   and rewards are published as public Apache Iceberg tables you can read with Trino, PyIceberg, or
   Spark.
 image: https://docs.helium.com/img/link-image.png
@@ -14,7 +14,7 @@ slug: /network-data/mobile-network-data
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-Helium Mobile network data is published as [Apache Iceberg](https://iceberg.apache.org/) tables that
+Helium Mobile Network data is published as [Apache Iceberg](https://iceberg.apache.org/) tables that
 anyone can query with SQL. The tables are stored as Parquet files in Cloudflare R2 and served
 through a public Iceberg REST catalog. Point Trino, PyIceberg, Spark, or any other Iceberg-aware
 engine at the catalog to query data transfer sessions, Hotspot heartbeats, speedtests, bans, and
@@ -25,12 +25,12 @@ cost is the compute for your own query engine.
 
 :::note Migration in progress
 
-Helium is moving Mobile network data from gzipped protobuf files in S3
+Helium is moving Mobile Network data from gzipped protobuf files in S3
 ([Oracle Data](/network-data/oracle-data)) to these Iceberg tables. The switch-over is due to
 complete on November 1, 2026. Until then, some tables are written to both places while the new
 pipeline is validated against the old one.
 
-These tables cover the Mobile network only. IoT network data is not included.
+These tables cover the Mobile Network only. IoT Network data is not included.
 
 :::
 
@@ -50,34 +50,64 @@ The stack has three parts:
 - **[Trino](https://trino.io/)** is the SQL query engine Helium runs. Any engine with Iceberg
   support can read the same tables.
 
-The Mobile Oracles commit to these tables directly, so the data you query is the same data the
-rewarder reads. Iceberg commits are atomic, so a reader never sees a partially written batch.
+The Mobile Oracles write to these tables directly. For tables that have finished moving, the Oracles
+also read their reward inputs from them, so the data you query is the data rewards are based on.
+Iceberg commits are atomic, so a reader never sees a partially written batch.
 
 ## Available Tables
 
-Tables are grouped into three namespaces, each matching a stage of the pipeline that produces it.
+Tables are grouped into namespaces, each matching a stage of the pipeline that produces it. The SQL
+examples on this page use Trino syntax, with the catalog named `mobile` as set up in
+[Connecting to the Catalog](#connecting-to-the-catalog).
 
-| Table                                     | What a row is                                                                            | Partitioned by                   |
-| :---------------------------------------- | :--------------------------------------------------------------------------------------- | :------------------------------- |
-| `data_transfer.sessions`                  | An offload session as ingested: pubkey, carrier, upload/download/rewardable bytes, payer | `day(report_received_timestamp)` |
-| `data_transfer.burned_sessions`           | One Hotspot's DC burn: rewardable bytes, DC count, HIP-150 multiplier, burn time         | `day(burn_timestamp)`            |
-| `data_transfer.multiplier_ticket_history` | Every HIP-150 multiplier ticket seen, accepted or refused (append-only)                  | `bucket(hotspot_pubkey, 4)`      |
-| `hotspots.heartbeats`                     | A validated heartbeat: pubkey, position, location trust multiplier, location source      | `day(received_timestamp)`        |
-| `hotspots.speedtests`                     | One speedtest result                                                                     | `day(received_timestamp)`        |
-| `hotspots.speedtest_avgs`                 | A Hotspot's rolling speedtest average                                                    | `day(timestamp)`                 |
-| `hotspots.bans`                           | A ban applied to a Hotspot                                                               | `day(received_timestamp)`        |
-| `rewards.data_transfer`                   | A Hotspot's payout for a period: DC transfer reward, rewardable bytes, price used        | `day(start_period)`              |
-| `rewards.service_provider`                | A service provider payout for a period                                                   | `day(start_period)`              |
-| `rewards.unallocated`                     | Emissions not allocated to any entity in a period                                        | `day(start_period)`              |
+| Table                                     | Description                                                                                                                    | Partitioned By                   | History From |
+| :---------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- | :------------------------------- | :----------- |
+| `data_transfer.sessions`                  | An offload session that passed verification, with carrier, byte counts, and payer                                              | `day(report_received_timestamp)` | Oct 2024     |
+| `data_transfer.burned_sessions`           | A Hotspot's traffic billed in one DC burn, with byte and DC counts and its [HIP-150][hip-150] multiplier (null before HIP-150) | `day(burn_timestamp)`            | Apr 2023     |
+| `data_transfer.multiplier_ticket_history` | A HIP-150 multiplier ticket, accepted or refused (the table is append-only)                                                    | `bucket(hotspot_pubkey, 4)`      | No rows yet  |
+| `hotspots.heartbeats`                     | A validated heartbeat, with position and location trust multiplier                                                             | `day(received_timestamp)`        | Oct 2023     |
+| `hotspots.speedtests`                     | A Hotspot's validated speedtest result                                                                                         | `day(received_timestamp)`        | Sep 2023     |
+| `hotspots.speedtest_avgs`                 | A Hotspot's rolling speedtest average                                                                                          | `day(timestamp)`                 | Jan 2023     |
+| `hotspots.bans`                           | A ban or unban applied to a Hotspot                                                                                            | `day(received_timestamp)`        | Apr 2025     |
+| `rewards.data_transfer`                   | A Hotspot's data transfer payout for a period, with rewardable bytes and the price used                                        | `day(start_period)`              | May 2023     |
+| `rewards.service_provider`                | A service provider's payout for a period                                                                                       | `day(start_period)`              | Jan 2024     |
+| `rewards.unallocated`                     | A period's emissions not allocated to any entity                                                                               | `day(start_period)`              | Jan 2024     |
 
-The catalog holds more than the tables listed above, such as `invalid_*` tables for records that
-failed validation. To list every table and see the current schema, ask the catalog:
+[hip-150]: https://github.com/helium/HIP/blob/main/0150-mobile-deployer-prioritization.md
+
+History in the `data_transfer` and `hotspots` tables from before the move to Iceberg was loaded from
+the S3 archive and includes only records that passed validation. In backfilled heartbeats,
+`heartbeat_timestamp` equals `received_timestamp` and `asserted_location` is null.
+`rewards.service_provider` has no rows after August 30, 2026, because [HIP-150][hip-150] contributes
+Service Provider rewards to deployers.
+
+### Other Tables
+
+The catalog also holds these tables:
+
+| Table                                                                         | Description                                                                             | Partitioned By                   | History From |
+| :---------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :------------------------------- | :----------- |
+| `data_transfer.invalid_sessions`                                              | A session that failed verification, with a `reason`                                     | `day(report_received_timestamp)` | Jun 2026     |
+| `hotspots.invalid_heartbeats`, `invalid_speedtests`, `invalid_speedtest_avgs` | A record that failed validation, with a `reason`                                        | Same as the valid table          | Jun 2026     |
+| `hotspots.usage_stats`                                                        | A carrier's daily usage report for a Hotspot: users and bytes, in total and per carrier | `day(epoch_start_timestamp)`     | Dec 2025     |
+| `hotspots.enabled_carriers_history`                                           | A report of which carriers a Hotspot has enabled for offload and sampling               | `day(received_timestamp)`        | Oct 2025     |
+| `rewards.proof_of_coverage`                                                   | A Hotspot's Proof-of-Coverage reward for a period, through July 5, 2026                 | `day(start_period)`              | Apr 2023     |
+| `rewards.covered_hexes`                                                       | One hex a Hotspot covered in a Proof-of-Coverage reward period, through July 5, 2026    | `day(start_period)`              | Jul 2024     |
+
+Each `invalid_*` table has the same columns as its valid counterpart, plus `reason`.
+`hotspots.invalid_bans` also exists but has no rows yet.
+
+To list the namespaces, the tables in each, and a table's current schema, ask the catalog:
 
 ```sql
+SHOW SCHEMAS IN mobile;
 SHOW TABLES IN mobile.hotspots;
 DESCRIBE mobile.hotspots.heartbeats;
 SELECT * FROM mobile.information_schema.columns WHERE table_schema = 'hotspots';
 ```
+
+The listings also include items this page does not cover, such as one-off backup tables and the
+`poc` schema, which holds compatibility views.
 
 ### Filter on the Partition Column
 
@@ -97,6 +127,30 @@ row prunes nothing, even when the two values move together.
 
 `data_transfer.multiplier_ticket_history` is the exception. It is bucketed by `hotspot_pubkey`, so a
 filter on the pubkey prunes it and a date range does not.
+
+Keep timestamp literals to six or fewer fractional digits. Trino gives a literal with more digits a
+higher precision, such as `timestamp(9)`, and casts the column up to match, which turns pruning off
+and scans every partition.
+
+### Reading the Data
+
+- **Hotspot key columns have different names.** The Hotspot's key is `data_transfer_event_pub_key`
+  in `data_transfer.sessions` and `data_transfer.invalid_sessions`, `pub_key` in
+  `data_transfer.burned_sessions`, `pubkey` in `hotspots.bans` and `hotspots.invalid_bans`,
+  `hotspot_key` in `rewards.data_transfer`, `rewards.proof_of_coverage`, and
+  `rewards.covered_hexes`, and `hotspot_pubkey` in the other `hotspots` tables and
+  `data_transfer.multiplier_ticket_history`.
+- **Reward amounts are integers in the reward token's smallest unit.** Reward periods from January
+  29, 2025 onward are paid in HNT: amounts are in bones (1 HNT = 100,000,000 bones), and `price` in
+  `rewards.data_transfer` is the HNT price in USD multiplied by 10^8. Earlier periods were paid in
+  MOBILE, which has 6 decimals, and `price` is the MOBILE price multiplied by 10^6.
+- **Speedtest speeds are in bytes per second.** That includes columns whose names end in `_bps`.
+  Latency is in milliseconds.
+- **Carriers appear as numbered IDs.** Carrier columns hold values such as `carrier_1`, not carrier
+  names.
+- **`hotspots.usage_stats` can repeat a report.** The same Hotspot and day can appear more than
+  once. Keep the latest row per `hotspot_pubkey` and `epoch_start_timestamp`, by
+  `received_timestamp`, before summing.
 
 ## Connecting to the Catalog
 
@@ -179,7 +233,13 @@ catalog = load_catalog("mobile", **{
 })
 
 table = catalog.load_table("hotspots.heartbeats")
-df = table.scan(limit=10).to_arrow()
+df = table.scan(
+    row_filter=(
+        "received_timestamp >= '2026-09-21T00:00:00+00:00' "
+        "and received_timestamp < '2026-09-22T00:00:00+00:00'"
+    ),
+    limit=10,
+).to_arrow()
 ```
 
 PyIceberg addresses tables within the loaded catalog (`hotspots.heartbeats`), while Trino puts the
@@ -204,7 +264,8 @@ spark.sql.catalog.mobile.s3.access-key-id=anonymous
 spark.sql.catalog.mobile.s3.secret-access-key=anonymous
 ```
 
-Then query with `spark.sql("SELECT * FROM mobile.hotspots.heartbeats LIMIT 10")`.
+Then query with `spark.sql()`, filtering on the partition column as shown in
+[Filter on the Partition Column](#filter-on-the-partition-column).
 
 You need both `iceberg-spark-runtime` and `iceberg-aws-bundle` on the classpath. Without the AWS
 bundle, the catalog resolves but every read fails at the storage layer.
@@ -214,9 +275,9 @@ bundle, the catalog resolves but every read fails at the storage layer.
 
 ### Things to Know
 
-- **The catalog connects but lists no tables.** Check that `warehouse` is set to `mobile`. It is the
-  warehouse name the REST catalog knows, not a bucket name.
+- **`warehouse` must be `mobile`.** It is the warehouse name the REST catalog knows, not a bucket
+  name. With any other value, the catalog connects but lists no tables.
 - **Vended credentials are off.** The catalog does not return per-table storage credentials, so your
   client must supply the storage settings above for every table it reads.
-- **Requests are rejected.** The catalog is rate-limited. Open does not mean unmetered, so a client
-  that sends too many requests will be throttled.
+- **The catalog is rate-limited.** A client that sends too many requests in a short time has some of
+  them rejected.
