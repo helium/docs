@@ -5,7 +5,7 @@ pagination_label: Ubiquiti Conversion Guide
 sidebar_label: Ubiquiti
 description:
   Configure Ubiquiti UniFi with RadSec certificates, Passpoint RADIUS profile, and Helium SSID for
-  carrier offload.
+  carrier offload, and set up quality metrics integration over WireGuard.
 image: https://docs.helium.com/img/link-image.png
 slug: /mobile/helium-plus-ubiquiti
 ---
@@ -243,23 +243,39 @@ Your Helium SSID is now configured. To verify, forget the existing network on yo
 connect to the new network with a device that has a supported carrier, such as
 [Helium Mobile](https://hellohelium.com).
 
+## Video Walkthrough
+
+import { YouTube } from 'mdx-embed'
+
+<YouTube youTubeId="bHRWF9UZwZQ" aspectRatio="16:9" />
+
 ## Quality Metrics Integration
 
 Quality metrics integration lets Helium read Wi-Fi quality metrics from your UniFi controller over a
-private WireGuard VPN tunnel. Setup has three parts: a view-only metrics user, a WireGuard VPN
-client, and a firewall policy that allows the metrics poller to reach the controller.
+private WireGuard VPN tunnel. Helium uses these metrics to monitor the Wi-Fi experience carrier
+subscribers get on your network. Depending on the venue tier and the partner carrier's requirements,
+this integration may be required. Contact the Helium sales team for details about your site.
 
-Before you begin, make sure you have admin access to the UniFi controller and have received the
-following from the Helium team: metrics user credentials (username and password) and a WireGuard
-configuration file.
+Setup has three parts: a view-only metrics user, a WireGuard VPN client, and a firewall policy that
+allows the metrics poller to reach the controller.
+
+Before you begin, make sure you have:
+
+- **UniFi Network 9.0 or higher**. The firewall policy uses the zone-based firewall introduced in
+  9.0.
+- **A UniFi gateway** (UDM, UCG, or UXG). The VPN client and firewall policies run on the gateway,
+  so self-hosted controllers without a gateway can't complete this setup.
+- **Admin access** to the UniFi controller.
+- **Metrics user credentials** (username and password) and a **WireGuard configuration file**.
+  Request both from your Helium Plus contact.
 
 ### Create a Metrics User
 
 1. Click the **People** icon at the bottom of the left sidebar.
 2. Click **Create New**, then **Create New Person**. Depending on the controller version, this
    option may be labeled **Add New Person** or **Create New User**.
-3. Enter a **First Name**, for example "**Helium WiFi QM Poller**". Leave **Last Name** and
-   **Email** blank.
+3. Enter a **First Name**, for example "**WiFi QM Poller**". Leave **Last Name** and **Email**
+   blank.
 4. Check the **Admin** box.
 5. Check **Restrict to Local Access Only**. On some controllers this box is already checked and
    greyed out.
@@ -288,7 +304,9 @@ configuration file.
 5. Enter a **Name**, for example "**WiFi QM Metrics**".
 6. Under **Setup**, select **File** and click **Upload Configuration File** to upload the WireGuard
    configuration file provided by Helium.
-7. Click **Create**.
+7. Leave **Device Wizard** and **Content Wizard** set to **Off**. Either wizard creates a
+   policy-based route that can send client traffic through the tunnel.
+8. Click **Create**.
 
 <figure className="screensnippet-wrapper">
   <img
@@ -320,24 +338,26 @@ Confirm the connection **Status** shows **Established** in the VPN Client list.
 4. Make sure **Firewall** is selected.
 5. Enter a **Name**, for example "**Allow WiFi QM Poller access**".
 6. Set **Source Zone** to **External** and select the **IP** option.
-7. Under **Specific**, add `10.13.13.1/32` as IP Address / Subnet.
+7. Under **Specific**, add `10.13.13.1/32` as IP Address / Subnet. This is the metrics poller's
+   address inside the WireGuard tunnel and is the same for every deployment.
 8. Under **Action**, select **Allow**.
 9. Set **Destination Zone** to **Gateway**.
-10. Set **Port** to **Specific** and select **HTTPS** as the **Service**.
+10. Under **Destination Zone**, set **Port** to **Specific** and select **HTTPS** as the
+    **Service**.
 11. Click **Add Policy**.
 
 <figure className="screensnippet-wrapper">
   <img
     src={useBaseUrl('/img/mobile-data-only/ubiquiti/qm-firewall-policy.png')}
-    style={{ maxHeight: '1200px' }}
+    style={{ maxHeight: '900px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
   <figcaption>Allow HTTPS access from the metrics poller to the gateway.</figcaption>
 </figure>
 <br />
 
-## Video Walkthrough
+### Notify the Helium Team
 
-import { YouTube } from 'mdx-embed'
-
-<YouTube youTubeId="bHRWF9UZwZQ" aspectRatio="16:9" />
+Once the VPN client shows **Established** and the firewall policy is in place, let your Helium Plus
+contact know that setup is complete. The Helium team will confirm that quality metrics are flowing
+from your controller.
