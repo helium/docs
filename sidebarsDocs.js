@@ -20,8 +20,14 @@ module.exports = {
             'network-mobile/helium-plus-guides/helium-plus-onboarding',
             'network-mobile/helium-plus-guides/helium-plus-radsecproxy',
             'network-mobile/helium-plus-guides/helium-plus-alta',
-            'network-mobile/helium-plus-guides/helium-plus-aruba',
-            'network-mobile/helium-plus-guides/helium-plus-aruba-central',
+            {
+              type: 'category',
+              label: 'Aruba',
+              items: [
+                'network-mobile/helium-plus-guides/helium-plus-aruba',
+                'network-mobile/helium-plus-guides/helium-plus-aruba-central',
+              ],
+            },
             'network-mobile/helium-plus-guides/helium-plus-cambium-cnmaestro',
             'network-mobile/helium-plus-guides/helium-plus-extreme',
             'network-mobile/helium-plus-guides/helium-plus-fortinet',
