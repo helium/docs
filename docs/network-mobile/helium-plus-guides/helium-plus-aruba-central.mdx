@@ -239,34 +239,6 @@ If the Mobility Controller is managed from its own web UI (`https://<controller-
 of Aruba Central, the steps above still apply, with these differences. Verified on an Aruba 7005
 running AOS 8.10.0.16.
 
-### Set the Controller Clock
-
-Before uploading certificates, confirm the controller clock is correct. If the clock is behind the
-client certificate's start date, the upload fails with
-`Certificate is not yet valid. Please check controller time and cert validity period.`
-
-Navigate to **Configuration → System → General → Clock**. If **Set clock** is `Using NTP`, make sure
-at least one NTP server is listed (for example, `216.239.35.0`), then submit and deploy. The
-controller may log you out of the web UI when the clock changes.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/aruba-standalone/1-clock-no-ntp.jpg')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-  <figcaption>Clock set to Using NTP with no NTP server listed.</figcaption>
-</figure>
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/aruba-standalone/2-add-ntp-server.jpg')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-  <figcaption>Adding an NTP server.</figcaption>
-</figure>
-
 ### Upload Certificates in the Controller UI
 
 Navigate to **Configuration → System → Certificates → Import Certificates** and add:
@@ -419,6 +391,9 @@ If authentication fails, check the following:
 - RadSec connection: on a standalone controller, go to **Diagnostics → Logs**.
   `TCP connect to server Helium-RadSec failed` means the controller cannot reach Helium on TCP 2083.
   If TCP connects but TLS still fails, recheck the CA and client certificate names on the server.
+- Certificate import fails with `Certificate is not yet valid`: the controller clock is behind the
+  certificate's start date. Check **Configuration → System → General → Clock**; if it uses NTP, make
+  sure an NTP server is listed, then deploy and re-import.
 
 ## Connect and Validate
 
