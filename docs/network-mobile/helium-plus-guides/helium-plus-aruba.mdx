@@ -1,10 +1,10 @@
 ---
 id: helium-plus-aruba
-title: Aruba Conversion Guide
-pagination_label: Aruba Conversion Guide
-sidebar_label: Aruba
+title: Aruba Mobility Controller Conversion Guide
+pagination_label: Aruba Mobility Controller Conversion Guide
+sidebar_label: Mobility Controller
 description:
-  Configure an Aruba Mobility Controller with RadSecProxy, Passpoint, and Hotspot 2.0 for Helium
+  Configure an Aruba Mobility Controller with native RadSec, Passpoint, and Hotspot 2.0 for Helium
   Mobile.
 image: https://docs.helium.com/img/link-image.png
 slug: /mobile/helium-plus-aruba
@@ -16,73 +16,136 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 - Aruba system must be running
   [AOS 8.10.x.x](https://arubanetworking.hpe.com/techdocs/ArubaOS/Consolidated_8.x_RN/Content/8.10/overview-8100x.htm)
-  or later.
+  or later (tested on an Aruba 7005 running AOS 8.10.0.16).
 - Guide assumes the network is using an on-prem Aruba Mobility Controller.
 - Aruba system has AP(s) linked to the Mobility Controller.
 - Aruba system has basic traffic routing working with existing SSID(s).
-- An Intel-based host is required in the network to run the
-  [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
+- SSH or console access to the Mobility Controller, to enable RadSec from the CLI.
+- The Helium RadSec certificates from the Helium onboarding process (either from the WiFi Conversion
+  process or sent to you by your Helium Plus contact): the RadSec Server CA (`ca.pem`), and the
+  client certificate and key combined in one PEM file (for example:
+  `cat cert.pem key.pem > client_combined.pem`).
+- ACLs or firewalls allow the Mobility Controller to reach the internet on TCP port 2083.
 
 ## High Level Steps
 
-1. Deploy RadSecProxy container and record the IP address of the host
-2. Build Helium Passpoint SSID
-   1. Build RADIUS Authentication Servers
-   2. Build WLAN
-   3. Link AAA Profile to RADIUS Accounting Server Group
-   4. Build ANQP Profile
-   5. Build Advertisement Profile
-   6. Link ANQP Profile to the Advertisement Profile
-   7. Build Hotspot 2.0 Profile
-   8. Link Advertisement Profile to Hotspot 2.0 Profile
-   9. Link Hotspot 2.0 Profile to Virtual AP
+1. Upload Helium RadSec Certificates
+2. Create the Helium RadSec Server
+3. Build Helium Passpoint SSID
+   1. Build WLAN
+   2. Link AAA Profile to RADIUS Accounting Server Group
+   3. Build ANQP Profile
+   4. Build Advertisement Profile
+   5. Link ANQP Profile to the Advertisement Profile
+   6. Build Hotspot 2.0 Profile
+   7. Link Advertisement Profile to Hotspot 2.0 Profile
+   8. Link Hotspot 2.0 Profile to Virtual AP
+4. Connect and Validate
 
-## Deploy RadSecProxy Container
+## Upload Helium RadSec Certificates
 
-RADIUS messages used for user authentication and session accounting are transmitted unsecured and
-over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
-the UDP traffic is then converted to a TLS-protected TCP connection to the Helium Network core AAA
-servers.
+Navigate to **Configuration → System → Certificates → Import Certificates** and add:
 
-### Prerequisites
+- RadSec Server CA (`ca.pem`): Type `TrustedCA`, Format `PEM`
+- Combined client certificate and key: Type `ServerCert`, Format `PEM`
 
-- An Intel-based machine with Docker installed.
-- The Intel-based machine has a private IP in your network reachable from your Aruba Mobility
-  Controller
-- ACLs or firewalls allow the Aruba Mobility Controller and Docker container to communicate over UDP
-  on ports 1812 and 1813
-- ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802\.
+Deploy the pending changes. Note the names you give each certificate; you need them in the next
+step.
 
-### Container Deployment
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-mobility/1-import-certificates.jpg')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Configuration → System → Certificates → Import Certificates.</figcaption>
+</figure>
 
-1. Unzip and untar the `radsec-proxy-main.tar.gz` file into the directory of your choice on the host
-   machine. This will unpack the following items:
-   1. `Dockerfile` \- The Docker instructions on how to build the container
-   2. `radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
-      Network AAA servers
-   3. `docker-compose.yml` \- File to start and stop the container as a daemon.
+## Create the Helium RadSec Server
 
-```bash
-tar -xvzf  radsec-proxy-main.tar.gz
+Uploading the certificates in the web UI only stores them on the controller. The
+`radsec-trusted-cacert-name` and `radsec-client-cert` lines below attach them to the RadSec server;
+without them, both certificate fields show `N/A` and the TLS connection to Helium cannot start.
+
+The RADIUS server form in the controller's web UI has no RadSec or certificate fields, and the web
+UI has no CLI console. Enable RadSec over SSH (`ssh admin@<controller-ip>`) or the console port:
+
+```
+configure terminal
+aaa authentication-server radius Helium-RadSec
+  host radius-bf.wifi.hellohelium.com
+  enable-radsec
+  radsec-port 2083
+  radsec-trusted-cacert-name <ca-cert-name>
+  radsec-client-cert <client-cert-name>
+  nas-identifier <your-nas-id>
+  key radsec
+exit
+write memory
 ```
 
-2. Into the same directory, copy the 3 certificates obtained from the Helium Network
-   1. `ca.pem` \- the root CA certificate
-   2. `cert.pem` \- the user certificate
-   3. `key.pem` \- the key file matched to the certificate
-3. Start the container using:
+- Enter the server lines while the prompt shows `(RADIUS Server "Helium-RadSec")`. Commands entered
+  at the `(config)` prompt are rejected.
+- The client certificate keyword is `radsec-client-cert`. `radsec-client-cert-name` is not accepted.
+- `enable-radsec` warns that a trusted certificate is required until `radsec-trusted-cacert-name` is
+  set. This is expected.
+- Idle SSH sessions time out after a few minutes. If you see `*** IDLE TIMEOUT ***`, reconnect
+  before pasting commands.
 
-```bash
-sudo docker compose up -d
+Verify the configuration:
+
+```
+show aaa authentication-server radius Helium-RadSec
 ```
 
-4. If/when needed, stop the container using:
+A working configuration looks like this (example output from an Aruba 7005 on AOS 8.10.0.16; your
+NAS ID and certificate names will differ):
 
-```bash
-sudo docker compose down
+```
+RADIUS Server "Helium-RadSec"
+-----------------------------
+Parameter                                                         Value
+---------                                                         -----
+Enable IPv6                                                       Disabled
+Host                                                              radius-bf.wifi.hellohelium.com
+Key                                                               ********
+CPPM credentials                                                  N/A
+Auth Port                                                         1812
+Acct Port                                                         1813
+RadSec Port                                                       2083
+Retransmits                                                       3
+Timeout                                                           5 sec
+NAS ID                                                            <your-nas-id>
+NAS IP                                                            N/A
+NAS IPv6                                                          N/A
+Source Interface                                                  N/A
+Use MD5                                                           Disabled
+Use IP address for calling station ID                             Disabled
+Mode                                                              Enabled
+Lowercase MAC addresses                                           Disabled
+MAC address delimiter                                             none
+Service-type of FRAMED-USER                                       Disabled
+RadSec                                                            Enabled
+RadSec Trusted CA Name                                            <ca-cert-name>
+RadSec Server Cert Name                                           N/A
+RadSec Client Cert                                                <client-cert-name>
+called-station-id                                                 macaddr colon disable
+Access-Request Modifier                                           N/A
+Accounting-Request Modifier                                       N/A
+Message-Authenticator required in Access-Accept/Reject/Challenge  No
 ```
 
----
+Check these lines:
+
+- `RadSec` is `Enabled` and `RadSec Port` is `2083`.
+- `RadSec Trusted CA Name` and `RadSec Client Cert` show your certificate names. If
+  `RadSec Client Cert` is `N/A`, the `radsec-client-cert` line was not applied; re-enter it inside
+  the server context.
+- `RadSec Server Cert Name` stays `N/A`; it does not need to be set.
+
+This command shows configuration only. To confirm the RadSec session to Helium is up, check
+**Diagnostics → Logs** for repeated `Failed to open TLS socket for server Helium-RadSec` errors;
+once the connection is established they stop.
 
 ## Build Aruba Helium Passpoint SSID
 
@@ -105,48 +168,6 @@ for all major steps below.
 
 Most windows will have many other parameters with default values set. Leave any unmentioned
 parameter at its default value.
-
-:::
-
-## Build RADIUS Authentication Servers
-
-1. Click on **Configuration** and then **Authentication** in the left menu column.
-2. Click the **\+** in the **All Servers** box to add a server
-3. Enter "**RadSec-1**" as the Name
-4. Choose **RADIUS** as the Type
-5. Enter the IP address of the RadSecProxy Container host
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/aruba/Aruba-image7.png')}
-    style={{ maxHeight: '280px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-6. Click **Submit**
-7. Click on the Server name in the table to enter further configuration
-8. Enter **Auth Port** \= **1812**
-9. Enter **Acct Port** \= **1813**
-10. Enter "**mysecret**" as the shared key and retype key
-11. Enter the **NAS-ID** used during onboarding with Helium Network
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/aruba/Aruba-image8.png')}
-    style={{ maxHeight: '575px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-12. Click **Submit**
-13. Click **Pending Changes** in the top right corner.
-14. Click **Deploy Changes** in the pop up.
-
-:::note
-
-Redundancy is good. If you deploy two containers on two hosts, repeat these steps for a second
-RadSec server called Radsec-2.
 
 :::
 
@@ -193,7 +214,7 @@ add-shadow-margin"
 
 8. Click **Next**
 9. Select **WPA3-Enterprise** for **Key Management**
-10. Click \+ in Auth Servers and select Radsec-1 (and Radsec-2 if you have two)
+10. Click \+ in Auth Servers and select **Helium-RadSec**
 
 <figure className="screensnippet-wrapper">
   <img
@@ -225,7 +246,7 @@ add-shadow-margin"
 2. Click on **AAA Profiles** in the top menu bar
 3. Click the **\+** next to **AAA** and **\+** next to **Helium_aaa_prof**
 4. Click on **RADIUS Accounting Server Group**
-5. Select **Heium_dot1_svg** from the drop-down menu next to **Server Group**
+5. Select **Helium_dot1_svg** from the drop-down menu next to **Server Group**
 
 <figure className="screensnippet-wrapper">
   <img
@@ -239,6 +260,28 @@ add-shadow-margin"
 6. Click **Submit**
 7. Click **Pending Changes** in the top right corner.
 8. Click **Deploy Changes** in the pop up.
+
+`Helium-RadSec` must be the first server in the WLAN's server group. The WLAN wizard names the group
+`<ssid>_dot1_svg`.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-mobility/2-server-group.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>The server group created by the WLAN wizard.</figcaption>
+</figure>
+
+If `Helium-RadSec` is not listed first, set it from the CLI:
+
+```
+configure terminal
+aaa server-group <ssid>_dot1_svg
+  auth-server Helium-RadSec position 1
+exit
+write memory
+```
 
 ## Build ANQP Profile
 
@@ -459,41 +502,38 @@ add-shadow-margin"
 8. Click **Pending Changes** in the top right corner.
 9. Click **Deploy Changes** in the pop up.
 
+## Connect and Validate
+
+Connect a client device to the newly created SSID.
+
+Verify successful authentication: **Diagnostics → Logs** should no longer show
+`Failed to open TLS socket for server Helium-RadSec` errors, and the device should get an IP address
+and internet access.
+
 ## Troubleshooting
 
-### Look for incoming RADUS packets in RadSec Logs
+- APs discover the controller but stay `Down`, or RadSec traffic cannot reach Helium: this often
+  happens on a controller previously configured for another network. Confirm that **Configuration →
+  System → General → Controller IP address** is on a VLAN that both your APs and the internet can
+  reach. Changing the controller IP requires a reboot.
 
-```
-radsec@radsec:~$ sudo docker ps
-CONTAINER ID   IMAGE          COMMAND                  CREATED        STATUS                  PORTS                                                           NAMES
-4cefb87fb8cc   612e4c464d65   "/usr/bin/radsecprox…"   13 hours ago   Up 13 hours (healthy)   0.0.0.0:1812-1813->1812-1813/udp, :::1812-1813->1812-1813/udp   radsec-radsecproxy-1
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-mobility/3-controller-ip.jpg')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Controller IP address under System → General.</figcaption>
+</figure>
 
-radsec@radsec:~$ sudo docker logs -f 4cefb87fb8cc
-```
-
-Follow logs from the container and look for Accepts or Rejects for any reason.
-
-- No RADIUS when the phone is trying means:
-  - Aruba setup is not forwarding or not forwarding the right ports
-  - Network is blocking; check for ACLs or firewalls in the network path
-  - Container host network is blocking it from being sent to the container; check for firewall
-    services on the host
-- RADIUS arrives but you are getting rejects means:
+- Clients connect but have no internet access: confirm that the VLAN assigned to the Helium WLAN
+  gives clients a routable address with internet access.
+- RadSec connection: go to **Diagnostics → Logs**. `TCP connect to server Helium-RadSec failed`
+  means the controller cannot reach Helium on TCP 2083. If TCP connects but TLS still fails, recheck
+  the CA and client certificate names on the server.
+- Certificate import fails with `Certificate is not yet valid`: the controller clock is behind the
+  certificate's start date. Check **Configuration → System → General → Clock**; if it uses NTP, make
+  sure an NTP server is listed, then deploy and re-import.
+- RadSec connects but phones are rejected:
   - Make sure the NAS-ID has been onboarded to the Helium Network
   - Double-check ANQP profile creation steps
-
-### Inspect RADIUS AVP contents
-
-```bash
-ssh radsec@192.168.10.209 -- sudo tcpdump -i any  -U -s0 -w - port 1813 or 1812 or 2083 | /Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -
-```
-
-Wireshark/tcpdump on host for ports 1812, 1813, 2083, 3802\.  
-User on host must have "sudo nopasswd" privileges.
-
-Look for:
-
-- Username AVP must have hellohelium.com realm
-- NAS-ID AVP must be formatted exactly as submitted during onboarding
-- Check ports are 1812 for authentication and 1813 for accounting
-- Ensure the TCP connections are established on 2083 and 3802
