@@ -1,8 +1,8 @@
 ---
 id: helium-plus-aruba
-title: Aruba Conversion Guide
-pagination_label: Aruba Conversion Guide
-sidebar_label: Aruba Mobility
+title: Aruba Mobility Controller Conversion Guide
+pagination_label: Aruba Mobility Controller Conversion Guide
+sidebar_label: Mobility Controller
 description:
   Configure an Aruba Mobility Controller with native RadSec, Passpoint, and Hotspot 2.0 for Helium
   Mobile.
@@ -16,21 +16,21 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 - Aruba system must be running
   [AOS 8.10.x.x](https://arubanetworking.hpe.com/techdocs/ArubaOS/Consolidated_8.x_RN/Content/8.10/overview-8100x.htm)
-  or later.
+  or later (tested on an Aruba 7005 running AOS 8.10.0.16).
 - Guide assumes the network is using an on-prem Aruba Mobility Controller.
 - Aruba system has AP(s) linked to the Mobility Controller.
 - Aruba system has basic traffic routing working with existing SSID(s).
 - SSH or console access to the Mobility Controller, to enable RadSec from the CLI.
-- The Helium RadSec certificates: `ca.pem`, and the client certificate and key combined in one
-  PEM file.
+- The Helium RadSec certificates from the Helium onboarding process (either from the WiFi Conversion
+  process or sent to you by your Helium Plus contact): the RadSec Server CA (`ca.pem`), and the
+  client certificate and key combined in one PEM file (for example:
+  `cat cert.pem key.pem > client_combined.pem`).
 - ACLs or firewalls allow the Mobility Controller to reach the internet on TCP port 2083.
-
-Verified on an Aruba 7005 running AOS 8.10.0.16.
 
 ## High Level Steps
 
-1. Upload the Helium RadSec certificates
-2. Create the Helium RadSec server
+1. Upload Helium RadSec Certificates
+2. Create the Helium RadSec Server
 3. Build Helium Passpoint SSID
    1. Build WLAN
    2. Link AAA Profile to RADIUS Accounting Server Group
@@ -40,7 +40,7 @@ Verified on an Aruba 7005 running AOS 8.10.0.16.
    6. Build Hotspot 2.0 Profile
    7. Link Advertisement Profile to Hotspot 2.0 Profile
    8. Link Hotspot 2.0 Profile to Virtual AP
-4. Check the controller IP
+4. Connect and Validate
 
 ## Upload Helium RadSec Certificates
 
@@ -54,7 +54,7 @@ step.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/aruba-standalone/3-import-certificates.jpg')}
+    src={useBaseUrl('img/mobile-data-only/aruba-mobility/1-import-certificates.jpg')}
     style={{ maxHeight: '500px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
@@ -261,12 +261,12 @@ add-shadow-margin"
 7. Click **Pending Changes** in the top right corner.
 8. Click **Deploy Changes** in the pop up.
 
-`Helium-RadSec` must be the first server in the WLAN's server group. The WLAN wizard names the
-group `<ssid>_dot1_svg`.
+`Helium-RadSec` must be the first server in the WLAN's server group. The WLAN wizard names the group
+`<ssid>_dot1_svg`.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/aruba-standalone/4-server-group.png')}
+    src={useBaseUrl('img/mobile-data-only/aruba-mobility/2-server-group.png')}
     style={{ maxHeight: '500px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
@@ -502,27 +502,32 @@ add-shadow-margin"
 8. Click **Pending Changes** in the top right corner.
 9. Click **Deploy Changes** in the pop up.
 
-## Check the Controller IP
+## Connect and Validate
 
-On a controller that was previously configured for another network, confirm that **Configuration →
-System → General → Controller IP address** is on a VLAN that both your APs and the internet can
-reach. If it is not, APs can discover the controller but stay `Down`, and RadSec traffic cannot
-reach Helium. Changing the controller IP requires a reboot.
+Connect a client device to the newly created SSID.
+
+Verify successful authentication: **Diagnostics → Logs** should no longer show
+`Failed to open TLS socket for server Helium-RadSec` errors, and the device should get an IP address
+and internet access.
+
+## Troubleshooting
+
+- APs discover the controller but stay `Down`, or RadSec traffic cannot reach Helium: this often
+  happens on a controller previously configured for another network. Confirm that **Configuration →
+  System → General → Controller IP address** is on a VLAN that both your APs and the internet can
+  reach. Changing the controller IP requires a reboot.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/aruba-standalone/5-controller-ip.jpg')}
+    src={useBaseUrl('img/mobile-data-only/aruba-mobility/3-controller-ip.jpg')}
     style={{ maxHeight: '500px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
   <figcaption>Controller IP address under System → General.</figcaption>
 </figure>
 
-Also confirm that the VLAN assigned to the Helium WLAN gives clients a routable address with
-internet access.
-
-## Troubleshooting
-
+- Clients connect but have no internet access: confirm that the VLAN assigned to the Helium WLAN
+  gives clients a routable address with internet access.
 - RadSec connection: go to **Diagnostics → Logs**. `TCP connect to server Helium-RadSec failed`
   means the controller cannot reach Helium on TCP 2083. If TCP connects but TLS still fails, recheck
   the CA and client certificate names on the server.
