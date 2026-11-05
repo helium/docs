@@ -90,6 +90,10 @@ On the Helium IoT network, the primary utility of DCs is for network data transf
 billed in 24-byte increments of the LoRaWAN frame size. Data transfer is only billed if the message
 is delivered through the Helium Network.
 
+For example, a 12-byte application payload with no optional MAC commands in FOpts produces a 25-byte
+LoRaWAN frame: 12 bytes of application data plus 13 bytes of headers and MIC. This costs 2 DC per
+purchased copy.
+
 Network users also have the choice to purchase multiple reports of the same packet. These additional
 reports each account for their own cost. For instance, if three 24-byte copies are returned for a
 given message, the cost would be 3 DC.
