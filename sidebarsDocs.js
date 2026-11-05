@@ -56,6 +56,7 @@ module.exports = {
             },
             'network-mobile/helium-plus-guides/helium-plus-mikrotik',
             'network-mobile/helium-plus-guides/helium-plus-ruckus',
+            'network-mobile/helium-plus-guides/helium-plus-omada',
             'network-mobile/helium-plus-guides/helium-plus-ubiquiti',
             'network-mobile/helium-plus-guides/helium-plus-generic',
             'network-mobile/helium-plus-security-faq',
