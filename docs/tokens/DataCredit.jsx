@@ -1,6 +1,6 @@
 export const PayloadSize = () => (
   <figure className="screensnippet-wrapper" style={{ padding: '1.25em 5vw 1em' }}>
-    <p>Message Payload Size</p>
+    <p>LoRaWAN Frame Size</p>
     <table className="dc-calc-table" style={{ marginBottom: '1em' }}>
       <thead>
         <tr>
