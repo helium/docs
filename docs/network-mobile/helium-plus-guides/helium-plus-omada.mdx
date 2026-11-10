@@ -4,33 +4,48 @@ title: TP-Link Omada Conversion Guide
 pagination_label: TP-Link Omada Conversion Guide
 sidebar_label: TP-Link Omada
 description:
-  Configure TP-Link Omada with native RadSec, a Passpoint SSID, and Hotspot 2.0 for Helium Mobile.
+  Configure TP-Link Omada with RadSecProxy, a Passpoint SSID, and Hotspot 2.0 for Helium Mobile.
 image: https://docs.helium.com/img/link-image.png
 slug: /mobile/helium-plus-omada
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
+Omada APs send plain RADIUS to a RadSecProxy on your network, and the proxy forwards it to Helium
+AAA over RadSec (RADIUS over TLS). The Helium certificates live on the proxy, not on the Omada
+controller.
+
+:::note
+
+The Omada controller has a RadSec option, but do not use it for Helium. Many EAP models do not
+support RadSec in their current firmware, and the OC200 hardware controller accepts only RSA
+certificates, while Helium issues EC certificates. Use RadSecProxy as described below.
+
+:::
+
 ## Prerequisites
 
 - An Omada Software Controller, Hardware Controller (e.g. OC200/OC300), or Omada Cloud-Based
-  Controller with RadSec and Hotspot 2.0 support. This guide was built on controller version
-  **6.2.0.17**.
-- Omada EAP access point(s) adopted by the controller (this guide was tested with an **EAP670**).
+  Controller. This guide was built on controller version **6.2.0.17**.
+- Omada EAP access point(s) adopted by the controller, running firmware that supports Hotspot 2.0
+  (this guide was tested with an **EAP670 v2**).
 - Basic traffic routing already working with existing SSID(s).
-- The three Helium certificate files issued during onboarding: `ca.pem` (root CA), `cert.pem`
-  (client certificate), and `key.pem` (private key matched to the certificate).
+- A RadSecProxy deployed on your network with the Helium certificates from onboarding (`ca.pem`,
+  `cert.pem`, `key.pem`). See
+  [Deploy RadSecProxy Container](/mobile/helium-plus-extreme#deploy-radsecproxy-container) for the
+  steps and [RadSecProxy](/mobile/helium-plus-radsecproxy) for deployment options.
+- ACLs/firewalls allow the EAPs to reach the RadSecProxy on **UDP 1812 and 1813**, and the
+  RadSecProxy to reach the internet on **TCP 2083**.
 - The NAS-ID you registered with Helium during [onboarding](/mobile/wifi-conversion-onboarding).
-- ACLs/firewalls allow the APs to reach the internet on **TCP 2083**.
 
 ## High Level Steps
 
-1. Upload the Helium certificates to the Omada controller
-2. Create a Helium RADIUS Profile with RadSec enabled
-3. Build the Omada Helium Passpoint SSID
+1. Create a Helium RADIUS Profile that points at your RadSecProxy
+2. Build the Omada Helium Passpoint SSID
    1. Build a new SSID
    2. Configure the SSID to use the Helium RADIUS Profile and NAS-ID
    3. Build the Hotspot 2.0 config
+3. Connect and validate
 
 :::note
 
@@ -43,128 +58,38 @@ Log in to your Omada Controller and open the site that holds your APs.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-1.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('img/mobile-data-only/omada/1-site-list.png')}
   />
+  <figcaption>Open the site that holds your EAPs from the Site List.</figcaption>
 </figure>
-
-## Upload Helium Certificates
-
-1. In the left menu, click **Network Config** and scroll down to the **Profile** section.
-2. Click **Certificate Profile**.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-2.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-3. Click **Add Certificate**.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-3.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-4. Add the CA certificate:
-   1. **Certificate Name**: `helium-ca`
-   2. **Certificate Type**: **CA Certificate**
-   3. **Certificate Format**: **X.509(PEM)**
-   4. **Upload Certificate**: click **Import** and select `ca.pem`
-   5. Click **Apply**
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-4.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-5. Click **Add Certificate** again and add the client certificate:
-   1. **Certificate Name**: `helium-client`
-   2. **Certificate Type**: **Client Certificate**
-   3. **Client Private Key**: click **Import** and select `key.pem`
-   4. **Password**: leave blank
-   5. **Certificate Format**: **X.509(PEM)**
-   6. **Upload Certificate**: click **Import** and select `cert.pem`
-   7. Click **Apply**
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-5.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-Both certificates should now show a **Normal** status.
 
 ## Create the Helium RADIUS Profile
 
 1. In the left menu, click **Network Config** > **Profile** > **RADIUS Profile**.
 2. Click **Create New RADIUS Profile**.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-6.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-3. **Name**: `Helium-Radsec`
+3. **Name**: `Helium-RadSecProxy`
 4. Leave **VLAN Assignment** and **Require Message-Authenticator** unchecked.
 5. Under **Authentication Server 1**:
-   1. **Authentication Server IP/URL**: `52.37.147.195`
-   2. **RadSec**: check **Enable**
-   3. **CA Certificate**: `helium-ca`
-   4. **Client Certificate**: `helium-client`
-   5. **Authentication Port**: `2083`
-   6. **Authentication Password**: `radsec`
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-7.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
+   1. **Authentication Server IP/URL**: the IP address of your RadSecProxy
+   2. **RadSec**: leave unchecked
+   3. **Authentication Port**: `1812`
+   4. **Authentication Password**: the shared secret from your RadSecProxy configuration (`mysecret`
+      is the default in the Helium RadSecProxy container)
 6. Under **Accounting Server**, check **Enable** for **RADIUS Accounting** and **Interim Update**.
-   Leave **Interim Update Interval** at `300` seconds.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-8.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-7. Under **Accounting Server 1**, repeat the same settings as the authentication server:
-   1. **Accounting Server IP/URL**: `52.37.147.195`
-   2. **RadSec**: check **Enable**
-   3. **CA Certificate**: `helium-ca`
-   4. **Client Certificate**: `helium-client`
-   5. **Accounting Port**: `2083`
-   6. **Accounting Password**: `radsec`
+   Set **Interim Update Interval** to `300` seconds.
+7. Under **Accounting Server 1**:
+   1. **Accounting Server IP/URL**: the IP address of your RadSecProxy
+   2. **RadSec**: leave unchecked
+   3. **Accounting Port**: `1813`
+   4. **Accounting Password**: the same shared secret
 8. Leave **RADIUS Proxy** and **RADIUS CoA** unchecked.
 9. Click **Save**.
 
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-9.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
+The RadSecProxy handles the connection to all of Helium's AAA servers, so only one server is needed
+here. If you run a second RadSecProxy for redundancy, add it with **Add New Authentication Server**
+and **Add New Accounting Server**.
 
 ## Build Omada Helium Passpoint SSID
 
@@ -177,20 +102,24 @@ and RADIUS configurations to support Helium Mobile user offload.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-10.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('img/mobile-data-only/omada/2-network-config-menu.png')}
   />
+  <figcaption>Network Config menu. WLAN is under Network Settings.</figcaption>
 </figure>
 
 2. On the **SSID** tab, select your **WLAN Group** and click **Create New Wireless Network**.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-11.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('img/mobile-data-only/omada/3-ssid-list.png')}
   />
+  <figcaption>
+    The SSID list. This test lab used the name Helium-Omada; name your SSID Helium.
+  </figcaption>
 </figure>
 
 3. **Network Name (SSID)**: `Helium`
@@ -200,24 +129,7 @@ and RADIUS configurations to support Helium Mobile user offload.
 ### Configure Helium SSID for RADIUS Access Control
 
 1. **Security**: **WPA-Enterprise**
-2. **RADIUS Profile**: `Helium-Radsec`
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-12.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-:::note
-
-Omada shows a banner recommending a non-RadSec backup server for devices that don't support RadSec.
-Helium requires RadSec, so no backup server is needed. Make sure all EAPs serving this SSID are
-running firmware that supports RadSec.
-
-:::
-
+2. **RADIUS Profile**: `Helium-RadSecProxy`
 3. **NAS ID**: select **Custom** and enter the NAS-ID you registered with Helium during onboarding.
 
 :::warning
@@ -233,44 +145,49 @@ AP sends.
 
 ### Build Hotspot 2.0 Config
 
+Hotspot 2.0 is labeled **Beta** in the Omada controller. It is still the section to use.
+
 1. Expand **Hotspot 2.0** and check **Enable**.
 2. **Network Type**: **Chargeable public network**
-3. Leave **PLMN ID** and **Roaming Consortium OI** blank.
+3. **PLMN ID**: leave blank unless your Helium Plus contact provides carrier PLMN IDs. If they do,
+   click **Add** and enter one PLMN per approved carrier.
+4. Leave **Roaming Consortium OI** blank.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-14.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('img/mobile-data-only/omada/4-nas-id-hotspot2.png')}
   />
+  <figcaption>
+    NAS ID set to Custom (enter your Helium NAS-ID in the field), and Hotspot 2.0 enabled.
+  </figcaption>
 </figure>
 
-4. **Operator Domain**: `freedomfi.com`
-5. Leave **DGAF Disable** unchecked and **HESSID** blank.
-6. **Internet**: check **Enable**
-7. **Network Availability IPv4** and **IPv6**: select the options that match your network.
-8. **Venue Info**: select the best fitting **Venue Group** and **Venue Type** from the dropdowns.
+5. **Operator Domain**: `freedomfi.com`
+6. **Operator Friendly Name**: `Helium`
+7. **DGAF Disable**: check **Enable**
+8. Leave **HESSID** blank.
+9. **Internet**: check **Enable**
+10. **Network Availability IPv4**: **Double NATed private IPv4 address available**
+11. **Network Availability IPv6**: **Address type not available**
+12. **Venue Info**: select the best fitting **Venue Group** and **Venue Type** from the dropdowns.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-15.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('img/mobile-data-only/omada/5-hotspot2-settings.png')}
   />
+  <figcaption>
+    Operator Domain and network availability. Set Operator Friendly Name to Helium and check DGAF
+    Disable, which this screenshot does not show.
+  </figcaption>
 </figure>
 
-9. **Venue Name**: the name or street address of your location.
-10. Under **NAI Realm List**, click **Add New Realm**.
-
-<figure className="screensnippet-wrapper">
-  <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-16.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
-  />
-</figure>
-
-11. Configure the realm:
+13. **Venue Name**: the name or street address of your location.
+14. Under **NAI Realm List**, click **Add New Realm**.
+15. Configure the realm:
     1. **Realm name**: `freedomfi.com`
     2. **Realm Encoding**: **RFC4282**
     3. **EAP Method**: **EAP-TLS**
@@ -279,13 +196,48 @@ AP sends.
 
 <figure className="screensnippet-wrapper">
   <img
-    src={useBaseUrl('img/mobile-data-only/omada/Omada-figure-17.png')}
-    style={{ maxHeight: '500px' }}
-    className="add-border-radius add-shadow add-shadow-margin"
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('img/mobile-data-only/omada/6-add-realm.png')}
   />
+  <figcaption>
+    Add New Realm for freedomfi.com with EAP-TLS and a certificate credential.
+  </figcaption>
 </figure>
 
-12. Repeat for realm `hellohelium.com` with matching settings.
-13. Click **Apply** to save the SSID.
+16. Repeat for realm `hellohelium.com` with matching settings.
+17. If your Helium Plus contact provided carrier realms, add one realm per approved carrier. These
+    are SIM-based, so they use **EAP-AKA** and take the form
+    `wlan.mnc<mnc>.mcc<mcc>.3gppnetwork.org`.
+
+<figure className="screensnippet-wrapper">
+  <img
+    className="add-shadow add-shadow-margin add-border-radius"
+    style={{ width: '100%', maxHeight: 'initial' }}
+    src={useBaseUrl('img/mobile-data-only/omada/7-nai-realm-list.png')}
+  />
+  <figcaption>The NAI Realm List with both Helium realms.</figcaption>
+</figure>
+
+18. Click **Apply** to save the SSID.
 
 The Helium SSID will push to your EAPs and begin broadcasting with Passpoint enabled.
+
+## Connect and Validate
+
+1. On the RadSecProxy host, follow the logs with `sudo docker compose logs -f` from the proxy
+   directory.
+2. Bring a phone with the Helium Mobile app installed near an EAP. It should join the `Helium` SSID
+   automatically, without asking for a username or password.
+3. The proxy logs should show an Access-Accept for the device, followed by accounting requests.
+4. In the Omada controller, **Clients** should list the device on the `Helium` SSID.
+
+## Troubleshooting
+
+- **The phone asks for a username and password:** Hotspot 2.0 is not active on the AP. Check that
+  the EAP firmware supports Hotspot 2.0 and update it if not.
+- **No requests reach the proxy:** confirm the RADIUS profile points at the proxy's IP, and that UDP
+  1812 and 1813 are open between the EAPs and the proxy.
+- **Access-Reject:** the NAS-ID does not match the one registered with Helium, or the shared secret
+  does not match the proxy configuration.
+- **No usage at Helium:** RADIUS Accounting is not enabled in the RADIUS profile.
