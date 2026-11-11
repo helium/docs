@@ -79,7 +79,7 @@ Create a new certificate with the following values:
   />
 </figure>
 
-- Name: `Helium Server CA` (example)
+- Name: `helium-ca` (example)
 - Type: CA Certificate
 - Format: PEM
 - File: RadSec Server CA
@@ -97,7 +97,7 @@ Create a new certificate with the following values:
 
 Create another certificate:
 
-- Name: `Helium Client Certificate` (example)
+- Name: `helium-client-key+cert` (example)
 - Type: Server Certificate
 - Format: PEM
 - File: Combined cert and key
@@ -170,6 +170,27 @@ Click **OK**.
     style={{ maxHeight: '500px' }}
     className="add-border-radius add-shadow add-shadow-margin"
   />
+</figure>
+
+Next, tell the AP which certificates to use for RadSec. Navigate to:
+
+**Device → Security → Certificate Usage**
+
+Set the following values, using the certificate names you created in
+[Upload Helium RadSec Certificates](#upload-helium-radsec-certificates):
+
+- RadSec Client Cert: your Helium client certificate (for example, `helium-client-key+cert`)
+- RadSec CA: your Helium server CA (for example, `helium-ca`)
+
+Leave the other usage types at their defaults and save your changes.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/aruba-central/6b-radsec-certificate-usage.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Assign the Helium certificates to RadSec Client Cert and RadSec CA.</figcaption>
 </figure>
 
 ---
