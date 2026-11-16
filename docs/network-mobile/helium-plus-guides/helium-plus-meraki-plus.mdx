@@ -227,3 +227,105 @@ re-registered before those APs will authenticate.
       />
     </figure>
 11. Click **Save Changes**
+
+## Quality Metrics Integration
+
+Quality metrics integration lets Helium read Wi-Fi quality metrics from your Meraki organization
+through a Meraki integration with the **Helium Wi-Fi Quality Metrics Poller** (**wifi-qm-poller**),
+an OAuth app that Helium registered with Cisco. Helium uses these metrics to monitor the Wi-Fi
+experience carrier subscribers get on your network. Depending on the venue tier and the partner
+carrier's requirements, this integration may be required. Contact the Helium sales team for details
+about your site.
+
+You grant the app read-only access once per organization, and it then appears under your
+organization's integrations. There is no VPN, no device configuration, and no API key to share.
+
+The app requests only these two read-only telemetry scopes, and nothing else:
+
+- `wireless:telemetry:read`
+- `dashboard:general:telemetry:read`
+
+Before you begin, make sure you have:
+
+- **An organization hosted on the US Meraki cloud**. The Dashboard footer shows where your data is
+  hosted.
+- **Full organization admin** rights in the Meraki Dashboard, to approve the authorization link.
+
+### Share Your Organization Details
+
+Send the following to your Helium Plus contact:
+
+- **Organization ID** (required). It appears in the footer at the bottom of any Meraki Dashboard
+  page, for example "Data for Helium (organization ID: 1672666)".
+- **Networks** (optional). The names or IDs of the networks to read metrics from. By default, Helium
+  reads every network that has wireless APs.
+- **SSIDs** (optional). The exact SSID names to read metrics from, case-sensitive. By default,
+  Helium reads every SSID.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/qm-org-id-footer.png')}
+    style={{ maxHeight: '600px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Find the organization ID in the Dashboard footer.</figcaption>
+</figure>
+<br />
+
+### Authorize the Metrics Poller
+
+Once your organization is set up on the Helium side, your Helium Plus contact sends you an
+authorization link.
+
+1. Have a full organization admin open the link and sign in to Meraki if prompted.
+2. Under **Select an organization**, choose the organization whose ID you shared.
+3. Review the requested read access: telemetry for **Wireless (MR)** and for the **Entire dashboard,
+   excluding identity and access management**. These match the two scopes listed above.
+4. Click **Allow**.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/qm-authorize-access.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Select your organization and allow read access.</figcaption>
+</figure>
+<br />
+
+The page should end with **Connected**, showing your organization name and ID. You can close the
+tab.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/qm-authorize-connected.png')}
+    style={{ maxHeight: '300px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>The organization is connected.</figcaption>
+</figure>
+<br />
+
+Complete the approval within 10 minutes of opening the link. If it expires, or the page shows an
+error, open the link again. If the page says **Not set up yet**, the selected organization doesn't
+match the ID you shared, so contact your Helium Plus contact.
+
+### Verify the Integration
+
+In the Meraki Dashboard, go to **Organization** > **Integrations** and open the **wifi-qm-poller**
+integration. It lists the read access you granted, and **Last used** updates as Helium collects
+metrics. The first metrics arrive about 15 minutes after approval.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/meraki/qm-integration-check.png')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>Check the wifi-qm-poller integration in the Dashboard.</figcaption>
+</figure>
+<br />
+
+You can revoke access at any time with **Remove** on the same page, which stops quality metrics
+collection. Let your Helium Plus contact know that setup is complete. The Helium team will confirm
+that quality metrics are flowing from your organization.
