@@ -26,10 +26,10 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 ## High-Level Steps
 
 1. Deploy the RadSecProxy container and note the host's IP address.
-2. Set up the wireless LAN: create an SSID and add RADIUS (RadSec) servers.
+2. Set up the wireless LAN: create an SSID and point its RADIUS servers at RadSecProxy.
 3. Configure Hotspot 2.0 for Passpoint.
 4. Deploy the configuration to your access points.
-5. Test Passpoint connectivity.
+5. Verify the configuration on the AP and test Passpoint connectivity.
 
 ---
 
@@ -149,7 +149,8 @@ The Network Policy list is shown.
 </figure>
 <br />
 3. Set an **SSID Name** for internal use (e.g. `Helium`) and a **Broadcast Name** for clients; these
-can match.
+can match. Note the **SSID Name** exactly as typed: the Hotspot 2.0 CLI later in this guide refers
+to the SSID by this name.
 
 4. Set **SSID Usage** to **Enterprise** (instead of Private Pre-Shared Key). For **Key Management**,
    choose **WPA3-802.1X** and for **Encryption Method**, choose **CCMP (AES)**.
@@ -160,8 +161,9 @@ The controller will talk to your RadSecProxy; RadSecProxy then sends RADIUS over
 the RadSecProxy host's private IP or hostname from
 [Deploy RadSecProxy Container](#deploy-radsecproxy-container).
 
-Add a RADIUS server group and add your RadSec server(s) to it. Your Extreme controller must support
-RadSec (RADIUS over TLS).
+Add a RADIUS server group and add your RadSecProxy host to it. The APs send standard RADIUS over UDP
+(ports 1812 and 1813) to RadSecProxy, and RadSecProxy handles the TLS connection to Helium, so your
+Extreme APs and controller do not need native RadSec support.
 
 1. On the **Wireless Networks** screen, scroll to **Authentication Settings**.
 2. Under **Authenticate via RADIUS Server**, click **+** to create a RADIUS server group. The
@@ -245,6 +247,13 @@ tie your network policy to Hotspot 2.0.
    hotspot profile Helium-profile domain-name hellohelium.com
 ```
 
+For carrier offload, also add one `domain-name` line for each carrier domain your site is approved
+for. The carrier domains are provided during Helium Plus onboarding.
+
+```
+   hotspot profile Helium-profile domain-name <carrier-domain>
+```
+
 5. **NAI realms**  
    Define NAI realms for Helium Passpoint with encoding type `0`, EAP method `13` (EAP-TLS), and
    certificate as the authentication method.
@@ -256,25 +265,67 @@ tie your network policy to Hotspot 2.0.
    hotspot profile Helium-profile nai-realm hellohelium.com eap-method 13
 ```
 
-6. **SSID security**  
-   Set the Helium SSID to use WPA3-AES 802.1X:
+6. **NAS-ID**  
+   Set the NAS-Identifier the AP sends in its RADIUS requests. Helium uses it to identify your site,
+   so use the NAS ID assigned to the site during Helium Plus onboarding, exactly as provided.
+
+```
+   aaa attribute NAS-Identifier <your-nas-id>
+```
+
+7. **SSID security**  
+   Set the SSID to use WPA3-AES 802.1X:
 
 ```
    security-object Helium security protocol-suite wpa3-aes-8021x
 ```
 
-7. **Attach hotspot profile to SSID**  
-   Apply the hotspot profile to the Helium SSID:
+8. **Attach hotspot profile to SSID**  
+   Apply the hotspot profile to the SSID:
 
 ```
    ssid Helium hotspot-profile Helium-profile
 ```
 
-8. **Persist config**  
+9. **Persist config**  
    Save the configuration:
 
 ```
    save configuration
+```
+
+:::warning The SSID name in the CLI must match ExtremeCloud IQ
+
+In the `security-object` and `ssid` lines, replace `Helium` with the **SSID Name** you set in
+[Create an SSID](#create-an-ssid). It is case-sensitive. If the names differ (for example, an SSID
+named `Helium-Extreme` while the CLI says `Helium`), the AP accepts the configuration but the
+hotspot profile is never applied to the SSID you are broadcasting.
+
+:::
+
+### Complete CLI Example
+
+The full CLI for an SSID named `Helium`, ready to paste into the Supplemental CLI. Replace the SSID
+name, the NAS ID, and the carrier domain placeholder with your own values, and add one `domain-name`
+line per approved carrier domain.
+
+```
+hotspot profile Helium-profile
+hotspot profile Helium-profile anqp-domain-id 0
+hotspot profile Helium-profile network-type 2 access-internet
+hotspot profile Helium-profile operator-name Helium-Operator language-code eng
+hotspot profile Helium-profile ip-type ipv4 2 ipv6 0
+hotspot profile Helium-profile domain-name freedomfi.com
+hotspot profile Helium-profile domain-name hellohelium.com
+hotspot profile Helium-profile domain-name <carrier-domain>
+hotspot profile Helium-profile nai-realm freedomfi.com encoding-type 0
+hotspot profile Helium-profile nai-realm freedomfi.com eap-method 13
+hotspot profile Helium-profile nai-realm hellohelium.com encoding-type 0
+hotspot profile Helium-profile nai-realm hellohelium.com eap-method 13
+aaa attribute NAS-Identifier <your-nas-id>
+security-object Helium security protocol-suite wpa3-aes-8021x
+ssid Helium hotspot-profile Helium-profile
+save configuration
 ```
 
 ### Enable the Supplemental CLI
@@ -301,6 +352,15 @@ tie your network policy to Hotspot 2.0.
 
 ### Apply the Hotspot 2.0 Configuration to the Network Policy
 
+Depending on your ExtremeCloud IQ version, the Supplemental CLI for a network policy is in one of
+two places:
+
+- **Configure** → **Network Policies** → your policy → **Wireless** → **Supplemental CLI**.
+- **Configure** → **Network Policies** → your policy → your SSID → **Additional Settings** →
+  **Policy Settings** → **Supplemental CLI**.
+
+Both edit the same Supplemental CLI object. The steps below use the SSID path.
+
 1. Go to **Configure** → **Network Policies**. Open your policy (e.g. `Helium_network_policy`).
 2. Click your SSID name (e.g. `Helium`) to open the Wireless Network page.
 3. Open **Additional Settings** in the top bar (e.g. you may see the DNS Server page).
@@ -315,11 +375,13 @@ tie your network policy to Hotspot 2.0.
    </figure>
    <br />
 6. Enter a **Name** (e.g. `Hotspot`) and paste your CLI commands into **CLI Commands**.
-7. Click **Save** (bottom right). A confirmation appears that the supplemental CLI was saved.
-8. Click **Next** to open **Apply the network policy to selected devices**.
-9. Click **Eligible** to list access points, then select the APs you want (checkboxes in the
-   **Status** column).
-10. Click **Upload** (bottom right). The **Device Update** dialog opens.
+7. If you see the **Supplemental CLI overrides UI** option, enable it so the CLI settings take
+   precedence over any conflicting settings made in the UI.
+8. Click **Save** (bottom right). A confirmation appears that the supplemental CLI was saved.
+9. Click **Next** to open **Apply the network policy to selected devices**.
+10. Click **Eligible** to list access points, then select the APs you want (checkboxes in the
+    **Status** column).
+11. Click **Upload** (bottom right). The **Device Update** dialog opens.
     <figure className="screensnippet-wrapper">
       <img
         src={useBaseUrl('img/mobile-data-only/extreme/extreme-deviceupdate.png')}
@@ -328,7 +390,58 @@ tie your network policy to Hotspot 2.0.
       />
     </figure>
     <br />
-11. Under **Update Network Policy and Configuration**, choose **Complete Configuration Update** (not
+12. Under **Update Network Policy and Configuration**, choose **Complete Configuration Update** (not
     Delta).
-12. Click **Perform Update** (bottom right). The APs reboot; wait a few minutes. A success message
-    appears when deployment finishes.
+13. Click **Perform Update** (bottom right). The APs reboot to apply the configuration.
+
+A complete configuration update can show **Rebooting** in ExtremeCloud IQ for several minutes, even
+after the AP is back up. Rather than waiting on that status, watch the AP's **Uptime** in **Manage**
+→ **Devices**: when it resets to a few minutes, the AP has rebooted with the new configuration. If
+the uptime never resets and the update does not activate, reboot the AP from ExtremeCloud IQ and
+check again.
+
+---
+
+## Verify the Configuration
+
+IQ Engine silently drops any Supplemental CLI line it does not accept, and ExtremeCloud IQ still
+reports the update as successful. After every update, confirm on the AP that each line was applied:
+
+1. Go to **Manage** → **Devices** and select the AP.
+2. Open **Utilities** → **Diagnostics** → **Show Running Config**.
+3. Check that every line from your CLI appears in the output, in particular the `hotspot profile`,
+   `aaa attribute NAS-Identifier`, `security-object`, and `ssid ... hotspot-profile` lines. If a
+   line is missing, correct its syntax (or the SSID name) and push a complete configuration update
+   again.
+
+To confirm a Passpoint client is connected, connect a device with a Helium or carrier Passpoint
+profile near the AP, then open **Manage** → **Clients**. The device should be listed on your SSID,
+and its user name shows the Passpoint realm it authenticated with.
+
+:::tip Recovering a carrier Passpoint network on Android
+
+If you tap **Forget** on a carrier Passpoint network on an Android phone during testing, the phone
+stops joining it automatically. To get it back, go to **Settings** → **Network & internet** →
+**Internet**, tap the network name in the list, and tap **Connect**. Android re-enables automatic
+connection for that network.
+
+:::
+
+---
+
+## Multi-Site Deployments
+
+Each site needs its own NAS ID, but you do not need a separate network policy per site. Use one
+network policy with the shared Hotspot 2.0 CLI, and set the NAS ID per AP:
+
+1. Keep the network policy's Supplemental CLI free of the `aaa attribute NAS-Identifier` line.
+2. For each AP, go to **Manage** → **Devices**, open the AP, and add a device-level Supplemental CLI
+   containing only that site's `aaa attribute NAS-Identifier <site-nas-id>` line.
+3. On the device-level Supplemental CLI, choose the option to **Keep Supplemental CLI** from the
+   network policy **and append** the device CLI, so the AP gets the shared Hotspot 2.0 lines plus
+   its own NAS ID.
+4. Push a complete configuration update and [verify](#verify-the-configuration) the running config
+   on one AP per site.
+
+Alternatively, AP Templates combined with location-based rules can assign per-site settings, but
+this approach has not been validated for NAS IDs.
