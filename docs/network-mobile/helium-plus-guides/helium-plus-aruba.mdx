@@ -73,7 +73,7 @@ UI has no CLI console. Enable RadSec over SSH (`ssh admin@<controller-ip>`) or t
 ```
 configure terminal
 aaa authentication-server radius Helium-RadSec
-  host radius-bf.wifi.hellohelium.com
+  host radsec-bf.prod.aaa.nova.xyz
   enable-radsec
   radsec-port 2083
   radsec-trusted-cacert-name <ca-cert-name>
@@ -107,7 +107,7 @@ RADIUS Server "Helium-RadSec"
 Parameter                                                         Value
 ---------                                                         -----
 Enable IPv6                                                       Disabled
-Host                                                              radius-bf.wifi.hellohelium.com
+Host                                                              radsec-bf.prod.aaa.nova.xyz
 Key                                                               ********
 CPPM credentials                                                  N/A
 Auth Port                                                         1812
