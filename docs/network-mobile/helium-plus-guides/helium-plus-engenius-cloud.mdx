@@ -13,23 +13,10 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Prerequisites
 
-- An EnGenius Cloud organization and network with at least one cloud-managed AP online. This guide
-  was tested with an **ECW536** on firmware **1.8.103**.
-- The AP's **Access Point** feature plan is set to **Basic**, or the AP has a valid **PRO** licence.
-  See the warning below.
-- EnGenius Cloud has basic traffic routing working with existing SSID(s).
+- EnGenius Cloud system has AP(s) linked to the organization.
+- EnGenius Cloud system has basic traffic routing working with existing SSID(s).
 - An Intel-based host is required in the network to run the
   [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
-- The NAS-ID you registered with Helium during [onboarding](/mobile/wifi-conversion-onboarding).
-
-:::warning
-
-If the AP's feature plan is **PRO** and the licence has expired, the AP shows **Configuration:
-Out-of-date - due to license expired** and silently ignores every configuration change. Set the
-feature plan to **Basic**, or renew the licence, under **Organization** > **Inventory & License** >
-**Feature Plan** before you start.
-
-:::
 
 ## High Level Steps
 
@@ -294,20 +281,11 @@ In EnGenius Cloud the Hotspot 2.0 settings live inside the SSID rather than on a
 1. Click **Apply** at the top right of the SSID page. Settings on the Wireless and Hotspot2.0
    sections are saved together.
 2. Go to **Manage** > **Access Points** and confirm that **Configuration** reads **Up-to-date** for
-   each AP.
+   each AP. If it reads **Out-of-date - due to license expired**, set the AP's feature plan to
+   **Basic** under **Organization** > **Inventory & License** > **Feature Plan**.
 3. On the RadSecProxy host, follow the logs with `sudo docker compose logs -f` from the proxy
    directory.
 4. Bring a phone with an eligible carrier SIM into range. It should join the **Helium** SSID
    automatically, without asking for a username or password.
 5. The proxy logs should show an Access-Request from the AP followed by an Access-Accept, then
    accounting requests.
-
-## Troubleshooting
-
-| Symptom                                                  | Check                                                                                                                                                                                |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| No RADIUS requests reach the proxy or Helium             | The RadSecProxy container is down, or the host's IP address changed. Confirm the SSID's server IP matches the host and that UDP 1812 and 1813 are open between the APs and the host. |
-| `invalid message-authenticator` in the proxy logs        | The SSID's secret does not match the client secret in `radsecproxy.conf`.                                                                                                            |
-| Access-Accept, but the client shows IP address `0.0.0.0` | The DHCP or VLAN path. Turn **Default VLAN** off and check that **Client IP Addressing** is **Bridge Mode**.                                                                         |
-| Changes do not take effect on the AP                     | The AP's licence or feature plan. If **Configuration** reads **Out-of-date - due to license expired**, set the feature plan to **Basic** or renew the licence.                       |
-| Only `status server response from server0` in the logs   | That line only proves the proxy can reach Helium. No requests are arriving from the APs; see the first row.                                                                          |
