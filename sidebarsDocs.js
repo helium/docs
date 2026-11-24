@@ -29,6 +29,7 @@ module.exports = {
               ],
             },
             'network-mobile/helium-plus-guides/helium-plus-cambium-cnmaestro',
+            'network-mobile/helium-plus-guides/helium-plus-engenius-cloud',
             'network-mobile/helium-plus-guides/helium-plus-extreme',
             'network-mobile/helium-plus-guides/helium-plus-fortinet',
             'network-mobile/helium-plus-guides/helium-plus-juniper-mist',

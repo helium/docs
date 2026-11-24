@@ -1,0 +1,313 @@
+---
+id: helium-plus-engenius-cloud
+title: EnGenius Cloud RadSecProxy Conversion Guide
+pagination_label: EnGenius Cloud RadSecProxy Conversion Guide
+sidebar_label: EnGenius Cloud
+description:
+  Configure EnGenius Cloud with RadSecProxy, Passpoint SSID, and Hotspot 2.0 for Helium Mobile.
+image: https://docs.helium.com/img/link-image.png
+slug: /mobile/helium-plus-engenius-cloud
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
+## Prerequisites
+
+- An EnGenius Cloud organization and network with at least one cloud-managed AP online. This guide
+  was tested with an **ECW536** on firmware **1.8.103**.
+- The AP's **Access Point** feature plan is set to **Basic**, or the AP has a valid **PRO** licence.
+  See the warning below.
+- EnGenius Cloud has basic traffic routing working with existing SSID(s).
+- An Intel-based host is required in the network to run the
+  [RadSecProxy](https://github.com/novalabsxyz/radsec-proxy) container.
+- The NAS-ID you registered with Helium during [onboarding](/mobile/wifi-conversion-onboarding).
+
+:::warning
+
+If the AP's feature plan is **PRO** and the licence has expired, the AP shows **Configuration:
+Out-of-date - due to license expired** and silently ignores every configuration change. Set the
+feature plan to **Basic**, or renew the licence, under **Organization** > **Inventory & License** >
+**Feature Plan** before you start.
+
+:::
+
+## High Level Steps
+
+1. Deploy RadSecProxy container and record IP address of host
+2. Build EnGenius Helium Passpoint SSID
+   1. Build a new SSID
+   2. Configure SSID to use RADIUS
+   3. Build Hotspot 2.0 Config
+3. Apply and verify
+
+## Deploy RadSecProxy Container
+
+RADIUS messages used to authenticate users and for session accounting are transmitted unsecured and
+over UDP by default. By directing these messages internally in your secure network to a RadSecProxy,
+the UDP is then converted to a TLS-protected TCP connection to the Helium Network core AAA servers.
+
+### Prerequisites
+
+- An Intel-based machine with Docker installed.
+- The Intel-based machine has a private IP in your network reachable from your EnGenius APs.
+- ACLs or firewalls allow the EnGenius APs and Docker container to communicate over UDP on ports
+  1812 and 1813.
+- ACLs or firewalls allow the container/host to reach the internet on TCP ports 2083 and 3802.
+
+:::warning
+
+Give the RadSecProxy host a static IP address or a DHCP reservation. The EnGenius SSID points at the
+proxy by IP address, so if the host's address changes, the APs silently lose RADIUS and clients can
+no longer authenticate.
+
+:::
+
+### Container Deployment
+
+1. Unzip and untar the `radsec-proxy-main.tar.gz` file into the directory of your choice on the host
+   machine. This will unpack the following items:
+   1. `Dockerfile` \- The Docker instructions on how to build the container
+   2. `radsecproxy.conf` \- The radsecproxy config file is pre-populated to connect to Helium
+      Network AAA servers
+   3. `docker-compose.yml` \- File to start and stop the container as a daemon.
+
+```bash
+tar -xvzf radsec-proxy-main.tar.gz
+```
+
+2. Into the same directory copy the 3 certificates obtained from the Helium Network
+   1. ca.pem - the root CA certificate
+   2. cert.pem - the user certificate
+   3. key.pem - the key file matched to the certificate
+3. Start the container using:
+
+```bash
+sudo docker compose up -d
+```
+
+4. If/when needed, stop the container using:
+
+```bash
+sudo docker compose down
+```
+
+## Build EnGenius Helium Passpoint SSID
+
+The following steps will configure your EnGenius Cloud network to broadcast an SSID with the needed
+Passpoint and RADIUS configurations to support Helium Mobile user offload.
+
+To start, log in to EnGenius Cloud at [cloud.engenius.ai](https://cloud.engenius.ai) and open the
+network that holds your APs. This will be our starting point for all major steps below.
+
+<figure className="screensnippet-wrapper">
+  <img
+    src={useBaseUrl('img/mobile-data-only/engenius/1-dashboard.jpg')}
+    style={{ maxHeight: '500px' }}
+    className="add-border-radius add-shadow add-shadow-margin"
+  />
+  <figcaption>The EnGenius Cloud network dashboard.</figcaption>
+</figure>
+<br />
+
+:::note
+
+In the following steps we will only mention mandatory fields to set. Most windows will have many
+other parameters with default values set. Leave any unmentioned parameter at its default value.
+
+:::
+
+### Build a new SSID
+
+1. In the left sidebar, click the **Configure** icon (the gear), then **Access Point**, then
+   **SSID**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/engenius/2-configure-ssid-menu.jpg')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+     <figcaption>The Configure menu, with SSID under Access Point.</figcaption>
+   </figure>
+2. On the **SSID List** page, click **+ Add SSID**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/engenius/3-ssid-list.jpg')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+     <figcaption>
+       The SSID List. This lab SSID is named Helium-EnGenius and shows WPA3 Enterprise from before
+       it was switched to WPA2 Enterprise; name yours Helium.
+     </figcaption>
+   </figure>
+3. **Name**: enter "**Helium**"
+4. **Enabled**: on
+5. **Type**: **Wireless**
+6. **Multi-Link Operation (MLO)**: off
+7. **Hide**: off
+8. **Radio**: tick **2.4GHz** and **5GHz**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/engenius/4-ssid-wireless-basics.jpg')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+     <figcaption>
+       The top of the SSID's Wireless tab: name, enabled, type, MLO, hide and radios.
+     </figcaption>
+   </figure>
+
+### Configure Helium SSID for RADIUS Access Control
+
+:::note
+
+EnGenius Cloud has a native RadSec option, but it does not work with Helium. EnGenius only lets you
+upload a CA certificate (**Organization** > **Settings** > **Certificates**), and there is no way to
+load the client certificate and key (`cert.pem` and `key.pem`) that Helium's RadSec requires. So the
+guide below uses our RadSecProxy container and plain RADIUS configuration on the EnGenius APs.
+
+:::
+
+Still on the **Wireless** tab of the SSID, scroll down to **Security Type**.
+
+1. Select **WPA2 Enterprise**. This guide was tested with WPA2 Enterprise, not WPA3 Enterprise.
+2. **Authenticate with**: **Custom RADIUS**
+3. Under the authentication servers, set **Server 1**:
+   1. **IP Address**: **\<ip of your radsecproxy container host\>**
+   2. **Port**: **1812**
+   3. **Secret**: the client shared secret from `radsecproxy.conf` (`mysecret` in the default
+      container configuration)
+   4. **RadSec**: leave unticked
+4. Leave **Server 2** empty unless you run a second RadSecProxy for redundancy.
+5. Tick **NAS ID** and enter the NAS-ID you got during onboarding.
+6. Leave **NAS IP**, **NAS Port** and **VLAN by RADIUS** unticked.
+
+<!-- Screenshot placeholder: Security Type WPA2 Enterprise, Authenticate with Custom RADIUS, Server 1
+pointed at the RadSecProxy on port 1812 with RadSec unticked, and NAS ID ticked. Redact the NAS ID
+and secret. To be retaken with the proxy configuration before this PR leaves draft. -->
+
+:::warning
+
+Switching the **Security Type** resets **Authenticate with** to **EnGenius Cloud RADIUS** and
+unticks **Accounting Server**. After you change the security type, check both settings again.
+
+:::
+
+:::warning
+
+The NAS-ID EnGenius transmits must match the NAS-ID registered with Helium exactly, character for
+character. A difference in case or separators alone is enough to fail authentication.
+
+:::
+
+7. Tick **Accounting Server**.
+8. **Interim Accounting Interval**: **300** seconds
+9. Under the accounting servers, set **Server 1**:
+   1. **IP Address**: **\<ip of your radsecproxy container host\>**
+   2. **Port**: **1813**
+   3. **Secret**: the same shared secret
+   4. **RadSec**: leave unticked
+10. Leave accounting **Server 2** empty unless you run a second RadSecProxy.
+
+<!-- Screenshot placeholder: Accounting Server ticked, Interim Accounting Interval 300, Server 1
+pointed at the RadSecProxy on port 1813 with RadSec unticked. To be retaken with the proxy
+configuration before this PR leaves draft. -->
+
+11. **802.11r**: off
+12. **802.11w**: on, **All clients**
+13. **Default VLAN**: off
+14. **Client IP Addressing**: **Bridge Mode**
+
+:::note
+
+With **Default VLAN** on (VLAN 1) in testing, clients associated and authenticated but never
+received an IP address. Leave it off unless your network requires a tagged VLAN for this SSID.
+
+:::
+
+<!-- Screenshot placeholder: 802.11r off, 802.11w on with All clients, Default VLAN off, Client IP
+Addressing Bridge Mode. To be retaken before this PR leaves draft. -->
+
+### Build Hotspot 2.0 Config
+
+In EnGenius Cloud the Hotspot 2.0 settings live inside the SSID rather than on a separate page.
+
+1. At the top left of the SSID page, click the **Wireless** dropdown and choose **Hotspot2.0**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/engenius/5-ssid-section-dropdown.jpg')}
+       style={{ maxHeight: '400px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+     <figcaption>The section dropdown on the SSID page.</figcaption>
+   </figure>
+2. Change the toggle for **Hotspot2.0** to on
+3. Enter **Operator Name** to be "**Helium**"
+4. Enter **Venue Name** to be the street address of your location
+5. Choose the best fitting **Venue Type** from the dropdown
+6. Choose **Chargeable public network** for **Network Type**
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/engenius/6-hotspot2-general.jpg')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+     <figcaption>
+       Hotspot2.0 on, with operator name, venue and network type. Use your street address as the
+       Venue Name.
+     </figcaption>
+   </figure>
+7. Under **Domain List**, click **+ Add** and enter **freedomfi.com**. Repeat for
+   **hellohelium.com**.
+8. Leave **Roaming Consortium List** empty.
+9. **3GPP Cellular Network Info**: leave empty unless your Helium Plus contact provides carrier PLMN
+   IDs. If they do, click **+ Add** and enter the **Mobile Country Code** and **Mobile Network
+   Code** for each approved carrier.
+   <figure className="screensnippet-wrapper">
+     <img
+       src={useBaseUrl('img/mobile-data-only/engenius/7-hotspot2-domain-list.jpg')}
+       style={{ maxHeight: '500px' }}
+       className="add-border-radius add-shadow add-shadow-margin"
+     />
+     <figcaption>
+       Domain List, Roaming Consortium List and 3GPP Cellular Network Info. Add hellohelium.com to
+       the Domain List as well as freedomfi.com.
+     </figcaption>
+   </figure>
+10. Under **NAI Realm**, click **+ Add**
+    1. Enter **freedomfi.com** as the name
+    2. Select **EAP Method** to be **13 EAP-TLS**
+    3. Select **Authentication** to be **Certificate**
+    4. Save the realm
+11. Repeat for realm name **hellohelium.com** with matching settings.
+    <figure className="screensnippet-wrapper">
+      <img
+        src={useBaseUrl('img/mobile-data-only/engenius/8-nai-realms.jpg')}
+        style={{ maxHeight: '500px' }}
+        className="add-border-radius add-shadow add-shadow-margin"
+      />
+      <figcaption>Both NAI realms, EAP-TLS with certificate authentication.</figcaption>
+    </figure>
+
+## Apply and Verify
+
+1. Click **Apply** at the top right of the SSID page. Settings on the Wireless and Hotspot2.0
+   sections are saved together.
+2. Go to **Manage** > **Access Points** and confirm that **Configuration** reads **Up-to-date** for
+   each AP.
+3. On the RadSecProxy host, follow the logs with `sudo docker compose logs -f` from the proxy
+   directory.
+4. Bring a phone with an eligible carrier SIM into range. It should join the **Helium** SSID
+   automatically, without asking for a username or password.
+5. The proxy logs should show an Access-Request from the AP followed by an Access-Accept, then
+   accounting requests.
+
+## Troubleshooting
+
+| Symptom                                                  | Check                                                                                                                                                                                |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| No RADIUS requests reach the proxy or Helium             | The RadSecProxy container is down, or the host's IP address changed. Confirm the SSID's server IP matches the host and that UDP 1812 and 1813 are open between the APs and the host. |
+| `invalid message-authenticator` in the proxy logs        | The SSID's secret does not match the client secret in `radsecproxy.conf`.                                                                                                            |
+| Access-Accept, but the client shows IP address `0.0.0.0` | The DHCP or VLAN path. Turn **Default VLAN** off and check that **Client IP Addressing** is **Bridge Mode**.                                                                         |
+| Changes do not take effect on the AP                     | The AP's licence or feature plan. If **Configuration** reads **Out-of-date - due to license expired**, set the feature plan to **Basic** or renew the licence.                       |
+| Only `status server response from server0` in the logs   | That line only proves the proxy can reach Helium. No requests are arriving from the APs; see the first row.                                                                          |
